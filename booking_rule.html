@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShallWePlay - Sports Rules (Indoor Skiing)</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@500;600;700;800&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: #F8FAFC;
+      font-family: 'Lato', sans-serif;
+      color: #11181C;
+      padding: 16px;
+    }
+
+    @media (min-width: 768px) {
+      body {
+        padding: 24px;
+      }
+    }
+
+    .admin-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    @media (min-width: 768px) {
+      .admin-container {
+        padding: 32px;
+      }
+    }
+
+    /* ── HEADER NAVIGATION ROW ── */
+    .hdr-row {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+
+    @media (min-width: 768px) {
+      .hdr-row {
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+
+    .hdr-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: #11181C;
+    }
+
+    .hdr-subtitle {
+      font-size: 14px;
+      color: #687076;
+      margin-top: -8px;
+    }
+
+    .hdr-actions {
+      display: flex;
+      gap: 12px;
+      width: 100%;
+    }
+
+    @media (min-width: 768px) {
+      .hdr-actions {
+        width: auto;
+      }
+    }
+
+    .btn {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      flex: 1;
+    }
+
+    @media (min-width: 768px) {
+      .btn {
+        flex: 0 1 auto;
+      }
+    }
+
+    .btn-outline {
+      background: #FFFFFF;
+      border: 1px solid #E5E5E5;
+      color: #687076;
+    }
+
+    .btn-outline:hover {
+      background: #F0F0F0;
+      border-color: #CCC;
+    }
+
+    .btn-primary {
+      background: #007AFF;
+      color: #FFFFFF;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: #0066D6;
+    }
+
+    .btn-primary:disabled {
+      background: #B3D9FF;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    .btn-secondary-action {
+      background: #FFF0F0;
+      color: #E63900;
+    }
+
+    .btn-secondary-action:hover {
+      background: #FFE2E2;
+    }
+
+    /* ── STEP TRACKER COMPONENT ── */
+    .step-tracker {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    @media (min-width: 640px) {
+      .step-tracker {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .step-tracker {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1px;
+        background-color: #E5E5E5;
+        border: 1px solid #E5E5E5;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+    }
+
+    .step-item {
+      background: #FFFFFF;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      border: 1px solid #E5E5E5;
+      border-radius: 6px;
+    }
+
+    @media (min-width: 1024px) {
+      .step-item {
+        border: none;
+        border-radius: 0;
+        padding: 14px 20px;
+      }
+    }
+
+    .step-item.is-active {
+      background: #007AFF;
+      color: #FFFFFF;
+      border-color: #007AFF;
+    }
+
+    .step-num-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .step-desc {
+      font-size: 12px;
+      color: #777777;
+    }
+
+    .step-item.is-active .step-desc {
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* ── IMPORTANT NOTICE BAR ── */
+    .notice-bar {
+      background-color: #FFF4E5;
+      border-left: 4px solid #F57C00;
+      border-radius: 6px;
+      padding: 16px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+
+    .notice-icon {
+      font-size: 20px;
+      line-height: 1;
+      color: #F57C00;
+      flex-shrink: 0;
+    }
+
+    .notice-content h5 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #B26A00;
+      margin-bottom: 4px;
+    }
+
+    .notice-content p {
+      font-size: 13px;
+      color: #9E4E00;
+      line-height: 1.5;
+    }
+
+    /* ── SECTION CONTAINER (Phase Groups) ── */
+    .section-group {
+      margin-bottom: 32px;
+    }
+
+    .section-group-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #11181C;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #EDF5FF;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-group-title span {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      background: #007AFF;
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 24px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* ── FORM STRUCTURAL CARD PANELS ── */
+    .form-card {
+      background: #FFFFFF;
+      border: 1px solid #E5E5E5;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    }
+
+    .form-card-header {
+      background-color: #EDF5FF;
+      padding: 14px 20px;
+      border-bottom: 1px solid #E5E5E5;
+    }
+
+    .form-card-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #11181C;
+    }
+
+    .form-card-body {
+      padding: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .form-card-body {
+        padding: 24px;
+      }
+    }
+
+    /* ── INPUT SYSTEM FIELDS RENDER MATRIX ── */
+    .form-grid-1 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .form-grid-2 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .form-grid-3 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .form-grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .form-grid-4 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 640px) {
+      .form-grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .form-grid-4 {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .field-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: #687076;
+      margin-bottom: 8px;
+    }
+
+    .field-label .required {
+      color: #E63900;
+      font-weight: 700;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .form-control {
+      width: 100%;
+      height: 44px;
+      background: #FFFFFF;
+      border: 1px solid #E5E5E5;
+      border-radius: 6px;
+      padding: 0 14px;
+      font-family: 'Lato', sans-serif;
+      font-size: 14px;
+      color: #11181C;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .form-control:focus {
+      border-color: #007AFF;
+      box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+    }
+
+    .form-control:disabled {
+      background: #F5F5F5;
+      color: #999;
+      cursor: not-allowed;
+    }
+
+    .form-control.error {
+      border-color: #E63900;
+    }
+
+    .form-control.valid {
+      border-color: #34C759;
+    }
+
+    select.form-control {
+      appearance: none;
+      cursor: pointer;
+      padding-right: 40px;
+    }
+
+    .select-arrow {
+      position: absolute;
+      right: 14px;
+      pointer-events: none;
+      font-size: 12px;
+      color: #687076;
+    }
+
+    .input-icon-right {
+      position: absolute;
+      right: 14px;
+      color: #687076;
+      pointer-events: none;
+      font-size: 16px;
+    }
+
+    .form-control.valid ~ .input-icon-right {
+      color: #34C759;
+    }
+
+    .field-hint {
+      font-size: 12px;
+      color: #777777;
+      margin-top: 6px;
+    }
+
+    .field-error {
+      font-size: 12px;
+      color: #E63900;
+      margin-top: 6px;
+      display: none;
+    }
+
+    .form-control.error ~ .field-error {
+      display: block;
+    }
+
+    /* ── TOGGLE & SWITCH BEHAVIOR ── */
+    .toggle-section {
+      background: #F8FAFC;
+      border: 1px solid #E5E5E5;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .toggle-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .toggle-details {
+      flex: 1;
+    }
+
+    .toggle-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #11181C;
+      margin-bottom: 4px;
+    }
+
+    .toggle-desc {
+      font-size: 13px;
+      color: #687076;
+      line-height: 1.4;
+    }
+
+    .swp-switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 28px;
+      flex-shrink: 0;
+    }
+
+    .swp-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider-track {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #E5E5E5;
+      transition: 0.3s;
+      border-radius: 28px;
+    }
+
+    .slider-track:before {
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.3s;
+      border-radius: 50%;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    input:checked + .slider-track {
+      background-color: #007AFF;
+    }
+
+    input:checked + .slider-track:before {
+      transform: translateX(22px);
+    }
+
+    .toggle-content {
+      display: none;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid #E5E5E5;
+    }
+
+    input:checked ~ .toggle-content {
+      display: block;
+    }
+
+    /* ── TIME RANGE BUILDER ── */
+    .time-range-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    @media (min-width: 640px) {
+      .time-range-container {
+        grid-template-columns: 1fr auto 1fr;
+        align-items: flex-end;
+      }
+    }
+
+    .range-separator {
+      text-align: center;
+      color: #687076;
+      font-weight: 700;
+      padding-bottom: 0;
+    }
+
+    /* ── FLEX CARDS ROW ── */
+    .flex-cards-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .flex-cards-row {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* ── TEXTAREA NOTES ── */
+    textarea.form-control {
+      height: auto;
+      padding: 12px 14px;
+      resize: vertical;
+      min-height: 100px;
+      font-family: 'Lato', sans-serif;
+    }
+
+    /* ── BOTTOM ACTIONS ROW ── */
+    .bottom-actions-row {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid #E5E5E5;
+    }
+
+    @media (min-width: 640px) {
+      .bottom-actions-row {
+        flex-direction: row;
+        justify-content: flex-end;
+      }
+    }
+
+    /* ── VALIDATION SUMMARY ── */
+    .validation-summary {
+      background: #FFF4E5;
+      border-left: 4px solid #F57C00;
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      color: #9E4E00;
+      display: none;
+    }
+
+    .validation-summary.show {
+      display: block;
+    }
+
+    /* ── COMPLETION INDICATOR ── */
+    .field-completion-icon {
+      position: absolute;
+      right: 12px;
+      font-size: 18px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="admin-container">
+    
+    <!-- TOP HEADER -->
+    <div class="hdr-row">
+      <div>
+        <h1 class="hdr-title">Sports Rules</h1>
+        <p class="hdr-subtitle">Configure booking policies for Indoor Skiing</p>
+      </div>
+      <div class="hdr-actions">
+        <button class="btn btn-outline">← Back</button>
+        <button class="btn btn-primary" id="btnSaveContinue">Save & Continue</button>
+      </div>
+    </div>
+
+    <!-- STEP TRACKER -->
+    <div class="step-tracker">
+      <div class="step-item is-active">
+        <span class="step-num-title">1. Booking Rules</span>
+        <span class="step-desc">Configure behavior</span>
+      </div>
+      <div class="step-item">
+        <span class="step-num-title">2. Pricing</span>
+        <span class="step-desc">Set pricing & fees</span>
+      </div>
+      <div class="step-item">
+        <span class="step-num-title">3. Assets</span>
+        <span class="step-desc">Add facilities</span>
+      </div>
+      <div class="step-item">
+        <span class="step-num-title">4. Equipment</span>
+        <span class="step-desc">Manage inventory</span>
+      </div>
+    </div>
+
+    <!-- NOTICE -->
+    <div class="notice-bar">
+      <div class="notice-icon">ℹ️</div>
+      <div class="notice-content">
+        <h5>Required: Create Booking Rules First</h5>
+        <p>Pricing and cancellation rules depend on established booking rules. Complete this step before proceeding.</p>
+      </div>
+    </div>
+
+    <!-- VALIDATION FEEDBACK -->
+    <div class="validation-summary" id="validationSummary">
+      ⚠️ Please fill in all required fields marked with <strong>*</strong>
+    </div>
+
+    <!-- PHASE 1: BASIC SETUP -->
+    <div class="section-group">
+      <div class="section-group-title">
+        <span>1</span>
+        Basic Setup
+      </div>
+
+      <div class="form-card">
+        <div class="form-card-header">
+          <h2 class="form-card-title">Sport & Capacity</h2>
+        </div>
+        <div class="form-card-body">
+          <div class="form-grid-2">
+            <div class="field-group">
+              <label class="field-label">Sport <span class="required">*</span></label>
+              <div class="input-wrapper">
+                <select class="form-control" required data-field="sport">
+                  <option value="">Select a sport</option>
+                  <option selected>Indoor Skiing</option>
+                </select>
+                <span class="select-arrow">▼</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Total Slopes <span class="required">*</span></label>
+              <div class="input-wrapper">
+                <input type="number" class="form-control" placeholder="e.g., 5" required data-field="slopes" min="1">
+                <span class="input-icon-right">✓</span>
+              </div>
+              <span class="field-hint">Maximum number of slopes available for concurrent bookings</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 2: BOOKING WINDOWS -->
+    <div class="section-group">
+      <div class="section-group-title">
+        <span>2</span>
+        Booking Windows
+      </div>
+
+      <div class="form-card">
+        <div class="form-card-header">
+          <h2 class="form-card-title">Advance Booking Rules</h2>
+        </div>
+        <div class="form-card-body">
+          <div class="form-grid-2">
+            <div class="field-group">
+              <label class="field-label">Non-Members: Book Up To <span class="required">*</span></label>
+              <div class="input-wrapper">
+                <input type="number" class="form-control" placeholder="e.g., 14" required data-field="nonMemberDays" min="1">
+                <span class="input-icon-right">days</span>
+              </div>
+              <span class="field-hint">How many days in advance non-members can reserve</span>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Members: Book Up To <span class="required">*</span></label>
+              <div class="input-wrapper">
+                <input type="number" class="form-control" placeholder="e.g., 30" required data-field="memberDays" min="1">
+                <span class="input-icon-right">days</span>
+              </div>
+              <span class="field-hint">How many days in advance members can reserve</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 3: PEAK VS OFF-PEAK MANAGEMENT -->
+    <div class="section-group">
+      <div class="section-group-title">
+        <span>3</span>
+        Peak Time Rules
+      </div>
+
+      <div class="form-card">
+        <div class="form-card-header">
+          <h2 class="form-card-title">Peak Hours Configuration</h2>
+        </div>
+        <div class="form-card-body">
+          <div class="form-grid-4">
+            <div class="field-group">
+              <label class="field-label">Peak Starts At <span class="required">*</span></label>
+              <div class="input-wrapper">
+                <input type="time" class="form-control" required data-field="peakStart">
+                <span class="input-icon-right">🕐</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Block Duration <span class="required">*</span></label>
+              <div class="input-wrapper">
+                <input type="number" class="form-control" placeholder="e.g., 2" required data-field="blockDuration" min="0.5" step="0.5">
+                <span class="input-icon-right">hrs</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Max Bookings/Day <span class="required">*</span></label>
+              <div class="input-wrapper">
+                <input type="number" class="form-control" placeholder="e.g., 3" required data-field="maxPeakPerDay" min="1">
+                <span class="input-icon-right">✓</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label">Max Bookings/Week <span class="required">*</span></label>
+              <div class="input-wrapper">
+                <input type="number" class="form-control" placeholder="e.g., 10" required data-field="maxPeakPerWeek" min="1">
+                <span class="input-icon-right">✓</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <div class="form-card-header">
+          <h2 class="form-card-title">Off-Peak Unlimited Play</h2>
+        </div>
+        <div class="form-card-body">
+          <div class="toggle-section">
+            <div class="toggle-header">
+              <div class="toggle-details">
+                <div class="toggle-title">Allow Unlimited Off-Peak Bookings</div>
+                <div class="toggle-desc">Permit unlimited bookings during off-peak hours</div>
+              </div>
+              <label class="swp-switch">
+                <input type="checkbox" data-field="offPeakUnlimited">
+                <span class="slider-track"></span>
+              </label>
+            </div>
+            <div class="toggle-content">
+              <div class="time-range-container">
+                <div class="field-group">
+                  <label class="field-label">Off-Peak Starts <span class="required">*</span></label>
+                  <input type="time" class="form-control" data-field="offPeakStart" disabled>
+                </div>
+                <div class="range-separator">to</div>
+                <div class="field-group">
+                  <label class="field-label">Off-Peak Ends <span class="required">*</span></label>
+                  <input type="time" class="form-control" data-field="offPeakEnd" disabled>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="toggle-section">
+            <div class="toggle-header">
+              <div class="toggle-details">
+                <div class="toggle-title">Allow Unlimited Weekend/Holiday Play</div>
+                <div class="toggle-desc">Permit unlimited bookings on weekends and holidays</div>
+              </div>
+              <label class="swp-switch">
+                <input type="checkbox" data-field="weekendUnlimited">
+                <span class="slider-track"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 4: SPECIAL RULES & RESTRICTIONS -->
+    <div class="section-group">
+      <div class="section-group-title">
+        <span>4</span>
+        Special Rules
+      </div>
+
+      <div class="flex-cards-row">
+        <div class="toggle-section">
+          <div class="toggle-header">
+            <div class="toggle-details">
+              <div class="toggle-title">Prevent Consecutive Day Bookings</div>
+              <div class="toggle-desc">Users cannot book on back-to-back days</div>
+            </div>
+            <label class="swp-switch">
+              <input type="checkbox" data-field="blockConsecutive">
+              <span class="slider-track"></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="toggle-section">
+          <div class="toggle-header">
+            <div class="toggle-details">
+              <div class="toggle-title">Allow Rebooking After Completion</div>
+              <div class="toggle-desc">Users can make new bookings after finishing previous ones</div>
+            </div>
+            <label class="swp-switch">
+              <input type="checkbox" data-field="allowRebooking">
+              <span class="slider-track"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <div class="form-card-header">
+          <h2 class="form-card-title">Additional Notes (Optional)</h2>
+        </div>
+        <div class="form-card-body">
+          <div class="field-group">
+            <label class="field-label">Internal Notes</label>
+            <textarea class="form-control" placeholder="Add any important notes about these booking rules..." data-field="notes"></textarea>
+            <span class="field-hint">For internal reference only</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER ACTIONS -->
+    <div class="bottom-actions-row">
+      <button class="btn btn-secondary-action">Cancel</button>
+      <button class="btn btn-primary" id="btnAddRule">Add Booking Rule</button>
+    </div>
+
+  </div>
+
+  <script>
+    const form = document.querySelector('.admin-container');
+    const requiredFields = form.querySelectorAll('[required]');
+    const btnAddRule = document.getElementById('btnAddRule');
+    const btnSaveContinue = document.getElementById('btnSaveContinue');
+    const validationSummary = document.getElementById('validationSummary');
+
+    // Enable/disable off-peak time fields based on toggle
+    const offPeakToggle = form.querySelector('[data-field="offPeakUnlimited"]');
+    const offPeakStart = form.querySelector('[data-field="offPeakStart"]');
+    const offPeakEnd = form.querySelector('[data-field="offPeakEnd"]');
+
+    offPeakToggle.addEventListener('change', () => {
+      offPeakStart.disabled = !offPeakToggle.checked;
+      offPeakEnd.disabled = !offPeakToggle.checked;
+      validateForm();
+    });
+
+    // Real-time validation feedback
+    function validateForm() {
+      let isValid = true;
+      let emptyFields = [];
+
+      requiredFields.forEach(field => {
+        const isEmpty = !field.value;
+        if (isEmpty) {
+          isValid = false;
+          field.classList.remove('valid');
+          field.classList.add('error');
+          emptyFields.push(field.getAttribute('data-field'));
+        } else {
+          field.classList.remove('error');
+          field.classList.add('valid');
+        }
+      });
+
+      // Handle conditional required fields
+      if (offPeakToggle.checked) {
+        if (!offPeakStart.value || !offPeakEnd.value) {
+          isValid = false;
+          validationSummary.classList.add('show');
+        } else {
+          validationSummary.classList.remove('show');
+        }
+      }
+
+      btnAddRule.disabled = !isValid;
+      btnSaveContinue.disabled = !isValid;
+
+      if (!isValid && emptyFields.length > 0) {
+        validationSummary.classList.add('show');
+      } else if (isValid) {
+        validationSummary.classList.remove('show');
+      }
+    }
+
+    // Attach validation listeners
+    requiredFields.forEach(field => {
+      field.addEventListener('change', validateForm);
+      field.addEventListener('input', validateForm);
+      field.addEventListener('blur', validateForm);
+    });
+
+    // Initial validation check
+    validateForm();
+
+    // Form submission
+    btnAddRule.addEventListener('click', () => {
+      if (btnAddRule.disabled) return;
+      alert('✓ Booking rule added successfully!');
+    });
+  </script>
+
+</body>
+</html>

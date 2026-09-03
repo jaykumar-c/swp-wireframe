@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShallWePlay - Manage Assets (Indoor Skiing)</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@500;600;700;800&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: #F8FAFC;
+      font-family: 'Lato', sans-serif;
+      color: #111111;
+      padding: 24px;
+      padding-bottom: 100px;
+    }
+
+    .admin-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      border-radius: 12px;
+      padding: 32px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    }
+
+    /* ── HEADER ── */
+    .hdr-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .hdr-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: #111111;
+    }
+
+    .hdr-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      min-height: 40px;
+    }
+
+    .btn-outline {
+      background: #FFFFFF;
+      border: 1px solid #E5E7EB;
+      color: #111111;
+    }
+
+    .btn-outline:hover {
+      background: #F9FAFB;
+    }
+
+    .btn-primary {
+      background: #2563EB;
+      border: none;
+      color: #FFFFFF;
+    }
+
+    .btn-primary:hover {
+      background: #1D4ED8;
+    }
+
+    .btn-secondary {
+      background: #FFFFFF;
+      border: 1px solid #E5E7EB;
+      color: #111111;
+    }
+
+    .btn-secondary:hover {
+      background: #F9FAFB;
+    }
+
+    .btn-sm {
+      padding: 8px 16px;
+      font-size: 12px;
+      min-height: 36px;
+    }
+
+    /* ── STEP TRACKER ── */
+    .step-tracker {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background-color: #E5E7EB;
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .step-item {
+      background: #FFFFFF;
+      padding: 14px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .step-item.is-active {
+      background: #2563EB;
+      color: #FFFFFF;
+    }
+
+    .step-num-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .step-desc {
+      font-size: 12px;
+      color: #6B7280;
+    }
+
+    .step-item.is-active .step-desc {
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* ── NOTICE BANNER ── */
+    .notice-bar {
+      background-color: #FEF3C7;
+      border: 1px solid #F59E0B;
+      border-radius: 8px;
+      padding: 16px 20px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+
+    .notice-icon {
+      font-size: 18px;
+      line-height: 1;
+      color: #F59E0B;
+      flex-shrink: 0;
+    }
+
+    .notice-content h5 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #111111;
+      margin-bottom: 2px;
+    }
+
+    .notice-content p {
+      font-size: 13px;
+      color: #6B7280;
+      line-height: 1.4;
+    }
+
+    /* ── FORM CARD ── */
+    .form-card {
+      background: #FFFFFF;
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+
+    .form-card-header {
+      background-color: #F9FAFB;
+      padding: 14px 20px;
+      border-bottom: 1px solid #E5E7EB;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .form-card-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #111111;
+    }
+
+    .form-card-body {
+      padding: 24px 20px;
+    }
+
+    /* ── GRID LAYOUTS ── */
+    .form-grid-1 { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .form-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .form-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+    /* ── FORM ELEMENTS ── */
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .field-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: #111111;
+      margin-bottom: 6px;
+    }
+
+    .field-label.required::after {
+      content: ' *';
+      color: #EF4444;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .form-control {
+      width: 100%;
+      height: 40px;
+      background: #FFFFFF;
+      border: 1px solid #E5E7EB;
+      border-radius: 6px;
+      padding: 0 12px;
+      font-family: 'Lato', sans-serif;
+      font-size: 13px;
+      color: #111111;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-control:focus {
+      border-color: #2563EB;
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+    }
+
+    .form-control.error {
+      border-color: #EF4444;
+    }
+
+    select.form-control {
+      appearance: none;
+      cursor: pointer;
+      padding-right: 32px;
+    }
+
+    .select-arrow {
+      position: absolute;
+      right: 12px;
+      pointer-events: none;
+      font-size: 10px;
+      color: #6B7280;
+    }
+
+    textarea.form-control {
+      height: auto;
+      padding: 12px;
+      resize: vertical;
+      min-height: 100px;
+      font-family: 'Lato', sans-serif;
+    }
+
+    .field-hint {
+      font-size: 11px;
+      color: #9CA3AF;
+      margin-top: 6px;
+    }
+
+    .char-counter {
+      font-size: 11px;
+      color: #9CA3AF;
+      text-align: right;
+      margin-top: 4px;
+    }
+
+    /* ── RADIO & CHECKBOX ── */
+    .radio-group,
+    .checkbox-group {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .radio-item,
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      cursor: pointer;
+      width: 16px;
+      height: 16px;
+      accent-color: #2563EB;
+    }
+
+    .radio-item label,
+    .checkbox-item label {
+      font-size: 13px;
+      color: #111111;
+      cursor: pointer;
+      margin: 0;
+    }
+
+    /* ── IMAGE UPLOAD ── */
+    .image-upload-area {
+      border: 2px dashed #E5E7EB;
+      background: #F9FAFB;
+      border-radius: 8px;
+      padding: 40px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: 16px;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-upload-area:hover {
+      border-color: #2563EB;
+      background: #F0F7FF;
+    }
+
+    .upload-icon {
+      font-size: 32px;
+      color: #9CA3AF;
+      margin-bottom: 12px;
+    }
+
+    .upload-text {
+      font-size: 13px;
+      color: #6B7280;
+      margin-bottom: 4px;
+    }
+
+    .upload-hint {
+      font-size: 11px;
+      color: #9CA3AF;
+    }
+
+    .image-preview {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+
+    .preview-img {
+      width: 200px;
+      height: 200px;
+      border-radius: 8px;
+      object-fit: cover;
+      border: 1px solid #E5E7EB;
+    }
+
+    .preview-delete {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      width: 28px;
+      height: 28px;
+      background: #EF4444;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .preview-delete:hover {
+      background: #DC2626;
+    }
+
+    /* ── ACCORDION STYLES ── */
+    .accordion-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .accordion-controls {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      justify-content: flex-end;
+    }
+
+    .accordion-item {
+      border: 1px solid #E5E7EB;
+      border-radius: 8px;
+      background: #FFFFFF;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+    }
+
+    .accordion-header {
+      background-color: #F9FAFB;
+      padding: 16px 20px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: none;
+      width: 100%;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #111111;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .accordion-header:hover {
+      background-color: #F3F4F6;
+    }
+
+    .accordion-header[open] {
+      background-color: #EDF5FF;
+      border-bottom: 2px solid #2563EB;
+    }
+
+    .accordion-toggle-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      font-size: 12px;
+      color: #6B7280;
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .accordion-item[open] .accordion-toggle-icon {
+      transform: rotate(180deg);
+    }
+
+    .accordion-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      background: #E5E7EB;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 700;
+      color: #111111;
+      margin-right: 12px;
+      flex-shrink: 0;
+    }
+
+    .accordion-item[open] .accordion-number {
+      background: #2563EB;
+      color: #FFFFFF;
+    }
+
+    .accordion-content {
+      padding: 24px 20px;
+      background: #FFFFFF;
+    }
+
+    .accordion-content .form-section-title {
+      display: none;
+    }
+
+    /* ── STICKY FOOTER ── */
+    .sticky-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #FFFFFF;
+      border-top: 1px solid #E5E7EB;
+      padding: 16px 24px;
+      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      z-index: 100;
+    }
+
+    .sticky-footer .btn {
+      min-width: 120px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .form-grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .form-grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .form-grid-2,
+      .form-grid-3,
+      .form-grid-4 {
+        grid-template-columns: 1fr;
+      }
+
+      .step-tracker {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .sticky-footer {
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .sticky-footer .btn {
+        width: 100%;
+      }
+
+      .radio-group,
+      .checkbox-group {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .accordion-controls {
+        flex-direction: column;
+      }
+
+      .accordion-controls .btn-sm {
+        width: 100%;
+      }
+
+      body {
+        padding-bottom: 160px;
+      }
+    }
+
+  
+    /* User overrides */
+    body {
+      padding: 25px;
+    }
+    .title {
+      color: #5C6AC4;
+    }
+
+  </style>
+<base target="_blank">
+</head>
+<body>
+
+  <div class="admin-container">
+    
+    <!-- HEADER -->
+    <div class="hdr-row">
+      <h1 class="hdr-title title">Sports Rules</h1>
+      <div class="hdr-actions">
+        <button class="btn btn-outline">← Back to Sports</button>
+        <button class="btn btn-primary">+ Add Asset</button>
+      </div>
+    </div>
+
+    <!-- STEP TRACKER -->
+    <div class="step-tracker">
+      <div class="step-item">
+        <span class="step-num-title">1. Booking Rules</span>
+        <span class="step-desc">Configure booking behavior</span>
+      </div>
+      <div class="step-item">
+        <span class="step-num-title">2. Pricing &amp; Cancellation</span>
+        <span class="step-desc">Set pricing and cancellation</span>
+      </div>
+      <div class="step-item is-active">
+        <span class="step-num-title">3. Manage Assets</span>
+        <span class="step-desc">Add slopes / facilities</span>
+      </div>
+      <div class="step-item">
+        <span class="step-num-title">4. Lessons</span>
+        <span class="step-desc">Configure lessons</span>
+      </div>
+    </div>
+
+    <!-- NOTICE BANNER -->
+    <div class="notice-bar">
+      <div class="notice-icon">ⓘ</div>
+      <div class="notice-content">
+        <h5>Important Notice</h5>
+        <p>You can create assets if you have already created pricing and booking rules. Please ensure both booking rules and pricing rules are set up before adding assets.</p>
+      </div>
+    </div>
+
+    <!-- FORM CARD -->
+    <div class="form-card">
+      <div class="form-card-header">
+        <h2 class="form-card-title">Add New Ski Asset</h2>
+      </div>
+      <div class="form-card-body">
+
+        <!-- IMAGE UPLOAD -->
+        <div style="margin-bottom: 24px;">
+          <label class="field-label">Upload Slope Image</label>
+          <div id="upload-container">
+            <div class="image-upload-area" onclick="document.getElementById('imageInput').click()">
+              <div class="upload-icon">🏔️</div>
+              <div class="upload-text">Upload Slope Image</div>
+              <div class="upload-hint">JPG / PNG, Max 2MB</div>
+            </div>
+            <input type="file" id="imageInput" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
+          </div>
+        </div>
+
+        <!-- SECTION 0: ASSET BASICS -->
+        <div class="form-section" style="margin-bottom: 24px; background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 8px; padding: 16px;">
+          <div class="form-grid-2">
+            <div class="field-group">
+              <label class="field-label required">Sport</label>
+              <div class="input-wrapper">
+                <select class="form-control" disabled>
+                  <option>Indoor Skiing</option>
+                </select>
+                <span class="select-arrow">▼</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label required">Asset Type</label>
+              <div class="input-wrapper">
+                <select class="form-control">
+                  <option>Ski Slope</option>
+                  <option>Ski Jump</option>
+                  <option>Cross-country Trail</option>
+                  <option>Terrain Park</option>
+                </select>
+                <span class="select-arrow">▼</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-grid-2" style="margin-top: 16px;">
+            <div class="field-group">
+              <label class="field-label required">Asset Name</label>
+              <input type="text" class="form-control" placeholder="Enter slope name (e.g. Beginner Slope)" value="Beginner Slope">
+            </div>
+            <div class="field-group">
+              <label class="field-label">Asset Code (Optional)</label>
+              <input type="text" class="form-control" placeholder="Enter code (e.g. BS-01)" value="BS-01">
+            </div>
+          </div>
+
+<!--           <div style="margin-top: 16px;">
+            <label class="field-label required">Status</label>
+            <div class="radio-group">
+              <div class="radio-item">
+                <input type="radio" id="status-active" name="status" value="active" checked>
+                <label for="status-active">Active</label>
+              </div>
+              <div class="radio-item">
+                <input type="radio" id="status-maintenance" name="status" value="maintenance">
+                <label for="status-maintenance">Maintenance</label>
+              </div>
+              <div class="radio-item">
+                <input type="radio" id="status-hidden" name="status" value="hidden">
+                <label for="status-hidden">Hidden</label>
+              </div>
+            </div>
+          </div> -->
+        </div>
+
+        <!-- ACCORDION CONTROLS -->
+        <div class="accordion-controls">
+          <button class="btn btn-outline btn-sm" id="toggleAllBtn" onclick="toggleAllAccordions()">📂 Collapse All</button>
+        </div>
+
+        <!-- ACCORDION CONTAINER -->
+        <div class="accordion-wrapper">
+
+          <!-- ACCORDION 1: SLOPE SPECIFICATIONS -->
+          <details class="accordion-item" open>
+            <summary class="accordion-header">
+              <div style="display: flex; align-items: center; width: 100%;">
+                <span class="accordion-number">1</span>
+                <span>Slope Specifications</span>
+              </div>
+              <span class="accordion-toggle-icon">▼</span>
+            </summary>
+            <div class="accordion-content">
+              <div class="form-grid-4">
+                <div class="field-group">
+                  <label class="field-label required">Slope Length (m)</label>
+                  <input type="number" class="form-control" placeholder="Enter length" value="450">
+                </div>
+                <div class="field-group">
+                  <label class="field-label required">Vertical Drop (m)</label>
+                  <input type="number" class="form-control" placeholder="Enter drop" value="60">
+                </div>
+                <div class="field-group">
+                  <label class="field-label required">Slope Width (Min) (m)</label>
+                  <input type="number" class="form-control" placeholder="Min width" value="30">
+                </div>
+                <div class="field-group">
+                  <label class="field-label required">Slope Width (Max) (m)</label>
+                  <input type="number" class="form-control" placeholder="Max width" value="60">
+                </div>
+              </div>
+
+              <div class="form-grid-4" style="margin-top: 16px;">
+                <div class="field-group">
+                  <label class="field-label required">Maximum Gradient (%)</label>
+                  <input type="number" class="form-control" placeholder="Enter gradient" value="20">
+                </div>
+                <div class="field-group">
+                  <label class="field-label required">Number of Lanes</label>
+                  <input type="number" class="form-control" placeholder="Enter number" value="2">
+                </div>
+                <div class="field-group">
+                  <label class="field-label required">Skill Level</label>
+                  <div class="input-wrapper">
+                    <select class="form-control">
+                      <option selected>Beginner</option>
+                      <option>Intermediate</option>
+                      <option>Advanced</option>
+                      <option>All Levels</option>
+                    </select>
+                    <span class="select-arrow">▼</span>
+                  </div>
+                </div>
+                <div class="field-group">
+                  <label class="field-label required">Surface Type</label>
+                  <div class="input-wrapper">
+                    <select class="form-control">
+                      <option>Real Snow</option>
+                      <option>Artificial Snow</option>
+                      <option>Mixed</option>
+                    </select>
+                    <span class="select-arrow">▼</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-grid-2" style="margin-top: 16px;">
+                <div class="field-group">
+                  <label class="field-label">Snow Temperature (°C)</label>
+                  <input type="number" class="form-control" placeholder="Enter temperature" value="-2">
+                  <span class="field-hint">Optional field</span>
+                </div>
+<!--                 <div class="field-group">
+                  <label class="field-label required">Snow Quality</label>
+                  <div class="input-wrapper">
+                    <select class="form-control">
+                      <option>Excellent</option>
+                      <option>Good</option>
+                      <option>Fair</option>
+                      <option>Poor</option>
+                    </select>
+                    <span class="select-arrow">▼</span>
+                  </div>
+                </div> -->
+              </div>
+            </div>
+          </details>
+
+          <!-- ACCORDION 2: LIFT CONFIGURATION -->
+          <details class="accordion-item" open>
+            <summary class="accordion-header">
+              <div style="display: flex; align-items: center; width: 100%;">
+                <span class="accordion-number">2</span>
+                <span>Lift Configuration</span>
+              </div>
+              <span class="accordion-toggle-icon">▼</span>
+            </summary>
+            <div class="accordion-content">
+              <div class="form-grid-4">
+                <div class="field-group">
+                  <label class="field-label required">Chair Lift Count</label>
+                  <input type="number" class="form-control" placeholder="Enter count" value="4">
+                </div>
+                <div class="field-group">
+                  <label class="field-label required">Magic Carpet Count</label>
+                  <input type="number" class="form-control" placeholder="Enter count" value="2">
+                </div>
+                <div class="field-group">
+                  <label class="field-label">T-Bar Lift Count (Optional)</label>
+                  <input type="number" class="form-control" placeholder="Enter count" value="0">
+                </div>
+                <div class="field-group">
+                  <label class="field-label">Average Ride Time</label>
+                  <input type="text" class="form-control" placeholder="Enter time (e.g. 3 mins)" value="8 mins">
+                </div>
+              </div>
+
+              <div style="margin-top: 16px;">
+                <div class="checkbox-item">
+                  <input type="checkbox" id="lift-included" checked>
+                  <label for="lift-included">Lift included in pass / ticket</label>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <!-- ACCORDION 3: CAPACITY & OPERATIONS -->
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <div style="display: flex; align-items: center; width: 100%;">
+                <span class="accordion-number">3</span>
+                <span>Capacity & Operations</span>
+              </div>
+              <span class="accordion-toggle-icon">▼</span>
+            </summary>
+            <div class="accordion-content">
+              <div class="form-grid-4">
+                <div class="field-group">
+                  <label class="field-label required">Maximum Occupancy (People / Hour)</label>
+                  <input type="number" class="form-control" placeholder="Enter capacity" value="120">
+                </div>
+<!--                 <div class="field-group">
+                  <label class="field-label required">Opening Time</label>
+                  <input type="time" class="form-control" value="06:00">
+                </div> -->
+<!--                 <div class="field-group">
+                  <label class="field-label required">Closing Time</label>
+                  <input type="time" class="form-control" value="23:00">
+                </div> -->
+                <div class="field-group">
+                  <label class="field-label required">Average Session Duration (DO NOT IMPLEMENT THIS BLOCK)</label>
+                  <div class="input-wrapper">
+                    <select class="form-control">
+                      <option>30 mins</option>
+                      <option>1 Hour</option>
+                      <option>2 Hours</option>
+                      <option>3 Hours</option>
+<!--                       <option>Full Day</option> -->
+                    </select>
+                    <span class="select-arrow">▼</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-grid-2" style="margin-top: 16px;">
+                <div class="field-group">
+                  <label class="field-label">Buffer Between Sessions</label>
+                  <div class="input-wrapper">
+                    <select class="form-control">
+                      <option>5 mins</option>
+                      <option selected>15 mins</option>
+                      <option>20 mins</option>
+                      <option>30 mins</option>
+                    </select>
+                    <span class="select-arrow">▼</span>
+                  </div>
+                </div>
+<!--                 <div class="field-group">
+                  <label class="field-label required">Allow Simultaneous Sessions</label>
+                  <div class="radio-group">
+                    <div class="radio-item">
+                      <input type="radio" id="simultaneous-yes" name="simultaneous" value="yes" checked>
+                      <label for="simultaneous-yes">Yes</label>
+                    </div>
+                    <div class="radio-item">
+                      <input type="radio" id="simultaneous-no" name="simultaneous" value="no">
+                      <label for="simultaneous-no">No</label>
+                    </div>
+                  </div>
+                </div> -->
+              </div>
+            </div>
+          </details>
+
+          <!-- ACCORDION 4: SESSION DURATION OPTIONS -->
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <div style="display: flex; align-items: center; width: 100%;">
+                <span class="accordion-number">4</span>
+                <span>Session Duration Options (In Hrs)</span>
+              </div>
+              <span class="accordion-toggle-icon">▼</span>
+            </summary>
+            <div class="accordion-content">
+              <div class="checkbox-group" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+                <div class="checkbox-item">
+                  <input type="checkbox" id="duration-1h" checked>
+                  <label for="duration-1h">1 Hour</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="duration-2h" checked>
+                  <label for="duration-2h">2 Hours</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="duration-3h" checked>
+                  <label for="duration-3h">3 Hours</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="duration-4h">
+                  <label for="duration-4h">4 Hours</label>
+                </div>
+              </div>
+              <div style="margin-top: 12px;">
+                <button class="btn btn-outline" style="font-size: 13px; padding: 6px 12px; color: #2563EB; background: none; border: none;">+ Add Custom Duration</button>
+              </div>
+            </div>
+          </details>
+
+          <!-- ACCORDION 5: SLOT GENERATION -->
+<!--           <details class="accordion-item">
+            <summary class="accordion-header">
+              <div style="display: flex; align-items: center; width: 100%;">
+                <span class="accordion-number">5</span>
+                <span>Slot Generation</span>
+              </div>
+              <span class="accordion-toggle-icon">▼</span>
+            </summary>
+            <div class="accordion-content">
+              <div style="display: flex; gap: 16px; align-items: flex-end; margin-bottom: 12px; flex-wrap: wrap;">
+                <div class="field-group" style="flex: 0 0 auto; min-width: 100px;">
+                  <label class="field-label">From</label>
+                  <input type="time" class="form-control" value="06:00">
+                </div>
+                <div class="field-group" style="flex: 0 0 auto; min-width: 100px;">
+                  <label class="field-label">To</label>
+                  <input type="time" class="form-control" value="23:00">
+                </div>
+                <div class="field-group" style="flex: 0 0 auto; min-width: 120px;">
+                  <label class="field-label">Slot Interval</label>
+                  <div class="input-wrapper">
+                    <select class="form-control">
+                      <option>30 mins</option>
+                      <option selected>1 Hour</option>
+                      <option>2 Hours</option>
+                    </select>
+                    <span class="select-arrow">▼</span>
+                  </div>
+                </div>
+                <button class="btn btn-primary" style="margin-bottom: 0;">Generate Slots</button>
+              </div>
+              <span class="field-hint">Slots will be generated automatically between selected time with buffer.</span>
+            </div>
+          </details> -->
+
+          <!-- ACCORDION 6: PASS TYPES -->
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <div style="display: flex; align-items: center; width: 100%;">
+                <span class="accordion-number">5</span>
+                <span>Pass Types (Applicable)</span>
+              </div>
+              <span class="accordion-toggle-icon">▼</span>
+            </summary>
+            <div class="accordion-content">
+              <p style="font-size: 11px; color: #9CA3AF; margin-bottom: 12px;">Select which pass types can be used at this slope</p>
+              <div class="checkbox-group" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+                <div class="checkbox-item">
+                  <input type="checkbox" id="pass-adult" checked>
+                  <label for="pass-adult">Adult</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="pass-child" checked>
+                  <label for="pass-child">Child</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="pass-family" checked>
+                  <label for="pass-family">Family</label>
+                </div>
+<!--                 <div class="checkbox-item">
+                  <input type="checkbox" id="pass-beginner">
+                  <label for="pass-beginner">Beginner</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="pass-training">
+                  <label for="pass-training">Training</label>
+                </div> -->
+              </div>
+              <div style="margin-top: 12px;">
+                <button class="btn btn-outline" style="font-size: 13px; padding: 6px 12px; color: #2563EB; background: none; border: none;">+ Add Pass Type</button>
+              </div>
+            </div>
+          </details>
+
+          <!-- ACCORDION 7: FACILITIES -->
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <div style="display: flex; align-items: center; width: 100%;">
+                <span class="accordion-number">6</span>
+                <span>Facilities Available</span>
+              </div>
+              <span class="accordion-toggle-icon">▼</span>
+            </summary>
+            <div class="accordion-content">
+              <div class="checkbox-group" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+                <div class="checkbox-item">
+                  <input type="checkbox" id="facility-ski-rental" checked>
+                  <label for="facility-ski-rental">Ski Rental</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="facility-snowboard-rental" checked>
+                  <label for="facility-snowboard-rental">Snowboard Rental</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="facility-ski-school" checked>
+                  <label for="facility-ski-school">Ski School</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="facility-lockers" checked>
+                  <label for="facility-lockers">Lockers</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="facility-restaurant" checked>
+                  <label for="facility-restaurant">Restaurant</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="facility-cafe" checked>
+                  <label for="facility-cafe">Café</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="facility-parking" checked>
+                  <label for="facility-parking">Parking</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="facility-wifi" checked>
+                  <label for="facility-wifi">Free Wi-Fi</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="facility-medical" checked>
+                  <label for="facility-medical">Medical Room</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="facility-shop" checked>
+                  <label for="facility-shop">Equipment Shop</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="facility-changing" checked>
+                  <label for="facility-changing">Changing Rooms</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" id="facility-spectator" checked>
+                  <label for="facility-spectator">Spectator Area</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="text-area" id="input area" checked>
+                  <label for="facility-spectator">Add new Item</label>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <!-- ACCORDION 8: ABOUT SLOPE -->
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <div style="display: flex; align-items: center; width: 100%;">
+                <span class="accordion-number">8</span>
+                <span>About This Slope</span>
+              </div>
+              <span class="accordion-toggle-icon">▼</span>
+            </summary>
+            <div class="accordion-content">
+              <div class="form-grid-2">
+                <div class="field-group">
+                  <label class="field-label required">Detailed Description</label>
+                  <input type="text" class="form-control" placeholder="Enter short description" value="Beginner-friendly slope with gentle gradients and modern lift systems">
+                  <div class="char-counter"><span id="short-count">52</span> / 160</div>
+                </div>
+<!--                 <div class="field-group">
+                  <label class="field-label">Detailed Description</label>
+                  <textarea class="form-control" placeholder="Enter detailed description about the slope, facilities, views, experience etc.">Perfect for beginners and families. Our Beginner Slope features easy terrain with excellent snow conditions year-round. Modern lift systems ensure quick access, and qualified instructors are available for lessons.</textarea>
+                  <div class="char-counter"><span id="detail-count">195</span> / 1000</div>
+                </div> -->
+              </div>
+            </div>
+          </details>
+
+          <!-- ACCORDION 9: ADDITIONAL RULES -->
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <div style="display: flex; align-items: center; width: 100%;">
+                <span class="accordion-number">9</span>
+                <span>Additional Rules</span>
+              </div>
+              <span class="accordion-toggle-icon">▼</span>
+            </summary>
+            <div class="accordion-content">
+              <div class="form-grid-3">
+                <div class="field-group">
+                  <label class="field-label">Helmet Required</label>
+                  <div class="radio-group" style="flex-direction: column; align-items: flex-start;">
+                    <div class="radio-item">
+                      <input type="radio" id="helmet-yes" name="helmet" value="yes" checked>
+                      <label for="helmet-yes">Yes</label>
+                    </div>
+                    <div class="radio-item">
+                      <input type="radio" id="helmet-no" name="helmet" value="no">
+                      <label for="helmet-no">No</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="field-group">
+                  <label class="field-label">Instructor Required</label>
+                  <div class="radio-group" style="flex-direction: column; align-items: flex-start;">
+                    <div class="radio-item">
+                      <input type="radio" id="instructor-yes" name="instructor" value="yes">
+                      <label for="instructor-yes">Yes</label>
+                    </div>
+                    <div class="radio-item">
+                      <input type="radio" id="instructor-no" name="instructor" value="no" checked>
+                      <label for="instructor-no">No</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="field-group">
+                  <label class="field-label">Rental Mandatory</label>
+                  <div class="radio-group" style="flex-direction: column; align-items: flex-start;">
+                    <div class="radio-item">
+                      <input type="radio" id="rental-yes" name="rental" value="yes">
+                      <label for="rental-yes">Yes</label>
+                    </div>
+                    <div class="radio-item">
+                      <input type="radio" id="rental-no" name="rental" value="no" checked>
+                      <label for="rental-no">No</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-grid-3" style="margin-top: 16px;">
+                <div class="field-group">
+                  <label class="field-label">Minimum Age (Years)</label>
+                  <input type="number" class="form-control" placeholder="Enter age" value="6">
+                </div>
+                <div class="field-group">
+                  <label class="field-label">Max People per Booking</label>
+                  <input type="number" class="form-control" placeholder="Enter number" value="10">
+                </div>
+                <div class="field-group">
+                  <label class="field-label">Allow Private Lessons</label>
+                  <div class="radio-group" style="flex-direction: column; align-items: flex-start;">
+                    <div class="radio-item">
+                      <input type="radio" id="private-yes" name="private" value="yes" checked>
+                      <label for="private-yes">Yes</label>
+                    </div>
+                    <div class="radio-item">
+                      <input type="radio" id="private-no" name="private" value="no">
+                      <label for="private-no">No</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </details>
+
+          <!-- ACCORDION 10: NOTES -->
+          <details class="accordion-item">
+            <summary class="accordion-header">
+              <div style="display: flex; align-items: center; width: 100%;">
+                <span class="accordion-number">10</span>
+                <span>Notes (Optional)</span>
+              </div>
+              <span class="accordion-toggle-icon">▼</span>
+            </summary>
+            <div class="accordion-content">
+              <div class="field-group">
+                <label class="field-label">Notes (Optional)</label>
+                <textarea class="form-control" placeholder="Enter any notes or additional information">Best for beginners. Well-maintained snow conditions. Instructor support available.</textarea>
+                <div class="char-counter"><span id="notes-count">73</span> / 500</div>
+              </div>
+            </div>
+          </details>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- STICKY FOOTER -->
+  <div class="sticky-footer">
+    <button class="btn btn-secondary">Cancel</button>
+    <button class="btn btn-secondary">Save Draft (IMPORTANT TO ADD)</button>
+    <button class="btn btn-primary" onclick="submitForm()">Create Asset</button>
+  </div>
+
+  <script>
+// Image upload handler
+function handleImageUpload(event) {
+  const file = event.target.files[0];
+  if (file && file.size <= 2 * 1024 * 1024) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const container = document.getElementById('upload-container');
+      container.innerHTML = `
+        <div class="image-preview">
+          <img src="${e.target.result}" class="preview-img" alt="Preview">
+          <button class="preview-delete" onclick="removeImage()" title="Delete">×</button>
+        </div>
+      `;
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+function removeImage() {
+  const container = document.getElementById('upload-container');
+  container.innerHTML = `
+    <div class="image-upload-area" onclick="document.getElementById('imageInput').click()">
+      <div class="upload-icon">🏔️</div>
+      <div class="upload-text">Upload Slope Image</div>
+      <div class="upload-hint">JPG / PNG, Max 2MB</div>
+    </div>
+    <input type="file" id="imageInput" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
+  `;
+}
+
+// Collapse/Expand All functionality
+let allAccordionsOpen = true;
+
+function toggleAllAccordions() {
+  const accordions = document.querySelectorAll('.accordion-item');
+  const button = document.getElementById('toggleAllBtn');
+  
+  accordions.forEach(accordion => {
+    if (allAccordionsOpen) {
+      accordion.open = false;
+    } else {
+      accordion.open = true;
+    }
+  });
+  
+  allAccordionsOpen = !allAccordionsOpen;
+  button.textContent = allAccordionsOpen ? '📂 Collapse All' : '📂 Expand All';
+}
+
+// Character counters - Updated to work with accordion sections
+document.addEventListener('input', function(e) {
+  if (e.target.classList.contains('form-control')) {
+    // Update short description counter
+    const shortDescInputs = document.querySelectorAll('input.form-control[placeholder*="short description"]');
+    shortDescInputs.forEach(input => {
+      const counter = document.getElementById('short-count');
+      if (counter) {
+        counter.textContent = input.value.length;
+      }
+    });
+
+    // Update textarea counters
+    if (e.target.tagName === 'TEXTAREA') {
+      const detailedTextarea = document.querySelector('textarea[placeholder*="detailed description"]');
+      if (detailedTextarea && e.target === detailedTextarea) {
+        const detailCounter = document.getElementById('detail-count');
+        if (detailCounter) {
+          detailCounter.textContent = e.target.value.length;
+        }
+      }
+
+      const notesTextarea = document.querySelector('textarea[placeholder*="notes or additional"]');
+      if (notesTextarea && e.target === notesTextarea) {
+        const notesCounter = document.getElementById('notes-count');
+        if (notesCounter) {
+          notesCounter.textContent = e.target.value.length;
+        }
+      }
+    }
+  }
+});
+
+// Accordion open/close behavior
+document.addEventListener('toggle', function(e) {
+  if (e.target.classList.contains('accordion-item')) {
+    const header = e.target.querySelector('.accordion-header');
+    if (header) {
+      if (e.target.open) {
+        header.setAttribute('open', '');
+      } else {
+        header.removeAttribute('open');
+      }
+    }
+  }
+}, true);
+
+// Form submission
+function submitForm() {
+  // Simple validation - check if at least asset name is filled
+  const assetNameInput = document.querySelector('input[placeholder*="slope name"]');
+  if (assetNameInput && assetNameInput.value.trim() === '') {
+    alert('Please fill in all required fields (marked with *)');
+    assetNameInput.classList.add('error');
+  } else {
+    alert('✓ Asset created successfully!');
+    console.log('Form submitted with values');
+  }
+}
+
+// Initialize character counters on page load
+document.addEventListener('DOMContentLoaded', function() {
+  // Update initial counter values
+  const shortDesc = document.querySelector('input[placeholder*="short description"]');
+  if (shortDesc) {
+    document.getElementById('short-count').textContent = shortDesc.value.length;
+  }
+
+  const detailedDesc = document.querySelector('textarea[placeholder*="detailed description"]');
+  if (detailedDesc) {
+    document.getElementById('detail-count').textContent = detailedDesc.value.length;
+  }
+
+  const notes = document.querySelector('textarea[placeholder*="notes or additional"]');
+  if (notes) {
+    document.getElementById('notes-count').textContent = notes.value.length;
+  }
+});
+</script>
+
+</body>
+</html>

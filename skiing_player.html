@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShallWePlay Mobile Wireframes - Production Release</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@500;600;700;800&display=swap');
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background: #E5E7EB;
+      font-family: 'Lato-Regular', 'Lato', sans-serif;
+      padding: 40px 20px;
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    /* ── SYSTEM PHONE VIEWPORT ARCHITECTURE (STRICT 375PX CONTAINER BOUNDS) ── */
+    .swp-phone {
+      width: 375px;
+      height: 812px;
+      background: #F5F5F3; /* colors.light.background */
+      border: 8px solid #11181C;
+      border-radius: 40px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow: 0px 24px 48px rgba(0,0,0,0.16);
+    }
+
+    .swp-viewport {
+      flex: 1;
+      overflow-y: auto;
+      scrollbar-width: none;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 96px; /* Expanded safe scroll offset layout allocation */
+    }
+    .swp-viewport::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* ── COMPONENT: STATUS BAR ── */
+    .sbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px 8px; /* spacing.md layout alignment metrics */
+      background: #FFFFFF; /* colors.light.backgroundSecondary */
+      border-bottom: 1px solid #E5E5E5; /* border.width.standard, colors.light.border */
+      flex-shrink: 0;
+    }
+    .sbar-time {
+      font-family: 'Montserrat-Bold', 'Montserrat', sans-serif;
+      font-size: 12px; /* fonts.size.xs */
+      font-weight: 700;
+      color: #11181C; /* colors.light.text */
+    }
+    .sbar-icons {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      color: #11181C;
+      font-size: 12px;
+    }
+
+    /* ── COMPONENT: TAB NAVIGATION ROW ── */
+    .tab-row {
+      display: flex;
+      background: #FFFFFF;
+      border-bottom: 1px solid #E5E5E5;
+      padding: 0 16px;
+      flex-shrink: 0;
+    }
+    .tab {
+      flex: 1;
+      text-align: center;
+      padding: 14px 2px 12px;
+      font-family: 'Montserrat-SemiBold', 'Montserrat', sans-serif;
+      font-size: 12px; /* fonts.size.xs */
+      font-weight: 600;
+      color: #777777; /* colors.light.textSecondary */
+      position: relative;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+    }
+    .tab.on {
+      color: #007AFF; /* colors.tint */
+    }
+    .tab.on::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 15%;
+      right: 15%;
+      height: 2px; /* border.width.focused */
+      background: #007AFF;
+      border-radius: 2px 2px 0 0;
+    }
+
+    /* ── COMPONENT: SEARCH CONTROLS ── */
+    .search-wrap {
+      padding: 12px 16px 8px; /* 8px grid alignments spacing scale */
+      background: #FFFFFF;
+      flex-shrink: 0;
+    }
+    .search-row {
+      display: flex;
+      gap: 8px; /* spacing.sm */
+      align-items: center;
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #F5F5F3;
+      border: 1px solid #E5E5E5;
+      border-radius: 8px; /* border.radius.element */
+      padding: 0 12px;
+      flex: 1;
+      height: 44px; /* Touch target baseline layout rules */
+      min-width: 0;
+    }
+    .search-box span {
+      font-family: 'Lato-Regular', 'Lato', sans-serif;
+      font-size: 12px; /* fonts.size.xs */
+      color: #777777;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .filter-btn {
+      width: 44px;
+      height: 44px;
+      background: #F5F5F3;
+      border: 1px solid #E5E5E5;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    /* ── COMPONENT: DATE HEADER BLOCK ── */
+    .date-hdr {
+      padding: 12px 16px 8px;
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .date-left {
+      min-width: 0;
+    }
+    .date-left h1 {
+      font-family: 'Montserrat-Bold', 'Montserrat', sans-serif;
+      font-size: 24px; /* fonts.size.2xl */
+      font-weight: 700;
+      color: #11181C;
+      line-height: 1.25;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .date-year {
+      font-family: 'Lato-Regular', 'Lato', sans-serif;
+      font-size: 12px; /* fonts.size.xs */
+      color: #777777;
+      margin-top: 2px;
+    }
+    .date-bubble {
+      width: 44px;
+      height: 44px;
+      background: #007AFF; /* colors.primary accent theme identity injection */
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .date-bubble span:first-child {
+      font-family: 'Montserrat-Bold', 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1;
+    }
+    .date-bubble span:last-child {
+      font-family: 'Lato-Regular', 'Lato', sans-serif;
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.85);
+      margin-top: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    /* ── COMPONENT: STATS ROW LAYOUT MATRIX ── */
+    .stats-row {
+      display: flex;
+      gap: 8px; /* spacing.sm baseline spacing rules */
+      padding: 4px 16px 12px;
+      background: #FFFFFF;
+      flex-shrink: 0;
+    }
+    .stat-card {
+      flex: 1;
+      background: #F5F5F3;
+      border: 1px solid #E5E5E5;
+      border-radius: 12px; /* border.radius.container mapping context */
+      padding: 10px 4px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+    .stat-card.tag-middle {
+      background: transparent;
+      border-color: transparent;
+      justify-content: center;
+    }
+    .stat-num {
+      font-family: 'Montserrat-Bold', 'Montserrat', sans-serif;
+      font-size: 18px; /* fonts.size.lg scale mapping template */
+      font-weight: 700;
+      color: #11181C;
+      line-height: 1.1;
+    }
+    .stat-lbl {
+      font-family: 'Lato-Regular', 'Lato', sans-serif;
+      font-size: 10px;
+      color: #777777;
+      font-weight: 700;
+      margin-top: 2px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .stat-card.tag-middle .stat-lbl {
+      color: #007AFF; /* Brand identity focus highlight mapping */
+    }
+
+    /* ── COMPONENT: HORIZONTAL SYSTEM TRACK PILLS ── */
+    .scroll-track {
+      display: flex;
+      gap: 8px;
+      padding: 8px 16px 12px;
+      background: #FFFFFF;
+      overflow-x: auto;
+      scrollbar-width: none;
+      flex-shrink: 0;
+    }
+    .scroll-track::-webkit-scrollbar {
+      display: none;
+    }
+    .pill {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid #E5E5E5;
+      background: #F5F5F3;
+      width: 76px; /* Optimized baseline dimension framework context */
+      flex-shrink: 0;
+      text-align: center;
+    }
+    .pill.on {
+      background: #007AFF; /* colors.tint */
+      border-color: #007AFF;
+      color: #FFFFFF;
+    }
+    .pill-icon {
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+    .pill-title {
+      font-family: 'Montserrat-SemiBold', 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      color: #11181C;
+    }
+    .pill.on .pill-title {
+      color: #FFFFFF;
+    }
+    .pill-desc {
+      font-family: 'Lato-Regular', 'Lato', sans-serif;
+      font-size: 10px;
+      color: #777777;
+      margin-top: 2px;
+    }
+    .pill.on .pill-desc {
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* ── INTER-COMPONENT SECTION GAP DIVIDER ── */
+    .swp-divider {
+      height: 12px;
+      background: #F5F5F3; /* colors.light.background layout standard backplate */
+      border-bottom: 1px solid #E5E5E5;
+      flex-shrink: 0;
+    }
+
+    /* ── STACK FEED: COURTBOOKINGARDS LIST ── */
+    .cards-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 12px 16px;
+    }
+    .club-card {
+      background: #FFFFFF; /* colors.light.backgroundCard templates layout definitions */
+      border: 1px solid #E5E5E5;
+      border-radius: 12px; /* border.radius.container template code rules mapping */
+      padding: 12px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    .card-top {
+      display: flex;
+      gap: 12px;
+    }
+    .card-thumb {
+      width: 68px;
+      height: 68px;
+      border-radius: 8px; /* Standard internal cell elements bounding boxes radii definitions */
+      background: #F5F5F3;
+      border: 1px solid #E5E5E5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 24px;
+    }
+    .card-info {
+      flex: 1;
+      min-width: 0; /* Critical layout override configuration against dynamic layout content clipping */
+    }
+    .card-headline-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 6px;
+    }
+    .card-name {
+      font-family: 'Montserrat-Bold', 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #11181C;
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .card-price-box {
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .card-price {
+      font-family: 'Montserrat-Bold', 'Montserrat', sans-serif;
+      font-size: 16px; /* fonts.size.base text tags configuration */
+      font-weight: 700;
+      color: #007AFF;
+      line-height: 1;
+    }
+    .card-price-lbl {
+      font-family: 'Lato-Regular', 'Lato', sans-serif;
+      font-size: 10px;
+      color: #777777;
+      margin-top: 2px;
+    }
+    .card-loc {
+      font-family: 'Lato-Regular', 'Lato', sans-serif;
+      font-size: 12px;
+      color: #777777;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .card-meta {
+      font-family: 'Lato-Regular', 'Lato', sans-serif;
+      font-size: 12px;
+      color: #777777;
+      margin-top: 4px;
+      line-height: 1.4;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ── CARD ELEMENT CHIPS AND BADGES ── */
+    .card-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .card-tag {
+      padding: 4px 8px;
+      background: #F5F5F3;
+      border: 1px solid #E5E5E5;
+      border-radius: 8px; /* border.radius.element framework definition scale mappings code */
+      font-family: 'Lato-Regular', 'Lato', sans-serif;
+      font-size: 11px;
+      color: #11181C;
+    }
+    .card-tag.alert {
+      background: rgba(34, 197, 94, 0.08); /* colors.success dynamic opacity fallback mapping scale */
+      border-color: #22C55E;
+      color: #22C55E;
+      font-weight: 700;
+    }
+    .card-tag.warning-alert {
+      background: rgba(230, 57, 0, 0.08); /* colors.danger framework boundary scale */
+      border-color: #E63900;
+      color: #E63900;
+      font-weight: 700;
+    }
+    .card-cta {
+      margin-top: 12px;
+    }
+    .btn-cta {
+      width: 100%;
+      height: 48px; /* Optimized layout dimensions parameters targets scale constraints mapping blueprint */
+      background: #007AFF; /* Core dynamic signature interactive tint configuration model template */
+      border: none;
+      border-radius: 8px;
+      font-family: 'Montserrat-SemiBold', 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0px 2px 4px rgba(0, 122, 255, 0.2);
+    }
+
+    /* ── COMPONENT: PROMO WIDGET CARD ── */
+    .promo-card {
+      background: #FFFFFF;
+      border: 1px solid #E5E5E5;
+      border-radius: 12px;
+      padding: 12px;
+      margin: 4px 16px 16px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .promo-icon {
+      font-size: 32px;
+      flex-shrink: 0;
+    }
+    .promo-text {
+      min-width: 0;
+    }
+    .promo-text h4 {
+      font-family: 'Montserrat-Bold', 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #11181C;
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .promo-text p {
+      font-family: 'Lato-Regular', 'Lato', sans-serif;
+      font-size: 12px;
+      color: #777777;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ── STICKY COMPONENT: GLOBAL SYSTEM PERSISTENT NAVIGATION BOTTOM BAR ── */
+    .bnav {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 64px; /* Extended sizing target allocation mapping matrix definitions rules framework code */
+      background: #FFFFFF;
+      border-top: 1px solid #E5E5E5;
+      display: flex;
+      align-items: center;
+      z-index: 200;
+      padding: 0 8px 8px; /* Offset framework layout tracking padding metrics allocations code template execution */
+    }
+    .bnav-node {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: #9BA1A6; /* tabIconDefault */
+      cursor: pointer;
+    }
+    .bnav-node.active {
+      color: #007AFF; /* tabIconSelected code rules configurations framework template variables allocation */
+    }
+    .bnav-icon {
+      font-size: 20px;
+    }
+    .bnav-lbl {
+      font-family: 'Lato-Regular', 'Lato', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+    .bnav-center-plus {
+      width: 48px;
+      height: 48px;
+      background: #007AFF; /* Core identity context brand theme palette color call */
+      border-radius: 50%; /* border.radius.circle rules variables calculations allocation execution template rules codes mapping context */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: -24px;
+      box-shadow: 0px 4px 12px rgba(0,122,255,0.4);
+      border: 4px solid #FFFFFF;
+    }
+    .bnav-center-plus span {
+      color: #FFFFFF;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    /* ═══════════════════════════════════
+       SCREEN 2 ARCHITECTURAL MODULES SPECIFICS
+    ═══════════════════════════════════ */
+    .detail-header-block {
+      background: #FFFFFF;
+      padding: 12px 16px 16px;
+      flex-shrink: 0;
+    }
+    .detail-top-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      margin-bottom: 12px;
+    }
+    .action-arrow, .action-icons {
+      font-size: 20px;
+      color: #11181C;
+      cursor: pointer;
+    }
+    .action-icons span {
+      margin-left: 16px;
+    }
+    .hero-box {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .hero-img {
+      width: 84px; /* Scaled down layout bounds constraint matrix to completely avoid side items structural clip boundaries issues */
+      height: 84px;
+      border-radius: 12px;
+      background: #F5F5F3;
+      border: 1px solid #E5E5E5;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+    }
+    .hero-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .hero-name {
+      font-family: 'Montserrat-Bold', 'Montserrat', sans-serif;
+      font-size: 18px; /* fonts.size.lg scale blueprint baseline values context configuration mapping template */
+      font-weight: 700;
+      color: #11181C;
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .hero-loc {
+      font-family: 'Lato-Regular', 'Lato', sans-serif;
+      font-size: 12px;
+      color: #777777;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .hero-rating {
+      font-family: 'Lato-Regular', 'Lato', sans-serif;
+      font-size: 12px;
+      color: #11181C;
+      margin-top: 4px;
+    }
+    .hero-rating span {
+      color: #F59E0B;
+    }
+    .status-badge {
+      display: inline-block;
+      padding: 2px 6px;
+      background: rgba(34, 197, 94, 0.1);
+      color: #22C55E; /* colors.success system mapping tokens configurations matching variables values */
+      border-radius: 4px;
+      font-family: 'Lato-Regular', 'Lato', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+    .dist-badge {
+      padding: 4px 8px;
+      background: #F5F5F3;
+      border: 1px solid #E5E5E5;
+      border-radius: 8px;
+      font-family: 'Montserrat-Bold', 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: #11181C;
+      align-self: center;
+      flex-shrink: 0;
+    }
+
+    /* ── SCROLL SECTION MODULE: DETAIL LINKS TABS SYSTEM ROW TRACK ── */
+    .detail-tabs-row {
+      display: flex;
+      background: #FFFFFF;
+      overflow-x: auto;
+      scrollbar-width: none;
+      height: 44px;
+      align-items: center;
+      padding: 0 16px;
+      border-top: 1px solid #E5E5E5;
+      flex-shrink: 0;
+    }
+    .detail-tabs-row::-webkit-scrollbar {
+      display: none;
+    }
+    .dtab {
+      padding: 0 14px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      font-family: 'Montserrat-Bold', 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: #777777;
+      white-space: nowrap;
+      position: relative;
+    }
+    .dtab.on {
+      color: #007AFF;
+    }
+    .dtab.on::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 14px;
+      right: 14px;
+      height: 2px;
+      background: #007AFF;
+    }
+
+    /* ── SECTION LABEL DECORATOR STYLES BLUES BLOCKS SYSTEM CONTROLS ── */
+    .sec-label {
+      font-family: 'Montserrat-SemiBold', 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: #777777;
+      text-transform: uppercase;
+      padding: 16px 16px 8px;
+    }
+
+    /* ── REFOCUSED HORIZONTAL TRACK: CLUB OVERVIEW MODULE ── */
+    .overview-scroll-track {
+      display: flex;
+      gap: 8px; /* spacing.sm framework definition rules mapping */
+      padding: 0 16px 12px; /* spacing.md layout increments framework mapping */
+      overflow-x: auto;
+      scrollbar-width: none;
+      flex-shrink: 0;
+    }
+    .overview-scroll-track::-webkit-scrollbar {
+      display: none;
+    }
+    .ov-card-item {
+      width: 105px; /* Perfect tight dynamic modular constraint layout blueprint */
+      height: 84px; /* Locked sizing target cell boundary box size constraint rules mapping */
+      background: #FFFFFF; /* colors.light.backgroundCard Surface elements mapping context */
+      border: 1px solid #E5E5E5;
+      border-radius: 12px; /* border.radius.container baseline values system template mapping codes rules */
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      flex-shrink: 0;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.02);
+    }
+    .ov-icon {
+      font-size: 16px;
+      margin-bottom: 2px;
+    }
+    .ov-lbl {
+      font-family: 'Lato-Regular', 'Lato', sans-serif;
+      font-size: 10px;
+      color: #777777;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .ov-val {
+      font-family: 'Montserrat-Bold', 'Montserrat', sans-serif;
+      font-size: 12px; /* fonts.size.xs */
+      font-weight: 700;
+      color: #11181C;
+      margin-top: 2px;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ── SYSTEM SCROLL MODULE 2: DURATION CRITICAL FIXED DEFENSIVE MODULE ── */
+    .duration-track {
+      display: flex;
+      gap: 8px;
+      padding: 8px 16px 16px; /* CRITICAL FIX: Expanded padding safely avoids viewport bounding cutoff lines */
+      overflow-x: auto;
+      scrollbar-width: none;
+      flex-shrink: 0;
+    }
+    .duration-track::-webkit-scrollbar {
+      display: none;
+    }
+    .dur-chip {
+      width: 64px;
+      height: 44px; /* Ensured exact touch target parameters specifications matrix allocations rules code */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #E5E5E5;
+      background: #FFFFFF;
+      border-radius: 8px;
+      font-family: 'Montserrat-Bold', 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: #11181C;
+      line-height: 1; /* Fixed compression constraint rendering */
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+    .dur-chip.on {
+      background: #007AFF;
+      border-color: #007AFF;
+      color: #FFFFFF;
+    }
+
+    /* ── SYSTEM LAYERED GRID 2: THE CARD GRID MATRIX SELECTIONS ARCHITECTURES FOR PASS SELECT OPTIONS ── */
+    .pass-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 0 16px 12px;
+    }
+    .pass-card {
+      background: #FFFFFF;
+      border: 1px solid #E5E5E5;
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      min-width: 0; /* Anti-overflow text layout safeguard rules block context configuration */
+      height: 140px; /* Safe static alignment sizing constraint to lock rows layouts together neatly */
+    }
+    .pass-card.on {
+      border-color: #007AFF; 
+      background: #F5F5F3;
+      border-width: 1.5px;
+    }
+    .pass-title {
+      font-family: 'Montserrat-Bold', 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: #11181C;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .pass-age {
+      font-family: 'Lato-Regular', 'Lato', sans-serif;
+      font-size: 10px;
+      color: #777777;
+      margin-top: 1px;
+    }
+    .pass-price-row {
+      font-family: 'Montserrat-Bold', 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #007AFF;
+      margin-top: 6px;
+    }
+    .pass-price-row span {
+      font-family: 'Lato-Regular', 'Lato', sans-serif;
+      font-size: 10px;
+      color: #777777;
+      font-weight: 400;
+    }
+    .pass-desc {
+      font-family: 'Lato-Regular', 'Lato', sans-serif;
+      font-size: 11px;
+      color: #777777;
+      margin-top: auto; /* Push down cleanly inside dynamic flex cell spaces structures frameworks matrices codes standard logic executions template */
+      line-height: 1.3;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* ── SYSTEM LAYERED GRID 3: THREE COLUMNS TILES MATRIX FOR THE ENTRY TIME MATRIX SLOTS SELECTS ELEMENTS COMPONENTS ── */
+    .slots-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 6px;
+      padding: 0 16px 12px;
+    }
+    .slot-btn {
+      height: 56px; /* Hard targets configuration constraints layout template values context variables mapping parameter */
+      border: 1px solid #E5E5E5;
+      background: #FFFFFF;
+      border-radius: 8px;
+      padding: 6px 2px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-width: 0;
+    }
+    .slot-btn.sold {
+      background: #F5F5F3;
+      border-color: #E5E5E5;
+      opacity: 0.55;
+    }
+    .slot-btn.few {
+      background: rgba(230, 57, 0, 0.04);
+      border-color: rgba(230, 57, 0, 0.4);
+    }
+    .slot-btn.on {
+      background: #007AFF;
+      border-color: #007AFF;
+    }
+    .slot-time {
+      font-family: 'Montserrat-Bold', 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: #11181C;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+    .slot-btn.on .slot-time {
+      color: #FFFFFF;
+    }
+    .slot-status {
+      font-family: 'Lato-Regular', 'Lato', sans-serif;
+      font-size: 10px;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+    .slot-btn.sold .slot-status { color: #E63900; }
+    .slot-btn.few .slot-status { color: #E63900; font-weight: 700; }
+    .slot-btn.avail .slot-status { color: #22C55E; }
+    .slot-btn.on .slot-status { color: rgba(255, 255, 255, 0.85); }
+
+    /* ── SYSTEM LAYERED GRID 4: FOUR COLUMNS LAYOUT SPECIFICATION SCHEMES FOR HIGH DENSITY FACILITIES ITEMS MODULES ── */
+    .amenities-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      padding: 0 16px 12px;
+    }
+    .amenity-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      min-width: 0;
+    }
+    .amenity-icon {
+      font-size: 20px;
+      width: 44px;
+      height: 44px;
+      background: #FFFFFF;
+      border: 1px solid #E5E5E5;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .amenity-lbl {
+      font-family: 'Lato-Regular', 'Lato', sans-serif;
+      font-size: 10px;
+      color: #11181C;
+      line-height: 1.25;
+      margin-top: 4px;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ── BLOCK PARAGRAPH TEXT STYLES AREA ── */
+    .about-box {
+      padding: 0 16px 12px;
+    }
+    .about-txt {
+      font-family: 'Lato-Regular', 'Lato', sans-serif;
+      font-size: 13px; /* fonts.size.sm body scale mappings standard context parameter matching blueprint tokens text components codes layouts executions */
+      color: #11181C;
+      line-height: 1.6;
+    }
+    .about-link {
+      font-family: 'Montserrat-Bold', 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: #007AFF;
+      margin-top: 6px;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    /* ── PERSISTENT DETAIL BOOKING STICKY OVERLAY ACTION COMPONENT BAR FOOTER CONTAINER ── */
+    .swp-detail-footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 84px;
+      background: #FFFFFF;
+      border-top: 1px solid #E5E5E5;
+      padding: 12px 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      z-index: 300;
+    }
+    .footer-left {
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+    .footer-lbl {
+      font-family: 'Lato-Regular', 'Lato', sans-serif;
+      font-size: 10px;
+      color: #777777;
+    }
+    .footer-price-row {
+      font-family: 'Montserrat-Bold', 'Montserrat', sans-serif;
+      font-size: 20px; /* fonts.size.xl structural sizing counter tokens context allocation rule codes execute */
+      font-weight: 700;
+      color: #007AFF;
+      line-height: 1.1;
+    }
+    .footer-price-row span {
+      font-family: 'Lato-Regular', 'Lato', sans-serif;
+      font-size: 11px;
+      color: #777777;
+      font-weight: 400;
+    }
+    .footer-right {
+      flex: 1;
+      height: 100%;
+      min-width: 0;
+    }
+    .btn-footer-cta {
+      width: 100%;
+      height: 100%;
+      background: #007AFF; /* standard core component ContinueButton active theme template implementation specifications */
+      border: none;
+      border-radius: 8px;
+      font-family: 'Montserrat-SemiBold', 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0px 2px 4px rgba(0, 122, 255, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════ WIREFRAME 1: CLUBS SCREEN VIEWPORT ═══════════════════ -->
+  <div class="swp-phone">
+    <div class="swp-viewport">
+      
+      <!-- System Status Bar -->
+      <div class="sbar">
+        <span class="sbar-time">9:41</span>
+        <div class="sbar-icons">
+          <span>📶</span>
+          <span style="margin-left:4px;">🔋</span>
+        </div>
+      </div>
+
+      <!-- justified Top Navigation Tabs -->
+      <div class="tab-row">
+        <div class="tab on">New</div>
+        <div class="tab">Upcoming</div>
+        <div class="tab">Coming Soon</div>
+        <div class="tab">SWP</div>
+      </div>
+
+      <!-- Filter input wrappers -->
+      <div class="search-wrap">
+        <div class="search-row">
+          <div class="search-box">
+            <span style="font-size:12px;">🔍</span>
+            <span>Search by club name or activity...</span>
+          </div>
+          <div class="filter-btn">
+            <span style="font-size:14px;">🎛️</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Heading Title System Content -->
+      <div class="date-hdr">
+        <div class="date-left">
+          <h1>30 June ▼</h1>
+          <div class="date-year">2026</div>
+        </div>
+        <div class="date-bubble">
+          <span>30</span>
+          <span>Tue</span>
+        </div>
+      </div>
+
+      <!-- InfoCard Numeric Statistics Component Elements Rows Layer -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <span class="stat-num">5</span>
+          <span class="stat-lbl">Indoor Clubs</span>
+        </div>
+        <div class="stat-card tag-middle">
+          <span class="stat-lbl">Open Today</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-num">12</span>
+          <span class="stat-lbl">Activities Available</span>
+        </div>
+      </div>
+
+      <!-- Scrollable Horizontal Horizon Selector Pills Track -->
+      <div class="scroll-track">
+        <div class="pill">
+          <span class="pill-icon">☀️</span>
+          <span class="pill-title">Morning</span>
+          <span class="pill-desc">4 clubs</span>
+        </div>
+        <div class="pill">
+          <span class="pill-icon">🌤️</span>
+          <span class="pill-title">Afternoon</span>
+          <span class="pill-desc">5 clubs</span>
+        </div>
+        <div class="pill">
+          <span class="pill-icon">🌆</span>
+          <span class="pill-title">Evening</span>
+          <span class="pill-desc">6 clubs</span>
+        </div>
+        <div class="pill on">
+          <span class="pill-icon">🌙</span>
+          <span class="pill-title">Night</span>
+          <span class="pill-desc">4 clubs</span>
+        </div>
+      </div>
+
+      <!-- Segment Divider Layout Boundary Strip -->
+      <div class="swp-divider"></div>
+
+      <!-- Vertical Core Stack Feed Cards Container List -->
+      <div class="cards-stack">
+        
+        <!-- Instance Item Card Component 1 -->
+        <div class="club-card">
+          <div class="card-top">
+            <div class="card-thumb">🎿</div>
+            <div class="card-info">
+              <div class="card-headline-row">
+                <h3 class="card-name">SnowWorld Amsterdam</h3>
+                <div class="card-price-box">
+                  <div class="card-price">€42</div>
+                  <div class="card-price-lbl">per hour</div>
+                </div>
+              </div>
+              <div class="card-loc">📍 Amsterdam, Netherlands</div>
+              <div class="card-meta">⛷️ Indoor Skiing · ⏰ Next: 19:30</div>
+              <div class="card-meta">🌡️ -2°C · 4/5 Lifts Open</div>
+            </div>
+          </div>
+          <div class="card-tags">
+            <span class="card-tag">Slope Session</span>
+            <span class="card-tag">Equipment Rental</span>
+            <span class="card-tag alert">8 Slots Available</span>
+          </div>
+          <div class="card-cta">
+            <button class="btn-cta">Book Slope Session</button>
+          </div>
+        </div>
+
+        <!-- Instance Item Card Component 2 -->
+        <div class="club-card">
+          <div class="card-top">
+            <div class="card-thumb">🏂</div>
+            <div class="card-info">
+              <div class="card-headline-row">
+                <h3 class="card-name">Chill Factore Manchester</h3>
+                <div class="card-price-box">
+                  <div class="card-price">€38</div>
+                  <div class="card-price-lbl">per hour</div>
+                </div>
+              </div>
+              <div class="card-loc">📍 Manchester, UK</div>
+              <div class="card-meta">⛷️ Indoor Skiing · ⏰ Next: 20:00</div>
+              <div class="card-meta">🌡️ -3°C · 3/4 Lifts Open</div>
+            </div>
+          </div>
+          <div class="card-tags">
+            <span class="card-tag">Lesson</span>
+            <span class="card-tag">Family Session</span>
+            <span class="card-tag warning-alert">5 Slots Left</span>
+          </div>
+          <div class="card-cta">
+            <button class="btn-cta">Book Lesson</button>
+          </div>
+        </div>
+
+        <!-- Instance Item Card Component 3 -->
+        <div class="club-card">
+          <div class="card-top">
+            <div class="card-thumb">🏔️</div>
+            <div class="card-info">
+              <div class="card-headline-row">
+                <h3 class="card-name">Ski Dubai Indoor</h3>
+                <div class="card-price-box">
+                  <div class="card-price">€55</div>
+                  <div class="card-price-lbl">per hour</div>
+                </div>
+              </div>
+              <div class="card-loc">📍 Dubai, UAE</div>
+              <div class="card-meta">⛷️ Indoor Skiing · ⏰ Next: 18:45</div>
+              <div class="card-meta">🌡️ -1°C · 5/5 Lifts Open</div>
+            </div>
+          </div>
+          <div class="card-tags">
+            <span class="card-tag">Slope Session</span>
+            <span class="card-tag">Equipment Rental</span>
+            <span class="card-tag alert">10 Slots Available</span>
+          </div>
+          <div class="card-cta">
+            <button class="btn-cta">Book Slope Session</button>
+          </div>
+        </div>
+
+        <!-- Dashboard Promo Element Widget Block Card -->
+        <div class="promo-card">
+          <div class="promo-icon">⛷️</div>
+          <div class="promo-text">
+            <h4>Everything you need...</h4>
+            <p>Slope sessions · Lessons · Equipment Rental</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Sticky Persistent Bottom Bar Navigation Node Controllers -->
+    <div class="bnav">
+      <div class="bnav-node">
+        <span class="bnav-icon">🏠</span>
+        <span class="bnav-lbl">Home</span>
+      </div>
+      <div class="bnav-node active">
+        <span class="bnav-icon">📅</span>
+        <span class="bnav-lbl">Bookings</span>
+      </div>
+      <div class="bnav-node">
+        <div class="bnav-center-plus">
+          <span>+</span>
+        </div>
+      </div>
+      <div class="bnav-node">
+        <span class="bnav-icon">👥</span>
+        <span class="bnav-lbl">Social</span>
+      </div>
+      <div class="bnav-node">
+        <span class="bnav-icon">☰</span>
+        <span class="bnav-lbl">More</span>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════ WIREFRAME 2: DETAILS SCREEN VIEWPORT ═══════════════════ -->
+  <div class="swp-phone">
+    <div class="swp-viewport">
+      
+      <!-- Status Bar -->
+      <div class="sbar">
+        <span class="sbar-time">9:41</span>
+        <div class="sbar-icons">
+          <span>📶</span>
+          <span style="margin-left:4px;">🔋</span>
+        </div>
+      </div>
+
+      <!-- Action Icons Layout Top Bars -->
+      <div class="detail-header-block">
+        <div class="detail-top-actions">
+          <div class="action-arrow">←</div>
+          <div class="action-icons">
+            <span>❤️</span>
+            <span>⬆️</span>
+          </div>
+        </div>
+
+        <!-- High Visibility Facility Header Information Blocks -->
+        <div class="hero-box">
+          <div class="hero-img">🎿</div>
+          <div class="hero-info">
+            <h2 class="hero-name">SnowWorld Amsterdam</h2>
+            <div class="hero-loc">📍 Amsterdam, Netherlands</div>
+            <div class="hero-rating"><span>★</span> 4.6 (812 reviews)</div>
+            <div class="status-badge">⬤ Open Now</div>
+          </div>
+          <div class="dist-badge">2.3 km</div>
+        </div>
+      </div>
+
+      <!-- Horizontal Scrollable Selector Track Tabs Links Items -->
+      <div class="detail-tabs-row">
+        <div class="dtab on">Club Info</div>
+<!--         <div class="dtab">Slope Sessions</div> -->
+        <div class="dtab">Lessons (Comming Soon)</div>
+        <div class="dtab">Equipment</div>
+<!--         <div class="dtab">Events</div> -->
+      </div>
+
+      <!-- HORIZONTAL SCROLL TRACK COMPONENT: CLUB OVERVIEW -->
+      <div class="sec-label">Club Overview</div>
+      <div class="overview-scroll-track">
+        <div class="ov-card-item"><div class="ov-icon">📏</div><div class="ov-lbl">Slope Length</div><div class="ov-val">450m</div></div>
+        <div class="ov-card-item"><div class="ov-icon">📐</div><div class="ov-lbl">Vertical Drop</div><div class="ov-val">60m</div></div>
+        <div class="ov-card-item"><div class="ov-icon">↔️</div><div class="ov-lbl">Slope Width</div><div class="ov-val">30–60m</div></div>
+        <div class="ov-card-item"><div class="ov-icon">🏔️</div><div class="ov-lbl">No. of Slopes</div><div class="ov-val">3</div></div>
+        <div class="ov-card-item"><div class="ov-icon">📊</div><div class="ov-lbl">Skill Levels</div><div class="ov-val">All Levels</div></div>
+        <div class="ov-card-item"><div class="ov-icon">❄️</div><div class="ov-lbl">Surface Type</div><div class="ov-val">Real Snow</div></div>
+        <div class="ov-card-item"><div class="ov-icon">🌡️</div><div class="ov-lbl">Slope Temp</div><div class="ov-val">-2°C</div></div>
+        <div class="ov-card-item"><div class="ov-icon">⭐</div><div class="ov-lbl">Snow Quality</div><div class="ov-val">Good</div></div>
+        <div class="ov-card-item"><div class="ov-icon">📈</div><div class="ov-lbl">Max Gradient</div><div class="ov-val">20%</div></div>
+        <div class="ov-card-item"><div class="ov-icon">🚡</div><div class="ov-lbl">Lifts/Carpet</div><div class="ov-val">4/2</div></div>
+        <div class="ov-card-item"><div class="ov-icon">👥</div><div class="ov-lbl">Max Occupancy</div><div class="ov-val">120/hr</div></div>
+        <div class="ov-card-item"><div class="ov-icon">🕐</div><div class="ov-lbl">Opening Hours</div><div class="ov-val">06:00–23:00</div></div>
+      </div>
+
+      <!-- Section Line Spacing Dividers -->
+      <div class="swp-divider"></div>
+
+      <!-- SCROLL TRACK ELEMENT MODULE 2: DURATIONS HOURLY CHOICES WIDGETS -->
+      <div class="sec-label">Select Duration</div>
+      <div class="duration-track">
+        <div class="dur-chip on">1 hr</div>
+        <div class="dur-chip">2 hr</div>
+        <div class="dur-chip">3 hr</div>
+        <div class="dur-chip">4 hr</div>
+        <div class="dur-chip">5 hr</div>
+        <div class="dur-chip">6 hr</div>
+        <div class="dur-chip">7 hr</div>
+      </div>
+
+      <div class="swp-divider"></div>
+
+      <!-- GRID SYSTEM MODULE 2: PASS VARIANT SELECTION GRID TYPES CELLS -->
+      <div class="sec-label">Select Pass Type</div>
+      <div class="pass-grid">
+        <div class="pass-card on">
+          <span class="pass-title">Adult Pass</span>
+          <span class="pass-age">Age 16+</span>
+          <div class="pass-price-row">€42 <span>/hr</span></div>
+          <span class="pass-desc">Full slope access · All levels available</span>
+        </div>
+        <div class="pass-card">
+          <span class="pass-title">Child Pass</span>
+          <span class="pass-age">Age 4–15</span>
+          <div class="pass-price-row">€28 <span>/hr</span></div>
+          <span class="pass-desc">Supervised access · Beginner slope zone</span>
+        </div>
+        <div class="pass-card">
+          <span class="pass-title">Small Slope</span>
+          <span class="pass-age">Any age</span>
+          <div class="pass-price-row">€18 <span>/hr</span></div>
+          <span class="pass-desc">Beginner area playground · Learning zone</span>
+        </div>
+        <div class="pass-card">
+          <span class="pass-title">Family Pass</span>
+          <span class="pass-age">2 ad + 2 kd</span>
+          <div class="pass-price-row">€120 <span>/hr</span></div>
+          <span class="pass-desc">Best value packages · All access passes</span>
+        </div>
+      </div>
+
+      <div class="swp-divider"></div>
+
+      <!-- GRID SYSTEM MODULE 3: DETAILED TIME MATRICES SCHEDULE BLOCKS CELLS -->
+      <div class="sec-label">Select Entry Time · 1hr slots</div>
+      <div class="slots-grid">
+        <div class="slot-btn sold"><span class="slot-time">09:00–10:00</span><span class="slot-status">Sold out</span></div>
+        <div class="slot-btn sold"><span class="slot-time">10:00–11:00</span><span class="slot-status">Sold out</span></div>
+        <div class="slot-btn few"><span class="slot-time">11:00–12:00</span><span class="slot-status">3 left</span></div>
+        <div class="slot-btn avail"><span class="slot-time">12:00–13:00</span><span class="slot-status">8 slots</span></div>
+        <div class="slot-btn on"><span class="slot-time">13:00–14:00</span><span class="slot-status">6 slots</span></div>
+        <div class="slot-btn avail"><span class="slot-time">14:00–15:00</span><span class="slot-status">10 slots</span></div>
+        <div class="slot-btn avail"><span class="slot-time">15:00–16:00</span><span class="slot-status">12 slots</span></div>
+        <div class="slot-btn few"><span class="slot-time">16:00–17:00</span><span class="slot-status">2 left</span></div>
+        <div class="slot-btn avail"><span class="slot-time">17:00–18:00</span><span class="slot-status">9 slots</span></div>
+        <div class="slot-btn avail"><span class="slot-time">19:30–20:30</span><span class="slot-status">4 slots</span></div>
+        <div class="slot-btn avail"><span class="slot-time">21:30–22:30</span><span class="slot-status">6 slots</span></div>
+        <div class="slot-btn avail"><span class="slot-time">22:30–23:30</span><span class="slot-status">8 slots</span></div>
+      </div>
+
+      <div class="swp-divider"></div>
+
+      <!-- GRID SYSTEM MODULE 4: HIGH SCALABILITY 4 COLUMNS AMENITIES ITEMS LAYOUT -->
+      <div class="sec-label">Facilities &amp; Amenities</div>
+      <div class="amenities-grid">
+        <div class="amenity-item"><div class="amenity-icon">🎿</div><span class="amenity-lbl">Ski Rental</span></div>
+        <div class="amenity-item"><div class="amenity-icon">🏂</div><span class="amenity-lbl">Snowboard</span></div>
+        <div class="amenity-item"><div class="amenity-icon">🎓</div><span class="amenity-lbl">Ski School</span></div>
+        <div class="amenity-item"><div class="amenity-icon">🔒</div><span class="amenity-lbl">Lockers</span></div>
+        <div class="amenity-item"><div class="amenity-icon">🍽️</div><span class="amenity-lbl">Restaurant</span></div>
+        <div class="amenity-item"><div class="amenity-icon">☕</div><span class="amenity-lbl">Café</span></div>
+        <div class="amenity-item"><div class="amenity-icon">🅿️</div><span class="amenity-lbl">Parking</span></div>
+        <div class="amenity-item"><div class="amenity-icon">📶</div><span class="amenity-lbl">Free Wi-Fi</span></div>
+        <div class="amenity-item"><div class="amenity-icon">👗</div><span class="amenity-lbl">Changing</span></div>
+        <div class="amenity-item"><div class="amenity-icon">🏥</div><span class="amenity-lbl">Medical</span></div>
+        <div class="amenity-item"><div class="amenity-icon">👀</div><span class="amenity-lbl">Spectator</span></div>
+        <div class="amenity-item"><div class="amenity-icon">🛒</div><span class="amenity-lbl">Shop</span></div>
+      </div>
+
+      <!-- DESCRIPTION BLOCK TEXT MODULES -->
+      <div class="swp-divider"></div>
+      <div class="sec-label">About Club</div>
+      <div class="about-box">
+        <p class="about-txt">SnowWorld Amsterdam is the perfect place for skiing and snowboarding all year round. With real snow slopes, modern lifts and expert instructors, it's ideal for beginners and pros alike.</p>
+        <div class="about-link">Read more ↓</div>
+      </div>
+
+    </div>
+
+    <!-- Sticky Overlay Footers Dynamic Controls Bar -->
+    <div class="swp-detail-footer">
+      <div class="footer-left">
+        <span class="footer-lbl">From</span>
+        <div class="footer-price-row">€42 <span>/ hour</span></div>
+      </div>
+      <div class="footer-right">
+        <button class="btn-footer-cta">Book Slope Session</button>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

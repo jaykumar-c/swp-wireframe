@@ -1,0 +1,2139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShallWePlay - Pricing & Cancellation Configuration</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@500;600;700;800&display=swap');
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: #F8FAFC;
+      font-family: 'Lato', sans-serif;
+      color: #11181C;
+      padding: 24px 16px;
+    }
+
+    @media (min-width: 768px) {
+      body {
+        padding: 32px 24px;
+      }
+    }
+
+    .admin-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    @media (min-width: 768px) {
+      .admin-container {
+        padding: 32px;
+      }
+    }
+
+    /* ── HEADER ── */
+    .hdr-row {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+
+    @media (min-width: 768px) {
+      .hdr-row {
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+
+    .hdr-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: #11181C;
+    }
+
+    .hdr-subtitle {
+      font-size: 14px;
+      color: #687076;
+      margin-top: -8px;
+    }
+
+    .hdr-actions {
+      display: flex;
+      gap: 12px;
+      width: 100%;
+    }
+
+    @media (min-width: 768px) {
+      .hdr-actions {
+        width: auto;
+      }
+    }
+
+    .btn {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      flex: 1;
+    }
+
+    @media (min-width: 768px) {
+      .btn {
+        flex: 0 1 auto;
+      }
+    }
+
+    .btn-outline {
+      background: #FFFFFF;
+      border: 1px solid #E5E5E5;
+      color: #687076;
+    }
+
+    .btn-outline:hover {
+      background: #F5F5F5;
+      border-color: #D1D5DB;
+    }
+
+    .btn-primary {
+      background: #2563EB;
+      color: #FFFFFF;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: #1D4ED8;
+    }
+
+    .btn-primary:disabled {
+      background: #93C5FD;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary-action {
+      background: #FFF0F0;
+      color: #E63900;
+    }
+
+    .btn-secondary-action:hover {
+      background: #FFE2E2;
+    }
+
+    .btn-sm {
+      padding: 8px 14px;
+      font-size: 13px;
+    }
+
+    .btn-success {
+      background: #10B981;
+      color: #FFFFFF;
+    }
+
+    .btn-success:hover {
+      background: #059669;
+    }
+
+    .btn-icon {
+      width: 36px;
+      height: 36px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      background: #FFFFFF;
+      border: 1px solid #E5E5E5;
+      color: #687076;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .btn-icon:hover {
+      background: #F5F5F5;
+      border-color: #D1D5DB;
+    }
+
+    .btn-icon.delete:hover {
+      background: #FFF0F0;
+      border-color: #FFE2E2;
+      color: #E63900;
+    }
+
+    /* ── STEP TRACKER ── */
+    .step-tracker {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    @media (min-width: 640px) {
+      .step-tracker {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .step-tracker {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1px;
+        background-color: #E5E5E5;
+        border: 1px solid #E5E5E5;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+    }
+
+    .step-item {
+      background: #FFFFFF;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      border: 1px solid #E5E5E5;
+      border-radius: 6px;
+    }
+
+    @media (min-width: 1024px) {
+      .step-item {
+        border: none;
+        border-radius: 0;
+        padding: 14px 20px;
+      }
+    }
+
+    .step-item.is-active {
+      background: #2563EB;
+      color: #FFFFFF;
+      border-color: #2563EB;
+    }
+
+    .step-num-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .step-desc {
+      font-size: 12px;
+      color: #777777;
+    }
+
+    .step-item.is-active .step-desc {
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    /* ── NOTICE BAR ── */
+    .notice-bar {
+      background-color: #FFF4E5;
+      border: 1px solid #FFE0B2;
+      border-radius: 8px;
+      padding: 16px 20px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+
+    .notice-icon {
+      font-size: 18px;
+      line-height: 1;
+      color: #F57C00;
+      flex-shrink: 0;
+    }
+
+    .notice-content h5 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #B26A00;
+      margin-bottom: 2px;
+    }
+
+    .notice-content p {
+      font-size: 13px;
+      color: #B26A00;
+      line-height: 1.4;
+    }
+
+    /* ── CATEGORY MANAGEMENT SECTION ── */
+    .category-management-section {
+      background: #FFFFFF;
+      border: 1px solid #E5E5E5;
+      border-radius: 8px;
+      padding: 0;
+      margin-bottom: 24px;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    }
+
+    .category-section-header {
+      padding: 20px;
+      border-bottom: 1px solid #E5E5E5;
+      background: #F9FAFB;
+    }
+
+    .category-management-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #11181C;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+    }
+
+    .category-section-description {
+      font-size: 12px;
+      color: #687076;
+      margin-top: 6px;
+    }
+
+    /* ── QUICK ADD ROW ── */
+    .category-quick-add {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 16px 20px;
+      background: #F0F7FF;
+      border-bottom: 2px solid #BFDBFE;
+    }
+
+    .quick-add-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #1E40AF;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .quick-add-input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid #BFDBFE;
+      border-radius: 6px;
+      font-family: 'Lato', sans-serif;
+      font-size: 14px;
+      color: #11181C;
+      outline: none;
+      transition: all 0.2s ease;
+      background: #FFFFFF;
+    }
+
+    .quick-add-input:focus {
+      border-color: #2563EB;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .quick-add-input::placeholder {
+      color: #999;
+    }
+
+    .quick-add-btn {
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    /* ── CATEGORY TABLE ── */
+    .category-table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .category-row {
+      display: flex;
+      align-items: center;
+      padding: 14px 20px;
+      border-bottom: 1px solid #E5E5E5;
+      transition: all 0.2s ease;
+      background: #FFFFFF;
+    }
+
+    .category-row:last-child {
+      border-bottom: none;
+    }
+
+    .category-row:hover {
+      background: #F9FAFB;
+    }
+
+    .category-row.inactive {
+      opacity: 0.65;
+      background: #F9FAFB;
+    }
+
+    /* Column: Drag/Status Indicator */
+    .category-col-indicator {
+      width: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 16px;
+      color: #D1D5DB;
+      cursor: grab;
+    }
+
+    .category-row.inactive .category-col-indicator {
+      opacity: 0.5;
+    }
+
+    /* Column: Status Toggle */
+    .category-col-toggle {
+      width: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Column: Name */
+    .category-col-name {
+      flex: 1;
+      min-width: 180px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .category-name-input {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid #E5E5E5;
+      border-radius: 4px;
+      font-family: 'Lato', sans-serif;
+      font-size: 14px;
+      color: #11181C;
+      outline: none;
+      transition: all 0.2s ease;
+      background: #FFFFFF;
+    }
+
+    .category-name-input:focus {
+      border-color: #2563EB;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .category-row.inactive .category-name-input {
+      background: #F5F5F5;
+      color: #999;
+    }
+
+    /* Column: Actions */
+    .category-col-actions {
+      width: auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    /* ── INLINE DELETE CONFIRMATION ── */
+    .delete-confirmation-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.3);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .delete-confirmation-overlay.active {
+      display: flex;
+    }
+
+    .delete-confirmation-modal {
+      background: #FFFFFF;
+      border-radius: 8px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      padding: 24px;
+      max-width: 400px;
+      width: 90%;
+      animation: slideUp 0.2s ease;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .delete-confirmation-icon {
+      font-size: 40px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .delete-confirmation-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #11181C;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .delete-confirmation-message {
+      font-size: 14px;
+      color: #687076;
+      text-align: center;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .delete-confirmation-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .delete-confirmation-actions button {
+      flex: 1;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .delete-confirmation-actions .cancel-btn {
+      background: #E5E5E5;
+      color: #11181C;
+    }
+
+    .delete-confirmation-actions .cancel-btn:hover {
+      background: #D1D5DB;
+    }
+
+    .delete-confirmation-actions .confirm-btn {
+      background: #E63900;
+      color: #FFFFFF;
+    }
+
+    .delete-confirmation-actions .confirm-btn:hover {
+      background: #C53000;
+    }
+
+    /* ── TOGGLE SWITCH ── */
+    .swp-switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 28px;
+      flex-shrink: 0;
+    }
+
+    .swp-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider-track {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #E5E5E5;
+      transition: 0.3s;
+      border-radius: 28px;
+    }
+
+    .slider-track:before {
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.3s;
+      border-radius: 50%;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    input:checked + .slider-track {
+      background-color: #2563EB;
+    }
+
+    input:checked + .slider-track:before {
+      transform: translateX(22px);
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      background: #FFFFFF;
+      color: #9CA3AF;
+    }
+
+    .empty-state-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+    }
+
+    .empty-state-text {
+      font-size: 14px;
+      color: #9CA3AF;
+    }
+
+    /* ── CATEGORY TAB SYSTEM ── */
+    .category-tabs-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .category-tabs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 8px;
+      padding: 16px;
+      background: #F9FAFB;
+      border-radius: 8px;
+      border: 1px solid #E5E5E5;
+    }
+
+    @media (min-width: 768px) {
+      .category-tabs {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      }
+    }
+
+    .category-tab {
+      padding: 12px 16px;
+      background: #FFFFFF;
+      border: 1px solid #E5E5E5;
+      border-radius: 6px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #687076;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .category-tab:hover {
+      border-color: #D1D5DB;
+      background: #F3F4F6;
+    }
+
+    .category-tab.active {
+      background: #2563EB;
+      color: #FFFFFF;
+      border-color: #2563EB;
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.2);
+    }
+
+    .category-tab.inactive-tab {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* ── COPY ACTION ROW ── */
+    .copy-action-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding: 12px 16px;
+      background: #F0F7FF;
+      border: 1px solid #BFDBFE;
+      border-radius: 8px;
+      flex-wrap: wrap;
+    }
+
+    .copy-action-row label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #1E40AF;
+      margin: 0;
+    }
+
+    .copy-action-row select {
+      padding: 8px 12px;
+      border: 1px solid #BFDBFE;
+      border-radius: 6px;
+      font-family: 'Lato', sans-serif;
+      font-size: 13px;
+      background: #FFFFFF;
+      color: #11181C;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      background-size: 16px;
+      padding-right: 32px;
+    }
+
+    .copy-action-row button {
+      padding: 8px 16px;
+      background: #10B981;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 6px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .copy-action-row button:hover {
+      background: #059669;
+    }
+
+    .copy-action-row button:disabled {
+      background: #D1FAE5;
+      color: #6EE7B7;
+      cursor: not-allowed;
+    }
+
+    /* ── ACCORDION HEADER ROW ── */
+    .accordion-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #E5E5E5;
+    }
+
+    .accordion-header-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #11181C;
+    }
+
+    /* ── ACCORDION CONTAINER ── */
+    .accordion-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .accordion-item {
+      background: #FFFFFF;
+      border: 1px solid #E5E5E5;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+    }
+
+    .accordion-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      background: #F9FAFB;
+      cursor: pointer;
+      border-bottom: 1px solid #E5E5E5;
+      transition: all 0.2s ease;
+    }
+
+    .accordion-header:hover {
+      background: #EDF5FF;
+    }
+
+    .accordion-header.expanded {
+      background: #EDF5FF;
+      border-bottom-color: #2563EB;
+    }
+
+    .accordion-title-group {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+    }
+
+    .accordion-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: #11181C;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .accordion-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      background: #2563EB;
+      color: #FFFFFF;
+      border-radius: 50%;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .accordion-subtitle {
+      font-size: 12px;
+      color: #777777;
+      margin-left: 32px;
+    }
+
+    .accordion-toggle-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .accordion-toggle-text {
+      font-size: 13px;
+      color: #687076;
+    }
+
+    .accordion-expand-icon {
+      font-size: 18px;
+      transition: transform 0.2s ease;
+      color: #687076;
+    }
+
+    .accordion-header.expanded .accordion-expand-icon {
+      transform: rotate(180deg);
+    }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .accordion-content.expanded {
+      max-height: 2000px;
+    }
+
+    .accordion-body {
+      padding: 24px 20px;
+    }
+
+    /* ── FORM FIELDS ── */
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .field-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .field-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: #687076;
+    }
+
+    .field-label .required {
+      color: #E63900;
+      font-weight: 700;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .form-control {
+      width: 100%;
+      height: 44px;
+      background: #FFFFFF;
+      border: 1px solid #E5E5E5;
+      border-radius: 6px;
+      padding: 0 14px;
+      font-family: 'Lato', sans-serif;
+      font-size: 14px;
+      color: #11181C;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .form-control:focus {
+      border-color: #2563EB;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .form-control:disabled {
+      background: #F5F5F5;
+      color: #999;
+      cursor: not-allowed;
+    }
+
+    select.form-control {
+      appearance: none;
+      cursor: pointer;
+      padding-right: 40px;
+    }
+
+    .select-arrow {
+      position: absolute;
+      right: 14px;
+      pointer-events: none;
+      font-size: 12px;
+      color: #687076;
+    }
+
+    .input-icon-right {
+      position: absolute;
+      right: 14px;
+      pointer-events: none;
+      font-size: 16px;
+      color: #687076;
+    }
+
+    .field-hint {
+      font-size: 12px;
+      color: #777777;
+    }
+
+    textarea.form-control {
+      height: auto;
+      padding: 12px 14px;
+      resize: vertical;
+      min-height: 100px;
+      font-family: 'Lato', sans-serif;
+    }
+
+    /* ── GRID LAYOUTS ── */
+    .form-grid-1 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .form-grid-2 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .form-grid-3 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .form-grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* ── SHARED NOTE ── */
+    .shared-note {
+      background: #F0F7FF;
+      border: 1px solid #BFDBFE;
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #1E40AF;
+      margin-bottom: 20px;
+    }
+
+    /* ── BULK ACTION CHECKBOX ── */
+    .bulk-action-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      background: #F9FAFB;
+      border: 1px solid #E5E5E5;
+      border-radius: 8px;
+      margin-bottom: 28px;
+    }
+
+    .bulk-action-checkbox {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      accent-color: #2563EB;
+    }
+
+    .bulk-action-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #11181C;
+      cursor: pointer;
+      flex: 1;
+    }
+
+    .bulk-action-hint {
+      font-size: 12px;
+      color: #777777;
+    }
+
+    /* ── BOTTOM ACTIONS ── */
+    .bottom-actions-row {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid #E5E5E5;
+    }
+
+    @media (min-width: 640px) {
+      .bottom-actions-row {
+        flex-direction: row;
+        justify-content: flex-end;
+      }
+    }
+
+    /* ── UTILITY CLASSES ── */
+    .hidden {
+      display: none;
+    }
+
+  
+    /* User overrides */
+    body {
+      padding: 25px;
+    }
+    .title {
+      color: #5C6AC4;
+    }
+
+  </style>
+<base target="_blank">
+</head>
+<body>
+
+  <div class="admin-container">
+    
+    <!-- HEADER -->
+    <div class="hdr-row">
+      <div>
+        <h1 class="hdr-title title">Sports Rules</h1>
+        <p class="hdr-subtitle">Configure pricing & cancellation for Indoor Skiing</p>
+      </div>
+      <div class="hdr-actions">
+        <button class="btn btn-outline">← Back</button>
+        <button class="btn btn-primary">Save & Continue</button>
+      </div>
+    </div>
+
+    <!-- STEP TRACKER -->
+    <div class="step-tracker">
+      <div class="step-item">
+        <span class="step-num-title">1. Booking Rules</span>
+        <span class="step-desc">Configure behavior</span>
+      </div>
+      <div class="step-item is-active">
+        <span class="step-num-title">2. Pricing &amp; Cancellation</span>
+        <span class="step-desc">Set pricing and fees</span>
+      </div>
+      <div class="step-item">
+        <span class="step-num-title">3. Assets</span>
+        <span class="step-desc">Add facilities</span>
+      </div>
+      <div class="step-item">
+        <span class="step-num-title">4. Equipment</span>
+        <span class="step-desc">Manage inventory</span>
+      </div>
+    </div>
+
+    <!-- NOTICE -->
+    <div class="notice-bar">
+      <div class="notice-icon">ℹ️</div>
+      <div class="notice-content">
+        <h5>Pricing Requires Active Booking Rules</h5>
+        <p>Complete booking configuration first. Each category can be configured independently or copied from existing categories.</p>
+      </div>
+    </div>
+
+    <!-- SPORT SELECTOR (Disabled) -->
+    <div class="field-group" style="margin-bottom: 24px;">
+      <label class="field-label">Sport</label>
+      <div class="input-wrapper">
+        <select class="form-control" disabled>
+          <option selected>Indoor Skiing</option>
+        </select>
+        <span class="select-arrow">▼</span>
+      </div>
+    </div>
+
+    <!-- CATEGORY MANAGEMENT SECTION -->
+    <div class="category-management-section">
+      <div class="category-section-header">
+        <h4 class="category-management-title">⚙️ Manage Categories</h4>
+        <p class="category-section-description">Create, activate, rename, and delete pricing categories. At least one active category is required.</p>
+      </div>
+
+      <!-- QUICK ADD ROW -->
+      <div class="category-quick-add">
+        <span class="quick-add-label">➕ NEW</span>
+        <input 
+          type="text" 
+          class="quick-add-input" 
+          id="newCategoryInput" 
+          placeholder="e.g., VIP, Corporate, Off-Peak..."
+        >
+        <button class="btn btn-primary btn-sm quick-add-btn" onclick="addNewCategory()">+ Add Category</button>
+      </div>
+
+      <!-- CATEGORY ROWS -->
+      <div id="categoryList">
+        <!-- Categories will be rendered here dynamically -->
+      </div>
+    </div>
+
+    <!-- CATEGORY TAB SYSTEM WITH COPY ACTION -->
+    <div class="category-tabs-wrapper">
+      <div class="category-tabs" id="categoryTabs">
+        <!-- Category tabs will be rendered here dynamically -->
+      </div>
+
+      <!-- COPY FROM ACTION ROW -->
+      <div class="copy-action-row">
+        <label for="copyFromSelect">📋 Copy pricing from:</label>
+        <select id="copyFromSelect">
+          <option value="">Select category...</option>
+          <!-- Options will be rendered here dynamically -->
+        </select>
+        <button onclick="copyFromCategory()">✓ Copy</button>
+      </div>
+    </div>
+
+    <!-- BULK ACTION CHECKBOX -->
+    <div class="bulk-action-row">
+      <input type="checkbox" class="bulk-action-checkbox" id="bulkActionCheck" onchange="toggleBulkAction()">
+      <label for="bulkActionCheck" class="bulk-action-label">Apply changes to all categories</label>
+      <span class="bulk-action-hint">When enabled, your changes will apply to all pricing categories</span>
+    </div>
+
+    <!-- ACCORDION HEADER ROW WITH COLLAPSE/EXPAND ALL -->
+    <div class="accordion-header-row">
+      <h3 class="accordion-header-title">Pricing Sections</h3>
+      <button class="btn btn-outline btn-sm" id="collapseExpandBtn" onclick="toggleAllAccordions()">
+        📂 Collapse All
+      </button>
+    </div>
+
+    <!-- ACCORDION CONTAINER -->
+    <div class="accordion-wrapper" id="accordionContainer">
+      
+      <!-- 1. BASE PRICING -->
+      <div class="accordion-item" data-section="base-pricing">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-group">
+            <div class="accordion-title">
+              <span class="accordion-num">1</span>
+              Base Pricing
+            </div>
+            <div class="accordion-subtitle">Member & non-member hourly rates</div>
+          </div>
+          <div class="accordion-toggle-group">
+            <span class="accordion-expand-icon">▼</span>
+          </div>
+        </div>
+        <div class="accordion-content expanded">
+          <div class="accordion-body">
+            <div class="form-grid-2">
+              <div class="field-group">
+                <label class="field-label">Member Rate (€/hour) <span class="required">*</span></label>
+                <div class="input-wrapper">
+                  <input type="text" class="form-control" data-field="memberBase" placeholder="e.g., 42">
+                  <span class="input-icon-right">€</span>
+                </div>
+                <span class="field-hint">Rate for registered members</span>
+              </div>
+              <div class="field-group">
+                <label class="field-label">Non-Member Rate (€/hour) <span class="required">*</span></label>
+                <div class="input-wrapper">
+                  <input type="text" class="form-control" data-field="nonmemberBase" placeholder="e.g., 55">
+                  <span class="input-icon-right">€</span>
+                </div>
+                <span class="field-hint">Rate for non-registered users</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. PEAK HOUR PRICING -->
+      <div class="accordion-item" data-section="peak-pricing">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-group">
+            <div class="accordion-title">
+              <span class="accordion-num">2</span>
+              Peak Hour Pricing
+            </div>
+            <div class="accordion-subtitle">Premium rates during peak hours</div>
+          </div>
+          <div class="accordion-toggle-group">
+            <label class="swp-switch" onclick="event.stopPropagation()">
+              <input type="checkbox" data-field="peakEnabled" onchange="togglePeakSection(this)">
+              <span class="slider-track"></span>
+            </label>
+            <span class="accordion-expand-icon">▼</span>
+          </div>
+        </div>
+        <div class="accordion-content">
+          <div class="accordion-body peak-section-content hidden">
+            <div class="form-grid-2">
+              <div class="field-group">
+                <label class="field-label">Peak Member Rate (€/hour) <span class="required">*</span></label>
+                <div class="input-wrapper">
+                  <input type="text" class="form-control" data-field="peakMemberRate" placeholder="e.g., 52">
+                  <span class="input-icon-right">€</span>
+                </div>
+              </div>
+              <div class="field-group">
+                <label class="field-label">Peak Non-Member Rate (€/hour) <span class="required">*</span></label>
+                <div class="input-wrapper">
+                  <input type="text" class="form-control" data-field="peakNonmemberRate" placeholder="e.g., 65">
+                  <span class="input-icon-right">€</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-grid-2" style="margin-top: 16px;">
+              <div class="field-group">
+                <label class="field-label">Peak Start Time <span class="required">*</span></label>
+                <input type="time" class="form-control" data-field="peakStartTime" value="07:00">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Peak End Time <span class="required">*</span></label>
+                <input type="time" class="form-control" data-field="peakEndTime" value="10:00">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. WEEKEND PRICING -->
+      <div class="accordion-item" data-section="weekend-pricing">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-group">
+            <div class="accordion-title">
+              <span class="accordion-num">3</span>
+              Weekend Pricing
+            </div>
+            <div class="accordion-subtitle">Saturday & Sunday rates</div>
+          </div>
+          <div class="accordion-toggle-group">
+            <label class="swp-switch" onclick="event.stopPropagation()">
+              <input type="checkbox" data-field="weekendEnabled" onchange="toggleWeekendSection(this)">
+              <span class="slider-track"></span>
+            </label>
+            <span class="accordion-expand-icon">▼</span>
+          </div>
+        </div>
+        <div class="accordion-content">
+          <div class="accordion-body weekend-section-content hidden">
+            <div class="form-grid-2">
+              <div class="field-group">
+                <label class="field-label">Weekend Member Rate (€/hour) <span class="required">*</span></label>
+                <div class="input-wrapper">
+                  <input type="text" class="form-control" data-field="weekendMember" placeholder="e.g., 48">
+                  <span class="input-icon-right">€</span>
+                </div>
+              </div>
+              <div class="field-group">
+                <label class="field-label">Weekend Non-Member Rate (€/hour) <span class="required">*</span></label>
+                <div class="input-wrapper">
+                  <input type="text" class="form-control" data-field="weekendNonmember" placeholder="e.g., 62">
+                  <span class="input-icon-right">€</span>
+                </div>
+              </div>
+              <div class="field-group">
+                <label class="field-label">Fixed Block Duration(in - hour) <span class="required">*</span></label>
+                <div class="input-wrapper">
+                  <input type="text" class="form-control" data-field="blockDuration" placeholder="e.g., 2">
+                  <span class="input-icon-right">€</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. HOLIDAY PRICING -->
+      <div class="accordion-item" data-section="holiday-pricing">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-group">
+            <div class="accordion-title">
+              <span class="accordion-num">4</span>
+              Holiday Pricing
+            </div>
+            <div class="accordion-subtitle">Special holiday rates</div>
+          </div>
+          <div class="accordion-toggle-group">
+            <label class="swp-switch" onclick="event.stopPropagation()">
+              <input type="checkbox" data-field="holidayEnabled" onchange="toggleHolidaySection(this)">
+              <span class="slider-track"></span>
+            </label>
+            <span class="accordion-expand-icon">▼</span>
+          </div>
+        </div>
+        <div class="accordion-content">
+          <div class="accordion-body holiday-section-content hidden">
+            <div class="form-grid-2">
+              <div class="field-group">
+                <label class="field-label">Holiday Member Rate (€/hour) <span class="required">*</span></label>
+                <div class="input-wrapper">
+                  <input type="text" class="form-control" data-field="holidayMember" placeholder="e.g., 65">
+                  <span class="input-icon-right">€</span>
+                </div>
+              </div>
+              <div class="field-group">
+                <label class="field-label">Holiday Non-Member Rate (€/hour) <span class="required">*</span></label>
+                <div class="input-wrapper">
+                  <input type="text" class="form-control" data-field="holidayNonmember" placeholder="e.g., 85">
+                  <span class="input-icon-right">€</span>
+                </div>
+              </div>
+            </div>
+            <div class="field-group" style="margin-top: 16px;">
+              <label class="field-label">Holiday Calendar</label>
+              <div class="input-wrapper">
+                <select class="form-control" data-field="holidayCalendar">
+                  <option value="">Select holiday calendar</option>
+                  <option selected>Default (National Holidays)</option>
+                </select>
+                <span class="select-arrow">▼</span>
+              </div>
+              <span class="field-hint">Holidays are managed in club settings</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. CANCELLATION POLICY (Shared) -->
+      <div class="accordion-item" data-section="cancellation-policy">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-group">
+            <div class="accordion-title">
+              <span class="accordion-num">5</span>
+              Cancellation Policy
+            </div>
+            <div class="accordion-subtitle">Cancellation and no-show fees (applies to all categories)</div>
+          </div>
+          <div class="accordion-toggle-group">
+            <span class="accordion-expand-icon">▼</span>
+          </div>
+        </div>
+        <div class="accordion-content expanded">
+          <div class="accordion-body">
+            <div class="shared-note">
+              ℹ️ These cancellation terms apply to all pricing categories
+            </div>
+            <div class="field-group">
+              <label class="field-label">Policy Description <span class="required">*</span></label>
+              <textarea class="form-control" data-field="policyDesc" placeholder="Describe your cancellation policy..."></textarea>
+              <span class="field-hint">Clear cancellation terms for all users</span>
+            </div>
+            <div class="form-grid-3">
+              <div class="field-group">
+                <label class="field-label">Free Cancellation Window (Hours)</label>
+                <input type="text" class="form-control" data-field="cancelWindow" placeholder="e.g., 24">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Member Late Cancel Fee (%)</label>
+                <input type="text" class="form-control" data-field="memberCancelFee" placeholder="e.g., 15">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Non-Member Late Cancel Fee (%)</label>
+                <input type="text" class="form-control" data-field="nonmemberCancelFee" placeholder="e.g., 25">
+              </div>
+            </div>
+            <div class="form-grid-2" style="margin-top: 16px;">
+              <div class="field-group">
+                <label class="field-label">No-Show Fee (%)</label>
+                <input type="text" class="form-control" data-field="noshowFee" placeholder="e.g., 50">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FOOTER ACTIONS -->
+    <div class="bottom-actions-row">
+      <button class="btn btn-secondary-action">Cancel</button>
+      <button class="btn btn-primary">Save Pricing Configuration</button>
+    </div>
+
+  </div>
+
+  <!-- DELETE CONFIRMATION MODAL -->
+  <div class="delete-confirmation-overlay" id="deleteConfirmationOverlay">
+    <div class="delete-confirmation-modal">
+      <div class="delete-confirmation-icon">⚠️</div>
+      <h3 class="delete-confirmation-title">Delete Category?</h3>
+      <p class="delete-confirmation-message">
+        This action cannot be undone. The category <strong id="deleteCategoryName"></strong> will be permanently deleted.
+      </p>
+      <div class="delete-confirmation-actions">
+        <button class="cancel-btn" onclick="cancelDeleteCategory()">Cancel</button>
+        <button class="confirm-btn" onclick="confirmDeleteCategory()">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+// ════════════════════════════════════════════════════════════════════════════
+// PRICING DATA MODEL
+// ════════════════════════════════════════════════════════════════════════════
+
+const pricingData = {
+  adult: {
+    displayName: 'Adult',
+    isActive: true,
+    memberBase: '42',
+    nonmemberBase: '55',
+    peakEnabled: true,
+    peakMemberRate: '52',
+    peakNonmemberRate: '65',
+    peakStartTime: '07:00',
+    peakEndTime: '10:00',
+    weekendEnabled: true,
+    weekendMember: '48',
+    weekendNonmember: '62',
+    blockDuration: '2',
+    holidayEnabled: false,
+    holidayMember: '65',
+    holidayNonmember: '85',
+    holidayCalendar: 'Default (National Holidays)',
+    policyDesc: '',
+    cancelWindow: '24',
+    memberCancelFee: '15',
+    nonmemberCancelFee: '25',
+    noshowFee: '50'
+  },
+  child: {
+    displayName: 'Child',
+    isActive: true,
+    memberBase: '28',
+    nonmemberBase: '40',
+    peakEnabled: false,
+    peakMemberRate: '35',
+    peakNonmemberRate: '48',
+    peakStartTime: '07:00',
+    peakEndTime: '10:00',
+    weekendEnabled: true,
+    weekendMember: '32',
+    weekendNonmember: '45',
+    blockDuration: '2',
+    holidayEnabled: false,
+    holidayMember: '',
+    holidayNonmember: '',
+    holidayCalendar: 'Default (National Holidays)',
+    policyDesc: '',
+    cancelWindow: '24',
+    memberCancelFee: '15',
+    nonmemberCancelFee: '25',
+    noshowFee: '50'
+  },
+  student: {
+    displayName: 'Student',
+    isActive: true,
+    memberBase: '35',
+    nonmemberBase: '48',
+    peakEnabled: false,
+    peakMemberRate: '42',
+    peakNonmemberRate: '55',
+    peakStartTime: '07:00',
+    peakEndTime: '10:00',
+    weekendEnabled: true,
+    weekendMember: '40',
+    weekendNonmember: '53',
+    blockDuration: '2',
+    holidayEnabled: false,
+    holidayMember: '',
+    holidayNonmember: '',
+    holidayCalendar: 'Default (National Holidays)',
+    policyDesc: '',
+    cancelWindow: '24',
+    memberCancelFee: '15',
+    nonmemberCancelFee: '25',
+    noshowFee: '50'
+  },
+  senior: {
+    displayName: 'Senior',
+    isActive: true,
+    memberBase: '32',
+    nonmemberBase: '42',
+    peakEnabled: false,
+    peakMemberRate: '40',
+    peakNonmemberRate: '52',
+    peakStartTime: '07:00',
+    peakEndTime: '10:00',
+    weekendEnabled: true,
+    weekendMember: '36',
+    weekendNonmember: '48',
+    blockDuration: '2',
+    holidayEnabled: false,
+    holidayMember: '',
+    holidayNonmember: '',
+    holidayCalendar: 'Default (National Holidays)',
+    policyDesc: '',
+    cancelWindow: '24',
+    memberCancelFee: '15',
+    nonmemberCancelFee: '25',
+    noshowFee: '50'
+  },
+  family: {
+    displayName: 'Family',
+    isActive: true,
+    memberBase: '120',
+    nonmemberBase: '160',
+    peakEnabled: false,
+    peakMemberRate: '140',
+    peakNonmemberRate: '185',
+    peakStartTime: '07:00',
+    peakEndTime: '10:00',
+    weekendEnabled: true,
+    weekendMember: '140',
+    weekendNonmember: '185',
+    blockDuration: '2',
+    holidayEnabled: false,
+    holidayMember: '',
+    holidayNonmember: '',
+    holidayCalendar: 'Default (National Holidays)',
+    policyDesc: '',
+    cancelWindow: '24',
+    memberCancelFee: '15',
+    nonmemberCancelFee: '25',
+    noshowFee: '50'
+  }
+};
+
+let currentCategory = 'adult';
+let bulkActionEnabled = false;
+let allExpanded = true;
+let pendingDeleteKey = null;
+
+// ════════════════════════════════════════════════════════════════════════════
+// INITIALIZATION
+// ════════════════════════════════════════════════════════════════════════════
+
+document.addEventListener('DOMContentLoaded', function() {
+  renderCategoryManagement();
+  renderCategoryTabs();
+  renderCopyDropdown();
+  loadPricingData(currentCategory);
+  
+  document.getElementById('newCategoryInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      addNewCategory();
+    }
+  });
+});
+
+// ════════════════════════════════════════════════════════════════════════════
+// CATEGORY MANAGEMENT RENDERING - TABLE/ROW STYLE
+// ════════════════════════════════════════════════════════════════════════════
+
+function renderCategoryManagement() {
+  const container = document.getElementById('categoryList');
+  container.innerHTML = '';
+
+  const categories = Object.entries(pricingData);
+  
+  if (categories.length === 0) {
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-icon">📭</div>
+        <div class="empty-state-text">No categories yet. Create one to get started.</div>
+      </div>
+    `;
+    return;
+  }
+
+  categories.forEach(([key, data]) => {
+    const row = document.createElement('div');
+    row.className = 'category-row' + (data.isActive ? '' : ' inactive');
+    row.setAttribute('data-category-key', key);
+
+    row.innerHTML = `
+      <div class="category-col-indicator" title="Category">≡</div>
+      
+      <div class="category-col-toggle">
+        <label class="swp-switch">
+          <input 
+            type="checkbox" 
+            ${data.isActive ? 'checked' : ''}
+            onchange="toggleCategoryStatus('${key}', this.checked)"
+          >
+          <span class="slider-track"></span>
+        </label>
+      </div>
+      
+      <div class="category-col-name">
+        <input 
+          type="text" 
+          class="category-name-input" 
+          value="${data.displayName}"
+          data-category-key="${key}"
+          onblur="updateCategoryName('${key}', this.value)"
+          onkeypress="handleNameInputKeyPress(event, '${key}')"
+          ${data.isActive ? '' : 'disabled'}
+        >
+      </div>
+      
+      <div class="category-col-actions">
+        ${getActiveCategoryCount() > 1 ? `
+          <button 
+            class="btn-icon delete" 
+            onclick="initiateDeleteCategory('${key}')" 
+            title="Delete category"
+          >
+            🗑️
+          </button>
+        ` : ''}
+      </div>
+    `;
+    
+    container.appendChild(row);
+  });
+}
+
+function handleNameInputKeyPress(event, key) {
+  if (event.key === 'Enter') {
+    event.target.blur();
+    updateCategoryName(key, event.target.value);
+  }
+}
+
+function renderCategoryTabs() {
+  const container = document.getElementById('categoryTabs');
+  container.innerHTML = '';
+
+  Object.entries(pricingData).forEach(([key, data]) => {
+    const tab = document.createElement('button');
+    tab.className = 'category-tab' + (key === currentCategory ? ' active' : '') + (data.isActive ? '' : ' inactive-tab');
+    tab.setAttribute('data-category', key);
+    tab.textContent = data.displayName;
+    tab.disabled = !data.isActive;
+    tab.onclick = function(e) { 
+      if (data.isActive) {
+        switchCategory(e); 
+      }
+    };
+    container.appendChild(tab);
+  });
+}
+
+function renderCopyDropdown() {
+  const select = document.getElementById('copyFromSelect');
+  const currentValue = select.value;
+  select.innerHTML = '<option value="">Select category...</option>';
+
+  Object.entries(pricingData).forEach(([key, data]) => {
+    if (data.isActive) {
+      const option = document.createElement('option');
+      option.value = key;
+      option.textContent = data.displayName;
+      select.appendChild(option);
+    }
+  });
+
+  select.value = currentValue;
+}
+
+function getActiveCategoryCount() {
+  return Object.values(pricingData).filter(cat => cat.isActive).length;
+}
+
+function updateCategoryName(key, newName) {
+  if (!newName.trim()) {
+    alert('⚠️ Category name cannot be empty');
+    renderCategoryManagement();
+    return;
+  }
+
+  const normalizedName = newName.trim().substring(0, 50);
+  pricingData[key].displayName = normalizedName;
+
+  renderCategoryManagement();
+  renderCategoryTabs();
+  renderCopyDropdown();
+
+  console.log(`✓ Category "${key}" renamed to "${normalizedName}"`);
+}
+
+function toggleCategoryStatus(key, isActive) {
+  const activeCategoryCount = getActiveCategoryCount();
+
+  // Prevent deactivating the last active category
+  if (!isActive && activeCategoryCount === 1) {
+    alert('⚠️ You must have at least one active category');
+    renderCategoryManagement();
+    return;
+  }
+
+  pricingData[key].isActive = isActive;
+
+  // If deactivating the current category, switch to first active one
+  if (!isActive && currentCategory === key) {
+    const firstActiveKey = Object.keys(pricingData).find(k => pricingData[k].isActive);
+    currentCategory = firstActiveKey;
+    loadPricingData(currentCategory);
+  }
+
+  renderCategoryManagement();
+  renderCategoryTabs();
+  renderCopyDropdown();
+
+  console.log(`✓ Category "${key}" is now ${isActive ? 'active' : 'inactive'}`);
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// DELETE CATEGORY WITH INLINE CONFIRMATION
+// ════════════════════════════════════════════════════════════════════════════
+
+function initiateDeleteCategory(key) {
+  if (getActiveCategoryCount() === 1) {
+    alert('⚠️ You must have at least one active category');
+    return;
+  }
+
+  pendingDeleteKey = key;
+  document.getElementById('deleteCategoryName').textContent = pricingData[key].displayName;
+  document.getElementById('deleteConfirmationOverlay').classList.add('active');
+}
+
+function cancelDeleteCategory() {
+  pendingDeleteKey = null;
+  document.getElementById('deleteConfirmationOverlay').classList.remove('active');
+}
+
+function confirmDeleteCategory() {
+  if (!pendingDeleteKey) return;
+
+  const key = pendingDeleteKey;
+  const displayName = pricingData[key].displayName;
+
+  // Save current data before deletion
+  savePricingData(currentCategory);
+
+  delete pricingData[key];
+
+  // Switch to first remaining active category
+  const remainingKeys = Object.keys(pricingData);
+  currentCategory = remainingKeys[0];
+
+  renderCategoryManagement();
+  renderCategoryTabs();
+  renderCopyDropdown();
+  loadPricingData(currentCategory);
+
+  document.getElementById('deleteConfirmationOverlay').classList.remove('active');
+  pendingDeleteKey = null;
+
+  console.log(`✓ Category "${displayName}" deleted. Switched to "${currentCategory}"`);
+}
+
+function addNewCategory() {
+  const input = document.getElementById('newCategoryInput');
+  const newName = input.value.trim();
+
+  if (!newName) {
+    alert('⚠️ Please enter a category name');
+    return;
+  }
+
+  if (newName.length > 50) {
+    alert('⚠️ Category name must be less than 50 characters');
+    return;
+  }
+
+  // Generate unique key from name
+  let key = newName.toLowerCase().replace(/\s+/g, '_');
+  let counter = 1;
+  const originalKey = key;
+  
+  while (pricingData.hasOwnProperty(key)) {
+    key = `${originalKey}_${counter}`;
+    counter++;
+  }
+
+  // Create new category with baseline schema
+  pricingData[key] = {
+    displayName: newName,
+    isActive: true,
+    memberBase: '',
+    nonmemberBase: '',
+    peakEnabled: false,
+    peakMemberRate: '',
+    peakNonmemberRate: '',
+    peakStartTime: '07:00',
+    peakEndTime: '10:00',
+    weekendEnabled: false,
+    weekendMember: '',
+    weekendNonmember: '',
+    blockDuration: '',
+    holidayEnabled: false,
+    holidayMember: '',
+    holidayNonmember: '',
+    holidayCalendar: 'Default (National Holidays)',
+    policyDesc: '',
+    cancelWindow: '',
+    memberCancelFee: '',
+    nonmemberCancelFee: '',
+    noshowFee: ''
+  };
+
+  input.value = '';
+
+  renderCategoryManagement();
+  renderCategoryTabs();
+  renderCopyDropdown();
+
+  console.log(`✓ New category "${newName}" created with key "${key}"`);
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// CATEGORY SWITCHING
+// ════════════════════════════════════════════════════════════════════════════
+
+function switchCategory(event) {
+  const category = event.target.getAttribute('data-category');
+
+  // Only allow switching to active categories
+  if (!pricingData[category].isActive) {
+    return;
+  }
+
+  // Update tab active state
+  document.querySelectorAll('.category-tab').forEach(tab => {
+    tab.classList.remove('active');
+  });
+  event.target.classList.add('active');
+
+  // Save current category data before switching
+  savePricingData(currentCategory);
+
+  // Switch to new category
+  currentCategory = category;
+  loadPricingData(category);
+  
+  // Reset copy dropdown
+  document.getElementById('copyFromSelect').value = '';
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// COPY FROM CATEGORY
+// ════════════════════════════════════════════════════════════════════════════
+
+function copyFromCategory() {
+  const selectElement = document.getElementById('copyFromSelect');
+  const sourceCategory = selectElement.value;
+
+  if (!sourceCategory) {
+    alert('⚠️ Please select a category to copy from');
+    return;
+  }
+
+  if (sourceCategory === currentCategory) {
+    alert('⚠️ Please select a different category to copy from');
+    return;
+  }
+
+  const sourceData = pricingData[sourceCategory];
+  const targetData = pricingData[currentCategory];
+
+  // Copy all pricing fields (except category name and cancellation policy which is shared)
+  targetData.memberBase = sourceData.memberBase;
+  targetData.nonmemberBase = sourceData.nonmemberBase;
+  targetData.peakEnabled = sourceData.peakEnabled;
+  targetData.peakMemberRate = sourceData.peakMemberRate;
+  targetData.peakNonmemberRate = sourceData.peakNonmemberRate;
+  targetData.peakStartTime = sourceData.peakStartTime;
+  targetData.peakEndTime = sourceData.peakEndTime;
+  targetData.weekendEnabled = sourceData.weekendEnabled;
+  targetData.weekendMember = sourceData.weekendMember;
+  targetData.weekendNonmember = sourceData.weekendNonmember;
+  targetData.blockDuration = sourceData.blockDuration;
+  targetData.holidayEnabled = sourceData.holidayEnabled;
+  targetData.holidayMember = sourceData.holidayMember;
+  targetData.holidayNonmember = sourceData.holidayNonmember;
+  targetData.holidayCalendar = sourceData.holidayCalendar;
+
+  loadPricingData(currentCategory);
+
+  alert(`✓ Successfully copied ${sourceData.displayName} pricing to ${targetData.displayName}`);
+  selectElement.value = '';
+
+  console.log(`✓ Copied pricing from ${sourceCategory} to ${currentCategory}:`, targetData);
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// DATA LOADING & SAVING
+// ════════════════════════════════════════════════════════════════════════════
+
+function loadPricingData(category) {
+  const data = pricingData[category];
+
+  document.querySelector('[data-field="memberBase"]').value = data.memberBase;
+  document.querySelector('[data-field="nonmemberBase"]').value = data.nonmemberBase;
+
+  const peakToggle = document.querySelector('[data-field="peakEnabled"]');
+  peakToggle.checked = data.peakEnabled;
+  document.querySelector('[data-field="peakMemberRate"]').value = data.peakMemberRate;
+  document.querySelector('[data-field="peakNonmemberRate"]').value = data.peakNonmemberRate;
+  document.querySelector('[data-field="peakStartTime"]').value = data.peakStartTime;
+  document.querySelector('[data-field="peakEndTime"]').value = data.peakEndTime;
+
+  const weekendToggle = document.querySelector('[data-field="weekendEnabled"]');
+  weekendToggle.checked = data.weekendEnabled;
+  document.querySelector('[data-field="weekendMember"]').value = data.weekendMember;
+  document.querySelector('[data-field="weekendNonmember"]').value = data.weekendNonmember;
+  document.querySelector('[data-field="blockDuration"]').value = data.blockDuration;
+
+  const holidayToggle = document.querySelector('[data-field="holidayEnabled"]');
+  holidayToggle.checked = data.holidayEnabled;
+  document.querySelector('[data-field="holidayMember"]').value = data.holidayMember;
+  document.querySelector('[data-field="holidayNonmember"]').value = data.holidayNonmember;
+  document.querySelector('[data-field="holidayCalendar"]').value = data.holidayCalendar;
+
+  document.querySelector('[data-field="policyDesc"]').value = data.policyDesc;
+  document.querySelector('[data-field="cancelWindow"]').value = data.cancelWindow;
+  document.querySelector('[data-field="memberCancelFee"]').value = data.memberCancelFee;
+  document.querySelector('[data-field="nonmemberCancelFee"]').value = data.nonmemberCancelFee;
+  document.querySelector('[data-field="noshowFee"]').value = data.noshowFee;
+
+  updateSectionVisibility();
+}
+
+function savePricingData(category) {
+  const data = pricingData[category];
+
+  data.memberBase = document.querySelector('[data-field="memberBase"]').value;
+  data.nonmemberBase = document.querySelector('[data-field="nonmemberBase"]').value;
+
+  data.peakEnabled = document.querySelector('[data-field="peakEnabled"]').checked;
+  data.peakMemberRate = document.querySelector('[data-field="peakMemberRate"]').value;
+  data.peakNonmemberRate = document.querySelector('[data-field="peakNonmemberRate"]').value;
+  data.peakStartTime = document.querySelector('[data-field="peakStartTime"]').value;
+  data.peakEndTime = document.querySelector('[data-field="peakEndTime"]').value;
+
+  data.weekendEnabled = document.querySelector('[data-field="weekendEnabled"]').checked;
+  data.weekendMember = document.querySelector('[data-field="weekendMember"]').value;
+  data.weekendNonmember = document.querySelector('[data-field="weekendNonmember"]').value;
+  data.blockDuration = document.querySelector('[data-field="blockDuration"]').value;
+
+  data.holidayEnabled = document.querySelector('[data-field="holidayEnabled"]').checked;
+  data.holidayMember = document.querySelector('[data-field="holidayMember"]').value;
+  data.holidayNonmember = document.querySelector('[data-field="holidayNonmember"]').value;
+  data.holidayCalendar = document.querySelector('[data-field="holidayCalendar"]').value;
+
+  data.policyDesc = document.querySelector('[data-field="policyDesc"]').value;
+  data.cancelWindow = document.querySelector('[data-field="cancelWindow"]').value;
+  data.memberCancelFee = document.querySelector('[data-field="memberCancelFee"]').value;
+  data.nonmemberCancelFee = document.querySelector('[data-field="nonmemberCancelFee"]').value;
+  data.noshowFee = document.querySelector('[data-field="noshowFee"]').value;
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// ACCORDION TOGGLE LOGIC
+// ════════════════════════════════════════════════════════════════════════════
+
+function toggleAccordion(headerElement) {
+  const item = headerElement.closest('.accordion-item');
+  const content = item.querySelector('.accordion-content');
+  const isExpanded = content.classList.contains('expanded');
+
+  if (isExpanded) {
+    content.classList.remove('expanded');
+    headerElement.classList.remove('expanded');
+  } else {
+    content.classList.add('expanded');
+    headerElement.classList.add('expanded');
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// COLLAPSE/EXPAND ALL ACCORDIONS
+// ════════════════════════════════════════════════════════════════════════════
+
+function toggleAllAccordions() {
+  const btn = document.getElementById('collapseExpandBtn');
+  const accordions = document.querySelectorAll('.accordion-item');
+
+  if (allExpanded) {
+    accordions.forEach(accordion => {
+      const header = accordion.querySelector('.accordion-header');
+      const content = accordion.querySelector('.accordion-content');
+      content.classList.remove('expanded');
+      header.classList.remove('expanded');
+    });
+    btn.textContent = '📂 Expand All';
+    allExpanded = false;
+  } else {
+    accordions.forEach(accordion => {
+      const header = accordion.querySelector('.accordion-header');
+      const content = accordion.querySelector('.accordion-content');
+      content.classList.add('expanded');
+      header.classList.add('expanded');
+    });
+    btn.textContent = '📂 Collapse All';
+    allExpanded = true;
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// SECTION VISIBILITY TOGGLES
+// ════════════════════════════════════════════════════════════════════════════
+
+function togglePeakSection(toggle) {
+  const content = toggle.closest('.accordion-item').querySelector('.peak-section-content');
+  if (toggle.checked) {
+    content.classList.remove('hidden');
+  } else {
+    content.classList.add('hidden');
+  }
+}
+
+function toggleWeekendSection(toggle) {
+  const content = toggle.closest('.accordion-item').querySelector('.weekend-section-content');
+  if (toggle.checked) {
+    content.classList.remove('hidden');
+  } else {
+    content.classList.add('hidden');
+  }
+}
+
+function toggleHolidaySection(toggle) {
+  const content = toggle.closest('.accordion-item').querySelector('.holiday-section-content');
+  if (toggle.checked) {
+    content.classList.remove('hidden');
+  } else {
+    content.classList.add('hidden');
+  }
+}
+
+function updateSectionVisibility() {
+  document.querySelector('[data-field="peakEnabled"]').dispatchEvent(new Event('change'));
+  document.querySelector('[data-field="weekendEnabled"]').dispatchEvent(new Event('change'));
+  document.querySelector('[data-field="holidayEnabled"]').dispatchEvent(new Event('change'));
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// BULK ACTION HANDLER
+// ════════════════════════════════════════════════════════════════════════════
+
+function toggleBulkAction() {
+  const checkbox = document.getElementById('bulkActionCheck');
+  bulkActionEnabled = checkbox.checked;
+
+  if (bulkActionEnabled) {
+    savePricingData(currentCategory);
+    const currentData = pricingData[currentCategory];
+
+    Object.keys(pricingData).forEach(cat => {
+      if (cat !== currentCategory) {
+        pricingData[cat].memberBase = currentData.memberBase;
+        pricingData[cat].nonmemberBase = currentData.nonmemberBase;
+        pricingData[cat].peakEnabled = currentData.peakEnabled;
+        pricingData[cat].peakMemberRate = currentData.peakMemberRate;
+        pricingData[cat].peakNonmemberRate = currentData.peakNonmemberRate;
+        pricingData[cat].peakStartTime = currentData.peakStartTime;
+        pricingData[cat].peakEndTime = currentData.peakEndTime;
+        pricingData[cat].weekendEnabled = currentData.weekendEnabled;
+        pricingData[cat].weekendMember = currentData.weekendMember;
+        pricingData[cat].weekendNonmember = currentData.weekendNonmember;
+        pricingData[cat].blockDuration = currentData.blockDuration;
+        pricingData[cat].holidayEnabled = currentData.holidayEnabled;
+        pricingData[cat].holidayMember = currentData.holidayMember;
+        pricingData[cat].holidayNonmember = currentData.holidayNonmember;
+        pricingData[cat].holidayCalendar = currentData.holidayCalendar;
+      }
+    });
+
+    console.log('✓ Pricing applied to all categories:', pricingData);
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// EVENT LISTENERS FOR DYNAMIC UPDATES
+// ════════════════════════════════════════════════════════════════════════════
+
+document.addEventListener('change', function(e) {
+  if (bulkActionEnabled && e.target.hasAttribute('data-field')) {
+    const field = e.target.getAttribute('data-field');
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+
+    Object.keys(pricingData).forEach(cat => {
+      if (pricingData[cat].hasOwnProperty(field)) {
+        pricingData[cat][field] = value;
+      }
+    });
+
+    console.log(`Field "${field}" updated to all categories:`, value);
+  }
+});
+
+// Close modal on backdrop click
+document.getElementById('deleteConfirmationOverlay')?.addEventListener('click', function(e) {
+  if (e.target === this) {
+    cancelDeleteCategory();
+  }
+});
+</script>
+
+</body>
+</html>

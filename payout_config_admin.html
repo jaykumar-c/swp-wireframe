@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-Timezone Payout Configuration - Client Wireframe</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #f8fafc; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen antialiased">
+
+  <!-- Toast Container -->
+  <div id="toast-box" class="fixed top-5 right-5 z-50 flex flex-col gap-2.5 max-w-sm w-full pointer-events-none"></div>
+
+  <!-- Header Navigation -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3.5">
+        <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-lg shadow-sm shadow-blue-500/30">
+          🌍
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-base font-bold text-slate-900 tracking-tight">Global Payout Manager</h1>
+            <span class="px-2 py-0.5 text-[10px] font-bold bg-blue-50 text-blue-700 rounded-full border border-blue-200 uppercase tracking-wider">Multi-Timezone Wireframe</span>
+          </div>
+          <p class="text-xs text-slate-500">Automated Weekly Disbursement Schedules per Region</p>
+        </div>
+      </div>
+      
+      <div class="flex items-center gap-2.5">
+        <span class="inline-flex items-center gap-1.5 text-xs text-emerald-700 font-semibold bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-200">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          Live Client Prototype
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+
+    <!-- Top Summary Stat Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      
+      <!-- Total Active Rules -->
+      <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+        <div>
+          <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Active Rules</p>
+          <p id="stat-total-rules" class="text-2xl font-extrabold text-slate-900 mt-1">3</p>
+          <p class="text-xs text-slate-500 mt-1">Weekly recurring automated cycles</p>
+        </div>
+        <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-2xl">
+          ⚙️
+        </div>
+      </div>
+
+      <!-- Configured Timezones -->
+      <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+        <div>
+          <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Configured Timezones</p>
+          <p id="stat-timezone-count" class="text-2xl font-extrabold text-slate-900 mt-1">3 Regions</p>
+          <p id="stat-timezone-list" class="text-xs text-slate-500 mt-1 truncate max-w-[220px]">Amsterdam, New York, Kolkata</p>
+        </div>
+        <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-2xl">
+          🌐
+        </div>
+      </div>
+
+      <!-- Schedule Status -->
+      <div class="bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm flex items-center justify-between">
+        <div>
+          <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Schedule Status</p>
+          <p id="stat-schedule-status" class="text-base font-bold text-emerald-600 mt-1">All Systems Active</p>
+          <p class="text-xs text-slate-500 mt-1">Disbursements trigger per local tz</p>
+        </div>
+        <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-2xl">
+          ✅
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Box -->
+    <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+      
+      <!-- Action Bar -->
+      <div class="p-6 border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-lg font-bold text-slate-900">Regional Payout Schedules</h2>
+          <p class="text-xs sm:text-sm text-slate-500 mt-0.5">
+            Configure different days and trigger hours tailored to each operational timezone.
+          </p>
+        </div>
+
+        <div class="flex items-center">
+          <!-- Add Schedule Button -->
+          <button onclick="openCreateModal()" class="inline-flex items-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold tracking-wide uppercase shadow-sm transition-all transform active:scale-95">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+            Add Configuration
+          </button>
+        </div>
+      </div>
+
+      <!-- Refactored Table: Clean, modern, NO ID column -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-slate-50/75 border-b border-slate-200/80 text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+              <th class="py-3.5 px-6">Target Timezone</th>
+              <th class="py-3.5 px-6">Payout Day</th>
+              <th class="py-3.5 px-6">Execution Time</th>
+              <th class="py-3.5 px-6">Frequency</th>
+              <th class="py-3.5 px-6">Status</th>
+              <th class="py-3.5 px-6">Last Configured</th>
+              <th class="py-3.5 px-6 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="payout-table-body" class="divide-y divide-slate-100 text-sm">
+            <!-- Dynamically populated rows -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Empty State -->
+      <div id="empty-state" class="hidden text-center py-16 px-4">
+        <div class="w-14 h-14 rounded-2xl bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-3 text-2xl">
+          🌐
+        </div>
+        <h3 class="text-sm font-bold text-slate-800">No Payout Schedules Found</h3>
+        <p class="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
+          Add a new payout configuration rule to get started.
+        </p>
+        <button onclick="openCreateModal()" class="mt-4 px-4 py-2 text-xs font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-xl transition-colors">
+          + Add Configuration
+        </button>
+      </div>
+
+      <!-- Table Footer -->
+      <div class="px-6 py-3.5 bg-slate-50/70 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between text-xs text-slate-500 gap-2">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+          <span>Each timezone schedule operates autonomously according to its local clock and daylight saving rules.</span>
+        </div>
+        <span id="display-count-text" class="font-medium text-slate-600">Showing 3 configurations</span>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Create / Edit Modal -->
+  <div id="config-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-sm p-4 hidden">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full border border-slate-100 overflow-hidden transform transition-all">
+      
+      <!-- Modal Header -->
+      <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between">
+        <div>
+          <h3 id="modal-title" class="text-base font-bold text-slate-900">Add Payout Configuration</h3>
+          <p class="text-xs text-slate-500 mt-0.5">Define schedule parameters and region timezone</p>
+        </div>
+        <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-slate-100 transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Form -->
+      <form id="config-form" onsubmit="handleFormSubmit(event)" class="p-6 space-y-4">
+        <input type="hidden" id="internal-item-id">
+
+        <!-- Timezone Selector -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Target Timezone / Region</label>
+          <select id="modal-timezone" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="Europe/Amsterdam">Europe/Amsterdam (CET / CEST)</option>
+            <option value="America/New_York">America/New_York (EST / EDT)</option>
+            <option value="America/Chicago">America/Chicago (CST / CDT)</option>
+            <option value="America/Los_Angeles">America/Los_Angeles (PST / PDT)</option>
+            <option value="Europe/London">Europe/London (GMT / BST)</option>
+            <option value="Asia/Kolkata">Asia/Kolkata (IST)</option>
+            <option value="Asia/Dubai">Asia/Dubai (GST)</option>
+            <option value="Asia/Singapore">Asia/Singapore (SGT)</option>
+            <option value="Australia/Sydney">Australia/Sydney (AEST)</option>
+            <option value="UTC">UTC (Universal Coordinated Time)</option>
+          </select>
+          <p class="text-[11px] text-slate-400 mt-1">Disbursements will run relative to this timezone.</p>
+        </div>
+
+        <!-- Day of Week Selector -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Payout Day of Week</label>
+          <select id="modal-day" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="1">Monday (Day 1)</option>
+            <option value="2">Tuesday (Day 2)</option>
+            <option value="3">Wednesday (Day 3)</option>
+            <option value="4">Thursday (Day 4)</option>
+            <option value="5" selected>Friday (Day 5)</option>
+            <option value="6">Saturday (Day 6)</option>
+            <option value="7">Sunday (Day 7)</option>
+          </select>
+        </div>
+
+        <!-- Time Picker (Hour & Minute) -->
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Hour (00 - 23)</label>
+            <select id="modal-hour" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mono font-medium text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <!-- Populated dynamically via JS -->
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Minute (00 - 59)</label>
+            <select id="modal-minute" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-mono font-medium text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <!-- Populated dynamically via JS -->
+            </select>
+          </div>
+        </div>
+
+        <!-- Live Preview Box -->
+        <div class="p-3.5 bg-blue-50/60 rounded-xl border border-blue-100 flex items-start gap-3">
+          <span class="text-xl mt-0.5">🔔</span>
+          <div class="text-xs text-blue-900 leading-relaxed">
+            <span class="font-bold">Schedule Preview:</span><br>
+            Runs weekly on <span id="preview-schedule-text" class="font-bold text-blue-700">Friday at 00:15 (Europe/Amsterdam)</span>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex items-center justify-end gap-2.5 pt-4 border-t border-slate-100">
+          <button type="button" onclick="closeModal()" class="px-4 py-2 text-xs font-bold text-slate-600 hover:bg-slate-100 rounded-xl uppercase tracking-wider transition-colors">
+            Cancel
+          </button>
+          <button type="submit" id="modal-save-btn" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl uppercase tracking-wider transition-colors shadow-sm">
+            Save Configuration
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Delete Modal -->
+  <div id="delete-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 backdrop-blur-sm p-4 hidden">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6 border border-slate-100 text-center">
+      <div class="w-12 h-12 rounded-full bg-red-50 text-red-600 flex items-center justify-center mx-auto mb-3 text-xl">
+        🗑️
+      </div>
+      <h3 class="text-base font-bold text-slate-900">Delete Payout Rule?</h3>
+      <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+        Are you sure you want to remove this weekly payout schedule? Automated payouts for this timezone will cease.
+      </p>
+      <div class="flex items-center justify-center gap-2.5 mt-6">
+        <button onclick="closeDeleteModal()" class="w-full py-2.5 text-xs font-bold text-slate-600 hover:bg-slate-100 rounded-xl uppercase tracking-wider transition-colors">
+          Cancel
+        </button>
+        <button onclick="confirmDelete()" class="w-full py-2.5 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-xl uppercase tracking-wider transition-colors shadow-sm">
+          Yes, Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive JavaScript Engine -->
+  <script>
+    const DAY_MAP = {
+      1: 'Monday',
+      2: 'Tuesday',
+      3: 'Wednesday',
+      4: 'Thursday',
+      5: 'Friday',
+      6: 'Saturday',
+      7: 'Sunday'
+    };
+
+    // Realistic Multi-Timezone Dataset (No IDs exposed in the UI)
+    let payoutConfigs = [
+      {
+        id: "7b3e7a55-feed-4660-bee4-4de867d8b2ff",
+        payout_day_of_week: 5,
+        payout_day_name: "Friday",
+        payout_hour: 0,
+        payout_minute: 15,
+        timezone: "Europe/Amsterdam",
+        updated_at: "1773658015"
+      },
+      {
+        id: "a4df91f7-b4eb-4d39-96ef-5c06c7f088d0",
+        payout_day_of_week: 1,
+        payout_day_name: "Monday",
+        payout_hour: 9,
+        payout_minute: 0,
+        timezone: "America/New_York",
+        updated_at: "1773661200"
+      },
+      {
+        id: "c812984b-0012-45e3-a332-984375bc1209",
+        payout_day_of_week: 3,
+        payout_day_name: "Wednesday",
+        payout_hour: 18,
+        payout_minute: 30,
+        timezone: "Asia/Kolkata",
+        updated_at: "1773669000"
+      }
+    ];
+
+    let pendingDeleteId = null;
+
+    function populateDropdowns() {
+      const hSelect = document.getElementById('modal-hour');
+      const mSelect = document.getElementById('modal-minute');
+
+      hSelect.innerHTML = '';
+      for (let i = 0; i < 24; i++) {
+        const val = i.toString().padStart(2, '0');
+        const opt = document.createElement('option');
+        opt.value = val;
+        opt.textContent = `${val}:00 (${val} hrs)`;
+        hSelect.appendChild(opt);
+      }
+
+      mSelect.innerHTML = '';
+      for (let i = 0; i < 60; i += 5) {
+        const val = i.toString().padStart(2, '0');
+        const opt = document.createElement('option');
+        opt.value = val;
+        opt.textContent = `${val} min`;
+        mSelect.appendChild(opt);
+      }
+    }
+
+    function updateTopStats() {
+      const totalRules = payoutConfigs.length;
+      document.getElementById('stat-total-rules').textContent = totalRules;
+
+      const uniqueTzs = Array.from(new Set(payoutConfigs.map(c => c.timezone)));
+      document.getElementById('stat-timezone-count').textContent = `${uniqueTzs.length} ${uniqueTzs.length === 1 ? 'Region' : 'Regions'}`;
+
+      if (uniqueTzs.length > 0) {
+        const cleanNames = uniqueTzs.map(tz => tz.split('/').pop().replace('_', ' '));
+        document.getElementById('stat-timezone-list').textContent = cleanNames.join(', ');
+        document.getElementById('stat-schedule-status').textContent = 'All Systems Active';
+      } else {
+        document.getElementById('stat-timezone-list').textContent = 'No active timezones';
+        document.getElementById('stat-schedule-status').textContent = 'Inactive';
+      }
+    }
+
+    function formatReadableDate(epoch) {
+      if (!epoch) return 'Recent';
+      const ts = epoch.toString().length === 10 ? parseInt(epoch) * 1000 : parseInt(epoch);
+      return new Date(ts).toLocaleString(undefined, {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    }
+
+    function format12Hour(hour, minute) {
+      const h = parseInt(hour);
+      const m = minute.toString().padStart(2, '0');
+      const period = h >= 12 ? 'PM' : 'AM';
+      const formattedH = (h % 12 === 0 ? 12 : h % 12).toString().padStart(2, '0');
+      return `${formattedH}:${m} ${period}`;
+    }
+
+    // Render Table - completely without the ID column or timezone filtering
+    function renderTable() {
+      const tbody = document.getElementById('payout-table-body');
+      const emptyState = document.getElementById('empty-state');
+      const countText = document.getElementById('display-count-text');
+
+      countText.textContent = `Showing ${payoutConfigs.length} ${payoutConfigs.length === 1 ? 'configuration' : 'configurations'}`;
+
+      if (payoutConfigs.length === 0) {
+        tbody.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+
+      tbody.innerHTML = payoutConfigs.map(item => {
+        const dayName = item.payout_day_name || DAY_MAP[item.payout_day_of_week] || `Day ${item.payout_day_of_week}`;
+        const formattedHour = item.payout_hour.toString().padStart(2, '0');
+        const formattedMin = item.payout_minute.toString().padStart(2, '0');
+        const time24 = `${formattedHour}:${formattedMin}`;
+        const time12 = format12Hour(item.payout_hour, item.payout_minute);
+
+        return `
+          <tr class="hover:bg-slate-50/75 transition-colors">
+            <!-- Timezone -->
+            <td class="py-4 px-6 font-semibold text-slate-900">
+              <div class="flex items-center gap-2">
+                <span class="p-1.5 bg-blue-50 text-blue-600 rounded-lg text-xs">🌐</span>
+                <div>
+                  <div class="font-bold text-slate-900">${item.timezone}</div>
+                  <div class="text-[11px] text-slate-400">Regional Schedule</div>
+                </div>
+              </div>
+            </td>
+
+            <!-- Payout Day -->
+            <td class="py-4 px-6 font-bold text-slate-900">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <span>${dayName}</span>
+                <span class="text-xs font-mono text-slate-400 font-normal">(Day ${item.payout_day_of_week})</span>
+              </div>
+            </td>
+
+            <!-- Execution Time -->
+            <td class="py-4 px-6">
+              <div class="inline-flex flex-col">
+                <span class="font-mono font-bold text-slate-900 text-xs">
+                  ${time24} hrs
+                </span>
+                <span class="text-[11px] text-slate-400">
+                  ${time12}
+                </span>
+              </div>
+            </td>
+
+            <!-- Frequency -->
+            <td class="py-4 px-6">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold bg-indigo-50 text-indigo-700 rounded-lg border border-indigo-100">
+                Weekly Recurring
+              </span>
+            </td>
+
+            <!-- Status -->
+            <td class="py-4 px-6">
+              <span class="inline-flex items-center gap-1 px-2.5 py-0.5 text-xs font-bold bg-emerald-50 text-emerald-700 rounded-full border border-emerald-200">
+                ● Active
+              </span>
+            </td>
+
+            <!-- Last Configured -->
+            <td class="py-4 px-6 text-xs text-slate-500 font-medium">
+              ${formatReadableDate(item.updated_at)}
+            </td>
+
+            <!-- Actions -->
+            <td class="py-4 px-6 text-right">
+              <div class="inline-flex items-center gap-1.5">
+                <button onclick="openEditModal('${item.id}')" class="p-2 text-slate-500 hover:text-blue-600 hover:bg-slate-100 rounded-lg transition-colors" title="Edit Configuration">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                </button>
+                <button onclick="promptDelete('${item.id}')" class="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors" title="Delete Configuration">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function openCreateModal() {
+      document.getElementById('config-modal').classList.remove('hidden');
+      document.getElementById('modal-title').textContent = 'Add Payout Configuration';
+      document.getElementById('modal-save-btn').textContent = 'Save Configuration';
+      document.getElementById('internal-item-id').value = '';
+      document.getElementById('config-form').reset();
+      
+      document.getElementById('modal-timezone').value = 'Europe/Amsterdam';
+      document.getElementById('modal-day').value = '5';
+      document.getElementById('modal-hour').value = '00';
+      document.getElementById('modal-minute').value = '00';
+      updateLivePreview();
+    }
+
+    function openEditModal(id) {
+      const item = payoutConfigs.find(c => c.id === id);
+      if (!item) return;
+
+      document.getElementById('config-modal').classList.remove('hidden');
+      document.getElementById('modal-title').textContent = 'Edit Payout Configuration';
+      document.getElementById('modal-save-btn').textContent = 'Update Configuration';
+      document.getElementById('internal-item-id').value = item.id;
+
+      document.getElementById('modal-timezone').value = item.timezone;
+      document.getElementById('modal-day').value = item.payout_day_of_week.toString();
+      document.getElementById('modal-hour').value = item.payout_hour.toString().padStart(2, '0');
+      document.getElementById('modal-minute').value = item.payout_minute.toString().padStart(2, '0');
+      updateLivePreview();
+    }
+
+    function closeModal() {
+      document.getElementById('config-modal').classList.add('hidden');
+    }
+
+    function updateLivePreview() {
+      const dayVal = document.getElementById('modal-day').value;
+      const hourVal = document.getElementById('modal-hour').value;
+      const minVal = document.getElementById('modal-minute').value;
+      const tzVal = document.getElementById('modal-timezone').value;
+      const dayName = DAY_MAP[dayVal] || 'Day';
+
+      document.getElementById('preview-schedule-text').textContent = 
+        `${dayName} at ${hourVal}:${minVal} (${tzVal})`;
+    }
+
+    ['modal-timezone', 'modal-day', 'modal-hour', 'modal-minute'].forEach(id => {
+      document.getElementById(id).addEventListener('change', updateLivePreview);
+    });
+
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const internalId = document.getElementById('internal-item-id').value;
+      const timezone = document.getElementById('modal-timezone').value;
+      const dayOfWeek = parseInt(document.getElementById('modal-day').value);
+      const hour = parseInt(document.getElementById('modal-hour').value);
+      const minute = parseInt(document.getElementById('modal-minute').value);
+
+      if (internalId) {
+        const index = payoutConfigs.findIndex(c => c.id === internalId);
+        if (index !== -1) {
+          payoutConfigs[index] = {
+            ...payoutConfigs[index],
+            timezone: timezone,
+            payout_day_of_week: dayOfWeek,
+            payout_day_name: DAY_MAP[dayOfWeek],
+            payout_hour: hour,
+            payout_minute: minute,
+            updated_at: Math.floor(Date.now() / 1000).toString()
+          };
+          showToast(`Updated schedule for ${timezone} (${DAY_MAP[dayOfWeek]})`);
+        }
+      } else {
+        const newRecord = {
+          id: (typeof crypto !== 'undefined' && crypto.randomUUID) ? crypto.randomUUID() : 'id-' + Date.now(),
+          timezone: timezone,
+          payout_day_of_week: dayOfWeek,
+          payout_day_name: DAY_MAP[dayOfWeek],
+          payout_hour: hour,
+          payout_minute: minute,
+          updated_at: Math.floor(Date.now() / 1000).toString()
+        };
+        payoutConfigs.push(newRecord);
+        showToast(`Added new schedule for ${timezone}`);
+      }
+
+      updateTopStats();
+      renderTable();
+      closeModal();
+    }
+
+    function promptDelete(id) {
+      pendingDeleteId = id;
+      document.getElementById('delete-modal').classList.remove('hidden');
+    }
+
+    function closeDeleteModal() {
+      pendingDeleteId = null;
+      document.getElementById('delete-modal').classList.add('hidden');
+    }
+
+    function confirmDelete() {
+      if (!pendingDeleteId) return;
+      payoutConfigs = payoutConfigs.filter(c => c.id !== pendingDeleteId);
+      updateTopStats();
+      renderTable();
+      closeDeleteModal();
+      showToast('Configuration deleted successfully', 'delete');
+    }
+
+    function showToast(message, type = 'success') {
+      const box = document.getElementById('toast-box');
+      const toast = document.createElement('div');
+      const isDelete = type === 'delete';
+
+      toast.className = `p-4 rounded-xl shadow-xl border text-xs font-semibold flex items-center gap-3 pointer-events-auto transition-all transform duration-300 translate-y-2 opacity-0 ${
+        isDelete ? 'bg-white border-red-200 text-slate-800' : 'bg-white border-emerald-200 text-slate-800'
+      }`;
+
+      toast.innerHTML = `
+        <div class="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 ${isDelete ? 'bg-red-100 text-red-600' : 'bg-emerald-100 text-emerald-600'}">
+          ${isDelete ? '🗑️' : '✓'}
+        </div>
+        <span>${message}</span>
+      `;
+
+      box.appendChild(toast);
+      setTimeout(() => toast.classList.remove('translate-y-2', 'opacity-0'), 10);
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      populateDropdowns();
+      updateTopStats();
+      renderTable();
+    });
+  </script>
+</body>
+</html>

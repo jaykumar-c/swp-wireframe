@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assign Pricing to Club — SWP Admin Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+
+    :root {
+      --primary: #007AFF;
+      --primary-hover: #0056B3;
+      --primary-soft: rgba(0, 122, 255, 0.16);
+      --secondary: #8592A3;
+      --success: #228B22;
+      --success-soft: rgba(34, 139, 34, 0.16);
+      --info: #03C3EC;
+      --info-soft: rgba(3, 195, 236, 0.16);
+      --warning: #FF9800;
+      --danger: #E63900;
+      --dark: #2B2C40;
+      --background: #F5F5F9;
+      --surface: #FFFFFF;
+      --border-color: rgba(50, 71, 92, 0.12);
+      --text-main: rgba(50, 71, 92, 0.87);
+      --text-muted: rgba(50, 71, 92, 0.6);
+      --text-heading: rgba(50, 71, 92, 0.87);
+      --radius-sm: 6px;
+      --radius-md: 8px;
+      --radius-lg: 10px;
+      --shadow-sm: 0 2px 4px rgba(161, 172, 184, 0.16);
+      --shadow-md: 0 4px 12px rgba(161, 172, 184, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Public Sans', sans-serif;
+      background-color: var(--background);
+      color: var(--text-main);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 14px 20px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 500;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1000;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .dashboard-wrapper {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .sidebar {
+      width: 260px;
+      background: #ffffff;
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    .sidebar-header {
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-heading);
+      letter-spacing: -0.5px;
+    }
+
+    .collapse-btn {
+      width: 24px;
+      height: 24px;
+      background: var(--primary-soft);
+      color: var(--primary);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .sidebar-nav {
+      padding: 8px 16px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      padding: 10px 16px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 15px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 4px;
+      transition: 0.2s;
+    }
+
+    .nav-item:hover {
+      background: var(--background);
+      color: var(--text-heading);
+    }
+
+    .nav-item.active-group {
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .nav-sub {
+      padding: 4px 0 8px 0;
+    }
+
+    .sub-item {
+      display: flex;
+      align-items: center;
+      padding: 8px 16px 8px 48px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 4px;
+    }
+
+    .sub-item:hover {
+      color: var(--text-heading);
+    }
+
+    .sub-item.active {
+      background: transparent;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .main-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .topbar {
+      height: 64px;
+      background: #f5f5f9;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0 24px;
+      flex-shrink: 0;
+    }
+
+    .profile-img {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--border-color);
+    }
+
+    .page-content {
+      flex: 1;
+      padding: 24px;
+      padding-top: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    .page-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text-heading);
+      margin-bottom: 6px;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .info-banner {
+      background-color: #e1f0ff;
+      border: 1px solid #03c3ec;
+      color: #03c3ec;
+      padding: 12px 16px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      gap: 24px;
+      align-items: center;
+      margin-bottom: 24px;
+      font-size: 14px;
+    }
+
+    .info-banner svg {
+      width: 18px;
+      height: 18px;
+      margin-right: 6px;
+      vertical-align: text-bottom;
+    }
+
+    .info-banner span {
+      color: var(--text-heading);
+      font-weight: 600;
+    }
+
+    .layout-container {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 24px;
+      max-width: 100%;
+      align-items: start;
+    }
+
+    @media (max-width: 1024px) {
+      .layout-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 24px;
+      background-clip: padding-box;
+    }
+
+    .card-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-heading);
+    }
+
+    .card-body {
+      padding: 24px;
+    }
+
+    .pill {
+      background: var(--primary-soft);
+      color: var(--primary);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .pill.success {
+      background: var(--success-soft);
+      color: var(--success);
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-heading);
+      margin-bottom: 6px;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 10px 14px;
+      font-size: 15px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      color: var(--text-heading);
+      background: var(--surface);
+      transition: 0.15s;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary);
+      outline: 0;
+    }
+
+    .input-badge {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-size: 12px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px 24px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border-radius: var(--radius-sm);
+      font-weight: 500;
+      font-size: 15px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: none;
+      transition: 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 2px 4px 0 rgba(105, 108, 255, 0.4);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      box-shadow: 0 3px 6px 0 rgba(105, 108, 255, 0.5);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      text-align: left;
+      padding: 14px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-heading);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--border-color);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 14px 16px;
+      font-size: 14px;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    tbody tr:hover {
+      background: var(--background);
+    }
+
+    tbody tr.active-tier {
+      background: var(--primary-soft);
+    }
+
+    tbody tr.active-tier td {
+      font-weight: 600;
+      color: var(--text-heading);
+    }
+
+    .summary-card {
+      position: sticky;
+      top: 24px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      font-size: 14px;
+      color: var(--text-muted);
+      border-bottom: 1px dashed var(--border-color);
+    }
+
+    .summary-row:last-child {
+      border-bottom: none;
+    }
+
+    .summary-row span:last-child {
+      font-weight: 600;
+      color: var(--text-heading);
+    }
+
+    .revenue-box {
+      background: #2b2c40;
+      border-radius: var(--radius-md);
+      padding: 24px;
+      color: white;
+      text-align: center;
+      margin: 24px 0;
+      box-shadow: 0 4px 14px 0 rgba(43, 44, 64, 0.4);
+    }
+
+    .revenue-box p {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: 0.8;
+      margin-bottom: 8px;
+    }
+
+    .revenue-box h2 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .split-bar {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 3px;
+      overflow: hidden;
+      display: flex;
+      margin-bottom: 8px;
+    }
+
+    .split-club {
+      background: var(--success);
+    }
+
+    .split-swp {
+      background: var(--primary);
+    }
+
+    .split-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 600;
+      opacity: 0.9;
+    }
+
+    .total-fee-box {
+      background: var(--primary-soft);
+      border: 1px solid rgba(105, 108, 255, 0.2);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      margin-top: 24px;
+    }
+
+    .total-fee-box span {
+      display: block;
+      font-size: 12px;
+      text-transform: uppercase;
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .total-fee-box h3 {
+      font-size: 24px;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .total-fee-box p {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+  
+
+/* ============================================================
+   SWP WIREFRAME — FULL WIDTH / NO SIDEBAR
+   ============================================================ */
+
+html::before {
+  content: none !important;
+  display: none !important;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+}
+
+.dashboard-wrapper {
+  display: block;
+  width: 100%;
+  min-height: 100vh;
+  height: auto;
+  overflow: visible;
+}
+
+.main-wrapper {
+  width: 100%;
+  min-height: 100vh;
+  overflow: visible;
+}
+
+.topbar {
+  width: 100%;
+}
+
+.page-content {
+  width: 100%;
+  max-width: none;
+}
+
+.layout-container {
+  width: 100%;
+  max-width: none;
+  grid-template-columns: minmax(0, 1fr) 380px;
+}
+
+.main-column {
+  min-width: 0;
+}
+
+.sidebar-column {
+  min-width: 0;
+}
+
+.input-group.is-hidden {
+  display: none !important;
+}
+
+.form-control:disabled {
+  background: #f8fafc;
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+.calculation-note {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.matrix-match {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.validation-error {
+  color: var(--danger);
+  font-size: 13px;
+  font-weight: 500;
+  display: none;
+  margin-bottom: 16px;
+}
+
+.validation-error.show {
+  display: block;
+}
+
+.runtime-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-secondary {
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+}
+
+.btn-secondary:hover {
+  background: #e2e8f0;
+}
+
+@media (max-width: 1200px) {
+  .layout-container {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar-column {
+    position: static !important;
+  }
+
+  .summary-card {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-content {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .info-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .topbar {
+    padding: 0 12px;
+  }
+
+  .card-header,
+  .card-body {
+    padding: 16px;
+  }
+}
+
+</style>
+<base target="_blank">
+</head>
+<body>
+  <div class="dashboard-wrapper">
+<div class="main-wrapper">
+      <header class="topbar">
+        <img src="https://i.pravatar.cc/150?img=11" alt="Profile" class="profile-img">
+      </header>
+      <main class="page-content">
+        <div class="page-title">Assign Pricing to Club</div>
+        <div class="page-subtitle">Configure commission, features, and limits for the selected club</div>
+        <div style="background: #fffbeb; border: 1px solid #fde68a; border-left: 4px solid #f59e0b; padding: 14px 18px; border-radius: 6px; margin-bottom: 20px; font-size: 13.5px; color: #92400e; line-height: 1.5;">
+          <strong>ℹ️ Wireframe & POC Notice:</strong> UI is only for wireframe — Frontend will make changes according to SWP design system and enhancements. Main aim is just to show POC about pricing and calculations.
+        </div>
+        <div class="info-banner">
+          <div><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg> <span>Club Name:</span> Houten Club</div>
+        </div>
+        <div class="layout-container">
+          <div class="main-column">
+            <!-- Step 1 -->
+            <section class="card">
+              <div class="card-header">
+                <h2 class="card-title">Step 1 — Commission Base Calculation</h2>
+                <span class="pill">STEP 1 OF 3</span>
+              </div>
+              <div class="card-body">
+                <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 24px;">Enter operational club
+                  parameters to dynamically calculate base pricing buckets and commission scenarios.</p>
+                <div class="form-grid">
+                  <div class="input-group">
+                    <label>Exact number of assets (Courts/Fields)</label>
+                    <div class="input-wrapper">
+                      <input type="number" id="assets" class="form-control" value="12" min="1" step="1">
+                    </div>
+                  </div>
+                  <div class="input-group">
+                    <label>Expected occupancy</label>
+                    <select id="occupancy" class="form-control">
+                      <option value="0.80" selected>&lt; 80%</option>
+                      <option value="0.85">80-90%</option>
+                      <option value="1.0">100% (Full)</option>
+                    </select>
+                  </div>
+                  <div class="input-group">
+                    <label>Booking payment type</label>
+                    <select id="paymentType" class="form-control">
+                      <option value="hybrid" selected>Hybrid Booking</option>
+                      <option value="paid">100% Paid</option>
+                      <option value="unpaid">100% Unpaid</option>
+                    </select>
+                  </div>
+                  <div class="input-group">
+                    <label>Booking price per slot (€)</label>
+                    <input type="number" id="price" class="form-control" value="27.00">
+                  </div>
+                  <div class="input-group">
+                    <label>Expected daily bookings per asset</label>
+                    <input type="number" id="bookings" class="form-control" value="10" min="0" step="0.01">
+                  </div>
+                </div>
+
+                <div id="splitContainer" class="form-grid" style="margin-top: 20px;">
+                  <div class="input-group">
+                    <label>Paid booking percentage (%)</label>
+                    <input type="number" id="paidSplit" class="form-control" value="30">
+                  </div>
+                  <div class="input-group">
+                    <label>Unpaid booking percentage (%)</label>
+                    <input type="number" id="unpaidSplit" class="form-control" value="70">
+                  </div>
+                </div>
+                <div id="splitError"
+                  style="color: var(--danger); font-size: 13px; font-weight: 500; display: none; margin-bottom: 16px;">
+                  Paid and unpaid percentages must sum to 100%.</div>
+                <div id="matrixMatch" class="matrix-match" style="display: none;"></div>
+
+                <div style="margin-top: 16px;">
+                  <button class="btn btn-primary" onclick="calculateBasePricing()">Calculate Base Price & Projections</button>
+                </div>
+              </div>
+            </section>
+
+            <!-- Step 2 Runtime Configuration -->
+            <section class="card">
+              <div class="card-header">
+                <h2 class="card-title">Step 2 — Runtime Configuration & Limits</h2>
+                <span class="pill">STEP 2 OF 2</span>
+              </div>
+              <div class="card-body">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                  <h4 style="font-size: 14px; color: var(--text-heading); margin: 0;">Base Pricing Override</h4>
+                  <!-- <button class="btn btn-secondary" style="padding: 4px 10px; font-size: 12px; border-radius: 4px;" onclick="resetToMatrixDefault()">Reset to Matrix Default</button> -->
+                </div>
+                <div class="form-grid">
+                  <div class="input-group">
+                    <label>Unpaid booking commission (€)</label>
+                    <input id="unpaidFee" type="number" class="form-control" value="0.35" min="0" step="0.01">
+                  </div>
+                  <div class="input-group">
+                    <label>Paid booking commission (%)</label>
+                    <input id="paidRate" type="number" class="form-control" value="1.25" min="0" step="0.01">
+                  </div>
+                </div>
+
+                <h4 style="font-size: 14px; margin-bottom: 12px; margin-top: 24px; color: var(--text-heading);">
+                  Membership Commission</h4>
+                <div class="form-grid">
+                  <div class="input-group">
+                    <label>Membership commission (%)</label>
+                    <input id="membershipRate" type="number" class="form-control" value="1.20">
+                  </div>
+                  <div class="input-group">
+                    <label>Number of club members</label>
+                    <input id="members" type="number" class="form-control" value="500">
+                  </div>
+                  <div class="input-group">
+                    <label>Average package price (€)</label>
+                    <input id="packagePrice" type="number" class="form-control" value="30.00">
+                  </div>
+                  <div class="input-group">
+                    <label>Monthly membership commission (€)</label>
+                    <input id="membershipMonthly" type="text" class="form-control" readonly
+                      style="background: #f8fafc; font-weight: 600;">
+                  </div>
+                </div>
+
+                <div style="margin-top: 24px;">
+                  <button class="btn btn-primary" onclick="calculateAll()">Calculate Pricing Configuration</button>
+                </div>
+              </div>
+            </section>
+
+            <!-- Negotiation Scenarios -->
+            <section class="card">
+              <div class="card-header">
+                <h2 class="card-title">Negotiation Scenarios & Sensitivity Matrix</h2>
+                <span class="pill">SALES PROJECTIONS</span>
+              </div>
+              <div class="card-body">
+                <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 24px;">Simulate the dynamic impact
+                  of every basis point (0.01%) and flat fee (€0.01) change during sales negotiations.</p>
+                <div class="table-wrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Scenario / Tier</th>
+                        <th>Paid Comm %</th>
+                        <th>Unpaid Fee (€)</th>
+                        <th>Daily Paid Comm (€)</th>
+                        <th>Daily Unpaid Comm (€)</th>
+                        <th>Monthly SWP (30 Days)</th>
+                        <th>Yearly SWP (365 Days)</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="scenarioRows"></tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+
+            <!-- Core Features & Limits Section -->
+            <section class="card">
+              <div class="card-header">
+                <h2 class="card-title">Core & Additional Features Configuration</h2>
+                <span class="pill">FEATURES & LIMITS</span>
+              </div>
+              <div class="card-body">
+                <h4 style="font-size: 14px; margin-bottom: 12px; color: var(--text-heading);">Core Features & Limits</h4>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px;">
+                  <label
+                    style="display: flex; align-items: center; gap: 8px; padding: 12px; background: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-sm); cursor: pointer;"><input
+                      type="checkbox" checked style="width:16px; height:16px; accent-color: var(--primary);"> Active
+                    Campaigns</label>
+                  <label
+                    style="display: flex; align-items: center; gap: 8px; padding: 12px; background: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-sm); cursor: pointer;"><input
+                      type="checkbox" checked style="width:16px; height:16px; accent-color: var(--primary);"> Users
+                    Management</label>
+                  <label
+                    style="display: flex; align-items: center; gap: 8px; padding: 12px; background: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-sm); cursor: pointer;"><input
+                      type="checkbox" checked style="width:16px; height:16px; accent-color: var(--primary);"> Trainers /
+                    Volunteers</label>
+                </div>
+
+                <h4 style="font-size: 14px; margin-top: 16px; margin-bottom: 16px; color: var(--text-heading);">
+                  Additional Features</h4>
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                  <div style="padding: 16px; border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+                    <label style="display: flex; align-items: center; gap: 8px; font-weight: 500; cursor: pointer;">
+                      <input type="checkbox" checked style="width:16px; height:16px; accent-color: var(--primary);"
+                        onchange="document.getElementById('displayOptions').style.display = this.checked ? 'block' : 'none'">
+                      Booking Display Options
+                    </label>
+                    <div id="displayOptions" style="margin-top: 12px;">
+                      <div style="position: relative;">
+                        <label
+                          style="position: absolute; top: -8px; left: 10px; background: white; padding: 0 4px; font-size: 11px; color: var(--primary); font-weight: 500;">Booking
+                          Display Options Option</label>
+                        <select
+                          style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 4px; outline: none; background: transparent; font-size: 14px; color: var(--text-main); -webkit-appearance: none; background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg width%3D%2224%22 height%3D%2224%22 viewBox%3D%220 0 24 24%22 fill%3D%22none%22 xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath d%3D%22M6 9L12 15L18 9%22 stroke%3D%22%23566a7f%22 stroke-width%3D%222%22 stroke-linecap%3D%22round%22 stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 12px center; background-size: 16px;">
+                          <option value="list">List View</option>
+                          <option value="calendar">Calendar View</option>
+                          <option value="both">List & Calendar View</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style="padding: 16px; border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+                    <label style="display: flex; align-items: center; gap: 8px; font-weight: 500; cursor: pointer;">
+                      <input type="checkbox" checked style="width:16px; height:16px; accent-color: var(--primary);"
+                        onchange="document.getElementById('reportsOptions').style.display = this.checked ? 'block' : 'none'">
+                      Reports Dashboard
+                    </label>
+                    <div id="reportsOptions" style="margin-top: 12px;">
+                      <div style="position: relative;">
+                        <label
+                          style="position: absolute; top: -8px; left: 10px; background: white; padding: 0 4px; font-size: 11px; color: var(--primary); font-weight: 500;">Reports
+                          Dashboard Option</label>
+                        <select
+                          style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 4px; outline: none; background: transparent; font-size: 14px; color: var(--text-main); -webkit-appearance: none; background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg width%3D%2224%22 height%3D%2224%22 viewBox%3D%220 0 24 24%22 fill%3D%22none%22 xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath d%3D%22M6 9L12 15L18 9%22 stroke%3D%22%23566a7f%22 stroke-width%3D%222%22 stroke-linecap%3D%22round%22 stroke-linejoin%3D%22round%22%2F%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 12px center; background-size: 16px;">
+                          <option value="basic">Basic Dashboard</option>
+                          <option value="advanced">Advanced Dashboard & Reports</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style="padding: 16px; border: 1px solid var(--border-color); border-radius: var(--radius-sm);">
+                    <label style="display: flex; align-items: center; gap: 8px; font-weight: 500; cursor: pointer;">
+                      <input type="checkbox" checked style="width:16px; height:16px; accent-color: var(--primary);">
+                      Role Based Access
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+
+            <!-- Discussion Notes -->
+            <section class="card">
+              <div class="card-header">
+                <h2 class="card-title">Additional Notes and Discussion Remarks</h2>
+                <span class="pill">OPTIONAL</span>
+              </div>
+              <div class="card-body">
+                <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 16px;">Record important points,
+                  decisions, requests, or follow-up actions from the pricing discussion.</p>
+                <div class="input-group" style="margin-bottom: 0;">
+                  <label>Notes and remarks</label>
+                  <textarea id="discussionNotes" class="form-control" rows="8"
+                    style="resize: vertical; font-size: 15px; padding: 14px; line-height: 1.6;"
+                    placeholder="Enter discussion notes, agreed actions, concerns, or follow-up items..."></textarea>
+
+                </div>
+              </div>
+            </section>
+
+            <!-- Actions Row -->
+            <div style="display: flex; justify-content: flex-end; gap: 12px; margin-bottom: 40px;">
+              <button class="btn"
+                style="background: transparent; border: 1px solid var(--border-color); color: var(--text-main);"
+                onclick="resetForm()">Reset Complete Form</button>
+              <button class="btn"
+                style="background: transparent; border: 1px solid var(--border-color); color: var(--text-main);"
+                onclick="cancelForm()">Cancel</button>
+              <button class="btn" style="background: #f1f5f9; border: 1px solid #cbd5e1; color: #334155;"
+                onclick="saveDraft()">Save as Draft</button>
+              <button class="btn btn-primary" onclick="assignPricing()">Assign Pricing to Club</button>
+            </div>
+          </div>
+
+          <div class="sidebar-column" style="position: sticky; top: 24px; align-self: start;">
+            <div class="card summary-card" style="margin-bottom: 0;">
+              <div class="card-header">
+                <h3 class="card-title">Proposal Overview</h3>
+                <span class="pill success">ASSIGNED</span>
+              </div>
+              <div class="card-body">
+                <div class="summary-row">
+                  <span>Club</span>
+                  <span>SportClub Houten</span>
+                </div>
+                <div class="summary-row">
+                  <span>Asset Bracket</span>
+                  <span id="sumAssets">11-20 assets</span>
+                </div>
+                <div class="summary-row">
+                  <span>Occupancy Range</span>
+                  <span id="sumOcc">80-90% (Avg 85%)</span>
+                </div>
+                <div class="summary-row">
+                  <span>Payment Type</span>
+                  <span id="sumType">Hybrid (30/70)</span>
+                </div>
+                <div class="summary-row">
+                  <span>Booking Price</span>
+                  <span id="sumPrice">€27.00 / slot</span>
+                </div>
+                <div class="revenue-box">
+                  <p>EST. MONTHLY CLUB REVENUE</p>
+                  <h2 id="monthlyClubRev">€82,620.00</h2>
+                </div>
+
+                <h4 style="font-size: 15px; font-weight: 600; margin-bottom: 12px; color: var(--text-heading);">Fee
+                  Breakdown</h4>
+                <div class="summary-row">
+                  <span>Unpaid Flat Fee</span>
+                  <span id="sumUnpaidFee">€0.25</span>
+                </div>
+                <div class="summary-row">
+                  <span>Paid Commission Rate</span>
+                  <span id="sumPaidRate">1.15%</span>
+                </div>
+                <div class="summary-row">
+                  <span>Membership Commission</span>
+                  <span id="sumMembershipComm">€180.00</span>
+                </div>
+                <div
+                  style="background: var(--primary-soft); color: var(--primary); font-size: 11px; padding: 6px 10px; border-radius: 4px; font-weight: 500; margin-top: 12px; display: inline-block;">
+                  * Indicative fee charged by payment gateways (e.g., Revolut)
+                </div>
+
+                <div class="total-fee-box">
+                  <span>TOTAL MONTHLY SWP FEE</span>
+                  <h3 id="monthlySwpRev">€1,000.54</h3>
+                  <p>Yearly projection: <span id="yearlySwpRev">€12,143.22</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <div id="toast" class="toast">
+    <span>✅ Pricing configuration saved as draft!</span>
+  </div>
+</body>
+<script>
+/*
+ * SWP — Assign Pricing to Club
+ * Calculation engine + Sensitivity Matrix UI bindings
+ */
+
+'use strict';
+
+/* ============================================================
+ * 1. SWP COMMISSION PRICING MATRIX
+ * ============================================================ */
+
+const COMMISSION_PRICING_MATRIX = [
+  { court_range: '1-10',  occupancy_tier: 'lt80',  paid_percentage: 0.0125, unpaid_flat_fee: 0.35 },
+  { court_range: '11-20', occupancy_tier: 'lt80',  paid_percentage: 0.0113, unpaid_flat_fee: 0.35 },
+  { court_range: '21-40', occupancy_tier: 'lt80',  paid_percentage: 0.0106, unpaid_flat_fee: 0.25 },
+
+  { court_range: '1-10',  occupancy_tier: '80-90', paid_percentage: 0.0113, unpaid_flat_fee: 0.32 },
+  { court_range: '11-20', occupancy_tier: '80-90', paid_percentage: 0.0101, unpaid_flat_fee: 0.27 },
+  { court_range: '21-40', occupancy_tier: '80-90', paid_percentage: 0.0096, unpaid_flat_fee: 0.23 },
+
+  { court_range: '1-10',  occupancy_tier: '100',   paid_percentage: 0.0106, unpaid_flat_fee: 0.30 },
+  { court_range: '11-20', occupancy_tier: '100',   paid_percentage: 0.0096, unpaid_flat_fee: 0.26 },
+  { court_range: '21-40', occupancy_tier: '100',   paid_percentage: 0.0090, unpaid_flat_fee: 0.21 }
+];
+
+/* ============================================================
+ * 2. SENSITIVITY MATRIX STEPS
+ * ============================================================ */
+
+const SCENARIO_STEPS = [
+  { label: 'Base Pricing (Matrix Default)', paidDelta: 0,     unpaidDelta: 0 },
+
+  // Increment steps (+) (5 basis steps)
+  { label: 'Basis Step +0.01%',            paidDelta: 0.01,   unpaidDelta: 0.01 },
+  { label: 'Basis Step +0.02%',            paidDelta: 0.02,   unpaidDelta: 0.02 },
+  { label: 'Basis Step +0.03%',            paidDelta: 0.03,   unpaidDelta: 0.03 },
+  { label: 'Basis Step +0.04%',            paidDelta: 0.04,   unpaidDelta: 0.04 },
+  { label: 'Basis Step +0.05%',            paidDelta: 0.05,   unpaidDelta: 0.05 },
+
+  // Decrement steps (-) (0.01 bp logic)
+  { label: 'Basis Step -0.01%',            paidDelta: -0.01,  unpaidDelta: -0.01 },
+  { label: 'Basis Step -0.02%',            paidDelta: -0.02,  unpaidDelta: -0.02 },
+  { label: 'Basis Step -0.03%',            paidDelta: -0.03,  unpaidDelta: -0.03 },
+  { label: 'Basis Step -0.04%',            paidDelta: -0.04,  unpaidDelta: -0.04 },
+  { label: 'Basis Step -0.05%',            paidDelta: -0.05,  unpaidDelta: -0.05 },
+  { label: 'Tier -0.10%',                  paidDelta: -0.10,  unpaidDelta: -0.10 },
+  { label: 'Tier -0.15%',                  paidDelta: -0.15,  unpaidDelta: -0.15 },
+  { label: 'Tier -0.20%',                  paidDelta: -0.20,  unpaidDelta: -0.20 },
+  { label: 'Tier -0.25%',                  paidDelta: -0.25,  unpaidDelta: -0.25 }
+];
+
+/* ============================================================
+ * 3. DOM HELPER & UTILITIES
+ * ============================================================ */
+
+const $ = (id) => document.getElementById(id);
+
+function numberValue(id, fallback = 0) {
+  const el = $(id);
+  if (!el) return fallback;
+  const val = parseFloat(el.value);
+  return Number.isFinite(val) ? val : fallback;
+}
+
+function integerValue(id, fallback = 0) {
+  const el = $(id);
+  if (!el) return fallback;
+  const val = parseInt(el.value, 10);
+  return Number.isFinite(val) ? val : fallback;
+}
+
+function clamp(value, min, max) {
+  return Math.min(Math.max(value, min), max);
+}
+
+function roundCurrency(value) {
+  return Math.round((Number(value) + Number.EPSILON) * 100) / 100;
+}
+
+function formatEUR(value) {
+  const amount = Number.isFinite(Number(value)) ? Number(value) : 0;
+  return '€' + amount.toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+}
+
+function formatPercent(value) {
+  return `${Number(value || 0).toFixed(2)}%`;
+}
+
+/* ============================================================
+ * 4. MATRIX MAPPING HELPERS
+ * ============================================================ */
+
+function getCourtRange(courtCount) {
+  if (courtCount <= 10) return '1-10';
+  if (courtCount <= 20) return '11-20';
+  return '21-40';
+}
+
+function getOccupancyTier(occupancyVal) {
+  const pct = occupancyVal > 1 ? occupancyVal : occupancyVal * 100;
+  if (pct <= 80) return 'lt80';
+  if (pct < 100) return '80-90';
+  return '100';
+}
+
+function getOccupancyFactor(occupancyVal) {
+  const pct = occupancyVal > 1 ? occupancyVal : occupancyVal * 100;
+  if (pct <= 80) return 0.80;
+  if (pct < 100) return 0.85;
+  return 1.0;
+}
+
+function getOccupancyLabel(occupancyVal) {
+  const pct = occupancyVal > 1 ? occupancyVal : occupancyVal * 100;
+  if (pct <= 80) return '< 80%';
+  if (pct < 100) return '80-90%';
+  return '100% (Full)';
+}
+
+function getPricingMatrixRow(courtCount, occupancyVal) {
+  const courtRange = getCourtRange(courtCount);
+  const occupancyTier = getOccupancyTier(occupancyVal);
+  return COMMISSION_PRICING_MATRIX.find(
+    (row) => row.court_range === courtRange && row.occupancy_tier === occupancyTier
+  ) || COMMISSION_PRICING_MATRIX[0];
+}
+
+/* ============================================================
+ * 5. INPUT READ & VALIDATION
+ * ============================================================ */
+
+function getInputs() {
+  const paymentType = $('paymentType') ? $('paymentType').value : 'hybrid';
+  let paidSplit = numberValue('paidSplit', 30);
+  let unpaidSplit = numberValue('unpaidSplit', 70);
+
+  if (paymentType === 'paid') {
+    paidSplit = 100;
+    unpaidSplit = 0;
+  } else if (paymentType === 'unpaid') {
+    paidSplit = 0;
+    unpaidSplit = 100;
+  }
+
+  const occupancyRaw = numberValue('occupancy', 0.80);
+  const occupancyFactor = getOccupancyFactor(occupancyRaw);
+  const occupancyLabel = getOccupancyLabel(occupancyRaw);
+
+  return {
+    courts: Math.max(1, integerValue('assets', 12)),
+    occupancyRaw,
+    occupancyFactor,
+    occupancyLabel,
+    paymentType,
+    bookingPrice: Math.max(0, numberValue('price', 27)),
+    bookingsPerAsset: Math.max(0, numberValue('bookings', 10)),
+    paidSplit,
+    unpaidSplit,
+    paidPercentage: Math.max(0, numberValue('paidRate', 1.25)) / 100,
+    unpaidFlatFee: Math.max(0, numberValue('unpaidFee', 0.35)),
+    membershipRate: Math.max(0, numberValue('membershipRate', 1.20)),
+    members: Math.max(0, integerValue('members', 500)),
+    packagePrice: Math.max(0, numberValue('packagePrice', 30))
+  };
+}
+
+function validateInputs(inputs) {
+  const errors = [];
+  if (inputs.courts < 1) {
+    errors.push('Number of assets must be at least 1.');
+  }
+  if (inputs.bookingsPerAsset < 0) {
+    errors.push('Daily bookings per asset cannot be negative.');
+  }
+  if (inputs.bookingPrice < 0) {
+    errors.push('Booking price cannot be negative.');
+  }
+  if (inputs.paymentType === 'paid' && inputs.bookingPrice <= 0) {
+    errors.push('Booking price is required for paid bookings.');
+  }
+  if (inputs.paymentType === 'hybrid') {
+    const totalSplit = inputs.paidSplit + inputs.unpaidSplit;
+    if (Math.abs(totalSplit - 100) > 0.0001) {
+      errors.push('Paid and unpaid percentages must sum to 100%.');
+    }
+  }
+  return errors;
+}
+
+function updateSplitUI(inputs) {
+  const splitContainer = $('splitContainer');
+  const splitError = $('splitError');
+  const priceGroup = $('price') ? $('price').closest('.input-group') : null;
+
+  if (inputs.paymentType === 'paid') {
+    if (splitContainer) splitContainer.style.display = 'none';
+    if (splitError) splitError.style.display = 'none';
+    if (priceGroup) priceGroup.style.display = 'block';
+  } else if (inputs.paymentType === 'unpaid') {
+    if (splitContainer) splitContainer.style.display = 'none';
+    if (splitError) splitError.style.display = 'none';
+    if (priceGroup) priceGroup.style.display = 'none';
+  } else {
+    if (splitContainer) splitContainer.style.display = 'grid';
+    if (priceGroup) priceGroup.style.display = 'block';
+    const valid = Math.abs((inputs.paidSplit + inputs.unpaidSplit) - 100) <= 0.0001;
+    if (splitError) splitError.style.display = valid ? 'none' : 'block';
+  }
+
+  if ($('internalBreakdown')) {
+    $('internalBreakdown').textContent = `${inputs.paidSplit}% Paid / ${inputs.unpaidSplit}% Unpaid`;
+  }
+}
+
+/* ============================================================
+ * 6. CORE COMMISSION CALCULATION ENGINE
+ * ============================================================
+ *
+ * Formulas:
+ * Total Bookings = Courts * Daily Bookings Per Court * Occupancy Factor
+ * Total Paid Bookings = Total Bookings * (Paid % / 100)
+ * Total Unpaid Bookings = Total Bookings * (Unpaid % / 100)
+ * Paid Booking Commission = Total Paid Bookings * Booking Price Per Slot * Paid Comm %
+ * Unpaid Booking Commission = Total Unpaid Bookings * Unpaid Flat Fee
+ * Total SWP Commission Per Day = Paid Booking Commission + Unpaid Booking Commission
+ * Total SWP Commission Monthly = Daily * 30
+ * Total SWP Commission Yearly = Daily * 365
+ */
+
+function calculateCommission({
+  courts,
+  occupancyFactor,
+  bookingsPerAsset,
+  bookingPrice,
+  paymentType,
+  paidDistribution,
+  unpaidDistribution,
+  paidPercentage,
+  unpaidFlatFee
+}) {
+  const totalDailyBookings = Math.round(courts * bookingsPerAsset * occupancyFactor);
+  let paidBookings = 0;
+  let unpaidBookings = 0;
+
+  if (paymentType === 'paid') {
+    paidBookings = totalDailyBookings;
+    unpaidBookings = 0;
+  } else if (paymentType === 'unpaid') {
+    paidBookings = 0;
+    unpaidBookings = totalDailyBookings;
+  } else {
+    paidBookings = Math.round(totalDailyBookings * (paidDistribution / 100));
+    unpaidBookings = Math.max(0, totalDailyBookings - paidBookings);
+  }
+
+  const paidRevenue = paidBookings * bookingPrice;
+  const paidCommission = roundCurrency(paidRevenue * paidPercentage);
+  const unpaidCommission = roundCurrency(unpaidBookings * unpaidFlatFee);
+
+  const dailySwpCommission = paidCommission + unpaidCommission;
+  const monthlySwpCommission = roundCurrency(dailySwpCommission * 30);
+  const yearlySwpCommission = roundCurrency(dailySwpCommission * 365);
+
+  const grossBookingRevenue = paymentType === 'unpaid' ? 0 : totalDailyBookings * bookingPrice;
+  const monthlyGrossBookingRevenue = grossBookingRevenue * 30;
+
+  return {
+    totalDailyBookings,
+    paidBookings,
+    unpaidBookings,
+    paidRevenue,
+    paidCommission,
+    unpaidCommission,
+    dailySwpCommission,
+    monthlySwpCommission,
+    yearlySwpCommission,
+    grossBookingRevenue,
+    monthlyGrossBookingRevenue
+  };
+}
+
+function calculateMembershipCommission(inputs) {
+  return inputs.members * inputs.packagePrice * (inputs.membershipRate / 100);
+}
+
+/* ============================================================
+ * 7. NEGOTIATION SCENARIOS & SENSITIVITY MATRIX
+ * ============================================================ */
+
+function getNegotiationScenarios(startPaidRate, startUnpaidFee) {
+  return SCENARIO_STEPS.map((step) => {
+    return {
+      label: step.label,
+      paidRate: Math.max(0, roundCurrency(startPaidRate + step.paidDelta)),
+      unpaidFee: Math.max(0, roundCurrency(startUnpaidFee + step.unpaidDelta))
+    };
+  });
+}
+
+function renderNegotiationTable(inputs) {
+  const tbody = $('scenarioRows');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+
+  const startPaidRate = roundCurrency(inputs.paidPercentage * 100);
+  const startUnpaidFee = roundCurrency(inputs.unpaidFlatFee);
+  const scenarios = getNegotiationScenarios(startPaidRate, startUnpaidFee);
+
+  scenarios.forEach((scenario, index) => {
+    const result = calculateCommission({
+      courts: inputs.courts,
+      occupancyFactor: inputs.occupancyFactor,
+      bookingsPerAsset: inputs.bookingsPerAsset,
+      bookingPrice: inputs.bookingPrice,
+      paymentType: inputs.paymentType,
+      paidDistribution: inputs.paidSplit,
+      unpaidDistribution: inputs.unpaidSplit,
+      paidPercentage: scenario.paidRate / 100,
+      unpaidFlatFee: scenario.unpaidFee
+    });
+
+    const isApplied = index === 0;
+    const tr = document.createElement('tr');
+    if (isApplied) tr.classList.add('active-tier');
+
+    const actionHtml = isApplied
+      ? `<span style="background:var(--success-soft); color:var(--success); padding:4px 8px; border-radius:4px; font-size:11px; font-weight:600;">APPLIED</span>`
+      : `<button class="btn" style="background:#e0e7ff; color:#4338ca; padding:4px 10px; font-size:12px; border-radius:4px;" onclick="applyScenario(${scenario.paidRate}, ${scenario.unpaidFee})">Apply</button>`;
+
+    tr.innerHTML = `
+      <td>${scenario.label}</td>
+      <td>${scenario.paidRate.toFixed(2)}%</td>
+      <td>${formatEUR(scenario.unpaidFee)}</td>
+      <td>${formatEUR(result.paidCommission)}</td>
+      <td>${formatEUR(result.unpaidCommission)}</td>
+      <td>${formatEUR(result.monthlySwpCommission)}</td>
+      <td>${formatEUR(result.yearlySwpCommission)}</td>
+      <td>${actionHtml}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+/* ============================================================
+ * 8. PROPOSAL OVERVIEW SIDEBAR RENDER
+ * ============================================================ */
+
+function renderProposalOverview(inputs, result, membershipCommission) {
+  const courtRange = getCourtRange(inputs.courts);
+
+  if ($('sumAssets')) {
+    $('sumAssets').textContent = courtRange === '21-40' ? '21+ assets' : `${courtRange} assets`;
+  }
+  if ($('sumOcc')) {
+    $('sumOcc').textContent = `${inputs.occupancyLabel} (${(inputs.occupancyFactor * 100).toFixed(0)}%)`;
+  }
+  if ($('sumType')) {
+    if (inputs.paymentType === 'hybrid') {
+      $('sumType').textContent = `Hybrid (${inputs.paidSplit}/${inputs.unpaidSplit})`;
+    } else if (inputs.paymentType === 'paid') {
+      $('sumType').textContent = '100% Paid';
+    } else {
+      $('sumType').textContent = '100% Unpaid';
+    }
+  }
+  if ($('sumPrice')) {
+    $('sumPrice').textContent = inputs.paymentType === 'unpaid' ? 'Not applicable' : `${formatEUR(inputs.bookingPrice)} / slot`;
+  }
+  if ($('sumUnpaidFee')) {
+    $('sumUnpaidFee').textContent = formatEUR(inputs.unpaidFlatFee);
+  }
+  if ($('sumPaidRate')) {
+    $('sumPaidRate').textContent = formatPercent(inputs.paidPercentage * 100);
+  }
+  if ($('sumMembershipComm')) {
+    $('sumMembershipComm').textContent = formatEUR(membershipCommission);
+  }
+  if ($('membershipMonthly')) {
+    $('membershipMonthly').value = formatEUR(membershipCommission);
+  }
+
+  const monthlyGrossRevenue = result.monthlyGrossBookingRevenue;
+  const totalMonthlySwp = result.monthlySwpCommission + membershipCommission;
+  const totalYearlySwp = result.yearlySwpCommission + (membershipCommission * 12);
+
+  const platformPercent = monthlyGrossRevenue > 0
+    ? clamp((totalMonthlySwp / monthlyGrossRevenue) * 100, 0, 100)
+    : 0;
+  const clubNetPercent = 100 - platformPercent;
+
+  if ($('monthlyClubRev')) $('monthlyClubRev').textContent = formatEUR(monthlyGrossRevenue);
+  if ($('barClub')) $('barClub').style.width = `${clubNetPercent.toFixed(1)}%`;
+  if ($('barSwp')) $('barSwp').style.width = `${platformPercent.toFixed(1)}%`;
+  if ($('labelClub')) $('labelClub').textContent = `${clubNetPercent.toFixed(1)}% Club Net`;
+  if ($('labelSwp')) $('labelSwp').textContent = `${platformPercent.toFixed(1)}% Platform Fee`;
+
+  if ($('monthlySwpRev')) $('monthlySwpRev').textContent = formatEUR(totalMonthlySwp);
+  if ($('yearlySwpRev')) $('yearlySwpRev').textContent = formatEUR(totalYearlySwp);
+}
+
+/* ============================================================
+ * 9. INTERNAL CALCULATION RUNNER
+ * ============================================================ */
+
+function calculateAllInternal() {
+  const inputs = getInputs();
+  updateSplitUI(inputs);
+
+  const errors = validateInputs(inputs);
+  if (errors.length > 0) {
+    renderNegotiationTable(inputs);
+    return { valid: false, errors };
+  }
+
+  const result = calculateCommission({
+    courts: inputs.courts,
+    occupancyFactor: inputs.occupancyFactor,
+    bookingsPerAsset: inputs.bookingsPerAsset,
+    bookingPrice: inputs.bookingPrice,
+    paymentType: inputs.paymentType,
+    paidDistribution: inputs.paidSplit,
+    unpaidDistribution: inputs.unpaidSplit,
+    paidPercentage: inputs.paidPercentage,
+    unpaidFlatFee: inputs.unpaidFlatFee
+  });
+
+  const membershipCommission = calculateMembershipCommission(inputs);
+
+  renderNegotiationTable(inputs);
+  renderProposalOverview(inputs, result, membershipCommission);
+
+  return { valid: true, inputs, result, membershipCommission };
+}
+
+/* ============================================================
+ * 10. PUBLIC UI ACTIONS
+ * ============================================================ */
+
+window.calculateBasePricing = function () {
+  const courts = Math.max(1, integerValue('assets', 12));
+  const occupancyRaw = numberValue('occupancy', 0.80);
+  const row = getPricingMatrixRow(courts, occupancyRaw);
+
+  if (row) {
+    $('paidRate').value = (row.paid_percentage * 100).toFixed(2);
+    $('unpaidFee').value = row.unpaid_flat_fee.toFixed(2);
+    renderMatrixMatch(row);
+  }
+  return calculateAllInternal();
+};
+
+window.calculateAll = function () {
+  return calculateAllInternal();
+};
+
+window.applyScenario = function (paidRate, unpaidFee) {
+  $('paidRate').value = Number(paidRate).toFixed(2);
+  $('unpaidFee').value = Number(unpaidFee).toFixed(2);
+  calculateAllInternal();
+  showToast(`Scenario applied: ${Number(paidRate).toFixed(2)}% / ${formatEUR(unpaidFee)}`);
+};
+
+window.resetToMatrixDefault = function () {
+  const courts = Math.max(1, integerValue('assets', 12));
+  const occupancyRaw = numberValue('occupancy', 0.80);
+  const row = getPricingMatrixRow(courts, occupancyRaw);
+
+  if (row) {
+    $('paidRate').value = (row.paid_percentage * 100).toFixed(2);
+    $('unpaidFee').value = row.unpaid_flat_fee.toFixed(2);
+    renderMatrixMatch(row);
+    calculateAllInternal();
+    showToast('Runtime pricing reset to matrix default.');
+  }
+};
+
+function renderMatrixMatch(row) {
+  const target = $('matrixMatch');
+  if (!target || !row) return;
+  target.textContent = `Pricing matrix: ${row.court_range} assets × ${row.occupancy_tier} occupancy → ${formatPercent(row.paid_percentage * 100)} paid / ${formatEUR(row.unpaid_flat_fee)} unpaid`;
+}
+
+function showToast(message) {
+  const toast = $('toast');
+  if (!toast) return;
+  toast.innerHTML = `<span>✅ ${message}</span>`;
+  toast.classList.add('show');
+  clearTimeout(showToast.timeout);
+  showToast.timeout = setTimeout(() => toast.classList.remove('show'), 3500);
+}
+
+window.resetForm = function () {
+  if (confirm('Are you sure you want to reset all form data?')) {
+    window.location.reload();
+  }
+};
+
+window.cancelForm = function () {
+  if (confirm('Are you sure you want to cancel? Unsaved changes will be lost.')) {
+    showToast('Changes cancelled.');
+  }
+};
+
+window.saveDraft = function () {
+  showToast('Pricing configuration saved as draft!');
+};
+
+window.assignPricing = function () {
+  const res = calculateAllInternal();
+  if (!res.valid) {
+    showToast('Please correct validation errors first.');
+    return;
+  }
+  showToast('Pricing configuration saved and assigned to SportClub Houten!');
+};
+
+/* ============================================================
+ * 11. EVENT BINDINGS & INITIALIZATION
+ * ============================================================ */
+
+function bindLiveCalculation() {
+  const liveIds = [
+    'price', 'bookings', 'paidSplit', 'unpaidSplit',
+    'membershipRate', 'members', 'packagePrice'
+  ];
+
+  liveIds.forEach((id) => {
+    const el = $(id);
+    if (!el) return;
+    el.addEventListener('input', () => calculateAllInternal());
+    el.addEventListener('change', () => calculateAllInternal());
+  });
+
+  $('paymentType')?.addEventListener('change', () => calculateAllInternal());
+
+  const updateMatrixFromInputs = () => {
+    const courts = Math.max(1, integerValue('assets', 12));
+    const occupancyRaw = numberValue('occupancy', 0.80);
+    const row = getPricingMatrixRow(courts, occupancyRaw);
+    if (row) {
+      $('paidRate').value = (row.paid_percentage * 100).toFixed(2);
+      $('unpaidFee').value = row.unpaid_flat_fee.toFixed(2);
+      renderMatrixMatch(row);
+    }
+    calculateAllInternal();
+  };
+
+  $('assets')?.addEventListener('input', updateMatrixFromInputs);
+  $('assets')?.addEventListener('change', updateMatrixFromInputs);
+  $('occupancy')?.addEventListener('change', updateMatrixFromInputs);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const courts = Math.max(1, integerValue('assets', 12));
+  const occupancyRaw = numberValue('occupancy', 0.80);
+  const row = getPricingMatrixRow(courts, occupancyRaw);
+
+  if (row) {
+    $('paidRate').value = (row.paid_percentage * 100).toFixed(2);
+    $('unpaidFee').value = row.unpaid_flat_fee.toFixed(2);
+    renderMatrixMatch(row);
+  }
+
+  bindLiveCalculation();
+  calculateAllInternal();
+});
+</script>
+</html>

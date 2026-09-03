@@ -1,0 +1,685 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>ShallWePlay Admin</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        font-family: Arial, sans-serif;
+        background: #f8fafc;
+        color: #111827;
+        overflow: hidden;
+      }
+
+      /* =========================
+       APP LAYOUT
+    ========================= */
+
+      .app {
+        display: flex;
+        width: 100%;
+        height: 100vh;
+      }
+
+      /* =========================
+       SIDEBAR
+    ========================= */
+
+      .sidebar {
+        width: 240px;
+        height: 100vh;
+        background: #ffffff;
+        border-right: 1px solid #e5e7eb;
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+      }
+
+      .logo {
+        height: 72px;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .logo-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        background: #2563eb;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        margin-right: 10px;
+      }
+
+      .logo-text {
+        font-size: 16px;
+        font-weight: 700;
+        color: #111827;
+      }
+
+      .logo-subtitle {
+        font-size: 10px;
+        color: #9ca3af;
+        margin-top: 2px;
+      }
+
+      /* =========================
+       NAVIGATION
+    ========================= */
+
+      .nav {
+        padding: 16px 12px;
+        overflow-y: auto;
+        flex: 1;
+      }
+
+      .nav-section-title {
+        font-size: 10px;
+        font-weight: 700;
+        color: #9ca3af;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding: 0 10px;
+        margin-bottom: 8px;
+      }
+
+      .nav-item {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border: none;
+        background: transparent;
+        color: #6b7280;
+        padding: 11px 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 600;
+        text-align: left;
+        margin-bottom: 3px;
+        transition: all 0.15s ease;
+      }
+
+      .nav-item:hover {
+        background: #f3f4f6;
+        color: #111827;
+      }
+
+      .nav-item.active {
+        background: #eff6ff;
+        color: #2563eb;
+      }
+
+      .nav-icon {
+        width: 22px;
+        text-align: center;
+        font-size: 16px;
+        flex-shrink: 0;
+      }
+
+      /* =========================
+       SIDEBAR FOOTER
+    ========================= */
+
+      .sidebar-footer {
+        padding: 14px;
+        border-top: 1px solid #e5e7eb;
+      }
+
+      .prototype-badge {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        padding: 9px 10px;
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        border-radius: 8px;
+        color: #15803d;
+        font-size: 10px;
+        font-weight: 700;
+      }
+
+      .status-dot {
+        width: 7px;
+        height: 7px;
+        background: #22c55e;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      /* =========================
+       MAIN CONTENT
+    ========================= */
+
+      .main {
+        flex: 1;
+        min-width: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* =========================
+       TOP BAR
+    ========================= */
+
+      .topbar {
+        height: 72px;
+        background: #ffffff;
+        border-bottom: 1px solid #e5e7eb;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 24px;
+        flex-shrink: 0;
+      }
+
+      .page-heading h1 {
+        font-size: 18px;
+        font-weight: 700;
+        color: #111827;
+      }
+
+      .page-heading p {
+        font-size: 11px;
+        color: #9ca3af;
+        margin-top: 3px;
+      }
+
+      .topbar-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .topbar-badge {
+        padding: 7px 10px;
+        border: 1px solid #e5e7eb;
+        border-radius: 7px;
+        font-size: 10px;
+        color: #6b7280;
+        background: #f9fafb;
+      }
+
+      /* =========================
+       CONTENT
+    ========================= */
+
+      .content {
+        flex: 1;
+        min-height: 0;
+        position: relative;
+        background: #f8fafc;
+      }
+
+      #pageFrame {
+        width: 100%;
+        height: 100%;
+        border: none;
+        display: block;
+        background: #ffffff;
+      }
+
+      /* =========================
+       LOADING
+    ========================= */
+
+      .loading {
+        position: absolute;
+        inset: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: rgba(248, 250, 252, 0.85);
+        z-index: 10;
+      }
+
+      .loading.show {
+        display: flex;
+      }
+
+      .loading-box {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        padding: 16px 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        font-size: 12px;
+        color: #6b7280;
+      }
+
+      /* =========================
+       MOBILE
+    ========================= */
+
+      .mobile-header {
+        display: none;
+      }
+
+      @media (max-width: 768px) {
+        .sidebar {
+          position: fixed;
+          left: -240px;
+          top: 0;
+          z-index: 100;
+          transition: left 0.2s ease;
+        }
+
+        .sidebar.open {
+          left: 0;
+        }
+
+        .mobile-header {
+          display: flex;
+          height: 56px;
+          background: #ffffff;
+          border-bottom: 1px solid #e5e7eb;
+          align-items: center;
+          padding: 0 16px;
+          gap: 12px;
+        }
+
+        .menu-btn {
+          border: none;
+          background: transparent;
+          font-size: 20px;
+          cursor: pointer;
+        }
+
+        .mobile-title {
+          font-size: 14px;
+          font-weight: 700;
+        }
+
+        .topbar {
+          height: 64px;
+          padding: 0 16px;
+        }
+
+        .page-heading h1 {
+          font-size: 16px;
+        }
+
+        .page-heading p {
+          display: none;
+        }
+
+        .topbar-badge {
+          display: none;
+        }
+
+        .main {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="app">
+      <!-- =========================
+       SIDEBAR
+  ========================== -->
+
+      <aside class="sidebar" id="sidebar">
+        <div class="logo">
+          <div class="logo-icon">S</div>
+
+          <div>
+            <div class="logo-text">ShallWePlay</div>
+            <div class="logo-subtitle">Admin Prototype</div>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <div class="nav-section-title">Configuration</div>
+
+          <button
+            class="nav-item active"
+            data-page="booking_rule.html"
+            data-title="Booking Rules"
+            data-description="Configure booking behavior and rules"
+            onclick="openPage(this)"
+          >
+            <span class="nav-icon">📋</span>
+            <span>Booking Rules</span>
+          </button>
+
+          <button
+            class="nav-item"
+            data-page="assign_pricing_admin.html"
+            data-title="Assign Pricing"
+            data-description="Assign pricing to clubs and facilities"
+            onclick="openPage(this)"
+          >
+            <span class="nav-icon">$</span>
+            <span>Assign Pricing</span>
+          </button>
+
+          <button
+            class="nav-item"
+            data-page="pricing_rule.html"
+            data-title="Pricing & Cancellation"
+            data-description="Configure pricing and cancellation policies"
+            onclick="openPage(this)"
+          >
+            <span class="nav-icon">💰</span>
+            <span>Pricing</span>
+          </button>
+
+          <button
+            class="nav-item"
+            data-page="skiing_manage_asset.html"
+            data-title="Manage Ski Assets"
+            data-description="Create and manage skiing facilities"
+            onclick="openPage(this)"
+          >
+            <span class="nav-icon">⛷️</span>
+            <span>Manage Skiing Assets</span>
+          </button>
+
+          <button
+            class="nav-item"
+            data-page="payout_config_admin.html"
+            data-title="Payout Configuration"
+            data-description="Configure payout schedules by timezone"
+            onclick="openPage(this)"
+          >
+            <span class="nav-icon">💳</span>
+            <span>Payout</span>
+          </button>
+
+          <button
+            class="nav-item"
+            data-page="club_availability_with_holidays.html"
+            data-title="Club Availability"
+            data-description="Manage club availability and special closures"
+            onclick="openPage(this)"
+          >
+            <span class="nav-icon">📅</span>
+            <span>Availability</span>
+          </button>
+
+          <button
+            class="nav-item"
+            data-page="skiing_player.html"
+            data-title="Player Experience"
+            data-description="Preview the player mobile experience"
+            onclick="openPage(this)"
+          >
+            <span class="nav-icon">📱</span>
+            <span>Player Skiing Booking UI</span>
+          </button>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="prototype-badge">
+            <span class="status-dot"></span>
+            Interactive Prototype
+          </div>
+        </div>
+      </aside>
+
+      <!-- =========================
+       MAIN
+  ========================== -->
+
+      <main class="main">
+        <!-- Mobile Header -->
+
+        <div class="mobile-header">
+          <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+
+          <div class="mobile-title" id="mobileTitle">Booking Rules</div>
+        </div>
+
+        <!-- Top Bar -->
+
+        <header class="topbar">
+          <div class="page-heading">
+            <h1 id="pageTitle">Booking Rules</h1>
+
+            <p id="pageDescription">Configure booking behavior and rules</p>
+          </div>
+
+          <div class="topbar-actions">
+            <div class="topbar-badge">ShallWePlay</div>
+
+            <div class="topbar-badge">Prototype</div>
+          </div>
+        </header>
+
+        <!-- Page -->
+
+        <section class="content">
+          <div class="loading" id="loading">
+            <div class="loading-box">Loading page...</div>
+          </div>
+
+          <iframe
+            id="pageFrame"
+            src="booking_rule.html"
+            title="ShallWePlay Admin Page"
+          ></iframe>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      /*
+       * ============================================
+       * PAGE CONFIGURATION
+       * ============================================
+       *
+       * All your HTML files stay separate.
+       *
+       * The iframe loads the selected file.
+       */
+
+      const pageFrame = document.getElementById("pageFrame");
+      const pageTitle = document.getElementById("pageTitle");
+      const pageDescription = document.getElementById("pageDescription");
+      const mobileTitle = document.getElementById("mobileTitle");
+      const loading = document.getElementById("loading");
+
+      const sidebar = document.getElementById("sidebar");
+
+      /*
+       * ============================================
+       * OPEN PAGE
+       * ============================================
+       */
+
+      function openPage(button) {
+        const page = button.dataset.page;
+        const title = button.dataset.title;
+        const description = button.dataset.description;
+
+        // Update active navigation item
+
+        document.querySelectorAll(".nav-item").forEach((item) => {
+          item.classList.remove("active");
+        });
+
+        button.classList.add("active");
+
+        // Update heading
+
+        pageTitle.textContent = title;
+        pageDescription.textContent = description;
+        mobileTitle.textContent = title;
+
+        // Show loading
+
+        loading.classList.add("show");
+
+        // Load selected HTML file
+
+        pageFrame.src = page;
+
+        /*
+         * Update browser URL.
+         *
+         * Example:
+         *
+         * index.html#pricing
+         *
+         * This means refresh/back navigation
+         * can remember the selected tab.
+         */
+
+        const key = page.replace(".html", "");
+
+        history.pushState(
+          {
+            page: page,
+          },
+          "",
+          "#" + key,
+        );
+
+        // Close mobile sidebar
+
+        sidebar.classList.remove("open");
+      }
+
+      /*
+       * ============================================
+       * IFRAME LOADED
+       * ============================================
+       */
+
+      pageFrame.addEventListener("load", function () {
+        loading.classList.remove("show");
+      });
+
+      /*
+       * ============================================
+       * MOBILE SIDEBAR
+       * ============================================
+       */
+
+      function toggleSidebar() {
+        sidebar.classList.toggle("open");
+      }
+
+      /*
+       * ============================================
+       * PAGE DEFINITIONS
+       * ============================================
+       *
+       * Used when opening a page from URL hash.
+       */
+
+      const pages = {
+        booking_rule: {
+          page: "booking_rule.html",
+          title: "Booking Rules",
+          description: "Configure booking behavior and rules",
+        },
+
+        pricing_rule: {
+          page: "pricing_rule.html",
+          title: "Pricing & Cancellation",
+          description: "Configure pricing and cancellation policies",
+        },
+
+        club_availability_with_holidays: {
+          page: "club_availability_with_holidays.html",
+          title: "Club Availability",
+          description: "Manage club availability and special closures",
+        },
+
+        payout_config_admin: {
+          page: "payout_config_admin.html",
+          title: "Payout Configuration",
+          description: "Configure payout schedules by timezone",
+        },
+
+        skiing_manage_asset: {
+          page: "skiing_manage_asset.html",
+          title: "Manage Ski Assets",
+          description: "Create and manage skiing facilities",
+        },
+
+        skiing_player: {
+          page: "skiing_player.html",
+          title: "Player Experience",
+          description: "Preview the player mobile experience",
+        },
+      };
+
+      /*
+       * ============================================
+       * OPEN PAGE FROM HASH
+       * ============================================
+       *
+       * Example:
+       *
+       * index.html#pricing_rule
+       *
+       */
+
+      function openPageFromHash() {
+        const hash = window.location.hash.replace("#", "");
+
+        if (!hash || !pages[hash]) {
+          return;
+        }
+
+        const config = pages[hash];
+
+        pageFrame.src = config.page;
+
+        pageTitle.textContent = config.title;
+        pageDescription.textContent = config.description;
+        mobileTitle.textContent = config.title;
+
+        // Update active button
+
+        document.querySelectorAll(".nav-item").forEach((item) => {
+          item.classList.toggle("active", item.dataset.page === config.page);
+        });
+      }
+
+      /*
+       * ============================================
+       * BROWSER BACK / FORWARD
+       * ============================================
+       */
+
+      window.addEventListener("popstate", function () {
+        openPageFromHash();
+      });
+
+      /*
+       * ============================================
+       * INITIAL LOAD
+       * ============================================
+       */
+
+      window.addEventListener("DOMContentLoaded", function () {
+        openPageFromHash();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Club Availability & Holidays</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-[#f3f4f8] min-h-screen py-10 px-4 sm:px-6 lg:px-8 text-gray-800">
+
+  <div class="max-w-4xl mx-auto space-y-6">
+
+    <!-- Page Header -->
+    <div>
+      <h1 class="text-2xl font-bold text-gray-900 tracking-tight">Availability</h1>
+      <p class="text-sm text-gray-500 mt-0.5">Set your weekly availability schedule and configure club holidays</p>
+    </div>
+
+    <!-- 1. Weekly Schedule Overview Card -->
+    <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+      <h2 class="text-base font-bold text-gray-900 mb-4">Weekly Schedule Overview</h2>
+      
+      <div id="schedule-overview" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+        <div class="flex items-center justify-between p-2.5 bg-gray-50/80 rounded-md border border-gray-100 text-sm">
+          <span class="font-medium text-gray-700">Monday</span>
+          <span class="text-gray-900 font-mono text-xs font-semibold">06:30 - 00:00</span>
+        </div>
+        <div class="flex items-center justify-between p-2.5 bg-gray-50/80 rounded-md border border-gray-100 text-sm">
+          <span class="font-medium text-gray-700">Tuesday</span>
+          <span class="text-gray-900 font-mono text-xs font-semibold">06:00 - 00:00</span>
+        </div>
+        <div class="flex items-center justify-between p-2.5 bg-gray-50/80 rounded-md border border-gray-100 text-sm">
+          <span class="font-medium text-gray-700">Wednesday</span>
+          <span class="text-gray-900 font-mono text-xs font-semibold">06:00 - 00:00</span>
+        </div>
+        <div class="flex items-center justify-between p-2.5 bg-gray-50/80 rounded-md border border-gray-100 text-sm">
+          <span class="font-medium text-gray-700">Thursday</span>
+          <span class="text-gray-900 font-mono text-xs font-semibold">06:00 - 00:00</span>
+        </div>
+        <div class="flex items-center justify-between p-2.5 bg-gray-50/80 rounded-md border border-gray-100 text-sm">
+          <span class="font-medium text-gray-700">Friday</span>
+          <span class="text-gray-900 font-mono text-xs font-semibold">06:00 - 00:00</span>
+        </div>
+        <div class="flex items-center justify-between p-2.5 bg-gray-50/80 rounded-md border border-gray-100 text-sm">
+          <span class="font-medium text-gray-700">Saturday</span>
+          <span class="text-gray-900 font-mono text-xs font-semibold">06:00 - 23:00</span>
+        </div>
+        <div class="flex items-center justify-between p-2.5 bg-gray-50/80 rounded-md border border-gray-100 text-sm">
+          <span class="font-medium text-gray-700">Sunday</span>
+          <span class="text-gray-900 font-mono text-xs font-semibold">06:00 - 00:00</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Club Availability Settings Card -->
+    <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+      <div class="mb-5">
+        <h2 class="text-base font-bold text-gray-900">Club availability Settings</h2>
+        <p class="text-xs sm:text-sm text-gray-500 mt-1 text-[13px]">
+          Configure your club's operating hours for each day of the week. Courts will be available for booking during these times.
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        <!-- Monday -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 border border-gray-200 rounded-lg hover:border-gray-300 transition-colors gap-3">
+          <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" checked class="sr-only peer">
+            <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600 relative"></div>
+            <span class="text-sm font-medium text-gray-900">Monday</span>
+          </label>
+          <div class="flex items-center gap-2 self-end sm:self-auto">
+            <div class="relative">
+              <span class="absolute -top-2 left-2 bg-white px-1 text-[10px] text-gray-500 font-medium">Start</span>
+              <input type="text" value="06:30" class="w-24 px-2.5 py-1.5 border border-gray-300 rounded text-sm text-gray-800 focus:outline-blue-500">
+            </div>
+            <span class="text-xs text-gray-500 font-medium">To</span>
+            <div class="relative">
+              <span class="absolute -top-2 left-2 bg-white px-1 text-[10px] text-gray-500 font-medium">End</span>
+              <input type="text" value="24:00" class="w-24 px-2.5 py-1.5 border border-gray-300 rounded text-sm text-gray-800 focus:outline-blue-500">
+            </div>
+          </div>
+        </div>
+
+        <!-- Tuesday -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 border border-gray-200 rounded-lg hover:border-gray-300 transition-colors gap-3">
+          <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" checked class="sr-only peer">
+            <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600 relative"></div>
+            <span class="text-sm font-medium text-gray-900">Tuesday</span>
+          </label>
+          <div class="flex items-center gap-2 self-end sm:self-auto">
+            <div class="relative">
+              <span class="absolute -top-2 left-2 bg-white px-1 text-[10px] text-gray-500 font-medium">Start</span>
+              <input type="text" value="06:00" class="w-24 px-2.5 py-1.5 border border-gray-300 rounded text-sm text-gray-800 focus:outline-blue-500">
+            </div>
+            <span class="text-xs text-gray-500 font-medium">To</span>
+            <div class="relative">
+              <span class="absolute -top-2 left-2 bg-white px-1 text-[10px] text-gray-500 font-medium">End</span>
+              <input type="text" value="24:00" class="w-24 px-2.5 py-1.5 border border-gray-300 rounded text-sm text-gray-800 focus:outline-blue-500">
+            </div>
+          </div>
+        </div>
+
+        <!-- Wednesday -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 border border-gray-200 rounded-lg hover:border-gray-300 transition-colors gap-3">
+          <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" checked class="sr-only peer">
+            <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600 relative"></div>
+            <span class="text-sm font-medium text-gray-900">Wednesday</span>
+          </label>
+          <div class="flex items-center gap-2 self-end sm:self-auto">
+            <div class="relative">
+              <span class="absolute -top-2 left-2 bg-white px-1 text-[10px] text-gray-500 font-medium">Start</span>
+              <input type="text" value="06:00" class="w-24 px-2.5 py-1.5 border border-gray-300 rounded text-sm text-gray-800 focus:outline-blue-500">
+            </div>
+            <span class="text-xs text-gray-500 font-medium">To</span>
+            <div class="relative">
+              <span class="absolute -top-2 left-2 bg-white px-1 text-[10px] text-gray-500 font-medium">End</span>
+              <input type="text" value="24:00" class="w-24 px-2.5 py-1.5 border border-gray-300 rounded text-sm text-gray-800 focus:outline-blue-500">
+            </div>
+          </div>
+        </div>
+
+        <!-- Thursday -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 border border-gray-200 rounded-lg hover:border-gray-300 transition-colors gap-3">
+          <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" checked class="sr-only peer">
+            <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600 relative"></div>
+            <span class="text-sm font-medium text-gray-900">Thursday</span>
+          </label>
+          <div class="flex items-center gap-2 self-end sm:self-auto">
+            <div class="relative">
+              <span class="absolute -top-2 left-2 bg-white px-1 text-[10px] text-gray-500 font-medium">Start</span>
+              <input type="text" value="06:00" class="w-24 px-2.5 py-1.5 border border-gray-300 rounded text-sm text-gray-800 focus:outline-blue-500">
+            </div>
+            <span class="text-xs text-gray-500 font-medium">To</span>
+            <div class="relative">
+              <span class="absolute -top-2 left-2 bg-white px-1 text-[10px] text-gray-500 font-medium">End</span>
+              <input type="text" value="24:00" class="w-24 px-2.5 py-1.5 border border-gray-300 rounded text-sm text-gray-800 focus:outline-blue-500">
+            </div>
+          </div>
+        </div>
+
+        <!-- Friday -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 border border-gray-200 rounded-lg hover:border-gray-300 transition-colors gap-3">
+          <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" checked class="sr-only peer">
+            <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600 relative"></div>
+            <span class="text-sm font-medium text-gray-900">Friday</span>
+          </label>
+          <div class="flex items-center gap-2 self-end sm:self-auto">
+            <div class="relative">
+              <span class="absolute -top-2 left-2 bg-white px-1 text-[10px] text-gray-500 font-medium">Start</span>
+              <input type="text" value="06:00" class="w-24 px-2.5 py-1.5 border border-gray-300 rounded text-sm text-gray-800 focus:outline-blue-500">
+            </div>
+            <span class="text-xs text-gray-500 font-medium">To</span>
+            <div class="relative">
+              <span class="absolute -top-2 left-2 bg-white px-1 text-[10px] text-gray-500 font-medium">End</span>
+              <input type="text" value="24:00" class="w-24 px-2.5 py-1.5 border border-gray-300 rounded text-sm text-gray-800 focus:outline-blue-500">
+            </div>
+          </div>
+        </div>
+
+        <!-- Saturday -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 border border-gray-200 rounded-lg hover:border-gray-300 transition-colors gap-3">
+          <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" checked class="sr-only peer">
+            <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600 relative"></div>
+            <span class="text-sm font-medium text-gray-900">Saturday</span>
+          </label>
+          <div class="flex items-center gap-2 self-end sm:self-auto">
+            <div class="relative">
+              <span class="absolute -top-2 left-2 bg-white px-1 text-[10px] text-gray-500 font-medium">Start</span>
+              <input type="text" value="06:00" class="w-24 px-2.5 py-1.5 border border-gray-300 rounded text-sm text-gray-800 focus:outline-blue-500">
+            </div>
+            <span class="text-xs text-gray-500 font-medium">To</span>
+            <div class="relative">
+              <span class="absolute -top-2 left-2 bg-white px-1 text-[10px] text-gray-500 font-medium">End</span>
+              <input type="text" value="23:00" class="w-24 px-2.5 py-1.5 border border-gray-300 rounded text-sm text-gray-800 focus:outline-blue-500">
+            </div>
+          </div>
+        </div>
+
+        <!-- Sunday -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 border border-gray-200 rounded-lg hover:border-gray-300 transition-colors gap-3">
+          <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" checked class="sr-only peer">
+            <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600 relative"></div>
+            <span class="text-sm font-medium text-gray-900">Sunday</span>
+          </label>
+          <div class="flex items-center gap-2 self-end sm:self-auto">
+            <div class="relative">
+              <span class="absolute -top-2 left-2 bg-white px-1 text-[10px] text-gray-500 font-medium">Start</span>
+              <input type="text" value="06:00" class="w-24 px-2.5 py-1.5 border border-gray-300 rounded text-sm text-gray-800 focus:outline-blue-500">
+            </div>
+            <span class="text-xs text-gray-500 font-medium">To</span>
+            <div class="relative">
+              <span class="absolute -top-2 left-2 bg-white px-1 text-[10px] text-gray-500 font-medium">End</span>
+              <input type="text" value="24:00" class="w-24 px-2.5 py-1.5 border border-gray-300 rounded text-sm text-gray-800 focus:outline-blue-500">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Save Availability Button -->
+      <div class="flex justify-end mt-6">
+        <button class="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs tracking-wider rounded uppercase transition-colors shadow-sm">
+          Save Availability
+        </button>
+      </div>
+    </div>
+
+    <!-- 3. NEW SECTION: Club Holidays & Special Closures -->
+    <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-gray-100 gap-3">
+        <div>
+          <h2 class="text-base font-bold text-gray-900">Club Holidays & Special Closures</h2>
+          <p class="text-xs sm:text-sm text-gray-500 mt-0.5">
+            Add single dates or multiple day ranges when the club is closed or operating on special holiday hours.
+          </p>
+        </div>
+        <button onclick="openHolidayModal()" class="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded uppercase tracking-wider transition-colors shadow-sm self-start sm:self-auto">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          Add Holiday
+        </button>
+      </div>
+
+      <!-- Holidays List Container -->
+      <div id="holidays-list" class="mt-4 space-y-3">
+        <!-- Rendered dynamically by JavaScript -->
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Modal for Adding Holidays -->
+  <div id="holiday-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 hidden">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-md p-6 border border-gray-100">
+      <div class="flex items-center justify-between mb-4 pb-2 border-b border-gray-100">
+        <h3 class="text-base font-bold text-gray-900">Add Holiday / Closure / Special Pricing</h3>
+        <button onclick="closeHolidayModal()" class="text-gray-400 hover:text-gray-600">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <form id="holiday-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Holiday / Reason Name</label>
+          <input type="text" id="holiday-title" required placeholder="e.g. Diwali Break, Annual Maintenance" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">Start Date</label>
+            <input type="date" id="holiday-start" required class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1">End Date</label>
+            <input type="date" id="holiday-end" required class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-2">Type</label>
+          <div class="grid grid-cols-2 gap-2">
+            <label class="cursor-pointer">
+              <input type="radio" name="holiday-type" value="holiday" checked onchange="toggleHolidayType()" class="peer sr-only">
+              <div class="text-center px-4 py-2 text-sm font-medium rounded-md border border-gray-300 text-gray-700 bg-white peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600 hover:bg-gray-50 transition-colors">
+                Holiday / Closure
+              </div>
+            </label>
+            <label class="cursor-pointer">
+              <input type="radio" name="holiday-type" value="pricing" onchange="toggleHolidayType()" class="peer sr-only">
+              <div class="text-center px-4 py-2 text-sm font-medium rounded-md border border-gray-300 text-gray-700 bg-white peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600 hover:bg-gray-50 transition-colors">
+                Special Pricing
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Holiday-only options -->
+        <div id="holiday-options">
+          <div class="pt-1">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" id="holiday-fullday" checked onchange="toggleCustomHours()" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 border-gray-300">
+              <span class="text-sm font-medium text-gray-800">Closed all day</span>
+            </label>
+          </div>
+
+          <!-- Custom hours fields (shown if not full day closed) -->
+          <div id="custom-hours-container" class="hidden grid grid-cols-2 gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
+            <div>
+              <label class="block text-xs font-semibold text-gray-600 mb-1">Start Time</label>
+              <input type="time" id="holiday-time-start" value="10:00" class="w-full px-2 py-1.5 border border-gray-300 rounded bg-white text-sm">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-600 mb-1">End Time</label>
+              <input type="time" id="holiday-time-end" value="18:00" class="w-full px-2 py-1.5 border border-gray-300 rounded bg-white text-sm">
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-2 pt-4 border-t border-gray-100">
+          <button type="button" onclick="closeHolidayModal()" class="px-4 py-2 text-xs font-semibold text-gray-600 hover:bg-gray-100 rounded uppercase tracking-wider transition-colors">
+            Cancel
+          </button>
+          <button type="submit" class="px-5 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 rounded uppercase tracking-wider transition-colors shadow-sm">
+            Save Holiday
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- JavaScript Logic -->
+  <script>
+    let holidays = [
+      {
+        id: 1,
+        title: "Diwali Vacation",
+        startDate: "2026-10-24",
+        endDate: "2026-10-26",
+        type: "holiday",
+        isFullDay: true
+      },
+      {
+        id: 2,
+        title: "Annual Club Renovation",
+        startDate: "2026-11-15",
+        endDate: "2026-11-18",
+        type: "holiday",
+        isFullDay: true
+      },
+      {
+        id: 3,
+        title: "New Year's Day (Special Hours)",
+        startDate: "2027-01-01",
+        endDate: "2027-01-01",
+        type: "holiday",
+        isFullDay: false,
+        startTime: "10:00",
+        endTime: "18:00"
+      },
+      {
+        id: 4,
+        title: "Summer Slam Pricing",
+        startDate: "2026-07-01",
+        endDate: "2026-07-03",
+        type: "pricing"
+      }
+    ];
+
+    function renderHolidays() {
+      const container = document.getElementById('holidays-list');
+      if (holidays.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-8 border-2 border-dashed border-gray-100 rounded-lg">
+            <p class="text-sm font-medium text-gray-500">No holidays or special closures scheduled</p>
+            <p class="text-xs text-gray-400 mt-1">Courts will follow the regular weekly availability schedule.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = holidays.map(h => {
+        const isSingleDay = h.startDate === h.endDate;
+        const dateDisplay = isSingleDay ? h.startDate : `${h.startDate} → ${h.endDate}`;
+
+        let badge;
+        if (h.type === 'pricing') {
+          badge = `<span class="px-2 py-0.5 text-[11px] font-medium bg-emerald-50 text-emerald-700 border border-emerald-200 rounded">Special Pricing</span>`;
+        } else if (h.isFullDay) {
+          badge = `<span class="px-2 py-0.5 text-[11px] font-medium bg-red-50 text-red-700 border border-red-200 rounded">Full Day Closed</span>`;
+        } else {
+          badge = `<span class="px-2 py-0.5 text-[11px] font-medium bg-amber-50 text-amber-800 border border-amber-200 rounded">Special Hours: ${h.startTime} - ${h.endTime}</span>`;
+        }
+        
+        return `
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded-lg border border-gray-200 hover:border-gray-300 transition-colors bg-gray-50/50 gap-3">
+            <div class="flex items-start sm:items-center gap-3">
+              <div class="p-2 bg-blue-50 text-blue-600 rounded-md">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              </div>
+              <div>
+                <div class="flex flex-wrap items-center gap-2">
+                  <span class="text-sm font-semibold text-gray-900">${h.title}</span>
+                  ${badge}
+                </div>
+                <p class="text-xs text-gray-500 mt-1 font-mono">${dateDisplay}</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 self-end sm:self-center">
+              <button onclick="deleteHoliday(${h.id})" class="p-1.5 text-gray-400 hover:text-red-600 rounded hover:bg-white transition-colors" title="Delete holiday">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function openHolidayModal() {
+      document.getElementById('holiday-modal').classList.remove('hidden');
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('holiday-start').value = today;
+      document.getElementById('holiday-end').value = today;
+    }
+
+    function closeHolidayModal() {
+      document.getElementById('holiday-modal').classList.add('hidden');
+      document.getElementById('holiday-form').reset();
+      toggleHolidayType();
+      toggleCustomHours();
+    }
+
+    function toggleHolidayType() {
+      const type = document.querySelector('input[name="holiday-type"]:checked').value;
+      const holidayOptions = document.getElementById('holiday-options');
+      if (type === 'pricing') {
+        holidayOptions.classList.add('hidden');
+      } else {
+        holidayOptions.classList.remove('hidden');
+      }
+    }
+
+    function toggleCustomHours() {
+      const isFullDay = document.getElementById('holiday-fullday').checked;
+      const hoursContainer = document.getElementById('custom-hours-container');
+      if (isFullDay) {
+        hoursContainer.classList.add('hidden');
+      } else {
+        hoursContainer.classList.remove('hidden');
+      }
+    }
+
+    document.getElementById('holiday-start').addEventListener('change', function(e) {
+      const startVal = e.target.value;
+      const endInput = document.getElementById('holiday-end');
+      if (!endInput.value || endInput.value < startVal) {
+        endInput.value = startVal;
+      }
+    });
+
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const title = document.getElementById('holiday-title').value;
+      const startDate = document.getElementById('holiday-start').value;
+      const endDate = document.getElementById('holiday-end').value;
+      const type = document.querySelector('input[name="holiday-type"]:checked').value;
+
+      let isFullDay = null;
+      let startTime = null;
+      let endTime = null;
+
+      if (type === 'holiday') {
+        isFullDay = document.getElementById('holiday-fullday').checked;
+        if (!isFullDay) {
+          startTime = document.getElementById('holiday-time-start').value;
+          endTime = document.getElementById('holiday-time-end').value;
+        }
+      }
+
+      const newHoliday = {
+        id: Date.now(),
+        title,
+        startDate,
+        endDate: endDate || startDate,
+        type,
+        isFullDay,
+        startTime,
+        endTime
+      };
+
+      holidays.push(newHoliday);
+      renderHolidays();
+      closeHolidayModal();
+    }
+
+    function deleteHoliday(id) {
+      holidays = holidays.filter(h => h.id !== id);
+      renderHolidays();
+    }
+
+    // Initial render
+    renderHolidays();
+  </script>
+</body>
+</html>
