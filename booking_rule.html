@@ -362,6 +362,84 @@
       font-weight: 600;
       color: #687076;
       margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ── SWP TOOLTIP INFO ICON SYSTEM ── */
+    .swp-info-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      cursor: help;
+    }
+
+    .swp-info-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #E2E8F0;
+      color: #475569;
+      font-size: 10px;
+      font-weight: 800;
+      font-style: normal;
+      transition: all 0.2s ease;
+    }
+
+    .swp-info-wrapper:hover .swp-info-icon {
+      background: #007AFF;
+      color: #FFFFFF;
+    }
+
+    .swp-info-popover {
+      visibility: hidden;
+      opacity: 0;
+      width: 270px;
+      background: #0F172A;
+      color: #F8FAFC;
+      font-size: 11px;
+      line-height: 1.45;
+      padding: 10px 12px;
+      border-radius: 8px;
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+      font-weight: 400;
+      text-transform: none;
+    }
+
+    .swp-info-popover::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 5px;
+      border-style: solid;
+      border-color: #0F172A transparent transparent transparent;
+    }
+
+    .swp-info-popover strong {
+      color: #38BDF8;
+      display: block;
+      margin-top: 4px;
+      font-size: 11px;
+    }
+    .swp-info-popover strong:first-child { margin-top: 0; }
+
+    .swp-info-wrapper:hover .swp-info-popover {
+      visibility: visible;
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
     }
 
     .field-label .required {
@@ -651,8 +729,8 @@
         <span class="step-num-title">1. Booking Rules</span>
         <span class="step-desc">Configure behavior</span>
       </div>
-      <!-- <div class="step-item">
-        <span class="step-num-title">2. Pricing & Cancellation</span>
+      <div class="step-item">
+        <span class="step-num-title">2. Pricing</span>
         <span class="step-desc">Set pricing & fees</span>
       </div>
       <div class="step-item">
@@ -662,7 +740,7 @@
       <div class="step-item">
         <span class="step-num-title">4. Equipment</span>
         <span class="step-desc">Manage inventory</span>
-      </div> -->
+      </div>
     </div>
 
     <!-- NOTICE -->
@@ -841,11 +919,203 @@
       </div>
     </div>
 
-    <!-- PHASE 4: SPECIAL RULES & RESTRICTIONS -->
+    <!-- PHASE 5: INDOOR SKIING DOMAIN & SAFETY RULES (CONFIGURABLE TOGGLES) -->
     <div class="section-group">
       <div class="section-group-title">
-        <span>4</span>
-        Special Rules
+        <span>5</span>
+        Indoor Skiing Domain & Safety Rules
+      </div>
+
+      <!-- Skill Level Gating Toggle -->
+      <div class="toggle-section">
+        <div class="toggle-header">
+          <div class="toggle-details">
+            <div class="toggle-title">Enforce Skill Level Gating & Verification</div>
+            <div class="toggle-desc">Require skiers to self-declare skill level or complete beginner slope verification before reserving main slopes</div>
+          </div>
+          <label class="swp-switch">
+            <input type="checkbox" id="toggleSkillGating" data-field="skillGating">
+            <span class="slider-track"></span>
+          </label>
+        </div>
+        <div class="toggle-content" id="skillGatingContent">
+          <div class="form-grid-2">
+            <div class="field-group">
+              <label class="field-label">
+                Minimum Required Skill for Main Slope
+                <span class="swp-info-wrapper">
+                  <i class="swp-info-icon">i</i>
+                  <span class="swp-info-popover">
+                    <strong>What is it:</strong> Competency benchmark needed for main slope access.
+                    <strong>How it works:</strong> Evaluates skier badge level. Unverified skiers get restricted or prompted for lessons.
+                  </span>
+                </span>
+              </label>
+              <div class="input-wrapper">
+                <select class="form-control" data-field="minSkillMainSlope">
+                  <option value="beginner">Beginner (Magic Carpet Only)</option>
+                  <option value="intermediate" selected>Intermediate (Controlled Turns & Stopping)</option>
+                  <option value="advanced">Advanced (Poma & Chairlift Proficient)</option>
+                </select>
+                <span class="select-arrow">▼</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label">
+                Action if Skill Level Unverified
+                <span class="swp-info-wrapper">
+                  <i class="swp-info-icon">i</i>
+                  <span class="swp-info-popover">
+                    <strong>What is it:</strong> System action when an unverified player selects main slope.
+                    <strong>How it works:</strong> Triggers lesson prompt or forces beginner area pass.
+                  </span>
+                </span>
+              </label>
+              <div class="input-wrapper">
+                <select class="form-control" data-field="unverifiedAction">
+                  <option value="redirect_lesson">Prompt Beginner Lesson Add-on</option>
+                  <option value="restrict_slope">Restrict Booking to Beginner Slope</option>
+                  <option value="warning_only">Show Safety Warning Modal Only</option>
+                </select>
+                <span class="select-arrow">▼</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Turnstile Grace & Overage Billing Toggle -->
+      <div class="toggle-section">
+        <div class="toggle-header">
+          <div class="toggle-details">
+            <div class="toggle-title">Enable Turnstile Grace Window & Auto-Overage Calculation</div>
+            <div class="toggle-desc">Automatically compute overtime billing when player taps exit turnstile after time pass expires</div>
+          </div>
+          <label class="swp-switch">
+            <input type="checkbox" id="toggleTurnstileOverage" data-field="turnstileOverage" checked>
+            <span class="slider-track"></span>
+          </label>
+        </div>
+        <div class="toggle-content" id="turnstileOverageContent" style="display: block;">
+          <div class="form-grid-3">
+            <div class="field-group">
+              <label class="field-label">
+                Changing Room Grace Period
+                <span class="swp-info-wrapper">
+                  <i class="swp-info-icon">i</i>
+                  <span class="swp-info-popover">
+                    <strong>What is it:</strong> Buffer minutes for putting on boots and suits before slope clock starts.
+                    <strong>How it works:</strong> Subtracted from total turnstile elapsed duration before overage calculation.
+                  </span>
+                </span>
+              </label>
+              <div class="input-wrapper">
+                <input type="number" class="form-control" placeholder="15" value="15" data-field="gracePeriodMins" min="0">
+                <span class="input-icon-right">mins</span>
+              </div>
+              <span class="field-hint">Extra minutes allowed for changing clothes before slope clock starts/ends</span>
+            </div>
+            <div class="field-group">
+              <label class="field-label">
+                Billing Overage Increment
+                <span class="swp-info-wrapper">
+                  <i class="swp-info-icon">i</i>
+                  <span class="swp-info-popover">
+                    <strong>What is it:</strong> Billing time block step for overstay fee calculation.
+                    <strong>How it works:</strong> Rounds excess minutes up to nearest increment (e.g., per 15 mins).
+                  </span>
+                </span>
+              </label>
+              <div class="input-wrapper">
+                <input type="number" class="form-control" placeholder="15" value="15" data-field="billingIncrementMins" min="1">
+                <span class="input-icon-right">mins</span>
+              </div>
+              <span class="field-hint">Time step for charging extra minutes (e.g. per 15 mins)</span>
+            </div>
+            <div class="field-group">
+              <label class="field-label">
+                In-App Mobile Payment at Exit
+                <span class="swp-info-wrapper">
+                  <i class="swp-info-icon">i</i>
+                  <span class="swp-info-popover">
+                    <strong>What is it:</strong> Mobile checkout at exit turnstile gate.
+                    <strong>How it works:</strong> Player scans exit QR code and pays overage penalty to open gate immediately.
+                  </span>
+                </span>
+              </label>
+              <div class="input-wrapper">
+                <select class="form-control" data-field="inAppPaymentExit">
+                  <option value="enabled" selected>Enabled (Pay on Phone to scan turnstile)</option>
+                  <option value="disabled">Disabled (Pay at Cashier Desk only)</option>
+                </select>
+                <span class="select-arrow">▼</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Minor Safety & Chaperone Toggle -->
+      <div class="toggle-section">
+        <div class="toggle-header">
+          <div class="toggle-details">
+            <div class="toggle-title">Mandatory Helmet & Chaperone Policy for Minors</div>
+            <div class="toggle-desc">Enforce helmet requirements for young skiers and mandate chaperone ratios</div>
+          </div>
+          <label class="swp-switch">
+            <input type="checkbox" id="toggleMinorSafety" data-field="minorSafety" checked>
+            <span class="slider-track"></span>
+          </label>
+        </div>
+        <div class="toggle-content" id="minorSafetyContent" style="display: block;">
+          <div class="form-grid-2">
+            <div class="field-group">
+              <label class="field-label">
+                Mandatory Helmet Under Age
+                <span class="swp-info-wrapper">
+                  <i class="swp-info-icon">i</i>
+                  <span class="swp-info-popover">
+                    <strong>What is it:</strong> Age threshold for mandatory helmet safety.
+                    <strong>How it works:</strong> Auto-includes helmet in cart if skier DOB shows age under threshold.
+                  </span>
+                </span>
+              </label>
+              <div class="input-wrapper">
+                <input type="number" class="form-control" value="16" data-field="helmetMinAge" min="1">
+                <span class="input-icon-right">years</span>
+              </div>
+            </div>
+            <div class="field-group">
+              <label class="field-label">
+                Chaperone Ratio (Children under 10)
+                <span class="swp-info-wrapper">
+                  <i class="swp-info-icon">i</i>
+                  <span class="swp-info-popover">
+                    <strong>What is it:</strong> Mandatory adult supervisor to child skier ratio.
+                    <strong>How it works:</strong> Validates adult pass count vs child pass count in booking cart.
+                  </span>
+                </span>
+              </label>
+              <div class="input-wrapper">
+                <select class="form-control" data-field="chaperoneRatio">
+                  <option value="1:1">1 Adult per 1 Child</option>
+                  <option value="1:2" selected>1 Adult per 2 Children</option>
+                  <option value="1:4">1 Adult per 4 Children</option>
+                </select>
+                <span class="select-arrow">▼</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PHASE 6: ADDITIONAL NOTES & RESTRICTIONS -->
+    <div class="section-group">
+      <div class="section-group-title">
+        <span>6</span>
+        Special Rules & Notes
       </div>
 
       <div class="flex-cards-row">
@@ -878,13 +1148,13 @@
 
       <div class="form-card">
         <div class="form-card-header">
-          <h2 class="form-card-title">Additional Notes (Optional)</h2>
+          <h2 class="form-card-title">Internal & Safety Notes (Optional)</h2>
         </div>
         <div class="form-card-body">
           <div class="field-group">
-            <label class="field-label">Internal Notes</label>
-            <textarea class="form-control" placeholder="Add any important notes about these booking rules..." data-field="notes"></textarea>
-            <span class="field-hint">For internal reference only</span>
+            <label class="field-label">Internal Operational Notes</label>
+            <textarea class="form-control" placeholder="Add any important notes regarding indoor temperature, slope safety, or turnstile policies..." data-field="notes"></textarea>
+            <span class="field-hint">For internal staff reference only</span>
           </div>
         </div>
       </div>

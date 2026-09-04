@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShallWePlay - Skiing Lesson Configuration</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #2563EB;
+      --primary-hover: #1D4ED8;
+      --bg-page: #F8FAFC;
+      --card-bg: #FFFFFF;
+      --border: #E2E8F0;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --radius: 12px;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-page);
+      color: var(--text-main);
+      padding: 24px;
+      line-height: 1.5;
+    }
+
+    /* Page Header */
+    .page-header {
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .page-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .page-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .btn-save {
+      background: var(--primary);
+      color: #FFF;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+      transition: all 0.2s;
+    }
+    .btn-save:hover { background: var(--primary-hover); transform: translateY(-1px); }
+
+    /* Section Groups & Cards */
+    .section-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+    .section-header {
+      padding: 16px 20px;
+      background: #F1F5F9;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .section-title-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-num {
+      background: var(--primary);
+      color: #FFF;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .section-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .section-body { padding: 20px; }
+
+    /* Form Grid & Inputs */
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-bottom: 16px;
+    }
+    .form-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-bottom: 16px;
+    }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    /* Label & Tooltip System */
+    .field-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: #334155;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .swp-info-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      cursor: help;
+    }
+
+    .swp-info-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #CBD5E1;
+      color: #334155;
+      font-size: 10px;
+      font-weight: 800;
+      font-style: normal;
+      transition: all 0.2s ease;
+    }
+
+    .swp-info-wrapper:hover .swp-info-icon {
+      background: var(--primary);
+      color: #FFFFFF;
+    }
+
+    .swp-info-popover {
+      visibility: hidden;
+      opacity: 0;
+      width: 270px;
+      background: #0F172A;
+      color: #F8FAFC;
+      font-size: 11px;
+      line-height: 1.45;
+      padding: 10px 12px;
+      border-radius: 8px;
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      z-index: 999;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+      font-weight: 400;
+      text-transform: none;
+    }
+
+    .swp-info-popover::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 5px;
+      border-style: solid;
+      border-color: #0F172A transparent transparent transparent;
+    }
+
+    .swp-info-popover strong {
+      color: #38BDF8;
+      display: block;
+      margin-top: 4px;
+      font-size: 11px;
+    }
+    .swp-info-popover strong:first-child { margin-top: 0; }
+
+    .swp-info-wrapper:hover .swp-info-popover {
+      visibility: visible;
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--text-main);
+      background: #FFF;
+      transition: border 0.2s;
+    }
+    .form-control:focus { outline: none; border-color: var(--primary); }
+
+    /* Switch Component */
+    .toggle-section {
+      padding: 16px;
+      background: #F8FAFC;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 16px;
+    }
+    .toggle-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .toggle-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .toggle-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .swp-switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+    .swp-switch input { opacity: 0; width: 0; height: 0; }
+    .slider-track {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #CBD5E1;
+      transition: .3s;
+      border-radius: 24px;
+    }
+    .slider-track:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+    input:checked + .slider-track { background-color: var(--primary); }
+    input:checked + .slider-track:before { transform: translateX(20px); }
+
+    .toggle-content {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px dashed var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div>
+      <h1 class="page-title">
+        <span>🎓</span>
+        <span>Skiing Lesson Configuration & Instructor Management</span>
+      </h1>
+      <p class="page-desc">Configure private & group skiing lessons, instructor qualification ratios, equipment bundle inclusions, and surge pricing.</p>
+    </div>
+    <button class="btn-save" onclick="alert('Skiing Lesson Configuration saved successfully!')">
+      <span>💾</span>
+      <span>Save Configuration</span>
+    </button>
+  </div>
+
+  <!-- SECTION 1: GENERAL LESSON MODULE TOGGLES -->
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-title-box">
+        <span class="section-num">1</span>
+        <h2 class="section-title">General Lesson Module & Feature Flags</h2>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <!-- Toggle 1: Enable Skiing Lesson Module -->
+      <div class="toggle-section">
+        <div class="toggle-header">
+          <div>
+            <div class="toggle-title">
+              Enable Skiing Lesson Module
+              <span class="swp-info-wrapper">
+                <i class="swp-info-icon">i</i>
+                <span class="swp-info-popover">
+                  <strong>What is it:</strong> Master feature flag for indoor skiing instruction.
+                  <strong>How it works:</strong> Activates lesson booking tabs and instructor selection during player mobile checkout.
+                </span>
+              </span>
+            </div>
+            <div class="toggle-desc">Allows players to add private or group skiing lessons to their slope pass reservations</div>
+          </div>
+          <label class="swp-switch">
+            <input type="checkbox" id="toggleLessonModule" checked>
+            <span class="slider-track"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Toggle 2: Auto-Include Gear Rental in Lesson Package -->
+      <div class="toggle-section">
+        <div class="toggle-header">
+          <div>
+            <div class="toggle-title">
+              Auto-Include Rental Gear Bundle in Lesson Price
+              <span class="swp-info-wrapper">
+                <i class="swp-info-icon">i</i>
+                <span class="swp-info-popover">
+                  <strong>What is it:</strong> Bundles ski boots, skis/board, and helmet directly into lesson price.
+                  <strong>How it works:</strong> Eliminates separate rental checkout steps for lesson students.
+                </span>
+              </span>
+            </div>
+            <div class="toggle-desc">Automatically includes skis/board, boots, and safety helmet in the lesson package fee</div>
+          </div>
+          <label class="swp-switch">
+            <input type="checkbox" id="toggleLessonGearBundle" checked>
+            <span class="slider-track"></span>
+          </label>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 2: PRIVATE 1-ON-1 LESSON CONFIGURATION -->
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-title-box">
+        <span class="section-num">2</span>
+        <h2 class="section-title">Private 1-on-1 Lesson Configuration</h2>
+      </div>
+    </div>
+    <div class="section-body">
+      
+      <div class="form-grid-2">
+
+        <!-- Private Lesson Base Hourly Rate -->
+        <div class="field-group">
+          <label class="field-label">
+            Private Lesson Base Rate (€/hour)
+            <span class="swp-info-wrapper">
+              <i class="swp-info-icon">i</i>
+              <span class="swp-info-popover">
+                <strong>What is it:</strong> Hourly fee for dedicated private instructor coaching.
+                <strong>How it works:</strong> Billed per hour in addition to standard slope entry pass rate.
+              </span>
+            </span>
+          </label>
+          <input type="number" class="form-control" value="65.00" step="5">
+        </div>
+
+        <!-- Max Private Students -->
+        <div class="field-group">
+          <label class="field-label">
+            Max Students per Private Session
+            <span class="swp-info-wrapper">
+              <i class="swp-info-icon">i</i>
+              <span class="swp-info-popover">
+                <strong>What is it:</strong> Maximum friends/family allowed to join a single private instructor.
+                <strong>How it works:</strong> Caps total participants (e.g. max 3 students per private instructor).
+              </span>
+            </span>
+          </label>
+          <select class="form-control">
+            <option value="1">1 Student Only (Strict 1-on-1)</option>
+            <option value="2">Up to 2 Students (Duo Session)</option>
+            <option value="3" selected>Up to 3 Students (Private Family/Friends)</option>
+          </select>
+        </div>
+
+        <!-- Duration Options -->
+        <div class="field-group">
+          <label class="field-label">
+            Default Private Lesson Duration
+            <span class="swp-info-wrapper">
+              <i class="swp-info-icon">i</i>
+              <span class="swp-info-popover">
+                <strong>What is it:</strong> Standard session duration for private lessons.
+                <strong>How it works:</strong> Sets instructor calendar slot booking increments.
+              </span>
+            </span>
+          </label>
+          <select class="form-control">
+            <option value="60" selected>60 Minutes (Standard)</option>
+            <option value="90">90 Minutes (Extended)</option>
+            <option value="120">120 Minutes (Intensive Masterclass)</option>
+          </select>
+        </div>
+
+        <!-- Instructor Qualification Level Required -->
+        <div class="field-group">
+          <label class="field-label">
+            Minimum Instructor Certification Level
+            <span class="swp-info-wrapper">
+              <i class="swp-info-icon">i</i>
+              <span class="swp-info-popover">
+                <strong>What is it:</strong> Required qualification level for private instructors.
+                <strong>How it works:</strong> Filters instructor dispatch roster to match certified Level 2+ coaches.
+              </span>
+            </span>
+          </label>
+          <select class="form-control">
+            <option value="level1">Level 1 Certified (Beginner Coach)</option>
+            <option value="level2" selected>Level 2 Certified (Intermediate Coach)</option>
+            <option value="level3">Level 3 / ISIA Master Coach (Advanced/Race)</option>
+          </select>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 3: GROUP LESSONS & SNOW SCHOOL CONFIGURATION -->
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-title-box">
+        <span class="section-num">3</span>
+        <h2 class="section-title">Group Lessons & Kids Snow School Configuration</h2>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <div class="form-grid-3">
+
+        <!-- Adult Group Class Rate -->
+        <div class="field-group">
+          <label class="field-label">
+            Adult Group Lesson Rate (€/person)
+            <span class="swp-info-wrapper">
+              <i class="swp-info-icon">i</i>
+              <span class="swp-info-popover">
+                <strong>What is it:</strong> Per-person price for 90-minute adult group classes.
+                <strong>How it works:</strong> Added to cart when player registers for group snow class.
+              </span>
+            </span>
+          </label>
+          <input type="number" class="form-control" value="35.00" step="5">
+        </div>
+
+        <!-- Kids Snow School Rate -->
+        <div class="field-group">
+          <label class="field-label">
+            Kids Snow School Rate (€/child)
+            <span class="swp-info-wrapper">
+              <i class="swp-info-icon">i</i>
+              <span class="swp-info-popover">
+                <strong>What is it:</strong> Price for children's group snow school (Ages 4-12).
+                <strong>How it works:</strong> Includes safety bib, helmet, and Magic Carpet dedicated zone access.
+              </span>
+            </span>
+          </label>
+          <input type="number" class="form-control" value="28.00" step="2">
+        </div>
+
+        <!-- Max Group Class Student Cap -->
+        <div class="field-group">
+          <label class="field-label">
+            Max Group Class Capacity Cap
+            <span class="swp-info-wrapper">
+              <i class="swp-info-icon">i</i>
+              <span class="swp-info-popover">
+                <strong>What is it:</strong> Maximum students per group instructor ratio.
+                <strong>How it works:</strong> Enforces safety limit (6 kids or 8 adults max per instructor).
+              </span>
+            </span>
+          </label>
+          <select class="form-control">
+            <option value="6">Max 6 Students (High Supervision / Kids)</option>
+            <option value="8" selected>Max 8 Students (Standard Group Cap)</option>
+            <option value="10">Max 10 Students (Large Group)</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="form-grid-2">
+
+        <!-- Dedicated Slope Zone -->
+        <div class="field-group">
+          <label class="field-label">
+            Dedicated Group Lesson Slope Zone
+            <span class="swp-info-wrapper">
+              <i class="swp-info-icon">i</i>
+              <span class="swp-info-popover">
+                <strong>What is it:</strong> Reserved slope area assigned for group instruction.
+                <strong>How it works:</strong> Keeps beginner classes safely in Magic Carpet zone away from fast skiers.
+              </span>
+            </span>
+          </label>
+          <select class="form-control">
+            <option value="magic_carpet" selected>Magic Carpet Beginner Zone (Enclosed)</option>
+            <option value="main_slope_lower">Main Slope Lower Section</option>
+            <option value="terrain_park">Terrain Park / Freestyle Zone</option>
+          </select>
+        </div>
+
+        <!-- Lesson Skill Level Category -->
+        <div class="field-group">
+          <label class="field-label">
+            Lesson Curriculum Categories
+            <span class="swp-info-wrapper">
+              <i class="swp-info-icon">i</i>
+              <span class="swp-info-popover">
+                <strong>What is it:</strong> Available skill level courses shown in Player App.
+                <strong>How it works:</strong> Players pick level matching their goal (First Timer 101 vs Parallel Turns).
+              </span>
+            </span>
+          </label>
+          <select class="form-control">
+            <option value="all" selected>All Levels (First Timer, Snowplow, Carving, Moguls)</option>
+            <option value="beginner_only">Beginner Only (First Time Skiers)</option>
+            <option value="advanced_only">Advanced Clinic Only (Race & Carving)</option>
+          </select>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SECTION 4: INSTRUCTOR SURGE PRICING & BUFFER -->
+  <div class="section-card">
+    <div class="section-header">
+      <div class="section-title-box">
+        <span class="section-num">4</span>
+        <h2 class="section-title">Instructor Weekend Surge & Booking Buffer</h2>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <div class="form-grid-2">
+
+        <!-- Weekend Surge Fee -->
+        <div class="field-group">
+          <label class="field-label">
+            Weekend / Peak Hour Instructor Surge Fee (€/hr)
+            <span class="swp-info-wrapper">
+              <i class="swp-info-icon">i</i>
+              <span class="swp-info-popover">
+                <strong>What is it:</strong> Extra surcharge for booking instructors during peak weekend hours.
+                <strong>How it works:</strong> Added to baseline lesson rate on Saturday and Sunday.
+              </span>
+            </span>
+          </label>
+          <input type="number" class="form-control" value="15.00" step="5">
+        </div>
+
+        <!-- Instructor Advance Booking Lead Buffer -->
+        <div class="field-group">
+          <label class="field-label">
+            Min Advance Booking Lead Buffer (Hours)
+            <span class="swp-info-wrapper">
+              <i class="swp-info-icon">i</i>
+              <span class="swp-info-popover">
+                <strong>What is it:</strong> Minimum lead time required before a lesson starts.
+                <strong>How it works:</strong> Blocks booking a private instructor starting within 2 hours to allow dispatch time.
+              </span>
+            </span>
+          </label>
+          <input type="number" class="form-control" value="2" min="1" max="24">
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

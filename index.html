@@ -1,696 +1,2188 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShallWePlay - Admin Prototype & Wireframe Hub</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #007AFF;
+      --primary-hover: #0062CC;
+      --primary-light: #EDF5FF;
+      --bg-app: #F8FAFC;
+      --sidebar-bg: #FFFFFF;
+      --border-color: #E2E8F0;
+      --text-main: #0F172A;
+      --text-muted: #64748B;
+      --text-light: #94A3B8;
+      --sidebar-width: 280px;
+      --topbar-height: 64px;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07);
+    }
 
-    <title>ShallWePlay Admin</title>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
 
-    <style>
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-app);
+      color: var(--text-main);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+    }
+
+    /* ── LAYOUT STRUCTURE ── */
+    .app-sidebar {
+      width: var(--sidebar-width);
+      background-color: var(--sidebar-bg);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      z-index: 20;
+      transition: transform 0.3s ease;
+    }
+
+    .app-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+      background-color: var(--bg-app);
+    }
+
+    /* ── SIDEBAR HEADER & BRAND ── */
+    .sidebar-brand {
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #007AFF 0%, #0056B3 100%);
+      color: #FFFFFF;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      box-shadow: 0 4px 10px rgba(0, 122, 255, 0.25);
+    }
+
+    .brand-details {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .brand-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* ── SIDEBAR NAVIGATION MENU ── */
+    .sidebar-nav {
+      flex: 1;
+      padding: 20px 16px;
+      overflow-y: auto;
+    }
+
+    .nav-group-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-light);
+      margin: 16px 12px 8px 12px;
+    }
+
+    .nav-group-title:first-child {
+      margin-top: 0;
+    }
+
+    .nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .nav-item a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      color: #475569;
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      transition: all 0.18s ease;
+    }
+
+    .nav-item a:hover {
+      background-color: #F1F5F9;
+      color: var(--text-main);
+    }
+
+    .nav-item a.active {
+      background-color: var(--primary-light);
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .nav-icon {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: inherit;
+      flex-shrink: 0;
+    }
+
+    .nav-item a.active .nav-icon {
+      color: var(--primary);
+    }
+
+    /* ── SIDEBAR FOOTER ── */
+    .sidebar-footer {
+      padding: 16px 20px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #ECFDF5;
+      color: #047857;
+      border: 1px solid #A7F3D0;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #10B981;
+      border-radius: 50%;
+      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+    }
+
+    /* ── TOP CONTROL BAR ── */
+    .top-bar {
+      height: var(--topbar-height);
+      background-color: #FFFFFF;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      flex-shrink: 0;
+    }
+
+    .top-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: 1px solid var(--border-color);
+      padding: 8px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .active-module-header {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .active-module-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .active-module-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .top-bar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .top-pill {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: #F1F5F9;
+      color: #475569;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: 1px solid #E2E8F0;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .top-pill:hover {
+      background: #E2E8F0;
+      color: var(--text-main);
+    }
+
+    .top-pill-primary {
+      background: var(--primary);
+      color: #FFFFFF;
+      border-color: var(--primary);
+    }
+
+    .top-pill-primary:hover {
+      background: var(--primary-hover);
+      color: #FFFFFF;
+    }
+
+    /* ── IFRAME & CONTENT VIEW CONTAINER ── */
+    .content-viewport {
+      flex: 1;
+      position: relative;
+      width: 100%;
+      height: calc(100vh - var(--topbar-height));
+      overflow: hidden;
+    }
+
+    iframe.wireframe-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+      background-color: #FFFFFF;
+    }
+
+    /* ── OVERVIEW / WHAT ARE WIREFRAMES VIEW ── */
+    .info-view-container {
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      padding: 32px;
+      box-sizing: border-box;
+      background-color: #F8FAFC;
+    }
+
+    .info-wrapper {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .info-hero {
+      background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+      color: #FFFFFF;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.15);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .info-hero::after {
+      content: '';
+      position: absolute;
+      right: -50px;
+      bottom: -50px;
+      width: 250px;
+      height: 250px;
+      background: rgba(0, 122, 255, 0.15);
+      border-radius: 50%;
+      filter: blur(40px);
+    }
+
+    .info-hero-badge {
+      display: inline-block;
+      padding: 6px 12px;
+      background: rgba(0, 122, 255, 0.25);
+      border: 1px solid rgba(0, 122, 255, 0.4);
+      color: #60A5FA;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 16px;
+    }
+
+    .info-hero h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .info-hero p {
+      font-size: 16px;
+      color: #94A3B8;
+      max-width: 750px;
+      line-height: 1.6;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    @media (min-width: 768px) {
+      .grid-2 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .info-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 28px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .info-card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .info-card-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--primary-light);
+      color: var(--primary);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .info-card-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .info-card p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .benefit-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .benefit-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      color: #334155;
+    }
+
+    .benefit-check {
+      width: 20px;
+      height: 20px;
+      background: #DEF7EC;
+      color: #03543F;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ── WIREFRAME DIRECTORY MATRIX ── */
+    .matrix-section-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    .matrix-section-desc {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .directory-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .directory-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .directory-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .dir-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .dir-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary);
+    }
+
+    .dir-card-top {
+      margin-bottom: 16px;
+    }
+
+    .dir-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .dir-card-icon-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .dir-icon {
+      font-size: 22px;
+    }
+
+    .dir-card-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .dir-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: #F1F5F9;
+      color: #475569;
+      text-transform: uppercase;
+    }
+
+    .dir-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .dir-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 14px;
+      border-top: 1px solid #F1F5F9;
+    }
+
+    .dir-link-text {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ── FIELD GUIDE DICTIONARY & FLOATING POPUP STYLES ── */
+    .field-guide-view-container {
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      background-color: #F8FAFC;
+    }
+
+    .fg-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .fg-header {
+      background: linear-gradient(135deg, #1E293B 0%, #0F172A 100%);
+      color: #FFFFFF;
+      padding: 28px 32px;
+      border-radius: 16px;
+      margin-bottom: 24px;
+      box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.2);
+    }
+
+    .fg-header h2 {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .fg-header p {
+      font-size: 14px;
+      color: #94A3B8;
+      max-width: 800px;
+      line-height: 1.5;
+    }
+
+    .fg-search-bar {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .fg-search-input {
+      width: 100%;
+      height: 52px;
+      padding: 12px 20px 12px 48px;
+      font-size: 15px;
+      border: 2px solid #E2E8F0;
+      border-radius: 12px;
+      background: #FFFFFF;
+      outline: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .fg-search-input:focus {
+      border-color: #2563EB;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+    }
+
+    .fg-search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 20px;
+      color: #94A3B8;
+      pointer-events: none;
+    }
+
+    .fg-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .fg-pill {
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: #F1F5F9;
+      color: #475569;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid #E2E8F0;
+      transition: all 0.2s ease;
+    }
+
+    .fg-pill.active, .fg-pill:hover {
+      background: #2563EB;
+      color: #FFFFFF;
+      border-color: #2563EB;
+    }
+
+    .fg-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .fg-card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 20px;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+
+    .fg-card:hover {
+      border-color: #2563EB;
+      box-shadow: 0 8px 20px -4px rgba(37, 99, 235, 0.1);
+    }
+
+    .fg-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+      gap: 12px;
+    }
+
+    .fg-card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0F172A;
+    }
+
+    .fg-module-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: #EFF6FF;
+      color: #1D4ED8;
+      border: 1px solid #BFDBFE;
+      white-space: nowrap;
+    }
+
+    .fg-detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #F1F5F9;
+    }
+
+    @media (max-width: 640px) {
+      .fg-detail-grid { grid-template-columns: 1fr; }
+    }
+
+    .fg-detail-box {
+      background: #F8FAFC;
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+
+    .fg-detail-lbl {
+      font-size: 11px;
+      font-weight: 700;
+      color: #64748B;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .fg-detail-val {
+      font-size: 13px;
+      color: #334155;
+      line-height: 1.4;
+    }
+
+    .fg-card-footer {
+      margin-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .fg-toggle-status {
+      font-size: 11px;
+      font-weight: 700;
+      color: #059669;
+      background: #ECFDF5;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    .fg-jump-btn {
+      font-size: 12px;
+      font-weight: 700;
+      color: #2563EB;
+      background: #EFF6FF;
+      border: 1px solid #BFDBFE;
+      padding: 5px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .fg-jump-btn:hover {
+      background: #2563EB;
+      color: #FFFFFF;
+    }
+
+    /* FLOATING CORNER POPUP BUTTON (ROUND FAB) */
+    .floating-fab {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+      color: #FFFFFF;
+      border: none;
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.4), 0 0 0 4px rgba(255, 255, 255, 0.8);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      z-index: 9999;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .floating-fab:hover {
+      transform: scale(1.1);
+      box-shadow: 0 12px 30px rgba(37, 99, 235, 0.5), 0 0 0 6px rgba(255, 255, 255, 0.9);
+    }
+
+    .fab-badge-text {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      background: #EF4444;
+      color: #FFF;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 10px;
+      border: 2px solid #FFF;
+    }
+
+    /* FLOATING SEARCH MODAL POPUP */
+    .search-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .search-modal-backdrop.open {
+      display: flex;
+    }
+
+    .search-modal-content {
+      background: #FFFFFF;
+      width: 100%;
+      max-width: 720px;
+      max-height: 85vh;
+      border-radius: 20px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: modalSlideUp 0.25s ease-out;
+    }
+
+    @keyframes modalSlideUp {
+      from { opacity: 0; transform: translateY(20px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .search-modal-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid #E2E8F0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #F8FAFC;
+    }
+
+    .search-modal-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0F172A;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .search-modal-close {
+      background: #E2E8F0;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #475569;
+      transition: all 0.2s;
+    }
+
+    .search-modal-close:hover {
+      background: #CBD5E1;
+      color: #0F172A;
+    }
+
+    .search-modal-body {
+      padding: 20px 24px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .fg-suggest-tag {
+      background: #F1F5F9;
+      color: #334155;
+      padding: 3px 10px;
+      border-radius: 12px;
+      cursor: pointer;
+      border: 1px solid #E2E8F0;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .fg-suggest-tag:hover {
+      background: #2563EB;
+      color: #FFFFFF;
+      border-color: #2563EB;
+    }
+
+    /* Responsive Sidebar */
+    @media (max-width: 900px) {
+      .app-sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        transform: translateX(-100%);
       }
 
-      html,
-      body {
-        width: 100%;
-        height: 100%;
-        font-family: Arial, sans-serif;
-        background: #f8fafc;
-        color: #111827;
-        overflow: hidden;
+      .app-sidebar.open {
+        transform: translateX(0);
       }
 
-      /* =========================
-       APP LAYOUT
-    ========================= */
-
-      .app {
-        display: flex;
-        width: 100%;
-        height: 100vh;
-      }
-
-      /* =========================
-       SIDEBAR
-    ========================= */
-
-      .sidebar {
-        width: 240px;
-        height: 100vh;
-        background: #ffffff;
-        border-right: 1px solid #e5e7eb;
-        display: flex;
-        flex-direction: column;
-        flex-shrink: 0;
-      }
-
-      .logo {
-        height: 72px;
-        display: flex;
-        align-items: center;
-        padding: 0 20px;
-        border-bottom: 1px solid #e5e7eb;
-      }
-
-      .logo-icon {
-        width: 38px;
-        height: 38px;
-        border-radius: 10px;
-        background: #2563eb;
-        color: #ffffff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 18px;
-        margin-right: 10px;
-      }
-
-      .logo-text {
-        font-size: 16px;
-        font-weight: 700;
-        color: #111827;
-      }
-
-      .logo-subtitle {
-        font-size: 10px;
-        color: #9ca3af;
-        margin-top: 2px;
-      }
-
-      /* =========================
-       NAVIGATION
-    ========================= */
-
-      .nav {
-        padding: 16px 12px;
-        overflow-y: auto;
-        flex: 1;
-      }
-
-      .nav-section-title {
-        font-size: 10px;
-        font-weight: 700;
-        color: #9ca3af;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        padding: 0 10px;
-        margin-bottom: 8px;
-      }
-
-      .nav-item {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        border: none;
-        background: transparent;
-        color: #6b7280;
-        padding: 11px 10px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 13px;
-        font-weight: 600;
-        text-align: left;
-        margin-bottom: 3px;
-        transition: all 0.15s ease;
-      }
-
-      .nav-item:hover {
-        background: #f3f4f6;
-        color: #111827;
-      }
-
-      .nav-item.active {
-        background: #eff6ff;
-        color: #2563eb;
-      }
-
-      .nav-icon {
-        width: 22px;
-        text-align: center;
-        font-size: 16px;
-        flex-shrink: 0;
-      }
-
-      /* =========================
-       SIDEBAR FOOTER
-    ========================= */
-
-      .sidebar-footer {
-        padding: 14px;
-        border-top: 1px solid #e5e7eb;
-      }
-
-      .prototype-badge {
-        display: flex;
-        align-items: center;
-        gap: 7px;
-        padding: 9px 10px;
-        background: #f0fdf4;
-        border: 1px solid #bbf7d0;
-        border-radius: 8px;
-        color: #15803d;
-        font-size: 10px;
-        font-weight: 700;
-      }
-
-      .status-dot {
-        width: 7px;
-        height: 7px;
-        background: #22c55e;
-        border-radius: 50%;
-        flex-shrink: 0;
-      }
-
-      /* =========================
-       MAIN CONTENT
-    ========================= */
-
-      .main {
-        flex: 1;
-        min-width: 0;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-      }
-
-      /* =========================
-       TOP BAR
-    ========================= */
-
-      .topbar {
-        height: 72px;
-        background: #ffffff;
-        border-bottom: 1px solid #e5e7eb;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 24px;
-        flex-shrink: 0;
-      }
-
-      .page-heading h1 {
-        font-size: 18px;
-        font-weight: 700;
-        color: #111827;
-      }
-
-      .page-heading p {
-        font-size: 11px;
-        color: #9ca3af;
-        margin-top: 3px;
-      }
-
-      .topbar-actions {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .topbar-badge {
-        padding: 7px 10px;
-        border: 1px solid #e5e7eb;
-        border-radius: 7px;
-        font-size: 10px;
-        color: #6b7280;
-        background: #f9fafb;
-      }
-
-      /* =========================
-       CONTENT
-    ========================= */
-
-      .content {
-        flex: 1;
-        min-height: 0;
-        position: relative;
-        background: #f8fafc;
-      }
-
-      #pageFrame {
-        width: 100%;
-        height: 100%;
-        border: none;
+      .mobile-menu-btn {
         display: block;
-        background: #ffffff;
       }
+    }
+  </style>
+</head>
+<body>
 
-      /* =========================
-       LOADING
-    ========================= */
-
-      .loading {
-        position: absolute;
-        inset: 0;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        background: rgba(248, 250, 252, 0.85);
-        z-index: 10;
-      }
-
-      .loading.show {
-        display: flex;
-      }
-
-      .loading-box {
-        background: #ffffff;
-        border: 1px solid #e5e7eb;
-        border-radius: 10px;
-        padding: 16px 20px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-        font-size: 12px;
-        color: #6b7280;
-      }
-
-      /* =========================
-       MOBILE
-    ========================= */
-
-      .mobile-header {
-        display: none;
-      }
-
-      @media (max-width: 768px) {
-        .sidebar {
-          position: fixed;
-          left: -240px;
-          top: 0;
-          z-index: 100;
-          transition: left 0.2s ease;
-        }
-
-        .sidebar.open {
-          left: 0;
-        }
-
-        .mobile-header {
-          display: flex;
-          height: 56px;
-          background: #ffffff;
-          border-bottom: 1px solid #e5e7eb;
-          align-items: center;
-          padding: 0 16px;
-          gap: 12px;
-        }
-
-        .menu-btn {
-          border: none;
-          background: transparent;
-          font-size: 20px;
-          cursor: pointer;
-        }
-
-        .mobile-title {
-          font-size: 14px;
-          font-weight: 700;
-        }
-
-        .topbar {
-          height: 64px;
-          padding: 0 16px;
-        }
-
-        .page-heading h1 {
-          font-size: 16px;
-        }
-
-        .page-heading p {
-          display: none;
-        }
-
-        .topbar-badge {
-          display: none;
-        }
-
-        .main {
-          width: 100%;
-        }
-      }
-    </style>
-  </head>
-
-  <body>
-    <div class="app">
-      <!-- =========================
-       SIDEBAR
-  ========================== -->
-
-      <aside class="sidebar" id="sidebar">
-        <div class="logo">
-          <div class="logo-icon">S</div>
-
-          <div>
-            <div class="logo-text">ShallWePlay</div>
-            <div class="logo-subtitle">Admin Prototype</div>
-          </div>
-        </div>
-
-        <nav class="nav">
-          <div class="nav-section-title">Configuration</div>
-
-          <button
-            class="nav-item active"
-            data-page="booking_rule.html"
-            data-title="Booking Rules"
-            data-description="Configure booking behavior and rules"
-            onclick="openPage(this)"
-          >
-            <span class="nav-icon">📋</span>
-            <span>Booking Rules</span>
-          </button>
-
-          <button
-            class="nav-item"
-            data-page="assign_pricing_admin.html"
-            data-title="Assign Pricing"
-            data-description="Assign pricing to clubs and facilities"
-            onclick="openPage(this)"
-          >
-            <span class="nav-icon">$</span>
-            <span>Assign Pricing</span>
-          </button>
-
-          <button
-            class="nav-item"
-            data-page="pricing_rule.html"
-            data-title="Pricing & Cancellation"
-            data-description="Configure pricing and cancellation policies"
-            onclick="openPage(this)"
-          >
-            <span class="nav-icon">💰</span>
-            <span>Pricing & Cancellation</span>
-          </button>
-
-          <button
-            class="nav-item"
-            data-page="skiing_manage_asset.html"
-            data-title="Manage Ski Assets"
-            data-description="Create and manage skiing facilities"
-            onclick="openPage(this)"
-          >
-            <span class="nav-icon">⛷️</span>
-            <span>Manage Skiing Assets</span>
-          </button>
-
-          <button
-            class="nav-item"
-            data-page="payout_config_admin.html"
-            data-title="Payout Configuration"
-            data-description="Configure payout schedules by timezone"
-            onclick="openPage(this)"
-          >
-            <span class="nav-icon">💳</span>
-            <span>Payout</span>
-          </button>
-
-          <button
-            class="nav-item"
-            data-page="club_availability_with_holidays.html"
-            data-title="Club Availability"
-            data-description="Manage club availability and special closures"
-            onclick="openPage(this)"
-          >
-            <span class="nav-icon">📅</span>
-            <span>Availability</span>
-          </button>
-
-          <button
-            class="nav-item"
-            data-page="skiing_player.html"
-            data-title="Player Experience"
-            data-description="Preview the player mobile experience"
-            onclick="openPage(this)"
-          >
-            <span class="nav-icon">📱</span>
-            <span>Player Skiing Booking UI</span>
-          </button>
-
-          <button
-            class="nav-item"
-            data-page="skiing_player_booking_workflow.html"
-            data-title="Player Booking Skiing Experience"
-            data-description="Preview the player mobile experience of skiing booking workflow"
-            onclick="openPage(this)"
-          >
-            <span class="nav-icon">📱</span>
-            <span>Player Skiing Booking Workflow</span>
-          </button>
-        </nav>
-
-        <div class="sidebar-footer">
-          <div class="prototype-badge">
-            <span class="status-dot"></span>
-            Interactive Prototype
-          </div>
-        </div>
-      </aside>
-
-      <!-- =========================
-       MAIN
-  ========================== -->
-
-      <main class="main">
-        <!-- Mobile Header -->
-
-        <div class="mobile-header">
-          <button class="menu-btn" onclick="toggleSidebar()">☰</button>
-
-          <div class="mobile-title" id="mobileTitle">Booking Rules</div>
-        </div>
-
-        <!-- Top Bar -->
-
-        <header class="topbar">
-          <div class="page-heading">
-            <h1 id="pageTitle">Booking Rules</h1>
-
-            <p id="pageDescription">Configure booking behavior and rules</p>
-          </div>
-
-          <div class="topbar-actions">
-            <div class="topbar-badge">ShallWePlay</div>
-
-            <div class="topbar-badge">Prototype</div>
-          </div>
-        </header>
-
-        <!-- Page -->
-
-        <section class="content">
-          <div class="loading" id="loading">
-            <div class="loading-box">Loading page...</div>
-          </div>
-
-          <iframe
-            id="pageFrame"
-            src="booking_rule.html"
-            title="ShallWePlay Admin Page"
-          ></iframe>
-        </section>
-      </main>
+  <!-- SIDEBAR NAVIGATION -->
+  <aside class="app-sidebar" id="appSidebar">
+    
+    <!-- BRAND HEADER -->
+    <div class="sidebar-brand">
+      <div class="brand-icon">S</div>
+      <div class="brand-details">
+        <div class="brand-title">ShallWePlay</div>
+        <div class="brand-subtitle">Admin Prototype</div>
+      </div>
     </div>
 
-    <script>
-      /*
-       * ============================================
-       * PAGE CONFIGURATION
-       * ============================================
-       *
-       * All your HTML files stay separate.
-       *
-       * The iframe loads the selected file.
-       */
+    <!-- NAVIGATION MENU -->
+    <nav class="sidebar-nav">
+      
+      <!-- OVERVIEW SECTION -->
+      <div class="nav-group-title">Overview</div>
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="#wireframe_info" id="nav-wireframe_info" class="active">
+            <span class="nav-icon">ℹ️</span>
+            <span>What are Wireframes?</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#field_guide" id="nav-field_guide">
+            <span class="nav-icon">📖</span>
+            <span>Skiing UI & Field Guide (FAQ)</span>
+          </a>
+        </li>
+      </ul>
 
-      const pageFrame = document.getElementById("pageFrame");
-      const pageTitle = document.getElementById("pageTitle");
-      const pageDescription = document.getElementById("pageDescription");
-      const mobileTitle = document.getElementById("mobileTitle");
-      const loading = document.getElementById("loading");
+      <!-- ADMIN SECTION -->
+      <div class="nav-group-title">Admin</div>
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="#assign_pricing" id="nav-assign_pricing">
+            <span class="nav-icon">💲</span>
+            <span>Assign Pricing</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#payout" id="nav-payout">
+            <span class="nav-icon">💳</span>
+            <span>Dynamic Payout (Region Wise)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#refund_detail" id="nav-refund_detail">
+            <span class="nav-icon">🧾</span>
+            <span>Refund Detail View</span>
+          </a>
+        </li>
+      </ul>
 
-      const sidebar = document.getElementById("sidebar");
+      <!-- CLUB SECTION -->
+      <div class="nav-group-title">Club</div>
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="#availability" id="nav-availability">
+            <span class="nav-icon">📅</span>
+            <span>Club Availability & Holidays</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#booking_rule" id="nav-booking_rule">
+            <span class="nav-icon">📋</span>
+            <span>Skiing Booking Rules</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#pricing_cancellation" id="nav-pricing_cancellation">
+            <span class="nav-icon">🏷️</span>
+            <span>Skiing Pricing & Cancellation</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#manage_assets" id="nav-manage_assets">
+            <span class="nav-icon">⛷️</span>
+            <span>Manage Skiing Assets</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#skiing_lessons" id="nav-skiing_lessons">
+            <span class="nav-icon">🎓</span>
+            <span>Skiing Lesson Config</span>
+          </a>
+        </li>
+      </ul>
 
-      /*
-       * ============================================
-       * OPEN PAGE
-       * ============================================
-       */
+      <!-- PLAYER SECTION -->
+      <div class="nav-group-title">Player</div>
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="#player_ui" id="nav-player_ui">
+            <span class="nav-icon">📱</span>
+            <span>Players Skiing Booking UI</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#player_workflow" id="nav-player_workflow">
+            <span class="nav-icon">🔄</span>
+            <span>Players Skiing Workflow</span>
+          </a>
+        </li>
+      </ul>
 
-      function openPage(button) {
-        const page = button.dataset.page;
-        const title = button.dataset.title;
-        const description = button.dataset.description;
+    </nav>
 
-        // Update active navigation item
+    <!-- SIDEBAR FOOTER -->
+    <div class="sidebar-footer">
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        <span>Interactive Prototype</span>
+      </div>
+    </div>
 
-        document.querySelectorAll(".nav-item").forEach((item) => {
-          item.classList.remove("active");
-        });
+  </aside>
 
-        button.classList.add("active");
+  <!-- MAIN CONTENT AREA -->
+  <main class="app-main">
+    
+    <!-- TOP CONTROL BAR -->
+    <header class="top-bar">
+      <div class="top-bar-left">
+        <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+        <div class="active-module-header">
+          <h1 class="active-module-title" id="activeTitle">What are Wireframes?</h1>
+          <p class="active-module-desc" id="activeDesc">Information and overview guide on wireframes & purpose in SWP</p>
+        </div>
+      </div>
+      <div class="top-bar-right">
+        <button class="top-pill" id="reloadFrameBtn" title="Reload current frame">🔄 Reload</button>
+        <a href="booking_rule.html" target="_blank" class="top-pill" id="openExternalBtn" title="Open wireframe file in a new browser tab">↗ Open Standalone</a>
+        <span class="top-pill top-pill-primary">ShallWePlay</span>
+        <span class="top-pill">Prototype</span>
+      </div>
+    </header>
 
-        // Update heading
+    <!-- CONTENT VIEWPORT CONTAINER -->
+    <section class="content-viewport" id="contentViewport">
+      
+      <!-- INLINE INFO VIEW (DEFAULT) -->
+      <div class="info-view-container" id="infoView">
+        <div class="info-wrapper">
+          
+          <!-- HERO BANNER -->
+          <div class="info-hero">
+            <span class="info-hero-badge">ShallWePlay Design Guide</span>
+            <h1>What are Wireframes and Why We Use Them?</h1>
+            <p>
+              Wireframes serve as the structural backbone for digital product design. They allow cross-functional teams to outline interface layout, content hierarchy, functional requirements, and user interaction flows before committing to full frontend and backend engineering.
+            </p>
+          </div>
 
-        pageTitle.textContent = title;
-        pageDescription.textContent = description;
-        mobileTitle.textContent = title;
+          <!-- 2-COLUMN EXPLANATION GRID -->
+          <div class="grid-2">
+            
+            <!-- CARD 1: WHAT IS A WIREFRAME -->
+            <div class="info-card">
+              <div class="info-card-header">
+                <div class="info-card-icon">📐</div>
+                <h2 class="info-card-title">What is a Wireframe?</h2>
+              </div>
+              <p>
+                A wireframe is a visual blueprint that represents the skeletal framework of a web or mobile application. It focuses on functional layout, navigation paths, feature behavior, and content structure without visual distractions like brand graphics or final copy.
+              </p>
+              <ul class="benefit-list">
+                <li class="benefit-item">
+                  <span class="benefit-check">✓</span>
+                  <span><strong>Structure & Layout:</strong> Defines positioning of UI elements, forms, cards, and buttons.</span>
+                </li>
+                <li class="benefit-item">
+                  <span class="benefit-check">✓</span>
+                  <span><strong>Information Architecture:</strong> Organizes options into clear logical steps and groups.</span>
+                </li>
+                <li class="benefit-item">
+                  <span class="benefit-check">✓</span>
+                  <span><strong>Functional Specs:</strong> Displays inputs, validation requirements, and interactive states.</span>
+                </li>
+              </ul>
+            </div>
 
-        // Show loading
+            <!-- CARD 2: WHY WE USE WIREFRAMES -->
+            <div class="info-card">
+              <div class="info-card-header">
+                <div class="info-card-icon">🚀</div>
+                <h2 class="info-card-title">Why We Use Wireframes in SWP</h2>
+              </div>
+              <p>
+                For complex platform management like ShallWePlay (Indoor Skiing booking rules, asset capacity, regional dynamic payouts, and player passes), wireframes enable rapid validation of business logic.
+              </p>
+              <ul class="benefit-list">
+                <li class="benefit-item">
+                  <span class="benefit-check">✓</span>
+                  <span><strong>Stakeholder Alignment:</strong> Ensures product, design, and dev teams share exact expectations.</span>
+                </li>
+                <li class="benefit-item">
+                  <span class="benefit-check">✓</span>
+                  <span><strong>Rapid Iteration:</strong> Lowers costs by catching edge cases early before database schemas are set.</span>
+                </li>
+                <li class="benefit-item">
+                  <span class="benefit-check">✓</span>
+                  <span><strong>User Experience Focus:</strong> Tests usability and clarity of complex multi-step admin configurations.</span>
+                </li>
+              </ul>
+            </div>
 
-        loading.classList.add("show");
+          </div>
 
-        // Load selected HTML file
+          <!-- MODULE DIRECTORY MATRIX -->
+          <div>
+            <h2 class="matrix-section-title">ShallWePlay Wireframe Module Hub</h2>
+            <p class="matrix-section-desc">Click on any module below or use the left sidebar to inspect the live interactive wireframes:</p>
 
-        pageFrame.src = page;
+            <!-- ADMIN MODULES -->
+            <div style="margin-bottom: 28px;">
+              <h3 style="font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+                <span>🛠️</span> Admin Modules
+              </h3>
+              <div class="directory-grid">
+                <!-- ITEM 1: ASSIGN PRICING -->
+                <div class="dir-card" onclick="location.hash='#assign_pricing'">
+                  <div class="dir-card-top">
+                    <div class="dir-card-header">
+                      <div class="dir-card-icon-title">
+                        <span class="dir-icon">💲</span>
+                        <h3 class="dir-card-title">Assign Pricing</h3>
+                      </div>
+                      <span class="dir-badge">Pricing</span>
+                    </div>
+                    <p>Assign pricing tiers, hourly peak/off-peak rates, equipment add-on pricing, and seasonal adjustments.</p>
+                  </div>
+                  <div class="dir-card-footer">
+                    <span class="dir-link-text">Launch Wireframe →</span>
+                  </div>
+                </div>
 
-        /*
-         * Update browser URL.
-         *
-         * Example:
-         *
-         * index.html#pricing
-         *
-         * This means refresh/back navigation
-         * can remember the selected tab.
-         */
+                <!-- ITEM 2: DYNAMIC PAYOUT -->
+                <div class="dir-card" onclick="location.hash='#payout'">
+                  <div class="dir-card-top">
+                    <div class="dir-card-header">
+                      <div class="dir-card-icon-title">
+                        <span class="dir-icon">💳</span>
+                        <h3 class="dir-card-title">Dynamic Payout</h3>
+                      </div>
+                      <span class="dir-badge">Finance</span>
+                    </div>
+                    <p>Region-specific timezone payouts, settlement intervals, facility partner revenue splits, and fee configurations.</p>
+                  </div>
+                  <div class="dir-card-footer">
+                    <span class="dir-link-text">Launch Wireframe →</span>
+                  </div>
+                </div>
 
-        const key = page.replace(".html", "");
+                <!-- ITEM 3: REFUND DETAIL VIEW -->
+                <div class="dir-card" onclick="location.hash='#refund_detail'">
+                  <div class="dir-card-top">
+                    <div class="dir-card-header">
+                      <div class="dir-card-icon-title">
+                        <span class="dir-icon">🧾</span>
+                        <h3 class="dir-card-title">Refund Details & Approvals</h3>
+                      </div>
+                      <span class="dir-badge">Audit</span>
+                    </div>
+                    <p>Inspect detailed booking refund requests, penalty breakdowns, and approve/reject refund disbursements.</p>
+                  </div>
+                  <div class="dir-card-footer">
+                    <span class="dir-link-text">Launch Wireframe →</span>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-        history.pushState(
-          {
-            page: page,
-          },
-          "",
-          "#" + key,
-        );
+            <!-- CLUB MODULES -->
+            <div style="margin-bottom: 28px;">
+              <h3 style="font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+                <span>🏔️</span> Club Modules
+              </h3>
+              <div class="directory-grid">
+                <!-- ITEM 1: CLUB AVAILABILITY WITH HOLIDAYS -->
+                <div class="dir-card" onclick="location.hash='#availability'">
+                  <div class="dir-card-top">
+                    <div class="dir-card-header">
+                      <div class="dir-card-icon-title">
+                        <span class="dir-icon">📅</span>
+                        <h3 class="dir-card-title">Club Availability & Holidays</h3>
+                      </div>
+                      <span class="dir-badge">Schedule</span>
+                    </div>
+                    <p>Set facility operating hours, national holiday overrides, slope maintenance closures, and blackout dates.</p>
+                  </div>
+                  <div class="dir-card-footer">
+                    <span class="dir-link-text">Launch Wireframe →</span>
+                  </div>
+                </div>
 
-        // Close mobile sidebar
+                <!-- ITEM 2: BOOKING RULES -->
+                <div class="dir-card" onclick="location.hash='#booking_rule'">
+                  <div class="dir-card-top">
+                    <div class="dir-card-header">
+                      <div class="dir-card-icon-title">
+                        <span class="dir-icon">📋</span>
+                        <h3 class="dir-card-title">Skiing Booking Rules</h3>
+                      </div>
+                      <span class="dir-badge">Config</span>
+                    </div>
+                    <p>Configure advance booking windows, slope capacity, peak vs off-peak rules, and validation guidelines.</p>
+                  </div>
+                  <div class="dir-card-footer">
+                    <span class="dir-link-text">Launch Wireframe →</span>
+                  </div>
+                </div>
 
-        sidebar.classList.remove("open");
+                <!-- ITEM 3: PRICING & CANCELLATION -->
+                <div class="dir-card" onclick="location.hash='#pricing_cancellation'">
+                  <div class="dir-card-top">
+                    <div class="dir-card-header">
+                      <div class="dir-card-icon-title">
+                        <span class="dir-icon">🏷️</span>
+                        <h3 class="dir-card-title">Skiing Pricing & Cancellation</h3>
+                      </div>
+                      <span class="dir-badge">Rules</span>
+                    </div>
+                    <p>Define refund policies, cancellation timelines, penalty thresholds, and automated refund triggers.</p>
+                  </div>
+                  <div class="dir-card-footer">
+                    <span class="dir-link-text">Launch Wireframe →</span>
+                  </div>
+                </div>
+
+                <!-- ITEM 4: MANAGE SKIING ASSETS -->
+                <div class="dir-card" onclick="location.hash='#manage_assets'">
+                  <div class="dir-card-top">
+                    <div class="dir-card-header">
+                      <div class="dir-card-icon-title">
+                        <span class="dir-icon">⛷️</span>
+                        <h3 class="dir-card-title">Manage Skiing Assets</h3>
+                      </div>
+                      <span class="dir-badge">Assets</span>
+                    </div>
+                    <p>Inventory management for ski slopes, boots, helmets, poles, maintenance schedules, and availability status.</p>
+                  </div>
+                  <div class="dir-card-footer">
+                    <span class="dir-link-text">Launch Wireframe →</span>
+                  </div>
+                </div>
+
+                <!-- ITEM 5: SKIING LESSON CONFIG -->
+                <div class="dir-card" onclick="location.hash='#skiing_lessons'">
+                  <div class="dir-card-top">
+                    <div class="dir-card-header">
+                      <div class="dir-card-icon-title">
+                        <span class="dir-icon">🎓</span>
+                        <h3 class="dir-card-title">Skiing Lesson Config</h3>
+                      </div>
+                      <span class="dir-badge">Lessons</span>
+                    </div>
+                    <p>Configure private and group skiing lessons, instructor student caps, ratios, and rental gear inclusions.</p>
+                  </div>
+                  <div class="dir-card-footer">
+                    <span class="dir-link-text">Launch Wireframe →</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- PLAYER MODULES -->
+            <div style="margin-bottom: 28px;">
+              <h3 style="font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+                <span>📱</span> Player Modules
+              </h3>
+              <div class="directory-grid">
+                <!-- ITEM 1: PLAYERS SKIING BOOKING UI -->
+                <div class="dir-card" onclick="location.hash='#player_ui'">
+                  <div class="dir-card-top">
+                    <div class="dir-card-header">
+                      <div class="dir-card-icon-title">
+                        <span class="dir-icon">📱</span>
+                        <h3 class="dir-card-title">Players Skiing Booking UI</h3>
+                      </div>
+                      <span class="dir-badge">Player UI</span>
+                    </div>
+                    <p>Indoor skiing club end-user booking interface for slope slot selection, pass purchasing, and QR ticketing.</p>
+                  </div>
+                  <div class="dir-card-footer">
+                    <span class="dir-link-text">Launch Wireframe →</span>
+                  </div>
+                </div>
+
+                <!-- ITEM 2: PLAYERS SKIING WORKFLOW -->
+                <div class="dir-card" onclick="location.hash='#player_workflow'">
+                  <div class="dir-card-top">
+                    <div class="dir-card-header">
+                      <div class="dir-card-icon-title">
+                        <span class="dir-icon">🔄</span>
+                        <h3 class="dir-card-title">Players Skiing Workflow</h3>
+                      </div>
+                      <span class="dir-badge">Prototype</span>
+                    </div>
+                    <p>Complete 18-screen interactive mobile flow prototype covering sign-in, booking, turnstile access, & overtime settlements.</p>
+                  </div>
+                  <div class="dir-card-footer">
+                    <span class="dir-link-text">Launch Wireframe →</span>
+                  </div>
+                </div>
+
+                <!-- ITEM 3: SKIING UI & FIELD GUIDE DICTIONARY -->
+                <div class="dir-card" onclick="location.hash='#field_guide'" style="border-color:#BFDBFE; background:#F8FAFC;">
+                  <div class="dir-card-top">
+                    <div class="dir-card-header">
+                      <div class="dir-card-icon-title">
+                        <span class="dir-icon">📖</span>
+                        <h3 class="dir-card-title">Skiing UI & Field Guide</h3>
+                      </div>
+                      <span class="dir-badge" style="background:#2563EB; color:#FFF;">Dictionary & Search</span>
+                    </div>
+                    <p>Searchable dictionary detailing business need, domain understanding, and system logic for every UI field.</p>
+                  </div>
+                  <div class="dir-card-footer">
+                    <span class="dir-link-text">Open Field Guide →</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- SKIING UI & FIELD GUIDE DICTIONARY VIEW -->
+      <div class="field-guide-view-container" id="fieldGuideView" style="display: none; padding: 20px;">
+        <div class="fg-container">
+          
+          <div class="fg-header">
+            <h2>📖 Indoor Skiing Field Guide & Knowledge Dictionary</h2>
+            <p>Search any UI field, business rule, domain parameter, or system execution logic across all ShallWePlay wireframes.</p>
+          </div>
+
+          <!-- ENHANCED SEARCH INPUT BAR WITH CLEAR BUTTON -->
+          <div class="fg-search-bar" style="position:relative; margin-bottom:12px;">
+            <span class="fg-search-icon">🔍</span>
+            <input type="text" class="fg-search-input" id="fgSearchInput" placeholder="Search any term, field, or FAQ (e.g., Turnstile, Boot Size, DIN, Grace, Helmet, Refund, Payout, Lift)..." autocomplete="off">
+            <button id="fgClearBtn" style="position:absolute; right:14px; top:50%; transform:translateY(-50%); background:#E2E8F0; border:none; width:26px; height:26px; border-radius:50%; font-size:12px; cursor:pointer; display:none; align-items:center; justify-content:center; color:#475569;" onclick="clearSearch('fg')">✕</button>
+          </div>
+
+          <!-- QUICK SUGGESTIONS CHIPS -->
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:16px; font-size:12px; color:#64748B;">
+            <span style="font-weight:700; color:#0F172A;">💡 Popular Searches:</span>
+            <span class="fg-suggest-tag" onclick="quickSearch('Turnstile Grace')">Turnstile Grace</span>
+            <span class="fg-suggest-tag" onclick="quickSearch('Boot Sizing')">Boot Sizing</span>
+            <span class="fg-suggest-tag" onclick="quickSearch('Skill Gating')">Skill Gating</span>
+            <span class="fg-suggest-tag" onclick="quickSearch('Overtime Fee')">Overtime Fee</span>
+            <span class="fg-suggest-tag" onclick="quickSearch('Pass Extension')">Pass Extension</span>
+            <span class="fg-suggest-tag" onclick="quickSearch('Helmet Policy')">Helmet Policy</span>
+            <span class="fg-suggest-tag" onclick="quickSearch('Chairlift Status')">Chairlift Status</span>
+            <span class="fg-suggest-tag" onclick="quickSearch('Cancellation Refund')">Cancellation Refund</span>
+            <span class="fg-suggest-tag" onclick="quickSearch('Payout Timezone')">Payout Timezone</span>
+          </div>
+
+          <!-- FILTER PILLS & COUNTER -->
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:20px;">
+            <div class="fg-pills" style="margin-bottom:0;">
+              <button class="fg-pill active" onclick="filterFieldGuide('all', this)">All Modules</button>
+              <button class="fg-pill" onclick="filterFieldGuide('Skiing Booking Rules', this)">Booking Rules</button>
+              <button class="fg-pill" onclick="filterFieldGuide('Skiing Pricing & Cancellation', this)">Pricing Engine</button>
+              <button class="fg-pill" onclick="filterFieldGuide('Manage Skiing Assets', this)">Manage Assets</button>
+              <button class="fg-pill" onclick="filterFieldGuide('Players Skiing Booking UI', this)">Player Booking UI</button>
+              <button class="fg-pill" onclick="filterFieldGuide('Dynamic Payout', this)">Dynamic Payout</button>
+              <button class="fg-pill" onclick="filterFieldGuide('Assign Pricing', this)">Assign Pricing</button>
+              <button class="fg-pill" onclick="filterFieldGuide('Refund Details', this)">Refund Details</button>
+            </div>
+            <div id="fgResultsCount" style="font-size:12px; font-weight:700; color:#64748B;">Showing all fields</div>
+          </div>
+
+          <!-- DYNAMIC SEARCH RESULTS GRID -->
+          <div class="fg-grid" id="fgResultsGrid">
+            <!-- Populated via JavaScript -->
+          </div>
+
+        </div>
+      </div>
+
+      <!-- EMBEDDED IFRAME FOR WIREFRAMES -->
+      <iframe class="wireframe-frame" id="wireframeFrame" style="display: none;" title="SWP Wireframe Content"></iframe>
+
+    </section>
+
+  </main>
+
+
+
+  <!-- FLOATING SEARCH MODAL POPUP -->
+  <div id="floatingSearchModal" class="search-modal-backdrop" onclick="closeSearchModalOnBackdrop(event)">
+    <div class="search-modal-content">
+      <div class="search-modal-header">
+        <h3 class="search-modal-title">
+          <span>🔍</span>
+          <span>Instant UI Field & Logic Search</span>
+        </h3>
+        <button class="search-modal-close" onclick="closeSearchModal()">✕</button>
+      </div>
+      <div class="search-modal-body">
+        <div class="fg-search-bar" style="position:relative; margin-bottom:12px;">
+          <span class="fg-search-icon">🔍</span>
+          <input type="text" class="fg-search-input" id="modalSearchInput" placeholder="Type any keyword to inspect business need & system logic..." autocomplete="off">
+          <button id="modalClearBtn" style="position:absolute; right:14px; top:50%; transform:translateY(-50%); background:#E2E8F0; border:none; width:26px; height:26px; border-radius:50%; font-size:12px; cursor:pointer; display:none; align-items:center; justify-content:center; color:#475569;" onclick="clearSearch('modal')">✕</button>
+        </div>
+        
+        <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-bottom:14px; font-size:11px; color:#64748B;">
+          <span style="font-weight:700;">Try:</span>
+          <span class="fg-suggest-tag" onclick="quickSearchModal('Turnstile Grace')">Turnstile</span>
+          <span class="fg-suggest-tag" onclick="quickSearchModal('Boot Size')">Boot Size</span>
+          <span class="fg-suggest-tag" onclick="quickSearchModal('DIN')">DIN</span>
+          <span class="fg-suggest-tag" onclick="quickSearchModal('Helmet')">Helmet</span>
+          <span class="fg-suggest-tag" onclick="quickSearchModal('Upgrade')">Upgrade</span>
+          <span class="fg-suggest-tag" onclick="quickSearchModal('Chairlift')">Chairlift</span>
+          <span class="fg-suggest-tag" onclick="quickSearchModal('Refund')">Refund</span>
+        </div>
+
+        <div id="modalResultsCount" style="font-size:11px; font-weight:700; color:#64748B; margin-bottom:10px;"></div>
+        
+        <div id="modalSearchResultsGrid" class="fg-grid">
+          <!-- Live results populated via JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ── ROUTE CONFIGURATION MAPPING ──
+    const routes = {
+      'wireframe_info': {
+        title: 'What are Wireframes?',
+        desc: 'Information and overview guide on wireframes & purpose in ShallWePlay',
+        type: 'info'
+      },
+      'field_guide': {
+        title: 'Skiing UI & Field Guide Dictionary (FAQ)',
+        desc: 'Searchable dictionary explaining business need, domain understanding, and system logic for every UI field',
+        type: 'field_guide'
+      },
+      'booking_rule': {
+        title: 'Skiing Booking Rules',
+        desc: 'Configure booking policies, capacity, and windows for Indoor Skiing',
+        file: 'booking_rule.html',
+        type: 'iframe'
+      },
+      'assign_pricing': {
+        title: 'Assign Pricing',
+        desc: 'Configure commission, features, and limits for the selected club',
+        file: 'assign_pricing_admin.html',
+        type: 'iframe'
+      },
+      'pricing_cancellation': {
+        title: 'Skiing Pricing and Cancellation',
+        desc: 'Define refund rules, cancellation timelines, and fee policies',
+        file: 'pricing_rule.html',
+        type: 'iframe'
+      },
+      'manage_assets': {
+        title: 'Skiing Asset Management',
+        desc: 'Inventory and asset management for slopes, equipment, and gear',
+        file: 'skiing_manage_asset.html',
+        type: 'iframe'
+      },
+      'payout': {
+        title: 'Dynamic Payout — Region Specific Time Zone Wise',
+        desc: 'Region-specific time zone payout configurations & revenue settlement',
+        file: 'payout_config_admin.html',
+        type: 'iframe'
+      },
+      'availability': {
+        title: 'Club Availability with Holidays',
+        desc: 'Manage operating hours, holiday schedules, and blackout periods',
+        file: 'club_availability_with_holidays.html',
+        type: 'iframe'
+      },
+      'refund_detail': {
+        title: 'Refund Details & Manager Approval',
+        desc: 'Inspect booking refund breakdown, penalty calculations, and approval audit logs',
+        file: 'refund_detailview.html',
+        type: 'iframe'
+      },
+      'skiing_lessons': {
+        title: 'Skiing Lesson Configuration & Instructor Management',
+        desc: 'Configure private and group skiing lessons, instructor ratios, and gear inclusions',
+        file: 'skiing_lesson_config.html',
+        type: 'iframe'
+      },
+      'player_ui': {
+        title: 'Players Skiing Booking UI',
+        desc: 'Player mobile booking interface preview and slot selector tailored to Indoor Skiing Clubs',
+        file: 'skiing_player.html',
+        type: 'iframe'
+      },
+      'player_workflow': {
+        title: 'Players Skiing Workflow',
+        desc: 'Complete end-to-end interactive mobile player prototype',
+        file: 'skiing_player_booking_workflow.html',
+        type: 'iframe'
+      }
+    };
+
+    // ── COMPREHENSIVE FIELD DICTIONARY DATASET (ALL WIREFRAME MODULES) ──
+    const fieldDictionaryData = [
+      // ── MODULE: SKIING LESSON CONFIGURATION ──
+      {
+        id: "private_lesson_rate",
+        name: "Private Lesson Base Hourly Rate",
+        module: "Skiing Lesson Config",
+        route: "skiing_lessons",
+        need: "Sets hourly fee for dedicated private 1-on-1 ski/snowboard instructor coaching.",
+        understanding: "Private coaching accelerates learning for beginners and advanced carvers.",
+        systemLogic: "Adds hourly private instructor fee to booking cart during player checkout.",
+        toggle: "Currency Input (€/hr)",
+        keywords: ["lesson", "private", "instructor", "coach", "hourly rate", "1-on-1", "training"]
+      },
+      {
+        id: "group_lesson_cap",
+        name: "Group Lesson Student Capacity Cap",
+        module: "Skiing Lesson Config",
+        route: "skiing_lessons",
+        need: "Prevents overcrowded group lessons and ensures high safety supervision on slope.",
+        understanding: "Kids classes cap at 6 students; adult group classes cap at 8 students per instructor.",
+        systemLogic: "Blocks additional student registrations when group class slot reaches maximum capacity.",
+        toggle: "Dropdown Capacity Selection",
+        keywords: ["group", "class", "capacity", "students", "cap", "ratio", "snow school", "kids"]
+      },
+      {
+        id: "lesson_gear_bundle",
+        name: "Auto-Include Rental Gear Bundle in Lesson Price",
+        module: "Skiing Lesson Config",
+        route: "skiing_lessons",
+        need: "Simplifies checkout by automatically bundling skis/board, boots, and helmet into lesson package.",
+        understanding: "Beginner lesson students rarely own personal gear; bundling eliminates friction.",
+        systemLogic: "Automatically sets rental gear item prices to €0.00 when lesson package is selected.",
+        toggle: "Enable/Disable Switch (toggleLessonGearBundle)",
+        keywords: ["gear", "rental", "bundle", "package", "lesson", "skis", "boots", "helmet", "included"]
+      },
+      // ── MODULE: SKIING BOOKING RULES ──
+      {
+        id: "min_advance_window",
+        name: "Min Advance Booking Window",
+        module: "Skiing Booking Rules",
+        route: "booking_rule",
+        need: "Prevents last-minute bookings that staff cannot pre-sort rental gear or allocate instructors for.",
+        understanding: "Indoor skiing requires pre-assembling thermal suits, boots, and skis by sizing prior to skier arrival.",
+        systemLogic: "Blocks players from selecting time slots starting within X hours of the current timestamp.",
+        toggle: "Mandatory Parameter Input (Hours/Days)",
+        keywords: ["advance", "window", "min", "minimum", "lead time", "buffer", "preparation"]
+      },
+      {
+        id: "max_advance_window",
+        name: "Max Advance Booking Window",
+        module: "Skiing Booking Rules",
+        route: "booking_rule",
+        need: "Limits how far in advance players can reserve slots to control calendar modifications.",
+        understanding: "Peak winter holiday slots are released in rolling monthly batches to maximize yield.",
+        systemLogic: "Restricts calendar picker date selection in Player App to Y days from today.",
+        toggle: "Mandatory Parameter Input (Days)",
+        keywords: ["advance", "window", "max", "maximum", "calendar", "days", "future"]
+      },
+      {
+        id: "max_active_bookings",
+        name: "Max Active Bookings Per Player Account",
+        module: "Skiing Booking Rules",
+        route: "booking_rule",
+        need: "Prevents scalping, hoarding, and mass reservation of limited slope capacity slots.",
+        understanding: "Popular snow domes cap concurrent unredeemed reservations per player account.",
+        systemLogic: "System counts active upcoming tickets for player profile and blocks checkout if limit is reached.",
+        toggle: "Enable/Disable Switch (maxBookings)",
+        keywords: ["limit", "cap", "active", "hoarding", "scalping", "per player", "reservation"]
+      },
+      {
+        id: "skill_gating",
+        name: "Enforce Skill Level Gating & Verification",
+        module: "Skiing Booking Rules",
+        route: "booking_rule",
+        need: "Prevents beginner skiers from entering steep main slopes or terrain parks where they pose a collision hazard.",
+        understanding: "Indoor skiing venues separate beginner snow playgrounds (Magic Carpet) from intermediate/advanced slopes.",
+        systemLogic: "Evaluates skier's verified badge level against slope requirements. Triggers warning modal or lesson add-on prompt if level is unverified.",
+        toggle: "Enable/Disable Switch (skillGating)",
+        keywords: ["skill", "gating", "level", "beginner", "intermediate", "advanced", "safety", "verification", "badge"]
+      },
+      {
+        id: "turnstile_overage",
+        name: "Turnstile Grace Window & Auto-Overage Billing",
+        module: "Skiing Booking Rules",
+        route: "booking_rule",
+        need: "Automates snow time tracking from entrance turnstile tap to exit turnstile tap without manual cash desk queues.",
+        understanding: "Snow time is billed strictly by duration. Skier passes turnstile into cold slope area; timer starts immediately.",
+        systemLogic: "RFID hardware syncs tap timestamps with SWP billing engine. Subtracts changing room grace period (e.g. 15 mins) and charges overage increments.",
+        toggle: "Enable/Disable Switch (turnstileOverage)",
+        keywords: ["turnstile", "grace", "overage", "overtime", "rfid", "tap", "entry", "exit", "changing room", "timer"]
+      },
+      {
+        id: "minor_safety",
+        name: "Mandatory Helmet & Chaperone Policy for Minors",
+        module: "Skiing Booking Rules",
+        route: "booking_rule",
+        need: "Enforces municipal safety regulations and protects minors from head injury hazards on cold hard snow.",
+        understanding: "Helmets are legally mandatory for children under 16 in indoor snow domes.",
+        systemLogic: "Auto-includes helmet in cart for minor tickets and enforces chaperone validation ratios (e.g., 1 adult per 2 children under 10).",
+        toggle: "Enable/Disable Switch (minorSafety)",
+        keywords: ["minor", "child", "kids", "helmet", "safety", "chaperone", "adult ratio", "under 16", "headwear"]
+      },
+
+      // ── MODULE: SKIING PRICING & CANCELLATION ──
+      {
+        id: "base_hourly_rate",
+        name: "Base Hourly Rate Cards (Member vs Non-Member)",
+        module: "Skiing Pricing & Cancellation",
+        route: "pricing_cancellation",
+        need: "Establishes core rate structure for different customer segments (Adult, Child, Senior, Family).",
+        understanding: "Subscribers receive 15-25% lower hourly rates than walk-in public guests.",
+        systemLogic: "Applied during checkout based on player profile membership status.",
+        toggle: "Category Rate Inputs (€/hr)",
+        keywords: ["rate", "price", "base", "hourly", "member", "non-member", "cost", "euro", "adult", "child"]
+      },
+      {
+        id: "peak_surge_pricing",
+        name: "Peak Hours & Weekend Dynamic Surge Pricing",
+        module: "Skiing Pricing & Cancellation",
+        route: "pricing_cancellation",
+        need: "Capitalizes on high-demand time slots (e.g., Friday evening & weekends) to maximize slope yield.",
+        understanding: "Indoor slopes hit capacity on weekday evenings and weekends, requiring dynamic rate surge.",
+        systemLogic: "Replaces base hourly rates when selected slot falls inside configured peak window or weekend days.",
+        toggle: "Enable/Disable Switch (peakEnabled & weekendEnabled)",
+        keywords: ["peak", "surge", "weekend", "dynamic", "demand", "evening", "night", "high demand"]
+      },
+      {
+        id: "overtime_surcharge",
+        name: "Automated Turnstile Overtime Surcharge Matrix",
+        module: "Skiing Pricing & Cancellation",
+        route: "pricing_cancellation",
+        need: "Penalizes unauthorized overstay on snow to free up slope capacity for upcoming time slots.",
+        understanding: "Exit RFID tap detects if timestamp exceeds pass duration + grace window.",
+        systemLogic: "Computes overage penalty rate (€5.00/15 min) up to maximum cap (€45.00) and triggers mobile payment or exit gate block.",
+        toggle: "Enable/Disable Switch (overtimeSurchargeEnabled)",
+        keywords: ["overtime", "surcharge", "overstay", "penalty", "cap", "turnstile", "exit", "excess", "15 min"]
+      },
+      {
+        id: "pass_upgrade",
+        name: "In-Session Pass Extension Delta Pricing",
+        module: "Skiing Pricing & Cancellation",
+        route: "pricing_cancellation",
+        need: "Encourages skiers enjoying their session to extend time mid-way rather than exiting.",
+        understanding: "Skier receives in-app alert at 45 mins: 'Extend to 2 Hours for only €12!'.",
+        systemLogic: "Presents upgrade button in Player App charging delta rate (€12.00) and extends RFID expiration time by +60 mins.",
+        toggle: "Enable/Disable Switch (passUpgradeEnabled)",
+        keywords: ["upgrade", "extension", "delta", "in-session", "extend", "pass", "add hour", "mid-way"]
+      },
+      
+      {
+        id: "cancellation_policy",
+        name: "Cancellation Refund Rules & Penalty Windows",
+        module: "Skiing Pricing & Cancellation",
+        route: "pricing_cancellation",
+        need: "Protects venue revenue against unfulfilled slope capacity caused by late cancellations.",
+        understanding: "Full refund 24h prior; 50% refund 12h prior; non-refundable within 4 hours.",
+        systemLogic: "Calculates refund entitlement based on booking start timestamp vs cancellation request timestamp.",
+        toggle: "Rule Tier Matrix",
+        keywords: ["cancel", "cancellation", "refund", "penalty", "policy", "window", "revoke", "no-show"]
+      },
+
+      // ── MODULE: REFUND DETAILS ──
+      {
+        id: "refund_detail_audit",
+        name: "Refund Request Audit & Calculation Breakdown",
+        module: "Refund Details",
+        route: "refund_detail",
+        need: "Inspect detailed cancellation timestamps, penalty breakdown, and approve/reject refund disbursements.",
+        understanding: "Ensures finance and club managers can verify automatic cancellation calculations before sending funds back to player payment methods.",
+        systemLogic: "Fetches booking payment record, applies cancellation penalty tier, and records manager approval audit trail.",
+        toggle: "Approval & Disbursement Action Bar",
+        keywords: ["refund", "audit", "detail", "penalty", "disbursement", "approval", "cancellation", "breakdown"]
+      },
+
+      // ── MODULE: MANAGE SKIING ASSETS ──
+      {
+        id: "slope_capacity",
+        name: "Slope Physical Specs & Hourly Capacity Limit",
+        module: "Manage Skiing Assets",
+        route: "manage_assets",
+        need: "Prevents overcrowding and maintains safety distance between skiers on snow.",
+        understanding: "Main slope: 450m length, 60m width, max 120 skiers per hour.",
+        systemLogic: "Hard limit used by inventory engine. When reserved tickets hit capacity, slot displays Sold Out.",
+        toggle: "Numeric Capacity Input (Skiers/hr)",
+        keywords: ["capacity", "slope", "length", "width", "gradient", "sold out", "skiers per hour", "max skiers"]
+      },
+      {
+        id: "lift_monitoring",
+        name: "Lift & Conveyor Systems Operational Status",
+        module: "Manage Skiing Assets",
+        route: "manage_assets",
+        need: "Informs skiers of lift operational availability before booking or arriving at venue.",
+        understanding: "Indoor facilities operate Magic Carpets (conveyors), Poma drag lifts, and Chairlifts. Lift downtime impacts throughput.",
+        systemLogic: "Displays live status badges (Active, Under Maintenance, Closed) on Player Mobile App detail header.",
+        toggle: "Enable/Disable Switch (toggleLiftMonitoring)",
+        keywords: ["lift", "conveyor", "carpet", "magic carpet", "poma", "chairlift", "status", "maintenance", "closed"]
+      },
+      {
+        id: "snow_climate",
+        name: "Snow Quality & Indoor Climate Monitoring",
+        module: "Manage Skiing Assets",
+        route: "manage_assets",
+        need: "Ensures indoor climate refrigeration systems maintain optimal snow condition (-2.5°C).",
+        understanding: "Indoor snow halls maintain ambient temperature between -2.0°C and -4.0°C with 50cm snow depth.",
+        systemLogic: "Pushes real-time temperature and snow depth metrics to Player App overview card and alerts staff on temperature drift.",
+        toggle: "Technical Parameter Inputs",
+        keywords: ["snow", "temperature", "climate", "depth", "grooming", "real snow", "cold", "refrigeration"]
+      },
+
+      // ── MODULE: PLAYERS SKIING BOOKING UI ──
+      {
+        id: "skier_sizing",
+        name: "Skier Profile Sizing (Height, Weight, EU Boots, Stance)",
+        module: "Players Skiing Booking UI",
+        route: "player_ui",
+        need: "Pre-allocates exact boot size, ski length, and DIN safety release settings prior to player arrival.",
+        understanding: "Eliminates 10-minute trial-and-error boot fitting queues at physical rental counters.",
+        systemLogic: "Saves sizing to player profile. Computes DIN release scale for rental staff and pre-packs gear before skier arrives.",
+        toggle: "Mandatory/Optional Profile Card",
+        keywords: ["height", "weight", "din", "shoe size", "boot size", "stance", "regular", "goofy", "profile", "pre-pack"]
+      },
+      {
+        id: "safety_waiver",
+        name: "Safety & Skill Self-Declaration Waiver",
+        module: "Players Skiing Booking UI",
+        route: "player_ui",
+        need: "Legally protects venue from liability and confirms skier competence for main slope entry.",
+        understanding: "Skier confirms: 'I confirm I can turn and stop safely on slope, and accept Indoor Skiing Safety & Helmet Waiver'.",
+        systemLogic: "Must be checked to activate payment CTA. Timestamped digital signature saved to booking reservation record.",
+        toggle: "Mandatory Checkbox",
+        keywords: ["waiver", "safety", "skill", "declaration", "terms", "liability", "checkbox", "sign"]
+      },
+      {
+        id: "session_timer",
+        name: "Live RFID Session Countdown & Express Exit QR",
+        module: "Players Skiing Booking UI",
+        route: "player_ui",
+        need: "Gives player real-time visibility into remaining slope time once checked in at entrance turnstile.",
+        understanding: "Displays live ticking countdown timer (e.g. 00:54:12 Remaining) inside app after turnstile tap-in.",
+        systemLogic: "Triggered by CHECK_IN turnstile webhook. Player scans exit QR code to complete session without queueing at cash desk.",
+        toggle: "Live Mobile Bar & Modal",
+        keywords: ["countdown", "live timer", "remaining", "rfid", "exit qr", "mobile pass", "turnstile tap"]
+      },
+
+      // ── MODULE: DYNAMIC PAYOUT ──
+      {
+        id: "payout_timezone",
+        name: "Region-Specific Timezone Payout Configuration",
+        module: "Dynamic Payout",
+        route: "payout",
+        need: "Ensures facility partners receive payouts synchronized with local banking hours and currencies.",
+        understanding: "Global venues (Amsterdam, Dubai, Manchester) require distinct payout timezones (CET, GST, GMT).",
+        systemLogic: "Schedules automated bank transfer triggers according to local timezone business cutoff hours.",
+        toggle: "Timezone Selection Dropdown",
+        keywords: ["payout", "timezone", "region", "settlement", "bank", "currency", "revenue", "split", "amsterdam", "dubai"]
+      },
+
+      // ── MODULE: ASSIGN PRICING ──
+      {
+        id: "assign_pricing_tier",
+        name: "Club Assign Pricing Tiers & Platform Commission",
+        module: "Assign Pricing",
+        route: "assign_pricing",
+        need: "Assigns platform subscription tiers and transaction commission percentages per club partner.",
+        understanding: "SaaS model where SWP charges 3-5% platform commission on bookings processed.",
+        systemLogic: "Applies fee rules during checkout calculation engine.",
+        toggle: "Tier & Commission Form",
+        keywords: ["assign pricing", "commission", "tier", "saas", "platform fee", "revenue", "club tier"]
+      }
+    ];
+
+    // ── SYNONYM DICTIONARY FOR DOMAIN LOOKUP ──
+    const synonymMap = {
+      'shoe': ['shoe', 'shoes', 'boot', 'boots', 'footwear', 'size', 'sizing', 'eu'],
+      'shoes': ['shoe', 'shoes', 'boot', 'boots', 'footwear', 'size', 'sizing', 'eu'],
+      'boot': ['shoe', 'shoes', 'boot', 'boots', 'footwear', 'size', 'sizing', 'eu'],
+      'boots': ['shoe', 'shoes', 'boot', 'boots', 'footwear', 'size', 'sizing', 'eu'],
+      'price': ['price', 'pricing', 'cost', 'fee', 'charge', 'rate', 'surcharge', 'euro', 'delta', 'discount', 'tier'],
+      'pricing': ['price', 'pricing', 'cost', 'fee', 'charge', 'rate', 'surcharge', 'euro', 'delta', 'discount', 'tier'],
+      'cost': ['price', 'pricing', 'cost', 'fee', 'charge', 'rate', 'surcharge', 'euro', 'delta', 'discount'],
+      'cancel': ['cancel', 'cancellation', 'refund', 'penalty', 'revoke', 'window', 'policy'],
+      'cancellation': ['cancel', 'cancellation', 'refund', 'penalty', 'revoke', 'window', 'policy'],
+      'refund': ['cancel', 'cancellation', 'refund', 'penalty', 'revoke', 'window', 'policy', 'disbursement', 'audit'],
+      'time': ['time', 'duration', 'hour', 'clock', 'schedule', 'grace', 'overtime', 'overstay', 'turnstile', 'timer'],
+      'duration': ['time', 'duration', 'hour', 'clock', 'schedule', 'grace', 'overtime', 'overstay', 'turnstile', 'timer'],
+      'child': ['child', 'children', 'kid', 'kids', 'minor', 'chaperone', 'youth', 'junior', 'age'],
+      'kids': ['child', 'children', 'kid', 'kids', 'minor', 'chaperone', 'youth', 'junior', 'age'],
+      'minor': ['child', 'children', 'kid', 'kids', 'minor', 'chaperone', 'youth', 'junior', 'age'],
+      'lift': ['lift', 'carpet', 'conveyor', 'poma', 'chairlift', 'cable', 'status', 'operating'],
+      'gear': ['gear', 'equipment', 'rental', 'ski', 'skis', 'snowboard', 'board', 'helmet', 'poles', 'wear'],
+      'rental': ['gear', 'equipment', 'rental', 'ski', 'skis', 'snowboard', 'board', 'helmet', 'poles', 'wear'],
+      'payout': ['payout', 'bank', 'stripe', 'timezone', 'region', 'settlement', 'revenue']
+    };
+
+    // ── DOM ELEMENTS ──
+    const infoView = document.getElementById('infoView');
+    const fieldGuideView = document.getElementById('fieldGuideView');
+    const wireframeFrame = document.getElementById('wireframeFrame');
+    const activeTitle = document.getElementById('activeTitle');
+    const activeDesc = document.getElementById('activeDesc');
+    const openExternalBtn = document.getElementById('openExternalBtn');
+    const reloadFrameBtn = document.getElementById('reloadFrameBtn');
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const appSidebar = document.getElementById('appSidebar');
+
+    let activeFilter = 'all';
+
+    // ── INTELLIGENT MULTI-TOKEN SEARCH ENGINE ──
+    function searchFieldDictionary(queryText, moduleFilter = 'all') {
+      const rawQuery = (queryText || '').toLowerCase().trim();
+      if (!rawQuery) {
+        return fieldDictionaryData.filter(item => moduleFilter === 'all' || item.module === moduleFilter);
       }
 
-      /*
-       * ============================================
-       * IFRAME LOADED
-       * ============================================
-       */
+      // Split query into tokens, ignoring common stop words
+      const stopWords = new Set(['a', 'an', 'the', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by', 'is', 'are', 'how', 'what', 'where']);
+      const tokens = rawQuery.split(/\s+/).filter(t => t.length > 0 && !stopWords.has(t));
 
-      pageFrame.addEventListener("load", function () {
-        loading.classList.remove("show");
-      });
-
-      /*
-       * ============================================
-       * MOBILE SIDEBAR
-       * ============================================
-       */
-
-      function toggleSidebar() {
-        sidebar.classList.toggle("open");
+      if (tokens.length === 0) {
+        return fieldDictionaryData.filter(item => moduleFilter === 'all' || item.module === moduleFilter);
       }
 
-      /*
-       * ============================================
-       * PAGE DEFINITIONS
-       * ============================================
-       *
-       * Used when opening a page from URL hash.
-       */
+      const scoredItems = [];
 
-      const pages = {
-        booking_rule: {
-          page: "booking_rule.html",
-          title: "Booking Rules",
-          description: "Configure booking behavior and rules",
-        },
-
-        pricing_rule: {
-          page: "pricing_rule.html",
-          title: "Pricing & Cancellation",
-          description: "Configure pricing and cancellation policies",
-        },
-
-        club_availability_with_holidays: {
-          page: "club_availability_with_holidays.html",
-          title: "Club Availability",
-          description: "Manage club availability and special closures",
-        },
-
-        payout_config_admin: {
-          page: "payout_config_admin.html",
-          title: "Payout Configuration",
-          description: "Configure payout schedules by timezone",
-        },
-
-        skiing_manage_asset: {
-          page: "skiing_manage_asset.html",
-          title: "Manage Ski Assets",
-          description: "Create and manage skiing facilities",
-        },
-
-        skiing_player: {
-          page: "skiing_player.html",
-          title: "Player Experience",
-          description: "Preview the player mobile experience",
-        },
-      };
-
-      /*
-       * ============================================
-       * OPEN PAGE FROM HASH
-       * ============================================
-       *
-       * Example:
-       *
-       * index.html#pricing_rule
-       *
-       */
-
-      function openPageFromHash() {
-        const hash = window.location.hash.replace("#", "");
-
-        if (!hash || !pages[hash]) {
-          return;
+      for (const item of fieldDictionaryData) {
+        if (moduleFilter !== 'all' && item.module !== moduleFilter) {
+          continue;
         }
 
-        const config = pages[hash];
+        let score = 0;
+        let matchedTokensCount = 0;
 
-        pageFrame.src = config.page;
+        const nameLower = item.name.toLowerCase();
+        const moduleLower = item.module.toLowerCase();
+        const needLower = item.need.toLowerCase();
+        const understandingLower = item.understanding.toLowerCase();
+        const systemLogicLower = item.systemLogic.toLowerCase();
+        const toggleLower = item.toggle.toLowerCase();
+        const keywordsLower = (item.keywords || []).join(' ').toLowerCase();
 
-        pageTitle.textContent = config.title;
-        pageDescription.textContent = config.description;
-        mobileTitle.textContent = config.title;
+        for (const token of tokens) {
+          const syns = synonymMap[token] || [token];
+          let tokenMatched = false;
 
-        // Update active button
+          for (const syn of syns) {
+            if (nameLower.includes(syn)) {
+              score += 20;
+              tokenMatched = true;
+            }
+            if (keywordsLower.includes(syn)) {
+              score += 12;
+              tokenMatched = true;
+            }
+            if (moduleLower.includes(syn)) {
+              score += 8;
+              tokenMatched = true;
+            }
+            if (needLower.includes(syn)) {
+              score += 5;
+              tokenMatched = true;
+            }
+            if (understandingLower.includes(syn)) {
+              score += 4;
+              tokenMatched = true;
+            }
+            if (systemLogicLower.includes(syn)) {
+              score += 4;
+              tokenMatched = true;
+            }
+            if (toggleLower.includes(syn)) {
+              score += 3;
+              tokenMatched = true;
+            }
+          }
 
-        document.querySelectorAll(".nav-item").forEach((item) => {
-          item.classList.toggle("active", item.dataset.page === config.page);
+          if (tokenMatched) {
+            matchedTokensCount++;
+          }
+        }
+
+        if (matchedTokensCount > 0) {
+          // Bonus score if ALL tokens matched
+          if (matchedTokensCount === tokens.length) {
+            score += 30;
+          }
+          scoredItems.push({ item, score });
+        }
+      }
+
+      // Sort descending by relevance score
+      scoredItems.sort((a, b) => b.score - a.score);
+      return scoredItems.map(si => si.item);
+    }
+
+    // ── HIGHLIGHT MATCHING KEYWORDS HELPER ──
+    function highlightText(text, query) {
+      if (!text || !query || !query.trim()) return text;
+      const stopWords = new Set(['a', 'an', 'the', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by', 'is', 'are', 'how', 'what', 'where']);
+      const tokens = query.toLowerCase().trim().split(/\s+/).filter(t => t.length > 1 && !stopWords.has(t));
+      if (tokens.length === 0) return text;
+
+      let highlighted = text;
+      tokens.forEach(token => {
+        const syns = synonymMap[token] || [token];
+        syns.forEach(syn => {
+          if (syn.length > 2) {
+            const regex = new RegExp(`(${syn})`, 'gi');
+            highlighted = highlighted.replace(regex, '<mark style="background:#FEF08A; color:#854D0E; font-weight:700; padding:0 3px; border-radius:3px;">$1</mark>');
+          }
+        });
+      });
+      return highlighted;
+    }
+
+    // ── RENDER FIELD GUIDE RESULTS ──
+    function renderFieldGuide(searchTerm = '', moduleFilter = 'all', containerId = 'fgResultsGrid') {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      const results = searchFieldDictionary(searchTerm, moduleFilter);
+      const isModal = containerId === 'modalSearchResultsGrid';
+
+      // Update counters
+      const countEl = isModal ? document.getElementById('modalResultsCount') : document.getElementById('fgResultsCount');
+      if (countEl) {
+        countEl.textContent = `Found ${results.length} matching field${results.length === 1 ? '' : 's'}`;
+      }
+
+      // Toggle Clear Button
+      const clearBtn = isModal ? document.getElementById('modalClearBtn') : document.getElementById('fgClearBtn');
+      if (clearBtn) {
+        clearBtn.style.display = searchTerm.trim() ? 'flex' : 'none';
+      }
+
+      if (results.length === 0) {
+        container.innerHTML = `
+          <div style="background:#FFF; padding:36px 20px; border-radius:12px; text-align:center; border:1px solid #E2E8F0; grid-column:1/-1;">
+            <div style="font-size:36px; margin-bottom:8px;">🔍</div>
+            <h4 style="font-size:16px; color:#0F172A; margin-bottom:6px; font-weight:700;">No matching UI fields found</h4>
+            <p style="font-size:13px; color:#64748B; max-width:450px; margin:0 auto 12px;">Try searching for domain terms like <strong>Turnstile Grace, Boot Sizing, Helmet, Skill Gating, Pass Upgrade, Chairlift, or Refund</strong>.</p>
+            <button onclick="clearSearch('${isModal ? 'modal' : 'fg'}')" style="background:#2563EB; color:#FFF; border:none; padding:6px 14px; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer;">Reset Search Filter</button>
+          </div>`;
+        return;
+      }
+
+      container.innerHTML = results.map(item => `
+        <div class="fg-card">
+          <div class="fg-card-head">
+            <div>
+              <div class="fg-card-title">${highlightText(item.name, searchTerm)}</div>
+              <span class="fg-module-badge">${item.module}</span>
+            </div>
+            <button class="fg-jump-btn" onclick="navigateToModule('${item.route}')">Go to Wireframe →</button>
+          </div>
+          <div class="fg-detail-grid">
+            <div class="fg-detail-box">
+              <div class="fg-detail-lbl">💡 Business Need & Purpose</div>
+              <div class="fg-detail-val">${highlightText(item.need, searchTerm)}</div>
+            </div>
+            <div class="fg-detail-box">
+              <div class="fg-detail-lbl">🏔️ Skiing Domain Understanding</div>
+              <div class="fg-detail-val">${highlightText(item.understanding, searchTerm)}</div>
+            </div>
+          </div>
+          <div class="fg-detail-box" style="margin-top:8px;">
+            <div class="fg-detail-lbl">⚙️ How it Works in System</div>
+            <div class="fg-detail-val">${highlightText(item.systemLogic, searchTerm)}</div>
+          </div>
+          <div class="fg-card-footer">
+            <span class="fg-toggle-status">⚙️ Config: ${item.toggle}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function filterFieldGuide(moduleName, pillEl) {
+      activeFilter = moduleName;
+      document.querySelectorAll('.fg-pill').forEach(p => p.classList.remove('active'));
+      if (pillEl) pillEl.classList.add('active');
+      const query = document.getElementById('fgSearchInput')?.value || '';
+      renderFieldGuide(query, activeFilter, 'fgResultsGrid');
+    }
+
+    function quickSearch(keyword) {
+      const input = document.getElementById('fgSearchInput');
+      if (input) {
+        input.value = keyword;
+        renderFieldGuide(keyword, activeFilter, 'fgResultsGrid');
+      }
+    }
+
+    function quickSearchModal(keyword) {
+      const input = document.getElementById('modalSearchInput');
+      if (input) {
+        input.value = keyword;
+        renderFieldGuide(keyword, 'all', 'modalSearchResultsGrid');
+      }
+    }
+
+    function clearSearch(type) {
+      if (type === 'fg') {
+        const input = document.getElementById('fgSearchInput');
+        if (input) input.value = '';
+        renderFieldGuide('', activeFilter, 'fgResultsGrid');
+      } else {
+        const input = document.getElementById('modalSearchInput');
+        if (input) input.value = '';
+        renderFieldGuide('', 'all', 'modalSearchResultsGrid');
+      }
+    }
+
+    function navigateToModule(routeKey) {
+      closeSearchModal();
+      window.location.hash = `#${routeKey}`;
+    }
+
+    // ── SEARCH MODAL CONTROLLERS ──
+    function openSearchModal() {
+      const modal = document.getElementById('floatingSearchModal');
+      if (modal) {
+        modal.classList.add('open');
+        const input = document.getElementById('modalSearchInput');
+        if (input) {
+          input.value = '';
+          input.focus();
+        }
+        renderFieldGuide('', 'all', 'modalSearchResultsGrid');
+      }
+    }
+
+    function closeSearchModal() {
+      const modal = document.getElementById('floatingSearchModal');
+      if (modal) modal.classList.remove('open');
+    }
+
+    function closeSearchModalOnBackdrop(e) {
+      if (e.target.id === 'floatingSearchModal') {
+        closeSearchModal();
+      }
+    }
+
+    // ── NAVIGATION ROUTER ──
+    function handleRoute() {
+      let hash = window.location.hash.replace('#', '');
+      if (!hash || !routes[hash]) {
+        hash = 'wireframe_info';
+      }
+
+      const config = routes[hash];
+
+      // Update Navigation Links Styling
+      document.querySelectorAll('.sidebar-nav a').forEach(el => {
+        el.classList.remove('active');
+      });
+      const activeNav = document.getElementById(`nav-${hash}`);
+      if (activeNav) {
+        activeNav.classList.add('active');
+      }
+
+      // Update Top Bar Header
+      activeTitle.textContent = config.title;
+      activeDesc.textContent = config.desc;
+
+      // Handle View Switch
+      if (config.type === 'info') {
+        infoView.style.display = 'block';
+        if (fieldGuideView) fieldGuideView.style.display = 'none';
+        wireframeFrame.style.display = 'none';
+        openExternalBtn.style.display = 'none';
+        reloadFrameBtn.style.display = 'none';
+      } else if (config.type === 'field_guide') {
+        infoView.style.display = 'none';
+        if (fieldGuideView) fieldGuideView.style.display = 'block';
+        wireframeFrame.style.display = 'none';
+        openExternalBtn.style.display = 'none';
+        reloadFrameBtn.style.display = 'none';
+        renderFieldGuide('', 'all', 'fgResultsGrid');
+      } else {
+        infoView.style.display = 'none';
+        if (fieldGuideView) fieldGuideView.style.display = 'none';
+        wireframeFrame.style.display = 'block';
+        openExternalBtn.style.display = 'inline-flex';
+        reloadFrameBtn.style.display = 'inline-flex';
+
+        // Load iframe source
+        const encodedFile = encodeURI(config.file);
+        if (wireframeFrame.getAttribute('src') !== encodedFile) {
+          wireframeFrame.src = encodedFile;
+        }
+
+        // Set external link
+        openExternalBtn.href = encodedFile;
+      }
+
+      // Close Mobile Sidebar if Open
+      appSidebar.classList.remove('open');
+    }
+
+    // ── EVENT LISTENERS ──
+    window.addEventListener('hashchange', handleRoute);
+    window.addEventListener('DOMContentLoaded', () => {
+      handleRoute();
+      
+      // Page Search Input Listeners (input, keyup, change)
+      const searchInput = document.getElementById('fgSearchInput');
+      if (searchInput) {
+        ['input', 'keyup', 'change'].forEach(evt => {
+          searchInput.addEventListener(evt, (e) => {
+            renderFieldGuide(e.target.value, activeFilter, 'fgResultsGrid');
+          });
         });
       }
 
-      /*
-       * ============================================
-       * BROWSER BACK / FORWARD
-       * ============================================
-       */
+      // Popup Modal Search Input Listeners
+      const modalSearchInput = document.getElementById('modalSearchInput');
+      if (modalSearchInput) {
+        ['input', 'keyup', 'change'].forEach(evt => {
+          modalSearchInput.addEventListener(evt, (e) => {
+            renderFieldGuide(e.target.value, 'all', 'modalSearchResultsGrid');
+          });
+        });
+      }
 
-      window.addEventListener("popstate", function () {
-        openPageFromHash();
+      // Keyboard Shortcut (ESC to close modal, Ctrl/Cmd + K to open search modal)
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeSearchModal();
+        }
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+          e.preventDefault();
+          openSearchModal();
+        }
       });
+    });
 
-      /*
-       * ============================================
-       * INITIAL LOAD
-       * ============================================
-       */
+    reloadFrameBtn.addEventListener('click', () => {
+      if (wireframeFrame.style.display !== 'none') {
+        wireframeFrame.contentWindow.location.reload();
+      }
+    });
 
-      window.addEventListener("DOMContentLoaded", function () {
-        openPageFromHash();
-      });
-    </script>
-  </body>
+    mobileMenuBtn.addEventListener('click', () => {
+      appSidebar.classList.toggle('open');
+    });
+  </script>
+</body>
 </html>

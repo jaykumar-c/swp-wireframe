@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Refund Details</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #0073ff;
+        --primary-hover: #005fd9;
+        --text-main: #0f172a;
+        --text-muted: #64748b;
+        --text-subtle: #94a3b8;
+        --border: #e2e8f0;
+        --card-bg: #ffffff;
+        --page-bg: #f8fafc;
+        --green-bg: #eaf7ed;
+        --green-border: #bbf7d0;
+        --green-text: #166534;
+        --red-bg: #fff1f2;
+        --red-text: #e11d48;
+        --red-border: #fecdd3;
+        --orange: #ea580c;
+        --blue: #2563eb;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Plus Jakarta Sans", sans-serif;
+      }
+      body {
+        background-color: var(--page-bg);
+        color: var(--text-main);
+        min-height: 100vh;
+      }
+
+      /* Navbar */
+      .navbar {
+        background: #fff;
+        border-bottom: 1px solid var(--border);
+        padding: 14px 32px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 20;
+      }
+      .nav-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.88rem;
+        color: var(--text-muted);
+      }
+      .nav-logo {
+        width: 32px;
+        height: 32px;
+        background: var(--primary);
+        border-radius: 8px;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 16px;
+      }
+      .nav-left a {
+        color: var(--text-muted);
+        text-decoration: none;
+        font-weight: 500;
+      }
+      .nav-left a:hover {
+        color: var(--primary);
+      }
+      .nav-btn {
+        background: #fff;
+        border: 1px solid var(--border);
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .nav-btn:hover {
+        background: #f1f5f9;
+      }
+
+      /* Layout */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 28px 20px 60px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+      .page-title {
+        font-size: 1.5rem;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .page-subtitle {
+        font-size: 0.86rem;
+        color: var(--text-muted);
+        margin-top: 2px;
+      }
+
+      /* Banner */
+      .status-banner {
+        background: var(--green-bg);
+        border: 1px solid var(--green-border);
+        color: var(--green-text);
+        padding: 12px 18px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-weight: 700;
+        font-size: 0.92rem;
+      }
+
+      /* Grid */
+      .content-grid {
+        display: grid;
+        grid-template-columns: 360px 1fr;
+        gap: 20px;
+        align-items: start;
+      }
+      @media (max-width: 960px) {
+        .content-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .column {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      /* Cards */
+      .section-label {
+        font-size: 0.72rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--text-subtle);
+        margin-bottom: 8px;
+      }
+      .card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 18px;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+      }
+
+      /* Entity Info */
+      .entity-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .avatar {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.95rem;
+        flex-shrink: 0;
+      }
+      .club-avatar {
+        border-radius: 10px;
+        background: #eff6ff;
+        color: var(--primary);
+        font-size: 1.2rem;
+      }
+      .entity-info {
+        flex: 1;
+      }
+      .entity-name {
+        font-size: 0.98rem;
+        font-weight: 700;
+      }
+      .entity-meta {
+        font-size: 0.82rem;
+        color: var(--text-muted);
+      }
+      .pill {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        background: #f8fafc;
+        border: 1px solid var(--border);
+        color: #64748b;
+      }
+
+      /* Key-Value rows */
+      .detail-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        font-size: 0.86rem;
+        border-bottom: 1px solid #f1f5f9;
+      }
+      .detail-row:first-child {
+        padding-top: 0;
+      }
+      .detail-row:last-child {
+        padding-bottom: 0;
+        border-bottom: none;
+      }
+      .key {
+        color: var(--text-muted);
+        font-weight: 500;
+      }
+      .val {
+        font-weight: 600;
+      }
+      .badge-cancelled {
+        background: var(--red-bg);
+        color: var(--red-text);
+        border: 1px solid var(--red-border);
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        font-weight: 700;
+      }
+      .badge-success {
+        background: var(--green-bg);
+        color: var(--green-text);
+        border: 1px solid var(--green-border);
+        padding: 3px 10px;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        font-weight: 700;
+      }
+
+      /* Breakdown Table */
+      .table-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        overflow: hidden;
+      }
+      .table-header {
+        padding: 14px 18px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .table-header h3 {
+        font-size: 0.95rem;
+        font-weight: 700;
+      }
+      .table-wrap {
+        overflow-x: auto;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+      }
+      th {
+        background: #fafbfc;
+        font-size: 0.73rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--text-subtle);
+        padding: 11px 16px;
+        border-bottom: 1px solid var(--border);
+      }
+      td {
+        padding: 13px 16px;
+        font-size: 0.85rem;
+        border-bottom: 1px solid #f1f5f9;
+        vertical-align: middle;
+      }
+      tr:hover td {
+        background: #fcfdfe;
+      }
+      .p-cell {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .p-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+      .p-title {
+        font-weight: 700;
+        font-size: 0.86rem;
+      }
+      .p-sub {
+        font-size: 0.74rem;
+        color: var(--text-muted);
+      }
+      .role-host {
+        font-size: 0.62rem;
+        font-weight: 700;
+        background: #e0f2fe;
+        color: #0284c7;
+        padding: 1px 5px;
+        border-radius: 4px;
+        margin-left: 4px;
+      }
+      .text-orange {
+        color: var(--orange);
+        font-weight: 600;
+      }
+      .text-blue {
+        color: var(--blue);
+        font-weight: 700;
+      }
+
+      /* Reconciliation Footer */
+      .recon-footer {
+        background: #f8fafc;
+        border-top: 1px solid var(--border);
+        padding: 16px 18px;
+      }
+      .recon-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 12px;
+        padding-bottom: 14px;
+        border-bottom: 1px dashed var(--border);
+      }
+      .recon-item span {
+        display: block;
+      }
+      .recon-label {
+        font-size: 0.74rem;
+        color: var(--text-muted);
+        font-weight: 600;
+      }
+      .recon-val {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-top: 2px;
+      }
+      .recon-summary {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding-top: 12px;
+      }
+      .formula-badge {
+        background: #fff7ed;
+        border: 1px solid #ffedd5;
+        color: var(--orange);
+        font-weight: 700;
+        padding: 3px 8px;
+        border-radius: 6px;
+        font-size: 0.75rem;
+      }
+      .final-total {
+        font-size: 1.35rem;
+        font-weight: 800;
+        color: var(--blue);
+      }
+
+      /* Payment Summary */
+      .payment-summary {
+        background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        border: 1px solid #bae6fd;
+        border-radius: 14px;
+        padding: 20px;
+        margin-bottom: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .ps-left {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .ps-label {
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .ps-amount {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--blue);
+        line-height: 1;
+      }
+      .ps-badge {
+        background: var(--blue);
+        color: #fff;
+        padding: 8px 16px;
+        border-radius: 10px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .calc-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 0;
+        border-bottom: 1px solid #f1f5f9;
+      }
+      .calc-row:last-child {
+        border-bottom: none;
+      }
+      .calc-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        flex-shrink: 0;
+      }
+      .calc-info {
+        flex: 1;
+      }
+      .calc-info .key {
+        display: block;
+        font-size: 0.82rem;
+        color: var(--text-muted);
+        font-weight: 500;
+      }
+      .calc-info .val {
+        display: block;
+        font-size: 1rem;
+        font-weight: 700;
+        margin-top: 2px;
+      }
+      .calc-arrow {
+        font-size: 1.2rem;
+        color: var(--text-subtle);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Full Page Container -->
+    <main class="container">
+      <!-- Title Section -->
+      <div>
+        <h1 class="page-title">Refund Details</h1>
+        <p class="page-subtitle">
+          Event participant breakdown, cancellation deductions, and settlement
+          status
+        </p>
+      </div>
+
+      <!-- Status Banner -->
+      <div class="status-banner">
+        <span>✓ Refund Status: Success</span>
+        <span style="font-size: 0.82rem; font-weight: 500"
+          >Completed on 03/09/2026</span
+        >
+      </div>
+
+      <!-- 2-Column Content Grid -->
+      <div class="content-grid">
+        <!-- Left Column: Player, Club, Booking Details -->
+        <aside class="column">
+          <!-- Refunded Player Details -->
+          <div>
+            <div class="section-label">Refunded Player Details</div>
+            <div class="card">
+              <div class="entity-row">
+                <div class="avatar" style="background: #e0f2fe; color: #0284c7">
+                  SP
+                </div>
+                <div class="entity-info">
+                  <div class="entity-name">Suhani Patel</div>
+                  <div class="entity-meta">suhanip@zignuts.com</div>
+                </div>
+                <span class="pill">@suhu_2930</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Club Information -->
+          <div>
+            <div class="section-label">Club Information</div>
+            <div class="card">
+              <div class="entity-row">
+                <div class="avatar club-avatar">🏟️</div>
+                <div class="entity-info">
+                  <div class="entity-name">Shushi</div>
+                  <div class="entity-meta">suhi2930@yopmail.com</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Booking Details -->
+          <div>
+            <div class="section-label">Booking Details</div>
+            <div class="card">
+              <div class="detail-row">
+                <span class="key">Booking ID</span>
+                <span class="val">NEFB91030</span>
+              </div>
+              <div class="detail-row">
+                <span class="key">Booking Date</span>
+                <span class="val">03/09/2026</span>
+              </div>
+              <div class="detail-row">
+                <span class="key">Time Slot</span>
+                <span class="val">18:00 – 20:00</span>
+              </div>
+              <div class="detail-row">
+                <span class="key">Booking Status</span>
+                <span class="badge-cancelled">Cancelled</span>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Right Column: Player Breakdown & Payment Details -->
+        <section class="column">
+          <!-- Event Players & Cancellation Breakdown -->
+          <div>
+            <div class="section-label">
+              Event Players & Cancellation Breakdown
+            </div>
+            <div class="table-card">
+              <div class="table-header">
+                <h3>Registered Event Players</h3>
+              </div>
+
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Player</th>
+                      <th>Individual Amount</th>
+                      <th>Individual Cancellation Charge</th>
+                      <th>Refunded Amount</th>
+                      <!-- <th>Status</th> -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Player 1: Suhani Patel (Host) -->
+                    <tr>
+                      <td>
+                        <div class="p-cell">
+                          <div
+                            class="p-avatar"
+                            style="background: #dbeafe; color: #1e40af"
+                          >
+                            SP
+                          </div>
+                          <div>
+                            <div class="p-title">Suhani Patel</div>
+                            <div class="p-sub">@suhu_2930</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="val">€4.00</td>
+                      <td class="text-orange">€0.40</td>
+                      <td class="text-blue">€3.40</td>
+                      <!-- <td><span class="badge-success">Success</span></td> -->
+                    </tr>
+
+                    <!-- Player 2 -->
+                    <tr>
+                      <td>
+                        <div class="p-cell">
+                          <div
+                            class="p-avatar"
+                            style="background: #fef3c7; color: #92400e"
+                          >
+                            AP
+                          </div>
+                          <div>
+                            <div class="p-title">Aarav Patel</div>
+                            <div class="p-sub">@aarav_p</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="val">€6.00</td>
+                      <td class="text-orange">€0.42</td>
+                      <td class="text-blue">€5.58</td>
+                      <!-- <td><span class="badge-success">Success</span></td> -->
+                    </tr>
+
+                    <!-- Player 3 -->
+                    <tr>
+                      <td>
+                        <div class="p-cell">
+                          <div
+                            class="p-avatar"
+                            style="background: #fce7f3; color: #9d174d"
+                          >
+                            NM
+                          </div>
+                          <div>
+                            <div class="p-title">Neha Mehta</div>
+                            <div class="p-sub">@neha_m</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="val">€6.00</td>
+                      <td class="text-orange">€0.42</td>
+                      <td class="text-blue">€5.58</td>
+                      <!-- <td><span class="badge-success">Success</span></td> -->
+                    </tr>
+
+                    <!-- Player 4 -->
+                    <tr>
+                      <td>
+                        <div class="p-cell">
+                          <div
+                            class="p-avatar"
+                            style="background: #e0e7ff; color: #3730a3"
+                          >
+                            RS
+                          </div>
+                          <div>
+                            <div class="p-title">Rohan Sharma</div>
+                            <div class="p-sub">@rohan_s</div>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="val">€6.00</td>
+                      <td class="text-orange">€0.42</td>
+                      <td class="text-blue">€5.58</td>
+                      <!-- <td><span class="badge-success">Success</span></td> -->
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment Details -->
+          <div>
+            <div class="section-label">Payment Summary</div>
+            <div class="card">
+              <!-- Hero Refund Amount -->
+              <div class="payment-summary">
+                <div class="ps-left">
+                  <span class="ps-label">Refund Amount</span>
+                  <span class="ps-amount">€20.14</span>
+                </div>
+                <div class="ps-badge">✓ Refunded</div>
+              </div>
+
+              <!-- Calculation Breakdown -->
+              <div style="padding: 0 4px">
+                <div class="calc-row">
+                  <div
+                    class="calc-icon"
+                    style="background: #ecfdf5; color: #059669"
+                  >
+                    📥
+                  </div>
+                  <div class="calc-info">
+                    <span class="key">Paid Amount</span>
+                    <span class="val" style="color: #059669">€22.00</span>
+                  </div>
+                </div>
+                <div class="calc-row">
+                  <div
+                    class="calc-icon"
+                    style="background: #fff7ed; color: #ea580c"
+                  >
+                    ⚡
+                  </div>
+                  <div class="calc-info">
+                    <span class="key">Cancellation Charges (4 players)</span>
+                    <span class="val" style="color: #ea580c">-€1.66</span>
+                  </div>
+                </div>
+                <div class="calc-row">
+                  <div
+                    class="calc-icon"
+                    style="background: #eff6ff; color: #2563eb"
+                  >
+                    ↩
+                  </div>
+                  <div class="calc-info">
+                    <span class="key">Refund Amount</span>
+                    <span class="val" style="color: #2563eb">€20.14</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Metadata -->
+              <div
+                style="
+                  margin-top: 14px;
+                  padding-top: 14px;
+                  border-top: 1px dashed var(--border);
+                "
+              >
+                <div class="detail-row">
+                  <span class="key">Currency</span>
+                  <span class="val">EUR (€)</span>
+                </div>
+                <div class="detail-row">
+                  <span class="key">Original Payment</span>
+                  <span class="badge-success">Success</span>
+                </div>
+                <div class="detail-row">
+                  <span class="key">Refund Completed</span>
+                  <span class="val">03/09/2026</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

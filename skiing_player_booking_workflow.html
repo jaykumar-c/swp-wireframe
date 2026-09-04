@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,9 @@
     <!-- FontAwesome Line Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -53,16 +56,19 @@
             background-color: #ffffff;
             border-radius: 8px;
         }
+
         .wf-box-dark {
             border: 1px solid #1e293b;
             background-color: #ffffff;
             border-radius: 8px;
         }
+
         .wf-box-dashed {
             border: 1.5px dashed #cbd5e1;
             background-color: #f8fafc;
             border-radius: 8px;
         }
+
         .wf-btn-dark {
             background-color: #1e293b;
             color: #ffffff;
@@ -79,9 +85,11 @@
             transition: all 0.15s ease;
             width: 100%;
         }
+
         .wf-btn-dark:hover {
             background-color: #0f172a;
         }
+
         .wf-btn-outline {
             border: 1px solid #cbd5e1;
             background-color: #ffffff;
@@ -99,6 +107,7 @@
             transition: all 0.15s ease;
             width: 100%;
         }
+
         .wf-btn-outline:hover {
             background-color: #f8fafc;
             border-color: #94a3b8;
@@ -114,12 +123,14 @@
             font-size: 12px;
             outline: none;
         }
+
         .wf-input:focus {
             border-color: #1e293b;
             box-shadow: 0 0 0 2px rgba(30, 41, 59, 0.1);
         }
 
-        .wf-radio, .wf-checkbox {
+        .wf-radio,
+        .wf-checkbox {
             appearance: none;
             -webkit-appearance: none;
             width: 16px;
@@ -133,13 +144,16 @@
             background-color: #fff;
             margin-right: 6px;
         }
+
         .wf-radio {
             border-radius: 50%;
         }
+
         .wf-radio:checked {
             background-color: #ffffff;
             border-color: #1e293b;
         }
+
         .wf-radio:checked::after {
             content: '';
             width: 8px;
@@ -150,13 +164,16 @@
             top: 2.5px;
             left: 2.5px;
         }
+
         .wf-checkbox {
             border-radius: 4px;
         }
+
         .wf-checkbox:checked {
             background-color: #1e293b;
             border-color: #1e293b;
         }
+
         .wf-checkbox:checked::after {
             content: '✓';
             color: #ffffff;
@@ -183,10 +200,12 @@
             flex-shrink: 0;
             transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
         }
+
         .mobile-screen-frame:hover {
             border-color: #94a3b8;
             box-shadow: 0 16px 36px rgba(15, 23, 42, 0.12);
         }
+
         .mobile-screen-frame.highlighted {
             border-color: #1e293b;
             outline: 3px solid #1e293b;
@@ -225,6 +244,7 @@
             justify-content: center;
             flex-shrink: 0;
         }
+
         .home-indicator {
             width: 120px;
             height: 4px;
@@ -243,6 +263,7 @@
             padding: 0 8px;
             flex-shrink: 0;
         }
+
         .nav-item {
             display: flex;
             flex-direction: column;
@@ -253,10 +274,12 @@
             gap: 2px;
             cursor: pointer;
         }
+
         .nav-item.active {
             color: #0f172a;
             font-weight: 700;
         }
+
         .nav-item-center-btn {
             width: 38px;
             height: 38px;
@@ -269,7 +292,7 @@
             color: #0f172a;
             background-color: #ffffff;
             margin-top: -12px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
         }
 
         .tag-optional {
@@ -287,9 +310,11 @@
         .phone-content::-webkit-scrollbar {
             width: 4px;
         }
+
         .phone-content::-webkit-scrollbar-track {
             background: #f1f5f9;
         }
+
         .phone-content::-webkit-scrollbar-thumb {
             background: #cbd5e1;
             border-radius: 2px;
@@ -306,6 +331,7 @@
             cursor: pointer;
             transition: all 0.15s ease;
         }
+
         .phase-pill.active {
             background-color: #1e293b;
             color: #ffffff;
@@ -324,30 +350,41 @@
         }
     </style>
 </head>
+
 <body class="min-h-screen flex flex-col">
 
     <!-- TOP GLOBAL HEADER BAR -->
-    <header class="bg-white border-b border-slate-300 px-6 py-3 sticky top-0 z-50 shadow-sm flex flex-wrap items-center justify-between gap-4">
+    <header
+        class="bg-white border-b border-slate-300 px-6 py-3 sticky top-0 z-50 shadow-sm flex flex-wrap items-center justify-between gap-4">
         <div class="flex items-center space-x-4">
-            <div class="w-10 h-10 bg-slate-900 text-white rounded-lg flex items-center justify-center font-bold text-lg">
+            <div
+                class="w-10 h-10 bg-slate-900 text-white rounded-lg flex items-center justify-center font-bold text-lg">
                 <i class="fa-solid fa-person-skiing"></i>
             </div>
             <div>
                 <div class="flex items-center gap-2">
-                    <h1 class="text-base font-extrabold tracking-tight text-slate-900">ShallWe-Play (SWP) — Indoor Skiing Booking & Lifecycle Flow</h1>
-                    <span class="px-2.5 py-0.5 text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-300 rounded-full">NETHERLANDS SNOWWORLD STANDARD</span>
+                    <h1 class="text-base font-extrabold tracking-tight text-slate-900">ShallWe-Play (SWP) — Indoor
+                        Skiing Booking & Lifecycle Flow</h1>
+                    <span
+                        class="px-2.5 py-0.5 text-[10px] font-bold bg-slate-100 text-slate-700 border border-slate-300 rounded-full">NETHERLANDS
+                        SNOWWORLD STANDARD</span>
                 </div>
-                <p class="text-xs text-slate-500 font-medium">18 Connected Mobile Wireframes · Direct QR Turnstile & Auto-Overtime Flow</p>
+                <p class="text-xs text-slate-500 font-medium">18 Connected Mobile Wireframes · Direct QR Turnstile &
+                    Auto-Overtime Flow</p>
             </div>
         </div>
 
         <div class="flex items-center space-x-3 flex-wrap gap-2">
             <!-- Phase Filters -->
             <div class="flex items-center space-x-1 bg-slate-100 p-1 rounded-xl border border-slate-200">
-                <button onclick="filterPhase('all')" id="btnFilterAll" class="phase-pill active">All Screens (18)</button>
-                <button onclick="filterPhase('phase1')" id="btnFilterP1" class="phase-pill">1. Pass & Booking (1–10)</button>
-                <button onclick="filterPhase('phase2')" id="btnFilterP2" class="phase-pill">2. Tokenized Payment (11–13)</button>
-                <button onclick="filterPhase('phase3')" id="btnFilterP3" class="phase-pill">3. QR Turnstile & Auto-Settle (14–18)</button>
+                <button onclick="filterPhase('all')" id="btnFilterAll" class="phase-pill active">All Screens
+                    (18)</button>
+                <button onclick="filterPhase('phase1')" id="btnFilterP1" class="phase-pill">1. Pass & Booking
+                    (1–10)</button>
+                <button onclick="filterPhase('phase2')" id="btnFilterP2" class="phase-pill">2. Tokenized Payment
+                    (11–13)</button>
+                <button onclick="filterPhase('phase3')" id="btnFilterP3" class="phase-pill">3. QR Turnstile &
+                    Auto-Settle (14–18)</button>
                 <button onclick="filterPhase('optional')" id="btnFilterOpt" class="phase-pill">Optional Steps</button>
             </div>
 
@@ -363,7 +400,8 @@
     <!-- SUB-BAR LEGEND -->
     <div class="bg-white border-b border-slate-200 px-6 py-2 flex items-center justify-between text-xs text-slate-600">
         <div class="flex items-center space-x-6">
-            <span class="font-bold text-slate-900"><i class="fa-solid fa-sliders text-slate-400 mr-1"></i> Netherlands SnowWorld Standard:</span>
+            <span class="font-bold text-slate-900"><i class="fa-solid fa-sliders text-slate-400 mr-1"></i> Netherlands
+                SnowWorld Standard:</span>
             <span>✓ Pure Indoor Snow Dome Specs</span>
             <span>✓ Direct QR Code Access</span>
             <span>✓ 15-Min Turnstile Grace Period</span>
@@ -377,7 +415,8 @@
     <!-- MAIN SCROLLABLE CANVAS AREA -->
     <main id="mainCanvasArea" class="flex-1 overflow-auto p-8 relative bg-slate-100 min-h-[calc(100vh-110px)]">
 
-        <div id="screensGridContainer" class="flex flex-wrap gap-10 justify-center items-start max-w-[1800px] mx-auto pb-24">
+        <div id="screensGridContainer"
+            class="flex flex-wrap gap-10 justify-center items-start max-w-[1800px] mx-auto pb-24">
 
             <!-- ================================================== -->
             <!-- PHASE 1: BOOKING FLOW (SCREENS 1 TO 10) -->
@@ -387,7 +426,8 @@
             <div class="screen-wrapper flex flex-col items-center" data-phase="phase1" id="screen-container-1">
                 <div class="w-[360px] mb-2 flex items-center justify-between">
                     <div class="flex items-center space-x-2">
-                        <span class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">01</span>
+                        <span
+                            class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">01</span>
                         <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wide">Select Ski Date(s)</h3>
                     </div>
                     <span class="text-[10px] font-semibold text-slate-500 uppercase">Phase 1: Booking</span>
@@ -405,7 +445,8 @@
 
                     <div class="phone-content p-3 space-y-3">
                         <!-- Top Segmented Control -->
-                        <div class="bg-slate-100 p-1 rounded-xl flex text-center text-xs font-bold text-slate-600 border border-slate-200">
+                        <div
+                            class="bg-slate-100 p-1 rounded-xl flex text-center text-xs font-bold text-slate-600 border border-slate-200">
                             <span class="flex-1 bg-slate-900 text-white py-1 rounded-lg">Indoor Dome</span>
                             <span class="flex-1 py-1">Upcoming</span>
                             <span class="flex-1 py-1 text-[11px]">Passes</span>
@@ -415,7 +456,8 @@
                         <!-- Search Bar -->
                         <div class="relative">
                             <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-xs text-slate-400"></i>
-                            <input type="text" value="SnowWorld Indoor Ski Dome" class="w-full pl-8 pr-8 py-1.5 text-xs bg-white border border-slate-300 rounded-lg outline-none font-medium">
+                            <input type="text" value="SnowWorld Indoor Ski Dome"
+                                class="w-full pl-8 pr-8 py-1.5 text-xs bg-white border border-slate-300 rounded-lg outline-none font-medium">
                             <i class="fa-solid fa-sliders absolute right-3 top-2.5 text-xs text-slate-500"></i>
                         </div>
 
@@ -438,14 +480,16 @@
                         <div class="grid grid-cols-3 gap-2 text-center text-xs">
                             <div class="border border-slate-300 rounded-xl p-2">
                                 <strong class="block text-slate-900 text-sm">5</strong>
-                                <span class="text-[9px] font-bold text-slate-500 uppercase leading-tight">SNOWWORLD DOMES</span>
+                                <span class="text-[9px] font-bold text-slate-500 uppercase leading-tight">SNOWWORLD
+                                    DOMES</span>
                             </div>
                             <div class="border border-slate-300 rounded-xl p-2 flex items-center justify-center">
                                 <span class="text-[10px] font-bold text-slate-700 uppercase">OPEN TODAY</span>
                             </div>
                             <div class="border border-slate-300 rounded-xl p-2">
                                 <strong class="block text-slate-900 text-sm">-3°C</strong>
-                                <span class="text-[9px] font-bold text-slate-500 uppercase leading-tight">REAL SNOW DOME</span>
+                                <span class="text-[9px] font-bold text-slate-500 uppercase leading-tight">REAL SNOW
+                                    DOME</span>
                             </div>
                         </div>
 
@@ -477,7 +521,9 @@
                         <div class="wf-box p-2.5 space-y-2">
                             <div class="flex items-center justify-between text-xs font-bold">
                                 <span>Selected Date: 30 June 2026</span>
-                                <button class="px-2 py-0.5 text-[10px] border border-slate-300 rounded font-semibold bg-slate-50">[Change Date]</button>
+                                <button
+                                    class="px-2 py-0.5 text-[10px] border border-slate-300 rounded font-semibold bg-slate-50">[Change
+                                    Date]</button>
                             </div>
                         </div>
 
@@ -489,12 +535,15 @@
                     <!-- Bottom Nav Bar -->
                     <div class="bottom-nav-bar">
                         <div class="nav-item active"><i class="fa-solid fa-house text-sm"></i><span>Home</span></div>
-                        <div class="nav-item"><i class="fa-regular fa-calendar-days text-sm"></i><span>Bookings</span></div>
+                        <div class="nav-item"><i class="fa-regular fa-calendar-days text-sm"></i><span>Bookings</span>
+                        </div>
                         <div class="nav-item-center-btn"><i class="fa-solid fa-plus"></i></div>
                         <div class="nav-item"><i class="fa-solid fa-qrcode text-sm"></i><span>QR Pass</span></div>
                         <div class="nav-item"><i class="fa-solid fa-bars text-sm"></i><span>More</span></div>
                     </div>
-                    <div class="phone-footer-bar"><div class="home-indicator"></div></div>
+                    <div class="phone-footer-bar">
+                        <div class="home-indicator"></div>
+                    </div>
                 </div>
 
                 <div class="screen-meta-box">
@@ -511,7 +560,8 @@
             <div class="screen-wrapper flex flex-col items-center" data-phase="phase1" id="screen-container-2">
                 <div class="w-[360px] mb-2 flex items-center justify-between">
                     <div class="flex items-center space-x-2">
-                        <span class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">02</span>
+                        <span
+                            class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">02</span>
                         <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wide">Select Indoor Ski Hall</h3>
                     </div>
                     <span class="text-[10px] font-semibold text-slate-500 uppercase">Phase 1: Booking</span>
@@ -521,7 +571,8 @@
                     <div class="phone-status-bar">
                         <span>9:41</span>
                         <div class="flex items-center space-x-1.5 text-[10px]">
-                            <i class="fa-solid fa-signal"></i><i class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i>
+                            <i class="fa-solid fa-signal"></i><i class="fa-solid fa-wifi"></i><i
+                                class="fa-solid fa-battery-full"></i>
                         </div>
                     </div>
 
@@ -529,7 +580,8 @@
                         <!-- Card 1: SnowWorld Amsterdam -->
                         <div class="border-2 border-slate-900 rounded-xl p-3 space-y-2">
                             <div class="flex gap-3">
-                                <div class="w-16 h-16 bg-slate-100 border border-slate-300 rounded-lg flex items-center justify-center shrink-0">
+                                <div
+                                    class="w-16 h-16 bg-slate-100 border border-slate-300 rounded-lg flex items-center justify-center shrink-0">
                                     <i class="fa-solid fa-snowflake text-slate-600 text-xl"></i>
                                 </div>
                                 <div class="flex-1">
@@ -537,27 +589,34 @@
                                         <h5 class="font-extrabold text-xs text-slate-900">SnowWorld Amsterdam</h5>
                                         <span class="font-extrabold text-xs text-slate-900">€42</span>
                                     </div>
-                                    <p class="text-[10px] text-slate-500">Velsen-Zuid, Netherlands <span class="float-right text-[9px] text-slate-400">from / 2h</span></p>
+                                    <p class="text-[10px] text-slate-500">Velsen-Zuid, Netherlands <span
+                                            class="float-right text-[9px] text-slate-400">from / 2h</span></p>
                                     <div class="text-[10px] text-slate-600 space-y-0.5 pt-1">
-                                        <p><i class="fa-solid fa-snowflake text-[9px]"></i> Indoor Snow Dome &nbsp; <i class="fa-regular fa-clock text-[9px]"></i> Next: 18:00 - 20:00</p>
-                                        <p><i class="fa-solid fa-temperature-three-quarters text-[9px]"></i> Hall Temp: -3°C &nbsp; • 100% Real Snow</p>
+                                        <p><i class="fa-solid fa-snowflake text-[9px]"></i> Indoor Snow Dome &nbsp; <i
+                                                class="fa-regular fa-clock text-[9px]"></i> Next: 18:00 - 20:00</p>
+                                        <p><i class="fa-solid fa-temperature-three-quarters text-[9px]"></i> Hall Temp:
+                                            -3°C &nbsp; • 100% Real Snow</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="flex items-center justify-between text-[9px] pt-1 border-t border-slate-100">
                                 <div class="flex gap-1">
-                                    <span class="px-1.5 py-0.5 bg-slate-900 text-white rounded font-bold">QR Turnstile</span>
-                                    <span class="px-1.5 py-0.5 border border-slate-300 rounded text-slate-700">Gear Rental</span>
+                                    <span class="px-1.5 py-0.5 bg-slate-900 text-white rounded font-bold">QR
+                                        Turnstile</span>
+                                    <span class="px-1.5 py-0.5 border border-slate-300 rounded text-slate-700">Gear
+                                        Rental</span>
                                 </div>
                                 <span class="font-semibold text-slate-700">4 Slots Remaining</span>
                             </div>
-                            <button onclick="highlightScreen(3)" class="wf-btn-dark py-2 text-xs">Select Snow Dome</button>
+                            <button onclick="highlightScreen(3)" class="wf-btn-dark py-2 text-xs">Select Snow
+                                Dome</button>
                         </div>
 
                         <!-- Card 2: SnowWorld Landgraaf -->
                         <div class="border border-slate-300 rounded-xl p-3 space-y-2">
                             <div class="flex gap-3">
-                                <div class="w-16 h-16 bg-slate-100 border border-slate-300 rounded-lg flex items-center justify-center shrink-0">
+                                <div
+                                    class="w-16 h-16 bg-slate-100 border border-slate-300 rounded-lg flex items-center justify-center shrink-0">
                                     <i class="fa-solid fa-snowflake text-slate-400 text-xl"></i>
                                 </div>
                                 <div class="flex-1">
@@ -565,17 +624,22 @@
                                         <h5 class="font-extrabold text-xs text-slate-900">SnowWorld Landgraaf</h5>
                                         <span class="font-extrabold text-xs text-slate-900">€45</span>
                                     </div>
-                                    <p class="text-[10px] text-slate-500">Landgraaf, Netherlands <span class="float-right text-[9px] text-slate-400">from / 2h</span></p>
+                                    <p class="text-[10px] text-slate-500">Landgraaf, Netherlands <span
+                                            class="float-right text-[9px] text-slate-400">from / 2h</span></p>
                                     <div class="text-[10px] text-slate-600 space-y-0.5 pt-1">
-                                        <p><i class="fa-solid fa-snowflake text-[9px]"></i> Indoor Snow Dome &nbsp; <i class="fa-regular fa-clock text-[9px]"></i> Next: 20:00 - 22:00</p>
-                                        <p><i class="fa-solid fa-temperature-three-quarters text-[9px]"></i> Hall Temp: -2°C &nbsp; • 5 Lifts Open</p>
+                                        <p><i class="fa-solid fa-snowflake text-[9px]"></i> Indoor Snow Dome &nbsp; <i
+                                                class="fa-regular fa-clock text-[9px]"></i> Next: 20:00 - 22:00</p>
+                                        <p><i class="fa-solid fa-temperature-three-quarters text-[9px]"></i> Hall Temp:
+                                            -2°C &nbsp; • 5 Lifts Open</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="flex items-center justify-between text-[9px] pt-1 border-t border-slate-100">
                                 <div class="flex gap-1">
-                                    <span class="px-1.5 py-0.5 border border-slate-300 rounded text-slate-700">6 Slopes</span>
-                                    <span class="px-1.5 py-0.5 border border-slate-300 rounded text-slate-700">Chairlift</span>
+                                    <span class="px-1.5 py-0.5 border border-slate-300 rounded text-slate-700">6
+                                        Slopes</span>
+                                    <span
+                                        class="px-1.5 py-0.5 border border-slate-300 rounded text-slate-700">Chairlift</span>
                                 </div>
                                 <span class="font-semibold text-slate-500">12 Slots Available</span>
                             </div>
@@ -585,12 +649,15 @@
 
                     <div class="bottom-nav-bar">
                         <div class="nav-item active"><i class="fa-solid fa-house text-sm"></i><span>Home</span></div>
-                        <div class="nav-item"><i class="fa-regular fa-calendar-days text-sm"></i><span>Bookings</span></div>
+                        <div class="nav-item"><i class="fa-regular fa-calendar-days text-sm"></i><span>Bookings</span>
+                        </div>
                         <div class="nav-item-center-btn"><i class="fa-solid fa-plus"></i></div>
                         <div class="nav-item"><i class="fa-solid fa-qrcode text-sm"></i><span>QR Pass</span></div>
                         <div class="nav-item"><i class="fa-solid fa-bars text-sm"></i><span>More</span></div>
                     </div>
-                    <div class="phone-footer-bar"><div class="home-indicator"></div></div>
+                    <div class="phone-footer-bar">
+                        <div class="home-indicator"></div>
+                    </div>
                 </div>
 
                 <div class="screen-meta-box">
@@ -607,7 +674,8 @@
             <div class="screen-wrapper flex flex-col items-center" data-phase="phase1" id="screen-container-3">
                 <div class="w-[360px] mb-2 flex items-center justify-between">
                     <div class="flex items-center space-x-2">
-                        <span class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">03</span>
+                        <span
+                            class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">03</span>
                         <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wide">Indoor Asset Details</h3>
                     </div>
                     <span class="text-[10px] font-semibold text-slate-500 uppercase">Phase 1: Booking</span>
@@ -617,7 +685,8 @@
                     <div class="phone-status-bar">
                         <span>9:41</span>
                         <div class="flex items-center space-x-1.5 text-[10px]">
-                            <i class="fa-solid fa-signal"></i><i class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i>
+                            <i class="fa-solid fa-signal"></i><i class="fa-solid fa-wifi"></i><i
+                                class="fa-solid fa-battery-full"></i>
                         </div>
                     </div>
 
@@ -633,32 +702,41 @@
 
                         <!-- Asset Header Row -->
                         <div class="flex gap-3">
-                            <div class="w-20 h-20 bg-slate-900 text-white rounded-xl flex flex-col items-center justify-center shrink-0">
+                            <div
+                                class="w-20 h-20 bg-slate-900 text-white rounded-xl flex flex-col items-center justify-center shrink-0">
                                 <i class="fa-solid fa-snowflake text-2xl mb-1"></i>
                                 <span class="text-[9px] font-mono font-bold">INDOOR</span>
                             </div>
                             <div class="flex-1 space-y-1">
                                 <div class="flex justify-between items-start">
                                     <h4 class="font-extrabold text-sm text-slate-900">SnowWorld Amsterdam</h4>
-                                    <span class="text-[10px] font-bold bg-slate-100 border border-slate-300 rounded-md px-1.5 py-0.5">Netherlands</span>
+                                    <span
+                                        class="text-[10px] font-bold bg-slate-100 border border-slate-300 rounded-md px-1.5 py-0.5">Netherlands</span>
                                 </div>
-                                <p class="text-[10px] text-slate-500"><i class="fa-solid fa-location-dot"></i> Velsen-Zuid, Netherlands</p>
-                                <p class="text-[10px] text-slate-600 font-medium">★ 4.8 <span class="text-slate-400">(1,240 Netherlands standard reviews)</span></p>
+                                <p class="text-[10px] text-slate-500"><i class="fa-solid fa-location-dot"></i>
+                                    Velsen-Zuid, Netherlands</p>
+                                <p class="text-[10px] text-slate-600 font-medium">★ 4.8 <span
+                                        class="text-slate-400">(1,240 Netherlands standard reviews)</span></p>
                             </div>
                         </div>
 
                         <!-- Nav Tabs Pill Bar -->
                         <div class="flex text-center text-[10px] font-bold gap-1 overflow-x-auto">
                             <span class="bg-slate-900 text-white px-2.5 py-1 rounded-full shrink-0">Dome Specs</span>
-                            <span class="border border-slate-300 text-slate-600 px-2.5 py-1 rounded-full shrink-0">Passes & QR</span>
-                            <span class="border border-slate-300 text-slate-600 px-2.5 py-1 rounded-full shrink-0">Lessons</span>
-                            <span class="border border-slate-300 text-slate-600 px-2.5 py-1 rounded-full shrink-0">Rentals</span>
+                            <span
+                                class="border border-slate-300 text-slate-600 px-2.5 py-1 rounded-full shrink-0">Passes
+                                & QR</span>
+                            <span
+                                class="border border-slate-300 text-slate-600 px-2.5 py-1 rounded-full shrink-0">Lessons</span>
+                            <span
+                                class="border border-slate-300 text-slate-600 px-2.5 py-1 rounded-full shrink-0">Rentals</span>
                         </div>
 
                         <!-- INDOOR SNOW DOME TECHNICAL SPECS GRID (Strictly Indoor-Focused) -->
                         <div class="space-y-1.5">
                             <div class="flex items-center justify-between">
-                                <span class="text-[10px] font-extrabold text-slate-900 uppercase tracking-wider">INDOOR SNOW DOME TECHNICAL SPECS</span>
+                                <span class="text-[10px] font-extrabold text-slate-900 uppercase tracking-wider">INDOOR
+                                    SNOW DOME TECHNICAL SPECS</span>
                                 <span class="text-[9px] text-slate-500 font-mono">100% Controlled Climate</span>
                             </div>
                             <div class="grid grid-cols-4 gap-1.5 text-center text-[9px]">
@@ -708,19 +786,32 @@
 
                         <!-- OPERATIONAL FACILITIES (Indoor Snow Dome) -->
                         <div class="space-y-1.5">
-                            <span class="text-[10px] font-extrabold text-slate-900 uppercase tracking-wider block">INDOOR FACILITIES & ACCESS</span>
+                            <span
+                                class="text-[10px] font-extrabold text-slate-900 uppercase tracking-wider block">INDOOR
+                                FACILITIES & ACCESS</span>
                             <div class="grid grid-cols-4 gap-1.5 text-center text-[8px]">
-                                <div class="border border-slate-200 rounded-lg p-1.5"><i class="fa-solid fa-qrcode block text-slate-700 mb-0.5"></i><span>QR Turnstile</span></div>
-                                <div class="border border-slate-200 rounded-lg p-1.5"><i class="fa-solid fa-person-skiing block text-slate-700 mb-0.5"></i><span>Gear Rental Desk</span></div>
-                                <div class="border border-slate-200 rounded-lg p-1.5"><i class="fa-solid fa-graduation-cap block text-slate-700 mb-0.5"></i><span>Ski School</span></div>
-                                <div class="border border-slate-200 rounded-lg p-1.5"><i class="fa-solid fa-lock block text-slate-700 mb-0.5"></i><span>RFID Lockers</span></div>
+                                <div class="border border-slate-200 rounded-lg p-1.5"><i
+                                        class="fa-solid fa-qrcode block text-slate-700 mb-0.5"></i><span>QR
+                                        Turnstile</span></div>
+                                <div class="border border-slate-200 rounded-lg p-1.5"><i
+                                        class="fa-solid fa-person-skiing block text-slate-700 mb-0.5"></i><span>Gear
+                                        Rental Desk</span></div>
+                                <div class="border border-slate-200 rounded-lg p-1.5"><i
+                                        class="fa-solid fa-graduation-cap block text-slate-700 mb-0.5"></i><span>Ski
+                                        School</span></div>
+                                <div class="border border-slate-200 rounded-lg p-1.5"><i
+                                        class="fa-solid fa-lock block text-slate-700 mb-0.5"></i><span>RFID
+                                        Lockers</span></div>
                             </div>
                         </div>
 
                         <!-- NEXT AVAILABLE SESSIONS List -->
                         <div class="space-y-1.5">
-                            <span class="text-[10px] font-extrabold text-slate-900 uppercase tracking-wider block">AVAILABLE SNOW WORLD SESSIONS</span>
-                            <div class="border-2 border-slate-900 rounded-lg p-2 flex justify-between items-center text-xs bg-slate-50">
+                            <span
+                                class="text-[10px] font-extrabold text-slate-900 uppercase tracking-wider block">AVAILABLE
+                                SNOW WORLD SESSIONS</span>
+                            <div
+                                class="border-2 border-slate-900 rounded-lg p-2 flex justify-between items-center text-xs bg-slate-50">
                                 <div>
                                     <strong class="text-slate-900 block text-[11px]">Evening Snow Pass</strong>
                                     <span class="text-[9px] text-slate-500">18:00 - 20:00 (2 Hours)</span>
@@ -738,17 +829,22 @@
                                 <span class="text-[9px] text-slate-400 block">Base Rate</span>
                                 <strong class="text-slate-900 text-xs">€42.00 / 2 Hours</strong>
                             </div>
-                            <button onclick="highlightScreen(4)" class="wf-btn-dark py-2 px-5 text-xs w-auto">Configure Pass</button>
+                            <button onclick="highlightScreen(4)" class="wf-btn-dark py-2 px-5 text-xs w-auto">Configure
+                                Pass</button>
                         </div>
                     </div>
 
-                    <div class="phone-footer-bar"><div class="home-indicator"></div></div>
+                    <div class="phone-footer-bar">
+                        <div class="home-indicator"></div>
+                    </div>
                 </div>
 
                 <div class="screen-meta-box">
                     <p class="font-bold text-slate-900">UX Notes & Rules:</p>
                     <ul class="list-disc pl-4 space-y-1 mt-1">
-                        <li>Rule 3: Displays strictly indoor snow dome technical specs (Slope length, vertical drop, slope width, max gradient, real snow surface, hall temperature -2°C to -3°C, lift/magic carpet count, max hourly capacity).</li>
+                        <li>Rule 3: Displays strictly indoor snow dome technical specs (Slope length, vertical drop,
+                            slope width, max gradient, real snow surface, hall temperature -2°C to -3°C, lift/magic
+                            carpet count, max hourly capacity).</li>
                         <li>Outdoor elements (avalanche, summit weather, off-piste markers) removed completely.</li>
                     </ul>
                 </div>
@@ -759,14 +855,19 @@
             <div class="screen-wrapper flex flex-col items-center" data-phase="phase1" id="screen-container-4">
                 <div class="w-[360px] mb-2 flex items-center justify-between">
                     <div class="flex items-center space-x-2">
-                        <span class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">04</span>
-                        <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wide">Simplified Pass Selection</h3>
+                        <span
+                            class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">04</span>
+                        <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wide">Simplified Pass Selection
+                        </h3>
                     </div>
                     <span class="text-[10px] font-semibold text-slate-500 uppercase">Phase 1: Booking</span>
                 </div>
 
                 <div class="mobile-screen-frame" id="screen-4">
-                    <div class="phone-status-bar"><span>9:41</span><div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div></div>
+                    <div class="phone-status-bar"><span>9:41</span>
+                        <div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i
+                                class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div>
+                    </div>
 
                     <div class="phone-content p-3 space-y-3 flex-1 flex flex-col justify-between">
                         <div class="space-y-3">
@@ -776,7 +877,8 @@
                             </div>
 
                             <!-- Venue & Standard Banner -->
-                            <div class="bg-slate-50 border border-slate-200 rounded-lg p-2 text-[10px] space-y-0.5 font-medium">
+                            <div
+                                class="bg-slate-50 border border-slate-200 rounded-lg p-2 text-[10px] space-y-0.5 font-medium">
                                 <div class="flex justify-between">
                                     <span><strong>Venue:</strong> SnowWorld Amsterdam</span>
                                     <span class="font-mono text-slate-700">Date: 30 June 2026</span>
@@ -785,26 +887,33 @@
 
                             <!-- 1. DURATION SELECTOR (Clean Segmented Pills) -->
                             <div class="space-y-1.5">
-                                <label class="text-[10px] font-bold text-slate-700 uppercase block">1. SELECT PASS DURATION:</label>
+                                <label class="text-[10px] font-bold text-slate-700 uppercase block">1. SELECT PASS
+                                    DURATION:</label>
                                 <div class="grid grid-cols-2 gap-1.5 text-center text-xs">
-                                    <button class="border border-slate-300 rounded-lg py-2 px-2 text-slate-700 font-semibold hover:border-slate-800">
+                                    <button
+                                        class="border border-slate-300 rounded-lg py-2 px-2 text-slate-700 font-semibold hover:border-slate-800">
                                         1 Hour <span class="block text-[9px] font-mono text-slate-500">€25.00</span>
                                     </button>
                                     <button class="bg-slate-900 text-white rounded-lg py-2 px-2 font-bold shadow-sm">
                                         ● 2 Hours <span class="block text-[9px] font-mono text-slate-300">€42.00</span>
                                     </button>
-                                    <button class="border border-slate-300 rounded-lg py-2 px-2 text-slate-700 font-semibold hover:border-slate-800">
-                                        4 Hours (Evening) <span class="block text-[9px] font-mono text-slate-500">€58.00</span>
+                                    <button
+                                        class="border border-slate-300 rounded-lg py-2 px-2 text-slate-700 font-semibold hover:border-slate-800">
+                                        4 Hours (Evening) <span
+                                            class="block text-[9px] font-mono text-slate-500">€58.00</span>
                                     </button>
-                                    <button class="border border-slate-300 rounded-lg py-2 px-2 text-slate-700 font-semibold hover:border-slate-800">
-                                        Full Day Pass <span class="block text-[9px] font-mono text-slate-500">€75.00</span>
+                                    <button
+                                        class="border border-slate-300 rounded-lg py-2 px-2 text-slate-700 font-semibold hover:border-slate-800">
+                                        Full Day Pass <span
+                                            class="block text-[9px] font-mono text-slate-500">€75.00</span>
                                     </button>
                                 </div>
                             </div>
 
                             <!-- 2. TIME SLOT PICKER (Grid of 2-Hour Arrival Windows) -->
                             <div class="space-y-1.5">
-                                <label class="text-[10px] font-bold text-slate-700 uppercase block">2. SELECT 2-HOUR ARRIVAL WINDOW:</label>
+                                <label class="text-[10px] font-bold text-slate-700 uppercase block">2. SELECT 2-HOUR
+                                    ARRIVAL WINDOW:</label>
                                 <div class="grid grid-cols-2 gap-1.5 text-xs">
                                     <div class="border border-slate-200 rounded-lg p-2 opacity-50 bg-slate-50">
                                         <span class="block font-bold text-slate-700 text-[11px]">10:00 – 12:00</span>
@@ -820,7 +929,8 @@
                                     </div>
                                     <div class="border-2 border-slate-900 rounded-lg p-2 bg-slate-50">
                                         <div class="flex justify-between items-center">
-                                            <span class="block font-extrabold text-[11px] text-slate-900">18:00 – 20:00</span>
+                                            <span class="block font-extrabold text-[11px] text-slate-900">18:00 –
+                                                20:00</span>
                                             <span class="w-2 h-2 rounded-full bg-slate-900"></span>
                                         </div>
                                         <span class="text-[9px] font-bold text-slate-700">● 4 slots left</span>
@@ -829,33 +939,42 @@
                             </div>
 
                             <!-- 3. EQUIPMENT BUNDLE TOGGLE -->
-                            <div class="border-2 border-slate-900 rounded-lg p-2.5 flex items-center justify-between bg-slate-50">
+                            <div
+                                class="border-2 border-slate-900 rounded-lg p-2.5 flex items-center justify-between bg-slate-50">
                                 <div>
                                     <strong class="text-xs text-slate-900 block">Include Rental Gear Bundle</strong>
-                                    <span class="text-[10px] text-slate-500">Skis/Board + Boots included (+€15.00)</span>
+                                    <span class="text-[10px] text-slate-500">Skis/Board + Boots included
+                                        (+€15.00)</span>
                                 </div>
                                 <label class="relative inline-flex items-center cursor-pointer">
                                     <input type="checkbox" checked class="sr-only peer">
-                                    <div class="w-9 h-5 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-slate-900"></div>
+                                    <div
+                                        class="w-9 h-5 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-slate-900">
+                                    </div>
                                 </label>
                             </div>
 
                             <!-- 4. OPERATIONAL MICROCOPY -->
-                            <div class="border border-slate-300 bg-amber-50/60 rounded-lg p-2.5 text-[10px] text-slate-700 space-y-1">
+                            <div
+                                class="border border-slate-300 bg-amber-50/60 rounded-lg p-2.5 text-[10px] text-slate-700 space-y-1">
                                 <div class="flex items-center gap-1 font-bold text-slate-900">
                                     <i class="fa-solid fa-clock text-slate-800"></i>
                                     <span>Netherlands Turnstile Timer Rule:</span>
                                 </div>
                                 <p class="leading-tight text-slate-600">
-                                    "Note: Your session timer begins when you scan your QR code at the slope entrance turnstile, not at reception."
+                                    "Note: Your session timer begins when you scan your QR code at the slope entrance
+                                    turnstile, not at reception."
                                 </p>
                             </div>
                         </div>
 
-                        <button onclick="highlightScreen(5)" class="wf-btn-dark py-2.5 text-xs">Continue to Skier Details <i class="fa-solid fa-arrow-right text-xs ml-1"></i></button>
+                        <button onclick="highlightScreen(5)" class="wf-btn-dark py-2.5 text-xs">Continue to Skier
+                            Details <i class="fa-solid fa-arrow-right text-xs ml-1"></i></button>
                     </div>
 
-                    <div class="phone-footer-bar"><div class="home-indicator"></div></div>
+                    <div class="phone-footer-bar">
+                        <div class="home-indicator"></div>
+                    </div>
                 </div>
 
                 <div class="screen-meta-box">
@@ -874,14 +993,19 @@
             <div class="screen-wrapper flex flex-col items-center" data-phase="phase1" id="screen-container-5">
                 <div class="w-[360px] mb-2 flex items-center justify-between">
                     <div class="flex items-center space-x-2">
-                        <span class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">05</span>
-                        <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wide">Configure Primary Skier</h3>
+                        <span
+                            class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">05</span>
+                        <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wide">Configure Primary Skier
+                        </h3>
                     </div>
                     <span class="text-[10px] font-semibold text-slate-500 uppercase">Phase 1: Booking</span>
                 </div>
 
                 <div class="mobile-screen-frame" id="screen-5">
-                    <div class="phone-status-bar"><span>9:41</span><div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div></div>
+                    <div class="phone-status-bar"><span>9:41</span>
+                        <div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i
+                                class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div>
+                    </div>
 
                     <div class="phone-content p-3 space-y-3 flex-1 flex flex-col justify-between">
                         <div class="space-y-3">
@@ -891,16 +1015,19 @@
                             </div>
 
                             <div class="grid grid-cols-2 gap-2 text-xs">
-                                <label class="border-2 border-slate-900 rounded-lg p-2.5 text-center font-bold text-slate-900 cursor-pointer bg-slate-50">
+                                <label
+                                    class="border-2 border-slate-900 rounded-lg p-2.5 text-center font-bold text-slate-900 cursor-pointer bg-slate-50">
                                     <input type="radio" name="p5" class="wf-radio" checked> Myself
                                 </label>
-                                <label class="border border-slate-300 rounded-lg p-2.5 text-center font-semibold text-slate-600 cursor-pointer">
+                                <label
+                                    class="border border-slate-300 rounded-lg p-2.5 text-center font-semibold text-slate-600 cursor-pointer">
                                     <input type="radio" name="p5" class="wf-radio"> Someone Else
                                 </label>
                             </div>
 
                             <div class="border border-slate-300 rounded-lg p-3 space-y-2.5 text-xs">
-                                <span class="font-bold text-slate-900 block border-b border-slate-200 pb-1">Primary Skier Details</span>
+                                <span class="font-bold text-slate-900 block border-b border-slate-200 pb-1">Primary
+                                    Skier Details</span>
                                 <div class="space-y-1">
                                     <label class="text-[10px] font-semibold text-slate-500 block">Full Name</label>
                                     <input type="text" value="Jan van der Meer" class="wf-input font-medium">
@@ -910,16 +1037,20 @@
                                     <input type="text" value="15 / 08 / 1994" class="wf-input font-medium">
                                 </div>
                                 <div class="space-y-1">
-                                    <label class="text-[10px] font-semibold text-slate-500 block">Email Address (QR Pass Delivery)</label>
+                                    <label class="text-[10px] font-semibold text-slate-500 block">Email Address (QR Pass
+                                        Delivery)</label>
                                     <input type="email" value="jan.vandermeer@example.nl" class="wf-input font-medium">
                                 </div>
                             </div>
                         </div>
 
-                        <button onclick="highlightScreen(6)" class="wf-btn-dark py-2.5 text-xs">Continue <i class="fa-solid fa-arrow-right text-xs ml-1"></i></button>
+                        <button onclick="highlightScreen(6)" class="wf-btn-dark py-2.5 text-xs">Continue <i
+                                class="fa-solid fa-arrow-right text-xs ml-1"></i></button>
                     </div>
 
-                    <div class="phone-footer-bar"><div class="home-indicator"></div></div>
+                    <div class="phone-footer-bar">
+                        <div class="home-indicator"></div>
+                    </div>
                 </div>
 
                 <div class="screen-meta-box">
@@ -935,14 +1066,18 @@
             <div class="screen-wrapper flex flex-col items-center" data-phase="phase1" id="screen-container-6">
                 <div class="w-[360px] mb-2 flex items-center justify-between">
                     <div class="flex items-center space-x-2">
-                        <span class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">06</span>
+                        <span
+                            class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">06</span>
                         <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wide">Select Skier Category</h3>
                     </div>
                     <span class="text-[10px] font-semibold text-slate-500 uppercase">Phase 1: Booking</span>
                 </div>
 
                 <div class="mobile-screen-frame" id="screen-6">
-                    <div class="phone-status-bar"><span>9:41</span><div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div></div>
+                    <div class="phone-status-bar"><span>9:41</span>
+                        <div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i
+                                class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div>
+                    </div>
 
                     <div class="phone-content p-3 space-y-3 flex-1 flex flex-col justify-between">
                         <div class="space-y-3 text-xs">
@@ -952,37 +1087,49 @@
                             </div>
 
                             <div class="space-y-2">
-                                <label class="border-2 border-slate-900 rounded-lg p-2.5 flex justify-between items-center cursor-pointer bg-slate-50">
-                                    <div class="flex items-center"><input type="radio" name="p6" class="wf-radio" checked><strong class="text-slate-900">Adult (18–64)</strong></div>
+                                <label
+                                    class="border-2 border-slate-900 rounded-lg p-2.5 flex justify-between items-center cursor-pointer bg-slate-50">
+                                    <div class="flex items-center"><input type="radio" name="p6" class="wf-radio"
+                                            checked><strong class="text-slate-900">Adult (18–64)</strong></div>
                                     <span class="text-[10px] font-mono text-slate-700">Standard Rate</span>
                                 </label>
 
-                                <label class="border border-slate-200 rounded-lg p-2.5 flex justify-between items-center cursor-pointer">
-                                    <div class="flex items-center"><input type="radio" name="p6" class="wf-radio"><strong class="text-slate-900">Youth (13–17)</strong></div>
+                                <label
+                                    class="border border-slate-200 rounded-lg p-2.5 flex justify-between items-center cursor-pointer">
+                                    <div class="flex items-center"><input type="radio" name="p6"
+                                            class="wf-radio"><strong class="text-slate-900">Youth (13–17)</strong></div>
                                     <span class="text-[10px] font-mono text-slate-500">-15% Discount</span>
                                 </label>
 
-                                <label class="border border-slate-200 rounded-lg p-2.5 flex justify-between items-center cursor-pointer">
-                                    <div class="flex items-center"><input type="radio" name="p6" class="wf-radio"><strong class="text-slate-900">Child (4–12)</strong></div>
+                                <label
+                                    class="border border-slate-200 rounded-lg p-2.5 flex justify-between items-center cursor-pointer">
+                                    <div class="flex items-center"><input type="radio" name="p6"
+                                            class="wf-radio"><strong class="text-slate-900">Child (4–12)</strong></div>
                                     <span class="text-[10px] font-mono text-slate-500">-30% Discount</span>
                                 </label>
 
-                                <label class="border border-slate-200 rounded-lg p-2.5 flex justify-between items-center cursor-pointer">
-                                    <div class="flex items-center"><input type="radio" name="p6" class="wf-radio"><strong class="text-slate-900">Senior (65+)</strong></div>
+                                <label
+                                    class="border border-slate-200 rounded-lg p-2.5 flex justify-between items-center cursor-pointer">
+                                    <div class="flex items-center"><input type="radio" name="p6"
+                                            class="wf-radio"><strong class="text-slate-900">Senior (65+)</strong></div>
                                     <span class="text-[10px] font-mono text-slate-500">-20% Discount</span>
                                 </label>
                             </div>
 
-                            <div class="border border-slate-200 bg-slate-50 rounded-lg p-2.5 text-[10px] text-slate-600 space-y-0.5">
+                            <div
+                                class="border border-slate-200 bg-slate-50 rounded-lg p-2.5 text-[10px] text-slate-600 space-y-0.5">
                                 <p class="font-bold text-slate-900">Netherlands Standard Notice:</p>
                                 <p>"Age verification is verified automatically upon QR scan at the turnstile."</p>
                             </div>
                         </div>
 
-                        <button onclick="highlightScreen(7)" class="wf-btn-dark py-2.5 text-xs">Continue <i class="fa-solid fa-arrow-right text-xs ml-1"></i></button>
+                        <button onclick="highlightScreen(7)" class="wf-btn-dark py-2.5 text-xs">Continue <i
+                                class="fa-solid fa-arrow-right text-xs ml-1"></i></button>
                     </div>
 
-                    <div class="phone-footer-bar"><div class="home-indicator"></div></div>
+                    <div class="phone-footer-bar">
+                        <div class="home-indicator"></div>
+                    </div>
                 </div>
 
                 <div class="screen-meta-box">
@@ -998,14 +1145,18 @@
             <div class="screen-wrapper flex flex-col items-center" data-phase="optional" id="screen-container-7">
                 <div class="w-[360px] mb-2 flex items-center justify-between">
                     <div class="flex items-center space-x-2">
-                        <span class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">07</span>
+                        <span
+                            class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">07</span>
                         <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wide">Lesson / Coach Request</h3>
                     </div>
                     <span class="tag-optional">OPTIONAL STEP</span>
                 </div>
 
                 <div class="mobile-screen-frame" id="screen-7">
-                    <div class="phone-status-bar"><span>9:41</span><div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div></div>
+                    <div class="phone-status-bar"><span>9:41</span>
+                        <div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i
+                                class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div>
+                    </div>
 
                     <div class="phone-content p-3 space-y-3 flex-1 flex flex-col justify-between">
                         <div class="space-y-3 text-xs">
@@ -1019,12 +1170,15 @@
 
                             <!-- 1. TOGGLE: ADD A LESSON -->
                             <div class="space-y-1.5">
-                                <label class="text-[10px] font-bold text-slate-700 uppercase block">1. ADD A LESSON?</label>
+                                <label class="text-[10px] font-bold text-slate-700 uppercase block">1. ADD A
+                                    LESSON?</label>
                                 <div class="grid grid-cols-2 gap-2">
-                                    <label class="border border-slate-300 rounded-lg p-2 text-center cursor-pointer font-semibold text-slate-600">
+                                    <label
+                                        class="border border-slate-300 rounded-lg p-2 text-center cursor-pointer font-semibold text-slate-600">
                                         <input type="radio" name="p7" class="wf-radio"> No, Thanks
                                     </label>
-                                    <label class="border-2 border-slate-900 rounded-lg p-2 text-center cursor-pointer font-bold text-slate-900 bg-slate-50">
+                                    <label
+                                        class="border-2 border-slate-900 rounded-lg p-2 text-center cursor-pointer font-bold text-slate-900 bg-slate-50">
                                         <input type="radio" name="p7" class="wf-radio" checked> Yes, Add Lesson
                                     </label>
                                 </div>
@@ -1032,30 +1186,39 @@
 
                             <!-- 2. LESSON FORMAT SELECTOR -->
                             <div class="space-y-1.5">
-                                <label class="text-[10px] font-bold text-slate-700 uppercase block">2. LESSON FORMAT:</label>
+                                <label class="text-[10px] font-bold text-slate-700 uppercase block">2. LESSON
+                                    FORMAT:</label>
                                 <div class="grid grid-cols-2 gap-1.5 text-center">
-                                    <button class="border border-slate-300 rounded-lg py-1.5 text-slate-700 font-semibold text-xs">
-                                        Group Lesson <span class="block text-[9px] font-mono text-slate-500">(+€25.00)</span>
+                                    <button
+                                        class="border border-slate-300 rounded-lg py-1.5 text-slate-700 font-semibold text-xs">
+                                        Group Lesson <span
+                                            class="block text-[9px] font-mono text-slate-500">(+€25.00)</span>
                                     </button>
                                     <button class="bg-slate-900 text-white rounded-lg py-1.5 font-bold text-xs">
-                                        ● Private 1-on-1 <span class="block text-[9px] font-mono text-slate-300">(+€45.00)</span>
+                                        ● Private 1-on-1 <span
+                                            class="block text-[9px] font-mono text-slate-300">(+€45.00)</span>
                                     </button>
                                 </div>
                             </div>
 
                             <!-- 3. SKILL LEVEL SEGMENTED SELECTOR -->
                             <div class="space-y-1.5">
-                                <label class="text-[10px] font-bold text-slate-700 uppercase block">3. SKILL LEVEL:</label>
+                                <label class="text-[10px] font-bold text-slate-700 uppercase block">3. SKILL
+                                    LEVEL:</label>
                                 <div class="grid grid-cols-3 gap-1 text-center text-[10px]">
-                                    <button class="bg-slate-900 text-white rounded-md py-1 font-bold">● Beginner / 1st</button>
-                                    <button class="border border-slate-300 rounded-md py-1 font-semibold text-slate-700">Intermediate</button>
-                                    <button class="border border-slate-300 rounded-md py-1 font-semibold text-slate-700">Advanced</button>
+                                    <button class="bg-slate-900 text-white rounded-md py-1 font-bold">● Beginner /
+                                        1st</button>
+                                    <button
+                                        class="border border-slate-300 rounded-md py-1 font-semibold text-slate-700">Intermediate</button>
+                                    <button
+                                        class="border border-slate-300 rounded-md py-1 font-semibold text-slate-700">Advanced</button>
                                 </div>
                             </div>
 
                             <!-- 4. PREFERRED LANGUAGE DROPDOWN -->
                             <div class="space-y-1">
-                                <label class="text-[10px] font-bold text-slate-700 uppercase block">4. PREFERRED INSTRUCTOR LANGUAGE:</label>
+                                <label class="text-[10px] font-bold text-slate-700 uppercase block">4. PREFERRED
+                                    INSTRUCTOR LANGUAGE:</label>
                                 <select class="wf-input font-medium bg-white">
                                     <option>English</option>
                                     <option selected>Dutch (Nederlands)</option>
@@ -1068,24 +1231,30 @@
                             <div class="border border-slate-300 bg-slate-50 rounded-lg p-2 text-[10px] space-y-1">
                                 <div class="flex items-center justify-between">
                                     <span class="font-bold text-slate-900">Data Tag Allocation:</span>
-                                    <span class="px-1.5 py-0.5 bg-slate-900 text-white font-mono text-[8px] rounded font-bold">UNASSIGNED_LESSON_ADDON</span>
+                                    <span
+                                        class="px-1.5 py-0.5 bg-slate-900 text-white font-mono text-[8px] rounded font-bold">UNASSIGNED_LESSON_ADDON</span>
                                 </div>
                                 <p class="text-slate-600 leading-tight">
-                                    "Saved as an unassigned Lesson Add-on attached to your booking ID for front-desk coach allocation upon arrival."
+                                    "Saved as an unassigned Lesson Add-on attached to your booking ID for front-desk
+                                    coach allocation upon arrival."
                                 </p>
                             </div>
                         </div>
 
-                        <button onclick="highlightScreen(8)" class="wf-btn-dark py-2.5 text-xs">Continue <i class="fa-solid fa-arrow-right text-xs ml-1"></i></button>
+                        <button onclick="highlightScreen(8)" class="wf-btn-dark py-2.5 text-xs">Continue <i
+                                class="fa-solid fa-arrow-right text-xs ml-1"></i></button>
                     </div>
 
-                    <div class="phone-footer-bar"><div class="home-indicator"></div></div>
+                    <div class="phone-footer-bar">
+                        <div class="home-indicator"></div>
+                    </div>
                 </div>
 
                 <div class="screen-meta-box">
                     <p class="font-bold text-slate-900">UX Notes & Rules:</p>
                     <ul class="list-disc pl-4 space-y-1 mt-1">
-                        <li>Rule 7: Lightweight lesson booking step (Toggle, Group vs Private 1-on-1, Skill Level, Language).</li>
+                        <li>Rule 7: Lightweight lesson booking step (Toggle, Group vs Private 1-on-1, Skill Level,
+                            Language).</li>
                         <li>Saves selection as an unassigned "Lesson Add-on" tag for front-desk coach assignment.</li>
                     </ul>
                 </div>
@@ -1096,14 +1265,18 @@
             <div class="screen-wrapper flex flex-col items-center" data-phase="optional" id="screen-container-8">
                 <div class="w-[360px] mb-2 flex items-center justify-between">
                     <div class="flex items-center space-x-2">
-                        <span class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">08</span>
+                        <span
+                            class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">08</span>
                         <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wide">Add Skiers (Optional)</h3>
                     </div>
                     <span class="tag-optional">OPTIONAL STEP</span>
                 </div>
 
                 <div class="mobile-screen-frame" id="screen-8">
-                    <div class="phone-status-bar"><span>9:41</span><div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div></div>
+                    <div class="phone-status-bar"><span>9:41</span>
+                        <div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i
+                                class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div>
+                    </div>
 
                     <div class="phone-content p-3 space-y-3 flex-1 flex flex-col justify-between text-xs">
                         <div class="space-y-3">
@@ -1115,33 +1288,42 @@
                                 <span class="tag-optional">OPTIONAL</span>
                             </div>
 
-                            <p class="text-[11px] text-slate-500">"You can book for friends directly or send invitations to configure their own passes."</p>
+                            <p class="text-[11px] text-slate-500">"You can book for friends directly or send invitations
+                                to configure their own passes."</p>
 
                             <!-- Option Card 1 -->
-                            <div onclick="highlightScreen('9a')" class="border-2 border-slate-900 rounded-lg p-3 flex justify-between items-center cursor-pointer hover:bg-slate-50">
+                            <div onclick="highlightScreen('9a')"
+                                class="border-2 border-slate-900 rounded-lg p-3 flex justify-between items-center cursor-pointer hover:bg-slate-50">
                                 <div>
                                     <strong class="text-slate-900 block text-xs">[+ Add Skier Directly]</strong>
-                                    <span class="text-[10px] text-slate-500">Configure pass & gear for a friend now</span>
+                                    <span class="text-[10px] text-slate-500">Configure pass & gear for a friend
+                                        now</span>
                                 </div>
                                 <i class="fa-solid fa-chevron-right text-xs text-slate-600"></i>
                             </div>
 
                             <!-- Option Card 2 -->
-                            <div onclick="highlightScreen('9b')" class="border-2 border-slate-900 rounded-lg p-3 flex justify-between items-center cursor-pointer hover:bg-slate-50">
+                            <div onclick="highlightScreen('9b')"
+                                class="border-2 border-slate-900 rounded-lg p-3 flex justify-between items-center cursor-pointer hover:bg-slate-50">
                                 <div>
                                     <strong class="text-slate-900 block text-xs">[Invite Friends via Link]</strong>
-                                    <span class="text-[10px] text-slate-500">They receive link to configure own QR pass</span>
+                                    <span class="text-[10px] text-slate-500">They receive link to configure own QR
+                                        pass</span>
                                 </div>
                                 <i class="fa-solid fa-chevron-right text-xs text-slate-600"></i>
                             </div>
 
-                            <button onclick="highlightScreen(10)" class="wf-btn-outline py-2 text-xs">No, Continue Alone</button>
+                            <button onclick="highlightScreen(10)" class="wf-btn-outline py-2 text-xs">No, Continue
+                                Alone</button>
                         </div>
 
-                        <button onclick="highlightScreen(10)" class="wf-btn-dark py-2.5 text-xs">Continue to Equipment <i class="fa-solid fa-arrow-right text-xs ml-1"></i></button>
+                        <button onclick="highlightScreen(10)" class="wf-btn-dark py-2.5 text-xs">Continue to Equipment
+                            <i class="fa-solid fa-arrow-right text-xs ml-1"></i></button>
                     </div>
 
-                    <div class="phone-footer-bar"><div class="home-indicator"></div></div>
+                    <div class="phone-footer-bar">
+                        <div class="home-indicator"></div>
+                    </div>
                 </div>
 
                 <div class="screen-meta-box">
@@ -1157,14 +1339,19 @@
             <div class="screen-wrapper flex flex-col items-center" data-phase="phase1" id="screen-container-9a">
                 <div class="w-[360px] mb-2 flex items-center justify-between">
                     <div class="flex items-center space-x-2">
-                        <span class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">9A</span>
-                        <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wide">Add Skier (Book Friend)</h3>
+                        <span
+                            class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">9A</span>
+                        <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wide">Add Skier (Book Friend)
+                        </h3>
                     </div>
                     <span class="text-[10px] font-semibold text-slate-500 uppercase">Path A</span>
                 </div>
 
                 <div class="mobile-screen-frame" id="screen-9a">
-                    <div class="phone-status-bar"><span>9:41</span><div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div></div>
+                    <div class="phone-status-bar"><span>9:41</span>
+                        <div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i
+                                class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div>
+                    </div>
 
                     <div class="phone-content p-3 space-y-3 flex-1 flex flex-col justify-between text-xs">
                         <div class="space-y-3">
@@ -1174,23 +1361,37 @@
                             </div>
 
                             <div class="border border-slate-300 rounded-lg p-3 space-y-2 bg-slate-50">
-                                <div><label class="text-[10px] text-slate-500 block font-semibold">Full Name</label><input type="text" value="Sanne de Jong" class="wf-input font-medium"></div>
-                                <div><label class="text-[10px] text-slate-500 block font-semibold">Date of Birth</label><input type="text" value="22 / 11 / 1998" class="wf-input font-medium"></div>
-                                <div><label class="text-[10px] text-slate-500 block font-semibold">Skier Category</label><select class="wf-input font-medium"><option>Adult (18–64)</option></select></div>
-                                <label class="flex items-center space-x-2 pt-1"><input type="checkbox" class="wf-checkbox" checked><span class="font-semibold text-slate-900">Include Lesson Add-on (+€25)</span></label>
+                                <div><label class="text-[10px] text-slate-500 block font-semibold">Full
+                                        Name</label><input type="text" value="Sanne de Jong"
+                                        class="wf-input font-medium"></div>
+                                <div><label class="text-[10px] text-slate-500 block font-semibold">Date of
+                                        Birth</label><input type="text" value="22 / 11 / 1998"
+                                        class="wf-input font-medium"></div>
+                                <div><label class="text-[10px] text-slate-500 block font-semibold">Skier
+                                        Category</label><select class="wf-input font-medium">
+                                        <option>Adult (18–64)</option>
+                                    </select></div>
+                                <label class="flex items-center space-x-2 pt-1"><input type="checkbox"
+                                        class="wf-checkbox" checked><span class="font-semibold text-slate-900">Include
+                                        Lesson Add-on (+€25)</span></label>
                             </div>
 
                             <button class="wf-btn-outline py-2 text-xs font-bold">+ Add Another Skier</button>
 
-                            <div class="border border-slate-200 bg-slate-50 rounded-lg p-2.5 text-[10px] text-slate-600">
-                                <p><strong>Business Rule:</strong> Primary Skier configures details & applicable add-ons for skiers booked directly.</p>
+                            <div
+                                class="border border-slate-200 bg-slate-50 rounded-lg p-2.5 text-[10px] text-slate-600">
+                                <p><strong>Business Rule:</strong> Primary Skier configures details & applicable add-ons
+                                    for skiers booked directly.</p>
                             </div>
                         </div>
 
-                        <button onclick="highlightScreen(10)" class="wf-btn-dark py-2.5 text-xs">Continue <i class="fa-solid fa-arrow-right text-xs ml-1"></i></button>
+                        <button onclick="highlightScreen(10)" class="wf-btn-dark py-2.5 text-xs">Continue <i
+                                class="fa-solid fa-arrow-right text-xs ml-1"></i></button>
                     </div>
 
-                    <div class="phone-footer-bar"><div class="home-indicator"></div></div>
+                    <div class="phone-footer-bar">
+                        <div class="home-indicator"></div>
+                    </div>
                 </div>
 
                 <div class="screen-meta-box">
@@ -1206,14 +1407,18 @@
             <div class="screen-wrapper flex flex-col items-center" data-phase="phase1" id="screen-container-9b">
                 <div class="w-[360px] mb-2 flex items-center justify-between">
                     <div class="flex items-center space-x-2">
-                        <span class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">9B</span>
+                        <span
+                            class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">9B</span>
                         <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wide">Invite Friends</h3>
                     </div>
                     <span class="text-[10px] font-semibold text-slate-500 uppercase">Path B</span>
                 </div>
 
                 <div class="mobile-screen-frame" id="screen-9b">
-                    <div class="phone-status-bar"><span>9:41</span><div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div></div>
+                    <div class="phone-status-bar"><span>9:41</span>
+                        <div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i
+                                class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div>
+                    </div>
 
                     <div class="phone-content p-3 space-y-3 flex-1 flex flex-col justify-between text-xs">
                         <div class="space-y-3">
@@ -1222,7 +1427,8 @@
                                 <span class="font-bold text-xs">Invite Friends</span>
                             </div>
 
-                            <p class="text-[10px] text-slate-500">"Invited friends receive a link to join session & configure their own dynamic QR pass."</p>
+                            <p class="text-[10px] text-slate-500">"Invited friends receive a link to join session &
+                                configure their own dynamic QR pass."</p>
 
                             <div class="flex gap-1.5">
                                 <input type="text" value="lisa@example.nl" class="wf-input flex-1">
@@ -1230,15 +1436,22 @@
                             </div>
 
                             <div class="space-y-1.5 pt-1">
-                                <span class="text-[10px] font-bold text-slate-500 uppercase block">Invited Skiers List:</span>
-                                <div class="border border-slate-200 rounded-lg p-2 flex justify-between"><span>lisa@example.nl</span><span class="text-[10px] font-bold text-slate-500">Status: Sent</span></div>
+                                <span class="text-[10px] font-bold text-slate-500 uppercase block">Invited Skiers
+                                    List:</span>
+                                <div class="border border-slate-200 rounded-lg p-2 flex justify-between"><span><a
+                                            href="/cdn-cgi/l/email-protection" class="__cf_email__"
+                                            data-cfemail="721e1b011332170a131f021e175c1c1e">[email&#160;protected]</a></span><span
+                                        class="text-[10px] font-bold text-slate-500">Status: Sent</span></div>
                             </div>
                         </div>
 
-                        <button onclick="highlightScreen(10)" class="wf-btn-dark py-2.5 text-xs">Continue <i class="fa-solid fa-arrow-right text-xs ml-1"></i></button>
+                        <button onclick="highlightScreen(10)" class="wf-btn-dark py-2.5 text-xs">Continue <i
+                                class="fa-solid fa-arrow-right text-xs ml-1"></i></button>
                     </div>
 
-                    <div class="phone-footer-bar"><div class="home-indicator"></div></div>
+                    <div class="phone-footer-bar">
+                        <div class="home-indicator"></div>
+                    </div>
                 </div>
 
                 <div class="screen-meta-box">
@@ -1254,14 +1467,19 @@
             <div class="screen-wrapper flex flex-col items-center" data-phase="optional" id="screen-container-10">
                 <div class="w-[360px] mb-2 flex items-center justify-between">
                     <div class="flex items-center space-x-2">
-                        <span class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">10</span>
-                        <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wide">Equipment & Locker Add-ons</h3>
+                        <span
+                            class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">10</span>
+                        <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wide">Equipment & Locker Add-ons
+                        </h3>
                     </div>
                     <span class="tag-optional">OPTIONAL STEP</span>
                 </div>
 
                 <div class="mobile-screen-frame" id="screen-10">
-                    <div class="phone-status-bar"><span>9:41</span><div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div></div>
+                    <div class="phone-status-bar"><span>9:41</span>
+                        <div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i
+                                class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div>
+                    </div>
 
                     <div class="phone-content p-3 space-y-3 flex-1 flex flex-col justify-between text-xs">
                         <div class="space-y-3">
@@ -1275,22 +1493,28 @@
 
                             <!-- GEAR CHECKBOXES (Minimal, Frictionless Selection) -->
                             <div class="border border-slate-300 rounded-lg p-2.5 space-y-2 bg-white">
-                                <span class="text-[10px] font-bold text-slate-500 uppercase block border-b border-slate-100 pb-1">SELECT GEAR NEEDED:</span>
+                                <span
+                                    class="text-[10px] font-bold text-slate-500 uppercase block border-b border-slate-100 pb-1">SELECT
+                                    GEAR NEEDED:</span>
 
                                 <label class="flex justify-between items-center cursor-pointer">
-                                    <span class="flex items-center"><input type="checkbox" class="wf-checkbox" checked><span class="font-semibold text-slate-900">Skis & Poles</span></span>
+                                    <span class="flex items-center"><input type="checkbox" class="wf-checkbox"
+                                            checked><span class="font-semibold text-slate-900">Skis &
+                                            Poles</span></span>
                                     <strong class="font-mono text-slate-900">€12.00</strong>
                                 </label>
 
                                 <label class="flex justify-between items-center cursor-pointer">
-                                    <span class="flex items-center"><input type="checkbox" class="wf-checkbox"><span class="font-semibold text-slate-700">Snowboard</span></span>
+                                    <span class="flex items-center"><input type="checkbox" class="wf-checkbox"><span
+                                            class="font-semibold text-slate-700">Snowboard</span></span>
                                     <strong class="font-mono text-slate-900">€12.00</strong>
                                 </label>
 
                                 <!-- Boots Checkbox + EU/US Shoe Size Dropdown -->
                                 <div class="border-t border-b border-slate-100 py-1.5 space-y-1.5">
                                     <label class="flex justify-between items-center cursor-pointer">
-                                        <span class="flex items-center"><input type="checkbox" class="wf-checkbox" checked><span class="font-semibold text-slate-900">Boots</span></span>
+                                        <span class="flex items-center"><input type="checkbox" class="wf-checkbox"
+                                                checked><span class="font-semibold text-slate-900">Boots</span></span>
                                         <strong class="font-mono text-slate-900">€8.00</strong>
                                     </label>
                                     <div class="flex items-center justify-between pl-6 gap-2">
@@ -1306,43 +1530,54 @@
                                 </div>
 
                                 <label class="flex justify-between items-center cursor-pointer">
-                                    <span class="flex items-center"><input type="checkbox" class="wf-checkbox" checked><span class="font-semibold text-slate-900">Helmet</span></span>
+                                    <span class="flex items-center"><input type="checkbox" class="wf-checkbox"
+                                            checked><span class="font-semibold text-slate-900">Helmet</span></span>
                                     <strong class="font-mono text-slate-900">€5.00</strong>
                                 </label>
 
                                 <label class="flex justify-between items-center cursor-pointer">
-                                    <span class="flex items-center"><input type="checkbox" class="wf-checkbox" checked><span class="font-semibold text-slate-900">RFID Locker Pass</span></span>
+                                    <span class="flex items-center"><input type="checkbox" class="wf-checkbox"
+                                            checked><span class="font-semibold text-slate-900">RFID Locker
+                                            Pass</span></span>
                                     <strong class="font-mono text-slate-900">€4.00</strong>
                                 </label>
                             </div>
 
                             <!-- FRICTIONLESS MICROCOPY NOTICE -->
-                            <div class="border border-slate-300 bg-slate-50 rounded-lg p-2.5 text-[10px] text-slate-600 space-y-1">
+                            <div
+                                class="border border-slate-300 bg-slate-50 rounded-lg p-2.5 text-[10px] text-slate-600 space-y-1">
                                 <div class="flex items-center gap-1 text-slate-900 font-bold">
                                     <i class="fa-solid fa-circle-check text-slate-800"></i>
                                     <span>Frictionless Counter Pickup:</span>
                                 </div>
                                 <p class="leading-tight text-slate-600">
-                                    "No complex DIN binding, biometric height/weight, or stance angle forms required online. Technical adjustment completed directly at the SnowWorld rental desk in 60 seconds."
+                                    "No complex DIN binding, biometric height/weight, or stance angle forms required
+                                    online. Technical adjustment completed directly at the SnowWorld rental desk in 60
+                                    seconds."
                                 </p>
                             </div>
 
-                            <div class="border-2 border-slate-900 rounded-lg p-2 flex justify-between font-bold text-slate-900 bg-slate-50">
+                            <div
+                                class="border-2 border-slate-900 rounded-lg p-2 flex justify-between font-bold text-slate-900 bg-slate-50">
                                 <span>Total Equipment & Locker:</span>
                                 <span class="font-mono">€29.00</span>
                             </div>
                         </div>
 
-                        <button onclick="highlightScreen(11)" class="wf-btn-dark py-2.5 text-xs">Review Booking Summary <i class="fa-solid fa-arrow-right text-xs ml-1"></i></button>
+                        <button onclick="highlightScreen(11)" class="wf-btn-dark py-2.5 text-xs">Review Booking Summary
+                            <i class="fa-solid fa-arrow-right text-xs ml-1"></i></button>
                     </div>
 
-                    <div class="phone-footer-bar"><div class="home-indicator"></div></div>
+                    <div class="phone-footer-bar">
+                        <div class="home-indicator"></div>
+                    </div>
                 </div>
 
                 <div class="screen-meta-box">
                     <p class="font-bold text-slate-900">UX Notes & Rules:</p>
                     <ul class="list-disc pl-4 space-y-1 mt-1">
-                        <li>Rule 10: Frictionless gear selection (Skis & Poles, Snowboard, Boots with shoe size dropdown, Helmet, Locker).</li>
+                        <li>Rule 10: Frictionless gear selection (Skis & Poles, Snowboard, Boots with shoe size
+                            dropdown, Helmet, Locker).</li>
                         <li>No complex DIN binding, height/weight forms, or stance angle inputs required.</li>
                     </ul>
                 </div>
@@ -1357,14 +1592,18 @@
             <div class="screen-wrapper flex flex-col items-center" data-phase="phase2" id="screen-container-11">
                 <div class="w-[360px] mb-2 flex items-center justify-between">
                     <div class="flex items-center space-x-2">
-                        <span class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">11</span>
+                        <span
+                            class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">11</span>
                         <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wide">Review Booking Summary</h3>
                     </div>
                     <span class="text-[10px] font-semibold text-slate-500 uppercase">Phase 2: Payment</span>
                 </div>
 
                 <div class="mobile-screen-frame" id="screen-11">
-                    <div class="phone-status-bar"><span>9:41</span><div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div></div>
+                    <div class="phone-status-bar"><span>9:41</span>
+                        <div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i
+                                class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div>
+                    </div>
 
                     <div class="phone-content p-3 space-y-3 flex-1 flex flex-col justify-between text-xs">
                         <div class="space-y-2.5">
@@ -1374,18 +1613,24 @@
                             </div>
 
                             <div class="border border-slate-300 rounded-lg p-2.5 space-y-1 bg-slate-50">
-                                <span class="text-[9px] font-bold text-slate-400 uppercase block">RESORT & SESSION</span>
+                                <span class="text-[9px] font-bold text-slate-400 uppercase block">RESORT &
+                                    SESSION</span>
                                 <strong class="text-slate-900 block">SnowWorld Amsterdam</strong>
                                 <p class="text-[10px] text-slate-600">30 June 2026 | Arrival: 18:00 – 20:00</p>
                                 <p class="text-[10px] text-slate-600">Pass: 2-Hour Indoor Snow Pass (€42.00)</p>
                             </div>
 
                             <div class="border border-slate-300 rounded-lg p-2.5 space-y-1 font-mono">
-                                <span class="text-[9px] font-bold text-slate-400 uppercase block font-sans">ITEMIZED BREAKDOWN</span>
-                                <div class="flex justify-between"><span>2h Indoor Ski Pass:</span><span>€42.00</span></div>
-                                <div class="flex justify-between"><span>Rental Gear & Locker Bundle:</span><span>€29.00</span></div>
-                                <div class="flex justify-between"><span>Private 1-on-1 Lesson Add-on:</span><span>€45.00</span></div>
-                                <div class="flex justify-between border-t border-slate-200 pt-1 font-extrabold text-sm text-slate-900">
+                                <span class="text-[9px] font-bold text-slate-400 uppercase block font-sans">ITEMIZED
+                                    BREAKDOWN</span>
+                                <div class="flex justify-between"><span>2h Indoor Ski Pass:</span><span>€42.00</span>
+                                </div>
+                                <div class="flex justify-between"><span>Rental Gear & Locker
+                                        Bundle:</span><span>€29.00</span></div>
+                                <div class="flex justify-between"><span>Private 1-on-1 Lesson
+                                        Add-on:</span><span>€45.00</span></div>
+                                <div
+                                    class="flex justify-between border-t border-slate-200 pt-1 font-extrabold text-sm text-slate-900">
                                     <span>Total Payable:</span><span>€116.00</span>
                                 </div>
                             </div>
@@ -1395,24 +1640,30 @@
                                 <label class="flex items-start space-x-2 text-[10px] text-slate-700 cursor-pointer">
                                     <input type="checkbox" class="wf-checkbox mt-0.5" checked>
                                     <span class="leading-tight">
-                                        I agree to the <strong>Terms & Conditions</strong> and <strong>Indoor Safety Rules</strong>.
+                                        I agree to the <strong>Terms & Conditions</strong> and <strong>Indoor Safety
+                                            Rules</strong>.
                                     </span>
                                 </label>
-                                <p class="text-[9px] text-slate-400 pl-6">No full-page waiver or digital signature pad required.</p>
+                                <p class="text-[9px] text-slate-400 pl-6">No full-page waiver or digital signature pad
+                                    required.</p>
                             </div>
                         </div>
 
-                        <button onclick="highlightScreen(12)" class="wf-btn-dark py-2.5 text-xs">Proceed to Payment <i class="fa-solid fa-arrow-right text-xs ml-1"></i></button>
+                        <button onclick="highlightScreen(12)" class="wf-btn-dark py-2.5 text-xs">Proceed to Payment <i
+                                class="fa-solid fa-arrow-right text-xs ml-1"></i></button>
                     </div>
 
-                    <div class="phone-footer-bar"><div class="home-indicator"></div></div>
+                    <div class="phone-footer-bar">
+                        <div class="home-indicator"></div>
+                    </div>
                 </div>
 
                 <div class="screen-meta-box">
                     <p class="font-bold text-slate-900">UX Notes & Rules:</p>
                     <ul class="list-disc pl-4 space-y-1 mt-1">
                         <li>Rule 11: Summary breakdown itemizing pass, rental gear, and lesson request.</li>
-                        <li>Rule 12: Legal requirements kept simple with standard Terms & Conditions & Indoor Safety Rules checkbox.</li>
+                        <li>Rule 12: Legal requirements kept simple with standard Terms & Conditions & Indoor Safety
+                            Rules checkbox.</li>
                     </ul>
                 </div>
             </div>
@@ -1422,45 +1673,65 @@
             <div class="screen-wrapper flex flex-col items-center" data-phase="phase2" id="screen-container-12">
                 <div class="w-[360px] mb-2 flex items-center justify-between">
                     <div class="flex items-center space-x-2">
-                        <span class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">12</span>
+                        <span
+                            class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">12</span>
                         <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wide">Tokenized Payment</h3>
                     </div>
                     <span class="text-[10px] font-semibold text-slate-500 uppercase">Phase 2: Payment</span>
                 </div>
 
                 <div class="mobile-screen-frame" id="screen-12">
-                    <div class="phone-status-bar"><span>9:41</span><div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div></div>
+                    <div class="phone-status-bar"><span>9:41</span>
+                        <div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i
+                                class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div>
+                    </div>
 
                     <div class="phone-content p-3 space-y-3 flex-1 flex flex-col justify-between text-xs">
                         <div class="space-y-3">
                             <div class="flex items-center justify-between text-slate-700">
-                                <div class="flex items-center space-x-2"><i class="fa-solid fa-chevron-left text-xs"></i><span class="font-bold text-xs">Payment & Token Mandate</span></div>
-                                <span class="text-[10px] text-slate-500 font-mono"><i class="fa-solid fa-lock text-[9px] mr-1"></i>SSL</span>
+                                <div class="flex items-center space-x-2"><i
+                                        class="fa-solid fa-chevron-left text-xs"></i><span
+                                        class="font-bold text-xs">Payment & Token Mandate</span></div>
+                                <span class="text-[10px] text-slate-500 font-mono"><i
+                                        class="fa-solid fa-lock text-[9px] mr-1"></i>SSL</span>
                             </div>
 
                             <div class="border-2 border-slate-900 rounded-lg p-2.5 text-center bg-slate-50">
-                                <span class="text-[10px] text-slate-500 uppercase block font-bold">TOTAL AMOUNT TO AUTHORIZE</span>
+                                <span class="text-[10px] text-slate-500 uppercase block font-bold">TOTAL AMOUNT TO
+                                    AUTHORIZE</span>
                                 <h3 class="font-extrabold text-xl text-slate-900 font-mono">€116.00</h3>
                             </div>
 
                             <!-- PAYMENT METHODS (Credit Card / Apple Pay / Google Pay / iDEAL + Mandate) -->
                             <div class="space-y-1.5">
-                                <label class="text-[10px] font-bold text-slate-700 uppercase block">SELECT PAYMENT METHOD:</label>
+                                <label class="text-[10px] font-bold text-slate-700 uppercase block">SELECT PAYMENT
+                                    METHOD:</label>
                                 <div class="grid grid-cols-2 gap-1.5">
-                                    <label class="border-2 border-slate-900 rounded-lg p-2 flex items-center justify-between cursor-pointer bg-slate-50">
-                                        <div class="flex items-center"><input type="radio" name="p12" class="wf-radio" checked><strong class="text-slate-900 text-[11px]">Card</strong></div>
+                                    <label
+                                        class="border-2 border-slate-900 rounded-lg p-2 flex items-center justify-between cursor-pointer bg-slate-50">
+                                        <div class="flex items-center"><input type="radio" name="p12" class="wf-radio"
+                                                checked><strong class="text-slate-900 text-[11px]">Card</strong></div>
                                         <i class="fa-solid fa-credit-card text-xs"></i>
                                     </label>
-                                    <label class="border border-slate-200 rounded-lg p-2 flex items-center justify-between cursor-pointer">
-                                        <div class="flex items-center"><input type="radio" name="p12" class="wf-radio"><strong class="text-slate-900 text-[11px]">iDEAL</strong></div>
+                                    <label
+                                        class="border border-slate-200 rounded-lg p-2 flex items-center justify-between cursor-pointer">
+                                        <div class="flex items-center"><input type="radio" name="p12"
+                                                class="wf-radio"><strong
+                                                class="text-slate-900 text-[11px]">iDEAL</strong></div>
                                         <span class="font-bold text-[10px] text-slate-700">NL</span>
                                     </label>
-                                    <label class="border border-slate-200 rounded-lg p-2 flex items-center justify-between cursor-pointer">
-                                        <div class="flex items-center"><input type="radio" name="p12" class="wf-radio"><strong class="text-slate-900 text-[11px]">Apple Pay</strong></div>
+                                    <label
+                                        class="border border-slate-200 rounded-lg p-2 flex items-center justify-between cursor-pointer">
+                                        <div class="flex items-center"><input type="radio" name="p12"
+                                                class="wf-radio"><strong class="text-slate-900 text-[11px]">Apple
+                                                Pay</strong></div>
                                         <i class="fa-brands fa-apple text-xs"></i>
                                     </label>
-                                    <label class="border border-slate-200 rounded-lg p-2 flex items-center justify-between cursor-pointer">
-                                        <div class="flex items-center"><input type="radio" name="p12" class="wf-radio"><strong class="text-slate-900 text-[11px]">Google Pay</strong></div>
+                                    <label
+                                        class="border border-slate-200 rounded-lg p-2 flex items-center justify-between cursor-pointer">
+                                        <div class="flex items-center"><input type="radio" name="p12"
+                                                class="wf-radio"><strong class="text-slate-900 text-[11px]">Google
+                                                Pay</strong></div>
                                         <i class="fa-brands fa-google text-xs"></i>
                                     </label>
                                 </div>
@@ -1476,27 +1747,33 @@
                             </div>
 
                             <!-- TOKENIZATION & OVERTIME SETTLEMENT MANDATE NOTICE -->
-                            <div class="border border-slate-300 bg-slate-50 rounded-lg p-2 text-[10px] text-slate-700 space-y-1">
+                            <div
+                                class="border border-slate-300 bg-slate-50 rounded-lg p-2 text-[10px] text-slate-700 space-y-1">
                                 <div class="flex items-center gap-1 font-bold text-slate-900">
                                     <i class="fa-solid fa-shield-halved text-slate-800"></i>
                                     <span>Tokenization & Auto-Settlement Mandate:</span>
                                 </div>
                                 <p class="leading-tight text-slate-600">
-                                    "Payment authorization securely tokenizes your payment method (Card / Apple Pay / iDEAL mandate) for turnstile slope access and potential overtime auto-settlement."
+                                    "Payment authorization securely tokenizes your payment method (Card / Apple Pay /
+                                    iDEAL mandate) for turnstile slope access and potential overtime auto-settlement."
                                 </p>
                             </div>
                         </div>
 
-                        <button onclick="highlightScreen(13)" class="wf-btn-dark py-2.5 text-xs"><i class="fa-solid fa-lock text-xs mr-1"></i> Authorize & Issue QR Pass (€116.00)</button>
+                        <button onclick="highlightScreen(13)" class="wf-btn-dark py-2.5 text-xs"><i
+                                class="fa-solid fa-lock text-xs mr-1"></i> Authorize & Issue QR Pass (€116.00)</button>
                     </div>
 
-                    <div class="phone-footer-bar"><div class="home-indicator"></div></div>
+                    <div class="phone-footer-bar">
+                        <div class="home-indicator"></div>
+                    </div>
                 </div>
 
                 <div class="screen-meta-box">
                     <p class="font-bold text-slate-900">UX Notes & Rules:</p>
                     <ul class="list-disc pl-4 space-y-1 mt-1">
-                        <li>Rule 13: Payment method securely tokenized (Credit Card / Apple Pay / Google Pay / iDEAL mandate) for slope access & turnstile overtime auto-settlement.</li>
+                        <li>Rule 13: Payment method securely tokenized (Credit Card / Apple Pay / Google Pay / iDEAL
+                            mandate) for slope access & turnstile overtime auto-settlement.</li>
                     </ul>
                 </div>
             </div>
@@ -1506,18 +1783,24 @@
             <div class="screen-wrapper flex flex-col items-center" data-phase="phase2" id="screen-container-13">
                 <div class="w-[360px] mb-2 flex items-center justify-between">
                     <div class="flex items-center space-x-2">
-                        <span class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">13</span>
+                        <span
+                            class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">13</span>
                         <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wide">Booking Confirmed (QR)</h3>
                     </div>
                     <span class="text-[10px] font-semibold text-slate-500 uppercase">Phase 2: Payment</span>
                 </div>
 
                 <div class="mobile-screen-frame" id="screen-13">
-                    <div class="phone-status-bar"><span>9:41</span><div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div></div>
+                    <div class="phone-status-bar"><span>9:41</span>
+                        <div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i
+                                class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div>
+                    </div>
 
                     <div class="phone-content p-3 space-y-3 flex-1 flex flex-col justify-between text-center text-xs">
                         <div class="space-y-3 pt-2">
-                            <div class="w-12 h-12 bg-slate-900 text-white rounded-full flex items-center justify-center mx-auto text-xl font-bold">✓</div>
+                            <div
+                                class="w-12 h-12 bg-slate-900 text-white rounded-full flex items-center justify-center mx-auto text-xl font-bold">
+                                ✓</div>
 
                             <div>
                                 <h4 class="font-extrabold text-base text-slate-900">✓ Booking Confirmed!</h4>
@@ -1525,63 +1808,73 @@
                             </div>
 
                             <!-- HIGH-CONTRAST DYNAMIC QR CODE -->
-                            <div class="border-2 border-slate-900 rounded-xl p-3 text-center space-y-2 bg-white shadow-sm">
-                                <div class="w-32 h-32 bg-slate-900 mx-auto p-2 rounded-lg flex items-center justify-center">
+                            <div
+                                class="border-2 border-slate-900 rounded-xl p-3 text-center space-y-2 bg-white shadow-sm">
+                                <div
+                                    class="w-32 h-32 bg-slate-900 mx-auto p-2 rounded-lg flex items-center justify-center">
                                     <svg viewBox="0 0 100 100" class="w-full h-full fill-white">
                                         <!-- Outer Corner Targets -->
-                                        <rect x="5" y="5" width="25" height="25" fill="white"/>
-                                        <rect x="9" y="9" width="17" height="17" fill="black"/>
-                                        <rect x="13" y="13" width="9" height="9" fill="white"/>
+                                        <rect x="5" y="5" width="25" height="25" fill="white" />
+                                        <rect x="9" y="9" width="17" height="17" fill="black" />
+                                        <rect x="13" y="13" width="9" height="9" fill="white" />
 
-                                        <rect x="70" y="5" width="25" height="25" fill="white"/>
-                                        <rect x="74" y="9" width="17" height="17" fill="black"/>
-                                        <rect x="78" y="13" width="9" height="9" fill="white"/>
+                                        <rect x="70" y="5" width="25" height="25" fill="white" />
+                                        <rect x="74" y="9" width="17" height="17" fill="black" />
+                                        <rect x="78" y="13" width="9" height="9" fill="white" />
 
-                                        <rect x="5" y="70" width="25" height="25" fill="white"/>
-                                        <rect x="9" y="74" width="17" height="17" fill="black"/>
-                                        <rect x="13" y="78" width="9" height="9" fill="white"/>
+                                        <rect x="5" y="70" width="25" height="25" fill="white" />
+                                        <rect x="9" y="74" width="17" height="17" fill="black" />
+                                        <rect x="13" y="78" width="9" height="9" fill="white" />
 
                                         <!-- QR Data Modules Grid -->
-                                        <rect x="35" y="10" width="8" height="8" fill="white"/>
-                                        <rect x="50" y="10" width="8" height="8" fill="white"/>
-                                        <rect x="10" y="38" width="8" height="8" fill="white"/>
-                                        <rect x="25" y="38" width="8" height="8" fill="white"/>
-                                        <rect x="40" y="30" width="20" height="20" fill="white"/>
-                                        <rect x="45" y="35" width="10" height="10" fill="black"/>
-                                        <rect x="68" y="38" width="12" height="12" fill="white"/>
-                                        <rect x="85" y="45" width="8" height="8" fill="white"/>
-                                        <rect x="38" y="68" width="12" height="12" fill="white"/>
-                                        <rect x="58" y="72" width="10" height="10" fill="white"/>
-                                        <rect x="75" y="75" width="15" height="15" fill="white"/>
+                                        <rect x="35" y="10" width="8" height="8" fill="white" />
+                                        <rect x="50" y="10" width="8" height="8" fill="white" />
+                                        <rect x="10" y="38" width="8" height="8" fill="white" />
+                                        <rect x="25" y="38" width="8" height="8" fill="white" />
+                                        <rect x="40" y="30" width="20" height="20" fill="white" />
+                                        <rect x="45" y="35" width="10" height="10" fill="black" />
+                                        <rect x="68" y="38" width="12" height="12" fill="white" />
+                                        <rect x="85" y="45" width="8" height="8" fill="white" />
+                                        <rect x="38" y="68" width="12" height="12" fill="white" />
+                                        <rect x="58" y="72" width="10" height="10" fill="white" />
+                                        <rect x="75" y="75" width="15" height="15" fill="white" />
                                     </svg>
                                 </div>
                                 <div class="font-mono text-[10px] font-bold text-slate-900">SWP-QR-8842-NL</div>
 
                                 <!-- WALLET INTEGRATION BUTTONS -->
                                 <div class="grid grid-cols-2 gap-1.5 pt-1">
-                                    <button class="bg-black text-white py-1.5 px-2 rounded-lg text-[9px] font-bold flex items-center justify-center gap-1">
+                                    <button
+                                        class="bg-black text-white py-1.5 px-2 rounded-lg text-[9px] font-bold flex items-center justify-center gap-1">
                                         <i class="fa-brands fa-apple text-xs"></i> Add to Apple Wallet
                                     </button>
-                                    <button class="border border-slate-300 bg-slate-50 text-slate-900 py-1.5 px-2 rounded-lg text-[9px] font-bold flex items-center justify-center gap-1">
+                                    <button
+                                        class="border border-slate-300 bg-slate-50 text-slate-900 py-1.5 px-2 rounded-lg text-[9px] font-bold flex items-center justify-center gap-1">
                                         <i class="fa-brands fa-google text-xs"></i> Google Wallet
                                     </button>
                                 </div>
                             </div>
 
-                            <div class="border border-slate-200 rounded-lg p-2 space-y-1 text-left bg-slate-50 text-[10px]">
+                            <div
+                                class="border border-slate-200 rounded-lg p-2 space-y-1 text-left bg-slate-50 text-[10px]">
                                 <p><strong>Hall:</strong> SnowWorld Amsterdam</p>
                                 <p><strong>Arrival Window:</strong> 30 June 2026 | 18:00 – 20:00</p>
-                                <p><strong>Lesson Tag:</strong> <span class="font-mono">UNASSIGNED_LESSON_ADDON</span></p>
+                                <p><strong>Lesson Tag:</strong> <span class="font-mono">UNASSIGNED_LESSON_ADDON</span>
+                                </p>
                             </div>
                         </div>
 
                         <div class="space-y-2">
-                            <button onclick="highlightScreen(15)" class="wf-btn-dark py-2 text-xs">View Turnstile Check-In Pass</button>
-                            <button onclick="highlightScreen(14)" class="wf-btn-outline py-2 text-xs">Go to Upcoming Bookings</button>
+                            <button onclick="highlightScreen(15)" class="wf-btn-dark py-2 text-xs">View Turnstile
+                                Check-In Pass</button>
+                            <button onclick="highlightScreen(14)" class="wf-btn-outline py-2 text-xs">Go to Upcoming
+                                Bookings</button>
                         </div>
                     </div>
 
-                    <div class="phone-footer-bar"><div class="home-indicator"></div></div>
+                    <div class="phone-footer-bar">
+                        <div class="home-indicator"></div>
+                    </div>
                 </div>
 
                 <div class="screen-meta-box">
@@ -1602,14 +1895,18 @@
             <div class="screen-wrapper flex flex-col items-center" data-phase="phase3" id="screen-container-14">
                 <div class="w-[360px] mb-2 flex items-center justify-between">
                     <div class="flex items-center space-x-2">
-                        <span class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">14</span>
+                        <span
+                            class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">14</span>
                         <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wide">Upcoming Event</h3>
                     </div>
                     <span class="text-[10px] font-semibold text-slate-500 uppercase">Phase 3: Lifecycle</span>
                 </div>
 
                 <div class="mobile-screen-frame" id="screen-14">
-                    <div class="phone-status-bar"><span>9:41</span><div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div></div>
+                    <div class="phone-status-bar"><span>9:41</span>
+                        <div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i
+                                class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div>
+                    </div>
 
                     <div class="phone-content p-3 space-y-3 flex-1 text-xs">
                         <span class="font-bold text-xs block text-slate-900">SWP Bookings & Passes</span>
@@ -1622,22 +1919,31 @@
 
                         <div class="border-2 border-slate-900 rounded-lg p-3 space-y-2 bg-slate-50">
                             <div class="flex justify-between items-start">
-                                <div><h5 class="font-extrabold text-xs text-slate-900">SnowWorld Amsterdam</h5><p class="text-[10px] text-slate-500">30 June 2026 · 2h Indoor Pass</p></div>
-                                <span class="px-2 py-0.5 text-[9px] font-bold bg-slate-900 text-white rounded">READY FOR SCAN</span>
+                                <div>
+                                    <h5 class="font-extrabold text-xs text-slate-900">SnowWorld Amsterdam</h5>
+                                    <p class="text-[10px] text-slate-500">30 June 2026 · 2h Indoor Pass</p>
+                                </div>
+                                <span class="px-2 py-0.5 text-[9px] font-bold bg-slate-900 text-white rounded">READY FOR
+                                    SCAN</span>
                             </div>
-                            <p class="text-[10px] font-mono text-slate-700">Window: 18:00 – 20:00 | ID: SWP-QR-8842-NL</p>
-                            <button onclick="highlightScreen(15)" class="wf-btn-dark py-2 text-xs">Open QR Pass for Turnstile</button>
+                            <p class="text-[10px] font-mono text-slate-700">Window: 18:00 – 20:00 | ID: SWP-QR-8842-NL
+                            </p>
+                            <button onclick="highlightScreen(15)" class="wf-btn-dark py-2 text-xs">Open QR Pass for
+                                Turnstile</button>
                         </div>
                     </div>
 
                     <div class="bottom-nav-bar">
                         <div class="nav-item"><i class="fa-solid fa-house text-sm"></i><span>Home</span></div>
-                        <div class="nav-item active"><i class="fa-regular fa-calendar-days text-sm"></i><span>Bookings</span></div>
+                        <div class="nav-item active"><i
+                                class="fa-regular fa-calendar-days text-sm"></i><span>Bookings</span></div>
                         <div class="nav-item-center-btn"><i class="fa-solid fa-plus"></i></div>
                         <div class="nav-item"><i class="fa-solid fa-qrcode text-sm"></i><span>QR Pass</span></div>
                         <div class="nav-item"><i class="fa-solid fa-bars text-sm"></i><span>More</span></div>
                     </div>
-                    <div class="phone-footer-bar"><div class="home-indicator"></div></div>
+                    <div class="phone-footer-bar">
+                        <div class="home-indicator"></div>
+                    </div>
                 </div>
 
                 <div class="screen-meta-box">
@@ -1653,14 +1959,19 @@
             <div class="screen-wrapper flex flex-col items-center" data-phase="phase3" id="screen-container-15">
                 <div class="w-[360px] mb-2 flex items-center justify-between">
                     <div class="flex items-center space-x-2">
-                        <span class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">15</span>
-                        <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wide">Turnstile Check-In & Timer</h3>
+                        <span
+                            class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">15</span>
+                        <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wide">Turnstile Check-In & Timer
+                        </h3>
                     </div>
                     <span class="text-[10px] font-semibold text-slate-500 uppercase">Phase 3: Lifecycle</span>
                 </div>
 
                 <div class="mobile-screen-frame" id="screen-15">
-                    <div class="phone-status-bar"><span>9:41</span><div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div></div>
+                    <div class="phone-status-bar"><span>9:41</span>
+                        <div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i
+                                class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div>
+                    </div>
 
                     <div class="phone-content p-3 space-y-3 flex-1 flex flex-col justify-between text-xs">
                         <div class="space-y-3">
@@ -1669,7 +1980,8 @@
                                     <i class="fa-solid fa-chevron-left text-xs"></i>
                                     <span class="font-bold text-xs">Slope Entrance Turnstile Pass</span>
                                 </div>
-                                <span class="px-2 py-0.5 text-[8px] font-bold bg-slate-900 text-white rounded">READY</span>
+                                <span
+                                    class="px-2 py-0.5 text-[8px] font-bold bg-slate-900 text-white rounded">READY</span>
                             </div>
 
                             <div class="border border-slate-300 rounded-lg p-2.5 text-center space-y-0.5 bg-slate-50">
@@ -1678,47 +1990,67 @@
                             </div>
 
                             <!-- PROMINENT HIGH-CONTRAST DYNAMIC QR CODE -->
-                            <div class="border-2 border-slate-900 rounded-xl p-3 text-center space-y-2 bg-white shadow-sm">
-                                <div class="w-36 h-36 bg-slate-900 mx-auto p-2 rounded-lg flex items-center justify-center">
+                            <div
+                                class="border-2 border-slate-900 rounded-xl p-3 text-center space-y-2 bg-white shadow-sm">
+                                <div
+                                    class="w-36 h-36 bg-slate-900 mx-auto p-2 rounded-lg flex items-center justify-center">
                                     <svg viewBox="0 0 100 100" class="w-full h-full fill-white">
-                                        <rect x="5" y="5" width="25" height="25" fill="white"/><rect x="9" y="9" width="17" height="17" fill="black"/><rect x="13" y="13" width="9" height="9" fill="white"/>
-                                        <rect x="70" y="5" width="25" height="25" fill="white"/><rect x="74" y="9" width="17" height="17" fill="black"/><rect x="78" y="13" width="9" height="9" fill="white"/>
-                                        <rect x="5" y="70" width="25" height="25" fill="white"/><rect x="9" y="74" width="17" height="17" fill="black"/><rect x="13" y="78" width="9" height="9" fill="white"/>
-                                        <rect x="35" y="10" width="8" height="8" fill="white"/><rect x="50" y="10" width="8" height="8" fill="white"/>
-                                        <rect x="40" y="30" width="20" height="20" fill="white"/><rect x="45" y="35" width="10" height="10" fill="black"/>
-                                        <rect x="68" y="38" width="12" height="12" fill="white"/><rect x="38" y="68" width="12" height="12" fill="white"/>
+                                        <rect x="5" y="5" width="25" height="25" fill="white" />
+                                        <rect x="9" y="9" width="17" height="17" fill="black" />
+                                        <rect x="13" y="13" width="9" height="9" fill="white" />
+                                        <rect x="70" y="5" width="25" height="25" fill="white" />
+                                        <rect x="74" y="9" width="17" height="17" fill="black" />
+                                        <rect x="78" y="13" width="9" height="9" fill="white" />
+                                        <rect x="5" y="70" width="25" height="25" fill="white" />
+                                        <rect x="9" y="74" width="17" height="17" fill="black" />
+                                        <rect x="13" y="78" width="9" height="9" fill="white" />
+                                        <rect x="35" y="10" width="8" height="8" fill="white" />
+                                        <rect x="50" y="10" width="8" height="8" fill="white" />
+                                        <rect x="40" y="30" width="20" height="20" fill="white" />
+                                        <rect x="45" y="35" width="10" height="10" fill="black" />
+                                        <rect x="68" y="38" width="12" height="12" fill="white" />
+                                        <rect x="38" y="68" width="12" height="12" fill="white" />
                                     </svg>
                                 </div>
                                 <span class="text-[10px] font-mono font-bold text-slate-900 block">SWP-QR-8842-NL</span>
 
                                 <div class="grid grid-cols-2 gap-1.5 pt-0.5">
-                                    <button class="bg-black text-white py-1 px-2 rounded text-[8px] font-bold">Apple Wallet</button>
-                                    <button class="border border-slate-300 text-slate-800 py-1 px-2 rounded text-[8px] font-bold">Google Wallet</button>
+                                    <button class="bg-black text-white py-1 px-2 rounded text-[8px] font-bold">Apple
+                                        Wallet</button>
+                                    <button
+                                        class="border border-slate-300 text-slate-800 py-1 px-2 rounded text-[8px] font-bold">Google
+                                        Wallet</button>
                                 </div>
                             </div>
 
                             <!-- OPERATIONAL TURNSTILE TIMER RULE BANNER -->
-                            <div class="border border-slate-300 bg-slate-50 rounded-lg p-2.5 text-[10px] text-slate-700 space-y-1">
+                            <div
+                                class="border border-slate-300 bg-slate-50 rounded-lg p-2.5 text-[10px] text-slate-700 space-y-1">
                                 <div class="flex items-center gap-1 font-bold text-slate-900">
                                     <i class="fa-solid fa-qrcode text-slate-800"></i>
                                     <span>Cold-Hall Turnstile Scan Logic:</span>
                                 </div>
                                 <p class="leading-tight text-slate-600">
-                                    "Scanning this QR code at the cold-hall entrance turnstile logs your official <strong>slope_entry_timestamp</strong> and starts your 2-hour countdown timer."
+                                    "Scanning this QR code at the cold-hall entrance turnstile logs your official
+                                    <strong>slope_entry_timestamp</strong> and starts your 2-hour countdown timer."
                                 </p>
                             </div>
                         </div>
 
-                        <button onclick="highlightScreen(16)" class="wf-btn-dark py-2.5 text-xs">[Simulate Entrance Scan] Start Timer (19:30) <i class="fa-solid fa-qrcode ml-1"></i></button>
+                        <button onclick="highlightScreen(16)" class="wf-btn-dark py-2.5 text-xs">[Simulate Entrance
+                            Scan] Start Timer (19:30) <i class="fa-solid fa-qrcode ml-1"></i></button>
                     </div>
 
-                    <div class="phone-footer-bar"><div class="home-indicator"></div></div>
+                    <div class="phone-footer-bar">
+                        <div class="home-indicator"></div>
+                    </div>
                 </div>
 
                 <div class="screen-meta-box">
                     <p class="font-bold text-slate-900">UX Notes & Rules:</p>
                     <ul class="list-disc pl-4 space-y-1 mt-1">
-                        <li>Rule 15: Cold-hall turnstile scan logs official slope_entry_timestamp and starts countdown timer.</li>
+                        <li>Rule 15: Cold-hall turnstile scan logs official slope_entry_timestamp and starts countdown
+                            timer.</li>
                         <li>High-contrast dynamic QR with lockscreen Apple/Google Wallet support.</li>
                     </ul>
                 </div>
@@ -1729,20 +2061,28 @@
             <div class="screen-wrapper flex flex-col items-center" data-phase="phase3" id="screen-container-16">
                 <div class="w-[360px] mb-2 flex items-center justify-between">
                     <div class="flex items-center space-x-2">
-                        <span class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">16</span>
-                        <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wide">Exit Turnstile Check-Out</h3>
+                        <span
+                            class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">16</span>
+                        <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wide">Exit Turnstile Check-Out
+                        </h3>
                     </div>
                     <span class="text-[10px] font-semibold text-slate-500 uppercase">Phase 3: Lifecycle</span>
                 </div>
 
                 <div class="mobile-screen-frame" id="screen-16">
-                    <div class="phone-status-bar"><span>9:41</span><div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div></div>
+                    <div class="phone-status-bar"><span>9:41</span>
+                        <div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i
+                                class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div>
+                    </div>
 
                     <div class="phone-content p-3 space-y-3 flex-1 flex flex-col justify-between text-xs">
                         <div class="space-y-3">
                             <div class="flex items-center justify-between text-slate-700">
-                                <div class="flex items-center space-x-2"><i class="fa-solid fa-chevron-left text-xs"></i><span class="font-bold text-xs">Active Session Lifecycle</span></div>
-                                <span class="px-2 py-0.5 text-[9px] font-bold bg-slate-900 text-white rounded">ON SLOPE</span>
+                                <div class="flex items-center space-x-2"><i
+                                        class="fa-solid fa-chevron-left text-xs"></i><span
+                                        class="font-bold text-xs">Active Session Lifecycle</span></div>
+                                <span class="px-2 py-0.5 text-[9px] font-bold bg-slate-900 text-white rounded">ON
+                                    SLOPE</span>
                             </div>
 
                             <!-- ACTIVE SESSION TIMESTAMP LOG -->
@@ -1770,21 +2110,26 @@
                             </div>
 
                             <!-- OPERATIONAL EXPLANATION -->
-                            <div class="border border-slate-300 bg-slate-50 rounded-lg p-2.5 text-[10px] text-slate-700 space-y-1">
+                            <div
+                                class="border border-slate-300 bg-slate-50 rounded-lg p-2.5 text-[10px] text-slate-700 space-y-1">
                                 <div class="flex items-center gap-1 font-bold text-slate-900">
                                     <i class="fa-solid fa-right-from-bracket text-slate-800"></i>
                                     <span>Frictionless Exit Turnstile Scan:</span>
                                 </div>
                                 <p class="leading-tight text-slate-600">
-                                    "User scans QR code at the exit turnstile upon leaving the snow hall, logging <strong>slope_exit_timestamp</strong>. No offline cashier visit required."
+                                    "User scans QR code at the exit turnstile upon leaving the snow hall, logging
+                                    <strong>slope_exit_timestamp</strong>. No offline cashier visit required."
                                 </p>
                             </div>
                         </div>
 
-                        <button onclick="highlightScreen(17)" class="wf-btn-dark py-2.5 text-xs">[Scan Exit Turnstile] Log Exit & Validate Time <i class="fa-solid fa-right-from-bracket ml-1"></i></button>
+                        <button onclick="highlightScreen(17)" class="wf-btn-dark py-2.5 text-xs">[Scan Exit Turnstile]
+                            Log Exit & Validate Time <i class="fa-solid fa-right-from-bracket ml-1"></i></button>
                     </div>
 
-                    <div class="phone-footer-bar"><div class="home-indicator"></div></div>
+                    <div class="phone-footer-bar">
+                        <div class="home-indicator"></div>
+                    </div>
                 </div>
 
                 <div class="screen-meta-box">
@@ -1801,30 +2146,43 @@
             <div class="screen-wrapper flex flex-col items-center" data-phase="phase3" id="screen-container-17">
                 <div class="w-[360px] mb-2 flex items-center justify-between">
                     <div class="flex items-center space-x-2">
-                        <span class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">17</span>
-                        <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wide">Automated Overtime Settlement</h3>
+                        <span
+                            class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">17</span>
+                        <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wide">Automated Overtime
+                            Settlement</h3>
                     </div>
                     <span class="text-[10px] font-semibold text-slate-500 uppercase">Phase 3: Lifecycle</span>
                 </div>
 
                 <div class="mobile-screen-frame" id="screen-17">
-                    <div class="phone-status-bar"><span>9:41</span><div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div></div>
+                    <div class="phone-status-bar"><span>9:41</span>
+                        <div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i
+                                class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div>
+                    </div>
 
                     <div class="phone-content p-3 space-y-3 flex-1 flex flex-col justify-between text-xs">
                         <div class="space-y-3">
                             <div class="flex items-center justify-between">
-                                <span class="font-extrabold text-sm text-slate-900">Duration & Overtime Calculation</span>
-                                <span class="px-2 py-0.5 text-[8px] font-bold bg-slate-900 text-white rounded">AUTO-SETTLED</span>
+                                <span class="font-extrabold text-sm text-slate-900">Duration & Overtime
+                                    Calculation</span>
+                                <span
+                                    class="px-2 py-0.5 text-[8px] font-bold bg-slate-900 text-white rounded">AUTO-SETTLED</span>
                             </div>
 
                             <!-- DURATION BREAKDOWN BOX WITH 15-MIN GRACE WINDOW -->
-                            <div class="border border-slate-300 rounded-lg p-3 space-y-1.5 font-mono bg-slate-50 text-[11px]">
-                                <div class="flex justify-between"><span class="font-sans text-slate-500">Booked Pass Time:</span><strong>120 min (2h)</strong></div>
-                                <div class="flex justify-between"><span class="font-sans text-slate-500">Actual Elapsed Time:</span><strong>165 min (2h 45m)</strong></div>
-                                <div class="flex justify-between text-slate-700 font-sans border-t border-slate-200 pt-1">
-                                    <span>Built-in Grace Period:</span><strong class="text-slate-900 font-mono">15 Mins (Free)</strong>
+                            <div
+                                class="border border-slate-300 rounded-lg p-3 space-y-1.5 font-mono bg-slate-50 text-[11px]">
+                                <div class="flex justify-between"><span class="font-sans text-slate-500">Booked Pass
+                                        Time:</span><strong>120 min (2h)</strong></div>
+                                <div class="flex justify-between"><span class="font-sans text-slate-500">Actual Elapsed
+                                        Time:</span><strong>165 min (2h 45m)</strong></div>
+                                <div
+                                    class="flex justify-between text-slate-700 font-sans border-t border-slate-200 pt-1">
+                                    <span>Built-in Grace Period:</span><strong class="text-slate-900 font-mono">15 Mins
+                                        (Free)</strong>
                                 </div>
-                                <div class="flex justify-between border-t border-slate-200 pt-1 font-bold text-slate-900">
+                                <div
+                                    class="flex justify-between border-t border-slate-200 pt-1 font-bold text-slate-900">
                                     <span class="font-sans">Billable Overtime:</span>
                                     <span>30 Mins (2 x 15m @ €5)</span>
                                 </div>
@@ -1833,34 +2191,44 @@
                             <!-- AUTOMATED CHARGE & TURNSTILE UNLOCK DISPLAY -->
                             <div class="border-2 border-slate-900 rounded-lg p-3 space-y-2 bg-white">
                                 <div class="flex items-center justify-between">
-                                    <span class="text-[10px] font-extrabold text-slate-900 uppercase">CARD-ON-FILE AUTO-CHARGE</span>
+                                    <span class="text-[10px] font-extrabold text-slate-900 uppercase">CARD-ON-FILE
+                                        AUTO-CHARGE</span>
                                     <span class="font-mono font-extrabold text-slate-900 text-sm">€10.00</span>
                                 </div>
                                 <p class="text-[10px] text-slate-600 leading-tight">
-                                    "Overtime fee of <strong>€10.00</strong> charged automatically to card-on-file (Visa •••• 4242 token)."
+                                    "Overtime fee of <strong>€10.00</strong> charged automatically to card-on-file (Visa
+                                    •••• 4242 token)."
                                 </p>
-                                <div class="bg-slate-900 text-white p-2 rounded-lg text-center flex items-center justify-center gap-2">
+                                <div
+                                    class="bg-slate-900 text-white p-2 rounded-lg text-center flex items-center justify-center gap-2">
                                     <i class="fa-solid fa-circle-check text-white text-sm"></i>
                                     <span class="font-bold text-xs">Turnstile Green: Overtime Settled (€10.00)</span>
                                 </div>
                             </div>
 
                             <!-- GRACE WINDOW RULE NOTICE -->
-                            <div class="border border-slate-200 bg-slate-50 rounded-lg p-2 text-[9px] text-slate-600 leading-tight">
-                                <strong>Netherlands SnowWorld Standard:</strong> If <code>(actual_time - booked_time) &le; 15 mins</code>, overtime charge is €0.00. Turnstile unlocks instantly without cashier queue.
+                            <div
+                                class="border border-slate-200 bg-slate-50 rounded-lg p-2 text-[9px] text-slate-600 leading-tight">
+                                <strong>Netherlands SnowWorld Standard:</strong> If
+                                <code>(actual_time - booked_time) &le; 15 mins</code>, overtime charge is €0.00.
+                                Turnstile unlocks instantly without cashier queue.
                             </div>
                         </div>
 
-                        <button onclick="highlightScreen(18)" class="wf-btn-dark py-2.5 text-xs">View Final Itemized Receipt <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                        <button onclick="highlightScreen(18)" class="wf-btn-dark py-2.5 text-xs">View Final Itemized
+                            Receipt <i class="fa-solid fa-arrow-right ml-1"></i></button>
                     </div>
 
-                    <div class="phone-footer-bar"><div class="home-indicator"></div></div>
+                    <div class="phone-footer-bar">
+                        <div class="home-indicator"></div>
+                    </div>
                 </div>
 
                 <div class="screen-meta-box">
                     <p class="font-bold text-slate-900">UX Notes & Rules:</p>
                     <ul class="list-disc pl-4 space-y-1 mt-1">
-                        <li>Rule 17: Built-in 15-minute grace period applied. Overtime charged directly to card-on-file. Turnstile unlocks instantly with green indicator.</li>
+                        <li>Rule 17: Built-in 15-minute grace period applied. Overtime charged directly to card-on-file.
+                            Turnstile unlocks instantly with green indicator.</li>
                     </ul>
                 </div>
             </div>
@@ -1870,18 +2238,24 @@
             <div class="screen-wrapper flex flex-col items-center" data-phase="phase3" id="screen-container-18">
                 <div class="w-[360px] mb-2 flex items-center justify-between">
                     <div class="flex items-center space-x-2">
-                        <span class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">18</span>
+                        <span
+                            class="bg-slate-900 text-white font-mono text-xs font-bold px-2 py-0.5 rounded-md">18</span>
                         <h3 class="font-bold text-sm text-slate-900 uppercase tracking-wide">Event Completed</h3>
                     </div>
                     <span class="text-[10px] font-semibold text-slate-500 uppercase">Phase 3: Lifecycle</span>
                 </div>
 
                 <div class="mobile-screen-frame" id="screen-18">
-                    <div class="phone-status-bar"><span>9:41</span><div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div></div>
+                    <div class="phone-status-bar"><span>9:41</span>
+                        <div class="flex items-center space-x-1.5 text-[10px]"><i class="fa-solid fa-signal"></i><i
+                                class="fa-solid fa-wifi"></i><i class="fa-solid fa-battery-full"></i></div>
+                    </div>
 
                     <div class="phone-content p-4 space-y-4 flex-1 flex flex-col justify-between text-center text-xs">
                         <div class="space-y-3 pt-2">
-                            <div class="w-12 h-12 bg-slate-900 text-white rounded-full flex items-center justify-center mx-auto text-xl font-bold">✓</div>
+                            <div
+                                class="w-12 h-12 bg-slate-900 text-white rounded-full flex items-center justify-center mx-auto text-xl font-bold">
+                                ✓</div>
 
                             <div>
                                 <h4 class="font-extrabold text-base text-slate-900">Session Completed</h4>
@@ -1889,32 +2263,44 @@
                             </div>
 
                             <!-- ITEMIZED FINAL BREAKDOWN -->
-                            <div class="border border-slate-300 rounded-lg p-3 text-left space-y-1.5 font-mono bg-slate-50 text-[10px]">
-                                <span class="font-sans font-bold text-slate-400 uppercase text-[9px] block">FINAL ITEMIZED INVOICE</span>
-                                <div class="flex justify-between"><span>2h Netherlands Ski Pass:</span><span>€42.00</span></div>
-                                <div class="flex justify-between"><span>Rental Gear & Locker Bundle:</span><span>€29.00</span></div>
-                                <div class="flex justify-between"><span>Private 1-on-1 Lesson Add-on:</span><span>€45.00</span></div>
-                                <div class="flex justify-between text-slate-700"><span>Turnstile Overtime (30m):</span><span>€10.00 (Auto-Settled)</span></div>
-                                <div class="flex justify-between border-t border-slate-200 pt-1 font-extrabold text-slate-900 text-xs">
+                            <div
+                                class="border border-slate-300 rounded-lg p-3 text-left space-y-1.5 font-mono bg-slate-50 text-[10px]">
+                                <span class="font-sans font-bold text-slate-400 uppercase text-[9px] block">FINAL
+                                    ITEMIZED INVOICE</span>
+                                <div class="flex justify-between"><span>2h Netherlands Ski
+                                        Pass:</span><span>€42.00</span></div>
+                                <div class="flex justify-between"><span>Rental Gear & Locker
+                                        Bundle:</span><span>€29.00</span></div>
+                                <div class="flex justify-between"><span>Private 1-on-1 Lesson
+                                        Add-on:</span><span>€45.00</span></div>
+                                <div class="flex justify-between text-slate-700"><span>Turnstile Overtime
+                                        (30m):</span><span>€10.00 (Auto-Settled)</span></div>
+                                <div
+                                    class="flex justify-between border-t border-slate-200 pt-1 font-extrabold text-slate-900 text-xs">
                                     <span class="font-sans">Grand Total Paid:</span><span>€126.00</span>
                                 </div>
                             </div>
 
-                            <button class="wf-btn-outline py-2 text-xs font-bold w-full flex items-center justify-center gap-1">
+                            <button
+                                class="wf-btn-outline py-2 text-xs font-bold w-full flex items-center justify-center gap-1">
                                 <i class="fa-solid fa-file-pdf text-slate-700"></i> Download Instant PDF Invoice
                             </button>
                         </div>
 
-                        <button onclick="filterPhase('all')" class="wf-btn-dark py-2.5 text-xs">[Done] Return to Home</button>
+                        <button onclick="filterPhase('all')" class="wf-btn-dark py-2.5 text-xs">[Done] Return to
+                            Home</button>
                     </div>
 
-                    <div class="phone-footer-bar"><div class="home-indicator"></div></div>
+                    <div class="phone-footer-bar">
+                        <div class="home-indicator"></div>
+                    </div>
                 </div>
 
                 <div class="screen-meta-box">
                     <p class="font-bold text-slate-900">UX Notes & Rules:</p>
                     <ul class="list-disc pl-4 space-y-1 mt-1">
-                        <li>Rule 18: Final itemized receipt including base pass, rental gear, lesson add-on, and auto-settled turnstile overtime with instant invoice download.</li>
+                        <li>Rule 18: Final itemized receipt including base pass, rental gear, lesson add-on, and
+                            auto-settled turnstile overtime with instant invoice download.</li>
                     </ul>
                 </div>
             </div>
@@ -1923,25 +2309,32 @@
     </main>
 
     <!-- STEP PROTOTYPE SIMULATOR MODAL -->
-    <div id="interactiveSimModal" class="fixed inset-0 bg-slate-900/70 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-lg w-full p-5 shadow-2xl border border-slate-200 flex flex-col max-h-[95vh]">
+    <div id="interactiveSimModal"
+        class="fixed inset-0 bg-slate-900/70 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
+        <div
+            class="bg-white rounded-2xl max-w-lg w-full p-5 shadow-2xl border border-slate-200 flex flex-col max-h-[95vh]">
             <!-- Modal Header -->
             <div class="flex items-center justify-between border-b border-slate-200 pb-3 shrink-0">
                 <div class="flex items-center space-x-2">
-                    <div class="w-8 h-8 bg-slate-900 text-white rounded-lg flex items-center justify-center text-sm font-bold">
+                    <div
+                        class="w-8 h-8 bg-slate-900 text-white rounded-lg flex items-center justify-center text-sm font-bold">
                         <i class="fa-solid fa-mobile-screen"></i>
                     </div>
                     <div>
                         <h3 class="font-extrabold text-sm text-slate-900">Netherlands SnowWorld Flow Simulator</h3>
-                        <p class="text-[10px] text-slate-500 font-medium">Click buttons inside screen or use Next/Prev</p>
+                        <p class="text-[10px] text-slate-500 font-medium">Click buttons inside screen or use Next/Prev
+                        </p>
                     </div>
                 </div>
-                <button onclick="closeInteractiveSim()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-900 font-bold transition-colors">✕</button>
+                <button onclick="closeInteractiveSim()"
+                    class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-900 font-bold transition-colors">✕</button>
             </div>
 
             <!-- Screen Jump Selector & Step Bar -->
-            <div class="flex items-center justify-between bg-slate-100 p-2 my-3 rounded-xl font-mono text-xs border border-slate-200 shrink-0 gap-2">
-                <select id="simScreenSelect" onchange="jumpToSimIndex(parseInt(this.value))" class="bg-white text-slate-900 font-sans font-bold text-xs border border-slate-300 rounded-lg px-2 py-1 outline-none flex-1 max-w-[240px]">
+            <div
+                class="flex items-center justify-between bg-slate-100 p-2 my-3 rounded-xl font-mono text-xs border border-slate-200 shrink-0 gap-2">
+                <select id="simScreenSelect" onchange="jumpToSimIndex(parseInt(this.value))"
+                    class="bg-white text-slate-900 font-sans font-bold text-xs border border-slate-300 rounded-lg px-2 py-1 outline-none flex-1 max-w-[240px]">
                     <option value="0">01 — Select Ski Date(s)</option>
                     <option value="1">02 — Select Indoor Ski Hall</option>
                     <option value="2">03 — Indoor Asset Details</option>
@@ -1965,24 +2358,32 @@
 
                 <div class="flex items-center gap-2 shrink-0">
                     <span id="simStepOptional" class="tag-optional hidden">OPTIONAL STEP</span>
-                    <span class="bg-slate-900 text-white px-2 py-0.5 rounded text-[11px] font-bold" id="simStepCounter">1 / 19</span>
+                    <span class="bg-slate-900 text-white px-2 py-0.5 rounded text-[11px] font-bold"
+                        id="simStepCounter">1 / 19</span>
                 </div>
             </div>
 
             <!-- Phone Viewport Box -->
             <div class="flex-1 flex items-center justify-center overflow-hidden py-1">
-                <div class="w-[340px] h-[540px] bg-white border-2 border-slate-800 rounded-[28px] shadow-xl flex flex-col overflow-hidden relative" id="simPhoneBox">
+                <div class="w-[340px] h-[540px] bg-white border-2 border-slate-800 rounded-[28px] shadow-xl flex flex-col overflow-hidden relative"
+                    id="simPhoneBox">
                     <div id="simPhoneTarget" class="w-full h-full flex flex-col overflow-y-auto"></div>
                 </div>
             </div>
 
             <!-- Footer Controls -->
             <div class="flex items-center justify-between pt-3 border-t border-slate-200 shrink-0">
-                <button onclick="simPrevStep()" id="simPrevBtn" class="wf-btn-outline text-xs px-4 py-2 w-auto flex items-center gap-1 font-bold">
+                <button onclick="simPrevStep()" id="simPrevBtn"
+                    class="wf-btn-outline text-xs px-4 py-2 w-auto flex items-center gap-1 font-bold">
                     <i class="fa-solid fa-arrow-left"></i> Previous
                 </button>
-                <div class="text-[11px] font-medium text-slate-400">Use <kbd class="px-1.5 py-0.5 bg-slate-100 border border-slate-300 rounded font-mono text-[10px] text-slate-700">←</kbd> <kbd class="px-1.5 py-0.5 bg-slate-100 border border-slate-300 rounded font-mono text-[10px] text-slate-700">→</kbd> keys</div>
-                <button onclick="simNextStep()" id="simNextBtn" class="wf-btn-dark text-xs px-4 py-2 w-auto flex items-center gap-1 font-bold">
+                <div class="text-[11px] font-medium text-slate-400">Use <kbd
+                        class="px-1.5 py-0.5 bg-slate-100 border border-slate-300 rounded font-mono text-[10px] text-slate-700">←</kbd>
+                    <kbd
+                        class="px-1.5 py-0.5 bg-slate-100 border border-slate-300 rounded font-mono text-[10px] text-slate-700">→</kbd>
+                    keys</div>
+                <button onclick="simNextStep()" id="simNextBtn"
+                    class="wf-btn-dark text-xs px-4 py-2 w-auto flex items-center gap-1 font-bold">
                     Next <i class="fa-solid fa-arrow-right"></i>
                 </button>
             </div>
@@ -1990,35 +2391,66 @@
     </div>
 
     <!-- BUSINESS RULES MODAL -->
-    <div id="rulesModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl border border-slate-200 space-y-4 max-h-[85vh] flex flex-col">
+    <div id="rulesModal"
+        class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
+        <div
+            class="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl border border-slate-200 space-y-4 max-h-[85vh] flex flex-col">
             <div class="flex items-center justify-between border-b border-slate-200 pb-3 shrink-0">
                 <div class="flex items-center space-x-2">
                     <i class="fa-solid fa-list-check text-slate-900 text-lg"></i>
-                    <h3 class="font-extrabold text-base text-slate-900">18 Business Rules Reference (Netherlands SnowWorld Standard)</h3>
+                    <h3 class="font-extrabold text-base text-slate-900">18 Business Rules Reference (Netherlands
+                        SnowWorld Standard)</h3>
                 </div>
-                <button onclick="toggleRulesModal()" class="text-slate-400 hover:text-slate-900 text-lg font-bold">✕</button>
+                <button onclick="toggleRulesModal()"
+                    class="text-slate-400 hover:text-slate-900 text-lg font-bold">✕</button>
             </div>
 
             <div class="overflow-y-auto space-y-2 pr-2 text-xs font-medium text-slate-700 flex-1">
-                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">1.</strong> The current date must be selected by default when entering the skiing booking flow.</div>
-                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">2.</strong> The user must select an Indoor Snow Dome Asset before configuring pass.</div>
-                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">3.</strong> Facility specs focus strictly on indoor snow dome metrics (Slope length, vertical drop, temperature -2°C, real snow, magic carpet counts, capacity).</div>
-                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">4.</strong> Simplified pass selection exposes segmented duration (1h, 2h, 4h Evening, Full Day), 2-hour arrival windows, and quick gear bundle toggle.</div>
-                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">5.</strong> Primary skier details configured for pass authorization.</div>
-                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">6.</strong> Skier category (Adult, Youth, Child, Senior) selected per individual skier.</div>
-                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">7.</strong> Lightweight optional lesson request module attaches unassigned data tag for front-desk coach allocation.</div>
-                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">8.</strong> Adding additional skiers is OPTIONAL; user can book alone.</div>
-                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">9.</strong> A. Book for friend (Primary Skier configures) OR B. Invite friend (Friend configures asynchronously).</div>
-                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">10.</strong> Minimal equipment & locker selection without complex DIN binding or biometric forms.</div>
-                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">11.</strong> Complete booking summary and itemized price breakdown displayed before payment.</div>
-                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">12.</strong> Simple legal compliance via standard Terms & Conditions & Indoor Safety Rules checkbox.</div>
-                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">13.</strong> Payment authorization securely tokenizes payment method (Card / Apple Pay / Google Pay / iDEAL mandate) for slope access & overtime settlement.</div>
-                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">14.</strong> Confirmed booking generates high-contrast dynamic QR Code with Apple/Google Wallet integration.</div>
-                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">15.</strong> Cold-hall turnstile scan logs slope_entry_timestamp and starts session countdown timer.</div>
-                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">16.</strong> Exit turnstile scan logs slope_exit_timestamp, measuring total session duration without offline cashier visits.</div>
-                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">17.</strong> 15-minute grace period applied. Overtime fee automatically charged to card-on-file; turnstile unlocks with green indicator.</div>
-                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">18.</strong> Final completed state shows itemized receipt with base pass, rentals, lesson add-on, and auto-settled overtime charge, with instant invoice download.</div>
+                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">1.</strong>
+                    The current date must be selected by default when entering the skiing booking flow.</div>
+                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">2.</strong>
+                    The user must select an Indoor Snow Dome Asset before configuring pass.</div>
+                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">3.</strong>
+                    Facility specs focus strictly on indoor snow dome metrics (Slope length, vertical drop, temperature
+                    -2°C, real snow, magic carpet counts, capacity).</div>
+                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">4.</strong>
+                    Simplified pass selection exposes segmented duration (1h, 2h, 4h Evening, Full Day), 2-hour arrival
+                    windows, and quick gear bundle toggle.</div>
+                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">5.</strong>
+                    Primary skier details configured for pass authorization.</div>
+                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">6.</strong>
+                    Skier category (Adult, Youth, Child, Senior) selected per individual skier.</div>
+                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">7.</strong>
+                    Lightweight optional lesson request module attaches unassigned data tag for front-desk coach
+                    allocation.</div>
+                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">8.</strong>
+                    Adding additional skiers is OPTIONAL; user can book alone.</div>
+                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">9.</strong>
+                    A. Book for friend (Primary Skier configures) OR B. Invite friend (Friend configures
+                    asynchronously).</div>
+                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">10.</strong>
+                    Minimal equipment & locker selection without complex DIN binding or biometric forms.</div>
+                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">11.</strong>
+                    Complete booking summary and itemized price breakdown displayed before payment.</div>
+                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">12.</strong>
+                    Simple legal compliance via standard Terms & Conditions & Indoor Safety Rules checkbox.</div>
+                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">13.</strong>
+                    Payment authorization securely tokenizes payment method (Card / Apple Pay / Google Pay / iDEAL
+                    mandate) for slope access & overtime settlement.</div>
+                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">14.</strong>
+                    Confirmed booking generates high-contrast dynamic QR Code with Apple/Google Wallet integration.
+                </div>
+                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">15.</strong>
+                    Cold-hall turnstile scan logs slope_entry_timestamp and starts session countdown timer.</div>
+                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">16.</strong>
+                    Exit turnstile scan logs slope_exit_timestamp, measuring total session duration without offline
+                    cashier visits.</div>
+                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">17.</strong>
+                    15-minute grace period applied. Overtime fee automatically charged to card-on-file; turnstile
+                    unlocks with green indicator.</div>
+                <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg"><strong class="font-mono">18.</strong>
+                    Final completed state shows itemized receipt with base pass, rentals, lesson add-on, and
+                    auto-settled overtime charge, with instant invoice download.</div>
             </div>
 
             <div class="pt-2 border-t border-slate-200 text-right">
@@ -2028,17 +2460,18 @@
     </div>
 
     <!-- JAVASCRIPT FOR INTERACTIVITY -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script>
         let currentSimIndex = 0;
         const screenOrder = [1, 2, 3, 4, 5, 6, 7, 8, '9a', '9b', 10, 11, 12, 13, 14, 15, 16, 17, 18];
 
         function filterPhase(phase) {
             document.querySelectorAll('.phase-pill').forEach(btn => btn.classList.remove('active'));
-            if(phase === 'all') document.getElementById('btnFilterAll').classList.add('active');
-            if(phase === 'phase1') document.getElementById('btnFilterP1').classList.add('active');
-            if(phase === 'phase2') document.getElementById('btnFilterP2').classList.add('active');
-            if(phase === 'phase3') document.getElementById('btnFilterP3').classList.add('active');
-            if(phase === 'optional') document.getElementById('btnFilterOpt').classList.add('active');
+            if (phase === 'all') document.getElementById('btnFilterAll').classList.add('active');
+            if (phase === 'phase1') document.getElementById('btnFilterP1').classList.add('active');
+            if (phase === 'phase2') document.getElementById('btnFilterP2').classList.add('active');
+            if (phase === 'phase3') document.getElementById('btnFilterP3').classList.add('active');
+            if (phase === 'optional') document.getElementById('btnFilterOpt').classList.add('active');
 
             const wrappers = document.querySelectorAll('.screen-wrapper');
             let count = 0;
@@ -2208,5 +2641,11 @@
             filterPhase('all');
         });
     </script>
+    <script type="module"
+        src="https://static.cloudflareinsights.com/beacon.min.js/v3d52b47920f24c319d37e2661827c42b1787588026925"
+        integrity="sha512-d9sL6GJLXn6fInD1+TVXhTcQOsmxeHfmHAvwGDIxp5TO+uo1fiWW7mHomMj4MLRlCsJDTqXzWLHJFFlPCEIj/A=="
+        data-cf-beacon='{"version":"2024.11.0","token":"e3c1c9af36de41759418005494a48906","r":1}'
+        crossorigin="anonymous"></script>
 </body>
+
 </html>

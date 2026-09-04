@@ -1076,22 +1076,22 @@
 
     <!-- STEP TRACKER -->
     <div class="step-tracker">
-      <!-- <div class="step-item">
+      <div class="step-item">
         <span class="step-num-title">1. Booking Rules</span>
         <span class="step-desc">Configure behavior</span>
-      </div> -->
+      </div>
       <div class="step-item is-active">
         <span class="step-num-title">2. Pricing &amp; Cancellation</span>
         <span class="step-desc">Set pricing and fees</span>
       </div>
-      <!-- <div class="step-item">
+      <div class="step-item">
         <span class="step-num-title">3. Assets</span>
         <span class="step-desc">Add facilities</span>
       </div>
       <div class="step-item">
         <span class="step-num-title">4. Equipment</span>
         <span class="step-desc">Manage inventory</span>
-      </div> -->
+      </div>
     </div>
 
     <!-- NOTICE -->
@@ -1404,6 +1404,79 @@
                 <input type="text" class="form-control" data-field="noshowFee" placeholder="e.g., 50">
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACCORDION ITEM 5: TURNSTILE OVERTIME, EXTENSION & BUNDLE PRICING (TOGGLEABLE) -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+          <div class="accordion-title-group">
+            <div class="accordion-title">
+              <span class="accordion-num">6</span>
+              Indoor Skiing Overtime, Pass Extension & Rental Bundles
+            </div>
+            <div class="accordion-subtitle">Configure automated turnstile overage rates, session upgrades, & gear bundle discounts</div>
+          </div>
+          <div class="accordion-toggle-group">
+            <span class="accordion-expand-icon">▼</span>
+          </div>
+        </div>
+        <div class="accordion-content">
+          <div class="accordion-body">
+
+            <!-- Toggle 1: Overtime Turnstile Surcharge -->
+            <div class="toggle-section" style="background:#F8FAFC; border:1px solid #E5E5E5; border-radius:8px; padding:16px; margin-bottom:16px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                <div>
+                  <div style="font-weight:700; font-size:14px;">Automated Turnstile Overtime Surcharge</div>
+                  <div style="font-size:12px; color:#687076;">Charge player upon exit turnstile scan if time on snow exceeds booked ticket limit</div>
+                </div>
+                <label class="swp-switch">
+                  <input type="checkbox" id="toggleOvertimeSurcharge" data-field="overtimeSurchargeEnabled" checked>
+                  <span class="slider-track"></span>
+                </label>
+              </div>
+              <div class="form-grid-3">
+                <div class="field-group">
+                  <label class="field-label">Overage Rate (€ per 15 mins)</label>
+                  <input type="number" class="form-control" data-field="overtimeRatePer15" value="5.00" placeholder="5.00">
+                </div>
+                <div class="field-group">
+                  <label class="field-label">Maximum Overage Cap (€)</label>
+                  <input type="number" class="form-control" data-field="overtimeMaxCap" value="45.00" placeholder="45.00">
+                </div>
+                <div class="field-group">
+                  <label class="field-label">Penalty Grace Window (Mins)</label>
+                  <input type="number" class="form-control" data-field="overtimeGraceMins" value="15" placeholder="15">
+                </div>
+              </div>
+            </div>
+
+            <!-- Toggle 2: Mid-Session Pass Upgrade Delta -->
+            <div class="toggle-section" style="background:#F8FAFC; border:1px solid #E5E5E5; border-radius:8px; padding:16px; margin-bottom:16px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                <div>
+                  <div style="font-weight:700; font-size:14px;">In-Session Pass Extension Delta Pricing</div>
+                  <div style="font-size:12px; color:#687076;">Allow players to extend 1-hour ticket to 2-hour or Day Pass directly on phone for a price delta</div>
+                </div>
+                <label class="swp-switch">
+                  <input type="checkbox" id="togglePassUpgrade" data-field="passUpgradeEnabled" checked>
+                  <span class="slider-track"></span>
+                </label>
+              </div>
+              <div class="form-grid-2">
+                <div class="field-group">
+                  <label class="field-label">1-Hour to 2-Hour Upgrade Delta (€)</label>
+                  <input type="number" class="form-control" data-field="upgrade1to2Hr" value="12.00" placeholder="12.00">
+                </div>
+                <div class="field-group">
+                  <label class="field-label">2-Hour to Full Day Upgrade Delta (€)</label>
+                  <input type="number" class="form-control" data-field="upgrade2toDay" value="18.00" placeholder="18.00">
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
