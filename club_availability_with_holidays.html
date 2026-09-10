@@ -17,10 +17,89 @@
 
   <div class="max-w-4xl mx-auto space-y-6">
 
+    <!-- 4-STEP WIZARD SETUP TRACKER -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1 bg-slate-200 border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+      <a href="club_availability_with_holidays.html" class="bg-blue-600 text-white p-3.5 flex flex-col no-underline">
+        <span class="text-[11px] font-bold uppercase tracking-wider text-blue-100">Step 1 (Active)</span>
+        <span class="text-sm font-bold">Club Availability &amp; Capacity</span>
+        <span class="text-xs text-blue-200 mt-0.5">Hours, peak calendar &amp; footfall</span>
+      </a>
+      <a href="skiing_packages.html" class="bg-white hover:bg-slate-50 text-slate-700 p-3.5 flex flex-col no-underline transition-colors">
+        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Step 2 (Core)</span>
+        <span class="text-sm font-bold text-slate-900">Package Management</span>
+        <span class="text-xs text-slate-500 mt-0.5">Duration, bundles &amp; pricing</span>
+      </a>
+      <a href="skiing_manage_asset.html#equipment" class="bg-white hover:bg-slate-50 text-slate-700 p-3.5 flex flex-col no-underline transition-colors">
+        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Step 3</span>
+        <span class="text-sm font-bold text-slate-900">Equipment Inventory</span>
+        <span class="text-xs text-slate-500 mt-0.5">Skis, boots, helmets stock</span>
+      </a>
+      <a href="skiing_manage_asset.html" class="bg-white hover:bg-slate-50 text-slate-700 p-3.5 flex flex-col no-underline transition-colors">
+        <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400">Step 4</span>
+        <span class="text-sm font-bold text-slate-900">Facility &amp; Slopes Overview</span>
+        <span class="text-xs text-slate-500 mt-0.5">Informational slope details</span>
+      </a>
+    </div>
+
     <!-- Page Header -->
-    <div>
-      <h1 class="text-2xl font-bold text-gray-900 tracking-tight">Availability</h1>
-      <p class="text-sm text-gray-500 mt-0.5">Set your weekly availability schedule and configure club holidays</p>
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900 tracking-tight">Step 1: Club Availability &amp; Facility Footfall Capacity</h1>
+        <p class="text-sm text-gray-500 mt-0.5">Set facility operating hours, peak/holiday overrides, and whole-hall concurrent footfall limits.</p>
+      </div>
+      <a href="skiing_packages.html" class="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded uppercase tracking-wider transition-colors shadow-sm self-start sm:self-auto no-underline">
+        <span>Go to Step 2: Packages →</span>
+      </a>
+    </div>
+
+    <!-- Facility Footfall Capacity Card (Step 1 Core Requirement) -->
+    <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+      <div class="mb-4">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">🏟️</span>
+          <h2 class="text-base font-bold text-gray-900">Facility Footfall Capacity &amp; Booking Horizon</h2>
+        </div>
+        <p class="text-xs sm:text-sm text-gray-500 mt-1">
+          Indoor ski facilities operate on turnstile footfall limits for the entire dome rather than individual slope reservations.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">
+            Max Concurrent Capacity <span class="text-blue-600 font-bold">*</span>
+          </label>
+          <div class="relative">
+            <input type="number" id="facilityCapacityInput" value="200" min="1" step="1" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <span class="absolute right-3 top-2 text-xs text-gray-400 font-medium">People / Hour</span>
+          </div>
+          <span class="text-[11px] text-gray-500 mt-1 block">Facility-wide concurrent turnstile occupancy threshold</span>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">
+            Advance Booking Window <span class="text-slate-400 text-[10px] font-normal">(Optional)</span>
+          </label>
+          <div class="relative">
+            <input type="number" value="30" min="1" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <span class="absolute right-3 top-2 text-xs text-gray-400 font-medium">Days Ahead</span>
+          </div>
+          <span class="text-[11px] text-gray-500 mt-1 block">Maximum days in advance skiers can purchase passes</span>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-1.5">
+            Cancellation &amp; Refund Policy <span class="text-blue-600 font-bold">*</span>
+          </label>
+          <select class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm text-gray-800 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option selected>Standard Tiered (48h Full / 24h 75% / &lt;24h No Refund)</option>
+            <option>Flexible Pass (24h Full Refund / &lt;24h 50% Credit)</option>
+            <option>Strict (72h Full / &lt;48h No Refund)</option>
+            <option>Season Pass Complimentary Cancellation</option>
+          </select>
+          <span class="text-[11px] text-gray-500 mt-1 block">Standard policy applied across all packages</span>
+        </div>
+      </div>
     </div>
 
     <!-- 1. Weekly Schedule Overview Card -->
@@ -237,6 +316,17 @@
       <div id="holidays-list" class="mt-4 space-y-3">
         <!-- Rendered dynamically by JavaScript -->
       </div>
+    </div>
+
+    <!-- Wizard Next Action Footer -->
+    <div class="flex flex-col sm:flex-row items-center justify-between bg-white rounded-lg border border-gray-200 shadow-sm p-4 gap-3">
+      <div class="text-xs text-gray-500">
+        <span class="font-bold text-gray-700">Step 1 of 4 Completed:</span> Facility operating hours and turnstile footfall limits are configured.
+      </div>
+      <a href="skiing_packages.html" class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs tracking-wider rounded uppercase transition-colors shadow-sm no-underline">
+        <span>Proceed to Step 2: Package Management (Core)</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </a>
     </div>
 
   </div>

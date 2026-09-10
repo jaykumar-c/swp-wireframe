@@ -988,13 +988,19 @@
         </li>
       </ul>
 
-      <!-- CLUB SECTION -->
-      <div class="nav-group-title">Club</div>
+      <!-- CLUB OPERATIONS SECTION -->
+      <div class="nav-group-title">Club Operations</div>
       <ul class="nav-list">
         <li class="nav-item">
-          <a href="#availability" id="nav-availability">
+          <a href="#skiing_packages" id="nav-skiing_packages">
+            <span class="nav-icon">⛷️</span>
+            <span>Sports Rules: Skiing (Unified 6 Tabs)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#skiing-club" id="nav-skiing-club">
             <span class="nav-icon">📅</span>
-            <span>Club Availability & Holidays</span>
+            <span>Skiing Club Calendar &amp; Desk</span>
           </a>
         </li>
         <li class="nav-item">
@@ -1006,25 +1012,13 @@
         <li class="nav-item">
           <a href="#pricing_cancellation" id="nav-pricing_cancellation">
             <span class="nav-icon">🏷️</span>
-            <span>Skiing Pricing & Cancellation</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="#manage_assets" id="nav-manage_assets">
-            <span class="nav-icon">⛷️</span>
-            <span>Manage Skiing Assets</span>
+            <span>Skiing Pricing &amp; Cancellation</span>
           </a>
         </li>
         <li class="nav-item">
           <a href="#skiing_lessons" id="nav-skiing_lessons">
             <span class="nav-icon">🎓</span>
             <span>Skiing Lesson Config</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="#skiing-club" id="nav-skiing-club">
-            <span class="nav-icon">📅</span>
-            <span>Skiing Club Calendar</span>
           </a>
         </li>
       </ul>
@@ -1035,13 +1029,13 @@
         <li class="nav-item">
           <a href="#player_ui" id="nav-player_ui">
             <span class="nav-icon">📱</span>
-            <span>Players Skiing Booking UI</span>
+            <span>Players Skiing Mobile App</span>
           </a>
         </li>
         <li class="nav-item">
           <a href="#player_workflow" id="nav-player_workflow">
             <span class="nav-icon">🔄</span>
-            <span>Players Skiing Workflow</span>
+            <span>Players 18-Screen Workflow</span>
           </a>
         </li>
       </ul>
@@ -1219,24 +1213,58 @@
                 <span>🏔️</span> Club Modules
               </h3>
               <div class="directory-grid">
-                <!-- ITEM 1: CLUB AVAILABILITY WITH HOLIDAYS -->
-                <div class="dir-card" onclick="location.hash='#availability'">
+                <!-- SPORTS RULES: SKIING (UNIFIED 6-TAB SYSTEM) -->
+                <div class="dir-card" onclick="location.hash='#skiing_packages'" style="border: 2px solid #2563EB;">
+                  <div class="dir-card-top">
+                    <div class="dir-card-header">
+                      <div class="dir-card-icon-title">
+                        <span class="dir-icon">⛷️</span>
+                        <h3 class="dir-card-title" style="color: #2563EB;">Sports Rules: Skiing (Unified 6-Tab System)</h3>
+                      </div>
+                      <span class="dir-badge" style="background:#2563EB; color:#FFFFFF;">6-Tab Unified</span>
+                    </div>
+                    <p>Complete sports rules setup: 1. Booking Rules, 2. Create Packages, 3. Create Passes (Multi-Duration), 4. Lessons Config, 5. Equipment Inventory, 6. Facility &amp; Slopes Overview.</p>
+                  </div>
+                  <div class="dir-card-footer">
+                    <span class="dir-link-text" style="color:#2563EB; font-weight:700;">Launch Sports Rules →</span>
+                  </div>
+                </div>
+
+                <!-- FACILITY & SLOPES OVERVIEW (TAB 6) -->
+                <div class="dir-card" onclick="location.hash='#manage_assets'">
+                  <div class="dir-card-top">
+                    <div class="dir-card-header">
+                      <div class="dir-card-icon-title">
+                        <span class="dir-icon">🏔️</span>
+                        <h3 class="dir-card-title">Facility &amp; Slopes Overview</h3>
+                      </div>
+                      <span class="dir-badge">Informational (Tab 6)</span>
+                    </div>
+                    <p>Informational slope directory with live operational status toggles, lifts, and telemetry integrated into Sports Rules.</p>
+                  </div>
+                  <div class="dir-card-footer">
+                    <span class="dir-link-text">Launch Slopes &amp; Telemetry →</span>
+                  </div>
+                </div>
+
+                <!-- CLUB CALENDAR & ON-BEHALF DESK -->
+                <div class="dir-card" onclick="location.hash='#skiing-club'">
                   <div class="dir-card-top">
                     <div class="dir-card-header">
                       <div class="dir-card-icon-title">
                         <span class="dir-icon">📅</span>
-                        <h3 class="dir-card-title">Club Availability & Holidays</h3>
+                        <h3 class="dir-card-title">Skiing Club Calendar &amp; Desk</h3>
                       </div>
-                      <span class="dir-badge">Schedule</span>
+                      <span class="dir-badge">Operations</span>
                     </div>
-                    <p>Set facility operating hours, national holiday overrides, slope maintenance closures, and blackout dates.</p>
+                    <p>Timeline scheduling, capacity holds, on-behalf booking desk, and Front Desk Smart Session Extension &amp; Pass Upsell.</p>
                   </div>
                   <div class="dir-card-footer">
-                    <span class="dir-link-text">Launch Wireframe →</span>
+                    <span class="dir-link-text">Launch Calendar →</span>
                   </div>
                 </div>
 
-                <!-- ITEM 2: BOOKING RULES -->
+                <!-- BOOKING RULES -->
                 <div class="dir-card" onclick="location.hash='#booking_rule'">
                   <div class="dir-card-top">
                     <div class="dir-card-header">
@@ -1244,76 +1272,26 @@
                         <span class="dir-icon">📋</span>
                         <h3 class="dir-card-title">Skiing Booking Rules</h3>
                       </div>
-                      <span class="dir-badge">Config</span>
+                      <span class="dir-badge">Rules</span>
                     </div>
-                    <p>Configure advance booking windows, slope capacity, peak vs off-peak rules, and validation guidelines.</p>
+                    <p>Configure advance booking windows, turnstile grace periods, and validation guidelines.</p>
                   </div>
                   <div class="dir-card-footer">
                     <span class="dir-link-text">Launch Wireframe →</span>
                   </div>
                 </div>
 
-                <!-- ITEM 3: PRICING & CANCELLATION -->
+                <!-- PRICING & CANCELLATION -->
                 <div class="dir-card" onclick="location.hash='#pricing_cancellation'">
                   <div class="dir-card-top">
                     <div class="dir-card-header">
                       <div class="dir-card-icon-title">
                         <span class="dir-icon">🏷️</span>
-                        <h3 class="dir-card-title">Skiing Pricing & Cancellation</h3>
+                        <h3 class="dir-card-title">Skiing Pricing &amp; Cancellation</h3>
                       </div>
-                      <span class="dir-badge">Rules</span>
+                      <span class="dir-badge">Policy</span>
                     </div>
                     <p>Define refund policies, cancellation timelines, penalty thresholds, and automated refund triggers.</p>
-                  </div>
-                  <div class="dir-card-footer">
-                    <span class="dir-link-text">Launch Wireframe →</span>
-                  </div>
-                </div>
-
-                <!-- ITEM 4: MANAGE SKIING ASSETS -->
-                <div class="dir-card" onclick="location.hash='#manage_assets'">
-                  <div class="dir-card-top">
-                    <div class="dir-card-header">
-                      <div class="dir-card-icon-title">
-                        <span class="dir-icon">⛷️</span>
-                        <h3 class="dir-card-title">Manage Skiing Assets</h3>
-                      </div>
-                      <span class="dir-badge">Assets</span>
-                    </div>
-                    <p>Inventory management for ski slopes, boots, helmets, poles, maintenance schedules, and availability status.</p>
-                  </div>
-                  <div class="dir-card-footer">
-                    <span class="dir-link-text">Launch Wireframe →</span>
-                  </div>
-                </div>
-
-                <!-- ITEM 5: SKIING LESSON CONFIG -->
-                <div class="dir-card" onclick="location.hash='#skiing_lessons'">
-                  <div class="dir-card-top">
-                    <div class="dir-card-header">
-                      <div class="dir-card-icon-title">
-                        <span class="dir-icon">🎓</span>
-                        <h3 class="dir-card-title">Skiing Lesson Config</h3>
-                      </div>
-                      <span class="dir-badge">Lessons</span>
-                    </div>
-                    <p>Configure private and group skiing lessons, instructor student caps, ratios, and rental gear inclusions.</p>
-                  </div>
-                  <div class="dir-card-footer">
-                    <span class="dir-link-text">Launch Wireframe →</span>
-                  </div>
-                </div>
-                
-                <div class="dir-card" onclick="location.hash='#skiing-club'">
-                  <div class="dir-card-top">
-                    <div class="dir-card-header">
-                      <div class="dir-card-icon-title">
-                        <span class="dir-icon">📅</span>
-                        <h3 class="dir-card-title">Skiing Club Calendar</h3>
-                      </div>
-                      <span class="dir-badge">Calendar</span>
-                    </div>
-                    <p>Club calendar for booking on behalf of players, managing slope schedules, and setting assets to maintenance.</p>
                   </div>
                   <div class="dir-card-footer">
                     <span class="dir-link-text">Launch Wireframe →</span>
@@ -1334,11 +1312,11 @@
                     <div class="dir-card-header">
                       <div class="dir-card-icon-title">
                         <span class="dir-icon">📱</span>
-                        <h3 class="dir-card-title">Players Skiing Booking UI</h3>
+                        <h3 class="dir-card-title">Players Skiing Mobile App (SnowWorld Model)</h3>
                       </div>
-                      <span class="dir-badge">Player UI</span>
+                      <span class="dir-badge">Interactive Mobile</span>
                     </div>
-                    <p>Indoor skiing club end-user booking interface for slope slot selection, pass purchasing, and QR ticketing.</p>
+                    <p>4-Screen interactive device frames: Parent Activity Cards, 3-Chip Detail View, Pass Steppers, Arrival Slots, Split Pay Guard, DIN Gear Customizer, €53.00 Summary, Consolidated Turnstile QR.</p>
                   </div>
                   <div class="dir-card-footer">
                     <span class="dir-link-text">Launch Wireframe →</span>
@@ -1351,11 +1329,11 @@
                     <div class="dir-card-header">
                       <div class="dir-card-icon-title">
                         <span class="dir-icon">🔄</span>
-                        <h3 class="dir-card-title">Players Skiing Workflow</h3>
+                        <h3 class="dir-card-title">Players 18-Screen Workflow Simulator (SnowWorld Journey)</h3>
                       </div>
-                      <span class="dir-badge">Prototype</span>
+                      <span class="dir-badge">18-Screen Flow</span>
                     </div>
-                    <p>Complete 18-screen interactive mobile flow prototype covering sign-in, booking, turnstile access, & overtime settlements.</p>
+                    <p>Complete 18-screen journey: Screens 1–9 SnowWorld player booking flow &amp; Screens 10–18 venue arrival, gate scans, session extensions, and exit settlement.</p>
                   </div>
                   <div class="dir-card-footer">
                     <span class="dir-link-text">Launch Wireframe →</span>
@@ -1517,9 +1495,15 @@
         file: 'pricing_rule.html',
         type: 'iframe'
       },
+      'skiing_packages': {
+        title: 'Sports Rules: Skiing (Unified 5-Tab System)',
+        desc: '5-Tab Unified Sports Rules: 1. Booking Rules, 2. Create Packages, 3. Create Passes, 4. Lessons, 5. Equipment Inventory',
+        file: 'skiing_packages.html',
+        type: 'iframe'
+      },
       'manage_assets': {
-        title: 'Skiing Asset Management',
-        desc: 'Inventory and asset management for slopes, equipment, and gear',
+        title: 'Step 2: Facility & Slopes Overview (Informational)',
+        desc: 'Live operational status, terrain specifications, telemetry, and equipment inventory tracking',
         file: 'skiing_manage_asset.html',
         type: 'iframe'
       },
@@ -1527,12 +1511,6 @@
         title: 'Dynamic Payout — Region Specific Time Zone Wise',
         desc: 'Region-specific time zone payout configurations & revenue settlement',
         file: 'payout_config_admin.html',
-        type: 'iframe'
-      },
-      'availability': {
-        title: 'Club Availability with Holidays',
-        desc: 'Manage operating hours, holiday schedules, and blackout periods',
-        file: 'club_availability_with_holidays.html',
         type: 'iframe'
       },
       'refund_detail': {
@@ -1560,14 +1538,14 @@
         type: 'iframe'
       },
       'player_ui': {
-        title: 'Players Skiing Booking UI',
-        desc: 'Player mobile booking interface preview and slot selector tailored to Indoor Skiing Clubs',
+        title: 'Interactive Skiing Player Mobile App (SnowWorld Model)',
+        desc: '4-Screen interactive device frames: Parent Activity Cards, 3-Chip Detail View, Pass Steppers, Arrival Slots, Split Pay Guard, DIN Gear Customizer, €53.00 Summary, Consolidated Turnstile QR',
         file: 'skiing_player.html',
         type: 'iframe'
       },
       'player_workflow': {
-        title: 'Players Skiing Workflow',
-        desc: 'Complete end-to-end interactive mobile player prototype',
+        title: 'Player Mobile Walkthrough Simulator (18-Screen SnowWorld Journey)',
+        desc: '18-Screen complete walkthrough: Screens 1–9 SnowWorld player booking flow & Screens 10–18 venue arrival, gate scans, session extensions, and exit settlement',
         file: 'skiing_player_booking_workflow.html',
         type: 'iframe'
       }
@@ -1575,6 +1553,62 @@
 
     // ── COMPREHENSIVE FIELD DICTIONARY DATASET (ALL WIREFRAME MODULES) ──
     const fieldDictionaryData = [
+      // ── MODULE: PACKAGE MANAGEMENT (CORE OVERHAUL) ──
+      {
+        id: "package_first_commerce",
+        name: "Package-First Commerce Model (Duration Passes & Bundled Gear)",
+        module: "Package Management",
+        route: "skiing_packages",
+        need: "Reframes skiing from court/asset reservation to high-volume facility access where players buy duration passes (1h, 2h, 4h, Full-Day) with bundled gear.",
+        understanding: "In real skiing facilities (SnowWorld), skiers do not book Slope 1 or Slope 2. They purchase a time pass that grants admission to all open slopes matching their capability, bundled with skis, boots, and lift pass.",
+        systemLogic: "Booking cart treats Package as core SKU with duration timer initiated at turnstile entry. Eliminates per-slope slot grids.",
+        toggle: "Create Skiing Package Modal",
+        keywords: ["package", "commerce", "duration pass", "pass", "snowworld", "all slopes", "open slope", "gear rental"]
+      },
+      {
+        id: "facility_footfall_capacity",
+        name: "Facility Footfall Capacity (Concurrent Turnstile Limit)",
+        module: "Package Management",
+        route: "skiing_packages",
+        need: "Manages overall indoor dome footfall limits (e.g. 200 people / hour) across all slopes rather than restricting individual slope lanes.",
+        understanding: "Turnstiles track active occupancy inside the facility. When concurrent facility capacity is reached, arrivals are metered into the next arrival window.",
+        systemLogic: "Counts concurrent scanned passes inside dome. Validates against Maximum Concurrent Facility Capacity integer input.",
+        toggle: "Max Concurrent Facility Capacity (People / Hour)",
+        keywords: ["capacity", "footfall", "turnstile", "concurrent", "headcount", "facility", "volume"]
+      },
+      {
+        id: "smart_session_extension",
+        name: "Smart Session Extension & Pass Upsell (Option A +1h vs Option B Half-Day Upgrade)",
+        module: "Session Extension Flow",
+        route: "skiing-club",
+        need: "Maximizes revenue and player convenience by recommending higher-tier pass upgrades (e.g. Half-Day 4h) when adding hours would cost more.",
+        understanding: "When a player on a 2-hour pass extends time, standalone +1 hour is €15. Upgrading to a 4-hour pass (€45) only costs the €10 difference, granting 2 extra hours for less money and saving €10.",
+        systemLogic: "Calculates difference: Higher Tier Rate minus Already Paid amount. Supports multi-attendee checkboxes for selective extension.",
+        toggle: "Extend Active Session Modal / Smart Upsell",
+        keywords: ["extend", "extension", "upsell", "upgrade", "half-day", "smart recommendation", "difference amount"]
+      },
+      {
+        id: "zero_cost_member_pricing",
+        name: "Zero-Cost Member Pricing (€0.00 complimentary slope access)",
+        module: "Package Management",
+        route: "skiing_packages",
+        need: "Allows clubs with membership tiers to configure €0.00 slope access while retaining standard guest rates and optional gear rental add-ons.",
+        understanding: "Many ski clubs operate on seasonal memberships where slope admission is 100% free for members, but guest passes and rentals are billed.",
+        systemLogic: "Accepts 0.00 in Member Price and Guest Price fields without triggering validation blocker errors.",
+        toggle: "Member Price (€0.00)",
+        keywords: ["zero price", "0.00", "free", "complimentary", "member price", "pricing matrix"]
+      },
+      {
+        id: "informational_slopes",
+        name: "Informational Slopes & Facilities Overview",
+        module: "Facility & Slopes Overview",
+        route: "manage_assets",
+        need: "Provides live operational piste conditions, surface quality, and lift operating status without functioning as discrete booking assets.",
+        understanding: "Slopes are terrain categories (Green, Blue, Red, Funpark). Management interface displays live status (Open, Maintenance, Closed) and optional grooming telemetry.",
+        systemLogic: "Informational status feeds player mobile recommendation engine and turnstile digital displays.",
+        toggle: "Add / Edit Slope (Informational)",
+        keywords: ["slopes", "informational", "terrain", "surface", "grooming", "lift status", "telemetry"]
+      },
       // ── MODULE: CLUB BOOKING CALENDAR (SECTION 12 PRD) ──
       {
         id: "on_behalf_hold_duration",
@@ -2152,6 +2186,10 @@
     // ── NAVIGATION ROUTER ──
     function handleRoute() {
       let hash = window.location.hash.replace('#', '');
+      if (hash === 'availability') {
+        window.location.hash = '#skiing_packages';
+        return;
+      }
       if (!hash || !routes[hash]) {
         hash = 'wireframe_info';
       }

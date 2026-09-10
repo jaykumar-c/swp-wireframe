@@ -166,6 +166,12 @@
         <span id="topHoldsBadge" class="w-5 h-5 bg-amber-500 text-white rounded-full flex items-center justify-center text-[10px] font-mono font-extrabold">3</span>
       </button>
 
+      <!-- Extend Active Session Quick Action -->
+      <button onclick="openExtensionModalFrontDesk()" class="text-xs font-display font-bold px-3.5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-600/20 flex items-center gap-1.5 transition" title="Extend active skier pass & smart upsell">
+        <i class="fa-solid fa-bolt text-xs text-amber-300"></i>
+        <span>⚡ Extend Active Session</span>
+      </button>
+
       <!-- On-Behalf Action Button -->
       <button onclick="openNewBookingModal()" class="text-xs font-display font-bold px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/25 flex items-center gap-2 transition">
         <i class="fa-solid fa-plus text-sm"></i>
@@ -710,8 +716,177 @@
 
         <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-200">
           <button onclick="simulateTurnstileExit()" class="px-3 py-1.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold">Simulate Exit Scan</button>
+          <button onclick="openExtensionModalFrontDesk()" class="px-3 py-1.5 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-bold flex items-center gap-1.5 shadow-sm">
+            <span>⚡ Extend / Upgrade Pass</span>
+          </button>
           <button onclick="closeBookingDetailsModal()" class="px-4 py-1.5 rounded bg-blue-600 text-white font-bold">Close</button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================== -->
+  <!-- MODAL: FRONT DESK SMART SESSION EXTENSION & UPGRADE FLOW   -->
+  <!-- ========================================================== -->
+  <div id="frontDeskExtensionModal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-xl w-full overflow-hidden border border-slate-200">
+      
+      <!-- Modal Header -->
+      <div class="p-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold text-sm">
+            ⚡
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-sm text-slate-900">Extend Active Skiing Session &amp; Smart Upsell</h3>
+            <p class="text-[11px] text-slate-500">Floor Manager Terminal / Front Desk Pass Scanner</p>
+          </div>
+        </div>
+        <button onclick="closeExtensionModalFrontDesk()" class="text-slate-400 hover:text-slate-700 w-8 h-8 rounded-full flex items-center justify-center hover:bg-slate-200">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="p-6 space-y-4 text-xs">
+        
+        <!-- CURRENT SESSION CONTEXT DISPLAY -->
+        <div class="p-3.5 bg-slate-900 text-white rounded-xl space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-mono text-slate-400">ACTIVE PASS #SWP-SKI-882914-AMS</span>
+            <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[10px] font-bold">⏱️ 15 mins remaining</span>
+          </div>
+          <div class="flex items-baseline justify-between">
+            <div class="text-sm font-bold">2-Hour Adult Pass (10:00 – 12:00)</div>
+            <div class="text-xs text-slate-300">Total Attendees: <strong>3 Persons</strong></div>
+          </div>
+          <div class="text-[11px] text-slate-400 border-t border-slate-800 pt-2 flex items-center justify-between">
+            <span>Passholders: <strong>Mukund Patil, Alex Jones, Sarah Connor</strong></span>
+            <span>Gate: <strong>Turnstile Gate 02 Active</strong></span>
+          </div>
+        </div>
+
+        <!-- STEP 1: SELECT PARTICIPANTS TO EXTEND (EDGE CASE RESOLUTION) -->
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <label class="font-bold text-slate-800 uppercase tracking-wider text-[11px]">
+              Step 1: Select who wants to extend:
+            </label>
+            <span id="fdExtCounter" class="text-[11px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full">
+              2 of 3 participants selected
+            </span>
+          </div>
+
+          <div class="space-y-1.5 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+            <label class="flex items-center justify-between p-2 rounded-lg bg-white border border-slate-200 cursor-pointer hover:border-blue-400 transition">
+              <div class="flex items-center gap-2.5">
+                <input type="checkbox" id="fdPaxMukund" checked onchange="recalcFdExtension()" class="w-4 h-4 rounded text-blue-600">
+                <div>
+                  <strong class="text-slate-900 block text-xs">Mukund Patil (Lead Booker)</strong>
+                  <span class="text-[10px] text-slate-500">2-Hour Pass · Turnstile Pass #01</span>
+                </div>
+              </div>
+              <span class="text-[10px] font-mono font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">Extending</span>
+            </label>
+
+            <label class="flex items-center justify-between p-2 rounded-lg bg-white border border-slate-200 cursor-pointer hover:border-blue-400 transition">
+              <div class="flex items-center gap-2.5">
+                <input type="checkbox" id="fdPaxAlex" checked onchange="recalcFdExtension()" class="w-4 h-4 rounded text-blue-600">
+                <div>
+                  <strong class="text-slate-900 block text-xs">Alex Jones</strong>
+                  <span class="text-[10px] text-slate-500">2-Hour Pass · Turnstile Pass #02</span>
+                </div>
+              </div>
+              <span class="text-[10px] font-mono font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded">Extending</span>
+            </label>
+
+            <label class="flex items-center justify-between p-2 rounded-lg bg-white border border-slate-200 cursor-pointer hover:border-blue-400 transition">
+              <div class="flex items-center gap-2.5">
+                <input type="checkbox" id="fdPaxSarah" onchange="recalcFdExtension()" class="w-4 h-4 rounded text-blue-600">
+                <div>
+                  <strong class="text-slate-700 block text-xs">Sarah Connor</strong>
+                  <span class="text-[10px] text-slate-400">Leaving at 12:00 (Exiting turnstile)</span>
+                </div>
+              </div>
+              <span class="text-[10px] font-mono text-slate-400 bg-slate-100 px-2 py-0.5 rounded">Exiting</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- STEP 2: EXTENSION SELECTION & SMART RECOMMENDATION ENGINE -->
+        <div class="space-y-2">
+          <label class="font-bold text-slate-800 uppercase tracking-wider text-[11px]">
+            Step 2: Extension Selection &amp; Smart Recommendation Engine
+          </label>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <!-- OPTION A: STANDALONE 1 HOUR -->
+            <label class="p-3 rounded-xl border border-slate-200 bg-white cursor-pointer hover:border-blue-300 transition flex flex-col justify-between">
+              <div class="flex items-start gap-2">
+                <input type="radio" name="fdExtOption" value="hour" onchange="recalcFdExtension()" class="mt-0.5 text-blue-600">
+                <div>
+                  <strong class="text-slate-900 block text-xs">+ 1 Hour Extension</strong>
+                  <span class="text-[11px] text-slate-500">€15.00 per person</span>
+                </div>
+              </div>
+              <div class="mt-3 pt-2 border-t border-slate-100 text-right">
+                <span id="fdOptionACost" class="text-sm font-bold font-mono text-slate-900">€30.00 Total</span>
+              </div>
+            </label>
+
+            <!-- OPTION B: UPGRADE TO HALF-DAY (BEST VALUE) -->
+            <label class="p-3 rounded-xl border-2 border-emerald-500 bg-emerald-50/50 cursor-pointer transition flex flex-col justify-between relative">
+              <div class="absolute -top-2.5 right-3 bg-emerald-600 text-white font-extrabold text-[9px] uppercase px-2 py-0.5 rounded-full shadow-xs">
+                ★ Best Value
+              </div>
+              <div class="flex items-start gap-2">
+                <input type="radio" name="fdExtOption" value="upgrade" checked onchange="recalcFdExtension()" class="mt-0.5 text-emerald-600">
+                <div>
+                  <strong class="text-slate-900 block text-xs">Upgrade to Half-Day Pass (4 Hours)</strong>
+                  <span class="text-[10.5px] text-emerald-800 block mt-0.5 leading-snug">
+                    Recommendation: Upgrading to a 4-Hour Half-Day Pass gives you <strong>2 extra hours</strong> for only <strong>€10.00 more</strong> per person!
+                  </span>
+                </div>
+              </div>
+              <div class="mt-3 pt-2 border-t border-emerald-200/60 flex items-baseline justify-between font-mono">
+                <span class="text-[10px] text-emerald-700 font-sans font-semibold">Saves €10 vs standalone!</span>
+                <span id="fdOptionBCost" class="text-sm font-bold text-emerald-900">€20.00 Total</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- STEP 3: IMMEDIATE DIFFERENCE PAYMENT -->
+        <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+          <div class="font-bold text-slate-800 uppercase tracking-wider text-[11px]">
+            Step 3: Immediate Difference Payment
+          </div>
+          <div class="space-y-1 text-slate-600 text-[11px]">
+            <div class="flex justify-between font-mono">
+              <span id="fdDiffCalcLabel">Upgrade: 2x 2-Hour → Half-Day Pass:</span>
+              <span id="fdSubtotal" class="font-bold text-slate-800">€20.00</span>
+            </div>
+            <div class="flex justify-between font-mono text-[10px] text-slate-400">
+              <span>Taxes Included (9%):</span>
+              <span id="fdTaxes">€1.82</span>
+            </div>
+            <div class="flex justify-between font-mono font-bold text-sm text-slate-900 pt-1.5 border-t border-slate-200">
+              <span>Total Due Now:</span>
+              <span id="fdTotalDue" class="text-emerald-600 font-extrabold text-base">€20.00</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-200">
+          <button type="button" onclick="closeExtensionModalFrontDesk()" class="px-3 py-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-100 text-slate-700 font-bold">
+            Cancel
+          </button>
+          <button type="button" onclick="confirmFrontDeskExtension()" class="px-5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-display font-bold shadow-md shadow-emerald-600/25 flex items-center gap-2">
+            <i class="fa-solid fa-credit-card"></i>
+            <span id="fdPayBtnText">Pay €20.00 via Terminal POS &amp; Update Turnstile</span>
+          </button>
+        </div>
+
       </div>
     </div>
   </div>
@@ -1391,6 +1566,76 @@
       if (!selectedBookingForDetail) return;
       closeBookingDetailsModal();
       showToast(`Turnstile Exit logged for ${selectedBookingForDetail.customerName}. Session closed with 0 overtime penalty.`, 'emerald');
+    }
+
+    // ── FRONT DESK SESSION EXTENSION & UPGRADE LOGIC (SCREEN 4) ──
+    function openExtensionModalFrontDesk() {
+      if (document.getElementById('bookingDetailsModal')) {
+        document.getElementById('bookingDetailsModal').classList.add('hidden');
+      }
+      document.getElementById('frontDeskExtensionModal').classList.remove('hidden');
+      recalcFdExtension();
+    }
+
+    function closeExtensionModalFrontDesk() {
+      document.getElementById('frontDeskExtensionModal').classList.add('hidden');
+    }
+
+    function recalcFdExtension() {
+      const mukund = document.getElementById('fdPaxMukund').checked;
+      const alex = document.getElementById('fdPaxAlex').checked;
+      const sarah = document.getElementById('fdPaxSarah').checked;
+
+      let count = 0;
+      if (mukund) count++;
+      if (alex) count++;
+      if (sarah) count++;
+
+      document.getElementById('fdExtCounter').textContent = `${count} of 3 participants selected`;
+
+      const option = document.querySelector('input[name="fdExtOption"]:checked')?.value || 'upgrade';
+
+      const optionACost = count * 15.00;
+      const optionBCost = count * 10.00; // Half-Day €45 - Paid €35 = €10 diff
+
+      document.getElementById('fdOptionACost').textContent = `€${optionACost.toFixed(2)} Total`;
+      document.getElementById('fdOptionBCost').textContent = `€${optionBCost.toFixed(2)} Total`;
+
+      const total = option === 'hour' ? optionACost : optionBCost;
+      const taxes = total * 0.091;
+      
+      const label = option === 'hour' 
+        ? `+1 Hour Extension (${count} pax × €15.00):` 
+        : `Upgrade: ${count}x 2-Hour → Half-Day Pass (Diff €10.00/pax):`;
+
+      document.getElementById('fdDiffCalcLabel').textContent = label;
+      document.getElementById('fdSubtotal').textContent = `€${total.toFixed(2)}`;
+      document.getElementById('fdTaxes').textContent = `€${taxes.toFixed(2)}`;
+      document.getElementById('fdTotalDue').textContent = `€${total.toFixed(2)}`;
+      document.getElementById('fdPayBtnText').textContent = `Pay €${total.toFixed(2)} via Terminal POS & Update Turnstile`;
+    }
+
+    function confirmFrontDeskExtension() {
+      const option = document.querySelector('input[name="fdExtOption"]:checked')?.value || 'upgrade';
+      const count = (document.getElementById('fdPaxMukund').checked ? 1 : 0) + 
+                    (document.getElementById('fdPaxAlex').checked ? 1 : 0) + 
+                    (document.getElementById('fdPaxSarah').checked ? 1 : 0);
+
+      if (count === 0) {
+        alert('Please select at least 1 participant to extend.');
+        return;
+      }
+
+      closeExtensionModalFrontDesk();
+      const newTime = option === 'upgrade' ? '14:00' : '13:00';
+      const passName = option === 'upgrade' ? '4-Hour Half-Day Pass' : '2-Hour Pass (+1h Extension)';
+
+      showToast(`🎉 Payment Confirmed (€${document.getElementById('fdTotalDue').textContent})! Turnstile checkout deadline for ${count} skier(s) updated instantly to ${newTime}.`, 'emerald');
+
+      const timer = document.getElementById('detailTimer');
+      if (timer) timer.textContent = option === 'upgrade' ? '2h 15m remaining' : '1h 15m remaining';
+      const timing = document.getElementById('detailTiming');
+      if (timing) timing.textContent = `10:00 – ${newTime} (${passName})`;
     }
 
     // ── KPI UPDATES ──
