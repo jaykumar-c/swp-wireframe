@@ -7,10 +7,10 @@
     <title>ShallWe-Play (SWP) — Indoor Skiing Booking & Lifecycle Flow</title>
     <!-- FontAwesome Line Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts Inter -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+    <!-- Google Fonts Montserrat & Lato (SWP Players Design System) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -19,19 +19,23 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        sans: ['Lato', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
                         mono: ['JetBrains Mono', 'monospace']
                     },
                     colors: {
                         swp: {
+                            primary: '#007AFF',
+                            primaryHover: '#0062CC',
+                            primaryTint: '#EDF5FF',
                             dark: '#1e293b',
                             darkHover: '#0f172a',
-                            lightBg: '#f8fafc',
+                            lightBg: '#F5F5F3',
                             cardBg: '#ffffff',
-                            border: '#e2e8f0',
+                            border: '#E5E5E5',
                             borderDark: '#cbd5e1',
-                            muted: '#64748b',
-                            text: '#0f172a'
+                            muted: '#777777',
+                            text: '#11181C'
                         }
                     }
                 }
@@ -41,8 +45,8 @@
 
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f1f5f9;
+            font-family: 'Lato', sans-serif;
+            background-color: #F5F5F3;
             color: #0f172a;
             margin: 0;
             padding: 0;
@@ -2028,17 +2032,18 @@
                                 class="border border-slate-300 bg-slate-50 rounded-lg p-2.5 text-[10px] text-slate-700 space-y-1">
                                 <div class="flex items-center gap-1 font-bold text-slate-900">
                                     <i class="fa-solid fa-qrcode text-slate-800"></i>
-                                    <span>Cold-Hall Turnstile Scan Logic:</span>
+                                    <span>Gate 1 Turnstile Scan Logic (PRD v1.0):</span>
                                 </div>
                                 <p class="leading-tight text-slate-600">
-                                    "Scanning this QR code at the cold-hall entrance turnstile logs your official
-                                    <strong>slope_entry_timestamp</strong> and starts your 2-hour countdown timer."
+                                    "Scanning QR code at Gate 1 displays confirmation prompt: <em>'Welcome to SnowWorld Amsterdam — Would you like to start the Game?'</em> Timer only starts when skier taps <strong>Yes</strong>."
                                 </p>
+                                <div class="p-1.5 bg-blue-50 border border-blue-200 rounded text-[9px] text-blue-900 font-semibold mt-1">
+                                    👥 <strong>Group Lead Pass:</strong> Scanned 3 times for 3 skier entries (Mukund, Jay, Vaibhav) or parent scans on behalf of child.
+                                </div>
                             </div>
                         </div>
 
-                        <button onclick="highlightScreen(16)" class="wf-btn-dark py-2.5 text-xs">[Simulate Entrance
-                            Scan] Start Timer (19:30) <i class="fa-solid fa-qrcode ml-1"></i></button>
+                        <button onclick="triggerGate1ScanModal()" class="wf-btn-dark py-2.5 text-xs">[Scan Gate 1 QR Code] Prompt 'Start Game?' <i class="fa-solid fa-qrcode ml-1"></i></button>
                     </div>
 
                     <div class="phone-footer-bar">
@@ -2047,10 +2052,10 @@
                 </div>
 
                 <div class="screen-meta-box">
-                    <p class="font-bold text-slate-900">UX Notes & Rules:</p>
+                    <p class="font-bold text-slate-900">UX Notes & Rules (PRD v1.0):</p>
                     <ul class="list-disc pl-4 space-y-1 mt-1">
-                        <li>Rule 15: Cold-hall turnstile scan logs official slope_entry_timestamp and starts countdown
-                            timer.</li>
+                        <li><strong>Gate 1 Scan Flow:</strong> Turnstile scan triggers prompt: <em>'Welcome to Club — Would you like to start the Game?'</em>. If Yes -> counter begins; If No -> counter remains pending.</li>
+                        <li><strong>Shared QR Group Scan:</strong> Scanned N times at entry and exit for N registered skiers; parent authorized to scan for children.</li>
                         <li>High-contrast dynamic QR with lockscreen Apple/Google Wallet support.</li>
                     </ul>
                 </div>
@@ -2085,46 +2090,52 @@
                                     SLOPE</span>
                             </div>
 
+                            <!-- REVERSE-CALCULATED COUNTDOWN TIMER BANNER (PRD v1.0) -->
+                            <div class="border-2 border-slate-900 bg-slate-900 text-white rounded-xl p-3 text-center space-y-1 shadow-sm">
+                                <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider block">Live Slope Session Timer</span>
+                                <div class="flex items-center justify-center gap-2">
+                                    <span id="screen16TimerVal" class="text-2xl font-mono font-extrabold text-emerald-400">118 MINS</span>
+                                    <span id="screen16StatusDot" class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                </div>
+                                <span id="screen16SessionStateText" class="text-[10px] text-slate-300 font-semibold block">Active · Reverse-calculating remaining slope time</span>
+                            </div>
+
                             <!-- ACTIVE SESSION TIMESTAMP LOG -->
-                            <div class="border-2 border-slate-900 rounded-lg p-3 space-y-2 font-mono bg-slate-50">
+                            <div class="border-2 border-slate-900 rounded-lg p-2.5 space-y-1.5 font-mono text-[11px] bg-slate-50">
                                 <div class="flex justify-between border-b border-slate-200 pb-1">
                                     <span class="font-sans text-slate-500 font-bold">Session Status:</span>
-                                    <strong class="text-slate-900">IN_PROGRESS</strong>
+                                    <strong id="sessionStatusLabel" class="text-slate-900">IN_PROGRESS</strong>
                                 </div>
                                 <div class="flex justify-between">
-                                    <span class="font-sans text-slate-500">slope_entry_timestamp:</span>
+                                    <span class="font-sans text-slate-500">slope_entry:</span>
                                     <strong>19:30:00</strong>
                                 </div>
                                 <div class="flex justify-between">
-                                    <span class="font-sans text-slate-500">Booked Duration:</span>
-                                    <strong>2 Hours (120 min)</strong>
+                                    <span class="font-sans text-slate-500">Duration:</span>
+                                    <strong>2 Hours (120m)</strong>
                                 </div>
                                 <div class="flex justify-between text-slate-600">
-                                    <span class="font-sans text-slate-500">Target Exit (Free Buffer):</span>
-                                    <strong>21:45:00</strong>
+                                    <span class="font-sans text-slate-500">Grace Buffer:</span>
+                                    <strong>15 mins</strong>
                                 </div>
                                 <div class="flex justify-between border-t border-slate-200 pt-1 font-bold">
-                                    <span class="font-sans text-slate-900">Exit Turnstile Scan:</span>
-                                    <strong class="text-slate-900">22:15:00</strong>
+                                    <span class="font-sans text-slate-900">Target Exit:</span>
+                                    <strong class="text-slate-900">21:45:00</strong>
                                 </div>
                             </div>
 
-                            <!-- OPERATIONAL EXPLANATION -->
-                            <div
-                                class="border border-slate-300 bg-slate-50 rounded-lg p-2.5 text-[10px] text-slate-700 space-y-1">
-                                <div class="flex items-center gap-1 font-bold text-slate-900">
-                                    <i class="fa-solid fa-right-from-bracket text-slate-800"></i>
-                                    <span>Frictionless Exit Turnstile Scan:</span>
-                                </div>
-                                <p class="leading-tight text-slate-600">
-                                    "User scans QR code at the exit turnstile upon leaving the snow hall, logging
-                                    <strong>slope_exit_timestamp</strong>. No offline cashier visit required."
-                                </p>
+                            <!-- PRD v1.0 INTERACTIVE ACTIONS -->
+                            <div class="grid grid-cols-2 gap-1.5">
+                                <button type="button" onclick="triggerBreakScanModal()" class="py-2 px-2 bg-amber-100 hover:bg-amber-200 text-amber-900 font-bold rounded-lg text-[10px] flex items-center justify-center gap-1 border border-amber-300 transition">
+                                    <i class="fa-solid fa-mug-hot text-amber-700"></i> Scan for Break
+                                </button>
+                                <button type="button" onclick="triggerExtensionModal()" class="py-2 px-2 bg-blue-100 hover:bg-blue-200 text-blue-900 font-bold rounded-lg text-[10px] flex items-center justify-center gap-1 border border-blue-300 transition">
+                                    <i class="fa-solid fa-clock-rotate-left text-blue-700"></i> 15m Extension
+                                </button>
                             </div>
                         </div>
 
-                        <button onclick="highlightScreen(17)" class="wf-btn-dark py-2.5 text-xs">[Scan Exit Turnstile]
-                            Log Exit & Validate Time <i class="fa-solid fa-right-from-bracket ml-1"></i></button>
+                        <button onclick="highlightScreen(17)" class="wf-btn-dark py-2.5 text-xs">[Scan Exit Turnstile] Log Exit & Validate Time <i class="fa-solid fa-right-from-bracket ml-1"></i></button>
                     </div>
 
                     <div class="phone-footer-bar">
@@ -2133,10 +2144,12 @@
                 </div>
 
                 <div class="screen-meta-box">
-                    <p class="font-bold text-slate-900">UX Notes & Rules:</p>
+                    <p class="font-bold text-slate-900">UX Notes & Rules (PRD v1.0):</p>
                     <ul class="list-disc pl-4 space-y-1 mt-1">
-                        <li>Rule 16: Exit scan at turnstile logs slope_exit_timestamp automatically.</li>
-                        <li>Eliminates offline cashier desk visits.</li>
+                        <li><strong>Reverse Countdown Timer:</strong> Continuously reverse-calculates remaining minutes while on slope.</li>
+                        <li><strong>Re-scan for Break:</strong> Scanning turnstile mid-session prompts: <em>'Take Break or Complete Game?'</em>. Break pauses the minute counter.</li>
+                        <li><strong>In-Session Extension:</strong> Skier receives 15-min warning pop-up to extend pass (+1h/2h/Full Day) before overtime penalties apply.</li>
+                        <li>Rule 16: Exit scan at turnstile logs slope_exit_timestamp automatically without cashier visits.</li>
                     </ul>
                 </div>
             </div>
@@ -2459,11 +2472,218 @@
         </div>
     </div>
 
+    <!-- ========================================================== -->
+    <!-- MODAL: GATE 1 QR SCAN - START GAME CONFIRMATION (PRD v1.0) -->
+    <!-- ========================================================== -->
+    <div id="gate1ScanModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl border border-slate-200 space-y-4 text-center">
+            <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mx-auto text-xl font-bold">
+                <i class="fa-solid fa-person-skiing"></i>
+            </div>
+            <div>
+                <span class="text-[10px] font-mono font-bold text-blue-600 uppercase tracking-wide">Gate 1 Turnstile Scan</span>
+                <h3 class="font-extrabold text-base text-slate-900 mt-0.5">Welcome to SnowWorld Amsterdam!</h3>
+                <p class="text-xs text-slate-600 mt-1 font-medium">Would you like to start the Game now?</p>
+            </div>
+
+            <!-- Group multi-scan prompt -->
+            <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-lg text-[11px] text-slate-600 text-left space-y-1">
+                <div class="flex justify-between font-bold text-slate-800">
+                    <span>Group Pass (Shared QR):</span>
+                    <span class="font-mono text-blue-600">Scan 1 of 3</span>
+                </div>
+                <p class="text-[10px] text-slate-500 leading-tight">Parent scanning on behalf of child (Mukund for Jay & Vaibhav).</p>
+            </div>
+
+            <div class="space-y-2 pt-1">
+                <button onclick="confirmGate1Start(true)" class="wf-btn-dark py-2.5 text-xs w-full font-bold flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-play"></i> Yes — Start Game & Timer
+                </button>
+                <button onclick="confirmGate1Start(false)" class="wf-btn-outline py-2.5 text-xs w-full font-bold text-slate-600">
+                    No — Wait in Lounge / Changing Room
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================== -->
+    <!-- MODAL: MID-SESSION BREAK OR COMPLETE GAME (PRD v1.0)       -->
+    <!-- ========================================================== -->
+    <div id="breakScanModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl border border-slate-200 space-y-4 text-center">
+            <div class="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center mx-auto text-xl font-bold">
+                <i class="fa-solid fa-mug-hot"></i>
+            </div>
+            <div>
+                <span class="text-[10px] font-mono font-bold text-amber-600 uppercase tracking-wide">Turnstile Checkpoint</span>
+                <h3 class="font-extrabold text-base text-slate-900 mt-0.5">Welcome to SnowWorld Amsterdam!</h3>
+                <p class="text-xs text-slate-600 mt-1 font-medium">Would you like to take a break or complete the game?</p>
+            </div>
+
+            <div class="p-2.5 bg-amber-50 border border-amber-200 rounded-lg text-[10px] text-amber-900 text-left font-medium">
+                <i class="fa-solid fa-circle-info mr-1"></i>
+                Taking a break pauses your active countdown timer so you don't lose booked slope minutes while at the Alpine Café.
+            </div>
+
+            <div class="space-y-2 pt-1">
+                <button onclick="handleBreakChoice('break')" id="btnBreakOption" class="py-2.5 px-3 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-xs font-bold w-full flex items-center justify-center gap-2 shadow-xs transition">
+                    <i class="fa-solid fa-pause"></i> Take Break (Pause Counter)
+                </button>
+                <button onclick="handleBreakChoice('resume')" id="btnResumeOption" class="py-2.5 px-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold w-full hidden flex items-center justify-center gap-2 shadow-xs transition">
+                    <i class="fa-solid fa-play"></i> Resume Game (Unpause Counter)
+                </button>
+                <button onclick="handleBreakChoice('complete')" class="wf-btn-dark py-2.5 text-xs w-full font-bold flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-flag-checkered"></i> Game Completed — Proceed to Exit
+                </button>
+                <button onclick="closeModal('breakScanModal')" class="wf-btn-outline py-2 text-xs w-full text-slate-500">
+                    Cancel / Return to Slope
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================================== -->
+    <!-- MODAL: 15-MINUTE IN-SESSION EXTENSION PROMPT (PRD v1.0)    -->
+    <!-- ========================================================== -->
+    <div id="extensionModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl border border-slate-200 space-y-4 text-center">
+            <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mx-auto text-xl font-bold">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+            </div>
+            <div>
+                <span class="text-[10px] font-mono font-bold text-rose-600 uppercase tracking-wide">15 Minutes Remaining</span>
+                <h3 class="font-extrabold text-base text-slate-900 mt-0.5">Extend Your Skiing Session?</h3>
+                <p class="text-xs text-slate-600 mt-1">Upgrade now to avoid overtime charges at the exit turnstile.</p>
+            </div>
+
+            <div class="space-y-2 text-left text-xs">
+                <label class="flex items-center justify-between p-3 rounded-xl border-2 border-blue-600 bg-blue-50 cursor-pointer">
+                    <div>
+                        <strong class="text-slate-900 block font-bold">+1 Hour Extension</strong>
+                        <span class="text-[10px] text-slate-500">Adds 60 min to target exit</span>
+                    </div>
+                    <span class="font-mono font-extrabold text-blue-700 text-sm">€25.00</span>
+                </label>
+
+                <label class="flex items-center justify-between p-3 rounded-xl border border-slate-200 bg-white hover:border-slate-300 cursor-pointer">
+                    <div>
+                        <strong class="text-slate-900 block font-bold">+2 Hours Extension</strong>
+                        <span class="text-[10px] text-slate-500">Adds 120 min to target exit</span>
+                    </div>
+                    <span class="font-mono font-extrabold text-slate-900 text-sm">€40.00</span>
+                </label>
+
+                <label class="flex items-center justify-between p-3 rounded-xl border border-slate-200 bg-white hover:border-slate-300 cursor-pointer">
+                    <div>
+                        <strong class="text-slate-900 block font-bold">Upgrade to Full Day</strong>
+                        <span class="text-[10px] text-slate-500">Unlimited until 22:00 close</span>
+                    </div>
+                    <span class="font-mono font-extrabold text-slate-900 text-sm">€65.00</span>
+                </label>
+            </div>
+
+            <div class="space-y-2 pt-1">
+                <button onclick="applyExtension(1, 25)" class="wf-btn-dark py-2.5 text-xs w-full font-bold flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-credit-card"></i> Confirm & Pay with Card-on-File
+                </button>
+                <button onclick="closeModal('extensionModal')" class="wf-btn-outline py-2 text-xs w-full text-slate-500">
+                    No Thanks — Exit at Scheduled Time
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- JAVASCRIPT FOR INTERACTIVITY -->
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script>
         let currentSimIndex = 0;
         const screenOrder = [1, 2, 3, 4, 5, 6, 7, 8, '9a', '9b', 10, 11, 12, 13, 14, 15, 16, 17, 18];
+
+        // ── LIVE REVERSE COUNTDOWN ENGINE (PRD v1.0) ──
+        let timerMinutesRemaining = 118;
+        let isTimerPaused = false;
+        let sessionTimerInterval = null;
+
+        function startReverseTimer() {
+            if (sessionTimerInterval) clearInterval(sessionTimerInterval);
+            sessionTimerInterval = setInterval(() => {
+                if (!isTimerPaused && timerMinutesRemaining > 0) {
+                    timerMinutesRemaining--;
+                    const timerEl = document.getElementById('screen16TimerVal');
+                    if (timerEl) timerEl.innerText = `${timerMinutesRemaining} MINS`;
+                }
+            }, 60000);
+        }
+
+        function triggerGate1ScanModal() {
+            document.getElementById('gate1ScanModal').classList.remove('hidden');
+        }
+
+        function confirmGate1Start(start) {
+            document.getElementById('gate1ScanModal').classList.add('hidden');
+            if (start) {
+                timerMinutesRemaining = 118;
+                isTimerPaused = false;
+                startReverseTimer();
+                highlightScreen(16);
+            } else {
+                alert('Gate 1 Check-In Pending: Counter will not start until you tap "Yes" to start the game.');
+            }
+        }
+
+        function triggerBreakScanModal() {
+            const btnBreak = document.getElementById('btnBreakOption');
+            const btnResume = document.getElementById('btnResumeOption');
+            if (isTimerPaused) {
+                btnBreak.classList.add('hidden');
+                btnResume.classList.remove('hidden');
+            } else {
+                btnBreak.classList.remove('hidden');
+                btnResume.classList.add('hidden');
+            }
+            document.getElementById('breakScanModal').classList.remove('hidden');
+        }
+
+        function handleBreakChoice(action) {
+            document.getElementById('breakScanModal').classList.add('hidden');
+            const statusLabel = document.getElementById('sessionStatusLabel');
+            const stateText = document.getElementById('screen16SessionStateText');
+            const statusDot = document.getElementById('screen16StatusDot');
+
+            if (action === 'break') {
+                isTimerPaused = true;
+                if (statusLabel) statusLabel.innerText = 'PAUSED_ON_BREAK';
+                if (stateText) stateText.innerText = 'Timer Paused · Skier at Alpine Café / Break Zone';
+                if (statusDot) {
+                    statusDot.className = 'w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse';
+                }
+            } else if (action === 'resume') {
+                isTimerPaused = false;
+                if (statusLabel) statusLabel.innerText = 'IN_PROGRESS';
+                if (stateText) stateText.innerText = 'Active · Reverse-calculating remaining slope time';
+                if (statusDot) {
+                    statusDot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse';
+                }
+            } else if (action === 'complete') {
+                highlightScreen(17);
+            }
+        }
+
+        function triggerExtensionModal() {
+            document.getElementById('extensionModal').classList.remove('hidden');
+        }
+
+        function applyExtension(hours, cost) {
+            document.getElementById('extensionModal').classList.add('hidden');
+            timerMinutesRemaining += (hours * 60);
+            const timerEl = document.getElementById('screen16TimerVal');
+            if (timerEl) timerEl.innerText = `${timerMinutesRemaining} MINS`;
+            alert(`Pass extended by +${hours} hour(s)! €${cost}.00 charged to card-on-file. Target exit updated.`);
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
 
         function filterPhase(phase) {
             document.querySelectorAll('.phase-pill').forEach(btn => btn.classList.remove('active'));

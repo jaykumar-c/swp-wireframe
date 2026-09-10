@@ -1021,6 +1021,12 @@
             <span>Skiing Lesson Config</span>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="#skiing-club" id="nav-skiing-club">
+            <span class="nav-icon">📅</span>
+            <span>Skiing Club Calendar</span>
+          </a>
+        </li>
       </ul>
 
       <!-- PLAYER SECTION -->
@@ -1297,6 +1303,22 @@
                     <span class="dir-link-text">Launch Wireframe →</span>
                   </div>
                 </div>
+                
+                <div class="dir-card" onclick="location.hash='#skiing-club'">
+                  <div class="dir-card-top">
+                    <div class="dir-card-header">
+                      <div class="dir-card-icon-title">
+                        <span class="dir-icon">📅</span>
+                        <h3 class="dir-card-title">Skiing Club Calendar</h3>
+                      </div>
+                      <span class="dir-badge">Calendar</span>
+                    </div>
+                    <p>Club calendar for booking on behalf of players, managing slope schedules, and setting assets to maintenance.</p>
+                  </div>
+                  <div class="dir-card-footer">
+                    <span class="dir-link-text">Launch Wireframe →</span>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -1405,6 +1427,7 @@
               <button class="fg-pill" onclick="filterFieldGuide('Dynamic Payout', this)">Dynamic Payout</button>
               <button class="fg-pill" onclick="filterFieldGuide('Assign Pricing', this)">Assign Pricing</button>
               <button class="fg-pill" onclick="filterFieldGuide('Refund Details', this)">Refund Details</button>
+              <button class="fg-pill" onclick="filterFieldGuide('Club Booking Calendar', this)">Club Calendar</button>
             </div>
             <div id="fgResultsCount" style="font-size:12px; font-weight:700; color:#64748B;">Showing all fields</div>
           </div>
@@ -1524,6 +1547,18 @@
         file: 'skiing_lesson_config.html',
         type: 'iframe'
       },
+      'skiing-club': {
+        title: 'Club Booking Calendar & On-Behalf Desk',
+        desc: 'Real-time slope timeline, capacity holds, on-behalf booking desk, and asset maintenance scheduling',
+        file: 'skiing_club_calendar.html',
+        type: 'iframe'
+      },
+      'club_calendar': {
+        title: 'Club Booking Calendar & On-Behalf Desk',
+        desc: 'Real-time slope timeline, capacity holds, on-behalf booking desk, and asset maintenance scheduling',
+        file: 'skiing_club_calendar.html',
+        type: 'iframe'
+      },
       'player_ui': {
         title: 'Players Skiing Booking UI',
         desc: 'Player mobile booking interface preview and slot selector tailored to Indoor Skiing Clubs',
@@ -1540,6 +1575,40 @@
 
     // ── COMPREHENSIVE FIELD DICTIONARY DATASET (ALL WIREFRAME MODULES) ──
     const fieldDictionaryData = [
+      // ── MODULE: CLUB BOOKING CALENDAR (SECTION 12 PRD) ──
+      {
+        id: "on_behalf_hold_duration",
+        name: "Temporary Hold Duration (15, 30, 60 mins)",
+        module: "Club Booking Calendar",
+        route: "skiing-club",
+        need: "Allows staff to hold slope capacity while waiting for player payment without risking permanent ghost bookings.",
+        understanding: "When creating a phone/walk-in booking, the system places a timed hold on capacity and pushes a payment link.",
+        systemLogic: "Locks slot capacity for X minutes; if unpaid upon countdown expiry, the hold is automatically released to public inventory.",
+        toggle: "Hold Duration Radio (15m, 30m, 60m)",
+        keywords: ["hold", "temporary hold", "countdown", "on-behalf", "desk", "calendar", "expiry", "reservation"]
+      },
+      {
+        id: "access_model_selection",
+        name: "Access Model (Shared QR vs Individual Access)",
+        module: "Club Booking Calendar",
+        route: "skiing-club",
+        need: "Determines whether a multi-pass booking enters under one lead booker QR or issues individual QR codes to all skiers.",
+        understanding: "Families with young children benefit from a Shared QR (parent scans 3 times); corporate groups or friends require individual email/app tickets.",
+        systemLogic: "Shared QR allows multiple scan turnstile increments on one barcode; Individual Access sends invite onboarding emails to companions.",
+        toggle: "Access Model Radio Choice",
+        keywords: ["access model", "shared qr", "individual access", "lead booker", "turnstile", "parent scan", "group", "family"]
+      },
+      {
+        id: "realtime_live_occupancy",
+        name: "Real-Time Slope Live Occupancy",
+        module: "Club Booking Calendar",
+        route: "skiing-club",
+        need: "Monitors exact headcounts on slopes for safety compliance, snow degradation, and lift throughput.",
+        understanding: "Calculated dynamically as: (Entrance Turnstile Scans) minus (Exit Turnstile Scans).",
+        systemLogic: "Increments live counter on Gate 1 QR scan ('Start Game') and decrements on exit turnstile checkout scan.",
+        toggle: "System Calculated KPI",
+        keywords: ["live occupancy", "occupancy", "headcount", "turnstile", "safety capacity", "real-time", "skiers"]
+      },
       // ── MODULE: SKIING LESSON CONFIGURATION ──
       {
         id: "private_lesson_rate",

@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShallWePlay - Club Booking Calendar (Indoor Skiing)</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Montserrat', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          },
+          colors: {
+            swp: {
+              blue: '#007AFF',
+              blueHover: '#0062CC',
+              blueLight: '#EDF5FF',
+              dark: '#0F172A',
+              slate: '#1E293B',
+              border: '#E2E8F0',
+              muted: '#64748B',
+              green: '#10B981',
+              amber: '#F59E0B',
+              red: '#EF4444'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      background-color: #F8FAFC;
+      color: #0F172A;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #F1F5F9;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 4px;
+    }
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: 80px repeat(7, minmax(210px, 1fr));
+    }
+    .timeline-cell {
+      border-right: 1px solid #E2E8F0;
+      border-bottom: 1px solid #F1F5F9;
+      height: 58px;
+      position: relative;
+      transition: background-color 0.15s ease;
+    }
+    .timeline-cell:hover {
+      background-color: #F8FAFC;
+    }
+    .booking-block {
+      position: absolute;
+      left: 3px;
+      right: 3px;
+      border-radius: 6px;
+      padding: 6px 8px;
+      cursor: pointer;
+      overflow: hidden;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      z-index: 10;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    .booking-block:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+      z-index: 20;
+    }
+    .hold-pulse {
+      animation: holdPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+    @keyframes holdPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.75; }
+    }
+    .modal-backdrop {
+      background-color: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+  <!-- TOP APP HEADER -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 px-6 py-3.5 flex flex-wrap items-center justify-between gap-4 shadow-sm">
+    <div class="flex items-center gap-4">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center font-display font-extrabold text-lg shadow-md shadow-blue-500/20">
+        <i class="fa-solid fa-person-skiing"></i>
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <h1 class="font-display font-bold text-lg text-slate-900 leading-tight">SnowWorld Indoor Ski Dome</h1>
+          <span class="bg-blue-50 text-blue-700 text-xs font-semibold px-2 py-0.5 rounded-full border border-blue-200">Club Portal</span>
+          <span class="bg-emerald-50 text-emerald-700 text-xs font-semibold px-2 py-0.5 rounded-full border border-emerald-200 flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Live System
+          </span>
+        </div>
+        <p class="text-xs text-slate-500 font-medium">Slope Operations, Real-Time Capacity & On-Behalf Desk</p>
+      </div>
+    </div>
+
+    <!-- DATE CONTROLS & PRIMARY ACTION -->
+    <div class="flex items-center gap-3">
+      <!-- Date Navigator -->
+      <div class="flex items-center bg-slate-100 rounded-lg p-1 border border-slate-200 text-xs font-semibold">
+        <button onclick="shiftDate(-1)" class="w-7 h-7 rounded flex items-center justify-center text-slate-600 hover:bg-white hover:text-slate-900 transition">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <div class="px-3 flex items-center gap-2 cursor-pointer" onclick="document.getElementById('calDatePicker').showPicker()">
+          <i class="fa-regular fa-calendar text-blue-600"></i>
+          <span id="displayDateLabel" class="font-bold text-slate-800">Saturday, 20 Sep 2026</span>
+          <input type="date" id="calDatePicker" value="2026-09-20" onchange="onDateChanged(this.value)" class="sr-only">
+        </div>
+        <button onclick="shiftDate(1)" class="w-7 h-7 rounded flex items-center justify-center text-slate-600 hover:bg-white hover:text-slate-900 transition">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+        <button onclick="setDateToday()" class="ml-1 px-2.5 py-1 rounded bg-white text-blue-600 hover:text-blue-700 border border-slate-200 font-bold shadow-xs">
+          Today
+        </button>
+      </div>
+
+      <!-- Quick Slope Filter -->
+      <select id="slopeFilter" onchange="filterSlopes(this.value)" class="text-xs font-semibold bg-white border border-slate-200 text-slate-700 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none">
+        <option value="all">All Slopes & Zones (7)</option>
+        <option value="beginner">Beginner & Green Only</option>
+        <option value="advanced">Intermediate & Advanced</option>
+        <option value="freestyle">Terrain & Lessons</option>
+      </select>
+
+      <!-- Refresh -->
+      <button onclick="refreshCalendarData()" title="Reload schedule" class="w-9 h-9 flex items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition">
+        <i class="fa-solid fa-arrow-rotate-right"></i>
+      </button>
+
+      <!-- Toggle Holds Drawer -->
+      <button onclick="toggleHoldsDrawer()" class="relative text-xs font-bold px-3.5 py-2 rounded-lg border border-amber-300 bg-amber-50 text-amber-900 hover:bg-amber-100 flex items-center gap-2 transition">
+        <i class="fa-solid fa-clock-rotate-left text-amber-600"></i>
+        <span>Pending Holds</span>
+        <span id="topHoldsBadge" class="w-5 h-5 bg-amber-500 text-white rounded-full flex items-center justify-center text-[10px] font-mono font-extrabold">3</span>
+      </button>
+
+      <!-- On-Behalf Action Button -->
+      <button onclick="openNewBookingModal()" class="text-xs font-display font-bold px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/25 flex items-center gap-2 transition">
+        <i class="fa-solid fa-plus text-sm"></i>
+        <span>+ New Booking (On-Behalf)</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- DAY SUMMARY KPI BAR -->
+  <section class="bg-white border-b border-slate-200 px-6 py-3">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <!-- KPI 1 -->
+      <div class="flex items-center gap-3.5 p-2 rounded-lg bg-slate-50 border border-slate-100">
+        <div class="w-10 h-10 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center text-lg">
+          <i class="fa-solid fa-users"></i>
+        </div>
+        <div>
+          <span class="text-[11px] font-semibold text-slate-500 uppercase tracking-wide">Total Booked Today</span>
+          <div class="flex items-baseline gap-2">
+            <span id="kpiTotalBooked" class="text-xl font-display font-extrabold text-slate-900">328</span>
+            <span class="text-xs font-medium text-slate-500">passholders</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- KPI 2 -->
+      <div class="flex items-center gap-3.5 p-2 rounded-lg bg-emerald-50 border border-emerald-100">
+        <div class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center text-lg">
+          <i class="fa-solid fa-person-skiing-nordic"></i>
+        </div>
+        <div>
+          <span class="text-[11px] font-semibold text-emerald-800 uppercase tracking-wide">Live Occupancy (Turnstiles)</span>
+          <div class="flex items-baseline gap-2">
+            <span id="kpiLiveOccupancy" class="text-xl font-display font-extrabold text-emerald-700">142</span>
+            <span class="text-xs font-semibold text-emerald-600">/ 292 safe capacity (48%)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- KPI 3 -->
+      <div class="flex items-center gap-3.5 p-2 rounded-lg bg-amber-50 border border-amber-100 cursor-pointer" onclick="toggleHoldsDrawer(true)">
+        <div class="w-10 h-10 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center text-lg">
+          <i class="fa-solid fa-hourglass-half"></i>
+        </div>
+        <div>
+          <span class="text-[11px] font-semibold text-amber-800 uppercase tracking-wide">Pending Payment Holds</span>
+          <div class="flex items-baseline gap-2">
+            <span id="kpiHoldCount" class="text-xl font-display font-extrabold text-amber-700">3 Active</span>
+            <span id="kpiHoldValue" class="text-xs font-bold text-amber-600">· €285.00 holding</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- KPI 4 -->
+      <div class="flex items-center gap-3.5 p-2 rounded-lg bg-indigo-50 border border-indigo-100">
+        <div class="w-10 h-10 rounded-lg bg-indigo-100 text-indigo-600 flex items-center justify-center text-lg">
+          <i class="fa-solid fa-snowflake"></i>
+        </div>
+        <div>
+          <span class="text-[11px] font-semibold text-indigo-800 uppercase tracking-wide">Dome Conditions</span>
+          <div class="flex items-center gap-2 text-xs font-bold text-indigo-900">
+            <span>-2.5°C</span>
+            <span class="text-indigo-400">·</span>
+            <span>Real Snow (40cm)</span>
+            <span class="text-indigo-400">·</span>
+            <span class="text-emerald-700 flex items-center gap-1"><i class="fa-solid fa-circle-check text-[10px]"></i> 5/5 Lifts OK</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN WORKSPACE & TIMELINE -->
+  <div class="flex-1 flex overflow-hidden relative">
+
+    <!-- TIMELINE CONTAINER -->
+    <main class="flex-1 overflow-auto custom-scrollbar bg-slate-50 flex flex-col">
+      
+      <!-- STICKY COLUMN HEADERS (SLOPES / ZONES) -->
+      <div class="sticky top-0 z-20 bg-white border-b border-slate-200 shadow-xs">
+        <div class="calendar-grid">
+          <!-- Time gutter header -->
+          <div class="border-r border-slate-200 p-2.5 bg-slate-100 text-[11px] font-extrabold text-slate-500 uppercase tracking-wider text-center flex items-center justify-center">
+            Time
+          </div>
+
+          <!-- Slope 1 -->
+          <div class="border-r border-slate-200 p-3 bg-white slope-col-beginner">
+            <div class="flex items-center justify-between">
+              <span class="px-2 py-0.5 text-[10px] font-extrabold bg-emerald-100 text-emerald-800 rounded">BEGINNER</span>
+              <span class="text-[11px] font-mono text-slate-500 font-semibold">Cap: 45/hr</span>
+            </div>
+            <h3 class="font-display font-bold text-xs text-slate-900 mt-1">Green Slope 1</h3>
+            <p class="text-[10px] text-slate-500">120m · Magic Carpet · Gentle (12%)</p>
+          </div>
+
+          <!-- Slope 2 -->
+          <div class="border-r border-slate-200 p-3 bg-white slope-col-beginner">
+            <div class="flex items-center justify-between">
+              <span class="px-2 py-0.5 text-[10px] font-extrabold bg-emerald-100 text-emerald-800 rounded">PRACTICE</span>
+              <span class="text-[11px] font-mono text-slate-500 font-semibold">Cap: 35/hr</span>
+            </div>
+            <h3 class="font-display font-bold text-xs text-slate-900 mt-1">Green Slope 2 (Kids)</h3>
+            <p class="text-[10px] text-slate-500">80m · Conveyor Deck · 8%</p>
+          </div>
+
+          <!-- Slope 3 -->
+          <div class="border-r border-slate-200 p-3 bg-white slope-col-advanced">
+            <div class="flex items-center justify-between">
+              <span class="px-2 py-0.5 text-[10px] font-extrabold bg-blue-100 text-blue-800 rounded">INTERMEDIATE</span>
+              <span class="text-[11px] font-mono text-slate-500 font-semibold">Cap: 65/hr</span>
+            </div>
+            <h3 class="font-display font-bold text-xs text-slate-900 mt-1">Blue Slope Central</h3>
+            <p class="text-[10px] text-slate-500">300m · Chairlift 1 · 22%</p>
+          </div>
+
+          <!-- Slope 4 -->
+          <div class="border-r border-slate-200 p-3 bg-white slope-col-advanced">
+            <div class="flex items-center justify-between">
+              <span class="px-2 py-0.5 text-[10px] font-extrabold bg-rose-100 text-rose-800 rounded">ADVANCED</span>
+              <span class="text-[11px] font-mono text-slate-500 font-semibold">Cap: 50/hr</span>
+            </div>
+            <h3 class="font-display font-bold text-xs text-slate-900 mt-1">Red Slope West</h3>
+            <p class="text-[10px] text-slate-500">380m · T-Bar Lift · Steep (34%)</p>
+          </div>
+
+          <!-- Slope 5 -->
+          <div class="border-r border-slate-200 p-3 bg-white slope-col-advanced">
+            <div class="flex items-center justify-between">
+              <span class="px-2 py-0.5 text-[10px] font-extrabold bg-slate-900 text-white rounded">EXPERT</span>
+              <span class="text-[11px] font-mono text-slate-500 font-semibold">Cap: 25/hr</span>
+            </div>
+            <h3 class="font-display font-bold text-xs text-slate-900 mt-1">Black Mogul Ridge</h3>
+            <p class="text-[10px] text-slate-500">220m · Moguls/Ice · 42%</p>
+          </div>
+
+          <!-- Slope 6 -->
+          <div class="border-r border-slate-200 p-3 bg-white slope-col-freestyle">
+            <div class="flex items-center justify-between">
+              <span class="px-2 py-0.5 text-[10px] font-extrabold bg-purple-100 text-purple-800 rounded">FREESTYLE</span>
+              <span class="text-[11px] font-mono text-slate-500 font-semibold">Cap: 40/hr</span>
+            </div>
+            <h3 class="font-display font-bold text-xs text-slate-900 mt-1">Terrain & Fun Park</h3>
+            <p class="text-[10px] text-slate-500">Rails, Kickers & Airbag Zone</p>
+          </div>
+
+          <!-- Slope 7 -->
+          <div class="p-3 bg-white slope-col-freestyle">
+            <div class="flex items-center justify-between">
+              <span class="px-2 py-0.5 text-[10px] font-extrabold bg-amber-100 text-amber-800 rounded">ACADEMY</span>
+              <span class="text-[11px] font-mono text-slate-500 font-semibold">Cap: 32/hr</span>
+            </div>
+            <h3 class="font-display font-bold text-xs text-slate-900 mt-1">Dedicated Lesson Zone</h3>
+            <p class="text-[10px] text-slate-500">Reserved for 1-on-1 & Kids School</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIMELINE GRID BODY (30 MIN SLOTS FROM 08:00 TO 22:00) -->
+      <div id="calendarGridBody" class="calendar-grid relative select-none">
+        <!-- Generated dynamically in JavaScript -->
+      </div>
+    </main>
+
+    <!-- PENDING PAYMENT HOLDS SIDE PANEL (DRAWER) -->
+    <aside id="holdsSideDrawer" class="w-80 bg-white border-l border-slate-200 flex flex-col flex-shrink-0 z-20 shadow-lg transition-all duration-300">
+      <!-- Drawer Header -->
+      <div class="p-4 border-b border-slate-200 flex items-center justify-between bg-slate-50">
+        <div class="flex items-center gap-2">
+          <div class="w-7 h-7 rounded bg-amber-100 text-amber-700 flex items-center justify-center text-xs">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+          </div>
+          <div>
+            <h2 class="font-display font-bold text-xs text-slate-900">Pending Holds</h2>
+            <p class="text-[10px] text-slate-500">Temporary capacity reservation</p>
+          </div>
+        </div>
+        <button onclick="toggleHoldsDrawer(false)" class="text-slate-400 hover:text-slate-700 text-sm">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Live Holds List -->
+      <div id="holdsListContainer" class="flex-1 overflow-y-auto p-3 space-y-3 custom-scrollbar">
+        <!-- Holds cards rendered via JS -->
+      </div>
+
+      <!-- Drawer Footer -->
+      <div class="p-3 border-t border-slate-200 bg-slate-50 text-[11px] text-slate-500 flex items-center justify-between">
+        <span>Auto-expires if unpaid</span>
+        <button onclick="clearExpiredHolds()" class="text-rose-600 hover:underline font-bold">Clear Expired</button>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- ========================================================== -->
+  <!-- MODAL: CREATING A NEW BOOKING (ON-BEHALF)                  -->
+  <!-- ========================================================== -->
+  <div id="newBookingModal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[92vh] flex flex-col overflow-hidden border border-slate-200 animate-in fade-in zoom-in duration-200">
+      
+      <!-- Modal Header -->
+      <div class="px-6 py-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-lg bg-blue-600 text-white flex items-center justify-center text-base font-bold shadow-sm">
+            <i class="fa-solid fa-receipt"></i>
+          </div>
+          <div>
+            <h2 class="font-display font-bold text-base text-slate-900">Create Booking (On-Behalf)</h2>
+            <p class="text-xs text-slate-500">Reserve slope capacity & issue payment link or confirm direct payment</p>
+          </div>
+        </div>
+        <button onclick="closeNewBookingModal()" class="w-8 h-8 rounded-full hover:bg-slate-200 text-slate-400 hover:text-slate-700 flex items-center justify-center text-sm transition">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Modal Form Body -->
+      <form id="onBehalfForm" onsubmit="submitOnBehalfBooking(event)" class="flex-1 overflow-y-auto p-6 space-y-5 custom-scrollbar text-xs">
+
+        <!-- SPORT & SLOPE ROW -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Sport (Pre-selected)</label>
+            <div class="flex items-center gap-2 p-2.5 bg-slate-100 border border-slate-200 rounded-lg text-slate-600 font-semibold cursor-not-allowed">
+              <i class="fa-solid fa-person-skiing text-blue-600"></i>
+              <span>Skiing (Indoor Dome)</span>
+              <span class="ml-auto text-[10px] text-slate-400 uppercase font-mono">Fixed</span>
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Slope / Zone <span class="text-rose-500">*</span></label>
+            <select id="formSlopeSelect" onchange="updateCapacityCheck()" required class="w-full p-2.5 bg-white border border-slate-200 rounded-lg text-slate-800 font-semibold focus:ring-2 focus:ring-blue-500 outline-none">
+              <option value="slope-1" data-cap="45">Green Slope 1 (Beginner Run · Max 45/h)</option>
+              <option value="slope-2" data-cap="35">Green Slope 2 (Kids Practice · Max 35/h)</option>
+              <option value="slope-3" data-cap="65">Blue Slope Central (Intermediate · Max 65/h)</option>
+              <option value="slope-4" data-cap="50">Red Slope West (Advanced Steep · Max 50/h)</option>
+              <option value="slope-5" data-cap="25">Black Mogul Ridge (Expert Run · Max 25/h)</option>
+              <option value="slope-6" data-cap="40">Terrain & Fun Park (Freestyle · Max 40/h)</option>
+              <option value="slope-7" data-cap="32">Dedicated Lesson Zone (Ski School · Max 32/h)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- DATE & TIME & DURATION ROW -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Booking Date <span class="text-rose-500">*</span></label>
+            <input type="date" id="formBookingDate" required class="w-full p-2.5 bg-white border border-slate-200 rounded-lg text-slate-800 font-semibold focus:ring-2 focus:ring-blue-500 outline-none">
+          </div>
+
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Arrival Window Start <span class="text-rose-500">*</span></label>
+            <select id="formTimeSelect" onchange="updateEndTimeCalculation()" required class="w-full p-2.5 bg-white border border-slate-200 rounded-lg text-slate-800 font-semibold focus:ring-2 focus:ring-blue-500 outline-none">
+              <!-- Generated via JS -->
+            </select>
+          </div>
+
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Pass Duration <span class="text-rose-500">*</span></label>
+            <select id="formDurationSelect" onchange="updateEndTimeCalculation()" required class="w-full p-2.5 bg-white border border-slate-200 rounded-lg text-slate-800 font-semibold focus:ring-2 focus:ring-blue-500 outline-none">
+              <option value="1">1 Hour Pass</option>
+              <option value="2" selected>2 Hours Pass (Popular)</option>
+              <option value="3">3 Hours Pass</option>
+              <option value="4">4 Hours Evening Session</option>
+              <option value="8">Full Day Unlimited</option>
+              <option value="custom">Custom Duration</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- AUTO-CALCULATED END TIME & BUFFER BANNER -->
+        <div class="p-2.5 bg-blue-50 border border-blue-200 rounded-lg flex items-center justify-between text-[11px] text-blue-900">
+          <div class="flex items-center gap-2 font-medium">
+            <i class="fa-solid fa-clock text-blue-600"></i>
+            <span>Calculated Slot: <strong id="formCalculatedInterval">10:00 – 12:00</strong></span>
+            <span class="text-blue-400">|</span>
+            <span>Includes <strong class="font-mono">15 min</strong> Turnstile Grace Buffer</span>
+          </div>
+          <span id="formCapacityStatusBadge" class="px-2 py-0.5 bg-emerald-100 text-emerald-800 font-bold rounded">Capacity OK (23 left)</span>
+        </div>
+
+        <!-- PEOPLE & PASS TYPE & ACCESS MODEL -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Number of People <span class="text-rose-500">*</span></label>
+            <div class="relative">
+              <input type="number" id="formPeopleInput" min="1" max="50" value="2" oninput="updateCapacityCheck()" required class="w-full p-2.5 bg-white border border-slate-200 rounded-lg text-slate-800 font-mono font-bold focus:ring-2 focus:ring-blue-500 outline-none pr-8">
+              <span class="absolute right-2.5 top-2.5 text-slate-400 font-bold">Pax</span>
+            </div>
+          </div>
+
+          <div class="sm:col-span-2">
+            <label class="block font-bold text-slate-700 mb-1">Pass Category <span class="text-rose-500">*</span></label>
+            <select id="formPassType" onchange="calculateBookingPrice()" class="w-full p-2.5 bg-white border border-slate-200 rounded-lg text-slate-800 font-semibold focus:ring-2 focus:ring-blue-500 outline-none">
+              <option value="standard" data-price="42.50">Standard Slope Pass + Lift Included (€42.50 / pax)</option>
+              <option value="member" data-price="32.00">Club Member Slope Pass (€32.00 / pax)</option>
+              <option value="combo" data-price="75.00">Skiing + 1-Hour Lesson Combo Pass (€75.00 / pax)</option>
+              <option value="child" data-price="29.00">Junior / Child SnowDome Pass (€29.00 / pax)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- ACCESS MODEL SPECIFICATION (PRD REQUIREMENT) -->
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Access Model</label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <label class="flex items-start gap-2.5 p-3 rounded-lg border border-blue-300 bg-blue-50/50 cursor-pointer hover:border-blue-400 transition">
+              <input type="radio" name="accessModel" value="shared_qr" checked class="mt-0.5 text-blue-600 focus:ring-blue-500">
+              <div>
+                <strong class="text-slate-900 block leading-tight">Shared QR (Lead Booker)</strong>
+                <span class="text-[10px] text-slate-500 leading-tight block mt-0.5">Lead skier scans QR multiple times at turnstile. Perfect for families and children.</span>
+              </div>
+            </label>
+
+            <label class="flex items-start gap-2.5 p-3 rounded-lg border border-slate-200 bg-white cursor-pointer hover:border-slate-300 transition">
+              <input type="radio" name="accessModel" value="individual" class="mt-0.5 text-blue-600 focus:ring-blue-500">
+              <div>
+                <strong class="text-slate-900 block leading-tight">Individual Access</strong>
+                <span class="text-[10px] text-slate-500 leading-tight block mt-0.5">Generates distinct QR pass per player with email onboarding invite link.</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- PLAYER / GUEST SEARCH OR CREATE -->
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label class="font-bold text-slate-700">Lead Skier / Guest Profile <span class="text-rose-500">*</span></label>
+            <button type="button" onclick="toggleGuestCreateMode()" id="btnToggleGuestMode" class="text-blue-600 hover:text-blue-700 font-bold text-[11px]">
+              + Create New Guest Profile
+            </button>
+          </div>
+
+          <!-- Existing Member Search Mode -->
+          <div id="memberSearchBox" class="relative">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400"></i>
+            <input type="text" id="memberSearchInput" placeholder="Search member by Name, Phone (+31...) or Email..." oninput="searchMembers(this.value)" class="w-full pl-9 pr-4 p-2.5 bg-white border border-slate-200 rounded-lg text-slate-800 font-medium focus:ring-2 focus:ring-blue-500 outline-none">
+            <!-- Autocomplete Results Dropdown -->
+            <div id="memberSearchResults" class="absolute left-0 right-0 top-full mt-1 bg-white border border-slate-200 rounded-lg shadow-xl hidden z-30 max-h-48 overflow-y-auto"></div>
+          </div>
+
+          <!-- Selected Lead Skier Chip -->
+          <div id="selectedSkierChip" class="mt-2 p-2.5 bg-slate-100 border border-slate-200 rounded-lg flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+              <div class="w-7 h-7 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs">
+                <span id="chipInitials">MD</span>
+              </div>
+              <div>
+                <strong id="chipName" class="text-slate-900 text-xs">Mukund Dave (Member #8842)</strong>
+                <span id="chipContact" class="text-[10px] text-slate-500 block">mukund.dave@example.com · +31 6 1234 5678</span>
+              </div>
+            </div>
+            <span class="px-2 py-0.5 bg-blue-100 text-blue-800 font-bold text-[9px] rounded uppercase">Selected</span>
+          </div>
+
+          <!-- Create Guest Profile Fields (Hidden by default) -->
+          <div id="guestCreateForm" class="hidden mt-3 p-3 bg-slate-50 border border-slate-200 rounded-lg space-y-2">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              <input type="text" id="guestName" placeholder="Guest Full Name *" class="p-2 bg-white border border-slate-200 rounded text-xs">
+              <input type="tel" id="guestPhone" placeholder="Mobile (+31...) *" class="p-2 bg-white border border-slate-200 rounded text-xs">
+              <input type="email" id="guestEmail" placeholder="Email Address *" class="p-2 bg-white border border-slate-200 rounded text-xs">
+            </div>
+          </div>
+        </div>
+
+        <!-- EQUIPMENT ADD-ON (LIVE STOCK CHECK) -->
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Rental Equipment Add-ons (Live Inventory)</label>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <label class="flex items-center gap-2 p-2 rounded-lg border border-slate-200 bg-white hover:border-slate-300 cursor-pointer">
+              <input type="checkbox" id="eqSki" value="15" onchange="calculateBookingPrice()" class="rounded text-blue-600 focus:ring-blue-500">
+              <div>
+                <span class="font-bold text-slate-800 block leading-tight">Ski Set</span>
+                <span class="text-[10px] text-slate-500 block">+€15 · 42 in stock</span>
+              </div>
+            </label>
+
+            <label class="flex items-center gap-2 p-2 rounded-lg border border-slate-200 bg-white hover:border-slate-300 cursor-pointer">
+              <input type="checkbox" id="eqSnowboard" value="18" onchange="calculateBookingPrice()" class="rounded text-blue-600 focus:ring-blue-500">
+              <div>
+                <span class="font-bold text-slate-800 block leading-tight">Snowboard</span>
+                <span class="text-[10px] text-slate-500 block">+€18 · 19 in stock</span>
+              </div>
+            </label>
+
+            <label class="flex items-center gap-2 p-2 rounded-lg border border-slate-200 bg-white hover:border-slate-300 cursor-pointer">
+              <input type="checkbox" id="eqHelmet" value="6" onchange="calculateBookingPrice()" class="rounded text-blue-600 focus:ring-blue-500">
+              <div>
+                <span class="font-bold text-slate-800 block leading-tight">Pro Helmet</span>
+                <span class="text-[10px] text-slate-500 block">+€6 · 84 in stock</span>
+              </div>
+            </label>
+
+            <label class="flex items-center gap-2 p-2 rounded-lg border border-slate-200 bg-white hover:border-slate-300 cursor-pointer">
+              <input type="checkbox" id="eqLocker" value="4" onchange="calculateBookingPrice()" class="rounded text-blue-600 focus:ring-blue-500">
+              <div>
+                <span class="font-bold text-slate-800 block leading-tight">RFID Locker</span>
+                <span class="text-[10px] text-slate-500 block">+€4 · 28 available</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- LESSON ADD-ON & HOLD DURATION -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Lesson Add-on (Optional)</label>
+            <select id="formLessonSelect" onchange="calculateBookingPrice()" class="w-full p-2.5 bg-white border border-slate-200 rounded-lg text-slate-800 font-semibold focus:ring-2 focus:ring-blue-500 outline-none">
+              <option value="none" data-price="0">No Lesson (Slope Access Only)</option>
+              <option value="private" data-price="65">Private 1-on-1 Lesson (+€65/h)</option>
+              <option value="group" data-price="35">Adult Group Lesson (+€35/pax)</option>
+              <option value="kids" data-price="30">Kids Snow School (+€30/child)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Temporary Hold Duration</label>
+            <div class="grid grid-cols-3 gap-2">
+              <label class="flex items-center justify-center p-2 rounded-lg border border-slate-200 bg-white hover:border-blue-300 cursor-pointer text-center font-bold">
+                <input type="radio" name="holdDuration" value="15" class="sr-only">
+                <span>15 Mins</span>
+              </label>
+              <label class="flex items-center justify-center p-2 rounded-lg border-2 border-blue-600 bg-blue-50 text-blue-700 cursor-pointer text-center font-bold">
+                <input type="radio" name="holdDuration" value="30" checked class="sr-only">
+                <span>30 Mins</span>
+              </label>
+              <label class="flex items-center justify-center p-2 rounded-lg border border-slate-200 bg-white hover:border-blue-300 cursor-pointer text-center font-bold">
+                <input type="radio" name="holdDuration" value="60" class="sr-only">
+                <span>60 Mins</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- PAYMENT METHOD SELECTION (PRD REQUIREMENT) -->
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Payment Action <span class="text-rose-500">*</span></label>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <label class="flex items-start gap-2 p-3 rounded-lg border-2 border-blue-600 bg-blue-50/60 cursor-pointer">
+              <input type="radio" name="paymentOption" value="link" checked class="mt-0.5 text-blue-600">
+              <div>
+                <strong class="text-slate-900 block leading-tight">Send Payment Link</strong>
+                <span class="text-[10px] text-slate-500 block mt-0.5">Places hold; sends SMS/Email/In-App link.</span>
+              </div>
+            </label>
+
+            <label class="flex items-start gap-2 p-3 rounded-lg border border-slate-200 bg-white hover:border-slate-300 cursor-pointer">
+              <input type="radio" name="paymentOption" value="paid" class="mt-0.5 text-blue-600">
+              <div>
+                <strong class="text-slate-900 block leading-tight">Mark as Paid (Desk)</strong>
+                <span class="text-[10px] text-slate-500 block mt-0.5">Cash / Terminal / VIP. Instant confirmation.</span>
+              </div>
+            </label>
+
+            <label class="flex items-start gap-2 p-3 rounded-lg border border-slate-200 bg-white hover:border-slate-300 cursor-pointer">
+              <input type="radio" name="paymentOption" value="invoice" class="mt-0.5 text-blue-600">
+              <div>
+                <strong class="text-slate-900 block leading-tight">Invoice / Club Later</strong>
+                <span class="text-[10px] text-slate-500 block mt-0.5">Corporate or Club partner billing account.</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- INTERNAL STAFF NOTE -->
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Internal Note (Staff Only)</label>
+          <input type="text" id="formInternalNote" placeholder="e.g. VIP guest referred by SnowWorld coach; requires size 43 boots..." class="w-full p-2.5 bg-white border border-slate-200 rounded-lg text-slate-800 font-medium focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+
+        <!-- PRICING SUMMARY BREAKDOWN -->
+        <div class="p-3 bg-slate-100 rounded-xl border border-slate-200 flex flex-wrap items-center justify-between gap-4 font-mono">
+          <div class="space-y-0.5 text-[11px] text-slate-600 font-sans">
+            <div>Base Passes: <span id="summaryPassCost" class="font-mono font-bold text-slate-900">€85.00</span> (2 x €42.50)</div>
+            <div>Equipment & Gear: <span id="summaryGearCost" class="font-mono font-bold text-slate-900">€0.00</span></div>
+            <div>Lesson Add-on: <span id="summaryLessonCost" class="font-mono font-bold text-slate-900">€0.00</span></div>
+          </div>
+          <div class="text-right">
+            <span class="text-[10px] uppercase tracking-wider font-bold text-slate-500 font-sans block">Total Booking Amount</span>
+            <span id="summaryTotalAmount" class="text-2xl font-display font-extrabold text-slate-900">€85.00</span>
+          </div>
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="flex items-center justify-end gap-3 pt-2">
+          <button type="button" onclick="closeNewBookingModal()" class="px-4 py-2.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-100 text-slate-700 font-bold transition">
+            Cancel
+          </button>
+          <button type="submit" class="px-6 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-display font-bold shadow-md shadow-blue-500/25 flex items-center gap-2 transition">
+            <i class="fa-solid fa-bolt"></i>
+            <span id="submitBtnLabel">Place Capacity Hold & Send Link</span>
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================== -->
+  <!-- MODAL: BOOKING DETAIL & QR INSPECTION DRAWER               -->
+  <!-- ========================================================== -->
+  <div id="bookingDetailsModal" class="fixed inset-0 z-50 modal-backdrop hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-200">
+      <div class="p-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <span id="detailStatusBadge" class="px-2 py-0.5 text-xs font-bold bg-emerald-100 text-emerald-800 rounded">LIVE ON-SLOPE</span>
+          <span id="detailBookingId" class="text-xs font-mono text-slate-500 font-bold">#SWP-8842-NL</span>
+        </div>
+        <button onclick="closeBookingDetailsModal()" class="text-slate-400 hover:text-slate-700"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="p-6 space-y-4 text-xs">
+        <div class="flex items-start justify-between">
+          <div>
+            <h3 id="detailCustomerName" class="font-display font-bold text-base text-slate-900">Mukund Dave</h3>
+            <p id="detailCustomerMeta" class="text-slate-500 text-[11px]">mukund.dave@example.com · +31 6 1234 5678</p>
+          </div>
+          <div class="text-right">
+            <span id="detailPassName" class="font-bold text-slate-800 block">2-Hour Slope Pass</span>
+            <span id="detailPax" class="text-slate-500 text-[11px]">2 Skier(s)</span>
+          </div>
+        </div>
+
+        <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 grid grid-cols-2 gap-2 text-[11px]">
+          <div>Slope: <strong id="detailSlope" class="text-slate-900">Blue Slope Central</strong></div>
+          <div>Timing: <strong id="detailTiming" class="text-slate-900">10:00 – 12:00 (2h)</strong></div>
+          <div>Turnstile Status: <strong id="detailTurnstileStatus" class="text-emerald-700 font-mono">SCANNED_ENTRY (10:04)</strong></div>
+          <div>Countdown Timer: <strong id="detailTimer" class="text-blue-600 font-mono">1h 12m remaining</strong></div>
+        </div>
+
+        <!-- QR Quick Pass -->
+        <div class="text-center p-3 border border-slate-200 rounded-lg">
+          <div class="w-24 h-24 bg-slate-900 text-white mx-auto flex items-center justify-center rounded-lg mb-1">
+            <i class="fa-solid fa-qrcode text-4xl"></i>
+          </div>
+          <span class="text-[10px] font-mono font-bold text-slate-500">SWP-QR-8842-SHARED</span>
+          <p class="text-[10px] text-slate-400">Scanned 2 times for 2 entries at Turnstile Gate 1</p>
+        </div>
+
+        <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-200">
+          <button onclick="simulateTurnstileExit()" class="px-3 py-1.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold">Simulate Exit Scan</button>
+          <button onclick="closeBookingDetailsModal()" class="px-4 py-1.5 rounded bg-blue-600 text-white font-bold">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- ========================================================== -->
+  <!-- JAVASCRIPT ENGINE & SCHEDULING LOGIC                       -->
+  <!-- ========================================================== -->
+  <script>
+    // ── DATA STORES ──
+    const SLOPES = [
+      { id: 'slope-1', name: 'Green Slope 1', type: 'beginner', cap: 45, color: 'emerald' },
+      { id: 'slope-2', name: 'Green Slope 2 (Kids)', type: 'beginner', cap: 35, color: 'emerald' },
+      { id: 'slope-3', name: 'Blue Slope Central', type: 'intermediate', cap: 65, color: 'blue' },
+      { id: 'slope-4', name: 'Red Slope West', type: 'advanced', cap: 50, color: 'rose' },
+      { id: 'slope-5', name: 'Black Mogul Ridge', type: 'expert', cap: 25, color: 'slate' },
+      { id: 'slope-6', name: 'Terrain & Fun Park', type: 'freestyle', cap: 40, color: 'purple' },
+      { id: 'slope-7', name: 'Dedicated Lesson Zone', type: 'academy', cap: 32, color: 'amber' }
+    ];
+
+    const TIME_SLOTS = [
+      '08:00', '08:30', '09:00', '09:30', '10:00', '10:30',
+      '11:00', '11:30', '12:00', '12:30', '13:00', '13:30',
+      '14:00', '14:30', '15:00', '15:30', '16:00', '16:30',
+      '17:00', '17:30', '18:00', '18:30', '19:00', '19:30',
+      '20:00', '20:30', '21:00', '21:30'
+    ];
+
+    // Seed Sample Bookings
+    let bookings = [
+      {
+        id: 'SWP-8842',
+        slopeId: 'slope-3',
+        customerName: 'Mukund Dave',
+        contact: '+31 6 1234 5678',
+        email: 'mukund.dave@example.com',
+        startTime: '10:00',
+        durationHours: 2,
+        pax: 22,
+        maxCap: 65,
+        passName: '2-Hour Slope Pass',
+        status: 'live', // live, confirmed, pending_hold, maintenance
+        peak: true,
+        lesson: false,
+        holdMinutesLeft: null,
+        amount: 85.00
+      },
+      {
+        id: 'SWP-8843',
+        slopeId: 'slope-1',
+        customerName: 'Sophie Van Dijk',
+        contact: '+31 6 9876 5432',
+        email: 'sophie.vd@example.com',
+        startTime: '09:00',
+        durationHours: 2,
+        pax: 18,
+        maxCap: 45,
+        passName: '2-Hour Pass + Gear',
+        status: 'live',
+        peak: false,
+        lesson: false,
+        holdMinutesLeft: null,
+        amount: 112.00
+      },
+      {
+        id: 'SWP-8844',
+        slopeId: 'slope-7',
+        customerName: 'Parthesh Dave (Lead)',
+        contact: '+31 6 5544 3322',
+        email: 'parthesh.dave@gmail.com',
+        startTime: '11:00',
+        durationHours: 1.5,
+        pax: 8,
+        maxCap: 32,
+        passName: 'Kids Snow School Class',
+        status: 'confirmed',
+        peak: false,
+        lesson: 'Kids Academy',
+        holdMinutesLeft: null,
+        amount: 240.00
+      },
+      {
+        id: 'SWP-8845',
+        slopeId: 'slope-4',
+        customerName: 'Lars Meijer',
+        contact: '+31 6 4433 2211',
+        email: 'lars.m@example.com',
+        startTime: '14:00',
+        durationHours: 3,
+        pax: 32,
+        maxCap: 50,
+        passName: '3-Hour Advanced Pass',
+        status: 'confirmed',
+        peak: true,
+        lesson: false,
+        holdMinutesLeft: null,
+        amount: 145.00
+      },
+      {
+        id: 'SWP-8846',
+        slopeId: 'slope-6',
+        customerName: 'Snowboarders NL Club',
+        contact: '+31 6 7788 9900',
+        email: 'events@snowboarders.nl',
+        startTime: '13:00',
+        durationHours: 4,
+        pax: 28,
+        maxCap: 40,
+        passName: 'Freestyle Jam Session',
+        status: 'confirmed',
+        peak: true,
+        lesson: false,
+        holdMinutesLeft: null,
+        amount: 380.00
+      },
+      {
+        id: 'SWP-8847',
+        slopeId: 'slope-3',
+        customerName: 'Emma Watson (Guest)',
+        contact: '+31 6 3322 1100',
+        email: 'emma.w@example.com',
+        startTime: '14:30',
+        durationHours: 2,
+        pax: 4,
+        maxCap: 65,
+        passName: '2-Hour Slope Pass',
+        status: 'pending_hold',
+        peak: true,
+        lesson: false,
+        holdMinutesLeft: 22,
+        amount: 170.00
+      },
+      {
+        id: 'SWP-8848',
+        slopeId: 'slope-1',
+        customerName: 'Jan de Vries',
+        contact: '+31 6 1122 3344',
+        email: 'jan.devries@example.com',
+        startTime: '16:00',
+        durationHours: 1,
+        pax: 2,
+        maxCap: 45,
+        passName: '1-Hour Beginner Pass',
+        status: 'pending_hold',
+        peak: false,
+        lesson: false,
+        holdMinutesLeft: 14,
+        amount: 65.00
+      },
+      {
+        id: 'SWP-8849',
+        slopeId: 'slope-5',
+        customerName: 'Snowcat Grooming & Safety Inspection',
+        contact: 'Internal Ops',
+        email: 'ops@snowworld.nl',
+        startTime: '12:00',
+        durationHours: 1,
+        pax: 0,
+        maxCap: 25,
+        passName: 'Scheduled Grooming',
+        status: 'maintenance',
+        peak: false,
+        lesson: false,
+        holdMinutesLeft: null,
+        amount: 0
+      }
+    ];
+
+    let selectedBookingForDetail = null;
+
+    // ── INITIALIZATION ──
+    document.addEventListener('DOMContentLoaded', () => {
+      populateTimeDropdowns();
+      renderCalendarGrid();
+      renderHoldsList();
+      updateKPISummaries();
+      
+      // Start real-time countdown ticker for holds
+      setInterval(tickHoldTimers, 60000);
+    });
+
+    function populateTimeDropdowns() {
+      const select = document.getElementById('formTimeSelect');
+      select.innerHTML = '';
+      TIME_SLOTS.forEach(time => {
+        const opt = document.createElement('option');
+        opt.value = time;
+        opt.textContent = time;
+        select.appendChild(opt);
+      });
+      updateEndTimeCalculation();
+    }
+
+    // ── RENDER CALENDAR GRID ──
+    function renderCalendarGrid() {
+      const gridBody = document.getElementById('calendarGridBody');
+      gridBody.innerHTML = '';
+
+      TIME_SLOTS.forEach((slot, slotIdx) => {
+        // Time Label Column Cell
+        const timeCell = document.createElement('div');
+        timeCell.className = 'timeline-cell bg-slate-100/70 border-r border-slate-200 text-[11px] font-mono font-bold text-slate-500 flex items-center justify-center';
+        timeCell.textContent = slot;
+        gridBody.appendChild(timeCell);
+
+        // Slope Cells for this row
+        SLOPES.forEach((slope) => {
+          const cell = document.createElement('div');
+          cell.className = 'timeline-cell cursor-pointer group';
+          cell.dataset.time = slot;
+          cell.dataset.slope = slope.id;
+          cell.dataset.slotIdx = slotIdx;
+
+          // Quick Hover Add Button
+          cell.innerHTML = `
+            <button onclick="openNewBookingModalWithSlot('${slope.id}', '${slot}', event)" 
+              class="opacity-0 group-hover:opacity-100 absolute inset-1 m-auto h-7 px-2 rounded bg-blue-600/90 hover:bg-blue-700 text-white font-bold text-[10px] flex items-center justify-center gap-1 shadow-sm transition z-10">
+              <i class="fa-solid fa-plus text-[9px]"></i> Add
+            </button>
+          `;
+          
+          cell.addEventListener('click', (e) => {
+            if (e.target.closest('.booking-block') || e.target.closest('button')) return;
+            openNewBookingModalWithSlot(slope.id, slot);
+          });
+
+          gridBody.appendChild(cell);
+        });
+      });
+
+      // Overlay Bookings
+      renderBookingBlocks();
+    }
+
+    function renderBookingBlocks() {
+      // Remove existing blocks
+      document.querySelectorAll('.booking-block').forEach(b => b.remove());
+
+      bookings.forEach(b => {
+        const slopeIdx = SLOPES.findIndex(s => s.id === b.slopeId);
+        const slotIdx = TIME_SLOTS.findIndex(t => t === b.startTime);
+        if (slopeIdx === -1 || slotIdx === -1) return;
+
+        // Slot duration calculation (each 30 min slot = 58px)
+        const slotSpan = Math.round(b.durationHours * 2);
+        const blockHeight = (slotSpan * 58) - 6;
+
+        // Position coordinates
+        const colStart = slopeIdx + 2; // 1 is time label col
+        const rowStart = slotIdx + 1;
+
+        const block = document.createElement('div');
+        block.className = `booking-block ${getBookingBlockStyle(b.status)}`;
+        block.style.gridColumnStart = colStart;
+        block.style.gridRowStart = rowStart;
+        block.style.gridRowEnd = rowStart + slotSpan;
+        block.style.height = `${blockHeight}px`;
+
+        block.innerHTML = `
+          <div class="flex items-start justify-between gap-1">
+            <div class="truncate">
+              <span class="font-extrabold text-[11px] text-slate-900 block truncate">${b.customerName}</span>
+              <span class="text-[10px] font-semibold text-slate-600 block">${b.passName}</span>
+            </div>
+            <span class="px-1.5 py-0.5 text-[9px] font-mono font-extrabold rounded ${getStatusBadgeClass(b.status)}">
+              ${getStatusBadgeText(b)}
+            </span>
+          </div>
+
+          <div class="flex items-center gap-1 mt-1.5 flex-wrap">
+            <span class="px-1.5 py-0.2 bg-white/80 border border-slate-300/60 rounded text-[9px] font-mono font-bold text-slate-800">
+              <i class="fa-solid fa-users text-[8px] mr-0.5"></i> ${b.pax}/${b.maxCap}
+            </span>
+            <span class="px-1.5 py-0.2 bg-white/80 border border-slate-300/60 rounded text-[9px] font-bold text-slate-700">
+              ${b.durationHours}h
+            </span>
+            ${b.peak ? '<span class="px-1.5 py-0.2 bg-rose-50 text-rose-700 border border-rose-200 rounded text-[9px] font-bold">🔥 Peak</span>' : ''}
+            ${b.lesson ? `<span class="px-1.5 py-0.2 bg-amber-50 text-amber-800 border border-amber-200 rounded text-[9px] font-bold">🎓 ${b.lesson}</span>` : ''}
+          </div>
+        `;
+
+        block.onclick = (e) => {
+          e.stopPropagation();
+          openBookingDetailModal(b.id);
+        };
+
+        const gridBody = document.getElementById('calendarGridBody');
+        gridBody.appendChild(block);
+      });
+    }
+
+    function getBookingBlockStyle(status) {
+      switch(status) {
+        case 'live':
+          return 'bg-emerald-50 border-2 border-emerald-500 text-emerald-950 shadow-emerald-500/10';
+        case 'confirmed':
+          return 'bg-blue-50 border border-blue-400 text-blue-950';
+        case 'pending_hold':
+          return 'bg-amber-50 border-2 border-dashed border-amber-500 text-amber-950 hold-pulse';
+        case 'maintenance':
+          return 'bg-slate-100 border border-slate-300 text-slate-600 opacity-80';
+        default:
+          return 'bg-white border border-slate-200';
+      }
+    }
+
+    function getStatusBadgeClass(status) {
+      switch(status) {
+        case 'live': return 'bg-emerald-600 text-white';
+        case 'confirmed': return 'bg-blue-600 text-white';
+        case 'pending_hold': return 'bg-amber-500 text-white';
+        case 'maintenance': return 'bg-slate-600 text-white';
+        default: return 'bg-slate-200 text-slate-700';
+      }
+    }
+
+    function getStatusBadgeText(b) {
+      if (b.status === 'live') return 'LIVE ON-SLOPE';
+      if (b.status === 'confirmed') return 'CONFIRMED';
+      if (b.status === 'pending_hold') return `HOLD · ${b.holdMinutesLeft}m`;
+      if (b.status === 'maintenance') return 'MAINTENANCE';
+      return b.status.toUpperCase();
+    }
+
+    // ── PENDING HOLDS SIDEBAR LOGIC ──
+    function renderHoldsList() {
+      const container = document.getElementById('holdsListContainer');
+      const holds = bookings.filter(b => b.status === 'pending_hold');
+      document.getElementById('topHoldsBadge').textContent = holds.length;
+
+      if (holds.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-10 text-slate-400">
+            <i class="fa-solid fa-circle-check text-3xl mb-2 text-emerald-400"></i>
+            <p class="font-bold text-xs text-slate-600">No Pending Holds</p>
+            <p class="text-[10px]">All bookings are confirmed or settled.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = holds.map(hold => `
+        <div class="p-3 bg-amber-50/60 border border-amber-200 rounded-xl space-y-2 relative">
+          <div class="flex items-start justify-between">
+            <div>
+              <span class="font-display font-bold text-xs text-slate-900 block">${hold.customerName}</span>
+              <span class="text-[10px] text-slate-500">${hold.contact}</span>
+            </div>
+            <span class="px-2 py-0.5 bg-amber-500 text-white text-[10px] font-mono font-bold rounded-full">
+              ${hold.holdMinutesLeft}m left
+            </span>
+          </div>
+
+          <div class="text-[11px] text-slate-700 space-y-0.5 bg-white p-2 rounded-lg border border-amber-200/60">
+            <div class="flex justify-between"><span>Slot:</span><strong>${hold.startTime} (${hold.durationHours}h)</strong></div>
+            <div class="flex justify-between"><span>Guests:</span><strong>${hold.pax} Skier(s)</strong></div>
+            <div class="flex justify-between"><span>Amount:</span><strong class="font-mono text-amber-900">€${hold.amount.toFixed(2)}</strong></div>
+          </div>
+
+          <div class="flex items-center gap-1.5 pt-1">
+            <button onclick="resendPaymentLink('${hold.id}')" title="Send SMS/Email link again" class="flex-1 py-1.5 px-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 rounded font-bold text-[10px] flex items-center justify-center gap-1">
+              <i class="fa-solid fa-paper-plane text-[9px] text-blue-600"></i> Re-send
+            </button>
+            <button onclick="forceConfirmHold('${hold.id}')" title="Cash payment at desk" class="flex-1 py-1.5 px-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded font-bold text-[10px] flex items-center justify-center gap-1 shadow-xs">
+              <i class="fa-solid fa-check text-[9px]"></i> Force Paid
+            </button>
+            <button onclick="cancelHold('${hold.id}')" title="Release capacity immediately" class="py-1.5 px-2 bg-white hover:bg-rose-50 text-rose-600 border border-rose-200 rounded font-bold text-[10px]">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleHoldsDrawer(forceOpen) {
+      const drawer = document.getElementById('holdsSideDrawer');
+      if (forceOpen === true) {
+        drawer.classList.remove('hidden');
+      } else if (forceOpen === false) {
+        drawer.classList.add('hidden');
+      } else {
+        drawer.classList.toggle('hidden');
+      }
+    }
+
+    function tickHoldTimers() {
+      let changed = false;
+      bookings.forEach(b => {
+        if (b.status === 'pending_hold' && b.holdMinutesLeft !== null) {
+          b.holdMinutesLeft -= 1;
+          if (b.holdMinutesLeft <= 0) {
+            b.status = 'cancelled_expired';
+            showToast(`Hold for ${b.customerName} expired and capacity was released.`, 'amber');
+          }
+          changed = true;
+        }
+      });
+      if (changed) {
+        bookings = bookings.filter(b => b.status !== 'cancelled_expired');
+        renderCalendarGrid();
+        renderHoldsList();
+        updateKPISummaries();
+      }
+    }
+
+    function resendPaymentLink(id) {
+      const b = bookings.find(x => x.id === id);
+      showToast(`Payment link re-sent via SMS and Email to ${b.customerName} (${b.contact})`, 'blue');
+    }
+
+    function forceConfirmHold(id) {
+      const b = bookings.find(x => x.id === id);
+      if (b) {
+        b.status = 'confirmed';
+        b.holdMinutesLeft = null;
+        renderCalendarGrid();
+        renderHoldsList();
+        updateKPISummaries();
+        showToast(`Booking ${b.id} confirmed! Passes generated.`, 'emerald');
+      }
+    }
+
+    function cancelHold(id) {
+      if (confirm('Cancel this temporary hold and release slope capacity immediately?')) {
+        bookings = bookings.filter(x => x.id !== id);
+        renderCalendarGrid();
+        renderHoldsList();
+        updateKPISummaries();
+        showToast('Hold cancelled and slope capacity restored.', 'rose');
+      }
+    }
+
+    function clearExpiredHolds() {
+      bookings = bookings.filter(b => !(b.status === 'pending_hold' && b.holdMinutesLeft <= 0));
+      renderCalendarGrid();
+      renderHoldsList();
+      updateKPISummaries();
+      showToast('Cleared expired holds.', 'blue');
+    }
+
+    // ── MODAL: CREATE ON-BEHALF BOOKING ──
+    function openNewBookingModal() {
+      document.getElementById('formBookingDate').value = document.getElementById('calDatePicker').value;
+      updateEndTimeCalculation();
+      updateCapacityCheck();
+      calculateBookingPrice();
+      document.getElementById('newBookingModal').classList.remove('hidden');
+    }
+
+    function openNewBookingModalWithSlot(slopeId, timeSlot, e) {
+      if (e) e.stopPropagation();
+      document.getElementById('formSlopeSelect').value = slopeId;
+      document.getElementById('formTimeSelect').value = timeSlot;
+      openNewBookingModal();
+    }
+
+    function closeNewBookingModal() {
+      document.getElementById('newBookingModal').classList.add('hidden');
+    }
+
+    function updateEndTimeCalculation() {
+      const startTime = document.getElementById('formTimeSelect').value;
+      const duration = document.getElementById('formDurationSelect').value;
+      if (!startTime) return;
+
+      const [hours, mins] = startTime.split(':').map(Number);
+      const addMins = (duration === 'custom') ? 90 : (parseFloat(duration) * 60);
+
+      const totalMins = (hours * 60) + mins + addMins;
+      const endH = Math.floor(totalMins / 60) % 24;
+      const endM = totalMins % 60;
+      const endStr = `${String(endH).padStart(2, '0')}:${String(endM).padStart(2, '0')}`;
+
+      document.getElementById('formCalculatedInterval').textContent = `${startTime} – ${endStr}`;
+      updateCapacityCheck();
+      calculateBookingPrice();
+    }
+
+    function updateCapacityCheck() {
+      const slopeId = document.getElementById('formSlopeSelect').value;
+      const slope = SLOPES.find(s => s.id === slopeId) || SLOPES[0];
+      const people = parseInt(document.getElementById('formPeopleInput').value) || 1;
+      
+      // Calculate capacity left in that slope
+      const remaining = Math.max(0, slope.cap - people - 12);
+      const badge = document.getElementById('formCapacityStatusBadge');
+
+      if (remaining > 5) {
+        badge.className = 'px-2 py-0.5 bg-emerald-100 text-emerald-800 font-bold rounded';
+        badge.textContent = `Capacity OK (${remaining} spots left)`;
+      } else if (remaining > 0) {
+        badge.className = 'px-2 py-0.5 bg-amber-100 text-amber-800 font-bold rounded';
+        badge.textContent = `Limited (${remaining} spots left)`;
+      } else {
+        badge.className = 'px-2 py-0.5 bg-rose-100 text-rose-800 font-bold rounded';
+        badge.textContent = `Exceeds Capacity!`;
+      }
+    }
+
+    function calculateBookingPrice() {
+      const passEl = document.getElementById('formPassType');
+      const passPrice = parseFloat(passEl.selectedOptions[0].dataset.price) || 40;
+      const people = parseInt(document.getElementById('formPeopleInput').value) || 1;
+      const baseTotal = passPrice * people;
+
+      let gearTotal = 0;
+      if (document.getElementById('eqSki').checked) gearTotal += (15 * people);
+      if (document.getElementById('eqSnowboard').checked) gearTotal += (18 * people);
+      if (document.getElementById('eqHelmet').checked) gearTotal += (6 * people);
+      if (document.getElementById('eqLocker').checked) gearTotal += 4;
+
+      const lessonEl = document.getElementById('formLessonSelect');
+      const lessonRate = parseFloat(lessonEl.selectedOptions[0].dataset.price) || 0;
+      const lessonTotal = lessonRate;
+
+      const total = baseTotal + gearTotal + lessonTotal;
+
+      document.getElementById('summaryPassCost').textContent = `€${baseTotal.toFixed(2)}`;
+      document.getElementById('summaryGearCost').textContent = `€${gearTotal.toFixed(2)}`;
+      document.getElementById('summaryLessonCost').textContent = `€${lessonTotal.toFixed(2)}`;
+      document.getElementById('summaryTotalAmount').textContent = `€${total.toFixed(2)}`;
+    }
+
+    function submitOnBehalfBooking(e) {
+      e.preventDefault();
+      const slopeId = document.getElementById('formSlopeSelect').value;
+      const slope = SLOPES.find(s => s.id === slopeId);
+      const startTime = document.getElementById('formTimeSelect').value;
+      const durationHours = parseFloat(document.getElementById('formDurationSelect').value) || 2;
+      const pax = parseInt(document.getElementById('formPeopleInput').value) || 1;
+      const passName = document.getElementById('formPassType').selectedOptions[0].text.split('(')[0].trim();
+      const paymentOpt = document.querySelector('input[name="paymentOption"]:checked').value;
+      const holdDuration = parseInt(document.querySelector('input[name="holdDuration"]:checked').value) || 30;
+      const totalAmount = parseFloat(document.getElementById('summaryTotalAmount').textContent.replace('€', ''));
+
+      // Skier Name
+      let customerName = 'Mukund Dave';
+      let contact = '+31 6 1234 5678';
+      let email = 'mukund.dave@example.com';
+      if (!document.getElementById('guestCreateForm').classList.contains('hidden')) {
+        customerName = document.getElementById('guestName').value || 'Guest Skier';
+        contact = document.getElementById('guestPhone').value || '+31 6 0000 0000';
+        email = document.getElementById('guestEmail').value || 'guest@example.com';
+      }
+
+      const newId = `SWP-${Math.floor(1000 + Math.random() * 9000)}`;
+
+      const newBooking = {
+        id: newId,
+        slopeId: slopeId,
+        customerName: customerName,
+        contact: contact,
+        email: email,
+        startTime: startTime,
+        durationHours: durationHours,
+        pax: pax,
+        maxCap: slope.cap,
+        passName: passName,
+        status: (paymentOpt === 'link') ? 'pending_hold' : 'confirmed',
+        peak: (startTime >= '17:00'),
+        lesson: document.getElementById('formLessonSelect').value !== 'none' ? document.getElementById('formLessonSelect').selectedOptions[0].text.split('(')[0] : false,
+        holdMinutesLeft: (paymentOpt === 'link') ? holdDuration : null,
+        amount: totalAmount
+      };
+
+      bookings.push(newBooking);
+      closeNewBookingModal();
+      renderCalendarGrid();
+      renderHoldsList();
+      updateKPISummaries();
+
+      if (paymentOpt === 'link') {
+        showToast(`Temporary hold placed (${holdDuration} min)! Secure payment link pushed to ${customerName}.`, 'amber');
+        toggleHoldsDrawer(true);
+      } else {
+        showToast(`Booking ${newId} confirmed and paid! QR passes issued to ${customerName}.`, 'emerald');
+      }
+    }
+
+    // ── SEARCH MEMBER & GUEST CREATION ──
+    const SAMPLE_MEMBERS = [
+      { name: 'Mukund Dave', phone: '+31 6 1234 5678', email: 'mukund.dave@example.com', id: '#8842' },
+      { name: 'Parthesh Dave', phone: '+31 6 5544 3322', email: 'parthesh.dave@gmail.com', id: '#8843' },
+      { name: 'Jay Patel', phone: '+31 6 8899 0011', email: 'jay.patel@example.com', id: '#8850' },
+      { name: 'Vaibhav Joshi', phone: '+31 6 9900 1122', email: 'vaibhav.j@example.com', id: '#8855' }
+    ];
+
+    function searchMembers(query) {
+      const resultsEl = document.getElementById('memberSearchResults');
+      if (!query || query.length < 2) {
+        resultsEl.classList.add('hidden');
+        return;
+      }
+
+      const q = query.toLowerCase();
+      const matches = SAMPLE_MEMBERS.filter(m => 
+        m.name.toLowerCase().includes(q) || m.phone.includes(q) || m.email.toLowerCase().includes(q)
+      );
+
+      if (matches.length === 0) {
+        resultsEl.innerHTML = `
+          <div class="p-3 text-slate-500 text-center">
+            No member found. <button type="button" onclick="toggleGuestCreateMode()" class="text-blue-600 font-bold hover:underline">Create Guest</button>
+          </div>
+        `;
+      } else {
+        resultsEl.innerHTML = matches.map(m => `
+          <div onclick="selectMember('${m.name}', '${m.phone}', '${m.email}', '${m.id}')" class="p-2.5 hover:bg-slate-100 cursor-pointer border-b border-slate-100 flex items-center justify-between">
+            <div>
+              <strong class="text-slate-900 text-xs block">${m.name} <span class="text-slate-400 font-normal">(${m.id})</span></strong>
+              <span class="text-[10px] text-slate-500">${m.email} · ${m.phone}</span>
+            </div>
+            <i class="fa-solid fa-chevron-right text-slate-400 text-[10px]"></i>
+          </div>
+        `).join('');
+      }
+      resultsEl.classList.remove('hidden');
+    }
+
+    function selectMember(name, phone, email, id) {
+      document.getElementById('chipName').textContent = `${name} (${id})`;
+      document.getElementById('chipContact').textContent = `${email} · ${phone}`;
+      document.getElementById('chipInitials').textContent = name.split(' ').map(n => n[0]).join('');
+      document.getElementById('memberSearchResults').classList.add('hidden');
+      document.getElementById('memberSearchInput').value = '';
+    }
+
+    function toggleGuestCreateMode() {
+      const form = document.getElementById('guestCreateForm');
+      const btn = document.getElementById('btnToggleGuestMode');
+      const chip = document.getElementById('selectedSkierChip');
+      const search = document.getElementById('memberSearchBox');
+
+      if (form.classList.contains('hidden')) {
+        form.classList.remove('hidden');
+        chip.classList.add('hidden');
+        search.classList.add('hidden');
+        btn.textContent = '← Use Existing Member';
+      } else {
+        form.classList.add('hidden');
+        chip.classList.remove('hidden');
+        search.classList.remove('hidden');
+        btn.textContent = '+ Create New Guest Profile';
+      }
+    }
+
+    // ── BOOKING DETAIL MODAL ──
+    function openBookingDetailModal(id) {
+      const b = bookings.find(x => x.id === id);
+      if (!b) return;
+      selectedBookingForDetail = b;
+
+      document.getElementById('detailBookingId').textContent = `#${b.id}`;
+      document.getElementById('detailCustomerName').textContent = b.customerName;
+      document.getElementById('detailCustomerMeta').textContent = `${b.email} · ${b.contact}`;
+      document.getElementById('detailPassName').textContent = b.passName;
+      document.getElementById('detailPax').textContent = `${b.pax} Skier(s)`;
+      
+      const slope = SLOPES.find(s => s.id === b.slopeId);
+      document.getElementById('detailSlope').textContent = slope ? slope.name : b.slopeId;
+      document.getElementById('detailTiming').textContent = `${b.startTime} (${b.durationHours}h)`;
+
+      const badge = document.getElementById('detailStatusBadge');
+      badge.textContent = getStatusBadgeText(b);
+      badge.className = `px-2 py-0.5 text-xs font-bold rounded ${getStatusBadgeClass(b.status)}`;
+
+      document.getElementById('bookingDetailsModal').classList.remove('hidden');
+    }
+
+    function closeBookingDetailsModal() {
+      document.getElementById('bookingDetailsModal').classList.add('hidden');
+    }
+
+    function simulateTurnstileExit() {
+      if (!selectedBookingForDetail) return;
+      closeBookingDetailsModal();
+      showToast(`Turnstile Exit logged for ${selectedBookingForDetail.customerName}. Session closed with 0 overtime penalty.`, 'emerald');
+    }
+
+    // ── KPI UPDATES ──
+    function updateKPISummaries() {
+      const totalBooked = bookings.reduce((sum, b) => sum + (b.status !== 'maintenance' ? b.pax : 0), 0);
+      const liveOccupancy = bookings.filter(b => b.status === 'live').reduce((sum, b) => sum + b.pax, 0);
+      const holds = bookings.filter(b => b.status === 'pending_hold');
+      const holdValue = holds.reduce((sum, b) => sum + b.amount, 0);
+
+      document.getElementById('kpiTotalBooked').textContent = totalBooked;
+      document.getElementById('kpiLiveOccupancy').textContent = liveOccupancy;
+      document.getElementById('kpiHoldCount').textContent = `${holds.length} Active`;
+      document.getElementById('kpiHoldValue').textContent = `· €${holdValue.toFixed(2)} holding`;
+    }
+
+    // ── DATE & FILTERING HELPERS ──
+    function onDateChanged(newDate) {
+      const d = new Date(newDate);
+      const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
+      document.getElementById('displayDateLabel').textContent = d.toLocaleDateString('en-GB', options);
+      showToast(`Switched calendar date to ${newDate}`, 'blue');
+    }
+
+    function shiftDate(offset) {
+      const picker = document.getElementById('calDatePicker');
+      const cur = new Date(picker.value);
+      cur.setDate(cur.getDate() + offset);
+      const str = cur.toISOString().split('T')[0];
+      picker.value = str;
+      onDateChanged(str);
+    }
+
+    function setDateToday() {
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('calDatePicker').value = today;
+      onDateChanged(today);
+    }
+
+    function filterSlopes(filterType) {
+      showToast(`Filtered view: ${filterType}`, 'blue');
+    }
+
+    function refreshCalendarData() {
+      renderCalendarGrid();
+      renderHoldsList();
+      updateKPISummaries();
+      showToast('Refreshed slope calendar and occupancy data.', 'blue');
+    }
+
+    function showToast(message, type = 'blue') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      const borderClass = type === 'emerald' ? 'border-emerald-500 bg-emerald-950 text-white' : 
+                         (type === 'amber' ? 'border-amber-500 bg-amber-950 text-white' : 
+                         (type === 'rose' ? 'border-rose-500 bg-rose-950 text-white' : 'border-blue-500 bg-slate-900 text-white'));
+      
+      toast.className = `p-3.5 rounded-xl border-l-4 shadow-xl text-xs font-semibold flex items-center gap-2 pointer-events-auto transition-all duration-300 transform translate-y-2 opacity-0 ${borderClass}`;
+      toast.innerHTML = `<i class="fa-solid fa-circle-info"></i> <span>${message}</span>`;
+
+      container.appendChild(toast);
+      setTimeout(() => toast.classList.remove('translate-y-2', 'opacity-0'), 10);
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 4000);
+    }
+  </script>
+</body>
+</html>
