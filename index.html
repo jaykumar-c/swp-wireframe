@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,10 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
-  
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@500;600;700;800&display=swap"
+    rel="stylesheet">
+
   <style>
     :root {
       --primary: #007AFF;
@@ -622,7 +625,7 @@
       background: #FFFFFF;
       outline: none;
       transition: all 0.2s ease;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     }
 
     .fg-search-input:focus {
@@ -659,7 +662,8 @@
       transition: all 0.2s ease;
     }
 
-    .fg-pill.active, .fg-pill:hover {
+    .fg-pill.active,
+    .fg-pill:hover {
       background: #2563EB;
       color: #FFFFFF;
       border-color: #2563EB;
@@ -677,7 +681,7 @@
       border-radius: 12px;
       padding: 20px;
       transition: all 0.2s ease;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
     }
 
     .fg-card:hover {
@@ -720,7 +724,9 @@
     }
 
     @media (max-width: 640px) {
-      .fg-detail-grid { grid-template-columns: 1fr; }
+      .fg-detail-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     .fg-detail-box {
@@ -846,8 +852,15 @@
     }
 
     @keyframes modalSlideUp {
-      from { opacity: 0; transform: translateY(20px) scale(0.97); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.97);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
 
     .search-modal-header {
@@ -931,11 +944,12 @@
     }
   </style>
 </head>
+
 <body>
 
   <!-- SIDEBAR NAVIGATION -->
   <aside class="app-sidebar" id="appSidebar">
-    
+
     <!-- BRAND HEADER -->
     <div class="sidebar-brand">
       <div class="brand-icon">S</div>
@@ -947,7 +961,7 @@
 
     <!-- NAVIGATION MENU -->
     <nav class="sidebar-nav">
-      
+
       <!-- OVERVIEW SECTION -->
       <div class="nav-group-title">Overview</div>
       <ul class="nav-list">
@@ -1003,18 +1017,18 @@
             <span>Skiing Club Calendar &amp; Desk</span>
           </a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a href="#booking_rule" id="nav-booking_rule">
             <span class="nav-icon">📋</span>
             <span>Skiing Booking Rules</span>
           </a>
-        </li>
-        <li class="nav-item">
+        </li> -->
+        <!-- <li class="nav-item">
           <a href="#pricing_cancellation" id="nav-pricing_cancellation">
             <span class="nav-icon">🏷️</span>
             <span>Skiing Pricing &amp; Cancellation</span>
           </a>
-        </li>
+        </li> -->
         <li class="nav-item">
           <a href="#skiing_lessons" id="nav-skiing_lessons">
             <span class="nav-icon">🎓</span>
@@ -1054,19 +1068,21 @@
 
   <!-- MAIN CONTENT AREA -->
   <main class="app-main">
-    
+
     <!-- TOP CONTROL BAR -->
     <header class="top-bar">
       <div class="top-bar-left">
         <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
         <div class="active-module-header">
           <h1 class="active-module-title" id="activeTitle">What are Wireframes?</h1>
-          <p class="active-module-desc" id="activeDesc">Information and overview guide on wireframes & purpose in SWP</p>
+          <p class="active-module-desc" id="activeDesc">Information and overview guide on wireframes & purpose in SWP
+          </p>
         </div>
       </div>
       <div class="top-bar-right">
         <button class="top-pill" id="reloadFrameBtn" title="Reload current frame">🔄 Reload</button>
-        <a href="booking_rule.html" target="_blank" class="top-pill" id="openExternalBtn" title="Open wireframe file in a new browser tab">↗ Open Standalone</a>
+        <a href="booking_rule.html" target="_blank" class="top-pill" id="openExternalBtn"
+          title="Open wireframe file in a new browser tab">↗ Open Standalone</a>
         <span class="top-pill top-pill-primary">ShallWePlay</span>
         <span class="top-pill">Prototype</span>
       </div>
@@ -1074,23 +1090,25 @@
 
     <!-- CONTENT VIEWPORT CONTAINER -->
     <section class="content-viewport" id="contentViewport">
-      
+
       <!-- INLINE INFO VIEW (DEFAULT) -->
       <div class="info-view-container" id="infoView">
         <div class="info-wrapper">
-          
+
           <!-- HERO BANNER -->
           <div class="info-hero">
             <span class="info-hero-badge">ShallWePlay Design Guide</span>
             <h1>What are Wireframes and Why We Use Them?</h1>
             <p>
-              Wireframes serve as the structural backbone for digital product design. They allow cross-functional teams to outline interface layout, content hierarchy, functional requirements, and user interaction flows before committing to full frontend and backend engineering.
+              Wireframes serve as the structural backbone for digital product design. They allow cross-functional teams
+              to outline interface layout, content hierarchy, functional requirements, and user interaction flows before
+              committing to full frontend and backend engineering.
             </p>
           </div>
 
           <!-- 2-COLUMN EXPLANATION GRID -->
           <div class="grid-2">
-            
+
             <!-- CARD 1: WHAT IS A WIREFRAME -->
             <div class="info-card">
               <div class="info-card-header">
@@ -1098,20 +1116,25 @@
                 <h2 class="info-card-title">What is a Wireframe?</h2>
               </div>
               <p>
-                A wireframe is a visual blueprint that represents the skeletal framework of a web or mobile application. It focuses on functional layout, navigation paths, feature behavior, and content structure without visual distractions like brand graphics or final copy.
+                A wireframe is a visual blueprint that represents the skeletal framework of a web or mobile application.
+                It focuses on functional layout, navigation paths, feature behavior, and content structure without
+                visual distractions like brand graphics or final copy.
               </p>
               <ul class="benefit-list">
                 <li class="benefit-item">
                   <span class="benefit-check">✓</span>
-                  <span><strong>Structure & Layout:</strong> Defines positioning of UI elements, forms, cards, and buttons.</span>
+                  <span><strong>Structure & Layout:</strong> Defines positioning of UI elements, forms, cards, and
+                    buttons.</span>
                 </li>
                 <li class="benefit-item">
                   <span class="benefit-check">✓</span>
-                  <span><strong>Information Architecture:</strong> Organizes options into clear logical steps and groups.</span>
+                  <span><strong>Information Architecture:</strong> Organizes options into clear logical steps and
+                    groups.</span>
                 </li>
                 <li class="benefit-item">
                   <span class="benefit-check">✓</span>
-                  <span><strong>Functional Specs:</strong> Displays inputs, validation requirements, and interactive states.</span>
+                  <span><strong>Functional Specs:</strong> Displays inputs, validation requirements, and interactive
+                    states.</span>
                 </li>
               </ul>
             </div>
@@ -1123,20 +1146,24 @@
                 <h2 class="info-card-title">Why We Use Wireframes in SWP</h2>
               </div>
               <p>
-                For complex platform management like ShallWePlay (Indoor Skiing booking rules, asset capacity, regional dynamic payouts, and player passes), wireframes enable rapid validation of business logic.
+                For complex platform management like ShallWePlay (Indoor Skiing booking rules, asset capacity, regional
+                dynamic payouts, and player passes), wireframes enable rapid validation of business logic.
               </p>
               <ul class="benefit-list">
                 <li class="benefit-item">
                   <span class="benefit-check">✓</span>
-                  <span><strong>Stakeholder Alignment:</strong> Ensures product, design, and dev teams share exact expectations.</span>
+                  <span><strong>Stakeholder Alignment:</strong> Ensures product, design, and dev teams share exact
+                    expectations.</span>
                 </li>
                 <li class="benefit-item">
                   <span class="benefit-check">✓</span>
-                  <span><strong>Rapid Iteration:</strong> Lowers costs by catching edge cases early before database schemas are set.</span>
+                  <span><strong>Rapid Iteration:</strong> Lowers costs by catching edge cases early before database
+                    schemas are set.</span>
                 </li>
                 <li class="benefit-item">
                   <span class="benefit-check">✓</span>
-                  <span><strong>User Experience Focus:</strong> Tests usability and clarity of complex multi-step admin configurations.</span>
+                  <span><strong>User Experience Focus:</strong> Tests usability and clarity of complex multi-step admin
+                    configurations.</span>
                 </li>
               </ul>
             </div>
@@ -1146,11 +1173,13 @@
           <!-- MODULE DIRECTORY MATRIX -->
           <div>
             <h2 class="matrix-section-title">ShallWePlay Wireframe Module Hub</h2>
-            <p class="matrix-section-desc">Click on any module below or use the left sidebar to inspect the live interactive wireframes:</p>
+            <p class="matrix-section-desc">Click on any module below or use the left sidebar to inspect the live
+              interactive wireframes:</p>
 
             <!-- ADMIN MODULES -->
             <div style="margin-bottom: 28px;">
-              <h3 style="font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+              <h3
+                style="font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
                 <span>🛠️</span> Admin Modules
               </h3>
               <div class="directory-grid">
@@ -1164,7 +1193,8 @@
                       </div>
                       <span class="dir-badge">Pricing</span>
                     </div>
-                    <p>Assign pricing tiers, hourly peak/off-peak rates, equipment add-on pricing, and seasonal adjustments.</p>
+                    <p>Assign pricing tiers, hourly peak/off-peak rates, equipment add-on pricing, and seasonal
+                      adjustments.</p>
                   </div>
                   <div class="dir-card-footer">
                     <span class="dir-link-text">Launch Wireframe →</span>
@@ -1181,7 +1211,8 @@
                       </div>
                       <span class="dir-badge">Finance</span>
                     </div>
-                    <p>Region-specific timezone payouts, settlement intervals, facility partner revenue splits, and fee configurations.</p>
+                    <p>Region-specific timezone payouts, settlement intervals, facility partner revenue splits, and fee
+                      configurations.</p>
                   </div>
                   <div class="dir-card-footer">
                     <span class="dir-link-text">Launch Wireframe →</span>
@@ -1198,7 +1229,8 @@
                       </div>
                       <span class="dir-badge">Audit</span>
                     </div>
-                    <p>Inspect detailed booking refund requests, penalty breakdowns, and approve/reject refund disbursements.</p>
+                    <p>Inspect detailed booking refund requests, penalty breakdowns, and approve/reject refund
+                      disbursements.</p>
                   </div>
                   <div class="dir-card-footer">
                     <span class="dir-link-text">Launch Wireframe →</span>
@@ -1209,7 +1241,8 @@
 
             <!-- CLUB MODULES -->
             <div style="margin-bottom: 28px;">
-              <h3 style="font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+              <h3
+                style="font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
                 <span>🏔️</span> Club Modules
               </h3>
               <div class="directory-grid">
@@ -1219,11 +1252,14 @@
                     <div class="dir-card-header">
                       <div class="dir-card-icon-title">
                         <span class="dir-icon">⛷️</span>
-                        <h3 class="dir-card-title" style="color: #2563EB;">Sports Rules: Skiing (Unified 6-Tab System)</h3>
+                        <h3 class="dir-card-title" style="color: #2563EB;">Sports Rules: Skiing (Unified 6-Tab System)
+                        </h3>
                       </div>
                       <span class="dir-badge" style="background:#2563EB; color:#FFFFFF;">6-Tab Unified</span>
                     </div>
-                    <p>Complete sports rules setup: 1. Booking Rules, 2. Create Packages, 3. Create Passes (Multi-Duration), 4. Lessons Config, 5. Equipment Inventory, 6. Facility &amp; Slopes Overview.</p>
+                    <p>Complete sports rules setup: 1. Booking Rules, 2. Create Packages, 3. Create Passes
+                      (Multi-Duration), 4. Lessons Config, 5. Equipment Inventory, 6. Facility &amp; Slopes Overview.
+                    </p>
                   </div>
                   <div class="dir-card-footer">
                     <span class="dir-link-text" style="color:#2563EB; font-weight:700;">Launch Sports Rules →</span>
@@ -1240,7 +1276,8 @@
                       </div>
                       <span class="dir-badge">Informational (Tab 6)</span>
                     </div>
-                    <p>Informational slope directory with live operational status toggles, lifts, and telemetry integrated into Sports Rules.</p>
+                    <p>Informational slope directory with live operational status toggles, lifts, and telemetry
+                      integrated into Sports Rules.</p>
                   </div>
                   <div class="dir-card-footer">
                     <span class="dir-link-text">Launch Slopes &amp; Telemetry →</span>
@@ -1257,7 +1294,8 @@
                       </div>
                       <span class="dir-badge">Operations</span>
                     </div>
-                    <p>Timeline scheduling, capacity holds, on-behalf booking desk, and Front Desk Smart Session Extension &amp; Pass Upsell.</p>
+                    <p>Timeline scheduling, capacity holds, on-behalf booking desk, and Front Desk Smart Session
+                      Extension &amp; Pass Upsell.</p>
                   </div>
                   <div class="dir-card-footer">
                     <span class="dir-link-text">Launch Calendar →</span>
@@ -1291,7 +1329,8 @@
                       </div>
                       <span class="dir-badge">Policy</span>
                     </div>
-                    <p>Define refund policies, cancellation timelines, penalty thresholds, and automated refund triggers.</p>
+                    <p>Define refund policies, cancellation timelines, penalty thresholds, and automated refund
+                      triggers.</p>
                   </div>
                   <div class="dir-card-footer">
                     <span class="dir-link-text">Launch Wireframe →</span>
@@ -1302,7 +1341,8 @@
 
             <!-- PLAYER MODULES -->
             <div style="margin-bottom: 28px;">
-              <h3 style="font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+              <h3
+                style="font-family: 'Montserrat', sans-serif; font-size: 15px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
                 <span>📱</span> Player Modules
               </h3>
               <div class="directory-grid">
@@ -1316,7 +1356,9 @@
                       </div>
                       <span class="dir-badge">Interactive Mobile</span>
                     </div>
-                    <p>4-Screen interactive device frames: Parent Activity Cards, 3-Chip Detail View, Pass Steppers, Arrival Slots, Split Pay Guard, DIN Gear Customizer, €53.00 Summary, Consolidated Turnstile QR.</p>
+                    <p>4-Screen interactive device frames: Parent Activity Cards, 3-Chip Detail View, Pass Steppers,
+                      Arrival Slots, Split Pay Guard, DIN Gear Customizer, €53.00 Summary, Consolidated Turnstile QR.
+                    </p>
                   </div>
                   <div class="dir-card-footer">
                     <span class="dir-link-text">Launch Wireframe →</span>
@@ -1333,7 +1375,8 @@
                       </div>
                       <span class="dir-badge">18-Screen Flow</span>
                     </div>
-                    <p>Complete 18-screen journey: Screens 1–9 SnowWorld player booking flow &amp; Screens 10–18 venue arrival, gate scans, session extensions, and exit settlement.</p>
+                    <p>Complete 18-screen journey: Screens 1–9 SnowWorld player booking flow &amp; Screens 10–18 venue
+                      arrival, gate scans, session extensions, and exit settlement.</p>
                   </div>
                   <div class="dir-card-footer">
                     <span class="dir-link-text">Launch Wireframe →</span>
@@ -1341,7 +1384,8 @@
                 </div>
 
                 <!-- ITEM 3: SKIING UI & FIELD GUIDE DICTIONARY -->
-                <div class="dir-card" onclick="location.hash='#field_guide'" style="border-color:#BFDBFE; background:#F8FAFC;">
+                <div class="dir-card" onclick="location.hash='#field_guide'"
+                  style="border-color:#BFDBFE; background:#F8FAFC;">
                   <div class="dir-card-top">
                     <div class="dir-card-header">
                       <div class="dir-card-icon-title">
@@ -1350,7 +1394,8 @@
                       </div>
                       <span class="dir-badge" style="background:#2563EB; color:#FFF;">Dictionary & Search</span>
                     </div>
-                    <p>Searchable dictionary detailing business need, domain understanding, and system logic for every UI field.</p>
+                    <p>Searchable dictionary detailing business need, domain understanding, and system logic for every
+                      UI field.</p>
                   </div>
                   <div class="dir-card-footer">
                     <span class="dir-link-text">Open Field Guide →</span>
@@ -1367,21 +1412,27 @@
       <!-- SKIING UI & FIELD GUIDE DICTIONARY VIEW -->
       <div class="field-guide-view-container" id="fieldGuideView" style="display: none; padding: 20px;">
         <div class="fg-container">
-          
+
           <div class="fg-header">
             <h2>📖 Indoor Skiing Field Guide & Knowledge Dictionary</h2>
-            <p>Search any UI field, business rule, domain parameter, or system execution logic across all ShallWePlay wireframes.</p>
+            <p>Search any UI field, business rule, domain parameter, or system execution logic across all ShallWePlay
+              wireframes.</p>
           </div>
 
           <!-- ENHANCED SEARCH INPUT BAR WITH CLEAR BUTTON -->
           <div class="fg-search-bar" style="position:relative; margin-bottom:12px;">
             <span class="fg-search-icon">🔍</span>
-            <input type="text" class="fg-search-input" id="fgSearchInput" placeholder="Search any term, field, or FAQ (e.g., Turnstile, Boot Size, DIN, Grace, Helmet, Refund, Payout, Lift)..." autocomplete="off">
-            <button id="fgClearBtn" style="position:absolute; right:14px; top:50%; transform:translateY(-50%); background:#E2E8F0; border:none; width:26px; height:26px; border-radius:50%; font-size:12px; cursor:pointer; display:none; align-items:center; justify-content:center; color:#475569;" onclick="clearSearch('fg')">✕</button>
+            <input type="text" class="fg-search-input" id="fgSearchInput"
+              placeholder="Search any term, field, or FAQ (e.g., Turnstile, Boot Size, DIN, Grace, Helmet, Refund, Payout, Lift)..."
+              autocomplete="off">
+            <button id="fgClearBtn"
+              style="position:absolute; right:14px; top:50%; transform:translateY(-50%); background:#E2E8F0; border:none; width:26px; height:26px; border-radius:50%; font-size:12px; cursor:pointer; display:none; align-items:center; justify-content:center; color:#475569;"
+              onclick="clearSearch('fg')">✕</button>
           </div>
 
           <!-- QUICK SUGGESTIONS CHIPS -->
-          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:16px; font-size:12px; color:#64748B;">
+          <div
+            style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:16px; font-size:12px; color:#64748B;">
             <span style="font-weight:700; color:#0F172A;">💡 Popular Searches:</span>
             <span class="fg-suggest-tag" onclick="quickSearch('Turnstile Grace')">Turnstile Grace</span>
             <span class="fg-suggest-tag" onclick="quickSearch('Boot Sizing')">Boot Sizing</span>
@@ -1395,13 +1446,16 @@
           </div>
 
           <!-- FILTER PILLS & COUNTER -->
-          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:20px;">
+          <div
+            style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:20px;">
             <div class="fg-pills" style="margin-bottom:0;">
               <button class="fg-pill active" onclick="filterFieldGuide('all', this)">All Modules</button>
               <button class="fg-pill" onclick="filterFieldGuide('Skiing Booking Rules', this)">Booking Rules</button>
-              <button class="fg-pill" onclick="filterFieldGuide('Skiing Pricing & Cancellation', this)">Pricing Engine</button>
+              <button class="fg-pill" onclick="filterFieldGuide('Skiing Pricing & Cancellation', this)">Pricing
+                Engine</button>
               <button class="fg-pill" onclick="filterFieldGuide('Manage Skiing Assets', this)">Manage Assets</button>
-              <button class="fg-pill" onclick="filterFieldGuide('Players Skiing Booking UI', this)">Player Booking UI</button>
+              <button class="fg-pill" onclick="filterFieldGuide('Players Skiing Booking UI', this)">Player Booking
+                UI</button>
               <button class="fg-pill" onclick="filterFieldGuide('Dynamic Payout', this)">Dynamic Payout</button>
               <button class="fg-pill" onclick="filterFieldGuide('Assign Pricing', this)">Assign Pricing</button>
               <button class="fg-pill" onclick="filterFieldGuide('Refund Details', this)">Refund Details</button>
@@ -1440,11 +1494,15 @@
       <div class="search-modal-body">
         <div class="fg-search-bar" style="position:relative; margin-bottom:12px;">
           <span class="fg-search-icon">🔍</span>
-          <input type="text" class="fg-search-input" id="modalSearchInput" placeholder="Type any keyword to inspect business need & system logic..." autocomplete="off">
-          <button id="modalClearBtn" style="position:absolute; right:14px; top:50%; transform:translateY(-50%); background:#E2E8F0; border:none; width:26px; height:26px; border-radius:50%; font-size:12px; cursor:pointer; display:none; align-items:center; justify-content:center; color:#475569;" onclick="clearSearch('modal')">✕</button>
+          <input type="text" class="fg-search-input" id="modalSearchInput"
+            placeholder="Type any keyword to inspect business need & system logic..." autocomplete="off">
+          <button id="modalClearBtn"
+            style="position:absolute; right:14px; top:50%; transform:translateY(-50%); background:#E2E8F0; border:none; width:26px; height:26px; border-radius:50%; font-size:12px; cursor:pointer; display:none; align-items:center; justify-content:center; color:#475569;"
+            onclick="clearSearch('modal')">✕</button>
         </div>
-        
-        <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-bottom:14px; font-size:11px; color:#64748B;">
+
+        <div
+          style="display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-bottom:14px; font-size:11px; color:#64748B;">
           <span style="font-weight:700;">Try:</span>
           <span class="fg-suggest-tag" onclick="quickSearchModal('Turnstile Grace')">Turnstile</span>
           <span class="fg-suggest-tag" onclick="quickSearchModal('Boot Size')">Boot Size</span>
@@ -1456,7 +1514,7 @@
         </div>
 
         <div id="modalResultsCount" style="font-size:11px; font-weight:700; color:#64748B; margin-bottom:10px;"></div>
-        
+
         <div id="modalSearchResultsGrid" class="fg-grid">
           <!-- Live results populated via JS -->
         </div>
@@ -1790,7 +1848,7 @@
         toggle: "Enable/Disable Switch (passUpgradeEnabled)",
         keywords: ["upgrade", "extension", "delta", "in-session", "extend", "pass", "add hour", "mid-way"]
       },
-      
+
       {
         id: "cancellation_policy",
         name: "Cancellation Refund Rules & Penalty Windows",
@@ -2248,7 +2306,7 @@
     window.addEventListener('hashchange', handleRoute);
     window.addEventListener('DOMContentLoaded', () => {
       handleRoute();
-      
+
       // Page Search Input Listeners (input, keyup, change)
       const searchInput = document.getElementById('fgSearchInput');
       if (searchInput) {
@@ -2292,4 +2350,5 @@
     });
   </script>
 </body>
+
 </html>
