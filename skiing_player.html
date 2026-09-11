@@ -3154,6 +3154,167 @@
       background: #FFFFFF;
     }
 
+    /* ── DURATION SELECTOR (SCREEN 2) ── */
+    .duration-chips-track {
+      display: flex;
+      gap: 7px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding: 2px 0 8px;
+    }
+    .duration-chips-track::-webkit-scrollbar {
+      display: none;
+    }
+    .duration-chip {
+      flex: 1;
+      min-width: 58px;
+      padding: 8px 6px;
+      border-radius: 10px;
+      border: 1px solid var(--swp-border);
+      background: #FFFFFF;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--swp-text);
+      transition: all 0.18s ease;
+      text-align: center;
+    }
+    .duration-chip .duration-sub {
+      font-size: 8px;
+      font-weight: 600;
+      color: var(--swp-text-sec);
+      margin-top: 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+    .duration-chip.active {
+      background: var(--swp-primary);
+      border-color: var(--swp-primary);
+      color: #FFFFFF;
+      box-shadow: 0 3px 8px rgba(0, 122, 255, 0.3);
+    }
+    .duration-chip.active .duration-sub {
+      color: rgba(255, 255, 255, 0.88);
+    }
+
+    /* ── DYNAMIC ARRIVAL SLOTS GRID (SCREEN 2) ── */
+    .arrival-slots-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .arrival-slot-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 7px 9px;
+      border-radius: 8px;
+      border: 1px solid var(--swp-border);
+      background: #FFFFFF;
+      cursor: pointer;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--swp-text);
+      transition: all 0.15s ease;
+      text-align: left;
+    }
+    .arrival-slot-btn .slot-status {
+      font-size: 8px;
+      font-weight: 600;
+      color: #059669;
+      margin-top: 1px;
+    }
+    .arrival-slot-btn.active {
+      border-color: var(--swp-primary);
+      background: var(--swp-primary-tint);
+      color: var(--swp-primary);
+    }
+
+    /* ── CO-PLAYERS & ATTENDEE INPUT CARDS (SCREEN 2) ── */
+    .coplayer-card {
+      background: #FFFFFF;
+      border: 1px solid var(--swp-border);
+      border-radius: 8px;
+      padding: 8px 10px;
+    }
+    .coplayer-hdr {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    /* ── EQUIPMENT RENTAL CARDS (SCREEN 3) ── */
+    .equipment-cards-list {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .equipment-rental-card {
+      background: #FFFFFF;
+      border: 1px solid var(--swp-border);
+      border-radius: 10px;
+      padding: 9px 11px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.15s ease;
+    }
+    .equipment-rental-card.selected {
+      border-color: #0284C7;
+      background: #F0F9FF;
+    }
+    .equipment-info {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      flex: 1;
+      min-width: 0;
+    }
+    .equipment-icon {
+      font-size: 20px;
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: #F1F5F9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .equipment-details {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      min-width: 0;
+    }
+    .equipment-name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--swp-text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .equipment-desc {
+      font-size: 9px;
+      color: var(--swp-text-sec);
+      line-height: 1.25;
+    }
+    .equipment-price {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--swp-primary);
+      margin-top: 1px;
+    }
+
     /* ═══════════════════════════════════════════════════════════════════
        MOBILE MODAL BOTTOM SHEET & BACKDROP (Refactored)
        ═══════════════════════════════════════════════════════════════════ */
@@ -3302,8 +3463,39 @@
         <div class="swp-viewport">
           <!-- Main New Feed Section -->
           <div id="screen1FeedView">
+            <!-- Date & Days Selector (README.md Screen 1 Requirement) -->
+            <div id="screen1DateSection" style="padding: 10px 14px 4px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <span style="font-family: 'Montserrat', sans-serif; font-size: 10.5px; font-weight: 700; color: var(--swp-text-sec); text-transform: uppercase; letter-spacing: 0.5px;">Select Date &amp; Day</span>
+                <span class="swp-pill-tag blue" id="screen1SelectedDateBadge">Sat, 20 Sep</span>
+              </div>
+              <div class="swp-date-selector-track">
+                <div class="date-chip today selected" onclick="selectScreen1Date(this, '20', 'Sat', 'Saturday, 20 September 2026')">
+                  <span class="date-num">20</span><span class="date-day">Sat (Today)</span>
+                </div>
+                <div class="date-chip" onclick="selectScreen1Date(this, '21', 'Sun', 'Sunday, 21 September 2026')">
+                  <span class="date-num">21</span><span class="date-day">Sun</span>
+                </div>
+                <div class="date-chip" onclick="selectScreen1Date(this, '22', 'Mon', 'Monday, 22 September 2026')">
+                  <span class="date-num">22</span><span class="date-day">Mon</span>
+                </div>
+                <div class="date-chip" onclick="selectScreen1Date(this, '23', 'Tue', 'Tuesday, 23 September 2026')">
+                  <span class="date-num">23</span><span class="date-day">Tue</span>
+                </div>
+                <div class="date-chip" onclick="selectScreen1Date(this, '24', 'Wed', 'Wednesday, 24 September 2026')">
+                  <span class="date-num">24</span><span class="date-day">Wed</span>
+                </div>
+                <div class="date-chip" onclick="selectScreen1Date(this, '25', 'Thu', 'Thursday, 25 September 2026')">
+                  <span class="date-num">25</span><span class="date-day">Thu</span>
+                </div>
+                <div class="date-chip" onclick="selectScreen1Date(this, '26', 'Fri', 'Friday, 26 September 2026')">
+                  <span class="date-num">26</span><span class="date-day">Fri</span>
+                </div>
+              </div>
+            </div>
+
             <!-- Feed Cards Stack: SnowWorld Parent Activity Cards (Prompt Screen 1) -->
-            <div class="feed-container" style="padding-top:10px;">
+            <div class="feed-container" style="padding-top:6px;">
 
               <!-- Card 1: Skiing & Snowboarding -->
               <div class="parent-activity-card">
@@ -3553,76 +3745,52 @@
             </div>
           </div>
 
-          <!-- Slope Booking Main Form (3 Consecutive Steps) -->
+          <!-- Slope Booking Main Form (Updated 4 Steps per README.md) -->
           <div id="panelBookSlope">
 
-            <!-- Step 1: Display Available Hours (Prompt Screen 3) -->
+            <!-- Step 1: Pass Duration (1hr, 2hr, 3hr, 4hr, Full Day) -->
             <div class="module-sec-hdr" style="margin-top: 4px;">
               <span class="module-sec-title">Step 1: Available Hours</span>
-              <span class="swp-pill-tag blue" id="activeDaypartBadge">Morning</span>
+              <span class="swp-pill-tag blue" id="activeDurationBadge">1 Hour</span>
             </div>
-
-            <!-- Date selector horizontal calendar -->
-            <div class="swp-date-selector-track" style="margin-bottom:10px;">
-              <div class="date-chip today selected" onclick="selectDateChip(this)">
-                <span class="date-num">20</span><span class="date-day">Sat (Today)</span>
-              </div>
-              <div class="date-chip" onclick="selectDateChip(this)"><span class="date-num">21</span><span
-                  class="date-day">Sun</span></div>
-              <div class="date-chip" onclick="selectDateChip(this)"><span class="date-num">22</span><span
-                  class="date-day">Mon</span></div>
-              <div class="date-chip" onclick="selectDateChip(this)"><span class="date-num">23</span><span
-                  class="date-day">Tue</span></div>
-              <div class="date-chip" onclick="selectDateChip(this)"><span class="date-num">24</span><span
-                  class="date-day">Wed</span></div>
-            </div>
-
-            <!-- Daypart Groupings (Prompt Section 3 Screen 3) -->
-            <div class="daypart-section">
-              <span class="daypart-title">🌅 Morning Daypart</span>
-              <div class="hour-slots-track">
-                <button class="hour-slot-btn" onclick="selectDaypartHour('09:00 – 10:00', this)">09:00 – 10:00</button>
-                <button class="hour-slot-btn active" onclick="selectDaypartHour('10:00 – 11:00', this)">10:00 –
-                  11:00</button>
-                <button class="hour-slot-btn" onclick="selectDaypartHour('11:00 – 12:00', this)">11:00 – 12:00</button>
-              </div>
-            </div>
-
-            <div class="daypart-section">
-              <span class="daypart-title">☀️ Afternoon Daypart</span>
-              <div class="hour-slots-track">
-                <button class="hour-slot-btn" onclick="selectDaypartHour('12:00 – 13:00', this)">12:00 – 13:00</button>
-                <button class="hour-slot-btn" onclick="selectDaypartHour('13:00 – 14:00', this)">13:00 – 14:00</button>
-                <button class="hour-slot-btn" onclick="selectDaypartHour('14:00 – 15:00', this)">14:00 – 15:00</button>
-                <button class="hour-slot-btn" onclick="selectDaypartHour('15:00 – 16:00', this)">15:00 – 16:00</button>
-              </div>
-            </div>
-
-            <div class="daypart-section">
-              <span class="daypart-title">🌆 Evening Daypart</span>
-              <div class="hour-slots-track">
-                <button class="hour-slot-btn" onclick="selectDaypartHour('17:00 – 18:00', this)">17:00 – 18:00</button>
-                <button class="hour-slot-btn" onclick="selectDaypartHour('18:00 – 19:00', this)">18:00 – 19:00</button>
-                <button class="hour-slot-btn" onclick="selectDaypartHour('19:00 – 20:00', this)">19:00 – 20:00</button>
-              </div>
+            <div class="duration-chips-track" id="durationChipsTrack">
+              <button type="button" class="duration-chip active" onclick="selectPassDuration('1hr', this)">
+                <span>1 hr</span>
+                <span class="duration-sub">Pass</span>
+              </button>
+              <button type="button" class="duration-chip" onclick="selectPassDuration('2hr', this)">
+                <span>2 hr</span>
+                <span class="duration-sub">Pass</span>
+              </button>
+              <button type="button" class="duration-chip" onclick="selectPassDuration('3hr', this)">
+                <span>3 hr</span>
+                <span class="duration-sub">Pass</span>
+              </button>
+              <button type="button" class="duration-chip" onclick="selectPassDuration('4hr', this)">
+                <span>4 hr</span>
+                <span class="duration-sub">Pass</span>
+              </button>
+              <button type="button" class="duration-chip" onclick="selectPassDuration('fullday', this)">
+                <span>Full Day</span>
+                <span class="duration-sub">All Day</span>
+              </button>
             </div>
 
             <div class="swp-divider-band"></div>
 
-            <!-- Step 2: Display Passes Associated with Selected Hour (Prompt Screen 4) -->
+            <!-- Step 2: Display Passes Associated with Selected Duration -->
             <div class="module-sec-hdr">
-              <span class="module-sec-title">Step 2: Passes for Selected Hour</span>
-              <span class="swp-pill-tag green" id="selectedHourContext">10:00 – 11:00 Slot</span>
+              <span class="module-sec-title">Step 2: Available Passes</span>
+              <span class="swp-pill-tag green" id="selectedDurationPassContext">1 Hour Passes</span>
             </div>
 
             <div class="configured-passes-list">
-              <!-- Pass 1: Adult Slope Pass (1 Hour) -->
+              <!-- Pass 1: Adult Slope Pass -->
               <div class="pass-stepper-card">
                 <div class="pass-stepper-info">
-                  <span class="pass-stepper-title">Adult Slope Pass (1 Hour)</span>
+                  <span class="pass-stepper-title" id="adultPassTitle">Adult Slope Pass (1 Hour)</span>
                   <span class="pass-stepper-sub">Age 16+ · All open slope access &amp; lift entry</span>
-                  <span class="pass-stepper-price">€28.00 <small style="font-weight:normal; color:#64748B;">/
-                      pass</small></span>
+                  <span class="pass-stepper-price" id="adultPassPriceDisplay">€28.00 <small style="font-weight:normal; color:#64748B;">/ pass</small></span>
                 </div>
                 <div class="stepper-actions">
                   <button class="step-btn" onclick="stepAdultPass(-1)">–</button>
@@ -3631,13 +3799,12 @@
                 </div>
               </div>
 
-              <!-- Pass 2: Child Slope Pass (4-12 Yrs, 1 Hour) -->
+              <!-- Pass 2: Child Slope Pass -->
               <div class="pass-stepper-card">
                 <div class="pass-stepper-info">
-                  <span class="pass-stepper-title">Child Slope Pass (4–12 Yrs, 1 Hour)</span>
+                  <span class="pass-stepper-title" id="childPassTitle">Child Slope Pass (4–12 Yrs, 1 Hour)</span>
                   <span class="pass-stepper-sub">Practice &amp; main slopes · Linked to parent pass</span>
-                  <span class="pass-stepper-price">€20.00 <small style="font-weight:normal; color:#64748B;">/
-                      pass</small></span>
+                  <span class="pass-stepper-price" id="childPassPriceDisplay">€20.00 <small style="font-weight:normal; color:#64748B;">/ pass</small></span>
                 </div>
                 <div class="stepper-actions">
                   <button class="step-btn" onclick="stepChildPass(-1)">–</button>
@@ -3649,10 +3816,9 @@
               <!-- Pass 3: Slope Pass + Full Gear Rental Combo -->
               <div class="pass-stepper-card">
                 <div class="pass-stepper-info">
-                  <span class="pass-stepper-title">Slope Pass + Full Gear Rental Combo</span>
-                  <span class="pass-stepper-sub">Includes 1h slope pass + Skis/Snowboard + Boots + Helmet</span>
-                  <span class="pass-stepper-price">€42.00 <small style="font-weight:normal; color:#64748B;">/
-                      pass</small></span>
+                  <span class="pass-stepper-title" id="comboPassTitle">Slope Pass + Full Gear Combo (1 Hour)</span>
+                  <span class="pass-stepper-sub">Includes slope pass + Skis/Snowboard + Boots + Helmet</span>
+                  <span class="pass-stepper-price" id="comboPassPriceDisplay">€42.00 <small style="font-weight:normal; color:#64748B;">/ pass</small></span>
                 </div>
                 <div class="stepper-actions">
                   <button class="step-btn" onclick="stepComboPass(-1)">–</button>
@@ -3664,54 +3830,37 @@
 
             <div class="swp-divider-band"></div>
 
-            <!-- Step 3: Select Time of Arrival Slot (Prompt Screen 5) -->
+            <!-- Step 3: Select Time of Arrival Slot based on duration -->
             <div class="module-sec-hdr">
               <span class="module-sec-title">Step 3: Anticipated Arrival Window</span>
-              <span class="swp-pill-tag blue">Turnstile Flow</span>
+              <span class="swp-pill-tag blue" id="arrivalWindowDurationBadge">1h Windows</span>
             </div>
             <p style="font-size:10px; color:var(--swp-text-sec); margin:2px 0 6px;">
-              Select anticipated arrival time within your 10:00–11:00 slot to balance turnstile flow:
+              Select arrival window for your <span id="arrivalWindowDurationDesc">1-hour</span> session:
             </p>
 
-            <div class="arrival-slots-container">
-              <label class="arrival-slot-card" onclick="selectArrivalSlot('10:00 Arrival', this)">
-                <div style="display:flex; align-items:center; gap:8px;">
-                  <input type="radio" name="arrSlot" style="accent-color:var(--swp-primary);">
-                  <div>
-                    <strong>10:00 Arrival</strong>
-                    <span style="font-size:9.5px; color:var(--swp-text-sec); display:block;">On-the-hour entry</span>
-                  </div>
-                </div>
-                <span class="swp-pill-tag" style="font-size:8.5px;">Standard</span>
-              </label>
-
-              <label class="arrival-slot-card active" onclick="selectArrivalSlot('10:15 Arrival', this)">
-                <div style="display:flex; align-items:center; gap:8px;">
-                  <input type="radio" name="arrSlot" checked style="accent-color:var(--swp-primary);">
-                  <div>
-                    <strong>10:15 Arrival</strong>
-                    <span style="font-size:9.5px; color:#0369A1; display:block;">Recommended · Smoothest turnstile
-                      queue</span>
-                  </div>
-                </div>
-                <span class="swp-pill-tag green" style="font-size:8.5px;">★ Recommended</span>
-              </label>
-
-              <label class="arrival-slot-card" onclick="selectArrivalSlot('10:30 Arrival', this)">
-                <div style="display:flex; align-items:center; gap:8px;">
-                  <input type="radio" name="arrSlot" style="accent-color:var(--swp-primary);">
-                  <div>
-                    <strong>10:30 Arrival</strong>
-                    <span style="font-size:9.5px; color:var(--swp-text-sec); display:block;">Mid-slot arrival</span>
-                  </div>
-                </div>
-                <span class="swp-pill-tag" style="font-size:8.5px;">Standard</span>
-              </label>
+            <div class="arrival-slots-grid" id="arrivalSlotsGrid">
+              <!-- Dynamically rendered based on duration -->
             </div>
 
             <p style="font-size:9.5px; color:#64748B; margin-top:8px; line-height:1.35;">
               ℹ️ <em>Note: Your pass duration starts upon your first turnstile QR scan.</em>
             </p>
+
+            <div class="swp-divider-band"></div>
+
+            <!-- Step 4: Player & Co-Player Information -->
+            <div class="module-sec-hdr">
+              <span class="module-sec-title">Step 4: Player &amp; Co-Players</span>
+              <span class="swp-pill-tag green" id="screen2PlayerCountBadge">2 Attendees</span>
+            </div>
+            <p style="font-size:10px; color:var(--swp-text-sec); margin:2px 0 8px;">
+              Specify participant details for gate passes and turnstile check-in:
+            </p>
+
+            <div id="screen2PlayersContainer" style="display:flex; flex-direction:column; gap:6px;">
+              <!-- Dynamically populated based on adultCount and childCount -->
+            </div>
 
             <!-- Safety & Helmet Waiver -->
             <div class="waiver-alert-box" style="margin-top:10px;">
@@ -3818,27 +3967,21 @@
               <span class="swp-pill-tag green">Hold Placed</span>
             </div>
             <div class="order-meta-grid">
-              <div>📅 Date: <strong>Saturday, 20 September 2026</strong></div>
-              <div>🕒 Arrival: <strong id="checkoutArrivalWindowDisplay">10:15 Arrival (Window 10:00–11:00)</strong>
-              </div>
-              <div>⏱️ Duration: <strong id="checkoutDurationDisplay">1 Hour Pass (starts on turnstile scan)</strong>
-              </div>
+              <div>📅 Date: <strong id="checkoutDateDisplay">Saturday, 20 September 2026</strong></div>
+              <div>🕒 Arrival: <strong id="checkoutArrivalWindowDisplay">10:00 – 11:00</strong></div>
+              <div>⏱️ Duration: <strong id="checkoutDurationDisplay">1 Hour Pass</strong></div>
             </div>
             <!-- Itemized Passes Breakdown -->
             <div style="margin-top:8px; border-top:1px dashed var(--swp-border); padding-top:6px;"
               id="checkoutPassesSummaryList">
-              <div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:3px;">
-                <span>1x Adult Slope Pass (10:00–11:00)</span>
-                <strong>€28.00</strong>
-              </div>
-              <div style="display:flex; justify-content:space-between; font-size:11px;">
-                <span>1x Child Slope Pass (4–12 Yrs, 10:00–11:00)</span>
-                <strong>€20.00</strong>
-              </div>
+            </div>
+            <!-- Attendees Summary -->
+            <div style="margin-top:6px; border-top:1px dashed var(--swp-border); padding-top:6px;"
+              id="checkoutAttendeesSummaryList">
             </div>
           </div>
 
-          <!-- Step 6: Payment Selection & Teammate Invitations (Prompt Screen 6) -->
+          <!-- Step 2: Payment Selection (Prompt Screen 3) -->
           <div class="swp-section-block">
             <div class="module-sec-hdr" style="padding-top:2px;">
               <span class="module-sec-title">Payment Selection</span>
@@ -3851,7 +3994,7 @@
                   <input type="radio" name="paySplitMode" id="radioPayMyself" checked style="accent-color:var(--swp-primary);">
                   <div>
                     <strong style="font-size:11px;">Pay for Everyone Myself</strong>
-                    <span id="payMyselfSubtext" style="font-size:9.5px; color:var(--swp-text-sec); display:block;">Lead booker pays full booking (€53.00)</span>
+                    <span id="payMyselfSubtext" style="font-size:9.5px; color:var(--swp-text-sec); display:block;">Lead booker pays full booking</span>
                   </div>
                 </div>
                 <span class="swp-pill-tag green" style="font-size:8.5px;">Active</span>
@@ -3873,149 +4016,23 @@
               <div class="child-split-warning" id="childSplitWarningBanner">
                 <span>⚠️</span>
                 <div>
-                  <strong>Child Pass Protection Policy:</strong> Split payment is disabled because this booking includes
-                  a child pass (Rohan Patil, 8 yrs). The accompanying adult pays for child passes. A
-                  <strong>Consolidated QR Code</strong> will be issued for joint turnstile entry.
+                  <strong>Child Pass Protection Policy:</strong> Accompanying adult pays for child passes. Remaining adult co-players can split payment or lead adult can pay for all. A <strong>Consolidated QR Code</strong> is issued for joint turnstile entry.
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Step 7: Player Details Collection (Prompt Screen 7) -->
+          <!-- Step 3: Equipment Rental Section (README.md Screen 3 Requirement) -->
           <div class="swp-section-block">
             <div class="module-sec-hdr" style="padding-top:2px;">
-              <span class="module-sec-title" id="checkoutAttendeeHeaderTitle">Player Details (2 Attendees)</span>
-              <span class="swp-pill-tag blue">Gate Access</span>
+              <span class="module-sec-title">Equipment Rental</span>
+              <span class="swp-pill-tag blue" id="equipmentCountBadge">Gear Add-ons</span>
             </div>
-            <div style="padding: 0 14px 6px; display:flex; flex-direction:column; gap:8px;" id="checkoutAttendeeDetailsContainer">
-              <!-- Pass 1: Adult Lead Booker -->
-              <div style="background:#FFFFFF; border:1px solid var(--swp-border); border-radius:8px; padding:8px 10px;">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                  <strong style="font-size:11px; color:var(--swp-primary);">👤 Pass 1 (Lead Adult)</strong>
-                  <span class="swp-pill-tag blue" style="font-size:8.5px;">Lead Booker</span>
-                </div>
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
-                  <div>
-                    <label style="font-size:9px; color:var(--swp-text-sec);">Full Name</label>
-                    <input type="text" class="swp-field-input" value="Mukund Patil"
-                      style="font-size:11px; padding:4px 6px;">
-                  </div>
-                  <div>
-                    <label style="font-size:9px; color:var(--swp-text-sec);">Email Address</label>
-                    <input type="email" class="swp-field-input" value="mukund@example.com"
-                      style="font-size:11px; padding:4px 6px;">
-                  </div>
-                </div>
-              </div>
-
-              <!-- Pass 2: Child Pass -->
-              <div style="background:#FFFFFF; border:1px solid var(--swp-border); border-radius:8px; padding:8px 10px;">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                  <strong style="font-size:11px; color:#059669;">🧒 Pass 2 (Child)</strong>
-                  <span class="swp-pill-tag green" style="font-size:8.5px;">Guardian: Mukund</span>
-                </div>
-                <div style="display:grid; grid-template-columns:1fr 60px; gap:6px;">
-                  <div>
-                    <label style="font-size:9px; color:var(--swp-text-sec);">Child Name</label>
-                    <input type="text" class="swp-field-input" value="Rohan Patil"
-                      style="font-size:11px; padding:4px 6px;">
-                  </div>
-                  <div>
-                    <label style="font-size:9px; color:var(--swp-text-sec);">Age</label>
-                    <input type="number" class="swp-field-input" value="8" style="font-size:11px; padding:4px 6px;"
-                      readonly>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Step 8: Equipment Rental & DIN Safety Customizer (Prompt Screen 8) -->
-          <div class="swp-section-block">
-            <div class="module-sec-hdr" style="padding-top:2px;">
-              <span class="module-sec-title">Equipment &amp; DIN Safety Sizing</span>
-              <span class="swp-pill-tag blue">Pre-Packed</span>
-            </div>
-            <div style="padding: 0 14px 6px;" id="checkoutDinCustomizerContainer">
-
-              <!-- Mukund (Adult) DIN Customizer -->
-              <div class="din-customizer-box">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                  <strong style="font-size:11px;">🎿 Mukund Patil (Adult)</strong>
-                  <span class="swp-pill-tag" style="font-size:8.5px; background:#E0F2FE; color:#0369A1;">DIN Release:
-                    6.5</span>
-                </div>
-                <div class="din-grid">
-                  <div class="din-field">
-                    <label>Sport Discipline</label>
-                    <select>
-                      <option>🎿 Ski (Atomic)</option>
-                      <option>🏂 Snowboard (Burton)</option>
-                    </select>
-                  </div>
-                  <div class="din-field">
-                    <label>Boot Size</label>
-                    <select>
-                      <option>EU 42 (Mondo 27.0)</option>
-                      <option>EU 41</option>
-                      <option>EU 43</option>
-                    </select>
-                  </div>
-                  <div class="din-field">
-                    <label>Height (cm)</label>
-                    <input type="text" value="178 cm">
-                  </div>
-                  <div class="din-field">
-                    <label>Weight (kg)</label>
-                    <input type="text" value="75 kg">
-                  </div>
-                </div>
-              </div>
-
-              <!-- Rohan (Child) DIN Customizer -->
-              <div class="din-customizer-box">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                  <strong style="font-size:11px;">🧒 Rohan Patil (Child · 8 Yrs)</strong>
-                  <span class="swp-pill-tag" style="font-size:8.5px; background:#FEF3C7; color:#B45309;">DIN Release:
-                    2.0</span>
-                </div>
-                <div class="din-grid">
-                  <div class="din-field">
-                    <label>Sport Discipline</label>
-                    <select>
-                      <option>🎿 Junior Ski</option>
-                      <option>🏂 Junior Board</option>
-                    </select>
-                  </div>
-                  <div class="din-field">
-                    <label>Boot Size</label>
-                    <select>
-                      <option>EU 32 (Junior)</option>
-                      <option>EU 31</option>
-                      <option>EU 33</option>
-                    </select>
-                  </div>
-                  <div class="din-field">
-                    <label>Height (cm)</label>
-                    <input type="text" value="128 cm">
-                  </div>
-                  <div class="din-field">
-                    <label>Weight (kg)</label>
-                    <input type="text" value="28 kg">
-                  </div>
-                </div>
-                <!-- Helmet Mandatory Add-on for age < 14 -->
-                <div style="margin-top:8px; padding-top:6px; border-top:1px dashed var(--swp-border);">
-                  <label style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;">
-                    <span style="font-size:10.5px; display:flex; align-items:center; gap:6px;">
-                      <input type="checkbox" checked disabled style="accent-color:var(--swp-primary);">
-                      <strong>Safety Helmet (Mandatory for Age &lt; 14)</strong>
-                    </span>
-                    <strong style="font-size:11px; color:var(--swp-primary);">+€5.00</strong>
-                  </label>
-                </div>
-              </div>
-
+            <p style="font-size:10px; color:var(--swp-text-sec); padding:0 14px 6px;">
+              Select equipment items to rent and adjust quantities for your group:
+            </p>
+            <div style="padding: 0 14px 6px;" id="checkoutEquipmentListContainer" class="equipment-cards-list">
+              <!-- Dynamically populated equipment cards with +/- steppers -->
             </div>
           </div>
 
@@ -4158,15 +4175,14 @@
           <!-- Turnstile Scannable Consolidated QR Code (Case B Prompt Screen 6) -->
           <div class="qr-ticket-card" id="qrTicketCard">
             <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
-              <span style="font-family:'Montserrat',sans-serif; font-size:11.5px; font-weight:700;">Consolidated Gate
-                Pass (2 Pax)</span>
+              <span style="font-family:'Montserrat',sans-serif; font-size:11.5px; font-weight:700;" id="qrTicketTitle">Consolidated Gate Pass (2 Pax)</span>
               <span class="swp-pill-tag blue" id="qrPassTypeBadge">Adult + Child</span>
             </div>
             <div class="qr-frame-outer">
               <div class="mock-qr-code"></div>
             </div>
             <div class="qr-ticket-code">#SWP-SKI-882914-AMS</div>
-            <span style="font-size:9.5px; font-weight:700; color:var(--swp-text-primary); margin-top:3px;">
+            <span style="font-size:9.5px; font-weight:700; color:var(--swp-text-primary); margin-top:3px;" id="qrAttendeeNames">
               Mukund Patil (Adult) + Rohan Patil (Child 8y)
             </span>
             <span style="font-size:9px; color:var(--swp-text-sec); margin-top:2px;" id="qrScanInstructions">
@@ -4178,16 +4194,15 @@
           <div
             style="background:#FFFFFF; border:1px solid var(--swp-border); border-radius:10px; padding:10px 12px; margin:0 14px 10px; text-align:center;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-              <span style="font-size:11px; font-weight:700; color:var(--swp-text-primary);">🎿 Gear Rental Pickup
-                Barcode</span>
+              <span style="font-size:11px; font-weight:700; color:var(--swp-text-primary);">🎿 Gear Rental Pickup Barcode</span>
               <span class="swp-pill-tag green" style="font-size:8.5px;">Locker #42 Assigned</span>
             </div>
             <div
               style="background:#F1F5F9; border-radius:6px; padding:6px; font-family:monospace; font-size:14px; letter-spacing:4px; font-weight:700;">
               ||| | |||| || ||| |||| | |||
             </div>
-            <div style="font-size:9.5px; color:#475569; margin-top:4px;">
-              1x Helmet (Rohan) · 2x Skis &amp; Boots (EU 42, EU 32) · Locker #42 (PIN: <strong>8941</strong>)
+            <div style="font-size:9.5px; color:#475569; margin-top:4px;" id="gearBarcodeDetails">
+              1x Helmet (Rohan) · 2x Skis &amp; Boots · Locker #42 (PIN: <strong>8941</strong>)
             </div>
           </div>
 
@@ -4200,7 +4215,7 @@
               <div>⏱️ <strong>Slope Time:</strong> 58 mins</div>
               <div>☕ <strong>Break Time:</strong> 14 mins</div>
               <div>🎿 <strong>Gear:</strong> Locker #42 Released</div>
-              <div>💳 <strong>Total:</strong> €53.00 Settled</div>
+              <div>💳 <strong>Total:</strong> <span id="sessionCompletedTotal">€53.00 Settled</span></div>
             </div>
             <button class="feed-btn-pass" style="width:100%; height:40px; margin-top:4px;"
               onclick="navigateToScreen('screen1')">
@@ -4406,12 +4421,130 @@
     let screen1ActiveTab = 'new';
     let currentClubTab = 'slope';
     let currentPackage = 'skiing';
-    let selectedDaypartHourStr = '10:00 – 11:00';
-    let selectedArrivalSlotStr = '10:15 Arrival';
+
+    // Date state (Screen 1 Requirement)
+    let selectedBookingDate = {
+      day: 'Sat',
+      num: '20',
+      full: 'Saturday, 20 September 2026',
+      short: 'Sat, 20 Sep'
+    };
+
+    // Duration configurations (1hr, 2hr, 3hr, 4hr, Full Day) per README.md
+    const durationConfigs = {
+      '1hr': {
+        label: '1 Hour',
+        badge: '1 Hour',
+        hourValue: 1,
+        adultPrice: 28.00,
+        childPrice: 20.00,
+        comboPrice: 42.00,
+        windows: [
+          '09:00 – 10:00',
+          '10:00 – 11:00',
+          '11:00 – 12:00',
+          '12:00 – 13:00',
+          '13:00 – 14:00',
+          '14:00 – 15:00',
+          '15:00 – 16:00',
+          '16:00 – 17:00',
+          '17:00 – 18:00',
+          '18:00 – 19:00',
+          '19:00 – 20:00'
+        ],
+        defaultWindow: '10:00 – 11:00'
+      },
+      '2hr': {
+        label: '2 Hours',
+        badge: '2 Hours',
+        hourValue: 2,
+        adultPrice: 38.00,
+        childPrice: 28.00,
+        comboPrice: 55.00,
+        windows: [
+          '09:00 – 11:00',
+          '11:00 – 13:00',
+          '13:00 – 15:00',
+          '15:00 – 17:00',
+          '17:00 – 19:00',
+          '19:00 – 21:00'
+        ],
+        defaultWindow: '09:00 – 11:00'
+      },
+      '3hr': {
+        label: '3 Hours',
+        badge: '3 Hours',
+        hourValue: 3,
+        adultPrice: 46.00,
+        childPrice: 34.00,
+        comboPrice: 65.00,
+        windows: [
+          '09:00 – 12:00',
+          '12:00 – 15:00',
+          '15:00 – 18:00',
+          '18:00 – 21:00'
+        ],
+        defaultWindow: '09:00 – 12:00'
+      },
+      '4hr': {
+        label: '4 Hours',
+        badge: '4 Hours',
+        hourValue: 4,
+        adultPrice: 52.00,
+        childPrice: 38.00,
+        comboPrice: 72.00,
+        windows: [
+          '09:00 – 13:00',
+          '13:00 – 17:00',
+          '17:00 – 21:00'
+        ],
+        defaultWindow: '09:00 – 13:00'
+      },
+      'fullday': {
+        label: 'Full Day',
+        badge: 'Full Day',
+        hourValue: 8,
+        adultPrice: 65.00,
+        childPrice: 48.00,
+        comboPrice: 88.00,
+        windows: [
+          '09:00 – 22:00 (All Day Access)'
+        ],
+        defaultWindow: '09:00 – 22:00 (All Day Access)'
+      }
+    };
+
+    let selectedDurationKey = '1hr';
+    let selectedArrivalSlotStr = '10:00 – 11:00';
 
     let adultCount = 1;
     let childCount = 1;
     let comboCount = 0;
+
+    // Co-players & child details state
+    let leadAdult = { name: 'Mukund Patil', email: 'mukund@example.com' };
+    let coPlayerDetails = [
+      { name: 'Rahul Sharma', email: 'rahul@example.com' },
+      { name: 'Ankit Verma', email: 'ankit@example.com' },
+      { name: 'Priya Mehta', email: 'priya@example.com' },
+      { name: 'Sameer Joshi', email: 'sameer@example.com' }
+    ];
+    let childDetails = [
+      { name: 'Rohan Patil' },
+      { name: 'Aarav Patil' },
+      { name: 'Ananya Patil' },
+      { name: 'Vihaan Patil' }
+    ];
+
+    // Equipment rental catalog (Screen 3 Requirement - Select & Adjust Quantities)
+    let equipmentCatalog = [
+      { id: 'skis', name: 'Skis & Poles Rental', icon: '🎿', desc: 'Atomic Redster Carving Skis & Aluminum Poles', price: 12.00, count: 0 },
+      { id: 'snowboard', name: 'Snowboard & Bindings', icon: '🏂', desc: 'Burton Custom Board with Quick-Fit Bindings', price: 12.00, count: 0 },
+      { id: 'boots', name: 'Ski / Snowboard Boots', icon: '🥾', desc: 'Thermal insulated & sanitized boots', price: 8.00, count: 0 },
+      { id: 'helmet', name: 'Safety Alpine Helmet', icon: '🪖', desc: 'Impact-certified alpine helmet (Mandatory for < 14)', price: 5.00, count: 1 },
+      { id: 'jacket_pants', name: 'Waterproof Outerwear Set', icon: '🧥', desc: 'Warm insulated ski jacket & weatherproof pants', price: 10.00, count: 0 },
+      { id: 'gloves_goggles', name: 'Gloves & Snow Goggles', icon: '🧤', desc: 'Thermal waterproof gloves & anti-fog UV goggles', price: 6.00, count: 0 }
+    ];
 
     let selectedLesson = {
       id: 'beginner',
@@ -4429,8 +4562,8 @@
 
     const screenTitles = {
       'screen1': '1. Parent Package Listing (SnowWorld Feed)',
-      'screen2a': '2. Detail View & Slope Booking (3 Steps)',
-      'screen3': '3. Checkout & Gear Customizer (€53.00)',
+      'screen2a': '2. Detail View & Slope Booking (4 Steps)',
+      'screen3': '3. Booking Summary & Equipment Checkout',
       'screen4': '4. Consolidated Turnstile Pass & Lifecycle',
       'all': 'All Screens Wireframe Canvas'
     };
@@ -4517,19 +4650,25 @@
       if (dateSec) dateSec.style.display = (tab === 'new') ? 'block' : 'none';
     }
 
-    function selectDateChip(chip) {
-      document.querySelectorAll('.swp-date-selector-track .date-chip').forEach(c => c.classList.remove('selected'));
+    // Screen 1 Date Selection
+    function selectScreen1Date(chip, num, day, fullDate) {
+      document.querySelectorAll('#screen1DateSection .date-chip').forEach(c => c.classList.remove('selected'));
       chip.classList.add('selected');
-      const dateNum = chip.querySelector('.date-num')?.textContent || '20';
-      const dateDay = chip.querySelector('.date-day')?.textContent || 'Sat';
-      showToast(`Selected Date: ${dateDay} ${dateNum} September 2026`);
+      selectedBookingDate = {
+        day: day,
+        num: num,
+        full: fullDate,
+        short: `${day}, ${num} Sep`
+      };
+      const badge = document.getElementById('screen1SelectedDateBadge');
+      if (badge) badge.textContent = `${day}, ${num} Sep`;
+      const coDate = document.getElementById('checkoutDateDisplay');
+      if (coDate) coDate.textContent = fullDate;
+      showToast(`Selected Date: ${fullDate}`);
     }
 
-    function selectPeriodCard(card) {
-      document.querySelectorAll('.time-period-card').forEach(c => c.classList.remove('selected'));
-      card.classList.add('selected');
-      const title = card.querySelector('.period-title')?.textContent || '';
-      showToast(`Arrival Window: ${title}`);
+    function selectDateChip(chip) {
+      selectScreen1Date(chip, chip.querySelector('.date-num')?.textContent || '20', chip.querySelector('.date-day')?.textContent || 'Sat', 'Saturday, 20 September 2026');
     }
 
     function switchClubTab(tab) {
@@ -4575,106 +4714,358 @@
       showToast(`Opened ${titleEl ? titleEl.textContent : 'Package'}`);
     }
 
-    function selectDaypartHour(hourStr, btn) {
-      selectedDaypartHourStr = hourStr;
-      document.querySelectorAll('.hour-slot-btn').forEach(b => b.classList.remove('active'));
+    // Step 1 Duration Selection
+    function selectPassDuration(key, btn) {
+      selectedDurationKey = key;
+      const cfg = durationConfigs[key];
+      if (!cfg) return;
+
+      document.querySelectorAll('#durationChipsTrack .duration-chip').forEach(b => b.classList.remove('active'));
       if (btn) btn.classList.add('active');
-      const hourCtx = document.getElementById('selectedHourContext');
-      if (hourCtx) hourCtx.textContent = `${hourStr} Slot`;
+
+      const durBadge = document.getElementById('activeDurationBadge');
+      if (durBadge) durBadge.textContent = cfg.badge;
+
+      const passCtx = document.getElementById('selectedDurationPassContext');
+      if (passCtx) passCtx.textContent = `${cfg.label} Passes`;
+
+      // Update pass titles and prices in Step 2
+      const adultTitle = document.getElementById('adultPassTitle');
+      if (adultTitle) adultTitle.textContent = `Adult Slope Pass (${cfg.label})`;
+      const adultPrice = document.getElementById('adultPassPriceDisplay');
+      if (adultPrice) adultPrice.innerHTML = `€${cfg.adultPrice.toFixed(2)} <small style="font-weight:normal; color:#64748B;">/ pass</small>`;
+
+      const childTitle = document.getElementById('childPassTitle');
+      if (childTitle) childTitle.textContent = `Child Slope Pass (4–12 Yrs, ${cfg.label})`;
+      const childPrice = document.getElementById('childPassPriceDisplay');
+      if (childPrice) childPrice.innerHTML = `€${cfg.childPrice.toFixed(2)} <small style="font-weight:normal; color:#64748B;">/ pass</small>`;
+
+      const comboTitle = document.getElementById('comboPassTitle');
+      if (comboTitle) comboTitle.textContent = `Slope Pass + Full Gear Combo (${cfg.label})`;
+      const comboPrice = document.getElementById('comboPassPriceDisplay');
+      if (comboPrice) comboPrice.innerHTML = `€${cfg.comboPrice.toFixed(2)} <small style="font-weight:normal; color:#64748B;">/ pass</small>`;
+
+      // Update Step 3 Arrival Windows
+      const arrBadge = document.getElementById('arrivalWindowDurationBadge');
+      if (arrBadge) arrBadge.textContent = `${cfg.label} Windows`;
+      const arrDesc = document.getElementById('arrivalWindowDurationDesc');
+      if (arrDesc) arrDesc.textContent = `${cfg.label.toLowerCase()}`;
+
+      selectedArrivalSlotStr = cfg.defaultWindow;
+      renderArrivalSlots();
+
+      recalcBookingTotals();
+      showToast(`Duration Selected: ${cfg.label}`);
+    }
+
+    // Render Arrival Slots Grid based on selected duration
+    function renderArrivalSlots() {
+      const grid = document.getElementById('arrivalSlotsGrid');
+      if (!grid) return;
+
+      const cfg = durationConfigs[selectedDurationKey] || durationConfigs['1hr'];
+      let html = '';
+      cfg.windows.forEach((win, index) => {
+        const isActive = (win === selectedArrivalSlotStr) || (!selectedArrivalSlotStr && index === 0);
+        if (isActive) selectedArrivalSlotStr = win;
+        html += `
+          <button type="button" class="arrival-slot-btn ${isActive ? 'active' : ''}" onclick="selectArrivalSlotWindow('${win}', this)">
+            <span>${win}</span>
+            <span class="slot-status">🟢 Available</span>
+          </button>
+        `;
+      });
+      grid.innerHTML = html;
+    }
+
+    function selectArrivalSlotWindow(slotStr, btn) {
+      selectedArrivalSlotStr = slotStr;
+      document.querySelectorAll('#arrivalSlotsGrid .arrival-slot-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
       syncCheckoutData();
-      showToast(`Selected Hour: ${hourStr}`);
+      showToast(`Arrival Window: ${slotStr}`);
+    }
+
+    function saveScreen2PlayerInputs() {
+      // Save lead booker
+      const leadNameEl = document.getElementById('lead_player_name');
+      const leadEmailEl = document.getElementById('lead_player_email');
+      if (leadNameEl) leadAdult.name = leadNameEl.value;
+      if (leadEmailEl) leadAdult.email = leadEmailEl.value;
+
+      // Save additional adults
+      for (let i = 2; i <= adultCount; i++) {
+        const nameEl = document.getElementById(`coplayer_name_${i}`);
+        const emailEl = document.getElementById(`coplayer_email_${i}`);
+        const idx = i - 2;
+        if (!coPlayerDetails[idx]) coPlayerDetails[idx] = {};
+        if (nameEl && nameEl.value) coPlayerDetails[idx].name = nameEl.value;
+        if (emailEl && emailEl.value) coPlayerDetails[idx].email = emailEl.value;
+      }
+
+      // Save children
+      for (let c = 1; c <= childCount; c++) {
+        const nameEl = document.getElementById(`child_name_${c}`);
+        const idx = c - 1;
+        if (!childDetails[idx]) childDetails[idx] = {};
+        if (nameEl && nameEl.value) childDetails[idx].name = nameEl.value;
+      }
+    }
+
+    function renderScreen2Players() {
+      const container = document.getElementById('screen2PlayersContainer');
+      if (!container) return;
+
+      const totalPax = adultCount + childCount;
+      const countBadge = document.getElementById('screen2PlayerCountBadge');
+      if (countBadge) countBadge.textContent = `${totalPax} Attendee${totalPax > 1 ? 's' : ''}`;
+
+      let html = '';
+
+      // 1. Lead Adult (Mukund Patil)
+      html += `
+        <div class="coplayer-card">
+          <div class="coplayer-hdr">
+            <strong style="font-size:11px; color:var(--swp-primary);">👤 Pass 1 (Lead Adult)</strong>
+            <span class="swp-pill-tag blue" style="font-size:8.5px;">Lead Booker (Parent)</span>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+            <div>
+              <label style="font-size:9px; color:var(--swp-text-sec);">Full Name</label>
+              <input type="text" id="lead_player_name" class="swp-field-input" value="${leadAdult.name}" oninput="saveScreen2PlayerInputs()" style="font-size:11px; padding:5px 6px;">
+            </div>
+            <div>
+              <label style="font-size:9px; color:var(--swp-text-sec);">Email Address</label>
+              <input type="email" id="lead_player_email" class="swp-field-input" value="${leadAdult.email}" oninput="saveScreen2PlayerInputs()" style="font-size:11px; padding:5px 6px;">
+            </div>
+          </div>
+        </div>
+      `;
+
+      // 2. Additional Adults (if adult passes selected > 1: take co-player names and emails)
+      for (let i = 2; i <= adultCount; i++) {
+        const coIdx = i - 2;
+        const defaultName = coPlayerDetails[coIdx]?.name || `Co-Player ${i}`;
+        const defaultEmail = coPlayerDetails[coIdx]?.email || `coplayer${i}@example.com`;
+        html += `
+          <div class="coplayer-card">
+            <div class="coplayer-hdr">
+              <strong style="font-size:11px; color:var(--swp-primary);">👤 Pass ${i} (Adult Co-Player)</strong>
+              <span class="swp-pill-tag" style="font-size:8.5px;">Adult Pass</span>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+              <div>
+                <label style="font-size:9px; color:var(--swp-text-sec);">Co-Player Name</label>
+                <input type="text" id="coplayer_name_${i}" class="swp-field-input" value="${defaultName}" placeholder="Co-Player Name" oninput="saveScreen2PlayerInputs()" style="font-size:11px; padding:5px 6px;">
+              </div>
+              <div>
+                <label style="font-size:9px; color:var(--swp-text-sec);">Co-Player Email</label>
+                <input type="email" id="coplayer_email_${i}" class="swp-field-input" value="${defaultEmail}" placeholder="coplayer@example.com" oninput="saveScreen2PlayerInputs()" style="font-size:11px; padding:5px 6px;">
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      // 3. Children passes (if child pass is selected: take child name only as parent name is already known)
+      for (let c = 1; c <= childCount; c++) {
+        const passNum = adultCount + c;
+        const chIdx = c - 1;
+        const defaultChildName = childDetails[chIdx]?.name || (c === 1 ? 'Rohan Patil' : `Junior Skier ${c}`);
+        html += `
+          <div class="coplayer-card">
+            <div class="coplayer-hdr">
+              <strong style="font-size:11px; color:#059669;">🧒 Pass ${passNum} (Child)</strong>
+              <span class="swp-pill-tag green" style="font-size:8.5px;">Guardian: ${leadAdult.name}</span>
+            </div>
+            <div>
+              <label style="font-size:9px; color:var(--swp-text-sec);">Child Full Name (Accompanying Parent: ${leadAdult.name})</label>
+              <input type="text" id="child_name_${c}" class="swp-field-input" value="${defaultChildName}" placeholder="Child Full Name" oninput="saveScreen2PlayerInputs()" style="font-size:11px; padding:5px 6px; width:100%;">
+            </div>
+          </div>
+        `;
+      }
+
+      container.innerHTML = html;
     }
 
     function stepAdultPass(delta) {
+      saveScreen2PlayerInputs();
       adultCount = Math.max(1, Math.min(8, adultCount + delta));
       const el = document.getElementById('adultCountDisplay');
       if (el) el.textContent = adultCount;
+      renderScreen2Players();
       recalcBookingTotals();
     }
 
     function stepChildPass(delta) {
+      saveScreen2PlayerInputs();
       childCount = Math.max(0, Math.min(8, childCount + delta));
       const el = document.getElementById('childCountDisplay');
       if (el) el.textContent = childCount;
+
+      // Ensure helmet is selected for children
+      const helmet = equipmentCatalog.find(e => e.id === 'helmet');
+      if (helmet) {
+        helmet.count = Math.max(helmet.count, childCount);
+      }
+
+      renderScreen2Players();
+      renderScreen3Equipment();
       recalcBookingTotals();
     }
 
     function stepComboPass(delta) {
+      saveScreen2PlayerInputs();
       comboCount = Math.max(0, Math.min(8, comboCount + delta));
       const el = document.getElementById('comboCountDisplay');
       if (el) el.textContent = comboCount;
       recalcBookingTotals();
     }
 
-    function selectArrivalSlot(slotStr, card) {
-      selectedArrivalSlotStr = slotStr;
-      document.querySelectorAll('.arrival-slot-card').forEach(c => c.classList.remove('active'));
-      if (card) {
-        card.classList.add('active');
-        const radio = card.querySelector('input[type="radio"]');
-        if (radio) radio.checked = true;
-      }
-      syncCheckoutData();
-      showToast(`Arrival Window: ${slotStr}`);
+    // Equipment Stepper (Screen 3)
+    function stepEquipment(equipId, delta) {
+      const item = equipmentCatalog.find(e => e.id === equipId);
+      if (!item) return;
+
+      item.count = Math.max(0, item.count + delta);
+      renderScreen3Equipment();
+      recalcBookingTotals();
+      showToast(`${item.name}: ${item.count} selected`);
     }
 
-    function selectLessonOption(id, price, title, curriculum, duration, zone) {
-      selectedLesson = { id, price, title, curriculum, duration };
-      document.querySelectorAll('#lessonsConfiguredList .pass-cfg-card').forEach(c => c.classList.remove('selected'));
-      const activeCard = document.getElementById(`cfgLesson_${id}`);
-      if (activeCard) activeCard.classList.add('selected');
-      showToast(`Selected Lesson: ${title} (€${price.toFixed(2)})`);
+    function renderScreen3Equipment() {
+      const container = document.getElementById('checkoutEquipmentListContainer');
+      if (!container) return;
+
+      let totalItems = 0;
+      let html = '';
+
+      equipmentCatalog.forEach(item => {
+        totalItems += item.count;
+        const isSelected = item.count > 0;
+        html += `
+          <div class="equipment-rental-card ${isSelected ? 'selected' : ''}">
+            <div class="equipment-info">
+              <div class="equipment-icon">${item.icon}</div>
+              <div class="equipment-details">
+                <span class="equipment-name">${item.name}</span>
+                <span class="equipment-desc">${item.desc}</span>
+                <span class="equipment-price">+€${item.price.toFixed(2)} <small style="font-weight:normal; color:#64748B;">/ session</small></span>
+              </div>
+            </div>
+            <div class="stepper-actions" style="margin-left:8px;">
+              <button class="step-btn" onclick="stepEquipment('${item.id}', -1)">–</button>
+              <span class="step-count">${item.count}</span>
+              <button class="step-btn" onclick="stepEquipment('${item.id}', 1)">+</button>
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+
+      const badge = document.getElementById('equipmentCountBadge');
+      if (badge) {
+        badge.textContent = `${totalItems} Item${totalItems === 1 ? '' : 's'} Selected`;
+        badge.className = totalItems > 0 ? 'swp-pill-tag blue' : 'swp-pill-tag';
+      }
     }
 
     function recalcBookingTotals() {
-      const totalCost = (adultCount * 28.00) + (childCount * 20.00) + (comboCount * 42.00);
+      const cfg = durationConfigs[selectedDurationKey] || durationConfigs['1hr'];
+      const passesCost = (adultCount * cfg.adultPrice) + (childCount * cfg.childPrice) + (comboCount * cfg.comboPrice);
       const passCount = adultCount + childCount + comboCount;
+
       const subLabel = document.getElementById('screen2aSummarySub');
       if (subLabel) subLabel.textContent = `${passCount} Pass${passCount > 1 ? 'es' : ''} Selected`;
       const totalEl = document.getElementById('screen2aTotalPrice');
-      if (totalEl) totalEl.textContent = `€${totalCost.toFixed(2)}`;
+      if (totalEl) totalEl.textContent = `€${passesCost.toFixed(2)}`;
+
       syncCheckoutData();
     }
 
     function handleScreen2Continue() {
+      saveScreen2PlayerInputs();
       syncCheckoutData();
       navigateToScreen('screen3');
+      showToast('Moved to Booking Summary & Checkout');
     }
 
     function syncCheckoutData() {
-      const arrEl = document.getElementById('checkoutArrivalWindowDisplay');
-      if (arrEl) arrEl.textContent = `${selectedArrivalSlotStr} (Window ${selectedDaypartHourStr})`;
+      const cfg = durationConfigs[selectedDurationKey] || durationConfigs['1hr'];
 
-      // 1. Itemized summary list under booking card
+      // 1. Date & Times on Screen 3 Summary Card
+      const dateEl = document.getElementById('checkoutDateDisplay');
+      if (dateEl) dateEl.textContent = selectedBookingDate.full;
+
+      const arrEl = document.getElementById('checkoutArrivalWindowDisplay');
+      if (arrEl) arrEl.textContent = `${selectedArrivalSlotStr} (${cfg.label} Pass)`;
+
+      const durEl = document.getElementById('checkoutDurationDisplay');
+      if (durEl) durEl.textContent = `${cfg.label} Pass (starts on turnstile scan)`;
+
+      // 2. Itemized Passes Breakdown in Summary Card
       const listContainer = document.getElementById('checkoutPassesSummaryList');
       if (listContainer) {
         let rows = '';
         if (adultCount > 0) {
-          rows += `<div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:3px;">
-            <span>${adultCount}x Adult Slope Pass (${selectedDaypartHourStr})</span>
-            <strong>€${(adultCount * 28.00).toFixed(2)}</strong>
-          </div>`;
+          rows += `
+            <div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:3px;">
+              <span>${adultCount}x Adult Slope Pass (${cfg.label})</span>
+              <strong>€${(adultCount * cfg.adultPrice).toFixed(2)}</strong>
+            </div>
+          `;
         }
         if (childCount > 0) {
-          rows += `<div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:3px;">
-            <span>${childCount}x Child Slope Pass (4–12 Yrs, ${selectedDaypartHourStr})</span>
-            <strong>€${(childCount * 20.00).toFixed(2)}</strong>
-          </div>`;
+          rows += `
+            <div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:3px;">
+              <span>${childCount}x Child Slope Pass (4–12 Yrs, ${cfg.label})</span>
+              <strong>€${(childCount * cfg.childPrice).toFixed(2)}</strong>
+            </div>
+          `;
         }
         if (comboCount > 0) {
-          rows += `<div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:3px;">
-            <span>${comboCount}x Combo Pass + Gear (${selectedDaypartHourStr})</span>
-            <strong>€${(comboCount * 42.00).toFixed(2)}</strong>
-          </div>`;
+          rows += `
+            <div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:3px;">
+              <span>${comboCount}x Combo Pass + Full Gear (${cfg.label})</span>
+              <strong>€${(comboCount * cfg.comboPrice).toFixed(2)}</strong>
+            </div>
+          `;
         }
         listContainer.innerHTML = rows || '<div style="font-size:11px; color:#94A3B8;">No passes selected.</div>';
       }
 
-      // 2. Split Payment selection rule (Child Protection Policy)
-      const passesSum = (adultCount * 28.00) + (childCount * 20.00) + (comboCount * 42.00);
-      const helmetFee = (childCount > 0) ? (childCount * 5.00) : 0.00;
-      const grandTotal = passesSum + helmetFee;
+      // 3. Attendees Summary list in Summary Card
+      const attendeesContainer = document.getElementById('checkoutAttendeesSummaryList');
+      if (attendeesContainer) {
+        let attSummaryHtml = `<div style="font-size:9.5px; font-weight:700; color:var(--swp-text-sec); margin-bottom:4px; text-transform:uppercase;">Confirmed Attendees:</div>`;
+        attSummaryHtml += `<div style="display:flex; flex-wrap:wrap; gap:4px;">`;
+        attSummaryHtml += `<span class="swp-pill-tag blue" style="font-size:9px;">👤 ${leadAdult.name} (Lead Adult)</span>`;
 
+        for (let i = 2; i <= adultCount; i++) {
+          const coName = coPlayerDetails[i - 2]?.name || `Co-Player ${i}`;
+          const coEmail = coPlayerDetails[i - 2]?.email || '';
+          attSummaryHtml += `<span class="swp-pill-tag" style="font-size:9px;">👤 ${coName} (${coEmail || 'Adult'})</span>`;
+        }
+
+        for (let c = 1; c <= childCount; c++) {
+          const chName = childDetails[c - 1]?.name || (c === 1 ? 'Rohan Patil' : `Child ${c}`);
+          attSummaryHtml += `<span class="swp-pill-tag green" style="font-size:9px;">🧒 ${chName} (Guardian: ${leadAdult.name})</span>`;
+        }
+        attSummaryHtml += `</div>`;
+        attendeesContainer.innerHTML = attSummaryHtml;
+      }
+
+      // 4. Calculate Equipment & Grand Total
+      const passesSum = (adultCount * cfg.adultPrice) + (childCount * cfg.childPrice) + (comboCount * cfg.comboPrice);
+      let equipmentSum = 0;
+      equipmentCatalog.forEach(item => {
+        equipmentSum += item.count * item.price;
+      });
+      const grandTotal = passesSum + equipmentSum;
+
+      // 5. Payment Selection Rule (Child Protection Policy)
       const payMyselfSub = document.getElementById('payMyselfSubtext');
       const splitOptLabel = document.getElementById('splitPayOptionLabel');
       const splitRadio = document.getElementById('radioSplitPay');
@@ -4715,159 +5106,7 @@
         if (childWarning) childWarning.style.display = 'none';
       }
 
-      // 3. Dynamic Player Details Collection
-      const totalAttendees = adultCount + childCount + comboCount;
-      const attendeeTitle = document.getElementById('checkoutAttendeeHeaderTitle');
-      if (attendeeTitle) attendeeTitle.textContent = `Player Details (${totalAttendees} Attendee${totalAttendees > 1 ? 's' : ''})`;
-
-      const attendeeContainer = document.getElementById('checkoutAttendeeDetailsContainer');
-      if (attendeeContainer) {
-        let attHtml = '';
-        // Adult 1 (Lead booker)
-        attHtml += `
-          <div style="background:#FFFFFF; border:1px solid var(--swp-border); border-radius:8px; padding:8px 10px;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-              <strong style="font-size:11px; color:var(--swp-primary);">👤 Pass 1 (Lead Adult)</strong>
-              <span class="swp-pill-tag blue" style="font-size:8.5px;">Lead Booker</span>
-            </div>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
-              <div>
-                <label style="font-size:9px; color:var(--swp-text-sec);">Full Name</label>
-                <input type="text" class="swp-field-input" value="Mukund Patil" style="font-size:11px; padding:4px 6px;">
-              </div>
-              <div>
-                <label style="font-size:9px; color:var(--swp-text-sec);">Email Address</label>
-                <input type="email" class="swp-field-input" value="mukund@example.com" style="font-size:11px; padding:4px 6px;">
-              </div>
-            </div>
-          </div>
-        `;
-
-        // Additional Adults
-        for (let i = 2; i <= adultCount; i++) {
-          attHtml += `
-            <div style="background:#FFFFFF; border:1px solid var(--swp-border); border-radius:8px; padding:8px 10px;">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                <strong style="font-size:11px; color:var(--swp-primary);">👤 Pass ${i} (Adult Guest)</strong>
-                <span class="swp-pill-tag" style="font-size:8.5px;">Adult Pass</span>
-              </div>
-              <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
-                <div>
-                  <label style="font-size:9px; color:var(--swp-text-sec);">Full Name</label>
-                  <input type="text" class="swp-field-input" placeholder="Adult Guest ${i}" value="Guest Skier ${i}" style="font-size:11px; padding:4px 6px;">
-                </div>
-                <div>
-                  <label style="font-size:9px; color:var(--swp-text-sec);">Email Address</label>
-                  <input type="email" class="swp-field-input" placeholder="guest${i}@example.com" value="guest${i}@example.com" style="font-size:11px; padding:4px 6px;">
-                </div>
-              </div>
-            </div>
-          `;
-        }
-
-        // Children
-        for (let c = 1; c <= childCount; c++) {
-          const passNum = adultCount + c;
-          const childName = (c === 1) ? 'Rohan Patil' : `Junior Skier ${c}`;
-          const childAge = (c === 1) ? 8 : (6 + c);
-          attHtml += `
-            <div style="background:#FFFFFF; border:1px solid var(--swp-border); border-radius:8px; padding:8px 10px;">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                <strong style="font-size:11px; color:#059669;">🧒 Pass ${passNum} (Child)</strong>
-                <span class="swp-pill-tag green" style="font-size:8.5px;">Guardian: Mukund</span>
-              </div>
-              <div style="display:grid; grid-template-columns:1fr 60px; gap:6px;">
-                <div>
-                  <label style="font-size:9px; color:var(--swp-text-sec);">Child Name</label>
-                  <input type="text" class="swp-field-input" value="${childName}" style="font-size:11px; padding:4px 6px;">
-                </div>
-                <div>
-                  <label style="font-size:9px; color:var(--swp-text-sec);">Age</label>
-                  <input type="number" class="swp-field-input" value="${childAge}" style="font-size:11px; padding:4px 6px;" readonly>
-                </div>
-              </div>
-            </div>
-          `;
-        }
-
-        attendeeContainer.innerHTML = attHtml;
-      }
-
-      // 4. Dynamic Equipment & DIN Safety Customizer
-      const dinContainer = document.getElementById('checkoutDinCustomizerContainer');
-      if (dinContainer) {
-        let dinHtml = `
-          <!-- Mukund (Adult) DIN Customizer -->
-          <div class="din-customizer-box">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <strong style="font-size:11px;">🎿 Mukund Patil (Adult)</strong>
-              <span class="swp-pill-tag" style="font-size:8.5px; background:#E0F2FE; color:#0369A1;">DIN Release: 6.5</span>
-            </div>
-            <div class="din-grid">
-              <div class="din-field">
-                <label>Sport Discipline</label>
-                <select><option>🎿 Ski (Atomic)</option><option>🏂 Snowboard (Burton)</option></select>
-              </div>
-              <div class="din-field">
-                <label>Boot Size</label>
-                <select><option>EU 42 (Mondo 27.0)</option><option>EU 41</option><option>EU 43</option></select>
-              </div>
-              <div class="din-field">
-                <label>Height (cm)</label>
-                <input type="text" value="178 cm">
-              </div>
-              <div class="din-field">
-                <label>Weight (kg)</label>
-                <input type="text" value="75 kg">
-              </div>
-            </div>
-          </div>
-        `;
-
-        if (childCount > 0) {
-          dinHtml += `
-            <!-- Rohan (Child) DIN Customizer -->
-            <div class="din-customizer-box">
-              <div style="display:flex; justify-content:space-between; align-items:center;">
-                <strong style="font-size:11px;">🧒 Rohan Patil (Child · 8 Yrs)</strong>
-                <span class="swp-pill-tag" style="font-size:8.5px; background:#FEF3C7; color:#B45309;">DIN Release: 2.0</span>
-              </div>
-              <div class="din-grid">
-                <div class="din-field">
-                  <label>Sport Discipline</label>
-                  <select><option>🎿 Junior Ski</option><option>🏂 Junior Board</option></select>
-                </div>
-                <div class="din-field">
-                  <label>Boot Size</label>
-                  <select><option>EU 32 (Junior)</option><option>EU 31</option><option>EU 33</option></select>
-                </div>
-                <div class="din-field">
-                  <label>Height (cm)</label>
-                  <input type="text" value="128 cm">
-                </div>
-                <div class="din-field">
-                  <label>Weight (kg)</label>
-                  <input type="text" value="28 kg">
-                </div>
-              </div>
-              <!-- Helmet Mandatory Add-on for age < 14 -->
-              <div style="margin-top:8px; padding-top:6px; border-top:1px dashed var(--swp-border);">
-                <label style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;">
-                  <span style="font-size:10.5px; display:flex; align-items:center; gap:6px;">
-                    <input type="checkbox" checked disabled style="accent-color:var(--swp-primary);">
-                    <strong>Safety Helmet (Mandatory for Age &lt; 14)</strong>
-                  </span>
-                  <strong style="font-size:11px; color:var(--swp-primary);">+€${(childCount * 5.00).toFixed(2)}</strong>
-                </label>
-              </div>
-            </div>
-          `;
-        }
-
-        dinContainer.innerHTML = dinHtml;
-      }
-
-      // 5. Dynamic Order Summary Breakdown
+      // 6. Dynamic Order Summary Breakdown
       const summaryRows = document.getElementById('checkoutOrderSummaryRows');
       if (summaryRows) {
         let bRows = '';
@@ -4875,10 +5114,10 @@
           bRows += `
             <div class="breakdown-row">
               <div>
-                <span class="row-label">${adultCount}x Adult Pass (${selectedDaypartHourStr})</span>
+                <span class="row-label">${adultCount}x Adult Pass (${cfg.label})</span>
                 <span class="row-sub">SnowWorld Amsterdam · Main Slope</span>
               </div>
-              <span class="row-value">€${(adultCount * 28.00).toFixed(2)}</span>
+              <span class="row-value">€${(adultCount * cfg.adultPrice).toFixed(2)}</span>
             </div>
           `;
         }
@@ -4886,10 +5125,10 @@
           bRows += `
             <div class="breakdown-row">
               <div>
-                <span class="row-label">${childCount}x Child Pass (${selectedDaypartHourStr})</span>
+                <span class="row-label">${childCount}x Child Pass (${cfg.label})</span>
                 <span class="row-sub">Age 4–12 · Practice &amp; Main Slopes</span>
               </div>
-              <span class="row-value">€${(childCount * 20.00).toFixed(2)}</span>
+              <span class="row-value">€${(childCount * cfg.childPrice).toFixed(2)}</span>
             </div>
           `;
         }
@@ -4897,24 +5136,29 @@
           bRows += `
             <div class="breakdown-row">
               <div>
-                <span class="row-label">${comboCount}x Combo Pass + Gear</span>
+                <span class="row-label">${comboCount}x Combo Pass + Gear (${cfg.label})</span>
                 <span class="row-sub">Slope pass + Rental equipment bundle</span>
               </div>
-              <span class="row-value">€${(comboCount * 42.00).toFixed(2)}</span>
+              <span class="row-value">€${(comboCount * cfg.comboPrice).toFixed(2)}</span>
             </div>
           `;
         }
-        if (childCount > 0) {
-          bRows += `
-            <div class="breakdown-row">
-              <div>
-                <span class="row-label">${childCount}x Safety Helmet Rental</span>
-                <span class="row-sub">Mandatory child safety equipment</span>
+
+        // Equipment items breakdown
+        equipmentCatalog.forEach(item => {
+          if (item.count > 0) {
+            bRows += `
+              <div class="breakdown-row">
+                <div>
+                  <span class="row-label">${item.count}x ${item.name}</span>
+                  <span class="row-sub">${item.desc}</span>
+                </div>
+                <span class="row-value">€${(item.count * item.price).toFixed(2)}</span>
               </div>
-              <span class="row-value">€${(childCount * 5.00).toFixed(2)}</span>
-            </div>
-          `;
-        }
+            `;
+          }
+        });
+
         summaryRows.innerHTML = bRows;
       }
 
@@ -4926,7 +5170,8 @@
       const btnPayText = document.getElementById('btnCheckoutPayNowText');
       if (btnPayText) btnPayText.textContent = `Pay €${grandTotal.toFixed(2)} & Get Passes`;
 
-      // 6. Synchronize Screen 4 Ticket Display
+      // 7. Synchronize Screen 4 Ticket Display
+      const totalAttendees = adultCount + childCount + comboCount;
       const qrTitle = document.getElementById('qrTicketTitle');
       if (qrTitle) qrTitle.textContent = `Consolidated Gate Pass (${totalAttendees} Pax)`;
 
@@ -4937,18 +5182,43 @@
 
       const qrNames = document.getElementById('qrAttendeeNames');
       if (qrNames) {
-        if (childCount > 0) {
-          qrNames.textContent = `Mukund Patil (Adult) + Rohan Patil (Child 8y)${adultCount > 1 ? ` + ${adultCount - 1} Guest` : ''}`;
-        } else {
-          qrNames.textContent = `Mukund Patil (Adult)${adultCount > 1 ? ` + ${adultCount - 1} Guest(s)` : ''}`;
+        let namesArr = [`${leadAdult.name} (Adult)`];
+        for (let i = 2; i <= adultCount; i++) {
+          const coN = coPlayerDetails[i - 2]?.name || `Co-Player ${i}`;
+          namesArr.push(`${coN} (Adult)`);
         }
+        for (let c = 1; c <= childCount; c++) {
+          const chN = childDetails[c - 1]?.name || (c === 1 ? 'Rohan Patil' : `Child ${c}`);
+          namesArr.push(`${chN} (Child)`);
+        }
+        qrNames.textContent = namesArr.join(' + ');
       }
+
+      // Sync Gear Barcode in Screen 4 with selected equipment
+      const gearBarcodeEl = document.getElementById('gearBarcodeDetails');
+      if (gearBarcodeEl) {
+        const gearParts = [];
+        equipmentCatalog.forEach(item => {
+          if (item.count > 0) gearParts.push(`${item.count}x ${item.name.replace(' Rental', '')}`);
+        });
+        if (comboCount > 0) gearParts.push(`${comboCount}x Combo Full Gear`);
+        const gearStr = gearParts.length > 0 ? gearParts.join(' · ') : 'No equipment rental';
+        gearBarcodeEl.innerHTML = `${gearStr} · Locker #42 (PIN: <strong>8941</strong>)`;
+      }
+
+      const completedTotal = document.getElementById('sessionCompletedTotal');
+      if (completedTotal) completedTotal.textContent = `€${grandTotal.toFixed(2)} Settled`;
     }
 
     function executePaymentAndIssuePass() {
-      const passesSum = (adultCount * 28.00) + (childCount * 20.00) + (comboCount * 42.00);
-      const helmetFee = (childCount > 0) ? (childCount * 5.00) : 0.00;
-      const grandTotal = passesSum + helmetFee;
+      const cfg = durationConfigs[selectedDurationKey] || durationConfigs['1hr'];
+      const passesSum = (adultCount * cfg.adultPrice) + (childCount * cfg.childPrice) + (comboCount * cfg.comboPrice);
+      let equipmentSum = 0;
+      equipmentCatalog.forEach(item => {
+        equipmentSum += item.count * item.price;
+      });
+      const grandTotal = passesSum + equipmentSum;
+
       showToast(`🎉 Booking Confirmed! €${grandTotal.toFixed(2)} Paid via iDEAL.`);
       resetTurnstileToReadyState();
       setTimeout(() => navigateToScreen('screen4'), 400);
@@ -4992,7 +5262,8 @@
 
     function actionScanGateStart() {
       turnstileState = 'active';
-      showToast('🟢 Turnstile Gate 03 Unlocked! 2 Persons Admitted.');
+      const totalPax = adultCount + childCount + comboCount;
+      showToast(`🟢 Turnstile Gate 03 Unlocked! ${totalPax} Person${totalPax > 1 ? 's' : ''} Admitted.`);
 
       const pill = document.getElementById('sessionStatePill');
       const dot = document.getElementById('sessionPulseDot');
@@ -5180,6 +5451,9 @@
     }
 
     window.addEventListener('load', () => {
+      renderArrivalSlots();
+      renderScreen2Players();
+      renderScreen3Equipment();
       recalcBookingTotals();
       checkHashRoute();
     });
