@@ -127,6 +127,240 @@
       color: #FFFFFF;
       border-color: #2563EB;
     }
+    /* ── ACCORDION & PRICING RULES STYLING (FROM PRICING RULES) ── */
+    .accordion-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 12px;
+      margin-bottom: 20px;
+    }
+    .accordion-item {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+    .accordion-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      background: #F8FAFC;
+      cursor: pointer;
+      border-bottom: 1px solid #E2E8F0;
+      transition: all 0.2s ease;
+    }
+    .accordion-header:hover {
+      background: #EDF5FF;
+    }
+    .accordion-header.expanded {
+      background: #EDF5FF;
+      border-bottom-color: #2563EB;
+    }
+    .accordion-title-group {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+    }
+    .accordion-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #0F172A;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .accordion-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      background: #2563EB;
+      color: #FFFFFF;
+      border-radius: 50%;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .accordion-subtitle {
+      font-size: 12px;
+      color: #64748B;
+      margin-left: 34px;
+    }
+    .accordion-toggle-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .accordion-expand-icon {
+      font-size: 13px;
+      transition: transform 0.2s ease;
+      color: #64748B;
+    }
+    .accordion-header.expanded .accordion-expand-icon {
+      transform: rotate(180deg);
+    }
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .accordion-content.expanded {
+      max-height: 2000px;
+    }
+    .accordion-body {
+      padding: 20px;
+    }
+    .swp-switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+    .swp-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider-track {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #CBD5E1;
+      transition: 0.3s;
+      border-radius: 24px;
+    }
+    .slider-track:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.3s;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+    .swp-switch input:checked + .slider-track {
+      background-color: #2563EB;
+    }
+    .swp-switch input:checked + .slider-track:before {
+      transform: translateX(20px);
+    }
+    .form-grid-1 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    @media (min-width: 640px) {
+      .form-grid-2 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .form-grid-3 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    @media (min-width: 768px) {
+      .form-grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .field-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: #334155;
+    }
+    .field-label .required {
+      color: #E11D48;
+      font-weight: 700;
+    }
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .form-control {
+      width: 100%;
+      height: 40px;
+      background: #FFFFFF;
+      border: 1px solid #CBD5E1;
+      border-radius: 8px;
+      padding: 0 12px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #0F172A;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .form-control:focus {
+      border-color: #2563EB;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+    select.form-control {
+      appearance: none;
+      cursor: pointer;
+      padding-right: 36px;
+    }
+    .select-arrow {
+      position: absolute;
+      right: 12px;
+      pointer-events: none;
+      font-size: 10px;
+      color: #64748B;
+    }
+    .input-icon-right {
+      position: absolute;
+      right: 12px;
+      pointer-events: none;
+      font-size: 14px;
+      font-weight: 700;
+      color: #64748B;
+    }
+    .field-hint {
+      font-size: 11px;
+      color: #64748B;
+    }
+    textarea.form-control {
+      height: auto;
+      padding: 10px 12px;
+      resize: vertical;
+      min-height: 80px;
+      font-family: 'Inter', sans-serif;
+    }
+    .shared-note {
+      background: #EFF6FF;
+      border: 1px solid #BFDBFE;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #1D4ED8;
+      margin-bottom: 16px;
+    }
   </style>
 </head>
 <body class="min-h-screen py-8 px-4 sm:px-6 lg:px-8">
@@ -896,79 +1130,326 @@
             </div>
           </div>
 
-          <!-- 3.4 TIERED PRICING MATRIX -->
-          <div class="space-y-3 pt-4 border-t border-slate-200">
+          <!-- 3.4 PASS PRICING, RATE RULES & CANCELLATION ACCORDIONS -->
+          <div class="space-y-4 pt-4 border-t border-slate-200">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
               <span class="text-xs font-extrabold uppercase tracking-wider text-slate-700 flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-                3.4 Tiered Pricing Matrix (Configured at Pass Level)
+                3.4 Pass Pricing, Rate Rules &amp; Cancellation Policy
               </span>
               <span class="text-[11px] text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
-                ✓ Supports €0.00 for member clubs &amp; equal rates
+                ✓ Base, Peak, Weekend, Holiday, Cancellation &amp; Turnstile Surcharges
               </span>
             </div>
 
-            <div class="overflow-x-auto border border-slate-200 rounded-xl bg-white">
-              <table class="w-full text-left text-xs">
-                <thead class="bg-slate-50 text-slate-500 font-bold uppercase tracking-wider border-b border-slate-200">
-                  <tr>
-                    <th class="py-2.5 px-4">Day / Event Tier</th>
-                    <th class="py-2.5 px-4">Member Rate (€)</th>
-                    <th class="py-2.5 px-4">Non-Member Rate (€)</th>
-                    <th class="py-2.5 px-4">Rule Notes</th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-slate-100">
-                  <tr>
-                    <td class="py-3 px-4 font-bold text-slate-900">Regular (Mon–Fri)</td>
-                    <td class="py-3 px-4">
-                      <div class="relative w-32">
-                        <span class="absolute left-2.5 top-2 text-slate-400 font-bold">€</span>
-                        <input type="number" step="0.01" id="priceRegMember" value="20.00" class="w-full pl-6 pr-2 py-1.5 border border-slate-300 rounded font-mono font-bold text-slate-800 text-xs">
+            <div class="accordion-wrapper">
+              <!-- 1. BASE PRICING -->
+              <div class="accordion-item" data-section="base-pricing">
+                <div class="accordion-header expanded" onclick="toggleAccordion(this)">
+                  <div class="accordion-title-group">
+                    <div class="accordion-title">
+                      <span class="accordion-num">1</span>
+                      Base Pricing
+                    </div>
+                    <div class="accordion-subtitle">Member &amp; non-member hourly rates</div>
+                  </div>
+                  <div class="accordion-toggle-group">
+                    <span class="accordion-expand-icon">▼</span>
+                  </div>
+                </div>
+                <div class="accordion-content expanded">
+                  <div class="accordion-body">
+                    <div class="form-grid-2">
+                      <div class="field-group">
+                        <label class="field-label">Member Rate (€/hour) <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                          <input type="text" class="form-control" data-field="memberBase" id="priceRegMember" value="42" placeholder="e.g., 42">
+                          <span class="input-icon-right">€</span>
+                        </div>
+                        <span class="field-hint">Rate for registered members</span>
                       </div>
-                    </td>
-                    <td class="py-3 px-4">
-                      <div class="relative w-32">
-                        <span class="absolute left-2.5 top-2 text-slate-400 font-bold">€</span>
-                        <input type="number" step="0.01" id="priceRegNonMember" value="28.00" class="w-full pl-6 pr-2 py-1.5 border border-slate-300 rounded font-mono font-bold text-slate-800 text-xs">
+                      <div class="field-group">
+                        <label class="field-label">Non-Member Rate (€/hour) <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                          <input type="text" class="form-control" data-field="nonmemberBase" id="priceRegNonMember" value="55" placeholder="e.g., 55">
+                          <span class="input-icon-right">€</span>
+                        </div>
+                        <span class="field-hint">Rate for non-registered users</span>
                       </div>
-                    </td>
-                    <td class="py-3 px-4 text-slate-500 text-[11px]">Supports 0.00 for free member access</td>
-                  </tr>
-                  <tr>
-                    <td class="py-3 px-4 font-bold text-slate-900">Weekend (Sat–Sun)</td>
-                    <td class="py-3 px-4">
-                      <div class="relative w-32">
-                        <span class="absolute left-2.5 top-2 text-slate-400 font-bold">€</span>
-                        <input type="number" step="0.01" id="priceWkndMember" value="25.00" class="w-full pl-6 pr-2 py-1.5 border border-slate-300 rounded font-mono font-bold text-slate-800 text-xs">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 2. PEAK HOUR PRICING -->
+              <div class="accordion-item" data-section="peak-pricing">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="accordion-title-group">
+                    <div class="accordion-title">
+                      <span class="accordion-num">2</span>
+                      Peak Hour Pricing
+                    </div>
+                    <div class="accordion-subtitle">Premium rates during peak hours</div>
+                  </div>
+                  <div class="accordion-toggle-group">
+                    <label class="swp-switch" onclick="event.stopPropagation()">
+                      <input type="checkbox" data-field="peakEnabled" onchange="togglePeakSection(this)">
+                      <span class="slider-track"></span>
+                    </label>
+                    <span class="accordion-expand-icon">▼</span>
+                  </div>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body peak-section-content hidden">
+                    <div class="form-grid-2">
+                      <div class="field-group">
+                        <label class="field-label">Peak Member Rate (€/hour) <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                          <input type="text" class="form-control" data-field="peakMemberRate" value="52" placeholder="e.g., 52">
+                          <span class="input-icon-right">€</span>
+                        </div>
                       </div>
-                    </td>
-                    <td class="py-3 px-4">
-                      <div class="relative w-32">
-                        <span class="absolute left-2.5 top-2 text-slate-400 font-bold">€</span>
-                        <input type="number" step="0.01" id="priceWkndNonMember" value="34.00" class="w-full pl-6 pr-2 py-1.5 border border-slate-300 rounded font-mono font-bold text-slate-800 text-xs">
+                      <div class="field-group">
+                        <label class="field-label">Peak Non-Member Rate (€/hour) <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                          <input type="text" class="form-control" data-field="peakNonmemberRate" value="65" placeholder="e.g., 65">
+                          <span class="input-icon-right">€</span>
+                        </div>
                       </div>
-                    </td>
-                    <td class="py-3 px-4 text-slate-500 text-[11px]">Peak weekend surge rates</td>
-                  </tr>
-                  <tr>
-                    <td class="py-3 px-4 font-bold text-slate-900">Holiday / Peak Season</td>
-                    <td class="py-3 px-4">
-                      <div class="relative w-32">
-                        <span class="absolute left-2.5 top-2 text-slate-400 font-bold">€</span>
-                        <input type="number" step="0.01" id="priceHolMember" value="28.00" class="w-full pl-6 pr-2 py-1.5 border border-slate-300 rounded font-mono font-bold text-slate-800 text-xs">
+                    </div>
+                    <div class="form-grid-2" style="margin-top: 16px;">
+                      <div class="field-group">
+                        <label class="field-label">Peak Start Time <span class="required">*</span></label>
+                        <input type="time" class="form-control" data-field="peakStartTime" value="07:00">
                       </div>
-                    </td>
-                    <td class="py-3 px-4">
-                      <div class="relative w-32">
-                        <span class="absolute left-2.5 top-2 text-slate-400 font-bold">€</span>
-                        <input type="number" step="0.01" id="priceHolNonMember" value="38.00" class="w-full pl-6 pr-2 py-1.5 border border-slate-300 rounded font-mono font-bold text-slate-800 text-xs">
+                      <div class="field-group">
+                        <label class="field-label">Peak End Time <span class="required">*</span></label>
+                        <input type="time" class="form-control" data-field="peakEndTime" value="10:00">
                       </div>
-                    </td>
-                    <td class="py-3 px-4 text-slate-500 text-[11px]">Calendar-triggered holiday rate</td>
-                  </tr>
-                </tbody>
-              </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 3. WEEKEND PRICING -->
+              <div class="accordion-item" data-section="weekend-pricing">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="accordion-title-group">
+                    <div class="accordion-title">
+                      <span class="accordion-num">3</span>
+                      Weekend Pricing
+                    </div>
+                    <div class="accordion-subtitle">Saturday &amp; Sunday rates</div>
+                  </div>
+                  <div class="accordion-toggle-group">
+                    <label class="swp-switch" onclick="event.stopPropagation()">
+                      <input type="checkbox" data-field="weekendEnabled" onchange="toggleWeekendSection(this)">
+                      <span class="slider-track"></span>
+                    </label>
+                    <span class="accordion-expand-icon">▼</span>
+                  </div>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body weekend-section-content hidden">
+                    <div class="form-grid-2">
+                      <div class="field-group">
+                        <label class="field-label">Weekend Member Rate (€/hour) <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                          <input type="text" class="form-control" data-field="weekendMember" id="priceWkndMember" value="48" placeholder="e.g., 48">
+                          <span class="input-icon-right">€</span>
+                        </div>
+                      </div>
+                      <div class="field-group">
+                        <label class="field-label">Weekend Non-Member Rate (€/hour) <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                          <input type="text" class="form-control" data-field="weekendNonmember" id="priceWkndNonMember" value="62" placeholder="e.g., 62">
+                          <span class="input-icon-right">€</span>
+                        </div>
+                      </div>
+                      <div class="field-group">
+                        <label class="field-label">Fixed Block Duration(in - hour) <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                          <input type="text" class="form-control" data-field="blockDuration" value="2" placeholder="e.g., 2">
+                          <span class="input-icon-right">h</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 4. HOLIDAY PRICING -->
+              <div class="accordion-item" data-section="holiday-pricing">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="accordion-title-group">
+                    <div class="accordion-title">
+                      <span class="accordion-num">4</span>
+                      Holiday Pricing
+                    </div>
+                    <div class="accordion-subtitle">Special holiday rates</div>
+                  </div>
+                  <div class="accordion-toggle-group">
+                    <label class="swp-switch" onclick="event.stopPropagation()">
+                      <input type="checkbox" data-field="holidayEnabled" onchange="toggleHolidaySection(this)">
+                      <span class="slider-track"></span>
+                    </label>
+                    <span class="accordion-expand-icon">▼</span>
+                  </div>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body holiday-section-content hidden">
+                    <div class="form-grid-2">
+                      <div class="field-group">
+                        <label class="field-label">Holiday Member Rate (€/hour) <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                          <input type="text" class="form-control" data-field="holidayMember" id="priceHolMember" value="65" placeholder="e.g., 65">
+                          <span class="input-icon-right">€</span>
+                        </div>
+                      </div>
+                      <div class="field-group">
+                        <label class="field-label">Holiday Non-Member Rate (€/hour) <span class="required">*</span></label>
+                        <div class="input-wrapper">
+                          <input type="text" class="form-control" data-field="holidayNonmember" id="priceHolNonMember" value="85" placeholder="e.g., 85">
+                          <span class="input-icon-right">€</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="field-group" style="margin-top: 16px;">
+                      <label class="field-label">Holiday Calendar</label>
+                      <div class="input-wrapper">
+                        <select class="form-control" data-field="holidayCalendar">
+                          <option value="">Select holiday calendar</option>
+                          <option selected>Default (National Holidays)</option>
+                        </select>
+                        <span class="select-arrow">▼</span>
+                      </div>
+                      <span class="field-hint">Holidays are managed in club settings</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 5. CANCELLATION POLICY (Shared) -->
+              <div class="accordion-item" data-section="cancellation-policy">
+                <div class="accordion-header expanded" onclick="toggleAccordion(this)">
+                  <div class="accordion-title-group">
+                    <div class="accordion-title">
+                      <span class="accordion-num">5</span>
+                      Cancellation Policy
+                    </div>
+                    <div class="accordion-subtitle">Cancellation and no-show fees (applies to all categories)</div>
+                  </div>
+                  <div class="accordion-toggle-group">
+                    <span class="accordion-expand-icon">▼</span>
+                  </div>
+                </div>
+                <div class="accordion-content expanded">
+                  <div class="accordion-body">
+                    <div class="shared-note">
+                      ℹ️ These cancellation terms apply to all pricing categories
+                    </div>
+                    <div class="field-group">
+                      <label class="field-label">Policy Description <span class="required">*</span></label>
+                      <textarea class="form-control" data-field="policyDesc" placeholder="Describe your cancellation policy...">Free cancellation up to 24 hours before pass start time. Late cancellation fee applies.</textarea>
+                      <span class="field-hint">Clear cancellation terms for all users</span>
+                    </div>
+                    <div class="form-grid-3">
+                      <div class="field-group">
+                        <label class="field-label">Free Cancellation Window (Hours)</label>
+                        <input type="text" class="form-control" data-field="cancelWindow" value="24" placeholder="e.g., 24">
+                      </div>
+                      <div class="field-group">
+                        <label class="field-label">Member Late Cancel Fee (%)</label>
+                        <input type="text" class="form-control" data-field="memberCancelFee" value="15" placeholder="e.g., 15">
+                      </div>
+                      <div class="field-group">
+                        <label class="field-label">Non-Member Late Cancel Fee (%)</label>
+                        <input type="text" class="form-control" data-field="nonmemberCancelFee" value="25" placeholder="e.g., 25">
+                      </div>
+                    </div>
+                    <div class="form-grid-2" style="margin-top: 16px;">
+                      <div class="field-group">
+                        <label class="field-label">No-Show Fee (%)</label>
+                        <input type="text" class="form-control" data-field="noshowFee" value="50" placeholder="e.g., 50">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ACCORDION ITEM 6: TURNSTILE OVERTIME, EXTENSION & BUNDLE PRICING (TOGGLEABLE) -->
+              <div class="accordion-item" data-section="overtime-extension">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                  <div class="accordion-title-group">
+                    <div class="accordion-title">
+                      <span class="accordion-num">6</span>
+                      Indoor Skiing Overtime, Pass Extension &amp; Rental Bundles
+                    </div>
+                    <div class="accordion-subtitle">Configure automated turnstile overage rates, session upgrades, &amp; gear bundle discounts</div>
+                  </div>
+                  <div class="accordion-toggle-group">
+                    <span class="accordion-expand-icon">▼</span>
+                  </div>
+                </div>
+                <div class="accordion-content">
+                  <div class="accordion-body">
+
+                    <!-- Toggle 1: Overtime Turnstile Surcharge -->
+                    <div class="toggle-section" style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:8px; padding:16px; margin-bottom:16px;">
+                      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                        <div>
+                          <div style="font-weight:700; font-size:13px; color:#0F172A;">Automated Turnstile Overtime Surcharge</div>
+                          <div style="font-size:11px; color:#64748B;">Charge player upon exit turnstile scan if time on snow exceeds booked ticket limit</div>
+                        </div>
+                        <label class="swp-switch">
+                          <input type="checkbox" id="toggleOvertimeSurcharge" data-field="overtimeSurchargeEnabled" checked>
+                          <span class="slider-track"></span>
+                        </label>
+                      </div>
+                      <div class="form-grid-3">
+                        <div class="field-group">
+                          <label class="field-label">Overage Rate (€ per 15 mins)</label>
+                          <input type="number" class="form-control" data-field="overtimeRatePer15" value="5.00" placeholder="5.00">
+                        </div>
+                        <div class="field-group">
+                          <label class="field-label">Maximum Overage Cap (€)</label>
+                          <input type="number" class="form-control" data-field="overtimeMaxCap" value="45.00" placeholder="45.00">
+                        </div>
+                        <div class="field-group">
+                          <label class="field-label">Penalty Grace Window (Mins)</label>
+                          <input type="number" class="form-control" data-field="overtimeGraceMins" value="15" placeholder="15">
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Toggle 2: Mid-Session Pass Upgrade Delta -->
+                    <div class="toggle-section" style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:8px; padding:16px;">
+                      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                        <div>
+                          <div style="font-weight:700; font-size:13px; color:#0F172A;">In-Session Pass Extension Delta Pricing</div>
+                          <div style="font-size:11px; color:#64748B;">Allow players to extend 1-hour ticket to 2-hour or Day Pass directly on phone for a price delta</div>
+                        </div>
+                        <label class="swp-switch">
+                          <input type="checkbox" id="togglePassUpgrade" data-field="passUpgradeEnabled" checked>
+                          <span class="slider-track"></span>
+                        </label>
+                      </div>
+                      <div class="form-grid-2">
+                        <div class="field-group">
+                          <label class="field-label">1-Hour to 2-Hour Upgrade Delta (€)</label>
+                          <input type="number" class="form-control" data-field="upgrade1to2Hr" value="12.00" placeholder="12.00">
+                        </div>
+                        <div class="field-group">
+                          <label class="field-label">2-Hour to Full Day Upgrade Delta (€)</label>
+                          <input type="number" class="form-control" data-field="upgrade2toDay" value="18.00" placeholder="18.00">
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
 
@@ -2222,6 +2703,48 @@
       document.getElementById('lessonSelectBox').classList.toggle('hidden', !isLesson);
     }
 
+    // ── ACCORDION TOGGLE FUNCTIONS (FROM PRICING RULES) ──
+    function toggleAccordion(headerElement) {
+      const item = headerElement.closest('.accordion-item');
+      const content = item.querySelector('.accordion-content');
+      const isExpanded = content.classList.contains('expanded');
+
+      if (isExpanded) {
+        content.classList.remove('expanded');
+        headerElement.classList.remove('expanded');
+      } else {
+        content.classList.add('expanded');
+        headerElement.classList.add('expanded');
+      }
+    }
+
+    function togglePeakSection(toggle) {
+      const content = toggle.closest('.accordion-item').querySelector('.peak-section-content');
+      if (toggle.checked) {
+        content.classList.remove('hidden');
+      } else {
+        content.classList.add('hidden');
+      }
+    }
+
+    function toggleWeekendSection(toggle) {
+      const content = toggle.closest('.accordion-item').querySelector('.weekend-section-content');
+      if (toggle.checked) {
+        content.classList.remove('hidden');
+      } else {
+        content.classList.add('hidden');
+      }
+    }
+
+    function toggleHolidaySection(toggle) {
+      const content = toggle.closest('.accordion-item').querySelector('.holiday-section-content');
+      if (toggle.checked) {
+        content.classList.remove('hidden');
+      } else {
+        content.classList.add('hidden');
+      }
+    }
+
     function savePassToCatalog() {
       const name = document.getElementById('passNameInput').value.trim();
       if (!name) {
@@ -2256,12 +2779,17 @@
       const lessonBundled = document.getElementById('incLessonToggle').checked;
       const lessonName = lessonBundled ? document.getElementById('bundledLessonSelect').value : '';
 
-      const regMember = parseFloat(document.getElementById('priceRegMember').value) || 0.00;
-      const regNonMember = parseFloat(document.getElementById('priceRegNonMember').value) || 0.00;
-      const wkndMember = parseFloat(document.getElementById('priceWkndMember').value) || 0.00;
-      const wkndNonMember = parseFloat(document.getElementById('priceWkndNonMember').value) || 0.00;
-      const holMember = parseFloat(document.getElementById('priceHolMember').value) || 0.00;
-      const holNonMember = parseFloat(document.getElementById('priceHolNonMember').value) || 0.00;
+      const regMember = parseFloat(document.querySelector('[data-field="memberBase"]')?.value || document.getElementById('priceRegMember')?.value) || 42.00;
+      const regNonMember = parseFloat(document.querySelector('[data-field="nonmemberBase"]')?.value || document.getElementById('priceRegNonMember')?.value) || 55.00;
+      const peakEnabled = document.querySelector('[data-field="peakEnabled"]')?.checked || false;
+      const peakMember = parseFloat(document.querySelector('[data-field="peakMemberRate"]')?.value) || 52.00;
+      const peakNonMember = parseFloat(document.querySelector('[data-field="peakNonmemberRate"]')?.value) || 65.00;
+      const wkndMember = parseFloat(document.querySelector('[data-field="weekendMember"]')?.value || document.getElementById('priceWkndMember')?.value) || 48.00;
+      const wkndNonMember = parseFloat(document.querySelector('[data-field="weekendNonmember"]')?.value || document.getElementById('priceWkndNonMember')?.value) || 62.00;
+      const holMember = parseFloat(document.querySelector('[data-field="holidayMember"]')?.value || document.getElementById('priceHolMember')?.value) || 65.00;
+      const holNonMember = parseFloat(document.querySelector('[data-field="holidayNonmember"]')?.value || document.getElementById('priceHolNonMember')?.value) || 85.00;
+      const overtimeSurchargeEnabled = document.querySelector('[data-field="overtimeSurchargeEnabled"]')?.checked || false;
+      const passUpgradeEnabled = document.querySelector('[data-field="passUpgradeEnabled"]')?.checked || false;
 
       const sortedDurations = Array.from(selectedPassDurations).sort((a, b) => a - b);
 
@@ -2281,7 +2809,7 @@
           lessonName
         },
         pricing: {
-          regMember, regNonMember, wkndMember, wkndNonMember, holMember, holNonMember
+          regMember, regNonMember, peakEnabled, peakMember, peakNonMember, wkndMember, wkndNonMember, holMember, holNonMember, overtimeSurchargeEnabled, passUpgradeEnabled
         },
         status: 'Active'
       };
@@ -2383,6 +2911,16 @@
       updateDurationSummary();
       toggleGearCheckboxes();
       toggleLessonSelect();
+      const memBase = document.querySelector('[data-field="memberBase"]');
+      if (memBase) memBase.value = '42';
+      const nonMemBase = document.querySelector('[data-field="nonmemberBase"]');
+      if (nonMemBase) nonMemBase.value = '55';
+      const peakToggle = document.querySelector('[data-field="peakEnabled"]');
+      if (peakToggle) { peakToggle.checked = false; togglePeakSection(peakToggle); }
+      const wkndToggle = document.querySelector('[data-field="weekendEnabled"]');
+      if (wkndToggle) { wkndToggle.checked = false; toggleWeekendSection(wkndToggle); }
+      const holToggle = document.querySelector('[data-field="holidayEnabled"]');
+      if (holToggle) { holToggle.checked = false; toggleHolidaySection(holToggle); }
       showToast('🔄 Pass form reset');
     }
 
