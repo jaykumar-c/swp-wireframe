@@ -1176,13 +1176,13 @@
       
       <!-- 1. BASE PRICING -->
       <div class="accordion-item" data-section="base-pricing">
-        <div class="accordion-header" onclick="toggleAccordion(this)">
+        <div class="accordion-header expanded" onclick="toggleAccordion(this)">
           <div class="accordion-title-group">
             <div class="accordion-title">
               <span class="accordion-num">1</span>
               Base Pricing
             </div>
-            <div class="accordion-subtitle">Member & non-member hourly rates</div>
+            <div class="accordion-subtitle">Member & non-member pricing breakdown based on selected pass duration (1h, 2h, 3h, 4h, full day)</div>
           </div>
           <div class="accordion-toggle-group">
             <span class="accordion-expand-icon">▼</span>
@@ -1190,29 +1190,91 @@
         </div>
         <div class="accordion-content expanded">
           <div class="accordion-body">
-            <div class="form-grid-2">
-              <div class="field-group">
-                <label class="field-label">Member Rate (€/hour) <span class="required">*</span></label>
-                <div class="input-wrapper">
-                  <input type="text" class="form-control" data-field="memberBase" placeholder="e.g., 42">
-                  <span class="input-icon-right">€</span>
-                </div>
-                <span class="field-hint">Rate for registered members</span>
-              </div>
-              <div class="field-group">
-                <label class="field-label">Non-Member Rate (€/hour) <span class="required">*</span></label>
-                <div class="input-wrapper">
-                  <input type="text" class="form-control" data-field="nonmemberBase" placeholder="e.g., 55">
-                  <span class="input-icon-right">€</span>
-                </div>
-                <span class="field-hint">Rate for non-registered users</span>
+            <!-- Duration selection chips -->
+            <div style="margin-bottom: 14px;">
+              <label class="field-label" style="margin-bottom: 8px; font-weight: 700;">Selected Pass Durations:</label>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <span style="padding: 4px 12px; font-size: 11px; font-weight: 700; background: #0D6EFD; color: #fff; border-radius: 9999px;">1 Hour</span>
+                <span style="padding: 4px 12px; font-size: 11px; font-weight: 700; background: #0D6EFD; color: #fff; border-radius: 9999px;">2 Hours</span>
+                <span style="padding: 4px 12px; font-size: 11px; font-weight: 700; background: #0D6EFD; color: #fff; border-radius: 9999px;">4 Hours</span>
+                <span style="padding: 4px 12px; font-size: 11px; font-weight: 700; background: #e2e8f0; color: #475569; border-radius: 9999px;">Full Day</span>
               </div>
             </div>
+
+            <!-- Duration Breakdown Inputs Grid -->
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <!-- 1 Hour Breakdown -->
+              <div style="display: grid; grid-template-columns: 130px 1fr 1fr; gap: 14px; align-items: center; background: #f8fafc; padding: 10px 14px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                <div style="font-weight: 700; font-size: 12px; color: #1e293b; display: flex; align-items: center; gap: 6px;">
+                  <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#0D6EFD;"></span>
+                  1 Hour Pass
+                </div>
+                <div class="field-group" style="margin: 0;">
+                  <label class="field-label" style="font-size: 11px;">Member Rate (€)</label>
+                  <div class="input-wrapper">
+                    <input type="text" class="form-control" data-field="memberBase" value="20" placeholder="e.g., 20">
+                    <span class="input-icon-right">€</span>
+                  </div>
+                </div>
+                <div class="field-group" style="margin: 0;">
+                  <label class="field-label" style="font-size: 11px;">Non-Member Rate (€)</label>
+                  <div class="input-wrapper">
+                    <input type="text" class="form-control" data-field="nonmemberBase" value="28" placeholder="e.g., 28">
+                    <span class="input-icon-right">€</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 2 Hours Breakdown -->
+              <div style="display: grid; grid-template-columns: 130px 1fr 1fr; gap: 14px; align-items: center; background: #f8fafc; padding: 10px 14px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                <div style="font-weight: 700; font-size: 12px; color: #1e293b; display: flex; align-items: center; gap: 6px;">
+                  <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#0D6EFD;"></span>
+                  2 Hours Pass
+                </div>
+                <div class="field-group" style="margin: 0;">
+                  <label class="field-label" style="font-size: 11px;">Member Rate (€)</label>
+                  <div class="input-wrapper">
+                    <input type="text" class="form-control" value="35" placeholder="e.g., 35">
+                    <span class="input-icon-right">€</span>
+                  </div>
+                </div>
+                <div class="field-group" style="margin: 0;">
+                  <label class="field-label" style="font-size: 11px;">Non-Member Rate (€)</label>
+                  <div class="input-wrapper">
+                    <input type="text" class="form-control" value="50" placeholder="e.g., 50">
+                    <span class="input-icon-right">€</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 4 Hours Breakdown -->
+              <div style="display: grid; grid-template-columns: 130px 1fr 1fr; gap: 14px; align-items: center; background: #f8fafc; padding: 10px 14px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                <div style="font-weight: 700; font-size: 12px; color: #1e293b; display: flex; align-items: center; gap: 6px;">
+                  <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#0D6EFD;"></span>
+                  4 Hours Pass
+                </div>
+                <div class="field-group" style="margin: 0;">
+                  <label class="field-label" style="font-size: 11px;">Member Rate (€)</label>
+                  <div class="input-wrapper">
+                    <input type="text" class="form-control" value="60" placeholder="e.g., 60">
+                    <span class="input-icon-right">€</span>
+                  </div>
+                </div>
+                <div class="field-group" style="margin: 0;">
+                  <label class="field-label" style="font-size: 11px;">Non-Member Rate (€)</label>
+                  <div class="input-wrapper">
+                    <input type="text" class="form-control" value="85" placeholder="e.g., 85">
+                    <span class="input-icon-right">€</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <span class="field-hint" style="margin-top: 8px; display: block;">Rates breakdown calculated per pass duration selected by the club manager</span>
           </div>
         </div>
       </div>
 
-      <!-- 2. PEAK HOUR PRICING -->
+      <!-- 2. PEAK HOUR PRICING (FIXED PRICING INPUT) -->
       <div class="accordion-item" data-section="peak-pricing">
         <div class="accordion-header" onclick="toggleAccordion(this)">
           <div class="accordion-title-group">
@@ -1220,7 +1282,7 @@
               <span class="accordion-num">2</span>
               Peak Hour Pricing
             </div>
-            <div class="accordion-subtitle">Premium rates during peak hours</div>
+            <div class="accordion-subtitle">Fixed pricing input per booking slot during peak hours</div>
           </div>
           <div class="accordion-toggle-group">
             <label class="swp-switch" onclick="event.stopPropagation()">
@@ -1232,37 +1294,42 @@
         </div>
         <div class="accordion-content">
           <div class="accordion-body peak-section-content hidden">
+            <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 6px; padding: 8px 12px; margin-bottom: 14px; font-size: 12px; color: #1e40af;">
+              ℹ️ <strong>Fixed Pricing Mode:</strong> Any time slot selected has fixed flat pricing input per slot/pass (rather than hourly charge calculation).
+            </div>
             <div class="form-grid-2">
               <div class="field-group">
-                <label class="field-label">Peak Member Rate (€/hour) <span class="required">*</span></label>
-                <div class="input-wrapper">
-                  <input type="text" class="form-control" data-field="peakMemberRate" placeholder="e.g., 52">
-                  <span class="input-icon-right">€</span>
-                </div>
+                <label class="field-label">Peak Slot Start Time <span class="required">*</span></label>
+                <input type="time" class="form-control" data-field="peakStartTime" value="07:00">
               </div>
               <div class="field-group">
-                <label class="field-label">Peak Non-Member Rate (€/hour) <span class="required">*</span></label>
-                <div class="input-wrapper">
-                  <input type="text" class="form-control" data-field="peakNonmemberRate" placeholder="e.g., 65">
-                  <span class="input-icon-right">€</span>
-                </div>
+                <label class="field-label">Peak Slot End Time <span class="required">*</span></label>
+                <input type="time" class="form-control" data-field="peakEndTime" value="10:00">
               </div>
             </div>
             <div class="form-grid-2" style="margin-top: 16px;">
               <div class="field-group">
-                <label class="field-label">Peak Start Time <span class="required">*</span></label>
-                <input type="time" class="form-control" data-field="peakStartTime" value="07:00">
+                <label class="field-label">Fixed Member Peak Rate (€ / slot) <span class="required">*</span></label>
+                <div class="input-wrapper">
+                  <input type="text" class="form-control" data-field="peakMemberRate" placeholder="e.g., 25" value="25">
+                  <span class="input-icon-right">€</span>
+                </div>
+                <span class="field-hint">Fixed fee per booking slot during peak window</span>
               </div>
               <div class="field-group">
-                <label class="field-label">Peak End Time <span class="required">*</span></label>
-                <input type="time" class="form-control" data-field="peakEndTime" value="10:00">
+                <label class="field-label">Fixed Non-Member Peak Rate (€ / slot) <span class="required">*</span></label>
+                <div class="input-wrapper">
+                  <input type="text" class="form-control" data-field="peakNonmemberRate" placeholder="e.g., 34" value="34">
+                  <span class="input-icon-right">€</span>
+                </div>
+                <span class="field-hint">Fixed fee per booking slot during peak window</span>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 3. WEEKEND PRICING -->
+      <!-- 3. WEEKEND PRICING (DURATION BREAKDOWN) -->
       <div class="accordion-item" data-section="weekend-pricing">
         <div class="accordion-header" onclick="toggleAccordion(this)">
           <div class="accordion-title-group">
@@ -1270,7 +1337,7 @@
               <span class="accordion-num">3</span>
               Weekend Pricing
             </div>
-            <div class="accordion-subtitle">Saturday & Sunday rates</div>
+            <div class="accordion-subtitle">Saturday & Sunday pricing breakdown by selected pass duration</div>
           </div>
           <div class="accordion-toggle-group">
             <label class="swp-switch" onclick="event.stopPropagation()">
@@ -1282,42 +1349,95 @@
         </div>
         <div class="accordion-content">
           <div class="accordion-body weekend-section-content hidden">
-            <div class="form-grid-2">
-              <div class="field-group">
-                <label class="field-label">Weekend Member Rate (€/hour) <span class="required">*</span></label>
-                <div class="input-wrapper">
-                  <input type="text" class="form-control" data-field="weekendMember" placeholder="e.g., 48">
-                  <span class="input-icon-right">€</span>
+            <!-- Weekend Duration Breakdown Grid -->
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px;">
+              <!-- 1 Hour Weekend Breakdown -->
+              <div style="display: grid; grid-template-columns: 130px 1fr 1fr; gap: 14px; align-items: center; background: #fffbeb; padding: 10px 14px; border-radius: 8px; border: 1px solid #fef3c7;">
+                <div style="font-weight: 700; font-size: 12px; color: #92400e; display: flex; align-items: center; gap: 6px;">
+                  <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#d97706;"></span>
+                  1 Hour Pass
+                </div>
+                <div class="field-group" style="margin: 0;">
+                  <label class="field-label" style="font-size: 11px;">Weekend Member Rate (€)</label>
+                  <div class="input-wrapper">
+                    <input type="text" class="form-control" data-field="weekendMember" value="25" placeholder="e.g., 25">
+                    <span class="input-icon-right">€</span>
+                  </div>
+                </div>
+                <div class="field-group" style="margin: 0;">
+                  <label class="field-label" style="font-size: 11px;">Weekend Non-Member Rate (€)</label>
+                  <div class="input-wrapper">
+                    <input type="text" class="form-control" data-field="weekendNonmember" value="34" placeholder="e.g., 34">
+                    <span class="input-icon-right">€</span>
+                  </div>
                 </div>
               </div>
-              <div class="field-group">
-                <label class="field-label">Weekend Non-Member Rate (€/hour) <span class="required">*</span></label>
-                <div class="input-wrapper">
-                  <input type="text" class="form-control" data-field="weekendNonmember" placeholder="e.g., 62">
-                  <span class="input-icon-right">€</span>
+
+              <!-- 2 Hours Weekend Breakdown -->
+              <div style="display: grid; grid-template-columns: 130px 1fr 1fr; gap: 14px; align-items: center; background: #fffbeb; padding: 10px 14px; border-radius: 8px; border: 1px solid #fef3c7;">
+                <div style="font-weight: 700; font-size: 12px; color: #92400e; display: flex; align-items: center; gap: 6px;">
+                  <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#d97706;"></span>
+                  2 Hours Pass
+                </div>
+                <div class="field-group" style="margin: 0;">
+                  <label class="field-label" style="font-size: 11px;">Weekend Member Rate (€)</label>
+                  <div class="input-wrapper">
+                    <input type="text" class="form-control" value="45" placeholder="e.g., 45">
+                    <span class="input-icon-right">€</span>
+                  </div>
+                </div>
+                <div class="field-group" style="margin: 0;">
+                  <label class="field-label" style="font-size: 11px;">Weekend Non-Member Rate (€)</label>
+                  <div class="input-wrapper">
+                    <input type="text" class="form-control" value="60" placeholder="e.g., 60">
+                    <span class="input-icon-right">€</span>
+                  </div>
                 </div>
               </div>
-              <div class="field-group">
-                <label class="field-label">Fixed Block Duration(in - hour) <span class="required">*</span></label>
-                <div class="input-wrapper">
-                  <input type="text" class="form-control" data-field="blockDuration" placeholder="e.g., 2">
-                  <span class="input-icon-right">€</span>
+
+              <!-- 4 Hours Weekend Breakdown -->
+              <div style="display: grid; grid-template-columns: 130px 1fr 1fr; gap: 14px; align-items: center; background: #fffbeb; padding: 10px 14px; border-radius: 8px; border: 1px solid #fef3c7;">
+                <div style="font-weight: 700; font-size: 12px; color: #92400e; display: flex; align-items: center; gap: 6px;">
+                  <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#d97706;"></span>
+                  4 Hours Pass
                 </div>
+                <div class="field-group" style="margin: 0;">
+                  <label class="field-label" style="font-size: 11px;">Weekend Member Rate (€)</label>
+                  <div class="input-wrapper">
+                    <input type="text" class="form-control" value="78" placeholder="e.g., 78">
+                    <span class="input-icon-right">€</span>
+                  </div>
+                </div>
+                <div class="field-group" style="margin: 0;">
+                  <label class="field-label" style="font-size: 11px;">Weekend Non-Member Rate (€)</label>
+                  <div class="input-wrapper">
+                    <input type="text" class="form-control" value="102" placeholder="e.g., 102">
+                    <span class="input-icon-right">€</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label">Fixed Block Duration (in - hour) <span class="required">*</span></label>
+              <div class="input-wrapper">
+                <input type="text" class="form-control" data-field="blockDuration" value="2" placeholder="e.g., 2">
+                <span class="input-icon-right">h</span>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 4. HOLIDAY PRICING -->
-      <div class="accordion-item" data-section="holiday-pricing">
+      <!-- 4. EVENT PRICING (Formerly Holiday Pricing) -->
+      <div class="accordion-item" data-section="event-pricing">
         <div class="accordion-header" onclick="toggleAccordion(this)">
           <div class="accordion-title-group">
             <div class="accordion-title">
               <span class="accordion-num">4</span>
-              Holiday Pricing
+              Event Pricing
             </div>
-            <div class="accordion-subtitle">Special holiday rates</div>
+            <div class="accordion-subtitle">Special event, tournament &amp; holiday rates</div>
           </div>
           <div class="accordion-toggle-group">
             <label class="swp-switch" onclick="event.stopPropagation()">
@@ -1331,30 +1451,32 @@
           <div class="accordion-body holiday-section-content hidden">
             <div class="form-grid-2">
               <div class="field-group">
-                <label class="field-label">Holiday Member Rate (€/hour) <span class="required">*</span></label>
+                <label class="field-label">Event Member Rate (€/pass) <span class="required">*</span></label>
                 <div class="input-wrapper">
-                  <input type="text" class="form-control" data-field="holidayMember" placeholder="e.g., 65">
+                  <input type="text" class="form-control" data-field="holidayMember" placeholder="e.g., 65" value="65">
                   <span class="input-icon-right">€</span>
                 </div>
               </div>
               <div class="field-group">
-                <label class="field-label">Holiday Non-Member Rate (€/hour) <span class="required">*</span></label>
+                <label class="field-label">Event Non-Member Rate (€/pass) <span class="required">*</span></label>
                 <div class="input-wrapper">
-                  <input type="text" class="form-control" data-field="holidayNonmember" placeholder="e.g., 85">
+                  <input type="text" class="form-control" data-field="holidayNonmember" placeholder="e.g., 85" value="85">
                   <span class="input-icon-right">€</span>
                 </div>
               </div>
             </div>
             <div class="field-group" style="margin-top: 16px;">
-              <label class="field-label">Holiday Calendar</label>
+              <label class="field-label">Event Calendar</label>
               <div class="input-wrapper">
                 <select class="form-control" data-field="holidayCalendar">
-                  <option value="">Select holiday calendar</option>
-                  <option selected>Default (National Holidays)</option>
+                  <option value="">Select event calendar</option>
+                  <option selected>Default (National Holidays & Club Events)</option>
+                  <option>Winter Championship Tournaments</option>
+                  <option>Youth Alpine Fest</option>
                 </select>
                 <span class="select-arrow">▼</span>
               </div>
-              <span class="field-hint">Holidays are managed in club settings</span>
+              <span class="field-hint">Events &amp; holidays are managed in club settings</span>
             </div>
           </div>
         </div>
