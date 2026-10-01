@@ -1038,6 +1038,146 @@
           </div>
         </div>
 
+        <!-- SECTION: EXTRA TIME & SESSION EXTENSION CHARGES -->
+        <div class="border border-slate-200 rounded-lg overflow-hidden">
+          <div class="swp-section-banner">
+            <div>
+              <span class="swp-section-title">Extra Time &amp; Session Extension Policy</span>
+              <p class="text-[11px] text-slate-500 mt-0.5">Manage player overtime charges and allow in-app slope time extensions before session expiry</p>
+            </div>
+            <label class="swp-switch">
+              <input type="checkbox" id="extraTimeEnabledToggle" checked onchange="toggleExtraTimeSection(this.checked)">
+              <span class="swp-slider"></span>
+            </label>
+          </div>
+
+          <div id="extraTimeFieldsContainer" class="p-5 space-y-5 bg-white">
+            
+            <!-- Quick Business Logic Explainer Banner -->
+            <div class="p-3.5 rounded-lg bg-blue-50/70 border border-blue-200 text-xs text-blue-900 flex items-start gap-3">
+              <div class="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
+                ⏱️
+              </div>
+              <div class="space-y-0.5 leading-relaxed">
+                <span class="font-bold">Simple Overtime Handling:</span> When a player books a slope slot (e.g. 10:00 – 11:00), they can extend their time via the mobile app before 11:00. If their time ends and they stay on the slopes past the grace period, an overtime fee is automatically calculated upon turnstile exit.
+              </div>
+            </div>
+
+            <!-- Parameters Grid: Grace Period, Interval, Member & Non-Member Rates -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              <div class="swp-field-container">
+                <label class="swp-label">Grace Period (Minutes) * <span class="info-icon" title="Allowed buffer for de-gearing and exit turnstile scan without penalty">ⓘ</span></label>
+                <input type="number" id="extraTimeGracePeriod" value="15" min="0" max="60" oninput="updateExtraTimeSimulation()" class="swp-input font-medium" placeholder="e.g. 15">
+                <span class="text-[11px] text-slate-400 mt-1 block">Buffer before charges begin (0 – 60 min)</span>
+              </div>
+
+              <div class="swp-field-container">
+                <label class="swp-label">Charging Block Interval * <span class="info-icon" title="Time increment used to bill extra slope time">ⓘ</span></label>
+                <select id="extraTimeInterval" onchange="updateExtraTimeSimulation()" class="swp-input swp-select font-medium text-xs">
+                  <option value="15">Every 15 Minutes</option>
+                  <option value="30" selected>Every 30 Minutes</option>
+                  <option value="60">Every 60 Minutes (1 Hour)</option>
+                </select>
+                <span class="swp-select-arrow">▼</span>
+                <span class="text-[11px] text-slate-400 mt-1 block">Billed per started time block</span>
+              </div>
+
+              <div class="swp-field-container">
+                <label class="swp-label">Member Overtime Rate (€) * <span class="info-icon" title="Rate charged to active members per time block">ⓘ</span></label>
+                <input type="number" step="0.5" id="extraTimeMemberRate" value="5.00" min="0" oninput="updateExtraTimeSimulation()" class="swp-input font-medium" placeholder="e.g. 5.00">
+                <span class="text-[11px] text-slate-400 mt-1 block">Per block rate for members</span>
+              </div>
+
+              <div class="swp-field-container">
+                <label class="swp-label">Non-Member Overtime Rate (€) * <span class="info-icon" title="Rate charged to non-members per time block">ⓘ</span></label>
+                <input type="number" step="0.5" id="extraTimeNonMemberRate" value="7.50" min="0" oninput="updateExtraTimeSimulation()" class="swp-input font-medium" placeholder="e.g. 7.50">
+                <span class="text-[11px] text-slate-400 mt-1 block">Per block rate for non-members</span>
+              </div>
+            </div>
+
+            <!-- Two Sub-Feature Action Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-100">
+              
+              <!-- Card 1: Player Mobile In-App Extension -->
+              <div class="p-4 rounded-lg border border-slate-200 bg-slate-50/50 space-y-2.5">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span class="text-sm">📱</span>
+                    <span class="text-xs font-bold text-slate-900">Player In-App Time Extension</span>
+                  </div>
+                  <label class="swp-switch">
+                    <input type="checkbox" id="extraTimeAppExtensionToggle" checked>
+                    <span class="swp-slider"></span>
+                  </label>
+                </div>
+                <p class="text-[11px] text-slate-600 leading-relaxed">
+                  Sends push reminder to the player 10 mins before slot expiry with 1-tap option to extend their slope time. Validated against live slope capacity limits.
+                </p>
+                <div class="pt-2 border-t border-slate-200 flex items-center justify-between text-[11px] text-slate-500 font-medium">
+                  <span>Extension Fee:</span>
+                  <span class="text-blue-600 font-semibold">Standard Overtime Block Rate</span>
+                </div>
+              </div>
+
+              <!-- Card 2: Turnstile Exit Enforcement -->
+              <div class="p-4 rounded-lg border border-slate-200 bg-slate-50/50 space-y-2.5">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span class="text-sm">🚧</span>
+                    <span class="text-xs font-bold text-slate-900">Turnstile Exit Surcharge Automation</span>
+                  </div>
+                  <label class="swp-switch">
+                    <input type="checkbox" id="extraTimeTurnstileChargeToggle" checked>
+                    <span class="swp-slider"></span>
+                  </label>
+                </div>
+                <p class="text-[11px] text-slate-600 leading-relaxed">
+                  If the player taps out at the exit gate past booked slot + grace period without extending, turnstile automatically bills overtime fee to their saved payment card.
+                </p>
+                <div class="pt-2 border-t border-slate-200 flex items-center justify-between text-[11px] text-slate-500 font-medium">
+                  <span>Unpaid Fallback:</span>
+                  <span class="text-amber-700 font-semibold">Flag at Front Desk Check-out</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Live Scenario Preview (Clarity Widget for Club Manager) -->
+            <div class="p-4 rounded-lg border border-slate-200 bg-emerald-50/40 space-y-2">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                  <span class="text-xs font-bold text-slate-900 uppercase tracking-wider">Live Overtime Scenario Preview</span>
+                </div>
+                <span class="text-[11px] text-slate-500 font-medium">Real-Time Simulation</span>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs pt-1">
+                <div class="p-2.5 bg-white rounded-md border border-slate-200 shadow-2xs">
+                  <span class="text-[10px] text-slate-400 font-semibold block uppercase">1. Booked Slot</span>
+                  <span class="font-bold text-slate-800 text-xs">10:00 – 11:00</span>
+                  <span class="text-[10px] text-slate-500 block">(1-Hour Pass)</span>
+                </div>
+                <div class="p-2.5 bg-white rounded-md border border-slate-200 shadow-2xs">
+                  <span class="text-[10px] text-slate-400 font-semibold block uppercase">2. Free Grace Buffer</span>
+                  <span class="font-bold text-emerald-700 text-xs" id="simGraceEnd">Until 11:15</span>
+                  <span class="text-[10px] text-slate-500 block" id="simGraceDuration">(+15 mins free)</span>
+                </div>
+                <div class="p-2.5 bg-white rounded-md border border-slate-200 shadow-2xs">
+                  <span class="text-[10px] text-slate-400 font-semibold block uppercase">3. Exit Scan Time</span>
+                  <span class="font-bold text-slate-800 text-xs">11:35</span>
+                  <span class="text-[10px] text-amber-700 font-semibold block" id="simOverstayMinutes">20 min overtime (1 block)</span>
+                </div>
+                <div class="p-2.5 bg-white rounded-md border border-slate-200 shadow-2xs">
+                  <span class="text-[10px] text-slate-400 font-semibold block uppercase">4. Charged at Exit</span>
+                  <span class="font-bold text-blue-600 text-xs" id="simCostSummary">Mem: €5.00 / Non-Mem: €7.50</span>
+                  <span class="text-[10px] text-slate-500 block">Auto-charged to card</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
         <!-- SECTION: CANCELLATION POLICY -->
         <div class="border border-slate-200 rounded-lg overflow-hidden">
           <div class="swp-section-banner">
@@ -1095,7 +1235,7 @@
                 <th class="py-3.5 px-4">Duration</th>
                 <th class="py-3.5 px-4">Base Rates (Mem / Non-Mem)</th>
                 <th class="py-3.5 px-4">Weekend Rates (Mem / Non-Mem)</th>
-                <th class="py-3.5 px-4">Peak &amp; Event Surcharges</th>
+                <th class="py-3.5 px-4">Peak, Events &amp; Overtime</th>
                 <th class="py-3.5 px-4 text-center">Status</th>
                 <th class="py-3.5 px-4 text-right">Actions</th>
               </tr>
@@ -1675,6 +1815,7 @@
         pricing: { regMember: 20.00, regNonMember: 28.00, wkndMember: 25.00, wkndNonMember: 34.00 },
         peakPricing: { enabled: true, startTime: '17:00', endTime: '21:00', fixedMember: 25.00, fixedNonMember: 34.00 },
         eventPricing: { enabled: true, calendar: 'Club Championship & Tournaments' },
+        overtimePolicy: { enabled: true, gracePeriod: 15, interval: 30, memberRate: 5.00, nonMemberRate: 7.50, allowAppExtension: true, autoTurnstileCharge: true },
         status: 'Active'
       },
       {
@@ -1690,6 +1831,7 @@
         pricing: { regMember: 14.00, regNonMember: 20.00, wkndMember: 18.00, wkndNonMember: 24.00 },
         peakPricing: { enabled: true, startTime: '17:00', endTime: '21:00', fixedMember: 18.00, fixedNonMember: 24.00 },
         eventPricing: { enabled: true, calendar: 'Default (National Holidays)' },
+        overtimePolicy: { enabled: true, gracePeriod: 15, interval: 30, memberRate: 3.50, nonMemberRate: 5.00, allowAppExtension: true, autoTurnstileCharge: true },
         status: 'Active'
       },
       {
@@ -1706,6 +1848,7 @@
         pricing: { regMember: 35.00, regNonMember: 50.00, wkndMember: 45.00, wkndNonMember: 60.00 },
         peakPricing: { enabled: true, startTime: '17:00', endTime: '21:00', fixedMember: 35.00, fixedNonMember: 48.00 },
         eventPricing: { enabled: true, calendar: 'Winter Fest Season' },
+        overtimePolicy: { enabled: true, gracePeriod: 15, interval: 30, memberRate: 7.00, nonMemberRate: 10.00, allowAppExtension: true, autoTurnstileCharge: true },
         status: 'Active'
       }
     ];
@@ -2539,6 +2682,68 @@
       }
     }
 
+    function toggleExtraTimeSection(enabled) {
+      const container = document.getElementById('extraTimeFieldsContainer');
+      if (!container) return;
+      if (enabled) {
+        container.classList.remove('opacity-40', 'pointer-events-none');
+      } else {
+        container.classList.add('opacity-40', 'pointer-events-none');
+      }
+      updateExtraTimeSimulation();
+    }
+
+    function updateExtraTimeSimulation() {
+      const enabled = document.getElementById('extraTimeEnabledToggle')?.checked ?? true;
+      const gracePeriod = parseInt(document.getElementById('extraTimeGracePeriod')?.value);
+      const grace = isNaN(gracePeriod) ? 15 : Math.max(0, gracePeriod);
+      const interval = parseInt(document.getElementById('extraTimeInterval')?.value) || 30;
+      const memRate = parseFloat(document.getElementById('extraTimeMemberRate')?.value) || 0;
+      const nonMemRate = parseFloat(document.getElementById('extraTimeNonMemberRate')?.value) || 0;
+
+      const graceEndEl = document.getElementById('simGraceEnd');
+      const graceDurEl = document.getElementById('simGraceDuration');
+      const overstayEl = document.getElementById('simOverstayMinutes');
+      const costEl = document.getElementById('simCostSummary');
+
+      if (!enabled) {
+        if (graceEndEl) graceEndEl.textContent = 'Policy Disabled';
+        if (graceDurEl) graceDurEl.textContent = '(No extra charges)';
+        if (overstayEl) overstayEl.textContent = 'Overtime turned off';
+        if (costEl) costEl.textContent = 'Mem: €0.00 / Non-Mem: €0.00';
+        return;
+      }
+
+      // Slot assumption: 10:00 - 11:00
+      let totalMins = 60 + grace;
+      let endHour = 10 + Math.floor(totalMins / 60);
+      let endMin = totalMins % 60;
+      const endHourStr = String(endHour).padStart(2, '0');
+      const endMinStr = String(endMin).padStart(2, '0');
+
+      if (graceEndEl) graceEndEl.textContent = `Until ${endHourStr}:${endMinStr}`;
+      if (graceDurEl) graceDurEl.textContent = `(+${grace} min free grace)`;
+
+      // Simulated exit scan at 11:35 (i.e. 35 mins after slot end 11:00)
+      const exitMinutesPastSlot = 35;
+      const overstayMinutes = Math.max(0, exitMinutesPastSlot - grace);
+      const blocksCharged = overstayMinutes > 0 ? Math.ceil(overstayMinutes / interval) : 0;
+
+      if (overstayEl) {
+        if (overstayMinutes > 0) {
+          overstayEl.textContent = `${overstayMinutes} min overtime (${blocksCharged} block${blocksCharged > 1 ? 's' : ''})`;
+        } else {
+          overstayEl.textContent = `Within grace (0 block)`;
+        }
+      }
+
+      if (costEl) {
+        const memCost = (blocksCharged * memRate).toFixed(2);
+        const nonMemCost = (blocksCharged * nonMemRate).toFixed(2);
+        costEl.textContent = `Mem: €${memCost} / Non-Mem: €${nonMemCost}`;
+      }
+    }
+
     function savePassToCatalog() {
       const name = document.getElementById('passNameInput').value.trim();
       if (!name) {
@@ -2594,6 +2799,24 @@
       const eventEnabled = document.getElementById('eventEnabledToggle').checked;
       const eventCalendar = document.getElementById('eventCalendarSelect').value;
 
+      const extraTimeEnabled = document.getElementById('extraTimeEnabledToggle')?.checked ?? true;
+      const extraTimeGrace = parseInt(document.getElementById('extraTimeGracePeriod')?.value) || 15;
+      const extraTimeInterval = parseInt(document.getElementById('extraTimeInterval')?.value) || 30;
+      const extraTimeMemRate = parseFloat(document.getElementById('extraTimeMemberRate')?.value) || 5.00;
+      const extraTimeNonMemRate = parseFloat(document.getElementById('extraTimeNonMemberRate')?.value) || 7.50;
+      const extraTimeAppExt = document.getElementById('extraTimeAppExtensionToggle')?.checked ?? true;
+      const extraTimeTurnstile = document.getElementById('extraTimeTurnstileChargeToggle')?.checked ?? true;
+
+      const overtimePolicy = {
+        enabled: extraTimeEnabled,
+        gracePeriod: extraTimeGrace,
+        interval: extraTimeInterval,
+        memberRate: extraTimeMemRate,
+        nonMemberRate: extraTimeNonMemRate,
+        allowAppExtension: extraTimeAppExt,
+        autoTurnstileCharge: extraTimeTurnstile
+      };
+
       const newPass = {
         id: 'pass-' + Date.now(),
         name,
@@ -2624,6 +2847,7 @@
           enabled: eventEnabled,
           calendar: eventCalendar
         },
+        overtimePolicy,
         status: 'Active'
       };
 
@@ -2705,7 +2929,7 @@
           </div>
         `;
 
-        // 5. Peak & Event Surcharges
+        // 5. Peak & Event Surcharges + Overtime Policy
         const peakHtml = pass.peakPricing && pass.peakPricing.enabled
           ? `<div>
                <div class="text-xs font-mono font-bold text-slate-800"><span class="text-blue-600">€${pass.peakPricing.fixedMember.toFixed(2)}</span> <span class="text-slate-300 font-normal">/</span> €${pass.peakPricing.fixedNonMember.toFixed(2)}</div>
@@ -2720,10 +2944,20 @@
              </div>`
           : '';
 
+        const overtimeHtml = pass.overtimePolicy && pass.overtimePolicy.enabled
+          ? `<div class="mt-1 pt-1 border-t border-slate-100">
+               <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                 Overtime: €${pass.overtimePolicy.memberRate.toFixed(2)} / €${pass.overtimePolicy.nonMemberRate.toFixed(2)} (${pass.overtimePolicy.interval}m)
+               </span>
+               <div class="text-[10px] text-slate-500 mt-0.5">${pass.overtimePolicy.gracePeriod}m grace • ${pass.overtimePolicy.allowAppExtension ? 'In-App Ext' : ''}${pass.overtimePolicy.allowAppExtension && pass.overtimePolicy.autoTurnstileCharge ? ' + ' : ''}${pass.overtimePolicy.autoTurnstileCharge ? 'Turnstile Exit' : ''}</div>
+             </div>`
+          : `<div class="mt-1 pt-1 border-t border-slate-100 text-[10px] text-slate-400">Overtime disabled</div>`;
+
         const surchargesHtml = `
           <div>
             ${peakHtml}
             ${eventHtml}
+            ${overtimeHtml}
           </div>
         `;
 
@@ -2810,6 +3044,21 @@
       updateDurationSummary();
       renderPricingBreakdownTables();
 
+      if (p.overtimePolicy) {
+        const extraToggle = document.getElementById('extraTimeEnabledToggle');
+        if (extraToggle) {
+          extraToggle.checked = !!p.overtimePolicy.enabled;
+          toggleExtraTimeSection(p.overtimePolicy.enabled);
+        }
+        if (document.getElementById('extraTimeGracePeriod')) document.getElementById('extraTimeGracePeriod').value = p.overtimePolicy.gracePeriod ?? 15;
+        if (document.getElementById('extraTimeInterval')) document.getElementById('extraTimeInterval').value = p.overtimePolicy.interval ?? 30;
+        if (document.getElementById('extraTimeMemberRate')) document.getElementById('extraTimeMemberRate').value = (p.overtimePolicy.memberRate ?? 5.00).toFixed(2);
+        if (document.getElementById('extraTimeNonMemberRate')) document.getElementById('extraTimeNonMemberRate').value = (p.overtimePolicy.nonMemberRate ?? 7.50).toFixed(2);
+        if (document.getElementById('extraTimeAppExtensionToggle')) document.getElementById('extraTimeAppExtensionToggle').checked = p.overtimePolicy.allowAppExtension !== false;
+        if (document.getElementById('extraTimeTurnstileChargeToggle')) document.getElementById('extraTimeTurnstileChargeToggle').checked = p.overtimePolicy.autoTurnstileCharge !== false;
+      }
+      updateExtraTimeSimulation();
+
       const formHeader = document.getElementById('passFormHeaderTitle');
       if (formHeader) {
         window.scrollTo({ top: formHeader.offsetTop - 100, behavior: 'smooth' });
@@ -2871,6 +3120,20 @@
       passPricingMap = JSON.parse(JSON.stringify(defaultDurationRates));
       updateDurationSummary();
       renderPricingBreakdownTables();
+
+      const extraToggle = document.getElementById('extraTimeEnabledToggle');
+      if (extraToggle) {
+        extraToggle.checked = true;
+        toggleExtraTimeSection(true);
+      }
+      if (document.getElementById('extraTimeGracePeriod')) document.getElementById('extraTimeGracePeriod').value = '15';
+      if (document.getElementById('extraTimeInterval')) document.getElementById('extraTimeInterval').value = '30';
+      if (document.getElementById('extraTimeMemberRate')) document.getElementById('extraTimeMemberRate').value = '5.00';
+      if (document.getElementById('extraTimeNonMemberRate')) document.getElementById('extraTimeNonMemberRate').value = '7.50';
+      if (document.getElementById('extraTimeAppExtensionToggle')) document.getElementById('extraTimeAppExtensionToggle').checked = true;
+      if (document.getElementById('extraTimeTurnstileChargeToggle')) document.getElementById('extraTimeTurnstileChargeToggle').checked = true;
+      updateExtraTimeSimulation();
+
       showToast('Pass form reset');
     }
 
@@ -3098,6 +3361,7 @@
       renderPassParentPackageSelector();
       renderPricingBreakdownTables();
       renderPassCatalogTable();
+      updateExtraTimeSimulation();
       // lessons removed
       renderEquipmentCards();
       renderSlopesTable();
