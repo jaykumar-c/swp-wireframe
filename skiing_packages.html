@@ -4,24 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sports Rules - ShallWe-Play Club Portal</title>
-  <!-- Google Fonts: Inter -->
+  <!-- Google Fonts: Public Sans, Montserrat, Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700&family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
+          fontFamily: {
+            sans: ['"Public Sans"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            montserrat: ['Montserrat', 'sans-serif'],
+          },
           colors: {
             brand: {
               50: '#eff6ff',
               100: '#dbeafe',
               200: '#bfdbfe',
               500: '#007BFF',
-              600: '#0D6EFD',
-              700: '#0B5ED7',
+              600: '#007AFF',
+              700: '#0069D9',
             },
             portalHeader: '#E8F1FC',
           }
@@ -31,19 +35,19 @@
   </script>
   <style>
     :root {
-      --primary-blue: #0D6EFD;
-      --primary-hover: #0B5ED7;
+      --primary-blue: #007AFF;
+      --primary-hover: #0069D9;
       --header-tint: #E8F1FC;
       --border-color: #E2E8F0;
-      --text-main: #1E293B;
-      --text-muted: #64748B;
-      --cancel-red: #DC3545;
+      --text-main: #1C1C1C;
+      --text-muted: #666666;
+      --cancel-red: #E63900;
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background-color: #F8F9FA;
-      color: #1E293B;
+      color: #1C1C1C;
       margin: 0;
       padding: 0;
       -webkit-font-smoothing: antialiased;
@@ -56,20 +60,29 @@
     }
     .swp-input {
       width: 100%;
-      height: 44px;
-      padding: 10px 14px;
-      font-size: 13px;
-      font-weight: 500;
-      color: #1E293B;
+      min-height: 52px;
+      padding: 14px 12px;
+      font-size: 15px;
+      font-weight: 400;
+      font-family: 'Montserrat', sans-serif !important;
+      color: #1C1C1C;
       background-color: #FFFFFF;
       border: 1px solid #CBD5E1;
-      border-radius: 8px;
+      border-radius: 4px;
       outline: none;
       transition: all 0.2s ease;
+      box-sizing: border-box;
     }
     .swp-input:focus {
-      border-color: #0D6EFD;
-      box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.12);
+      border-color: #007AFF;
+      box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.12);
+    }
+    .swp-input::placeholder {
+      color: #1C1C1C;
+      opacity: 0.38;
+      font-size: 15px;
+      font-weight: 400;
+      font-family: 'Montserrat', sans-serif;
     }
     .swp-label {
       position: absolute;
@@ -77,18 +90,70 @@
       left: 10px;
       background-color: #FFFFFF;
       padding: 0 5px;
-      font-size: 11px;
-      font-weight: 600;
-      color: #64748B;
+      font-size: 12px;
+      font-weight: 500;
+      font-family: 'Montserrat', sans-serif !important;
+      color: #666666;
       display: inline-flex;
       align-items: center;
       gap: 3px;
       z-index: 2;
     }
-    .swp-label .info-icon {
+    /* ── SWP Info Icon & Interactive Tooltip Bubble (Exact match to test.app.shallwe-play.com) ── */
+    .info-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       font-size: 11px;
       color: #94A3B8;
       cursor: help;
+      margin-left: 3px;
+      vertical-align: middle;
+      line-height: 1;
+      transition: color 0.15s ease;
+      user-select: none;
+    }
+    .info-icon:hover {
+      color: #334155;
+    }
+    .swp-tooltip-bubble {
+      position: absolute;
+      background-color: #52525B;
+      color: #FFFFFF;
+      font-size: 11px;
+      font-family: inherit;
+      font-weight: 400;
+      line-height: 1.4;
+      padding: 6px 10px;
+      border-radius: 4px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -2px rgba(0, 0, 0, 0.15);
+      z-index: 99999;
+      pointer-events: none;
+      max-width: 260px;
+      white-space: normal;
+      word-break: break-word;
+      animation: swpTooltipFadeIn 0.12s ease-out;
+    }
+    @keyframes swpTooltipFadeIn {
+      from { opacity: 0; transform: translateY(2px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .swp-tooltip-bubble::after {
+      content: '';
+      position: absolute;
+      left: var(--arrow-left, 50%);
+      transform: translateX(-50%);
+      border-style: solid;
+    }
+    .swp-tooltip-bubble.arrow-down::after {
+      top: 100%;
+      border-width: 5px 5px 0 5px;
+      border-color: #52525B transparent transparent transparent;
+    }
+    .swp-tooltip-bubble.arrow-up::after {
+      bottom: 100%;
+      border-width: 0 5px 5px 5px;
+      border-color: transparent transparent #52525B transparent;
     }
     .swp-textarea {
       min-height: 80px;
@@ -111,6 +176,59 @@
       font-size: 11px;
     }
 
+    /* ── SWP Design System: CommonSwitch (27px x 16px) ── */
+    .swp-common-switch {
+      box-sizing: border-box;
+      position: relative;
+      display: inline-block;
+      width: 27px;
+      height: 16px;
+      margin: 0;
+      cursor: pointer;
+      background: transparent;
+      border: 1px solid #22303EE5;
+      border-radius: 16px;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    .swp-common-switch:hover {
+      border-color: #1a2633;
+    }
+    .swp-common-switch input {
+      box-sizing: border-box;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      z-index: 2;
+      margin: 0;
+      cursor: pointer;
+    }
+    .swp-common-switch-thumb {
+      box-sizing: border-box;
+      display: block;
+      width: 8px;
+      height: 8px;
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      border-radius: 50%;
+      background-color: #374151;
+      transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: none;
+      pointer-events: none;
+    }
+    .swp-common-switch input:checked + .swp-common-switch-thumb {
+      left: 14px;
+      background-color: #FFFFFF;
+    }
+    .swp-common-switch:has(input:checked) {
+      background: #007AFF;
+      border: 1px solid #007AFF;
+    }
+
     /* ── Signature Section Header Banner ── */
     .swp-section-banner {
       background-color: #E8F1FC;
@@ -124,11 +242,11 @@
     .swp-section-title {
       font-size: 14px;
       font-weight: 700;
-      color: #1E293B;
+      color: #1C1C1C;
       letter-spacing: -0.01em;
     }
 
-    /* ── Toggle Switch (iOS / Material style) ── */
+    /* ── Toggle Switch (iOS / Material style legacy support) ── */
     .swp-switch {
       position: relative;
       display: inline-block;
@@ -162,35 +280,35 @@
       box-shadow: 0 1px 3px rgba(0,0,0,0.25);
     }
     .swp-switch input:checked + .swp-slider {
-      background-color: #0D6EFD;
+      background-color: #007AFF;
     }
     .swp-switch input:checked + .swp-slider:before {
       transform: translateX(20px);
     }
 
-    /* ── SWP Portal Segmented Navigation Bar (Exact Pixel Match to Portal) ── */
+    /* ── SWP Portal Segmented Navigation Bar (CustomTabs.tsx) ── */
     .swp-tab-bar-outer {
-      background-color: #E1EAEA;
-      border-radius: 10px;
-      padding: 6px;
+      background-color: #E9F3FE;
+      border-radius: 8px;
+      padding: 4px;
       display: inline-flex;
       align-items: center;
       max-width: 100%;
       overflow-x: auto;
     }
     .swp-tab-bar-track {
-      background-color: #FFFFFF;
+      background-color: transparent;
       border-radius: 6px;
       display: inline-flex;
       align-items: stretch;
-      overflow: hidden;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+      gap: 4px;
     }
     .swp-tab-bar-track .portal-tab-pill {
-      padding: 12px 26px;
-      font-size: 13.5px;
+      padding: 8px 20px;
+      height: 36px;
+      font-size: 14px;
       font-weight: 500;
-      color: #1E293B;
+      color: #475569;
       background-color: #FFFFFF;
       border: none;
       outline: none;
@@ -199,13 +317,13 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      transition: background-color 0.15s ease, color 0.15s ease;
-      border-radius: 0;
-      box-shadow: none;
+      transition: all 0.15s ease;
+      border-radius: 6px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
     }
     .swp-tab-bar-track .portal-tab-pill:hover:not(.active) {
       background-color: #F8FAFC;
-      color: #0F172A;
+      color: #1E293B;
     }
     .swp-tab-bar-track .portal-tab-pill.active {
       background-color: #007AFF;
@@ -214,15 +332,15 @@
       box-shadow: none;
     }
 
-    /* ── Important Notice Alert Box ── */
+    /* ── Important Notice Alert Box (Booking Rules index.tsx) ── */
     .swp-alert-notice {
-      background-color: #FFF8F0;
-      border: 1px solid #FFE0B2;
+      background-color: rgba(255, 171, 0, 0.08);
+      border: 1px solid rgba(255, 171, 0, 0.3);
       border-radius: 8px;
-      padding: 12px 16px;
+      padding: 16px 20px;
       display: flex;
       align-items: flex-start;
-      gap: 12px;
+      gap: 16px;
     }
 
     /* ── Badges ── */
@@ -236,15 +354,32 @@
       text-transform: uppercase;
       letter-spacing: 0.03em;
     }
-    .swp-badge-rent {
-      background-color: #E3F2FD;
-      color: #1976D2;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 9999px;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
+    /* ── SWP Duration Pills (Passes Tab) ── */
+    .swp-duration-pill {
+      padding: 8px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 8px;
+      border: 1px solid #CBD5E1;
+      background-color: #FFFFFF;
+      color: #334155;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      user-select: none;
+    }
+    .swp-duration-pill:hover:not(.active) {
+      background-color: #F8FAFC;
+      border-color: #94A3B8;
+      color: #0F172A;
+    }
+    .swp-duration-pill.active {
+      background-color: #0D6EFD;
+      color: #FFFFFF;
+      border-color: #0D6EFD;
+      box-shadow: 0 1px 3px rgba(13, 110, 253, 0.25);
     }
   </style>
 </head>
@@ -377,13 +512,13 @@
 
     <!-- PAGE TITLE (Clean typography matching ShallWe-Play Club Portal) -->
     <div>
-      <h1 class="text-2xl font-bold text-slate-900 tracking-tight">Sports Rules</h1>
+      <h1 class="text-[20px] sm:text-[24px] font-semibold text-[#1C1C1C] tracking-tight">Sports Rules</h1>
     </div>
 
     <!-- TAB NAVIGATION BAR & TOP CTA ROW -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
       
-      <!-- Segmented Tab Navigation Bar (Exact match to ShallWe-Play Portal) -->
+      <!-- Segmented Tab Navigation Bar (Exact match to ShallWe-Play Portal CustomTabs.tsx) -->
       <div class="swp-tab-bar-outer">
         <div class="swp-tab-bar-track" id="segmentedTabsRow">
           <!-- Booking Rules -->
@@ -415,8 +550,8 @@
 
       <!-- Single Primary Action Button Aligned with Tabs -->
       <div id="topCtaContainer">
-        <button id="primaryTopActionBtn" onclick="handlePrimaryTopAction()" class="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-xs font-semibold shadow-xs transition-all">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 4v16m8-8H4"/></svg>
+        <button id="primaryTopActionBtn" onclick="handlePrimaryTopAction()" class="inline-flex items-center justify-center gap-2 px-5 sm:px-6 h-[40px] bg-[#007AFF] hover:bg-[#0069D9] text-white rounded-[4px] text-[14px] font-semibold shadow-none transition-all min-w-[160px]">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
           <span id="primaryTopActionText">Add Booking Rule</span>
         </button>
       </div>
@@ -425,12 +560,12 @@
 
     <!-- IMPORTANT NOTICE ALERT CALLOUT (EXACT PORTAL SYSTEM) -->
     <div class="swp-alert-notice" id="portalAlertNotice">
-      <div class="w-5 h-5 rounded-full bg-amber-500 text-white flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
+      <div class="w-6 h-6 rounded-full bg-[#FFAB00] text-white flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
         !
       </div>
-      <div>
-        <div class="text-xs font-bold text-amber-900" id="portalAlertTitle">Important Notice</div>
-        <p class="text-xs text-amber-800 mt-0.5 leading-relaxed" id="portalAlertText">
+      <div class="flex-1">
+        <div class="text-[15px] font-semibold text-[#B45309] leading-snug mb-1" id="portalAlertTitle">Important Notice</div>
+        <p class="text-[14px] text-[#1C1C1C] font-normal leading-relaxed" id="portalAlertText">
           For Indoor Skiing, pass durations and facility capacity govern slot admission. You can configure advance booking rules below or manage duration-based passes in the Passes &amp; Pricing tab.
         </p>
       </div>
@@ -442,11 +577,10 @@
     <div id="tabContent-booking_rules" class="space-y-6">
 
       <!-- ADD / EDIT BOOKING RULE FORM CONTAINER -->
-      <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-6">
+      <div class="bg-white rounded-[8px] border border-[#E5E7EB] shadow-[0_4px_24px_rgba(34,48,62,0.06)] p-6 sm:p-8 space-y-6">
         
-        <div class="flex items-center justify-between pb-4 border-b border-slate-100">
-          <h2 class="text-base font-bold text-slate-900">Add Booking Rule</h2>
-          <span class="text-xs text-slate-500 font-medium">Configure advance booking and daily restrictions for Skiing</span>
+        <div>
+          <h2 class="text-[18px] font-medium text-[#22303EE5] opacity-90 leading-tight">Add Booking Rule</h2>
         </div>
 
         <!-- Sport & Courts Row -->
@@ -468,16 +602,16 @@
         </div>
 
         <!-- SECTION: ADVANCE BOOKING (DAYS) -->
-        <div class="border border-slate-200 rounded-lg overflow-hidden">
-          <div class="swp-section-banner">
-            <span class="swp-section-title">Advance Booking (Days)</span>
-            <label class="swp-switch">
+        <div class="rounded-[8px] overflow-hidden border border-[#E2E8F0] shadow-[0_4px_12px_rgba(0,0,0,0.08)] bg-white">
+          <div class="bg-[#E9F3FE] px-4 py-3 flex items-center justify-between">
+            <span class="text-[16px] font-semibold text-[#1C1C1C]">Advance Booking (Days)</span>
+            <label class="swp-common-switch">
               <input type="checkbox" id="brAdvanceBookingToggle" checked onchange="document.getElementById('advanceBookingFields').classList.toggle('hidden', !this.checked)">
-              <span class="swp-slider"></span>
+              <span class="swp-common-switch-thumb"></span>
             </label>
           </div>
 
-          <div id="advanceBookingFields" class="p-5 grid grid-cols-1 sm:grid-cols-2 gap-6 bg-white">
+          <div id="advanceBookingFields" class="p-6 grid grid-cols-1 sm:grid-cols-2 gap-6 bg-white">
             <div class="swp-field-container">
               <label class="swp-label">Non-Member Advance Booking (days) <span class="info-icon" title="Days in advance non-members can book">ⓘ</span></label>
               <input type="number" id="brNonMemberAdvance" value="14" placeholder="Enter number of days" class="swp-input">
@@ -491,12 +625,12 @@
         </div>
 
         <!-- SECTION: PEAK START TIME -->
-        <div class="border border-slate-200 rounded-lg overflow-hidden">
-          <div class="swp-section-banner">
-            <span class="swp-section-title">Peak Start Time</span>
+        <div class="rounded-[8px] overflow-hidden border border-[#E2E8F0] shadow-[0_4px_12px_rgba(0,0,0,0.08)] bg-white">
+          <div class="bg-[#E9F3FE] px-4 py-3">
+            <span class="text-[16px] font-semibold text-[#1C1C1C]">Peak Start Time</span>
           </div>
 
-          <div class="p-5 space-y-5 bg-white">
+          <div class="p-6 space-y-6 bg-white">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               <div class="swp-field-container">
                 <label class="swp-label">Peak Time Starts At <span class="info-icon" title="Start of peak traffic hours">ⓘ</span></label>
@@ -519,26 +653,26 @@
               </div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-3 border-t border-slate-100">
-              <div class="flex items-center justify-between p-3.5 rounded-lg border border-slate-200 bg-slate-50/50">
-                <div>
-                  <div class="text-xs font-semibold text-slate-900">Restrict Consecutive Day Bookings</div>
-                  <div class="text-[11px] text-slate-500">Prevent users from booking peak passes on consecutive days</div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+              <div class="flex items-center justify-between">
+                <div class="flex flex-col pr-4">
+                  <span class="text-[18px] font-medium text-[#22303EE5] opacity-90 leading-snug">Restrict Consecutive Day Bookings</span>
+                  <span class="text-[14px] font-normal text-[#1C1C1C] opacity-60 mt-0.5">Prevent users from booking peak passes on consecutive days</span>
                 </div>
-                <label class="swp-switch">
+                <label class="swp-common-switch">
                   <input type="checkbox" id="brConsecutiveDayToggle">
-                  <span class="swp-slider"></span>
+                  <span class="swp-common-switch-thumb"></span>
                 </label>
               </div>
 
-              <div class="flex items-center justify-between p-3.5 rounded-lg border border-slate-200 bg-slate-50/50">
-                <div>
-                  <div class="text-xs font-semibold text-slate-900">Allow New Booking After Completion</div>
-                  <div class="text-[11px] text-slate-500">Allow users to make new bookings after completing previous ones</div>
+              <div class="flex items-center justify-between">
+                <div class="flex flex-col pr-4">
+                  <span class="text-[18px] font-medium text-[#22303EE5] opacity-90 leading-snug">Allow New Booking After Completion</span>
+                  <span class="text-[14px] font-normal text-[#1C1C1C] opacity-60 mt-0.5">Allow users to make new bookings after completing previous ones</span>
                 </div>
-                <label class="swp-switch">
+                <label class="swp-common-switch">
                   <input type="checkbox" id="brAfterCompletionToggle" checked>
-                  <span class="swp-slider"></span>
+                  <span class="swp-common-switch-thumb"></span>
                 </label>
               </div>
             </div>
@@ -546,32 +680,32 @@
         </div>
 
         <!-- SECTION: UNLIMITED OFF-PEAK PLAY -->
-        <div class="border border-slate-200 rounded-lg overflow-hidden">
-          <div class="swp-section-banner">
-            <span class="swp-section-title">Unlimited Off-Peak Play</span>
+        <div class="rounded-[8px] overflow-hidden border border-[#E2E8F0] shadow-[0_4px_12px_rgba(0,0,0,0.08)] bg-white">
+          <div class="bg-[#E9F3FE] px-4 py-3">
+            <span class="text-[16px] font-semibold text-[#1C1C1C]">Unlimited Off-Peak Play</span>
           </div>
 
-          <div class="p-5 space-y-4 bg-white">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div class="flex items-center justify-between p-3.5 rounded-lg border border-slate-200 bg-slate-50/50">
-                <div>
-                  <div class="text-xs font-semibold text-slate-900">Unlimited Off-Peak Play</div>
-                  <div class="text-[11px] text-slate-500">Allow unlimited bookings during off-peak morning hours</div>
+          <div class="p-6 space-y-6 bg-white">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="flex items-center justify-between">
+                <div class="flex flex-col pr-4">
+                  <span class="text-[18px] font-medium text-[#22303EE5] opacity-90 leading-snug">Unlimited Off-Peak Play</span>
+                  <span class="text-[14px] font-normal text-[#1C1C1C] opacity-60 mt-0.5">Allow unlimited bookings during off-peak morning hours</span>
                 </div>
-                <label class="swp-switch">
+                <label class="swp-common-switch">
                   <input type="checkbox" id="brUnlimitedOffPeakToggle" checked>
-                  <span class="swp-slider"></span>
+                  <span class="swp-common-switch-thumb"></span>
                 </label>
               </div>
 
-              <div class="flex items-center justify-between p-3.5 rounded-lg border border-slate-200 bg-slate-50/50">
-                <div>
-                  <div class="text-xs font-semibold text-slate-900">Unlimited Open Slope Admission</div>
-                  <div class="text-[11px] text-slate-500">Allow multiple slope admissions per pass without locking</div>
+              <div class="flex items-center justify-between">
+                <div class="flex flex-col pr-4">
+                  <span class="text-[18px] font-medium text-[#22303EE5] opacity-90 leading-snug">Unlimited Open Slope Admission</span>
+                  <span class="text-[14px] font-normal text-[#1C1C1C] opacity-60 mt-0.5">Allow multiple slope admissions per pass without locking</span>
                 </div>
-                <label class="swp-switch">
+                <label class="swp-common-switch">
                   <input type="checkbox" id="brUnlimitedSlopeToggle" checked>
-                  <span class="swp-slider"></span>
+                  <span class="swp-common-switch-thumb"></span>
                 </label>
               </div>
             </div>
@@ -590,70 +724,70 @@
         </div>
 
         <!-- FORM ACTION BUTTONS (EXACT PORTAL PATTERN) -->
-        <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-200">
-          <button type="button" onclick="resetBookingRulesForm()" class="px-4 py-2 text-xs font-semibold text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors">
+        <div class="flex items-center justify-end gap-3 pt-6 border-t border-slate-100">
+          <button type="button" onclick="resetBookingRulesForm()" class="h-[38px] px-5 rounded-[6px] text-[15px] font-medium text-[#E63900] bg-[#E63900]/[0.08] hover:bg-[#E63900]/[0.12] transition-colors">
             Cancel
           </button>
-          <button type="button" onclick="saveBookingRules()" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold shadow-sm transition-all">
+          <button type="button" onclick="saveBookingRules()" class="h-[38px] px-6 rounded-[6px] text-[15px] font-medium text-white bg-[#007AFF] hover:bg-[#0069D9] transition-colors shadow-none">
             Add Booking Rule
           </button>
         </div>
 
       </div>
 
-      <!-- ACTIVE RULES SUMMARY CARD (Exact 3-Column Key-Value Layout From Screenshot 1) -->
-      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-        <div class="swp-section-banner">
-          <span class="swp-section-title">Skiing (Indoor Dome)</span>
-          <button class="text-slate-400 hover:text-slate-600 text-sm font-bold">⋮</button>
+      <!-- ACTIVE RULES SUMMARY CARD (Exact 3-Column Key-Value Layout From BookingRuleCard.tsx) -->
+      <div class="rounded-[8px] border border-[#E5E7EB] bg-[#F9FAFB] shadow-none overflow-hidden">
+        <div class="bg-[#007AFF14] px-4 py-2.5 flex items-center justify-between">
+          <span class="text-[16px] font-medium text-[#1F2937]">Skiing (Indoor Dome)</span>
+          <button class="text-[#0077AF] hover:opacity-80 text-xl font-bold p-1 leading-none">⋮</button>
         </div>
 
-        <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6 text-xs" id="brActiveRuleGrid">
+        <div class="p-5 bg-white grid grid-cols-1 md:grid-cols-3 gap-6" id="brActiveRuleGrid">
           <!-- Col 1 -->
           <div class="space-y-4">
             <div>
-              <div class="text-[11px] text-slate-400 font-medium">Slopes / Zones</div>
-              <div class="text-sm font-semibold text-slate-900 mt-0.5" id="valSlopes">4</div>
+              <div class="text-[15px] text-[#1C1C1C] opacity-60 font-normal mb-1">Slopes / Zones</div>
+              <div class="text-[15px] text-[#1C1C1C] font-normal" id="valSlopes">4</div>
             </div>
             <div>
-              <div class="text-[11px] text-slate-400 font-medium">Peak time starts</div>
-              <div class="text-sm font-semibold text-slate-900 mt-0.5" id="valPeakStart">17:00</div>
+              <div class="text-[15px] text-[#1C1C1C] opacity-60 font-normal mb-1">Peak time starts</div>
+              <div class="text-[15px] text-[#1C1C1C] font-normal" id="valPeakStart">17:00</div>
             </div>
             <div>
-              <div class="text-[11px] text-slate-400 font-medium">Booking block duration</div>
-              <div class="text-sm font-semibold text-slate-900 mt-0.5" id="valDuration">2 hour(s)</div>
+              <div class="text-[15px] text-[#1C1C1C] opacity-60 font-normal mb-1">Booking block duration</div>
+              <div class="text-[15px] text-[#1C1C1C] font-normal" id="valDuration">2 hour(s)</div>
             </div>
           </div>
 
           <!-- Col 2 -->
           <div class="space-y-4">
             <div>
-              <div class="text-[11px] text-slate-400 font-medium">Non-Member Advance booking</div>
-              <div class="text-sm font-semibold text-slate-900 mt-0.5" id="valNonMem">14 day(s) Advance</div>
+              <div class="text-[15px] text-[#1C1C1C] opacity-60 font-normal mb-1">Non-Member Advance booking</div>
+              <div class="text-[15px] text-[#1C1C1C] font-normal" id="valNonMem">14 day(s) Advance</div>
             </div>
             <div>
-              <div class="text-[11px] text-slate-400 font-medium">Peak bookings per week</div>
-              <div class="text-sm font-semibold text-slate-900 mt-0.5" id="valPeakWeek">3</div>
+              <div class="text-[15px] text-[#1C1C1C] opacity-60 font-normal mb-1">Peak bookings per week</div>
+              <div class="text-[15px] text-[#1C1C1C] font-normal" id="valPeakWeek">3</div>
             </div>
             <div>
-              <div class="text-[11px] text-slate-400 font-medium">Unlimited off-peak bookings</div>
-              <div class="text-sm font-semibold text-slate-900 mt-0.5" id="valOffPeak">Yes</div>
+              <div class="text-[15px] text-[#1C1C1C] opacity-60 font-normal mb-1">Unlimited off-peak bookings</div>
+              <div class="text-[15px] text-[#1C1C1C] font-normal" id="valOffPeak">Yes</div>
             </div>
           </div>
 
           <!-- Col 3 -->
           <div class="space-y-4">
             <div>
-              <div class="text-[11px] text-slate-400 font-medium">Member Advance Booking</div>
-              <div class="text-sm font-semibold text-slate-900 mt-0.5" id="valMem">30 day(s) Advance</div>
+              <div class="text-[15px] text-[#1C1C1C] opacity-60 font-normal mb-1">Member Advance Booking</div>
+              <div class="text-[15px] text-[#1C1C1C] font-normal" id="valMem">30 day(s) Advance</div>
             </div>
             <div>
-              <div class="text-[11px] text-slate-400 font-medium">Peak bookings per 4 weeks</div>
-              <div class="text-sm font-semibold text-slate-900 mt-0.5" id="valPeakMonth">10</div>
+              <div class="text-[15px] text-[#1C1C1C] opacity-60 font-normal mb-1">Peak bookings per 4 weeks</div>
+              <div class="text-[15px] text-[#1C1C1C] font-normal" id="valPeakMonth">10</div>
             </div>
             <div>
-              <div class="text-[11px] text-slate-400 font-medium">Unlimited open slope admissions</div>
-              <div class="text-sm font-semibold text-slate-900 mt-0.5" id="valSlopeAdmin">Yes</div>
+              <div class="text-[15px] text-[#1C1C1C] opacity-60 font-normal mb-1">Unlimited open slope admissions</div>
+              <div class="text-[15px] text-[#1C1C1C] font-normal" id="valSlopeAdmin">Yes</div>
             </div>
           </div>
         </div>
@@ -668,27 +802,21 @@
     <div id="tabContent-passes" class="space-y-6 hidden">
 
       <!-- CREATE PASS FORM -->
-      <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-6">
+      <div class="bg-white rounded-[8px] border border-[#E5E7EB] shadow-[0_4px_24px_rgba(34,48,62,0.06)] p-6 sm:p-8 space-y-6">
         
         <!-- FORM HEADER -->
-        <div class="flex items-center justify-between pb-4 border-b border-slate-100">
-          <div>
-            <h2 class="text-base font-bold text-slate-900" id="passFormHeaderTitle">Create New Ski Pass</h2>
-            <p class="text-xs text-slate-500 mt-0.5">Define duration passes, validity windows, equipment inclusions, and pricing tiers</p>
-          </div>
-          <button type="button" onclick="resetPassForm()" class="text-xs text-blue-600 font-semibold hover:underline">
-            + Clear &amp; Add New
-          </button>
+        <div>
+          <h2 class="text-[18px] font-medium text-[#22303EE5] opacity-90 leading-tight" id="passFormHeaderTitle">Create New Ski Pass</h2>
         </div>
 
         <!-- SECTION: PASS IDENTIFICATION -->
-        <div class="border border-slate-200 rounded-lg overflow-hidden">
-          <div class="swp-section-banner">
-            <span class="swp-section-title">Pass Identification</span>
-            <span class="text-xs text-slate-500 font-medium" id="passNameCounter">23 / 50 characters</span>
+        <div class="rounded-[8px] overflow-hidden border border-[#E2E8F0] shadow-[0_4px_12px_rgba(0,0,0,0.08)] bg-white">
+          <div class="bg-[#E9F3FE] px-4 py-3 flex items-center justify-between">
+            <span class="text-[16px] font-semibold text-[#1C1C1C]">Pass Identification</span>
+            <span class="text-xs text-[#666666]" id="passNameCounter">Max 50 characters</span>
           </div>
 
-          <div class="p-5 space-y-5 bg-white">
+          <div class="p-6 space-y-6 bg-white">
             <div class="swp-field-container">
               <label class="swp-label">Pass Name * <span class="info-icon" title="Pass title displayed to customer">ⓘ</span></label>
               <input type="text" id="passNameInput" value="1-Hour Adult Slope Pass" maxlength="50" oninput="updatePassNameCounter(this.value)" class="swp-input font-medium" placeholder="e.g. 1-Hour Adult Slope Pass">
@@ -698,7 +826,6 @@
               <div class="swp-field-container">
                 <label class="swp-label">Max Capacity * <span class="info-icon" title="Max concurrent holders">ⓘ</span></label>
                 <input type="number" id="passMaxCapacity" value="150" min="1" max="10000" placeholder="e.g. 150" class="swp-input font-medium">
-                <span class="text-[11px] text-slate-400 mt-1 block">Max concurrent holders (1 – 10,000)</span>
               </div>
 
               <div class="swp-field-container">
@@ -715,64 +842,61 @@
         </div>
 
         <!-- SECTION: VALIDITY & DURATION CONFIGURATION -->
-        <div class="border border-slate-200 rounded-lg overflow-hidden">
-          <div class="swp-section-banner">
-            <div>
-              <span class="swp-section-title">Validity &amp; Duration Configuration</span>
-              <p class="text-[11px] text-slate-500 mt-0.5">Select eligible session dayparts and customer pass durations</p>
-            </div>
-            <span class="text-xs text-blue-700 font-semibold" id="selectedDurationsSummary">Selected: 1 Hour</span>
+        <div class="rounded-[8px] overflow-hidden border border-[#E2E8F0] shadow-[0_4px_12px_rgba(0,0,0,0.08)] bg-white">
+          <div class="bg-[#E9F3FE] px-4 py-3 flex items-center justify-between">
+            <span class="text-[16px] font-semibold text-[#1C1C1C]">Validity &amp; Duration Configuration</span>
+            <span class="text-xs text-[#666666] font-medium" id="selectedDurationsSummary">1 Hour selected</span>
           </div>
 
-          <div class="p-5 space-y-5 bg-white">
+          <div class="p-6 space-y-6 bg-white">
             <div>
-              <div class="text-xs font-semibold text-slate-800 mb-2">
-                Pass Duration * <span class="font-normal text-slate-500">(Multiple durations can be selected for one pass)</span>
+              <div class="text-[14px] font-medium text-[#1C1C1C] mb-2.5 flex items-center gap-1.5">
+                <span>Pass Duration *</span>
+                <span class="info-icon" data-tooltip="Customers can select from these allowed durations when booking this pass.">ⓘ</span>
               </div>
               <div class="flex flex-wrap gap-2.5" id="durationBtnGroup">
-                <button type="button" data-duration="1" onclick="togglePassDuration(1, this)" class="px-4 py-2 text-xs rounded-lg border border-blue-600 bg-blue-600 text-white font-semibold shadow-sm transition-all">1 Hour</button>
-                <button type="button" data-duration="2" onclick="togglePassDuration(2, this)" class="px-4 py-2 text-xs rounded-lg border border-slate-300 bg-white hover:bg-slate-50 font-semibold text-slate-700 transition-all">2 Hours</button>
-                <button type="button" data-duration="3" onclick="togglePassDuration(3, this)" class="px-4 py-2 text-xs rounded-lg border border-slate-300 bg-white hover:bg-slate-50 font-semibold text-slate-700 transition-all">3 Hours</button>
-                <button type="button" data-duration="4" onclick="togglePassDuration(4, this)" class="px-4 py-2 text-xs rounded-lg border border-slate-300 bg-white hover:bg-slate-50 font-semibold text-slate-700 transition-all">4 Hours</button>
-                <button type="button" data-duration="8" onclick="togglePassDuration(8, this)" class="px-4 py-2 text-xs rounded-lg border border-slate-300 bg-white hover:bg-slate-50 font-semibold text-slate-700 transition-all">Full Day</button>
+                <button type="button" data-duration="1" onclick="togglePassDuration(1, this)" class="swp-duration-pill active">1 Hour</button>
+                <button type="button" data-duration="2" onclick="togglePassDuration(2, this)" class="swp-duration-pill">2 Hours</button>
+                <button type="button" data-duration="3" onclick="togglePassDuration(3, this)" class="swp-duration-pill">3 Hours</button>
+                <button type="button" data-duration="4" onclick="togglePassDuration(4, this)" class="swp-duration-pill">4 Hours</button>
+                <button type="button" data-duration="8" onclick="togglePassDuration(8, this)" class="swp-duration-pill">Full Day</button>
               </div>
-              <p class="text-[11px] text-slate-500 mt-1.5">* Customers can select from these allowed durations when booking this pass.</p>
             </div>
 
             <div class="pt-4 border-t border-slate-100">
-              <div class="text-xs font-semibold text-slate-800 mb-2.5">
-                Daypart Sections * <span class="font-normal text-slate-500">(Check all sessions this pass grants access to):</span>
+              <div class="text-[14px] font-medium text-[#1C1C1C] mb-3">
+                Eligible Daypart Sessions *
               </div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                <label class="flex items-center gap-3 p-3 rounded-lg border border-slate-200 bg-slate-50/60 hover:bg-slate-100/60 cursor-pointer transition-colors">
-                  <input type="checkbox" id="dpMorning" checked class="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500">
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <label class="flex items-center gap-3 p-3 rounded-[6px] border border-[#E2E8F0] hover:bg-slate-50 cursor-pointer transition-colors">
+                  <input type="checkbox" id="dpMorning" checked class="w-4 h-4 text-[#007AFF] rounded border-slate-300">
                   <div>
-                    <div class="text-xs font-semibold text-slate-900">Morning Session</div>
-                    <div class="text-[11px] text-slate-500">06:00 – 12:00</div>
+                    <div class="text-[13px] font-medium text-[#1C1C1C]">Morning Session</div>
+                    <div class="text-[12px] text-[#666666]">06:00 – 12:00</div>
                   </div>
                 </label>
 
-                <label class="flex items-center gap-3 p-3 rounded-lg border border-slate-200 bg-slate-50/60 hover:bg-slate-100/60 cursor-pointer transition-colors">
-                  <input type="checkbox" id="dpAfternoon" checked class="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500">
+                <label class="flex items-center gap-3 p-3 rounded-[6px] border border-[#E2E8F0] hover:bg-slate-50 cursor-pointer transition-colors">
+                  <input type="checkbox" id="dpAfternoon" checked class="w-4 h-4 text-[#007AFF] rounded border-slate-300">
                   <div>
-                    <div class="text-xs font-semibold text-slate-900">Afternoon Session</div>
-                    <div class="text-[11px] text-slate-500">12:00 – 18:00</div>
+                    <div class="text-[13px] font-medium text-[#1C1C1C]">Afternoon Session</div>
+                    <div class="text-[12px] text-[#666666]">12:00 – 18:00</div>
                   </div>
                 </label>
 
-                <label class="flex items-center gap-3 p-3 rounded-lg border border-slate-200 bg-slate-50/60 hover:bg-slate-100/60 cursor-pointer transition-colors">
-                  <input type="checkbox" id="dpEvening" checked class="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500">
+                <label class="flex items-center gap-3 p-3 rounded-[6px] border border-[#E2E8F0] hover:bg-slate-50 cursor-pointer transition-colors">
+                  <input type="checkbox" id="dpEvening" checked class="w-4 h-4 text-[#007AFF] rounded border-slate-300">
                   <div>
-                    <div class="text-xs font-semibold text-slate-900">Evening Session</div>
-                    <div class="text-[11px] text-slate-500">18:00 – 22:00</div>
+                    <div class="text-[13px] font-medium text-[#1C1C1C]">Evening Session</div>
+                    <div class="text-[12px] text-[#666666]">18:00 – 22:00</div>
                   </div>
                 </label>
 
-                <label class="flex items-center gap-3 p-3 rounded-lg border border-slate-200 bg-slate-50/60 hover:bg-slate-100/60 cursor-pointer transition-colors">
-                  <input type="checkbox" id="dpNight" checked class="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500">
+                <label class="flex items-center gap-3 p-3 rounded-[6px] border border-[#E2E8F0] hover:bg-slate-50 cursor-pointer transition-colors">
+                  <input type="checkbox" id="dpNight" checked class="w-4 h-4 text-[#007AFF] rounded border-slate-300">
                   <div>
-                    <div class="text-xs font-semibold text-slate-900">Night Session</div>
-                    <div class="text-[11px] text-slate-500">22:00 – 00:00</div>
+                    <div class="text-[13px] font-medium text-[#1C1C1C]">Night Session</div>
+                    <div class="text-[12px] text-[#666666]">22:00 – 00:00</div>
                   </div>
                 </label>
               </div>
@@ -781,56 +905,55 @@
         </div>
 
         <!-- SECTION: INCLUSIONS & EQUIPMENT BUNDLES -->
-        <div class="border border-slate-200 rounded-lg overflow-hidden">
-          <div class="swp-section-banner">
-            <div>
-              <span class="swp-section-title">Inclusions &amp; Equipment Bundles</span>
-              <p class="text-[11px] text-slate-500 mt-0.5">Configure bundled equipment rental or included training clinics</p>
-            </div>
+        <div class="rounded-[8px] overflow-hidden border border-[#E2E8F0] shadow-[0_4px_12px_rgba(0,0,0,0.08)] bg-white">
+          <div class="bg-[#E9F3FE] px-4 py-3 flex items-center justify-between">
+            <span class="text-[16px] font-semibold text-[#1C1C1C]">Inclusions &amp; Bundles</span>
           </div>
 
-          <div class="p-5 grid grid-cols-1 sm:grid-cols-2 gap-6 bg-white">
-            <!-- Equipment Rental Included Card -->
-            <div class="p-4 rounded-lg border border-slate-200 bg-slate-50/50 space-y-3">
-              <div class="flex items-center justify-between">
-                <div>
-                  <div class="text-xs font-semibold text-slate-900">Equipment Rental Included</div>
-                  <div class="text-[11px] text-slate-500">Bundle rental gear directly with this pass</div>
+          <div class="p-6 space-y-6 bg-white">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Equipment Rental Toggle Row -->
+              <div>
+                <div class="flex items-center justify-between">
+                  <div class="flex flex-col pr-4">
+                    <span class="text-[18px] font-medium text-[#22303EE5] opacity-90 leading-snug">Equipment Rental Included</span>
+                    <span class="text-[14px] font-normal text-[#1C1C1C] opacity-60 mt-0.5">Bundle rental gear directly with this pass</span>
+                  </div>
+                  <label class="swp-common-switch">
+                    <input type="checkbox" id="passEquipmentToggle" onchange="document.getElementById('passEquipmentDetails').classList.toggle('hidden', !this.checked)">
+                    <span class="swp-common-switch-thumb"></span>
+                  </label>
                 </div>
-                <label class="swp-switch">
-                  <input type="checkbox" id="passEquipmentToggle" onchange="document.getElementById('passEquipmentDetails').classList.toggle('hidden', !this.checked)">
-                  <span class="swp-slider"></span>
-                </label>
+                <div id="passEquipmentDetails" class="hidden pt-3 flex flex-wrap gap-4 text-xs font-medium text-slate-700">
+                  <label class="flex items-center gap-1.5 cursor-pointer"><input type="checkbox" checked class="w-4 h-4 text-[#007AFF] rounded border-slate-300"> <span>Skis / Snowboard</span></label>
+                  <label class="flex items-center gap-1.5 cursor-pointer"><input type="checkbox" checked class="w-4 h-4 text-[#007AFF] rounded border-slate-300"> <span>Boots</span></label>
+                  <label class="flex items-center gap-1.5 cursor-pointer"><input type="checkbox" checked class="w-4 h-4 text-[#007AFF] rounded border-slate-300"> <span>Poles</span></label>
+                  <label class="flex items-center gap-1.5 cursor-pointer"><input type="checkbox" class="w-4 h-4 text-[#007AFF] rounded border-slate-300"> <span>Helmet</span></label>
+                </div>
               </div>
-              <div id="passEquipmentDetails" class="hidden pt-3 border-t border-slate-200 flex flex-wrap gap-4 text-xs font-medium text-slate-700">
-                <label class="flex items-center gap-1.5 cursor-pointer"><input type="checkbox" checked class="w-4 h-4 text-blue-600 rounded border-slate-300"> <span>Skis / Snowboard</span></label>
-                <label class="flex items-center gap-1.5 cursor-pointer"><input type="checkbox" checked class="w-4 h-4 text-blue-600 rounded border-slate-300"> <span>Boots</span></label>
-                <label class="flex items-center gap-1.5 cursor-pointer"><input type="checkbox" checked class="w-4 h-4 text-blue-600 rounded border-slate-300"> <span>Poles</span></label>
-                <label class="flex items-center gap-1.5 cursor-pointer"><input type="checkbox" class="w-4 h-4 text-blue-600 rounded border-slate-300"> <span>Helmet</span></label>
-              </div>
-            </div>
 
-            <!-- Lesson Bundled Card -->
-            <div class="p-4 rounded-lg border border-slate-200 bg-slate-50/50 space-y-3">
-              <div class="flex items-center justify-between">
-                <div>
-                  <div class="text-xs font-semibold text-slate-900">Lesson Bundled</div>
-                  <div class="text-[11px] text-slate-500">Bundle introductory or coaching clinic with pass</div>
+              <!-- Lesson Bundled Toggle Row -->
+              <div>
+                <div class="flex items-center justify-between">
+                  <div class="flex flex-col pr-4">
+                    <span class="text-[18px] font-medium text-[#22303EE5] opacity-90 leading-snug">Lesson Bundled</span>
+                    <span class="text-[14px] font-normal text-[#1C1C1C] opacity-60 mt-0.5">Bundle introductory or coaching clinic with pass</span>
+                  </div>
+                  <label class="swp-common-switch">
+                    <input type="checkbox" id="passLessonToggle" onchange="document.getElementById('passLessonDetails').classList.toggle('hidden', !this.checked)">
+                    <span class="swp-common-switch-thumb"></span>
+                  </label>
                 </div>
-                <label class="swp-switch">
-                  <input type="checkbox" id="passLessonToggle" onchange="document.getElementById('passLessonDetails').classList.toggle('hidden', !this.checked)">
-                  <span class="swp-slider"></span>
-                </label>
-              </div>
-              <div id="passLessonDetails" class="hidden pt-3 border-t border-slate-200">
-                <div class="swp-field-container !mt-0">
-                  <label class="swp-label">Bundled Clinic Type</label>
-                  <select class="swp-input swp-select text-xs">
-                    <option>Beginner Slope Clinic (60 min)</option>
-                    <option>Intermediate Technique Refresher (45 min)</option>
-                    <option>Advanced Freestyle Clinic (60 min)</option>
-                  </select>
-                  <span class="swp-select-arrow">▼</span>
+                <div id="passLessonDetails" class="hidden pt-3">
+                  <div class="swp-field-container !mt-0">
+                    <label class="swp-label">Bundled Clinic Type</label>
+                    <select class="swp-input swp-select text-xs">
+                      <option>Beginner Slope Clinic (60 min)</option>
+                      <option>Intermediate Technique Refresher (45 min)</option>
+                      <option>Advanced Freestyle Clinic (60 min)</option>
+                    </select>
+                    <span class="swp-select-arrow">▼</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -838,33 +961,19 @@
         </div>
 
         <!-- SECTION: BASE OFF-PEAK RATES (DURATION BREAKDOWN) -->
-        <div class="border border-slate-200 rounded-lg overflow-hidden">
-          <div class="swp-section-banner">
-            <div>
-              <span class="swp-section-title">Base Off-Peak Rates (By Pass Duration)</span>
-              <p class="text-[11px] text-slate-500 mt-0.5">Member &amp; non-member pricing breakdown based on selected pass durations (1h, 2h, 3h, 4h, full day)</p>
-            </div>
-            <span class="text-xs text-blue-700 font-semibold" id="baseDurationSummary">Duration Breakdown</span>
+        <div class="rounded-[8px] overflow-hidden border border-[#E2E8F0] shadow-[0_4px_12px_rgba(0,0,0,0.08)] bg-white">
+          <div class="bg-[#E9F3FE] px-4 py-3 flex items-center justify-between">
+            <span class="text-[16px] font-semibold text-[#1C1C1C]">Base Off-Peak Rates (By Pass Duration) <span class="info-icon" data-tooltip="Toggle durations in the 'Validity &amp; Duration Configuration' section above to add or remove hours.">ⓘ</span></span>
           </div>
 
-          <div class="p-5 bg-white space-y-3">
-            <div class="overflow-x-auto">
-              <table class="w-full text-left text-xs border border-slate-200 rounded-lg overflow-hidden">
-                <thead class="bg-slate-50 text-slate-700 font-semibold uppercase tracking-wider border-b border-slate-200">
+          <div class="p-6 bg-white space-y-3">
+            <div class="overflow-x-auto border border-[#E5E7EB] rounded-[6px]">
+              <table class="w-full text-left text-xs">
+                <thead class="bg-slate-50 text-slate-700 font-semibold uppercase tracking-wider border-b border-[#E5E7EB]">
                   <tr>
                     <th class="py-2.5 px-4 w-1/4">Pass Duration</th>
-                    <th class="py-2.5 px-4 w-3/8">
-                      <div class="flex items-center gap-1.5">
-                        <span>Member Base Price (€)</span>
-                        <span class="info-icon" title="Discounted base price for active members">ⓘ</span>
-                      </div>
-                    </th>
-                    <th class="py-2.5 px-4 w-3/8">
-                      <div class="flex items-center gap-1.5">
-                        <span>Non-Member Base Price (€)</span>
-                        <span class="info-icon" title="Standard base price for non-registered users">ⓘ</span>
-                      </div>
-                    </th>
+                    <th class="py-2.5 px-4 w-3/8">Member Base Price (€)</th>
+                    <th class="py-2.5 px-4 w-3/8">Non-Member Base Price (€)</th>
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100" id="basePricingTableBody">
@@ -872,44 +981,27 @@
                 </tbody>
               </table>
             </div>
-            <div class="flex items-center justify-between text-[11px] text-slate-500 pt-1">
-              <span>* Toggle durations in the "Validity &amp; Duration Configuration" section above to add or remove hours.</span>
-              <span class="text-blue-600 font-medium">Auto-synced with duration selector</span>
-            </div>
           </div>
         </div>
 
         <!-- SECTION: WEEKEND PRICING (DURATION BREAKDOWN) -->
-        <div class="border border-slate-200 rounded-lg overflow-hidden">
-          <div class="swp-section-banner">
-            <div>
-              <span class="swp-section-title">Weekend Pricing (By Pass Duration)</span>
-              <p class="text-[11px] text-slate-500 mt-0.5">Saturday &amp; Sunday pricing breakdown included for each selected pass duration</p>
-            </div>
-            <label class="swp-switch">
+        <div class="rounded-[8px] overflow-hidden border border-[#E2E8F0] shadow-[0_4px_12px_rgba(0,0,0,0.08)] bg-white">
+          <div class="bg-[#E9F3FE] px-4 py-3 flex items-center justify-between">
+            <span class="text-[16px] font-semibold text-[#1C1C1C]">Weekend Pricing (By Pass Duration)</span>
+            <label class="swp-common-switch">
               <input type="checkbox" id="weekendEnabledToggle" checked onchange="document.getElementById('weekendFieldsContainer').classList.toggle('hidden', !this.checked)">
-              <span class="swp-slider"></span>
+              <span class="swp-common-switch-thumb"></span>
             </label>
           </div>
 
-          <div id="weekendFieldsContainer" class="p-5 bg-white space-y-4">
-            <div class="overflow-x-auto">
-              <table class="w-full text-left text-xs border border-slate-200 rounded-lg overflow-hidden">
-                <thead class="bg-amber-50/60 text-slate-700 font-semibold uppercase tracking-wider border-b border-amber-200">
+          <div id="weekendFieldsContainer" class="p-6 bg-white space-y-4">
+            <div class="overflow-x-auto border border-[#E5E7EB] rounded-[6px]">
+              <table class="w-full text-left text-xs">
+                <thead class="bg-slate-50 text-slate-700 font-semibold uppercase tracking-wider border-b border-[#E5E7EB]">
                   <tr>
                     <th class="py-2.5 px-4 w-1/4">Pass Duration</th>
-                    <th class="py-2.5 px-4 w-3/8">
-                      <div class="flex items-center gap-1.5">
-                        <span>Weekend Member Price (€)</span>
-                        <span class="info-icon" title="Weekend rate for registered members">ⓘ</span>
-                      </div>
-                    </th>
-                    <th class="py-2.5 px-4 w-3/8">
-                      <div class="flex items-center gap-1.5">
-                        <span>Weekend Non-Member Price (€)</span>
-                        <span class="info-icon" title="Weekend rate for non-members">ⓘ</span>
-                      </div>
-                    </th>
+                    <th class="py-2.5 px-4 w-3/8">Weekend Member Price (€)</th>
+                    <th class="py-2.5 px-4 w-3/8">Weekend Non-Member Price (€)</th>
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100" id="weekendPricingTableBody">
@@ -918,7 +1010,7 @@
               </table>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2 border-t border-slate-100">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
               <div class="swp-field-container">
                 <label class="swp-label">Weekend Fixed Block Duration (Hours) <span class="info-icon" title="Standard minimum session or slot block for weekends">ⓘ</span></label>
                 <input type="number" id="weekendDuration" value="2" class="swp-input font-medium">
@@ -932,26 +1024,16 @@
         </div>
 
         <!-- SECTION: PEAK HOUR PRICING (FIXED PRICING INPUT) -->
-        <div class="border border-slate-200 rounded-lg overflow-hidden">
-          <div class="swp-section-banner">
-            <div>
-              <span class="swp-section-title">Peak Hour Pricing</span>
-              <p class="text-[11px] text-slate-500 mt-0.5">Fixed pricing input applied per booking slot during peak hours</p>
-            </div>
-            <label class="swp-switch">
+        <div class="rounded-[8px] overflow-hidden border border-[#E2E8F0] shadow-[0_4px_12px_rgba(0,0,0,0.08)] bg-white">
+          <div class="bg-[#E9F3FE] px-4 py-3 flex items-center justify-between">
+            <span class="text-[16px] font-semibold text-[#1C1C1C]">Peak Hour Pricing</span>
+            <label class="swp-common-switch">
               <input type="checkbox" id="peakEnabledToggle" checked onchange="document.getElementById('peakFieldsContainer').classList.toggle('hidden', !this.checked)">
-              <span class="swp-slider"></span>
+              <span class="swp-common-switch-thumb"></span>
             </label>
           </div>
 
-          <div id="peakFieldsContainer" class="p-5 space-y-4 bg-white">
-            <div class="p-3 rounded-lg bg-blue-50/70 border border-blue-200 text-xs text-blue-900 flex items-start gap-2.5">
-              <svg class="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/></svg>
-              <div>
-                <span class="font-bold">Fixed Pricing Input:</span> Any peak time slot selected has fixed pricing per slot/pass (rather than hourly charge calculations).
-              </div>
-            </div>
-
+          <div id="peakFieldsContainer" class="p-6 space-y-4 bg-white">
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               <div class="swp-field-container">
                 <label class="swp-label">Peak Slot Start Time <span class="info-icon" title="Start of peak rate window">ⓘ</span></label>
@@ -962,69 +1044,46 @@
                 <input type="time" id="peakEndTime" value="21:00" class="swp-input font-medium">
               </div>
               <div class="swp-field-container">
-                <label class="swp-label">Fixed Member Peak Price (€ / slot) <span class="info-icon" title="Fixed flat price for registered members during peak slot">ⓘ</span></label>
+                <label class="swp-label">Fixed Member Peak Price (€) <span class="info-icon" title="Fixed flat price for registered members during peak slot">ⓘ</span></label>
                 <input type="number" step="0.5" id="pricePeakMemberFixed" value="25.00" class="swp-input font-medium" placeholder="e.g. 25.00">
               </div>
               <div class="swp-field-container">
-                <label class="swp-label">Fixed Non-Member Peak Price (€ / slot) <span class="info-icon" title="Fixed flat price for non-members during peak slot">ⓘ</span></label>
+                <label class="swp-label">Fixed Non-Member Peak Price (€) <span class="info-icon" title="Fixed flat price for non-members during peak slot">ⓘ</span></label>
                 <input type="number" step="0.5" id="pricePeakNonMemberFixed" value="34.00" class="swp-input font-medium" placeholder="e.g. 34.00">
               </div>
             </div>
           </div>
         </div>
 
-        <!-- SECTION: EVENT PRICING (Formerly Holiday Pricing) -->
-        <div class="border border-slate-200 rounded-lg overflow-hidden">
-          <div class="swp-section-banner">
-            <div>
-              <span class="swp-section-title">Event Pricing</span>
-              <p class="text-[11px] text-slate-500 mt-0.5">Special event, tournament &amp; holiday override rates</p>
-            </div>
-            <label class="swp-switch">
+        <!-- SECTION: EVENT PRICING -->
+        <div class="rounded-[8px] overflow-hidden border border-[#E2E8F0] shadow-[0_4px_12px_rgba(0,0,0,0.08)] bg-white">
+          <div class="bg-[#E9F3FE] px-4 py-3 flex items-center justify-between">
+            <span class="text-[16px] font-semibold text-[#1C1C1C]">Event Pricing <span class="info-icon" data-test-hover="event-pricing-info" data-tooltip="Event pricing overrides standard base rates on scheduled tournament and national holiday dates.">ⓘ</span></span>
+            <label class="swp-common-switch">
               <input type="checkbox" id="eventEnabledToggle" checked onchange="document.getElementById('eventFieldsContainer').classList.toggle('hidden', !this.checked)">
-              <span class="swp-slider"></span>
+              <span class="swp-common-switch-thumb"></span>
             </label>
           </div>
 
-          <div id="eventFieldsContainer" class="p-5 space-y-4 bg-white">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div class="swp-field-container">
-                <label class="swp-label">Event Calendar <span class="info-icon" title="Select event or holiday schedule from club settings">ⓘ</span></label>
-                <select id="eventCalendarSelect" class="swp-input swp-select font-medium">
-                  <option value="Default (National Holidays)">Default (National Holidays)</option>
-                  <option value="Club Championship & Tournaments" selected>Club Championship &amp; Tournaments</option>
-                  <option value="Winter Fest Season">Winter Fest Season</option>
-                  <option value="Custom Event Calendar">Custom Event Calendar</option>
-                </select>
-                <span class="swp-select-arrow">▼</span>
-              </div>
-              <div class="swp-field-container">
-                <label class="swp-label">Event Pricing Surcharge Mode <span class="info-icon" title="How event rates are structured">ⓘ</span></label>
-                <select id="eventModeSelect" class="swp-input swp-select font-medium">
-                  <option value="duration_override" selected>Duration Breakdown Override (Rates per Duration)</option>
-                  <option value="fixed_fee">Fixed Single Fee per Event Pass</option>
-                </select>
-                <span class="swp-select-arrow">▼</span>
-              </div>
+          <div id="eventFieldsContainer" class="p-6 space-y-4 bg-white">
+            <div class="swp-field-container max-w-md">
+              <label class="swp-label">Event Calendar <span class="info-icon" title="Select event or holiday schedule from club settings">ⓘ</span></label>
+              <select id="eventCalendarSelect" class="swp-input swp-select font-medium">
+                <option value="Default (National Holidays)">Default (National Holidays)</option>
+                <option value="Club Championship & Tournaments" selected>Club Championship &amp; Tournaments</option>
+                <option value="Winter Fest Season">Winter Fest Season</option>
+                <option value="Custom Event Calendar">Custom Event Calendar</option>
+              </select>
+              <span class="swp-select-arrow">▼</span>
             </div>
 
-            <div class="overflow-x-auto">
-              <table class="w-full text-left text-xs border border-slate-200 rounded-lg overflow-hidden">
-                <thead class="bg-purple-50/60 text-slate-700 font-semibold uppercase tracking-wider border-b border-purple-200">
+            <div class="overflow-x-auto border border-[#E5E7EB] rounded-[6px]">
+              <table class="w-full text-left text-xs">
+                <thead class="bg-slate-50 text-slate-700 font-semibold uppercase tracking-wider border-b border-[#E5E7EB]">
                   <tr>
                     <th class="py-2.5 px-4 w-1/4">Pass Duration</th>
-                    <th class="py-2.5 px-4 w-3/8">
-                      <div class="flex items-center gap-1.5">
-                        <span>Event Member Price (€)</span>
-                        <span class="info-icon" title="Event price for members">ⓘ</span>
-                      </div>
-                    </th>
-                    <th class="py-2.5 px-4 w-3/8">
-                      <div class="flex items-center gap-1.5">
-                        <span>Event Non-Member Price (€)</span>
-                        <span class="info-icon" title="Event price for non-members">ⓘ</span>
-                      </div>
-                    </th>
+                    <th class="py-2.5 px-4 w-3/8">Event Member Price (€)</th>
+                    <th class="py-2.5 px-4 w-3/8">Event Non-Member Price (€)</th>
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100" id="eventPricingTableBody">
@@ -1032,146 +1091,75 @@
                 </tbody>
               </table>
             </div>
-            <div class="text-[11px] text-slate-500 italic">
-              * Event pricing overrides standard base rates on scheduled tournament and national holiday dates.
-            </div>
           </div>
         </div>
 
         <!-- SECTION: EXTRA TIME & SESSION EXTENSION CHARGES -->
-        <div class="border border-slate-200 rounded-lg overflow-hidden">
-          <div class="swp-section-banner">
-            <div>
-              <span class="swp-section-title">Extra Time &amp; Session Extension Policy</span>
-              <p class="text-[11px] text-slate-500 mt-0.5">Manage player overtime charges and allow in-app slope time extensions before session expiry</p>
-            </div>
-            <label class="swp-switch">
+        <div class="rounded-[8px] overflow-hidden border border-[#E2E8F0] shadow-[0_4px_12px_rgba(0,0,0,0.08)] bg-white">
+          <div class="bg-[#E9F3FE] px-4 py-3 flex items-center justify-between">
+            <span class="text-[16px] font-semibold text-[#1C1C1C]">Extra Time &amp; Session Extension Policy</span>
+            <label class="swp-common-switch">
               <input type="checkbox" id="extraTimeEnabledToggle" checked onchange="toggleExtraTimeSection(this.checked)">
-              <span class="swp-slider"></span>
+              <span class="swp-common-switch-thumb"></span>
             </label>
           </div>
 
-          <div id="extraTimeFieldsContainer" class="p-5 space-y-5 bg-white">
+          <div id="extraTimeFieldsContainer" class="p-6 space-y-6 bg-white">
             
-            <!-- Quick Business Logic Explainer Banner -->
-            <div class="p-3.5 rounded-lg bg-blue-50/70 border border-blue-200 text-xs text-blue-900 flex items-start gap-3">
-              <div class="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs shrink-0 mt-0.5">
-                ⏱️
-              </div>
-              <div class="space-y-0.5 leading-relaxed">
-                <span class="font-bold">Simple Overtime Handling:</span> When a player books a slope slot (e.g. 10:00 – 11:00), they can extend their time via the mobile app before 11:00. If their time ends and they stay on the slopes past the grace period, an overtime fee is automatically calculated upon turnstile exit.
-              </div>
-            </div>
-
-            <!-- Parameters Grid: Grace Period, Interval, Member & Non-Member Rates -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              <div class="swp-field-container">
-                <label class="swp-label">Grace Period (Minutes) * <span class="info-icon" title="Allowed buffer for de-gearing and exit turnstile scan without penalty">ⓘ</span></label>
-                <input type="number" id="extraTimeGracePeriod" value="15" min="0" max="60" oninput="updateExtraTimeSimulation()" class="swp-input font-medium" placeholder="e.g. 15">
-                <span class="text-[11px] text-slate-400 mt-1 block">Buffer before charges begin (0 – 60 min)</span>
-              </div>
-
-              <div class="swp-field-container">
-                <label class="swp-label">Charging Block Interval * <span class="info-icon" title="Time increment used to bill extra slope time">ⓘ</span></label>
-                <select id="extraTimeInterval" onchange="updateExtraTimeSimulation()" class="swp-input swp-select font-medium text-xs">
-                  <option value="15">Every 15 Minutes</option>
-                  <option value="30" selected>Every 30 Minutes</option>
-                  <option value="60">Every 60 Minutes (1 Hour)</option>
-                </select>
-                <span class="swp-select-arrow">▼</span>
-                <span class="text-[11px] text-slate-400 mt-1 block">Billed per started time block</span>
-              </div>
-
-              <div class="swp-field-container">
-                <label class="swp-label">Member Overtime Rate (€) * <span class="info-icon" title="Rate charged to active members per time block">ⓘ</span></label>
-                <input type="number" step="0.5" id="extraTimeMemberRate" value="5.00" min="0" oninput="updateExtraTimeSimulation()" class="swp-input font-medium" placeholder="e.g. 5.00">
-                <span class="text-[11px] text-slate-400 mt-1 block">Per block rate for members</span>
-              </div>
-
-              <div class="swp-field-container">
-                <label class="swp-label">Non-Member Overtime Rate (€) * <span class="info-icon" title="Rate charged to non-members per time block">ⓘ</span></label>
-                <input type="number" step="0.5" id="extraTimeNonMemberRate" value="7.50" min="0" oninput="updateExtraTimeSimulation()" class="swp-input font-medium" placeholder="e.g. 7.50">
-                <span class="text-[11px] text-slate-400 mt-1 block">Per block rate for non-members</span>
-              </div>
-            </div>
-
-            <!-- Two Sub-Feature Action Cards -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-100">
+            <div>
+              <h4 class="text-[15px] font-semibold text-[#1C1C1C] mb-4">Extra Time &amp; Charges</h4>
               
-              <!-- Card 1: Player Mobile In-App Extension -->
-              <div class="p-4 rounded-lg border border-slate-200 bg-slate-50/50 space-y-2.5">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-2">
-                    <span class="text-sm">📱</span>
-                    <span class="text-xs font-bold text-slate-900">Player In-App Time Extension</span>
-                  </div>
-                  <label class="swp-switch">
-                    <input type="checkbox" id="extraTimeAppExtensionToggle" checked>
-                    <span class="swp-slider"></span>
-                  </label>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Field 1: Extension Grace Period (in minutes) -->
+                <div class="swp-field-container">
+                  <label class="swp-label">Extension Grace Period (Minutes) * <span class="info-icon" title="No charges apply during this duration">ⓘ</span></label>
+                  <input type="number" id="extraTimeGracePeriod" value="15" min="0" max="180" oninput="updateExtraTimeSimulation()" class="swp-input font-medium" placeholder="15">
+                  <span class="text-[11px] text-[#666666] mt-1.5 block">User will not be charged for this extra time</span>
                 </div>
-                <p class="text-[11px] text-slate-600 leading-relaxed">
-                  Sends push reminder to the player 10 mins before slot expiry with 1-tap option to extend their slope time. Validated against live slope capacity limits.
-                </p>
-                <div class="pt-2 border-t border-slate-200 flex items-center justify-between text-[11px] text-slate-500 font-medium">
-                  <span>Extension Fee:</span>
-                  <span class="text-blue-600 font-semibold">Standard Overtime Block Rate</span>
+
+                <!-- Field 2: Charges Beyond Grace period -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div class="swp-field-container">
+                    <label class="swp-label">Duration Block *</label>
+                    <select id="extraTimeInterval" onchange="updateExtraTimeSimulation()" class="swp-input swp-select font-medium text-xs">
+                      <option value="15">15 mins</option>
+                      <option value="30" selected>30 mins</option>
+                      <option value="45">45 mins</option>
+                      <option value="60">60 mins</option>
+                      <option value="120">120 mins</option>
+                      <option value="180">180 mins</option>
+                      <option value="240">240 mins</option>
+                    </select>
+                    <span class="swp-select-arrow">▼</span>
+                  </div>
+
+                  <div class="swp-field-container">
+                    <label class="swp-label">Charge Beyond Grace (€) *</label>
+                    <input type="number" step="0.5" id="extraTimeMemberRate" value="5.00" min="0" oninput="updateExtraTimeSimulation()" class="swp-input font-medium" placeholder="5.00">
+                  </div>
                 </div>
               </div>
-
-              <!-- Card 2: Turnstile Exit Enforcement -->
-              <div class="p-4 rounded-lg border border-slate-200 bg-slate-50/50 space-y-2.5">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-2">
-                    <span class="text-sm">🚧</span>
-                    <span class="text-xs font-bold text-slate-900">Turnstile Exit Surcharge Automation</span>
-                  </div>
-                  <label class="swp-switch">
-                    <input type="checkbox" id="extraTimeTurnstileChargeToggle" checked>
-                    <span class="swp-slider"></span>
-                  </label>
-                </div>
-                <p class="text-[11px] text-slate-600 leading-relaxed">
-                  If the player taps out at the exit gate past booked slot + grace period without extending, turnstile automatically bills overtime fee to their saved payment card.
-                </p>
-                <div class="pt-2 border-t border-slate-200 flex items-center justify-between text-[11px] text-slate-500 font-medium">
-                  <span>Unpaid Fallback:</span>
-                  <span class="text-amber-700 font-semibold">Flag at Front Desk Check-out</span>
-                </div>
-              </div>
-
             </div>
 
-            <!-- Live Scenario Preview (Clarity Widget for Club Manager) -->
-            <div class="p-4 rounded-lg border border-slate-200 bg-emerald-50/40 space-y-2">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                  <span class="text-xs font-bold text-slate-900 uppercase tracking-wider">Live Overtime Scenario Preview</span>
-                </div>
-                <span class="text-[11px] text-slate-500 font-medium">Real-Time Simulation</span>
-              </div>
-              <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs pt-1">
-                <div class="p-2.5 bg-white rounded-md border border-slate-200 shadow-2xs">
-                  <span class="text-[10px] text-slate-400 font-semibold block uppercase">1. Booked Slot</span>
-                  <span class="font-bold text-slate-800 text-xs">10:00 – 11:00</span>
-                  <span class="text-[10px] text-slate-500 block">(1-Hour Pass)</span>
-                </div>
-                <div class="p-2.5 bg-white rounded-md border border-slate-200 shadow-2xs">
-                  <span class="text-[10px] text-slate-400 font-semibold block uppercase">2. Free Grace Buffer</span>
-                  <span class="font-bold text-emerald-700 text-xs" id="simGraceEnd">Until 11:15</span>
-                  <span class="text-[10px] text-slate-500 block" id="simGraceDuration">(+15 mins free)</span>
-                </div>
-                <div class="p-2.5 bg-white rounded-md border border-slate-200 shadow-2xs">
-                  <span class="text-[10px] text-slate-400 font-semibold block uppercase">3. Exit Scan Time</span>
-                  <span class="font-bold text-slate-800 text-xs">11:35</span>
-                  <span class="text-[10px] text-amber-700 font-semibold block" id="simOverstayMinutes">20 min overtime (1 block)</span>
-                </div>
-                <div class="p-2.5 bg-white rounded-md border border-slate-200 shadow-2xs">
-                  <span class="text-[10px] text-slate-400 font-semibold block uppercase">4. Charged at Exit</span>
-                  <span class="font-bold text-blue-600 text-xs" id="simCostSummary">Mem: €5.00 / Non-Mem: €7.50</span>
-                  <span class="text-[10px] text-slate-500 block">Auto-charged to card</span>
-                </div>
+            <!-- SUB-SECTION: SESSION EXTENSION CHARGES -->
+            <div class="pt-4 border-t border-slate-100 space-y-3">
+              <h4 class="text-[15px] font-semibold text-[#1C1C1C]">Session Extension Charges</h4>
+              <p class="text-[12px] text-[#666666]">Rates for extended session hours selected above.</p>
+
+              <!-- Dynamic Extension Pricing Table -->
+              <div class="border border-[#E5E7EB] rounded-[6px] overflow-hidden bg-white">
+                <table class="w-full text-xs text-left">
+                  <thead class="bg-slate-50 text-slate-700 font-semibold uppercase tracking-wider border-b border-[#E5E7EB]">
+                    <tr>
+                      <th class="py-2.5 px-4">Extended Duration</th>
+                      <th class="py-2.5 px-4">Extension Price (€) *</th>
+                      <th class="py-2.5 px-4 hidden sm:table-cell">Mobile App Availability</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-100 bg-white" id="sessionExtensionPricingTableBody">
+                    <!-- Populated dynamically based on selectedPassDurations -->
+                  </tbody>
+                </table>
               </div>
             </div>
 
@@ -1179,14 +1167,14 @@
         </div>
 
         <!-- SECTION: CANCELLATION POLICY -->
-        <div class="border border-slate-200 rounded-lg overflow-hidden">
-          <div class="swp-section-banner">
-            <span class="swp-section-title">Cancellation Policy</span>
+        <div class="rounded-[8px] overflow-hidden border border-[#E2E8F0] shadow-[0_4px_12px_rgba(0,0,0,0.08)] bg-white">
+          <div class="bg-[#E9F3FE] px-4 py-3 flex items-center justify-between">
+            <span class="text-[16px] font-semibold text-[#1C1C1C]">Cancellation Policy</span>
           </div>
 
-          <div class="p-5 space-y-4 bg-white">
+          <div class="p-6 space-y-4 bg-white">
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              <div class="sm:col-span-1 swp-field-container">
+              <div class="swp-field-container">
                 <label class="swp-label">Free Cancellation Window (Hours) <span class="info-icon" title="Hours before start time">ⓘ</span></label>
                 <input type="number" id="cancelWindowHours" value="24" class="swp-input font-medium">
               </div>
@@ -1203,11 +1191,11 @@
         </div>
 
         <!-- FORM ACTION BUTTONS (EXACT PORTAL PATTERN) -->
-        <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-200">
-          <button type="button" onclick="resetPassForm()" class="px-5 py-2.5 text-xs font-semibold text-slate-700 bg-white border border-slate-300 hover:bg-slate-50 rounded-lg transition-colors">
+        <div class="flex items-center justify-end gap-3 pt-6 border-t border-slate-100">
+          <button type="button" onclick="resetPassForm()" class="h-[38px] px-5 rounded-[6px] text-[15px] font-medium text-[#E63900] bg-[#E63900]/[0.08] hover:bg-[#E63900]/[0.12] transition-colors">
             Cancel
           </button>
-          <button type="button" onclick="savePassToCatalog()" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold shadow-sm transition-all">
+          <button type="button" onclick="savePassToCatalog()" class="h-[38px] px-6 rounded-[6px] text-[15px] font-medium text-white bg-[#007AFF] hover:bg-[#0069D9] transition-colors shadow-none">
             Save Pass to Catalog
           </button>
         </div>
@@ -1215,20 +1203,34 @@
       </div>
 
       <!-- ACTIVE PASSES CATALOG (MATCHES PORTAL TABULAR MANAGEMENT LAYOUT) -->
-      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-        <div class="swp-section-banner">
-          <div class="flex items-center gap-2.5">
-            <span class="swp-section-title">Active Passes Catalog</span>
-            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-700" id="passCatalogBadge">3 Passes</span>
-          </div>
+      <div class="rounded-[8px] border border-[#E5E7EB] bg-white shadow-none overflow-hidden">
+        <div class="bg-[#E9F3FE] px-4 py-3 flex items-center justify-between">
+          <span class="text-[16px] font-semibold text-[#1C1C1C]">Active Passes Catalog</span>
           <div class="relative w-56 sm:w-64">
-            <input type="text" id="passSearchInput" onkeyup="filterPassTable()" placeholder="Search passes..." class="w-full pl-9 pr-3 py-1.5 text-xs border border-slate-300 rounded-lg bg-white focus:outline-none focus:border-blue-500 transition-colors">
+            <input type="text" id="passSearchInput" onkeyup="filterPassTable()" placeholder="Search passes..." class="w-full pl-9 pr-3 py-1.5 text-xs border border-[#CBD5E1] rounded-[4px] bg-white focus:outline-none focus:border-[#007AFF] transition-colors">
             <svg class="w-4 h-4 text-slate-400 absolute left-2.5 top-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
           </div>
         </div>
 
         <div class="overflow-x-auto">
           <table class="w-full text-left text-xs" id="passCatalogTable">
+            <thead class="bg-slate-50 text-slate-600 font-semibold uppercase tracking-wider border-b border-[#E5E7EB]">
+              <tr>
+                <th class="py-3 px-4 w-1/4">Pass Details</th>
+                <th class="py-3 px-4">Duration</th>
+                <th class="py-3 px-4">Base Rates (Mem / Non-Mem)</th>
+                <th class="py-3 px-4">Weekend Rates (Mem / Non-Mem)</th>
+                <th class="py-3 px-4">Peak, Events &amp; Overtime</th>
+                <th class="py-3 px-4 text-center">Status</th>
+                <th class="py-3 px-4 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100" id="passCatalogBody">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
             <thead class="bg-slate-50 text-slate-600 font-semibold uppercase tracking-wider border-b border-slate-200">
               <tr>
                 <th class="py-3.5 px-4 w-1/4">Pass Details</th>
@@ -1254,149 +1256,101 @@
     <div id="tabContent-packages" class="space-y-6 hidden">
 
       <!-- CREATE / EDIT PACKAGE FORM -->
-      <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-6">
+      <div class="bg-white rounded-[8px] border border-[#E5E7EB] shadow-[0_4px_24px_rgba(34,48,62,0.06)] p-6 sm:p-8 space-y-6">
         
-        <div class="flex items-center justify-between pb-4 border-b border-slate-100">
-          <div>
-            <h2 class="text-base font-bold text-slate-900" id="pkgFormHeaderTitle">Create Activity Package</h2>
-            <p class="text-xs text-slate-500 mt-0.5">High-level activity card displayed on player mobile booking feed</p>
-          </div>
-          <button type="button" onclick="resetPackageForm()" class="text-xs text-blue-600 font-semibold hover:underline">
-            + Clear &amp; Add New
-          </button>
+        <div>
+          <h2 class="text-[18px] font-medium text-[#22303EE5] opacity-90 leading-tight" id="pkgFormHeaderTitle">Create Activity Package</h2>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
-          
-          <!-- LEFT FORM FIELDS (2 COLS) -->
-          <div class="lg:col-span-2 space-y-6">
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div class="swp-field-container">
-                <label class="swp-label">Package Title <span class="info-icon" title="Displayed prominently on the player app">ⓘ</span></label>
-                <input type="text" id="pkgTitleInput" value="Skiing & Snowboarding" oninput="updateMobilePreview()" class="swp-input" placeholder="e.g. Skiing & Snowboarding">
-              </div>
-
-              <div class="swp-field-container">
-                <label class="swp-label">Badge / Ribbon Text <span class="info-icon" title="Marketing ribbon tag">ⓘ</span></label>
-                <input type="text" id="pkgRibbonInput" value="For True Snow Lovers" oninput="updateMobilePreview()" class="swp-input" placeholder="e.g. For True Snow Lovers">
-              </div>
+        <div class="space-y-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="swp-field-container">
+              <label class="swp-label">Package Title * <span class="info-icon" title="Displayed prominently on the player app">ⓘ</span></label>
+              <input type="text" id="pkgTitleInput" value="Skiing & Snowboarding" class="swp-input font-medium" placeholder="e.g. Skiing & Snowboarding">
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div class="swp-field-container">
-                <label class="swp-label">Location / Hall Zone <span class="info-icon" title="Subtext location for players">ⓘ</span></label>
-                <input type="text" id="pkgLocationInput" value="Main Facility - Hall 1 & 2" oninput="updateMobilePreview()" class="swp-input">
-              </div>
-
-              <div class="swp-field-container">
-                <label class="swp-label">Primary CTA Label <span class="info-icon" title="Action button label">ⓘ</span></label>
-                <select id="pkgCtaSelect" onchange="updateMobilePreview()" class="swp-input swp-select">
-                  <option value="Book Now" selected>Book Now</option>
-                  <option value="Explore Passes">Explore Passes</option>
-                  <option value="Book Ski Session">Book Ski Session</option>
-                  <option value="View Lessons">View Lessons</option>
-                </select>
-                <span class="swp-select-arrow">▼</span>
-              </div>
+            <div class="swp-field-container">
+              <label class="swp-label">Category / Tag <span class="info-icon" title="Activity category or label">ⓘ</span></label>
+              <input type="text" id="pkgRibbonInput" value="Indoor Winter Sports" class="swp-input font-medium" placeholder="e.g. Indoor Winter Sports">
             </div>
 
-            <!-- Bullet Highlights Section -->
-            <div class="border border-slate-200 rounded-lg overflow-hidden">
-              <div class="swp-section-banner">
-                <span class="swp-section-title">Key Bullet Highlights (2 to 4)</span>
-                <button type="button" onclick="addBulletHighlight()" id="btnAddHighlight" class="text-xs font-semibold text-blue-600 hover:text-blue-700">
-                  + Add Point
-                </button>
-              </div>
-              <div class="p-4 space-y-3 bg-white" id="bulletInputsContainer">
-                <!-- Rendered dynamically -->
-              </div>
+            <div class="swp-field-container">
+              <label class="swp-label">Location / Hall Zone <span class="info-icon" title="Subtext location for players">ⓘ</span></label>
+              <input type="text" id="pkgLocationInput" value="Main Facility - Hall 1 & 2" class="swp-input font-medium">
             </div>
 
-            <!-- Capacity & Policies -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              <div class="swp-field-container">
-                <label class="swp-label">Max Footfall Capacity <span class="info-icon" title="Turnstile concurrent capacity">ⓘ</span></label>
-                <input type="number" id="pkgCapacityInput" value="250" class="swp-input">
-              </div>
-
-              <div class="swp-field-container">
-                <label class="swp-label">Booking Horizon (Days) <span class="info-icon" title="Forward reservation limit">ⓘ</span></label>
-                <input type="number" id="pkgHorizonInput" value="60" class="swp-input">
-              </div>
-
-              <div class="swp-field-container">
-                <label class="swp-label">Cancellation Policy <span class="info-icon" title="Default policy window">ⓘ</span></label>
-                <select id="pkgCancellationSelect" class="swp-input swp-select">
-                  <option value="24 Hours" selected>24 Hours Ahead</option>
-                  <option value="48 Hours">48 Hours Ahead</option>
-                  <option value="Flexible">Flexible (2 hrs)</option>
-                  <option value="Non-Refundable">Non-Refundable</option>
-                </select>
-                <span class="swp-select-arrow">▼</span>
-              </div>
+            <div class="swp-field-container">
+              <label class="swp-label">Primary CTA Label <span class="info-icon" title="Action button label">ⓘ</span></label>
+              <select id="pkgCtaSelect" class="swp-input swp-select font-medium">
+                <option value="Book Now" selected>Book Now</option>
+                <option value="Explore Passes">Explore Passes</option>
+                <option value="Book Ski Session">Book Ski Session</option>
+                <option value="View Lessons">View Lessons</option>
+              </select>
+              <span class="swp-select-arrow">▼</span>
             </div>
-
-            <!-- Auto-calc vs Manual Price -->
-            <div class="p-4 rounded-lg border border-slate-200 bg-slate-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <label class="flex items-center gap-2.5 text-xs font-semibold text-slate-800 cursor-pointer">
-                <input type="checkbox" id="autoCalcPriceToggle" checked onchange="toggleAutoCalcPrice()" class="w-4 h-4 text-blue-600 rounded border-slate-300">
-                <span>Auto-calculate "From €" price from lowest active pass</span>
-              </label>
-              <div class="flex items-center gap-2">
-                <span class="text-xs text-slate-500 font-medium">Manual Rate:</span>
-                <input type="number" step="0.5" id="manualStartingPriceInput" value="20.00" disabled class="w-24 px-2 py-1 text-xs border border-slate-300 rounded bg-slate-100 font-bold text-slate-700">
-              </div>
-            </div>
-
           </div>
 
-          <!-- RIGHT COLUMN: INTERACTIVE PREVIEW CARD (COMPACT & BALANCED) -->
-          <div class="border border-slate-200 rounded-xl overflow-hidden shadow-sm bg-white">
-            <div class="bg-slate-900 text-white text-xs font-bold px-4 py-2.5 flex items-center justify-between">
-              <span>Player Feed Preview</span>
-              <span class="text-[10px] text-emerald-400 font-medium">● Live Card</span>
+          <!-- Bullet Highlights Section -->
+          <div class="rounded-[8px] overflow-hidden border border-[#E2E8F0] shadow-[0_4px_12px_rgba(0,0,0,0.08)] bg-white">
+            <div class="bg-[#E9F3FE] px-4 py-3 flex items-center justify-between">
+              <span class="text-[16px] font-semibold text-[#1C1C1C]">Activity Highlights (2 to 4 points)</span>
+              <button type="button" onclick="addBulletHighlight()" id="btnAddHighlight" class="text-xs font-semibold text-[#007AFF] hover:underline">
+                + Add Point
+              </button>
+            </div>
+            <div class="p-6 space-y-3 bg-white" id="bulletInputsContainer">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <!-- Capacity & Policies -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div class="swp-field-container">
+              <label class="swp-label">Max Footfall Capacity <span class="info-icon" title="Turnstile concurrent capacity">ⓘ</span></label>
+              <input type="number" id="pkgCapacityInput" value="250" class="swp-input font-medium">
             </div>
 
-            <div class="relative h-40 bg-slate-100">
-              <img id="previewCoverImg" src="https://images.unsplash.com/photo-1551524559-8af4e6624178?w=800&auto=format&fit=crop&q=80" alt="Cover" class="w-full h-full object-cover">
-              <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent"></div>
-              <span id="previewRibbon" class="absolute top-2.5 left-2.5 bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow">
-                For True Snow Lovers
-              </span>
-              <div class="absolute bottom-2.5 left-3 right-3 text-white">
-                <div id="previewLocationTag" class="text-[10px] text-blue-200 font-semibold truncate">Main Facility - Hall 1 &amp; 2</div>
-                <div id="previewTitle" class="text-sm font-bold truncate">Skiing &amp; Snowboarding</div>
-              </div>
+            <div class="swp-field-container">
+              <label class="swp-label">Booking Horizon (Days) <span class="info-icon" title="Forward reservation limit">ⓘ</span></label>
+              <input type="number" id="pkgHorizonInput" value="60" class="swp-input font-medium">
             </div>
 
-            <div class="p-4 space-y-3">
-              <div class="flex items-center justify-between">
-                <span class="text-xs text-slate-500 font-medium">Starting Price</span>
-                <span id="previewPrice" class="text-sm font-bold text-blue-600">From €20.00</span>
-              </div>
+            <div class="swp-field-container">
+              <label class="swp-label">Cancellation Policy <span class="info-icon" title="Default policy window">ⓘ</span></label>
+              <select id="pkgCancellationSelect" class="swp-input swp-select font-medium">
+                <option value="24 Hours" selected>24 Hours Ahead</option>
+                <option value="48 Hours">48 Hours Ahead</option>
+                <option value="Flexible">Flexible (2 hrs)</option>
+                <option value="Non-Refundable">Non-Refundable</option>
+              </select>
+              <span class="swp-select-arrow">▼</span>
+            </div>
+          </div>
 
-              <ul id="previewBulletList" class="space-y-1.5 text-xs text-slate-600">
-                <!-- Bullets -->
-              </ul>
-
-              <div class="pt-2 border-t border-slate-100">
-                <button id="previewCtaBtn" class="w-full py-2 bg-blue-600 text-white rounded-lg text-xs font-semibold shadow-sm pointer-events-none">
-                  Book Now
-                </button>
-              </div>
+          <!-- Auto-calc vs Manual Price -->
+          <div class="p-4 rounded-[6px] border border-[#E2E8F0] bg-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <label class="swp-common-switch">
+                <input type="checkbox" id="autoCalcPriceToggle" checked onchange="toggleAutoCalcPrice()">
+                <span class="swp-common-switch-thumb"></span>
+              </label>
+              <span class="text-[14px] font-medium text-[#1C1C1C]">Auto-calculate "From €" price from lowest active pass</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-[13px] text-[#666666]">Manual Starting Rate:</span>
+              <input type="number" step="0.5" id="manualStartingPriceInput" value="20.00" disabled class="w-24 px-3 py-1.5 text-xs border border-[#CBD5E1] rounded-[4px] bg-slate-100 font-semibold text-[#1C1C1C]">
             </div>
           </div>
 
         </div>
 
         <!-- FORM ACTION BUTTONS -->
-        <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-200">
-          <button type="button" onclick="resetPackageForm()" class="px-4 py-2 text-xs font-semibold text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors">
+        <div class="flex items-center justify-end gap-3 pt-6 border-t border-slate-100">
+          <button type="button" onclick="resetPackageForm()" class="h-[38px] px-5 rounded-[6px] text-[15px] font-medium text-[#E63900] bg-[#E63900]/[0.08] hover:bg-[#E63900]/[0.12] transition-colors">
             Cancel
           </button>
-          <button type="button" onclick="saveParentPackage()" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold shadow-sm transition-all">
+          <button type="button" onclick="saveParentPackage()" class="h-[38px] px-6 rounded-[6px] text-[15px] font-medium text-white bg-[#007AFF] hover:bg-[#0069D9] transition-colors shadow-none">
             Save Package
           </button>
         </div>
@@ -1404,18 +1358,17 @@
       </div>
 
       <!-- PACKAGES CATALOG TABLE -->
-      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-        <div class="swp-section-banner">
-          <span class="swp-section-title">Configured Activity Packages</span>
-          <span class="text-xs text-slate-500 font-semibold" id="activePkgCountBadge">3 Active Packages</span>
+      <div class="rounded-[8px] border border-[#E5E7EB] bg-white shadow-none overflow-hidden">
+        <div class="bg-[#E9F3FE] px-4 py-3 flex items-center justify-between">
+          <span class="text-[16px] font-semibold text-[#1C1C1C]">Configured Activity Packages</span>
         </div>
 
         <div class="overflow-x-auto">
           <table class="w-full text-left text-xs">
-            <thead class="bg-slate-50 text-slate-500 font-semibold uppercase tracking-wider border-b border-slate-200">
+            <thead class="bg-slate-50 text-slate-600 font-semibold uppercase tracking-wider border-b border-[#E5E7EB]">
               <tr>
                 <th class="py-3 px-4">Package</th>
-                <th class="py-3 px-4">Badge / Ribbon</th>
+                <th class="py-3 px-4">Category Tag</th>
                 <th class="py-3 px-4">Mapped Passes</th>
                 <th class="py-3 px-4">Starting Price</th>
                 <th class="py-3 px-4">Capacity</th>
@@ -1443,15 +1396,15 @@
         
         <!-- Left: Search with magnifying icon -->
         <div class="relative w-full sm:w-80">
-          <input type="text" id="equipmentSearchInput" onkeyup="filterEquipmentCards()" placeholder="Search equipment..." class="w-full h-11 pl-9 pr-4 text-xs font-medium border border-slate-300 rounded-lg bg-white focus:outline-none focus:border-blue-500">
-          <svg class="w-4 h-4 text-slate-400 absolute left-3 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <input type="text" id="equipmentSearchInput" onkeyup="filterEquipmentCards()" placeholder="Search equipment..." class="w-full h-[40px] pl-9 pr-4 text-[13px] border border-[#E5E7EB] rounded-[6px] bg-white focus:outline-none focus:border-[#007AFF]">
+          <svg class="w-4 h-4 text-slate-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
         </div>
 
-        <!-- Right: Outlined Select Filters -->
-        <div class="flex items-center gap-4">
+        <!-- Right: Outlined Select Filters + Add Button -->
+        <div class="flex items-center gap-3">
           <div class="swp-field-container !mt-0 min-w-[130px]">
             <label class="swp-label">Sport</label>
-            <select id="eqFilterSport" onchange="filterEquipmentCards()" class="swp-input swp-select h-11">
+            <select id="eqFilterSport" onchange="filterEquipmentCards()" class="swp-input swp-select h-[40px]">
               <option value="All">All Sports</option>
               <option value="Skiing">Skiing</option>
               <option value="Snowboard">Snowboard</option>
@@ -1462,109 +1415,100 @@
 
           <div class="swp-field-container !mt-0 min-w-[140px]">
             <label class="swp-label">Status</label>
-            <select id="eqFilterStatus" onchange="filterEquipmentCards()" class="swp-input swp-select h-11">
+            <select id="eqFilterStatus" onchange="filterEquipmentCards()" class="swp-input swp-select h-[40px]">
               <option value="All">All Equipment</option>
               <option value="In Stock">In Stock</option>
               <option value="Low Stock">Low Stock</option>
             </select>
             <span class="swp-select-arrow">▼</span>
           </div>
+
+          <button type="button" onclick="openAddEquipmentModal()" class="h-[40px] px-4 rounded-[6px] text-[14px] font-medium text-white bg-[#007AFF] hover:bg-[#0069D9] transition-colors flex items-center gap-1.5 shrink-0">
+            <span>+ Add Equipment</span>
+          </button>
         </div>
 
       </div>
 
-      <!-- EQUIPMENT CARDS GRID (EXACT PORTAL CARD PATTERN FROM SCREENSHOT 5) -->
+      <!-- EQUIPMENT CARDS GRID (OFFICIAL CLUB PORTAL PATTERN) -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="equipmentCardsContainer">
         <!-- Rendered dynamically -->
       </div>
 
     </div>
 
-        <!-- ========================================================================= -->
+    <!-- ========================================================================= -->
     <!-- STEP 5 (TAB 5): FACILITY & SLOPES OVERVIEW (Design System Conforming)      -->
     <!-- ========================================================================= -->
     <div id="tabContent-facility_slopes" class="space-y-6 hidden">
 
-      <!-- Informational Overview Banner Card -->
-      <div class="bg-blue-50/70 border border-blue-200 rounded-xl p-4 flex items-start gap-3.5">
-        <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-base shrink-0 shadow-xs">
-          🏔️
-        </div>
-        <div class="text-xs text-blue-950 space-y-1">
-          <div class="font-bold text-sm text-blue-900">Facility &amp; Slopes Overview</div>
-          <p class="text-blue-800 leading-relaxed">
-            Indoor ski slopes operate under shared concurrent footfall capacity rather than exclusive court slots. Pass holders gain access to all terrain slopes matching their skill rating. Slopes configured here track physical capacity, lift connectivity, and operational status.
-          </p>
-        </div>
+      <!-- Informational Overview Banner -->
+      <div class="rounded-[8px] border border-[#BFDBFE] bg-[#EFF6FF] px-4 py-3 text-[13px] text-[#1E40AF] leading-relaxed">
+        <strong class="font-semibold text-[#1E3A8A]">Facility &amp; Slopes Overview:</strong> Indoor ski slopes operate under shared concurrent footfall capacity rather than exclusive court slots. Pass holders gain access to all terrain slopes matching their skill rating. Slopes configured here track physical capacity, lift connectivity, and operational status.
       </div>
 
       <!-- Quick Metrics Grid -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-xs">
-          <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Active Slopes</div>
-          <div class="text-xl font-extrabold text-slate-900 mt-1 flex items-baseline gap-1.5">
+        <div class="bg-white rounded-[8px] border border-[#E5E7EB] p-4 shadow-none">
+          <div class="text-[12px] font-medium text-[#666666]">Active Slopes</div>
+          <div class="text-[22px] font-semibold text-[#1C1C1C] mt-1 flex items-baseline gap-1.5">
             <span id="metricOpenSlopes">4 Open</span>
-            <span class="text-xs text-slate-400 font-normal">/ 5 Total</span>
+            <span class="text-[12px] text-[#888888] font-normal">/ 5 Total</span>
           </div>
-          <div class="text-[11px] text-emerald-600 font-medium mt-1">● 80% Terrain Operational</div>
+          <div class="text-[12px] text-[#10B981] font-medium mt-1">80% Terrain Operational</div>
         </div>
 
-        <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-xs">
-          <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Concurrent Capacity</div>
-          <div class="text-xl font-extrabold text-blue-600 mt-1" id="metricTotalCapacity">
+        <div class="bg-white rounded-[8px] border border-[#E5E7EB] p-4 shadow-none">
+          <div class="text-[12px] font-medium text-[#666666]">Concurrent Capacity</div>
+          <div class="text-[22px] font-semibold text-[#007AFF] mt-1" id="metricTotalCapacity">
             380 Skiers
           </div>
-          <div class="text-[11px] text-slate-500 font-medium mt-1">Turnstile Concurrent Limit</div>
+          <div class="text-[12px] text-[#888888] mt-1">Turnstile Concurrent Limit</div>
         </div>
 
-        <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-xs">
-          <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Operating Lifts</div>
-          <div class="text-xl font-extrabold text-slate-900 mt-1">
+        <div class="bg-white rounded-[8px] border border-[#E5E7EB] p-4 shadow-none">
+          <div class="text-[12px] font-medium text-[#666666]">Operating Lifts</div>
+          <div class="text-[22px] font-semibold text-[#1C1C1C] mt-1">
             4 Lifts
           </div>
-          <div class="text-[11px] text-slate-500 font-medium mt-1">1 Chairlift, 2 Carpets, 1 Tow</div>
+          <div class="text-[12px] text-[#888888] mt-1">1 Chairlift, 2 Carpets, 1 Tow</div>
         </div>
 
-        <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-xs">
-          <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Climate / Snow</div>
-          <div class="text-xl font-extrabold text-slate-900 mt-1">
+        <div class="bg-white rounded-[8px] border border-[#E5E7EB] p-4 shadow-none">
+          <div class="text-[12px] font-medium text-[#666666]">Climate / Snow</div>
+          <div class="text-[22px] font-semibold text-[#1C1C1C] mt-1">
             -2.5°C
           </div>
-          <div class="text-[11px] text-blue-600 font-medium mt-1">Dome Climate Constant</div>
+          <div class="text-[12px] text-[#007AFF] font-medium mt-1">Dome Climate Constant</div>
         </div>
       </div>
 
-      <!-- Slopes Catalog Table (Matching Portal Signature #E8F1FC Banner) -->
-      <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-        <div class="swp-section-banner">
-          <div class="flex items-center gap-2.5">
-            <div>
-              <div class="flex items-center gap-2.5">
-                <span class="swp-section-title">Physical Terrain Slopes &amp; Training Zones</span>
-                <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-blue-100 text-blue-700" id="slopesCatalogBadge">5 Slopes</span>
-              </div>
-              <p class="text-[11px] text-slate-500 mt-0.5">Live operational status, terrain specifications, and concurrent turnstile limits</p>
-            </div>
-          </div>
+      <!-- Slopes Catalog Table -->
+      <div class="rounded-[8px] border border-[#E5E7EB] bg-white shadow-none overflow-hidden">
+        <div class="bg-[#E9F3FE] px-4 py-3 flex items-center justify-between">
+          <span class="text-[16px] font-semibold text-[#1C1C1C]">Physical Terrain Slopes &amp; Training Zones</span>
           <div class="flex items-center gap-3">
             <div class="relative w-56 sm:w-64">
-              <input type="text" id="slopeSearchInput" onkeyup="filterSlopesTable()" placeholder="Search slopes..." class="w-full pl-9 pr-3 py-1.5 text-xs border border-slate-300 rounded-lg bg-white focus:outline-none focus:border-blue-500 transition-colors">
-              <svg class="w-4 h-4 text-slate-400 absolute left-2.5 top-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              <input type="text" id="slopeSearchInput" onkeyup="filterSlopesTable()" placeholder="Search slopes..." class="w-full pl-9 pr-3 h-[36px] text-[13px] border border-[#E5E7EB] rounded-[6px] bg-white focus:outline-none focus:border-[#007AFF] transition-colors">
+              <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
             </div>
+            <button type="button" onclick="openAddSlopeModal()" class="h-[36px] px-3.5 rounded-[6px] text-[13px] font-medium text-white bg-[#007AFF] hover:bg-[#0069D9] transition-colors shrink-0">
+              + Add Slope
+            </button>
           </div>
         </div>
 
         <div class="overflow-x-auto">
           <table class="w-full text-left text-xs" id="slopesCatalogTable">
-            <thead class="bg-slate-50 text-slate-600 font-semibold uppercase tracking-wider border-b border-slate-200">
+            <thead class="bg-slate-50 text-slate-600 font-semibold uppercase tracking-wider border-b border-[#E5E7EB]">
               <tr>
-                <th class="py-3.5 px-4 w-1/4">Slope / Zone Name</th>
-                <th class="py-3.5 px-4">Difficulty Rating</th>
-                <th class="py-3.5 px-4">Surface / Climate</th>
-                <th class="py-3.5 px-4">Serving Lifts</th>
-                <th class="py-3.5 px-4">Max Capacity</th>
-                <th class="py-3.5 px-4 text-center">Status</th>
-                <th class="py-3.5 px-4 text-right">Actions</th>
+                <th class="py-3 px-4 w-1/4">Slope / Zone Name</th>
+                <th class="py-3 px-4">Difficulty Rating</th>
+                <th class="py-3 px-4">Surface / Climate</th>
+                <th class="py-3 px-4">Serving Lifts</th>
+                <th class="py-3 px-4">Max Capacity</th>
+                <th class="py-3 px-4 text-center">Status</th>
+                <th class="py-3 px-4 text-right">Actions</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-slate-100" id="slopesCatalogBody">
@@ -1582,20 +1526,20 @@
   <!-- ADD / EDIT EQUIPMENT MODAL                                                -->
   <!-- ========================================================================= -->
   <div id="addEquipmentModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-xl max-w-md w-full shadow-xl border border-slate-200 overflow-hidden">
-      <div class="swp-section-banner">
-        <span class="swp-section-title" id="eqModalTitle">Add Equipment Item</span>
-        <button onclick="closeEquipmentModal()" class="text-slate-400 hover:text-slate-700 font-bold text-sm">✕</button>
+    <div class="bg-white rounded-[12px] max-w-md w-full shadow-xl border border-[#E5E7EB] overflow-hidden">
+      <div class="bg-[#E9F3FE] px-5 py-3.5 flex items-center justify-between">
+        <span class="text-[16px] font-semibold text-[#1C1C1C]" id="eqModalTitle">Add Equipment Item</span>
+        <button onclick="closeEquipmentModal()" class="text-slate-400 hover:text-slate-700 font-bold text-base">✕</button>
       </div>
 
-      <div class="p-6 space-y-5">
-        <div class="swp-field-container">
-          <label class="swp-label">Equipment Name <span class="info-icon">ⓘ</span></label>
+      <div class="p-6 space-y-4">
+        <div class="swp-field-container !mt-0">
+          <label class="swp-label">Equipment Name</label>
           <input type="text" id="eqInputTitle" placeholder="e.g. Carving Skis & Poles" class="swp-input">
         </div>
 
         <div class="grid grid-cols-2 gap-4">
-          <div class="swp-field-container">
+          <div class="swp-field-container !mt-0">
             <label class="swp-label">Sport Category</label>
             <select id="eqInputSport" class="swp-input swp-select">
               <option value="Skiing">Skiing</option>
@@ -1605,7 +1549,7 @@
             <span class="swp-select-arrow">▼</span>
           </div>
 
-          <div class="swp-field-container">
+          <div class="swp-field-container !mt-0">
             <label class="swp-label">Listing Type</label>
             <select id="eqInputType" class="swp-input swp-select">
               <option value="RENT">RENT</option>
@@ -1616,100 +1560,100 @@
         </div>
 
         <div class="grid grid-cols-2 gap-4">
-          <div class="swp-field-container">
+          <div class="swp-field-container !mt-0">
             <label class="swp-label">Quantity</label>
             <input type="number" id="eqInputQuantity" value="10" class="swp-input">
           </div>
 
-          <div class="swp-field-container">
+          <div class="swp-field-container !mt-0">
             <label class="swp-label">Price (€)</label>
             <input type="number" step="0.25" id="eqInputPrice" value="15.00" class="swp-input">
           </div>
         </div>
 
-        <div class="swp-field-container">
+        <div class="swp-field-container !mt-0">
           <label class="swp-label">Stock Status Note</label>
           <input type="text" id="eqInputStockText" value="< 3 left" placeholder="e.g. < 3 left" class="swp-input">
         </div>
       </div>
 
-      <div class="p-4 border-t border-slate-100 flex items-center justify-end gap-3 bg-slate-50">
-        <button type="button" onclick="closeEquipmentModal()" class="px-4 py-2 text-xs font-semibold text-red-600 hover:text-red-700">
+      <div class="p-4 border-t border-[#E5E7EB] flex items-center justify-end gap-3 bg-white">
+        <button type="button" onclick="closeEquipmentModal()" class="h-[38px] px-5 rounded-[6px] text-[15px] font-medium text-[#E63900] bg-[#E63900]/[0.08] hover:bg-[#E63900]/[0.12] transition-colors">
           Cancel
         </button>
-        <button type="button" onclick="saveEquipmentItem()" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold shadow-sm">
+        <button type="button" onclick="saveEquipmentItem()" class="h-[38px] px-6 rounded-[6px] text-[15px] font-medium text-white bg-[#007AFF] hover:bg-[#0069D9] transition-colors shadow-none">
           Save Equipment
         </button>
       </div>
     </div>
   </div>
 
-    <!-- ADD / EDIT SLOPE ZONE MODAL -->
+  <!-- ADD / EDIT SLOPE ZONE MODAL -->
   <div id="addSlopeModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-xl max-w-lg w-full shadow-2xl border border-slate-200 overflow-hidden animate-in fade-in zoom-in duration-150">
-      <div class="swp-section-banner">
-        <span class="swp-section-title" id="slopeModalTitle">Add Slope Zone</span>
-        <button onclick="closeSlopeModal()" class="text-slate-400 hover:text-slate-700 font-bold text-sm p-1">✕</button>
+    <div class="bg-white rounded-[12px] max-w-lg w-full shadow-2xl border border-[#E5E7EB] overflow-hidden">
+      <div class="bg-[#E9F3FE] px-5 py-3.5 flex items-center justify-between">
+        <span class="text-[16px] font-semibold text-[#1C1C1C]" id="slopeModalTitle">Add Slope Zone</span>
+        <button onclick="closeSlopeModal()" class="text-slate-400 hover:text-slate-700 font-bold text-base">✕</button>
       </div>
 
       <div class="p-6 space-y-4">
-        <div class="swp-field-container">
-          <label class="swp-label">Slope / Terrain Name <span class="info-icon" title="Displayed to players and staff">ⓘ</span></label>
+        <div class="swp-field-container !mt-0">
+          <label class="swp-label">Slope / Terrain Name</label>
           <input type="text" id="slopeInputName" placeholder="e.g. Main Slope (Piste 1)" class="swp-input">
         </div>
 
-        <div class="swp-field-container">
-          <label class="swp-label">Description / Terrain Notes <span class="info-icon" title="Slope dimensions, incline, snow depth">ⓘ</span></label>
+        <div class="swp-field-container !mt-0">
+          <label class="swp-label">Description / Terrain Notes</label>
           <input type="text" id="slopeInputDesc" placeholder="e.g. Primary 380m indoor slope with automated snowmaking" class="swp-input">
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="swp-field-container">
+          <div class="swp-field-container !mt-0">
             <label class="swp-label">Difficulty Rating</label>
             <select id="slopeInputDifficulty" class="swp-input swp-select">
-              <option value="Beginner">Beginner (Green Circle)</option>
-              <option value="Intermediate" selected>Intermediate (Blue Square)</option>
-              <option value="Advanced">Advanced (Black Diamond)</option>
-              <option value="Expert">Expert (Double Black Diamond)</option>
-              <option value="All Levels">All Levels (Tubing / Fun)</option>
+              <option value="Beginner">Beginner</option>
+              <option value="Intermediate" selected>Intermediate</option>
+              <option value="Advanced">Advanced</option>
+              <option value="Expert">Expert</option>
+              <option value="All Levels">All Levels</option>
             </select>
             <span class="swp-select-arrow">▼</span>
           </div>
 
-          <div class="swp-field-container">
+          <div class="swp-field-container !mt-0">
             <label class="swp-label">Max Concurrent Capacity (Skiers)</label>
             <input type="number" id="slopeInputCapacity" value="100" class="swp-input">
           </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="swp-field-container">
+          <div class="swp-field-container !mt-0">
             <label class="swp-label">Surface / Snow Condition</label>
             <input type="text" id="slopeInputSurface" value="Real Powder Snow (-2.5°C)" class="swp-input">
           </div>
 
-          <div class="swp-field-container">
+          <div class="swp-field-container !mt-0">
             <label class="swp-label">Operational Status</label>
             <select id="slopeInputStatus" class="swp-input swp-select">
-              <option value="Open" selected>Open (Active)</option>
-              <option value="Maintenance">Maintenance (Grooming)</option>
+              <option value="Open" selected>Open</option>
+              <option value="Maintenance">Maintenance</option>
               <option value="Closed">Closed</option>
             </select>
             <span class="swp-select-arrow">▼</span>
           </div>
         </div>
 
-        <div class="swp-field-container">
+        <div class="swp-field-container !mt-0">
           <label class="swp-label">Serving Lifts / Conveyors (Comma separated)</label>
           <input type="text" id="slopeInputLifts" value="4-Seater Chairlift A, Magic Carpet 1" class="swp-input">
         </div>
       </div>
 
-      <div class="p-4 border-t border-slate-100 flex items-center justify-end gap-3 bg-slate-50">
-        <button type="button" onclick="closeSlopeModal()" class="px-4 py-2 text-xs font-semibold text-red-600 hover:text-red-700">
+      <div class="p-4 border-t border-[#E5E7EB] flex items-center justify-end gap-3 bg-white">
+        <button type="button" onclick="closeSlopeModal()" class="h-[38px] px-5 rounded-[6px] text-[15px] font-medium text-[#E63900] bg-[#E63900]/[0.08] hover:bg-[#E63900]/[0.12] transition-colors">
           Cancel
         </button>
-        <button type="button" onclick="saveSlopeZone()" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold shadow-xs">
+        <button type="button" onclick="saveSlopeZone()" class="h-[38px] px-6 rounded-[6px] text-[15px] font-medium text-white bg-[#007AFF] hover:bg-[#0069D9] transition-colors shadow-none">
           Save Slope Zone
         </button>
       </div>
@@ -1895,7 +1839,7 @@
         quantity: 10,
         price: 15.00,
         status: 'In Stock',
-        img: 'https://images.unsplash.com/photo-1516742502758-5a7ec8f8fa3b?w=500&auto=format&fit=crop&q=80'
+        img: 'https://images.unsplash.com/photo-1482867996988-29ec3a0f1aac?w=500&auto=format&fit=crop&q=80'
       },
       {
         id: 'eq-3',
@@ -1917,7 +1861,7 @@
         quantity: 12,
         price: 18.00,
         status: 'In Stock',
-        img: 'https://images.unsplash.com/photo-1522056615691-da7b8106829f?w=500&auto=format&fit=crop&q=80'
+        img: 'https://images.unsplash.com/photo-1565992441121-4367c2967103?w=500&auto=format&fit=crop&q=80'
       },
       {
         id: 'eq-5',
@@ -1935,6 +1879,7 @@
 
 
     let selectedPassDurations = new Set([1]);
+    let extensionPricingMap = { 1: 15.00, 2: 25.00, 3: 35.00, 4: 45.00, 8: 70.00 };
     let formBulletHighlights = [
       'Unlimited access to all 4 open slopes suited to skill level',
       'High-speed chairlift & conveyor magic carpets included',
@@ -1999,16 +1944,7 @@
     let editingSlopeId = null;
 
     function getDifficultyBadge(diff) {
-      if (diff === 'Beginner') {
-        return `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Beginner</span>`;
-      } else if (diff === 'Intermediate') {
-        return `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700 border border-blue-200"><span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>Intermediate</span>`;
-      } else if (diff === 'Advanced') {
-        return `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700 border border-indigo-200"><span class="w-1.5 h-1.5 rounded-full bg-indigo-600"></span>Advanced</span>`;
-      } else if (diff === 'Expert') {
-        return `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-rose-50 text-rose-700 border border-rose-200"><span class="w-1.5 h-1.5 rounded-full bg-rose-600"></span>Expert</span>`;
-      }
-      return `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200"><span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>All Levels</span>`;
+      return `<span class="inline-block px-2.5 py-0.5 rounded text-[11px] font-medium bg-[#F1F5F9] text-[#334155] border border-[#E2E8F0]">${diff}</span>`;
     }
 
     function renderSlopesTable() {
@@ -2024,55 +1960,51 @@
         if (slope.status === 'Open') openCount++;
 
         const tr = document.createElement('tr');
-        tr.className = 'hover:bg-slate-50 transition-colors';
+        tr.className = 'hover:bg-slate-50/80 transition-colors';
 
         const isOpen = slope.status === 'Open';
         const statusHtml = `
           <div class="flex items-center justify-center gap-2">
-            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold ${isOpen ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-amber-50 text-amber-700 border border-amber-200'}">
+            <span class="px-2.5 py-1 rounded-[4px] text-[12px] font-medium ${isOpen ? 'bg-[#E8F8F0] text-[#10B981]' : 'bg-[#FEF3C7] text-[#D97706]'}">
               ${slope.status}
             </span>
-            <label class="swp-switch">
+            <label class="swp-common-switch">
               <input type="checkbox" ${isOpen ? 'checked' : ''} onchange="toggleSlopeStatus('${slope.id}')">
-              <span class="swp-slider"></span>
+              <span class="swp-common-slider"></span>
             </label>
           </div>
         `;
 
         const actionsHtml = `
-          <div class="flex items-center justify-end gap-1.5">
-            <button type="button" onclick="editSlope('${slope.id}')" class="px-2.5 py-1 text-xs font-semibold text-blue-600 hover:text-blue-800 hover:bg-blue-50 border border-blue-200 rounded-md transition-colors shadow-2xs">
-              Edit
-            </button>
-            <button type="button" onclick="deleteSlope('${slope.id}')" class="px-2.5 py-1 text-xs font-semibold text-red-600 hover:text-red-800 hover:bg-red-50 border border-red-200 rounded-md transition-colors shadow-2xs">
-              Delete
-            </button>
+          <div class="flex items-center justify-end">
+            <button type="button" onclick="editSlope('${slope.id}')" class="text-[13px] font-medium text-[#007AFF] hover:underline mr-3">Edit</button>
+            <button type="button" onclick="deleteSlope('${slope.id}')" class="text-[13px] font-medium text-[#E63900] hover:underline">Delete</button>
           </div>
         `;
 
         tr.innerHTML = `
-          <td class="py-3.5 px-4">
-            <div class="font-bold text-slate-900 text-xs">${slope.name}</div>
-            <div class="text-[11px] text-slate-500 max-w-xs mt-0.5 leading-snug">${slope.desc || ''}</div>
+          <td class="py-3 px-4">
+            <div class="font-semibold text-[#1C1C1C] text-[13px]">${slope.name}</div>
+            <div class="text-[11px] text-[#888888] max-w-xs mt-0.5 leading-snug">${slope.desc || ''}</div>
           </td>
-          <td class="py-3.5 px-4 whitespace-nowrap">
+          <td class="py-3 px-4 whitespace-nowrap">
             ${getDifficultyBadge(slope.difficulty)}
           </td>
-          <td class="py-3.5 px-4 text-xs">
-            <div class="font-medium text-slate-800">${slope.surface}</div>
+          <td class="py-3 px-4 text-xs">
+            <div class="text-[13px] text-[#334155]">${slope.surface}</div>
           </td>
-          <td class="py-3.5 px-4">
-            <div class="flex flex-wrap gap-1.5">
-              ${slope.lifts.map(l => `<span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-medium bg-slate-100 text-slate-700 border border-slate-200">${l}</span>`).join('')}
+          <td class="py-3 px-4">
+            <div class="flex flex-wrap gap-1">
+              ${slope.lifts.map(l => `<span class="inline-block px-2 py-0.5 rounded text-[11px] font-medium bg-[#F8FAFC] text-[#475569] border border-[#E2E8F0]">${l}</span>`).join('')}
             </div>
           </td>
-          <td class="py-3.5 px-4 whitespace-nowrap">
-            <div class="text-xs font-semibold text-slate-900">${slope.capacity} <span class="text-slate-500 font-normal text-[11px]">skiers</span></div>
+          <td class="py-3 px-4 whitespace-nowrap">
+            <div class="text-[13px] font-semibold text-[#1C1C1C]">${slope.capacity} <span class="text-[#888888] font-normal text-[11px]">skiers</span></div>
           </td>
-          <td class="py-3.5 px-4 text-center">
+          <td class="py-3 px-4 text-center">
             ${statusHtml}
           </td>
-          <td class="py-3.5 px-4 text-right">
+          <td class="py-3 px-4 text-right">
             ${actionsHtml}
           </td>
         `;
@@ -2346,47 +2278,60 @@
     }
 
     function updateMobilePreview() {
-      const title = document.getElementById('pkgTitleInput').value.trim() || 'Untitled Package';
-      const ribbon = document.getElementById('pkgRibbonInput').value.trim();
-      const location = document.getElementById('pkgLocationInput').value.trim() || 'Main Facility';
-      const cta = document.getElementById('pkgCtaSelect').value;
+      const isAuto = document.getElementById('autoCalcPriceToggle')?.checked;
+      const title = document.getElementById('pkgTitleInput')?.value.trim() || 'Untitled Package';
+      if (isAuto) {
+        let startingPrice = 20.00;
+        const mappedPasses = passes.filter(p => p.assignedPackages && p.assignedPackages.includes(title));
+        if (mappedPasses.length > 0) {
+          startingPrice = Math.min(...mappedPasses.map(p => (p.pricing && p.pricing.regNonMember) || 20));
+        }
+        const manualInput = document.getElementById('manualStartingPriceInput');
+        if (manualInput) manualInput.value = startingPrice.toFixed(2);
+      }
 
-      document.getElementById('previewTitle').textContent = title;
-      document.getElementById('previewLocationTag').textContent = location;
+      const previewTitle = document.getElementById('previewTitle');
+      if (!previewTitle) return;
+
+      const ribbon = document.getElementById('pkgRibbonInput')?.value.trim();
+      const location = document.getElementById('pkgLocationInput')?.value.trim() || 'Main Facility';
+      const cta = document.getElementById('pkgCtaSelect')?.value || 'Book Pass';
+
+      previewTitle.textContent = title;
+      const previewLoc = document.getElementById('previewLocationTag');
+      if (previewLoc) previewLoc.textContent = location;
 
       const ribbonEl = document.getElementById('previewRibbon');
-      if (ribbon) {
-        ribbonEl.textContent = ribbon;
-        ribbonEl.style.display = 'block';
-      } else {
-        ribbonEl.style.display = 'none';
+      if (ribbonEl) {
+        if (ribbon) {
+          ribbonEl.textContent = ribbon;
+          ribbonEl.style.display = 'block';
+        } else {
+          ribbonEl.style.display = 'none';
+        }
       }
 
-      let startingPrice = 20.00;
-      const isAuto = document.getElementById('autoCalcPriceToggle').checked;
-      if (isAuto) {
-        const mappedPasses = passes.filter(p => p.assignedPackages.includes(title));
-        if (mappedPasses.length > 0) {
-          startingPrice = Math.min(...mappedPasses.map(p => p.pricing.regNonMember));
-        }
-        document.getElementById('manualStartingPriceInput').value = startingPrice.toFixed(2);
-      } else {
-        startingPrice = parseFloat(document.getElementById('manualStartingPriceInput').value) || 0.00;
+      const previewPrice = document.getElementById('previewPrice');
+      if (previewPrice) {
+        const val = parseFloat(document.getElementById('manualStartingPriceInput')?.value) || 20.00;
+        previewPrice.textContent = `From €${val.toFixed(2)}`;
       }
-      document.getElementById('previewPrice').textContent = `From €${startingPrice.toFixed(2)}`;
 
       const bulletList = document.getElementById('previewBulletList');
-      bulletList.innerHTML = '';
-      formBulletHighlights.forEach(b => {
-        if (b.trim()) {
-          const li = document.createElement('li');
-          li.className = 'flex items-start gap-1.5';
-          li.innerHTML = `<span class="text-blue-600 font-bold shrink-0">✓</span><span>${b.trim()}</span>`;
-          bulletList.appendChild(li);
-        }
-      });
+      if (bulletList) {
+        bulletList.innerHTML = '';
+        formBulletHighlights.forEach(b => {
+          if (b.trim()) {
+            const li = document.createElement('li');
+            li.className = 'flex items-start gap-1.5';
+            li.innerHTML = `<span class="text-blue-600 font-bold shrink-0">✓</span><span>${b.trim()}</span>`;
+            bulletList.appendChild(li);
+          }
+        });
+      }
 
-      document.getElementById('previewCtaBtn').textContent = cta;
+      const previewCta = document.getElementById('previewCtaBtn');
+      if (previewCta) previewCta.textContent = cta;
     }
 
     function saveParentPackage() {
@@ -2436,45 +2381,46 @@
         const mappedPasses = passes.filter(p => p.assignedPackages.includes(pkg.title));
 
         const tr = document.createElement('tr');
-        tr.className = 'hover:bg-slate-50 transition-colors';
+        tr.className = 'hover:bg-slate-50/80 transition-colors';
         tr.innerHTML = `
           <td class="py-3 px-4">
             <div class="flex items-center gap-3">
-              <img src="${pkg.image}" class="w-9 h-9 rounded-lg object-cover border border-slate-200" alt="${pkg.title}">
+              <img src="${pkg.image}" class="w-9 h-9 rounded-[6px] object-cover border border-[#E5E7EB]" alt="${pkg.title}">
               <div>
-                <div class="font-bold text-slate-900">${pkg.title}</div>
-                <div class="text-[10px] text-slate-400">${pkg.location}</div>
+                <div class="font-semibold text-[#1C1C1C] text-[13px]">${pkg.title}</div>
+                <div class="text-[11px] text-[#888888]">${pkg.location}</div>
               </div>
             </div>
           </td>
           <td class="py-3 px-4">
-            ${pkg.ribbon ? `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-blue-50 text-blue-700">${pkg.ribbon}</span>` : '<span class="text-slate-400">—</span>'}
+            ${pkg.ribbon ? `<span class="px-2 py-0.5 rounded text-[11px] font-medium bg-[#F1F5F9] text-[#475569] border border-[#E2E8F0]">${pkg.ribbon}</span>` : '<span class="text-[#888888]">—</span>'}
           </td>
-          <td class="py-3 px-4 font-medium text-slate-700">
+          <td class="py-3 px-4 text-[13px] font-medium text-[#334155]">
             ${mappedPasses.length} Active Pass(es)
           </td>
-          <td class="py-3 px-4 font-bold text-blue-600">
+          <td class="py-3 px-4 text-[13px] font-semibold text-[#1C1C1C]">
             From €${pkg.startingPrice.toFixed(2)}
           </td>
-          <td class="py-3 px-4 font-semibold text-slate-700">
+          <td class="py-3 px-4 text-[13px] text-[#334155]">
             ${pkg.capacity} /hr
           </td>
-          <td class="py-3 px-4 text-slate-600">
+          <td class="py-3 px-4 text-[13px] text-[#334155]">
             ${pkg.horizon} Days
           </td>
           <td class="py-3 px-4 text-center">
-            <span class="px-2 py-0.5 rounded text-[11px] font-semibold ${pkg.status === 'Active' ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-100 text-slate-600'}">
+            <span class="px-2.5 py-1 rounded-[4px] text-[12px] font-medium ${pkg.status === 'Active' ? 'bg-[#E8F8F0] text-[#10B981]' : 'bg-[#F1F5F9] text-[#64748B]'}">
               ${pkg.status}
             </span>
           </td>
           <td class="py-3 px-4 text-right">
-            <button onclick="editPackage('${pkg.id}')" class="text-blue-600 font-semibold hover:underline">Edit</button>
+            <button onclick="editPackage('${pkg.id}')" class="text-[13px] font-medium text-[#007AFF] hover:underline">Edit</button>
           </td>
         `;
         tbody.appendChild(tr);
       });
 
-      document.getElementById('activePkgCountBadge').textContent = `${activeCount} Active Packages`;
+      const activeBadge = document.getElementById('activePkgCountBadge');
+      if (activeBadge) activeBadge.textContent = `${activeCount} Active Packages`;
     }
 
     function editPackage(pkgId) {
@@ -2543,12 +2489,10 @@
           return;
         }
         selectedPassDurations.delete(hours);
-        btn.classList.remove('bg-blue-600', 'text-white', 'border-blue-600', 'shadow-sm');
-        btn.classList.add('border-slate-200', 'bg-white', 'text-slate-700');
+        btn.classList.remove('active');
       } else {
         selectedPassDurations.add(hours);
-        btn.classList.add('bg-blue-600', 'text-white', 'border-blue-600', 'shadow-sm');
-        btn.classList.remove('border-slate-200', 'bg-white', 'text-slate-700');
+        btn.classList.add('active');
       }
       updateDurationSummary();
       renderPricingBreakdownTables();
@@ -2586,7 +2530,7 @@
           tr.className = 'hover:bg-slate-50 transition-colors';
           tr.innerHTML = `
             <td class="py-2.5 px-4 font-semibold text-slate-800">
-              <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+              <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-100 text-slate-800 border border-slate-200">
                 ${getDurationLabel(h)}
               </span>
             </td>
@@ -2621,7 +2565,7 @@
           tr.className = 'hover:bg-slate-50 transition-colors';
           tr.innerHTML = `
             <td class="py-2.5 px-4 font-semibold text-slate-800">
-              <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200">
+              <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-100 text-slate-800 border border-slate-200">
                 ${getDurationLabel(h)}
               </span>
             </td>
@@ -2656,7 +2600,7 @@
           tr.className = 'hover:bg-slate-50 transition-colors';
           tr.innerHTML = `
             <td class="py-2.5 px-4 font-semibold text-slate-800">
-              <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-purple-50 text-purple-800 border border-purple-200">
+              <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold bg-slate-100 text-slate-800 border border-slate-200">
                 ${getDurationLabel(h)}
               </span>
             </td>
@@ -2680,6 +2624,65 @@
           eventBody.appendChild(tr);
         });
       }
+
+      // 4. Session Extension Charges Table
+      renderSessionExtensionPricingTable(sortedDurations);
+    }
+
+    function updateExtensionPrice(hours, val) {
+      if (!extensionPricingMap) extensionPricingMap = {};
+      extensionPricingMap[hours] = parseFloat(val) || 0.0;
+    }
+
+    function renderSessionExtensionPricingTable(sortedDurations) {
+      const extBody = document.getElementById('sessionExtensionPricingTableBody');
+      const syncBadge = document.getElementById('extensionSyncBadge');
+      if (!extBody) return;
+      extBody.innerHTML = '';
+
+      if (syncBadge) {
+        syncBadge.textContent = `${sortedDurations.length} Duration${sortedDurations.length > 1 ? 's' : ''} Synced`;
+      }
+
+      if (sortedDurations.length === 0) {
+        extBody.innerHTML = `<tr><td colspan="3" class="py-4 text-center text-xs text-slate-400">No pass durations selected above. Select pass durations to configure extension pricing.</td></tr>`;
+        return;
+      }
+
+      sortedDurations.forEach(h => {
+        const defaultRate = h === 8 ? 70.00 : (h * 15.00 - (h > 1 ? (h - 1) * 3.00 : 0));
+        const price = extensionPricingMap[h] !== undefined ? extensionPricingMap[h] : defaultRate;
+        extensionPricingMap[h] = price;
+
+        const durationText = h === 8 ? 'Full Day' : `${h} Hour${h > 1 ? 's' : ''}`;
+        const label = `${durationText} Extension`;
+        const pillTag = h === 8 ? 'Full Day' : `+${h}h`;
+
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-50 transition-colors';
+        tr.innerHTML = `
+          <td class="py-3 px-4 font-semibold text-slate-800">
+            <div class="flex items-center gap-2.5">
+              <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-slate-100 text-slate-700 border border-slate-200">
+                ${pillTag}
+              </span>
+              <span class="text-xs font-semibold text-slate-900">${label}</span>
+            </div>
+          </td>
+          <td class="py-3 px-4">
+            <div class="relative max-w-[180px]">
+              <span class="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-500">€</span>
+              <input type="number" step="0.5" min="0" id="ext_price_${h}" value="${price.toFixed(2)}" 
+                     oninput="updateExtensionPrice(${h}, this.value)" 
+                     class="swp-input pl-7 font-semibold text-slate-900 text-xs" placeholder="0.00">
+            </div>
+          </td>
+          <td class="py-3 px-4 text-slate-500 hidden sm:table-cell text-[11px]">
+            Player can purchase +${durationText} in-app extension before session expiry
+          </td>
+        `;
+        extBody.appendChild(tr);
+      });
     }
 
     function toggleExtraTimeSection(enabled) {
@@ -2698,49 +2701,15 @@
       const gracePeriod = parseInt(document.getElementById('extraTimeGracePeriod')?.value);
       const grace = isNaN(gracePeriod) ? 15 : Math.max(0, gracePeriod);
       const interval = parseInt(document.getElementById('extraTimeInterval')?.value) || 30;
-      const memRate = parseFloat(document.getElementById('extraTimeMemberRate')?.value) || 0;
-      const nonMemRate = parseFloat(document.getElementById('extraTimeNonMemberRate')?.value) || 0;
+      const charge = parseFloat(document.getElementById('extraTimeMemberRate')?.value) || 0;
 
-      const graceEndEl = document.getElementById('simGraceEnd');
-      const graceDurEl = document.getElementById('simGraceDuration');
-      const overstayEl = document.getElementById('simOverstayMinutes');
-      const costEl = document.getElementById('simCostSummary');
-
-      if (!enabled) {
-        if (graceEndEl) graceEndEl.textContent = 'Policy Disabled';
-        if (graceDurEl) graceDurEl.textContent = '(No extra charges)';
-        if (overstayEl) overstayEl.textContent = 'Overtime turned off';
-        if (costEl) costEl.textContent = 'Mem: €0.00 / Non-Mem: €0.00';
-        return;
-      }
-
-      // Slot assumption: 10:00 - 11:00
-      let totalMins = 60 + grace;
-      let endHour = 10 + Math.floor(totalMins / 60);
-      let endMin = totalMins % 60;
-      const endHourStr = String(endHour).padStart(2, '0');
-      const endMinStr = String(endMin).padStart(2, '0');
-
-      if (graceEndEl) graceEndEl.textContent = `Until ${endHourStr}:${endMinStr}`;
-      if (graceDurEl) graceDurEl.textContent = `(+${grace} min free grace)`;
-
-      // Simulated exit scan at 11:35 (i.e. 35 mins after slot end 11:00)
-      const exitMinutesPastSlot = 35;
-      const overstayMinutes = Math.max(0, exitMinutesPastSlot - grace);
-      const blocksCharged = overstayMinutes > 0 ? Math.ceil(overstayMinutes / interval) : 0;
-
-      if (overstayEl) {
-        if (overstayMinutes > 0) {
-          overstayEl.textContent = `${overstayMinutes} min overtime (${blocksCharged} block${blocksCharged > 1 ? 's' : ''})`;
+      const summaryNotice = document.getElementById('extraTimeSummaryNotice');
+      if (summaryNotice) {
+        if (!enabled) {
+          summaryNotice.textContent = 'Policy Disabled. No overtime charges apply.';
         } else {
-          overstayEl.textContent = `Within grace (0 block)`;
+          summaryNotice.textContent = `First ${grace} mins free (no charge). Beyond grace period: charged €${charge.toFixed(2)} per ${interval} mins.`;
         }
-      }
-
-      if (costEl) {
-        const memCost = (blocksCharged * memRate).toFixed(2);
-        const nonMemCost = (blocksCharged * nonMemRate).toFixed(2);
-        costEl.textContent = `Mem: €${memCost} / Non-Mem: €${nonMemCost}`;
       }
     }
 
@@ -2803,9 +2772,14 @@
       const extraTimeGrace = parseInt(document.getElementById('extraTimeGracePeriod')?.value) || 15;
       const extraTimeInterval = parseInt(document.getElementById('extraTimeInterval')?.value) || 30;
       const extraTimeMemRate = parseFloat(document.getElementById('extraTimeMemberRate')?.value) || 5.00;
-      const extraTimeNonMemRate = parseFloat(document.getElementById('extraTimeNonMemberRate')?.value) || 7.50;
+      const extraTimeNonMemRate = parseFloat(document.getElementById('extraTimeNonMemberRate')?.value) || extraTimeMemRate;
       const extraTimeAppExt = document.getElementById('extraTimeAppExtensionToggle')?.checked ?? true;
       const extraTimeTurnstile = document.getElementById('extraTimeTurnstileChargeToggle')?.checked ?? true;
+
+      const extensionPricing = {};
+      durations.forEach(h => {
+        extensionPricing[h] = extensionPricingMap[h] !== undefined ? extensionPricingMap[h] : (h * 15.00);
+      });
 
       const overtimePolicy = {
         enabled: extraTimeEnabled,
@@ -2813,6 +2787,7 @@
         interval: extraTimeInterval,
         memberRate: extraTimeMemRate,
         nonMemberRate: extraTimeNonMemRate,
+        extensionPricing: extensionPricing,
         allowAppExtension: extraTimeAppExt,
         autoTurnstileCharge: extraTimeTurnstile
       };
@@ -2871,41 +2846,34 @@
         tr.className = 'hover:bg-slate-50/80 transition-colors';
 
         // 1. Pass Details: Name, capacity, age, and clean inclusions
+        const incs = ['Slope Access'];
+        if (pass.equipmentRental) incs.push('Gear Rental');
+        if (pass.lessonBundled) incs.push('Lesson Bundled');
+
         const passDetailsHtml = `
-          <div class="font-bold text-slate-900 text-sm">${pass.name}</div>
-          <div class="flex items-center gap-2 mt-1 text-[11px] text-slate-500">
-            <span class="inline-flex items-center gap-1 font-medium">
-              <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-              ${pass.maxCapacity || 150} max
-            </span>
-            <span class="text-slate-300">•</span>
-            <span class="font-medium">Ages ${pass.minAge || 18}–${pass.maxAge || 65}</span>
-          </div>
-          <div class="flex items-center gap-1.5 mt-1.5 flex-wrap">
-            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-50 text-blue-700 border border-blue-200">Slope Access</span>
-            ${pass.equipmentRental ? '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">Gear Rental</span>' : ''}
-            ${pass.lessonBundled ? '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-indigo-50 text-indigo-700 border border-indigo-200">Lesson Bundled</span>' : ''}
-          </div>
+          <div class="font-semibold text-[#1C1C1C] text-[13px]">${pass.name}</div>
+          <div class="text-[12px] text-[#666666] mt-0.5">Capacity: ${pass.maxCapacity || 150} • Ages: ${pass.minAge || 18}–${pass.maxAge || 65}</div>
+          <div class="text-[11px] text-[#888888] mt-1">Includes: ${incs.join(', ')}</div>
         `;
 
         // 2. Duration pills
         const durationHtml = `
           <div class="flex flex-wrap gap-1">
-            ${pass.durations.map(d => `<span class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-semibold bg-slate-100 text-slate-800 border border-slate-200">${d === 8 ? 'Full Day' : d + 'h'}</span>`).join('')}
+            ${pass.durations.map(d => `<span class="inline-block px-2 py-0.5 rounded text-[11px] font-medium bg-[#F1F5F9] text-[#334155] border border-[#E2E8F0]">${d === 8 ? 'Full Day' : d + 'h'}</span>`).join('')}
           </div>
         `;
 
         // 3. Base Rates: Member (€) / Non-Member (€)
         const baseRatesHtml = `
-          <div class="space-y-1 font-mono text-xs">
+          <div class="space-y-1 text-xs">
             ${pass.durations.map(d => {
               const p = pass.pricingByDuration?.[d];
               const mem = p ? p.regMember.toFixed(2) : (pass.pricing?.regMember || 20).toFixed(2);
               const non = p ? p.regNonMember.toFixed(2) : (pass.pricing?.regNonMember || 28).toFixed(2);
               return `
                 <div class="flex items-center justify-between gap-3">
-                  <span class="text-slate-500 font-sans text-[11px] font-semibold">${d === 8 ? 'FD' : d + 'h'}:</span>
-                  <span><strong class="text-blue-600 font-bold">€${mem}</strong> <span class="text-slate-300 font-normal">/</span> <span class="text-slate-700">€${non}</span></span>
+                  <span class="text-[#888888] text-[11px]">${d === 8 ? 'FD' : d + 'h'}:</span>
+                  <span><strong class="text-[#1C1C1C] font-semibold">€${mem}</strong> <span class="text-slate-300">/</span> <span class="text-[#666666]">€${non}</span></span>
                 </div>
               `;
             }).join('')}
@@ -2914,15 +2882,15 @@
 
         // 4. Weekend Rates: Member (€) / Non-Member (€)
         const wkndRatesHtml = `
-          <div class="space-y-1 font-mono text-xs">
+          <div class="space-y-1 text-xs">
             ${pass.durations.map(d => {
               const p = pass.pricingByDuration?.[d];
               const mem = p ? p.wkndMember.toFixed(2) : (pass.pricing?.wkndMember || 25).toFixed(2);
               const non = p ? p.wkndNonMember.toFixed(2) : (pass.pricing?.wkndNonMember || 34).toFixed(2);
               return `
                 <div class="flex items-center justify-between gap-3">
-                  <span class="text-slate-500 font-sans text-[11px] font-semibold">${d === 8 ? 'FD' : d + 'h'}:</span>
-                  <span><strong class="text-amber-700 font-bold">€${mem}</strong> <span class="text-slate-300 font-normal">/</span> <span class="text-slate-700">€${non}</span></span>
+                  <span class="text-[#888888] text-[11px]">${d === 8 ? 'FD' : d + 'h'}:</span>
+                  <span><strong class="text-[#1C1C1C] font-semibold">€${mem}</strong> <span class="text-slate-300">/</span> <span class="text-[#666666]">€${non}</span></span>
                 </div>
               `;
             }).join('')}
@@ -2932,26 +2900,23 @@
         // 5. Peak & Event Surcharges + Overtime Policy
         const peakHtml = pass.peakPricing && pass.peakPricing.enabled
           ? `<div>
-               <div class="text-xs font-mono font-bold text-slate-800"><span class="text-blue-600">€${pass.peakPricing.fixedMember.toFixed(2)}</span> <span class="text-slate-300 font-normal">/</span> €${pass.peakPricing.fixedNonMember.toFixed(2)}</div>
-               <div class="text-[11px] text-slate-500 mt-0.5">Peak ${pass.peakPricing.startTime}–${pass.peakPricing.endTime}</div>
+               <div class="text-[12px] font-medium text-[#1C1C1C]">Peak: €${pass.peakPricing.fixedMember.toFixed(2)} / €${pass.peakPricing.fixedNonMember.toFixed(2)}</div>
+               <div class="text-[11px] text-[#888888] mt-0.5">${pass.peakPricing.startTime}–${pass.peakPricing.endTime}</div>
              </div>`
-          : `<div class="text-[11px] text-slate-400">Peak disabled</div>`;
+          : `<div class="text-[11px] text-[#888888]">Peak disabled</div>`;
 
         const eventHtml = pass.eventPricing && pass.eventPricing.enabled
-          ? `<div class="mt-1 pt-1 border-t border-slate-100">
-               <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-purple-50 text-purple-700 border border-purple-200">Event Override</span>
-               <div class="text-[10px] text-slate-500 truncate max-w-[130px] mt-0.5">${pass.eventPricing.calendar || 'Default Cal'}</div>
+          ? `<div class="mt-1 pt-1 border-t border-slate-100 text-[11px] text-[#334155]">
+               Event: <span class="font-medium text-[#1C1C1C]">${pass.eventPricing.calendar || 'Default Cal'}</span>
              </div>`
           : '';
 
         const overtimeHtml = pass.overtimePolicy && pass.overtimePolicy.enabled
-          ? `<div class="mt-1 pt-1 border-t border-slate-100">
-               <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                 Overtime: €${pass.overtimePolicy.memberRate.toFixed(2)} / €${pass.overtimePolicy.nonMemberRate.toFixed(2)} (${pass.overtimePolicy.interval}m)
-               </span>
-               <div class="text-[10px] text-slate-500 mt-0.5">${pass.overtimePolicy.gracePeriod}m grace • ${pass.overtimePolicy.allowAppExtension ? 'In-App Ext' : ''}${pass.overtimePolicy.allowAppExtension && pass.overtimePolicy.autoTurnstileCharge ? ' + ' : ''}${pass.overtimePolicy.autoTurnstileCharge ? 'Turnstile Exit' : ''}</div>
+          ? `<div class="mt-1 pt-1 border-t border-slate-100 text-[11px] text-[#334155]">
+               Overtime: <span class="font-medium text-[#1C1C1C]">€${pass.overtimePolicy.memberRate.toFixed(2)}/${pass.overtimePolicy.interval}m</span>
+               <div class="text-[10px] text-[#888888]">${pass.overtimePolicy.gracePeriod}m grace buffer</div>
              </div>`
-          : `<div class="mt-1 pt-1 border-t border-slate-100 text-[10px] text-slate-400">Overtime disabled</div>`;
+          : `<div class="mt-1 pt-1 border-t border-slate-100 text-[11px] text-[#888888]">Overtime disabled</div>`;
 
         const surchargesHtml = `
           <div>
@@ -2961,40 +2926,36 @@
           </div>
         `;
 
-        // 6. Status: Pill badge + Toggle switch
+        // 6. Status: CustomChip + CommonSwitch
         const isAct = pass.status === 'Active';
         const statusHtml = `
           <div class="flex items-center justify-center gap-2">
-            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold ${isAct ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-slate-100 text-slate-600 border border-slate-200'}">
+            <span class="px-2.5 py-1 rounded-[4px] text-[12px] font-medium ${isAct ? 'bg-[#E8F8F0] text-[#10B981]' : 'bg-[#F1F5F9] text-[#64748B]'}">
               ${pass.status}
             </span>
-            <label class="swp-switch">
+            <label class="swp-common-switch">
               <input type="checkbox" ${isAct ? 'checked' : ''} onchange="togglePassStatus('${pass.id}')">
-              <span class="swp-slider"></span>
+              <span class="swp-common-slider"></span>
             </label>
           </div>
         `;
 
-        // 7. Actions: Edit + Delete with styled buttons
+        // 7. Actions: Clean text links
         const actionsHtml = `
-          <div class="flex items-center justify-end gap-1.5">
-            <button type="button" onclick="editPass('${pass.id}')" class="px-2.5 py-1 text-xs font-semibold text-blue-600 hover:text-blue-800 hover:bg-blue-50 border border-blue-200 rounded-md transition-colors shadow-2xs">
-              Edit
-            </button>
-            <button type="button" onclick="deletePass('${pass.id}')" class="px-2.5 py-1 text-xs font-semibold text-red-600 hover:text-red-800 hover:bg-red-50 border border-red-200 rounded-md transition-colors shadow-2xs">
-              Delete
-            </button>
+          <div class="flex items-center justify-end">
+            <button type="button" onclick="editPass('${pass.id}')" class="text-[13px] font-medium text-[#007AFF] hover:underline mr-3">Edit</button>
+            <button type="button" onclick="deletePass('${pass.id}')" class="text-[13px] font-medium text-[#E63900] hover:underline">Delete</button>
           </div>
         `;
 
         tr.innerHTML = `
-          <td class="py-3.5 px-4">${passDetailsHtml}</td>
-          <td class="py-3.5 px-4">${durationHtml}</td>
-          <td class="py-3.5 px-4">${baseRatesHtml}</td>
-          <td class="py-3.5 px-4">${wkndRatesHtml}</td>
-          <td class="py-3.5 px-4">${surchargesHtml}</td>
-          <td class="py-3.5 px-4 text-center">${statusHtml}</td>
-          <td class="py-3.5 px-4 text-right">${actionsHtml}</td>
+          <td class="py-3 px-4">${passDetailsHtml}</td>
+          <td class="py-3 px-4">${durationHtml}</td>
+          <td class="py-3 px-4">${baseRatesHtml}</td>
+          <td class="py-3 px-4">${wkndRatesHtml}</td>
+          <td class="py-3 px-4">${surchargesHtml}</td>
+          <td class="py-3 px-4 text-center">${statusHtml}</td>
+          <td class="py-3 px-4 text-right">${actionsHtml}</td>
         `;
 
         tbody.appendChild(tr);
@@ -3033,14 +2994,13 @@
       selectedPassDurations = new Set(p.durations || [1]);
       document.querySelectorAll('#durationBtnGroup button').forEach(b => {
         const d = parseInt(b.getAttribute('data-duration'));
-        if (selectedPassDurations.has(d)) {
-          b.classList.add('bg-blue-600', 'text-white', 'border-blue-600', 'shadow-sm');
-          b.classList.remove('border-slate-300', 'bg-white', 'text-slate-700');
-        } else {
-          b.classList.remove('bg-blue-600', 'text-white', 'border-blue-600', 'shadow-sm');
-          b.classList.add('border-slate-300', 'bg-white', 'text-slate-700');
-        }
+        b.classList.toggle('active', selectedPassDurations.has(d));
       });
+      if (p.overtimePolicy && p.overtimePolicy.extensionPricing) {
+        extensionPricingMap = JSON.parse(JSON.stringify(p.overtimePolicy.extensionPricing));
+      } else {
+        extensionPricingMap = { 1: 15.00, 2: 25.00, 3: 35.00, 4: 45.00, 8: 70.00 };
+      }
       updateDurationSummary();
       renderPricingBreakdownTables();
 
@@ -3109,15 +3069,10 @@
       selectedPassDurations = new Set([1]);
       document.querySelectorAll('#durationBtnGroup button').forEach(b => {
         const d = parseInt(b.getAttribute('data-duration'));
-        if (d === 1) {
-          b.classList.add('bg-blue-600', 'text-white', 'border-blue-600', 'shadow-sm');
-          b.classList.remove('border-slate-200', 'bg-white', 'text-slate-700');
-        } else {
-          b.classList.remove('bg-blue-600', 'text-white', 'border-blue-600', 'shadow-sm');
-          b.classList.add('border-slate-200', 'bg-white', 'text-slate-700');
-        }
+        b.classList.toggle('active', d === 1);
       });
       passPricingMap = JSON.parse(JSON.stringify(defaultDurationRates));
+      extensionPricingMap = { 1: 15.00, 2: 25.00, 3: 35.00, 4: 45.00, 8: 70.00 };
       updateDurationSummary();
       renderPricingBreakdownTables();
 
@@ -3201,55 +3156,54 @@
 
       equipmentItems.forEach(item => {
         const card = document.createElement('div');
-        card.className = 'bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow transition-shadow flex flex-col justify-between eq-card';
+        card.className = 'bg-white rounded-[12px] border border-[#E5E7EB] overflow-hidden shadow-none hover:shadow-md transition-shadow flex flex-col justify-between eq-card';
         card.setAttribute('data-name', item.name.toLowerCase());
         card.setAttribute('data-sport', item.sport);
         card.setAttribute('data-status', item.status);
 
         card.innerHTML = `
           <!-- Image Container with Overlays -->
-          <div class="relative h-44 bg-slate-100 overflow-hidden">
+          <div class="relative h-44 bg-[#F8FAFC] overflow-hidden">
             <img src="${item.img}" alt="${item.name}" class="w-full h-full object-cover">
             
-            <!-- Top-Left Sport Badge Pill -->
-            <div class="absolute top-2.5 left-2.5 bg-slate-900/80 backdrop-blur-sm text-white px-2.5 py-1 rounded-full text-[11px] font-semibold flex items-center gap-1.5 shadow">
-              <svg class="w-3.5 h-3.5 text-slate-300" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M17.707 9.293a1 1 0 010 1.414l-7 7a1 1 0 01-1.414 0l-7-7A.997.997 0 012 10V5a3 3 0 013-3h5c.256 0 .512.098.707.293l7 7zM5 6a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/></svg>
-              <span>${item.sport}</span>
+            <!-- Top-Left Sport Badge Pill (Matching EquipmentCard.tsx SportTag) -->
+            <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-[#007AFF] px-3 py-1 rounded-full text-[12px] font-semibold shadow-sm">
+              ${item.sport}
             </div>
 
-            <!-- Top-Right Action Buttons (Circular Chips) -->
+            <!-- Top-Right Action Buttons -->
             <div class="absolute top-2.5 right-2.5 flex items-center gap-1.5">
-              <button onclick="editEquipmentItem('${item.id}')" class="w-7 h-7 rounded-full bg-white text-slate-600 hover:text-blue-600 shadow flex items-center justify-center transition-colors">
+              <button onclick="editEquipmentItem('${item.id}')" title="Edit" class="w-7 h-7 rounded-[4px] bg-white text-[#475569] hover:text-[#007AFF] hover:bg-slate-50 shadow-sm border border-[#E5E7EB] flex items-center justify-center transition-colors">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
               </button>
-              <button onclick="deleteEquipmentItem('${item.id}')" class="w-7 h-7 rounded-full bg-white text-red-500 hover:text-red-700 shadow flex items-center justify-center transition-colors">
+              <button onclick="deleteEquipmentItem('${item.id}')" title="Delete" class="w-7 h-7 rounded-[4px] bg-white text-[#E63900] hover:text-[#B91C1C] hover:bg-slate-50 shadow-sm border border-[#E5E7EB] flex items-center justify-center transition-colors">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
               </button>
             </div>
           </div>
 
           <!-- Bottom Info Container -->
-          <div class="p-4 space-y-3">
+          <div class="p-4 space-y-2.5">
             <div class="flex items-center justify-between gap-2">
-              <h4 class="font-bold text-slate-900 text-sm truncate">${item.name}</h4>
-              <span class="${item.type === 'SELL' ? 'swp-badge-sell' : 'swp-badge-rent'}">
-                ${item.type}
+              <h4 class="font-semibold text-[#1C1C1C] text-[14px] truncate">${item.name}</h4>
+              <span class="px-2 py-0.5 rounded text-[11px] font-semibold ${item.type === 'SELL' ? 'bg-[#E8F8F0] text-[#10B981]' : 'bg-[#E9F3FE] text-[#007AFF]'}">
+                ${item.type === 'SELL' ? 'Sell' : 'Rent'}
               </span>
             </div>
 
-            <div class="text-xs text-slate-400 font-medium">
+            <div class="text-[12px] text-[#888888]">
               ${item.stockText || '< 3 left'}
             </div>
 
-            <!-- Two-column Metadata Grid -->
-            <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
+            <!-- Two-column Metadata Grid (Matching EquipmentCard.tsx) -->
+            <div class="pt-2 border-t border-[#E5E7EB] flex items-center justify-between">
               <div>
-                <div class="text-[10px] uppercase font-bold tracking-wider text-slate-400">QUANTITY</div>
-                <div class="text-sm font-bold text-slate-900">${item.quantity}</div>
+                <div class="text-[11px] uppercase font-bold tracking-wider text-[#888888]">QUANTITY</div>
+                <div class="text-[14px] font-semibold text-[#1C1C1C]">${item.quantity}</div>
               </div>
               <div class="text-right">
-                <div class="text-[10px] uppercase font-bold tracking-wider text-slate-400">PRICE (€)</div>
-                <div class="text-sm font-bold text-blue-600">€${item.price.toFixed(2)}</div>
+                <div class="text-[11px] uppercase font-bold tracking-wider text-[#888888]">PRICE (€)</div>
+                <div class="text-[14px] font-bold text-[#007AFF]">€${item.price.toFixed(2)}</div>
               </div>
             </div>
           </div>
@@ -3353,7 +3307,70 @@
       }, 2500);
     }
 
+    // Global SWP Portal Tooltip Engine (Matching test.app.shallwe-play.com)
+    let swpActiveTooltip = null;
+
+    function initSwpTooltips() {
+      document.addEventListener('mouseover', function(e) {
+        const icon = e.target.closest('.info-icon');
+        if (!icon) return;
+        
+        const tooltipText = icon.getAttribute('data-tooltip') || icon.getAttribute('title');
+        if (!tooltipText) return;
+        
+        if (icon.hasAttribute('title')) {
+          icon.setAttribute('data-tooltip', tooltipText);
+          icon.removeAttribute('title');
+        }
+
+        if (swpActiveTooltip) {
+          swpActiveTooltip.remove();
+          swpActiveTooltip = null;
+        }
+
+        const tip = document.createElement('div');
+        tip.className = 'swp-tooltip-bubble';
+        tip.textContent = tooltipText;
+        document.body.appendChild(tip);
+
+        const rect = icon.getBoundingClientRect();
+        const tipRect = tip.getBoundingClientRect();
+
+        let top = rect.top - tipRect.height - 8;
+        let isDown = true;
+
+        if (top < 10) {
+          top = rect.bottom + 8;
+          isDown = false;
+        }
+
+        let left = rect.left + (rect.width / 2) - (tipRect.width / 2);
+        if (left < 10) left = 10;
+        if (left + tipRect.width > window.innerWidth - 10) {
+          left = window.innerWidth - tipRect.width - 10;
+        }
+
+        tip.style.top = `${top + window.scrollY}px`;
+        tip.style.left = `${left + window.scrollX}px`;
+        tip.classList.add(isDown ? 'arrow-down' : 'arrow-up');
+
+        const arrowOffset = Math.max(8, Math.min(tipRect.width - 8, (rect.left + rect.width / 2) - left));
+        tip.style.setProperty('--arrow-left', `${arrowOffset}px`);
+
+        swpActiveTooltip = tip;
+      });
+
+      document.addEventListener('mouseout', function(e) {
+        const icon = e.target.closest('.info-icon');
+        if (icon && swpActiveTooltip) {
+          swpActiveTooltip.remove();
+          swpActiveTooltip = null;
+        }
+      });
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
+      initSwpTooltips();
       updatePassNameCounter(document.getElementById('passNameInput')?.value || '');
       renderBulletInputs();
       updateMobilePreview();
@@ -3370,11 +3387,37 @@
       const hash = window.location.hash.replace('#', '');
       const urlParams = new URLSearchParams(window.location.search);
       const tabParam = urlParams.get('tab') || hash;
+      const durationsParam = urlParams.get('durations');
+
+      if (durationsParam) {
+        selectedPassDurations.clear();
+        durationsParam.split(',').forEach(d => {
+          const num = parseInt(d.trim());
+          if (!isNaN(num)) selectedPassDurations.add(num);
+        });
+        document.querySelectorAll('#durationBtnGroup button').forEach(b => {
+          const d = parseInt(b.getAttribute('data-duration'));
+          b.classList.toggle('active', selectedPassDurations.has(d));
+        });
+        updateDurationSummary();
+        renderPricingBreakdownTables();
+      }
 
       if (tabParam && tabsList.includes(tabParam)) {
         switchTab(tabParam);
       } else {
         switchTab('booking_rules');
+      }
+
+      const testHover = urlParams.get('test_hover');
+      if (testHover) {
+        setTimeout(() => {
+          const icon = document.querySelector(`[data-test-hover="${testHover}"]`) || 
+                       document.querySelector(testHover);
+          if (icon) {
+            icon.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));
+          }
+        }, 150);
       }
     });
   </script>

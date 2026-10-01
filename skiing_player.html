@@ -1792,32 +1792,37 @@
        Doc lines 246-253, 264-275 (Start Game, Break Pauses, Extension, Overtime)
        ═══════════════════════════════════════════════════════════════════ */
     .active-session-banner {
-      background: #1E293B;
-      border-radius: 10px;
-      padding: 12px;
-      color: #FFFFFF;
-      margin: 8px 14px 6px;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+      background: #FFFFFF;
+      border: 1px solid var(--swp-border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      color: var(--swp-text);
+      margin: 10px 14px 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
 
     .session-status-sub {
-      font-family: 'Lato', sans-serif;
-      font-size: 9.5px;
-      color: #94A3B8;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      color: #6B7280;
       text-transform: uppercase;
       font-weight: 700;
+      letter-spacing: 0.5px;
     }
 
     .session-countdown-display {
       font-family: 'Montserrat', sans-serif;
-      font-size: 22px;
+      font-size: 26px;
       font-weight: 800;
-      color: #38BDF8;
-      margin: 2px 0;
+      color: #11181C;
+      margin: 6px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .session-countdown-display.paused {
-      color: #F59E0B !important;
+      color: #D97706 !important;
     }
 
     /* Turnstile QR Code Presentation */
@@ -1825,86 +1830,72 @@
       background: #FFFFFF;
       border: 1px solid var(--swp-border);
       border-radius: 12px;
-      padding: 10px;
-      margin: 0 14px 6px;
+      padding: 14px 16px;
+      margin: 0 14px 10px;
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
 
     .qr-frame-outer {
-      width: 136px;
-      height: 136px;
+      width: 144px;
+      height: 144px;
       border: 2px dashed var(--swp-primary);
-      border-radius: 10px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #F8FAFC;
-      margin: 6px 0;
+      background: #FFFFFF;
+      margin: 10px auto;
       position: relative;
     }
 
     .mock-qr-code {
-      width: 112px;
-      height: 112px;
+      width: 120px;
+      height: 120px;
       background: repeating-conic-gradient(#11181C 0% 25%, #FFFFFF 0% 50%) 50% / 12px 12px;
       border-radius: 6px;
       position: relative;
     }
 
-    .mock-qr-code::after {
-      content: '🎿';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 26px;
-      height: 26px;
-      background: #FFFFFF;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    }
-
     .qr-ticket-code {
       font-family: 'Montserrat', sans-serif;
-      font-size: 11.5px;
-      font-weight: 800;
+      font-size: 13px;
+      font-weight: 700;
       color: var(--swp-text);
       letter-spacing: 0.5px;
+      margin-top: 6px;
     }
 
     /* Interactive Turnstile Session Lifecycle Action Buttons */
     .lifecycle-actions-box {
       background: #FFFFFF;
       border: 1px solid var(--swp-border);
-      border-radius: 10px;
-      padding: 10px 12px;
-      margin: 0 14px 6px;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin: 0 14px 10px;
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
     }
 
     .lifecycle-btn {
       width: 100%;
-      min-height: 38px;
+      min-height: 44px;
       height: auto;
-      padding: 8px 10px;
-      border-radius: 6px;
+      padding: 12px 14px;
+      border-radius: 8px;
       font-family: 'Montserrat', sans-serif;
-      font-size: 11px;
-      font-weight: 700;
+      font-size: 13.5px;
+      font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 5px;
+      gap: 6px;
       border: none;
       transition: all 0.15s ease;
       line-height: 1.3;
@@ -1913,37 +1904,93 @@
     }
 
     .lifecycle-btn.start {
-      background: var(--swp-success);
-      color: #FFF;
+      background: var(--swp-primary);
+      color: #FFFFFF;
+      box-shadow: 0 2px 6px rgba(0, 122, 255, 0.25);
+    }
+
+    .lifecycle-btn.start:hover {
+      background: var(--swp-primary-hover);
     }
 
     .lifecycle-btn.break {
-      background: var(--swp-warning);
-      color: #FFF;
+      background: #FEF3C7;
+      color: #B45309;
+      border: 1px solid #FCD34D;
+      font-size: 13px;
+    }
+
+    .lifecycle-btn.break:hover {
+      background: #FDE68A;
     }
 
     .lifecycle-btn.resume {
       background: var(--swp-primary);
-      color: #FFF;
+      color: #FFFFFF;
+      box-shadow: 0 2px 6px rgba(0, 122, 255, 0.25);
+    }
+
+    .lifecycle-btn.resume:hover {
+      background: var(--swp-primary-hover);
     }
 
     .lifecycle-btn.complete {
-      background: #11181C;
-      color: #FFF;
+      background: var(--swp-primary);
+      color: #FFFFFF;
+      box-shadow: 0 2px 6px rgba(0, 122, 255, 0.25);
     }
 
-    /* Overtime Alert */
+    .lifecycle-btn.complete:hover {
+      background: var(--swp-primary-hover);
+    }
+
+    /* Overtime Grace Period Alert - SWP Warning Pattern */
     .overtime-warning-card {
-      background: #FEF2F2;
-      border: 1px solid #FCA5A5;
-      border-radius: 8px;
-      padding: 7px 9px;
-      margin: 0 14px 6px;
+      background: #FFFBEB;
+      border: 1px solid #FDE68A;
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin: 0 14px 10px;
       display: flex;
-      gap: 6px;
-      font-size: 9.5px;
-      color: #991B1B;
+      gap: 8px;
       align-items: flex-start;
+    }
+
+    .overtime-warning-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #92400E;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .overtime-warning-desc {
+      font-family: 'Lato', sans-serif;
+      font-size: 11px;
+      color: #B45309;
+      line-height: 1.4;
+    }
+
+    /* Patrol Help Button - SWP Emergency Action */
+    .swp-patrol-btn {
+      background: #FEE2E2;
+      color: #DC2626;
+      border: 1px solid #FECACA;
+      border-radius: 6px;
+      padding: 5px 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: background 0.15s ease;
+    }
+
+    .swp-patrol-btn:hover {
+      background: #FCA5A5;
     }
 
     /* In-App Toast Notification */
@@ -2642,92 +2689,84 @@
        TURNSTILE EXTENSION ALERT & COMPLETE SUMMARY (SCREEN 4)
        ═══════════════════════════════════════════════════════════════════ */
     .extension-alert-box {
-      background: #FEF3C7;
-      border: 1.5px solid #F59E0B;
-      border-radius: 10px;
-      padding: 9px 11px;
-      margin: 0 14px 8px;
+      background: #FFFBEB;
+      border: 1px solid #FDE68A;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin: 0 14px 10px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      animation: pulseAlert 2.5s infinite ease-in-out;
-    }
-
-    @keyframes pulseAlert {
-
-      0%,
-      100% {
-        box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.35);
-      }
-
-      50% {
-        box-shadow: 0 0 0 5px rgba(245, 158, 11, 0);
-      }
+      gap: 8px;
+      box-shadow: 0 2px 8px rgba(245, 158, 11, 0.15);
     }
 
     .ext-alert-text strong {
       font-family: 'Montserrat', sans-serif;
-      font-size: 11.5px;
+      font-size: 12px;
+      font-weight: 700;
       color: #92400E;
       display: block;
-      margin-bottom: 1px;
+      margin-bottom: 2px;
     }
 
     .ext-alert-text p {
-      font-size: 9.5px;
-      color: #78350F;
-      line-height: 1.3;
+      font-family: 'Lato', sans-serif;
+      font-size: 11px;
+      color: #B45309;
+      line-height: 1.4;
     }
 
     .ext-action-btn {
-      background: #D97706;
+      background: var(--swp-primary);
       color: #FFFFFF;
       border: none;
-      border-radius: 6px;
-      padding: 7px 10px;
+      border-radius: 8px;
+      padding: 10px 14px;
       font-family: 'Montserrat', sans-serif;
-      font-size: 10.5px;
-      font-weight: 700;
+      font-size: 12px;
+      font-weight: 600;
       cursor: pointer;
       width: 100%;
       text-align: center;
       transition: background 0.15s ease;
+      box-shadow: 0 2px 6px rgba(0, 122, 255, 0.2);
     }
 
     .ext-action-btn:hover {
-      background: #B45309;
+      background: var(--swp-primary-hover);
     }
 
     .session-completed-card {
-      background: #F8FAFC;
-      border: 1.5px solid #CBD5E1;
-      border-radius: 10px;
-      padding: 12px;
+      background: #FFFFFF;
+      border: 1px solid var(--swp-border);
+      border-radius: 12px;
+      padding: 16px;
       text-align: center;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      margin: 8px 14px;
+      gap: 10px;
+      margin: 10px 14px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
 
     .session-completed-title {
       font-family: 'Montserrat', sans-serif;
-      font-size: 13.5px;
-      font-weight: 800;
-      color: #0F172A;
+      font-size: 15px;
+      font-weight: 700;
+      color: #11181C;
     }
 
     .session-completed-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 6px;
-      font-size: 10px;
-      color: #475569;
+      gap: 8px;
+      font-size: 11px;
+      color: #374151;
       text-align: left;
-      background: #FFFFFF;
-      padding: 8px 10px;
-      border-radius: 6px;
-      border: 1px solid #E2E8F0;
+      background: #F8FAFC;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #E5E7EB;
     }
 
     /* ═══════════════════════════════════════════════════════════════════
@@ -3324,37 +3363,269 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(15, 23, 42, 0.75);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
+      background: rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
       z-index: 9000;
-      display: flex;
+      display: none;
       flex-direction: column;
       justify-content: flex-end;
-      padding: 16px 12px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.28s ease;
+      padding: 0;
+      box-sizing: border-box;
     }
     .swp-modal-backdrop.open {
-      opacity: 1;
-      pointer-events: auto;
+      display: flex;
     }
     .swp-modal-bottom-sheet {
       background: #FFFFFF;
-      border-radius: 18px 18px 0 0;
-      padding: 16px 14px;
-      max-height: 92%;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      padding: 12px 18px 20px;
+      max-height: 90%;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
       gap: 10px;
-      box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.3);
-      transform: translateY(100%);
-      transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.18);
+      box-sizing: border-box;
     }
-    .swp-modal-backdrop.open .swp-modal-bottom-sheet {
-      transform: translateY(0);
+    .swp-modal-bottom-sheet::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
+       SCREEN 1: UPCOMING TAB - EXACT REPLICA OF UpcomingCourtCard.tsx
+       From SWP Players Codebase (shallwe-play-players)
+       ═══════════════════════════════════════════════════════════════════ */
+    .upcoming-screen-container {
+      padding: 12px 14px 24px;
+    }
+
+    .upcoming-screen-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding: 0 2px;
+    }
+
+    .upcoming-screen-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #11181C;
+      letter-spacing: -0.2px;
+    }
+
+    .upcoming-count-badge {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      color: #10B981;
+      background: #DCFCE7;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+
+    /* Card: styles.card in UpcomingCourtCard.tsx */
+    .upcoming-court-card {
+      border-radius: 12px;
+      padding: 12px;
+      margin-top: 2px;
+      margin-bottom: 12px;
+      background-color: #FFFFFF;
+      border: 1px solid var(--swp-border);
+      /* iOS shadow: shadowColor: #000, offset: {width:0, height:4}, opacity: 0.25, radius: 4 */
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.07);
+      box-sizing: border-box;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .upcoming-court-card:hover {
+      box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.10);
+    }
+
+    /* Image Container: styles.imageContainer in UpcomingCourtCard.tsx */
+    .upcoming-card-image-wrap {
+      position: relative;
+      height: 165px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #E5E7EB;
+    }
+
+    .upcoming-card-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      display: block;
+    }
+
+    /* Status Badge: styles.shallWePlayBadge in UpcomingCourtCard.tsx */
+    .upcoming-status-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #10B981;
+      border-radius: 6px;
+      padding: 4px 10px;
+      color: #FFFFFF;
+      font-size: 11px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      text-transform: capitalize;
+      letter-spacing: 0.2px;
+      z-index: 2;
+    }
+
+    /* Bottom Section: styles.detailsContainer in UpcomingCourtCard.tsx */
+    .upcoming-card-details {
+      padding-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    /* Universal Info Row: styles.titleRow, styles.infoRow in UpcomingCourtCard.tsx */
+    /* Perfect two-sided alignment: left items hug left border, right items hug right border */
+    .upcoming-card-info-row {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* Title: styles.title (fontSize: 18 in RN -> 15px in web CSS) */
+    .upcoming-card-title {
+      font-size: 15px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      color: #11181C;
+      line-height: 1.25;
+      text-align: left;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* Capacity Container: styles.capacityContainer */
+    .upcoming-card-capacity-box {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+      text-align: right;
+    }
+
+    /* Capacity Text: styles.capacityText (fontSize: 16 in RN -> 13px in web CSS) */
+    .upcoming-card-capacity-text {
+      font-size: 13px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500;
+      color: #11181C;
+      line-height: 1;
+    }
+
+    /* PlayerCount Icon: styles.playersIcon */
+    .upcoming-card-player-icon {
+      width: 15px;
+      height: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Club Name: styles.clubName (fontSize: 14 in RN -> 13px in web CSS) */
+    .upcoming-card-club-name {
+      font-size: 13px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 400;
+      color: #6B7280;
+      text-align: left;
+    }
+
+    /* Distance Text: styles.distanceText (fontSize: 14 in RN -> 13px in web CSS) */
+    .upcoming-card-distance {
+      font-size: 13px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500;
+      color: #6B7280;
+      text-align: right;
+    }
+
+    /* Date Text: styles.dateText (fontSize: 14 in RN -> 13px in web CSS) */
+    .upcoming-card-date {
+      font-size: 13px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500;
+      color: #11181C;
+      text-align: left;
+    }
+
+    /* Time Text: styles.timeText (fontSize: 16 in RN -> 13.5px in web CSS) */
+    .upcoming-card-time {
+      font-size: 13.5px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      color: #11181C;
+      text-align: right;
+    }
+
+    /* Booking Id Row: lines 94-97 in UpcomingCourtCard.tsx */
+    .upcoming-card-booking-lbl {
+      font-size: 13px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 400;
+      color: #6B7280;
+      text-align: left;
+    }
+
+    .upcoming-card-booking-val {
+      font-size: 13.5px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      color: #11181C;
+      text-align: right;
+    }
+
+    /* Action Button: styles.viewDetailsButton & styles.viewDetailsButtonText */
+    .upcoming-card-view-btn {
+      background-color: #3B82F6;
+      border-radius: 8px;
+      padding: 12px 0;
+      width: 100%;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin-top: 4px;
+      box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .upcoming-card-view-btn:hover {
+      background-color: #2563EB;
+    }
+
+    .upcoming-card-view-btn:active {
+      transform: scale(0.99);
+    }
+
+    .upcoming-card-view-btn-text {
+      font-size: 14.5px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      color: #FFFFFF;
+      letter-spacing: 0.2px;
     }
   </style>
 </head>
@@ -3367,7 +3638,9 @@
   <header class="showcase-header">
     <div class="showcase-title-group">
       <div style="display:flex; align-items:center; gap:8px;">
-        <div class="showcase-badge-icon">⛷️</div>
+        <div class="showcase-badge-icon">
+          <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color:var(--swp-primary);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        </div>
         <div>
           <h1 id="topBarScreenTitle">Players Skiing Mobile UI</h1>
           <p>SnowWorld Two-Tier Architecture · Parent Activity Cards · Passes Stepper · Arrival Slots · Consolidated
@@ -3391,7 +3664,7 @@
         <span>4. Turnstile Gate QR</span>
       </button>
       <button class="showcase-pill-btn" id="pillBtnScreenAll" onclick="switchView('all', this)">
-        <span>📑 All Screens</span>
+        <span>All Screens</span>
       </button>
     </div>
   </header>
@@ -3589,36 +3862,65 @@
             </div>
           </div>
 
-          <!-- Upcoming Tab Panel -->
-          <div id="screen1UpcomingView" style="display: none; padding: 14px;">
-            <div class="upcoming-alert-banner">
-              <span>🎟️</span>
-              <div>
-                <strong>1 Active Upcoming Ski Pass</strong>
-                <p>Pass ready for turnstile scan at SnowWorld Amsterdam.</p>
+          <!-- Upcoming Tab Panel (Exact replica of UpcomingScreen.tsx & UpcomingCourtCard.tsx) -->
+          <div id="screen1UpcomingView" style="display: none; padding: 12px 14px 24px;">
+            
+            <!-- Screen Header (navigation.upcoming.title in UpcomingScreen.tsx) -->
+            <div class="upcoming-screen-header">
+              <span class="upcoming-screen-title">Upcoming Bookings</span>
+              <span class="upcoming-count-badge">1 Active</span>
+            </div>
+
+            <!-- Booking Card (UpcomingCourtCard.tsx) -->
+            <div class="upcoming-court-card" id="card-upcoming-ski-booking">
+              <!-- Top Section - Cover Image with Floating Status Badge -->
+              <div class="upcoming-card-image-wrap">
+                <img src="https://images.unsplash.com/photo-1551524559-8af4e6624178?w=800&auto=format&fit=crop&q=80"
+                     class="upcoming-card-image"
+                     alt="SnowWorld Amsterdam Cover">
+                <div class="upcoming-status-badge">Upcoming</div>
+              </div>
+
+              <!-- Bottom Section - Booking Details (styles.detailsContainer in UpcomingCourtCard.tsx) -->
+              <div class="upcoming-card-details">
+                <!-- Title Row: title & capacity + PlayerCount icon -->
+                <div class="upcoming-card-info-row">
+                  <span class="upcoming-card-title" title="Mukund Patil's booking">Mukund Patil's booking</span>
+                  <div class="upcoming-card-capacity-box">
+                    <span class="upcoming-card-capacity-text">2/2</span>
+                    <div class="upcoming-card-player-icon" title="2 Confirmed Attendees">
+                      <svg width="15" height="15" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12.5487 2.77759C13.0333 3.26043 13.3332 3.92853 13.3332 4.66667C13.3332 5.40482 13.0333 6.07291 12.5487 6.55576M3.45316 2.77759C2.96855 3.26043 2.66864 3.92853 2.66864 4.66667C2.66864 5.40482 2.96855 6.07291 3.45316 6.55576M14.1572 10C14.4739 10.3538 14.6665 10.8211 14.6665 11.3333V12C14.6665 12.5123 14.4739 12.9795 14.1572 13.3334M1.83984 10C1.52314 10.3538 1.33057 10.8211 1.33057 11.3333V12C1.33057 12.5123 1.52314 12.9795 1.83984 13.3334M10.6665 4.66667C10.6665 3.19391 9.47259 2 7.99983 2C6.52707 2 5.33317 3.19391 5.33317 4.66667C5.33317 6.13943 6.52707 7.33333 7.99983 7.33333C9.47259 7.33333 10.6665 6.13943 10.6665 4.66667ZM3.33317 12V11.3333C3.33317 10.2288 4.2286 9.33333 5.33317 9.33333H10.6665C11.7711 9.33333 12.6665 10.2288 12.6665 11.3333V12C12.6665 13.1046 11.7711 14 10.6665 14H5.33317C4.2286 14 3.33317 13.1046 3.33317 12Z" stroke="#007AFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Info Row 1: Club Name & Distance (both-sided aligned) -->
+                <div class="upcoming-card-info-row">
+                  <span class="upcoming-card-club-name">SnowWorld Amsterdam</span>
+                  <span class="upcoming-card-distance">&lt; 1 kms away</span>
+                </div>
+
+                <!-- Info Row 2: Date & Time (both-sided aligned) -->
+                <div class="upcoming-card-info-row">
+                  <span class="upcoming-card-date">20/09/2026</span>
+                  <span class="upcoming-card-time">10:00 AM</span>
+                </div>
+
+                <!-- Booking ID Row: Booking Id & Value (both-sided aligned) -->
+                <div class="upcoming-card-info-row">
+                  <span class="upcoming-card-booking-lbl">Booking Id:</span>
+                  <span class="upcoming-card-booking-val">#SWP-8842</span>
+                </div>
+
+                <!-- Action Button: viewDetailsButton in UpcomingCourtCard.tsx -->
+                <button type="button" class="upcoming-card-view-btn" onclick="navigateToScreen('screen4')" title="Open Turnstile Gate Pass">
+                  <span class="upcoming-card-view-btn-text">View Details</span>
+                </button>
               </div>
             </div>
 
-            <div class="swp-ski-dome-card" style="margin-top: 10px;">
-              <div class="dome-top-row">
-                <div class="dome-thumb">🎿</div>
-                <div class="dome-header-info">
-                  <h3 class="dome-title">SnowWorld Amsterdam</h3>
-                  <div class="dome-type-sub">Pass: <strong>Adult + Child Slope Passes (1 Hour)</strong></div>
-                </div>
-              </div>
-              <div
-                style="background:#F8FAFC; border:1px solid var(--swp-border); border-radius:8px; padding:8px 10px; font-size:10.5px; display:flex; flex-direction:column; gap:4px;">
-                <div>📅 Date: <strong>Today, 20 Sep 2026</strong></div>
-                <div>🕒 Arrival: <strong>10:15 Arrival (Window 10:00–11:00)</strong></div>
-                <div>👥 Attendees: <strong>Mukund Patil (Adult) + Rohan (Child 8y)</strong></div>
-                <div>🪖 Rental Add-on: <strong>1x Helmet Rental (+€5.00)</strong></div>
-                <div>💳 Status: <strong style="color:var(--swp-success);">Paid €53.00 (Confirmed)</strong></div>
-              </div>
-              <button class="feed-btn-pass" style="width:100%; height:40px;" onclick="navigateToScreen('screen4')">
-                <span>⚡ View Gate QR Pass &amp; Turnstile</span>
-              </button>
-            </div>
           </div>
 
           <!-- SWP Requests View -->
@@ -4139,140 +4441,130 @@
           <button class="back-btn" onclick="navigateToScreen('screen3')" title="Back to checkout">←</button>
           <h2 class="sub-header-title">Active Slope Pass</h2>
           <div class="live-pulse-badge" id="sessionStatePill"
-            style="background:#F1F5F9; color:#64748B; border:1px solid #CBD5E1;">
-            <span class="live-dot-pulse" id="sessionPulseDot" style="background:#94A3B8;"></span>
+            style="background:#F3F4F6; color:#4B5563; border:1px solid #E5E7EB;">
+            <span class="live-dot-pulse" id="sessionPulseDot" style="background:#9CA3AF; animation:none;"></span>
             <span id="sessionStateLabel">READY AT GATE</span>
           </div>
         </header>
 
         <div class="swp-viewport" id="screen4Viewport">
-          <!-- Session Countdown Banner -->
+          <!-- Session Countdown Card -->
           <div class="active-session-banner">
             <div style="display:flex; justify-content:space-between; align-items:center;">
               <span class="session-status-sub" id="bannerStateText">Slope Session Countdown</span>
               <span class="swp-pill-tag" id="bannerModeTag"
-                style="background:#334155; color:#94A3B8; border-color:#475569;">Ready to Scan</span>
+                style="background:#F3F4F6; color:#4B5563; border:1px solid #E5E7EB; border-radius:8px; padding:4px 9px; font-size:10.5px; font-weight:600;">Ready to Scan</span>
             </div>
             <!-- Initial counter is 00:00:00 as requested -->
-            <div class="session-countdown-display" id="sessionTimerDisplay" style="color:#94A3B8;">⏱️ 00:00:00</div>
+            <div class="session-countdown-display" id="sessionTimerDisplay">00:00:00</div>
             <div
-              style="display:flex; justify-content:space-between; font-size:9.5px; color:#CBD5E1; border-top:1px solid rgba(255,255,255,0.15); padding-top:5px; margin-top:3px;">
-              <span>Access: <strong>All Open Slopes</strong></span>
-              <span>Gate: <strong>Turnstile Gate 03</strong></span>
+              style="display:flex; justify-content:space-between; align-items:center; font-size:11.5px; color:#6B7280; border-top:1px solid #F3F4F6; padding-top:8px; margin-top:8px;">
+              <span>Access: <strong style="color:#11181C; font-weight:600;">All Open Slopes</strong></span>
+              <span>Gate: <strong style="color:#11181C; font-weight:600;">Turnstile Gate 03</strong></span>
             </div>
           </div>
 
           <!-- 15 Minutes Remaining Extension Alert Card (Appears dynamically) -->
           <div class="extension-alert-box" id="extensionAlertBox" style="display: none;">
             <div class="ext-alert-text">
-              <strong>⚠️ 15 Minutes Remaining!</strong>
+              <strong>15 Minutes Remaining</strong>
               <p>Your slope session will end soon. Extend your pass now to continue skiing without interruption.</p>
             </div>
-            <button class="ext-action-btn" onclick="openPlayerExtendModal()">⚡ Extend Skiing Time &amp; Smart
-              Upgrade</button>
+            <button class="ext-action-btn" onclick="openPlayerExtendModal()">Extend Skiing Time &amp; Smart Upgrade</button>
           </div>
 
-          <!-- Turnstile Scannable Consolidated QR Code (Case B Prompt Screen 6) -->
+          <!-- Turnstile Scannable Consolidated QR Code -->
           <div class="qr-ticket-card" id="qrTicketCard">
             <div style="display:flex; justify-content:space-between; width:100%; align-items:center;">
-              <span style="font-family:'Montserrat',sans-serif; font-size:11.5px; font-weight:700;" id="qrTicketTitle">Consolidated Gate Pass (2 Pax)</span>
-              <span class="swp-pill-tag blue" id="qrPassTypeBadge">Adult + Child</span>
+              <span style="font-family:'Montserrat',sans-serif; font-size:13.5px; font-weight:700; color:#11181C;" id="qrTicketTitle">Consolidated Gate Pass (2 Pax)</span>
+              <span class="swp-pill-tag" id="qrPassTypeBadge"
+                style="background:#EFF6FF; color:#1D4ED8; border:1px solid #BFDBFE; border-radius:6px; padding:4px 8px; font-size:10.5px; font-weight:600;">Adult + Child</span>
             </div>
             <div class="qr-frame-outer">
               <div class="mock-qr-code"></div>
             </div>
             <div class="qr-ticket-code">#SWP-SKI-882914-AMS</div>
-            <span style="font-size:9.5px; font-weight:700; color:var(--swp-text-primary); margin-top:3px;" id="qrAttendeeNames">
+            <span style="font-size:11.5px; font-weight:600; color:#374151; margin-top:4px; font-family:'Lato',sans-serif;" id="qrAttendeeNames">
               Mukund Patil (Adult) + Rohan Patil (Child 8y)
             </span>
-            <span style="font-size:9px; color:var(--swp-text-sec); margin-top:2px;" id="qrScanInstructions">
+            <span style="font-size:10.5px; color:#6B7280; margin-top:3px; line-height:1.4; text-align:center; font-family:'Lato',sans-serif;" id="qrScanInstructions">
               Single consolidated QR scan admits both adult and child at Turnstile Gate 03
             </span>
           </div>
 
-          <!-- Equipment Rental Pickup Barcode (Prompt Screen 9) -->
+          <!-- Equipment Rental Pickup Barcode -->
           <div
-            style="background:#FFFFFF; border:1px solid var(--swp-border); border-radius:10px; padding:10px 12px; margin:0 14px 10px; text-align:center;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-              <span style="font-size:11px; font-weight:700; color:var(--swp-text-primary);">🎿 Gear Rental Pickup Barcode</span>
-              <span class="swp-pill-tag green" style="font-size:8.5px;">Locker #42 Assigned</span>
+            style="background:#FFFFFF; border:1px solid var(--swp-border); border-radius:12px; padding:12px 14px; margin:0 14px 10px; text-align:center; box-shadow:0 2px 6px rgba(0,0,0,0.04);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span style="font-family:'Montserrat',sans-serif; font-size:12.5px; font-weight:700; color:#11181C;">Gear Rental Pickup Barcode</span>
+              <span class="swp-pill-tag" style="background:#DEF7EC; color:#03543F; border:1px solid #86EFAC; border-radius:6px; padding:3px 8px; font-size:10px; font-weight:600;">Confirmed</span>
             </div>
             <div
-              style="background:#F1F5F9; border-radius:6px; padding:6px; font-family:monospace; font-size:14px; letter-spacing:4px; font-weight:700;">
+              style="background:#F8FAFC; border:1px dashed #CBD5E1; border-radius:8px; padding:8px; font-family:monospace; font-size:15px; letter-spacing:4px; font-weight:700; color:#11181C; margin:6px 0;">
               ||| | |||| || ||| |||| | |||
             </div>
-            <div style="font-size:9.5px; color:#475569; margin-top:4px;" id="gearBarcodeDetails">
-              1x Helmet (Rohan) · 2x Skis &amp; Boots · Locker #42 (PIN: <strong>8941</strong>)
+            <div style="font-size:11px; color:#4B5563; font-family:'Lato',sans-serif; margin-top:4px;" id="gearBarcodeDetails">
+              1x Safety Alpine Helmet · 2x Skis &amp; Boots Rental
             </div>
           </div>
 
           <!-- Completed Game Summary Box (Hidden until exit) -->
           <div class="session-completed-card" id="sessionCompletedBox" style="display: none;">
-            <div class="session-completed-title">🏁 Session Completed!</div>
-            <p style="font-size:10.5px; color:#64748B;">Turnstile Gate 03 exit unlocked. Thank you for skiing at
-              SnowWorld Amsterdam!</p>
+            <div class="session-completed-title">Session Completed</div>
+            <p style="font-size:11px; color:#6B7280; line-height:1.4;">Turnstile Gate 03 exit unlocked. Thank you for skiing at SnowWorld Amsterdam!</p>
             <div class="session-completed-grid">
-              <div>⏱️ <strong>Slope Time:</strong> 58 mins</div>
-              <div>☕ <strong>Break Time:</strong> 14 mins</div>
-              <div>🎿 <strong>Gear:</strong> Locker #42 Released</div>
-              <div>💳 <strong>Total:</strong> <span id="sessionCompletedTotal">€53.00 Settled</span></div>
+              <div><strong>Slope Time:</strong> 58 mins</div>
+              <div><strong>Break Time:</strong> 14 mins</div>
+              <div><strong>Gear:</strong> Equipment Returned</div>
+              <div><strong>Total:</strong> <span id="sessionCompletedTotal" style="font-weight:700; color:#059669;">€53.00 Settled</span></div>
             </div>
-            <button class="feed-btn-pass" style="width:100%; height:40px; margin-top:4px;"
+            <button class="feed-btn-pass" style="width:100%; height:42px; margin-top:6px; background:#007AFF; color:#FFFFFF; border-radius:8px; font-family:'Montserrat',sans-serif; font-size:13.5px; font-weight:600; border:none; cursor:pointer;"
               onclick="navigateToScreen('screen1')">
-              <span>🏠 Return to Packages Feed</span>
+              <span>Return to Packages Feed</span>
             </button>
           </div>
 
           <!-- Interactive Turnstile Lifecycle Controller -->
           <div class="lifecycle-actions-box" id="lifecycleActionsBox">
-            <span class="module-sec-title" style="padding:0;">Turnstile Simulation Controls</span>
+            <span class="module-sec-title" style="padding:0; font-family:'Montserrat',sans-serif; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:#6B7280;">Turnstile Simulation Controls</span>
 
             <!-- Action 1: Initial Pre-Gate Scan to Start Game (Visible initially) -->
             <button class="lifecycle-btn start" id="btnGateStartGame" onclick="actionScanGateStart()">
-              <span>📷 Scan QR at Turnstile 3: Start Session</span>
+              <span>Scan QR at Turnstile 3: Start Session</span>
             </button>
 
             <!-- Action 2: Take Break (Hidden initially, visible once session is running) -->
             <button class="lifecycle-btn break" id="btnGateTakeBreak" style="display: none;"
               onclick="actionScanGateBreak()">
-              <span>⏸️ Scan at Cafe Gate: Take Break (Pauses Timer)</span>
+              <span>Scan at Cafe Gate: Take Break (Pauses Timer)</span>
             </button>
 
             <!-- Action 3: Resume Game (Visible when on break) -->
             <button class="lifecycle-btn resume" id="btnGateResumeGame" style="display: none;"
               onclick="actionScanGateResume()">
-              <span>▶️ Scan at Turnstile: Resume Slope Session</span>
+              <span>Scan at Turnstile: Resume Slope Session</span>
             </button>
 
             <!-- Action 4: Test Trigger - Jump to 15 Mins (Visible when session running) -->
             <button class="lifecycle-btn" id="btnJump15Min"
-              style="display:none; background:#FEF3C7; color:#B45309; border:1px dashed #F59E0B;"
+              style="display:none; background:#F8FAFC; color:#4B5563; border:1px dashed #CBD5E1; min-height:36px; font-size:12px;"
               onclick="actionJump15Mins()">
-              <span>⚡ Test: Jump to 15 Mins Remaining</span>
+              <span>Test: Jump to 15 Mins Remaining</span>
             </button>
 
             <!-- Action 5: Complete Game / Exit Turnstile (Visible once session is running or on break) -->
             <button class="lifecycle-btn complete" id="btnGateExitGame" style="display: none;"
               onclick="actionScanGateExit()">
-              <span>🏁 Scan QR at Turnstile 3: Complete &amp; Exit</span>
+              <span>Scan QR at Turnstile 3: Complete &amp; Exit</span>
             </button>
           </div>
 
           <!-- Overtime & Grace Period Alert -->
           <div class="overtime-warning-card">
-            <span>⚠️</span>
+            <svg style="width:16px; height:16px; color:#D97706; flex-shrink:0; margin-top:1px;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
             <div>
-              <strong>10-Minute Turnstile Grace Window:</strong>
-              <div>Exit within 10 mins of session end. Overtime penalty (€6.00/15 mins) applies automatically.</div>
-            </div>
-          </div>
-
-          <div style="padding:0 14px 10px;">
-            <div
-              style="background:#FFFFFF; border:1px solid var(--swp-border); border-radius:8px; padding:7px 10px; display:flex; justify-content:space-between; align-items:center; font-size:10.5px;">
-              <span>🔒 <strong>Locker #42:</strong> PIN: 8941</span>
-              <span style="color:var(--swp-danger); font-weight:700; cursor:pointer;"
-                onclick="showToast('🚨 Calling Ski Patrol (Locker #42)...')">🆘 Patrol Help</span>
+              <strong class="overtime-warning-title">10-Minute Turnstile Grace Window:</strong>
+              <div class="overtime-warning-desc">Exit within 10 mins of session end. Overtime penalty (€6.00/15 mins) applies automatically.</div>
             </div>
           </div>
         </div>
@@ -4283,124 +4575,114 @@
         <div id="playerExtendModal" class="swp-modal-backdrop">
           <div class="swp-modal-bottom-sheet">
 
-            <div
-              style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--swp-border); padding-bottom:8px;">
+            <!-- Sheet Drag Handle Indicator -->
+            <div style="width:36px; height:4px; background:#CBD5E1; border-radius:9999px; margin:0 auto 2px;"></div>
+
+            <!-- Header -->
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; padding-bottom:8px; border-bottom:1px solid var(--swp-border);">
               <div>
-                <h3
-                  style="font-family:'Montserrat',sans-serif; font-size:13px; font-weight:800; color:var(--swp-text-primary); margin:0;">
-                  Extend Active Slope Session</h3>
-                <span style="font-size:10px; color:var(--swp-text-sec);">Dynamic turnstile pass extension</span>
+                <h3 style="font-family:'Montserrat',sans-serif; font-size:15px; font-weight:700; color:var(--swp-text-primary); margin:0;">
+                  Extend Slope Session
+                </h3>
+                <span style="font-size:11px; color:var(--swp-text-sec); font-family:'Lato',sans-serif; display:block; margin-top:2px;">
+                  Select attendees and duration to extend your turnstile pass
+                </span>
               </div>
               <button onclick="closePlayerExtendModal()"
-                style="width:26px; height:26px; border-radius:50%; border:none; background:#F1F5F9; font-size:12px; cursor:pointer; color:#64748B;">✕</button>
+                style="width:28px; height:28px; border-radius:50%; border:none; background:#F1F5F9; font-size:12px; cursor:pointer; color:#64748B; display:flex; align-items:center; justify-content:center; flex-shrink:0;">✕</button>
             </div>
 
-            <!-- Current Session Context Display -->
-            <div style="background:#0F172A; color:#FFFFFF; border-radius:10px; padding:10px 12px; font-size:10.5px;">
-              <div style="display:flex; justify-content:space-between; margin-bottom:3px;">
-                <span style="color:#94A3B8; font-size:9.5px; font-family:monospace;">BOOKING #SWP-SKI-882914-AMS</span>
-                <span
-                  style="background:rgba(245,158,11,0.2); color:#FBBF24; padding:1px 6px; border-radius:4px; font-weight:700; font-size:9px;">⏱️
-                  15 mins remaining</span>
+            <!-- Current Session Context Display (Clean SWP Card) -->
+            <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:10px 12px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                <span style="color:#64748B; font-size:10px; font-weight:700; font-family:'Montserrat',sans-serif; letter-spacing:0.5px; text-transform:uppercase;">Booking #SWP-SKI-882914-AMS</span>
+                <span style="background:#FEF3C7; color:#92400E; border:1px solid #FCD34D; padding:2px 7px; border-radius:4px; font-weight:600; font-size:9.5px; font-family:'Montserrat',sans-serif;">15 mins remaining</span>
               </div>
-              <div style="font-weight:700; font-size:12px;">1-Hour Pass (10:00 – 11:00)</div>
-              <div style="color:#CBD5E1; font-size:10px; margin-top:2px;">Attendees: <strong>2 Persons (Mukund Patil,
-                  Rohan Patil)</strong></div>
+              <div style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:13px; color:#11181C;">1-Hour Pass (10:00 – 11:00)</div>
+              <div style="color:#64748B; font-size:11px; margin-top:3px; font-family:'Lato',sans-serif;">Attendees: <strong style="color:#334155; font-weight:600;">2 Persons (Mukund Patil, Rohan Patil)</strong></div>
             </div>
 
             <!-- Step 1: Select Participants to Extend -->
-            <div style="background:#F8FAFC; border:1px solid var(--swp-border); border-radius:10px; padding:10px;">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-                <span
-                  style="font-family:'Montserrat',sans-serif; font-size:10px; font-weight:700; text-transform:uppercase; color:var(--swp-text-sec);">Step
-                  1: Select who wants to extend:</span>
-                <span id="plExtCounter" class="swp-pill-tag blue" style="font-size:9px;">2 of 2 selected</span>
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <span style="font-family:'Montserrat',sans-serif; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:#475569;">Step 1: Select Participants</span>
+                <span id="plExtCounter" class="swp-pill-tag blue" style="font-size:9.5px;">2 of 2 selected</span>
               </div>
 
-              <div style="display:flex; flex-direction:column; gap:5px;">
-                <label
-                  style="display:flex; justify-content:space-between; align-items:center; background:#FFFFFF; border:1px solid var(--swp-border); border-radius:6px; padding:6px 8px; cursor:pointer; font-size:11px;">
-                  <span style="display:flex; align-items:center; gap:6px;">
+              <div style="display:flex; flex-direction:column; gap:6px;">
+                <label id="rowPaxMukund"
+                  style="display:flex; justify-content:space-between; align-items:center; background:#FFFFFF; border:1px solid var(--swp-border); border-radius:8px; padding:8px 10px; cursor:pointer;">
+                  <span style="display:flex; align-items:center; gap:8px;">
                     <input type="checkbox" id="plPaxMukund" checked onchange="recalcPlayerExtension()"
-                      style="accent-color:var(--swp-primary);">
-                    <strong>Mukund Patil (Lead Adult)</strong>
+                      style="accent-color:var(--swp-primary); width:15px; height:15px; cursor:pointer;">
+                    <div>
+                      <strong style="font-family:'Montserrat',sans-serif; font-size:11.5px; color:#11181C; display:block;">Mukund Patil</strong>
+                      <span style="font-size:10px; color:#64748B;">Lead Adult</span>
+                    </div>
                   </span>
-                  <span style="font-size:9.5px; color:#10B981; font-weight:700;">Extending</span>
+                  <span id="badgePaxMukund" class="swp-pill-tag blue" style="font-size:9.5px;">Selected</span>
                 </label>
 
-                <label
-                  style="display:flex; justify-content:space-between; align-items:center; background:#FFFFFF; border:1px solid var(--swp-border); border-radius:6px; padding:6px 8px; cursor:pointer; font-size:11px;">
-                  <span style="display:flex; align-items:center; gap:6px;">
+                <label id="rowPaxRohan"
+                  style="display:flex; justify-content:space-between; align-items:center; background:#FFFFFF; border:1px solid var(--swp-border); border-radius:8px; padding:8px 10px; cursor:pointer;">
+                  <span style="display:flex; align-items:center; gap:8px;">
                     <input type="checkbox" id="plPaxRohan" checked onchange="recalcPlayerExtension()"
-                      style="accent-color:var(--swp-primary);">
-                    <strong>Rohan Patil (Child 8y)</strong>
+                      style="accent-color:var(--swp-primary); width:15px; height:15px; cursor:pointer;">
+                    <div>
+                      <strong style="font-family:'Montserrat',sans-serif; font-size:11.5px; color:#11181C; display:block;">Rohan Patil</strong>
+                      <span style="font-size:10px; color:#64748B;">Child (8y)</span>
+                    </div>
                   </span>
-                  <span style="font-size:9.5px; color:#10B981; font-weight:700;">Extending</span>
+                  <span id="badgePaxRohan" class="swp-pill-tag blue" style="font-size:9.5px;">Selected</span>
                 </label>
               </div>
             </div>
 
-            <!-- Step 2: Extension Selection & Smart Recommendation Engine -->
-            <div style="display:flex; flex-direction:column; gap:6px;">
-              <span
-                style="font-family:'Montserrat',sans-serif; font-size:10px; font-weight:700; text-transform:uppercase; color:var(--swp-text-sec);">Step
-                2: Extension Option</span>
+            <!-- Step 2: Extension Option -->
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <span style="font-family:'Montserrat',sans-serif; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:#475569;">Step 2: Extension Option</span>
 
               <!-- Option A: +1 Hour -->
-              <label
-                style="display:flex; justify-content:space-between; align-items:center; border:1px solid var(--swp-border); background:#FFFFFF; border-radius:8px; padding:8px 10px; cursor:pointer;">
-                <div style="display:flex; align-items:center; gap:8px;">
+              <label id="cardOptionHour"
+                style="display:flex; justify-content:space-between; align-items:center; border:1px solid var(--swp-border); background:#FFFFFF; border-radius:10px; padding:9px 11px; cursor:pointer; transition:all 0.15s ease;">
+                <div style="display:flex; align-items:flex-start; gap:9px; flex:1; min-width:0;">
                   <input type="radio" name="plExtOption" value="hour" onchange="recalcPlayerExtension()"
-                    style="accent-color:var(--swp-primary);">
-                  <div>
-                    <strong style="font-size:11px; display:block;">+ 1 Hour Extension</strong>
-                    <span style="font-size:9.5px; color:var(--swp-text-sec);">€15.00 per person</span>
+                    style="accent-color:var(--swp-primary); width:16px; height:16px; margin-top:2px; cursor:pointer; flex-shrink:0;">
+                  <div style="min-width:0;">
+                    <div style="font-family:'Montserrat',sans-serif; font-size:12px; font-weight:600; color:#11181C;">+ 1 Hour Extension</div>
+                    <span style="font-size:10px; color:#64748B; font-family:'Lato',sans-serif; display:block; margin-top:1px;">€15.00 per person · 1 hr extra</span>
                   </div>
                 </div>
-                <span id="plOptionACost" style="font-family:monospace; font-weight:700; font-size:11.5px;">€30.00
-                  Total</span>
+                <span id="plOptionACost" style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:12.5px; color:#11181C; white-space:nowrap; margin-left:8px;">€30.00 Total</span>
               </label>
 
               <!-- Option B: Upgrade to Half-Day (Best Value) -->
-              <label
-                style="display:flex; flex-direction:column; border:2px solid #10B981; background:#ECFDF5; border-radius:8px; padding:8px 10px; cursor:pointer; position:relative;">
-                <div
-                  style="position:absolute; top:-8px; right:8px; background:#059669; color:#FFFFFF; font-size:8.5px; font-weight:800; padding:1px 6px; border-radius:4px; text-transform:uppercase;">
-                  ★ Best Value
-                </div>
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                  <div style="display:flex; align-items:center; gap:8px;">
-                    <input type="radio" name="plExtOption" value="upgrade" checked onchange="recalcPlayerExtension()"
-                      style="accent-color:#059669;">
-                    <div>
-                      <strong style="font-size:11px; color:#065F46; display:block;">Upgrade to Half-Day Pass (4
-                        Hours)</strong>
-                      <span style="font-size:9.5px; color:#047857;">Half-Day €34 - Paid €24 = €10/pax difference</span>
+              <label id="cardOptionUpgrade"
+                style="display:flex; justify-content:space-between; align-items:center; border:1.5px solid var(--swp-primary); background:#F0F7FF; border-radius:10px; padding:9px 11px; cursor:pointer; transition:all 0.15s ease;">
+                <div style="display:flex; align-items:flex-start; gap:9px; flex:1; min-width:0;">
+                  <input type="radio" name="plExtOption" value="upgrade" checked onchange="recalcPlayerExtension()"
+                    style="accent-color:var(--swp-primary); width:16px; height:16px; margin-top:2px; cursor:pointer; flex-shrink:0;">
+                  <div style="min-width:0;">
+                    <div style="display:flex; align-items:center; gap:5px; flex-wrap:wrap;">
+                      <span style="font-family:'Montserrat',sans-serif; font-size:12px; font-weight:600; color:#11181C;">Upgrade to Half-Day</span>
+                      <span style="background:#EFF6FF; color:#007AFF; border:1px solid #BFDBFE; font-size:8.5px; font-weight:700; padding:1px 5px; border-radius:4px; text-transform:uppercase; letter-spacing:0.3px;">Best Value</span>
                     </div>
+                    <span style="font-size:10px; color:#64748B; font-family:'Lato',sans-serif; display:block; margin-top:1px;">4 Hours · +3h extra for €10/pax</span>
                   </div>
-                  <span id="plOptionBCost"
-                    style="font-family:monospace; font-weight:800; font-size:12px; color:#065F46;">€20.00 Total</span>
                 </div>
-                <p
-                  style="font-size:9px; color:#065F46; margin-top:4px; line-height:1.3; border-top:1px dashed #A7F3D0; padding-top:4px;">
-                  💡 <em>Upgrading gives 3 extra hours for only €10.00 more per person!</em>
-                </p>
+                <span id="plOptionBCost" style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:12.5px; color:var(--swp-primary); white-space:nowrap; margin-left:8px;">€20.00 Total</span>
               </label>
             </div>
 
             <!-- Settlement & Checkout Footer -->
-            <div
-              style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--swp-border); padding-top:8px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--swp-border); padding-top:10px; margin-top:2px;">
               <div>
-                <span style="font-size:9.5px; color:var(--swp-text-sec); text-transform:uppercase; display:block;">Total
-                  Due Now:</span>
-                <span id="plExtGrandTotal"
-                  style="font-family:'Montserrat',sans-serif; font-size:15px; font-weight:800; color:var(--swp-primary);">€20.00</span>
+                <span style="font-size:9.5px; color:#64748B; text-transform:uppercase; font-weight:600; letter-spacing:0.5px; font-family:'Montserrat',sans-serif; display:block;">Total Due:</span>
+                <span id="plExtGrandTotal" style="font-family:'Montserrat',sans-serif; font-size:17px; font-weight:800; color:var(--swp-text-primary);">€20.00</span>
               </div>
               <button onclick="confirmPlayerExtension()"
-                style="background:#10B981; color:#FFFFFF; border:none; border-radius:8px; padding:8px 14px; font-family:'Montserrat',sans-serif; font-size:11.5px; font-weight:700; cursor:pointer; display:flex; align-items:center; gap:5px;">
-                <span>Confirm &amp; Update Gate Pass</span>
-                <span>✓</span>
+                style="background:var(--swp-primary); color:#FFFFFF; border:none; border-radius:8px; height:40px; padding:0 18px; font-family:'Montserrat',sans-serif; font-size:12px; font-weight:600; cursor:pointer; box-shadow:0 2px 6px rgba(0, 122, 255, 0.25); display:flex; align-items:center; gap:6px; transition:background 0.15s ease;">
+                <span>Confirm Extension</span>
               </button>
             </div>
 
@@ -4648,6 +4930,18 @@
 
       if (searchSec) searchSec.style.display = (tab === 'new') ? 'block' : 'none';
       if (dateSec) dateSec.style.display = (tab === 'new') ? 'block' : 'none';
+
+      // Synchronize bottom nav active state
+      const bnavNodes = document.querySelectorAll('#col-screen1 .swp-bottom-tab-bar .bnav-node');
+      if (bnavNodes && bnavNodes.length >= 2) {
+        if (tab === 'upcoming') {
+          bnavNodes[0].classList.remove('active');
+          bnavNodes[1].classList.add('active');
+        } else if (tab === 'new') {
+          bnavNodes[0].classList.add('active');
+          bnavNodes[1].classList.remove('active');
+        }
+      }
     }
 
     // Screen 1 Date Selection
@@ -5203,7 +5497,7 @@
         });
         if (comboCount > 0) gearParts.push(`${comboCount}x Combo Full Gear`);
         const gearStr = gearParts.length > 0 ? gearParts.join(' · ') : 'No equipment rental';
-        gearBarcodeEl.innerHTML = `${gearStr} · Locker #42 (PIN: <strong>8941</strong>)`;
+        gearBarcodeEl.innerHTML = `${gearStr}`;
       }
 
       const completedTotal = document.getElementById('sessionCompletedTotal');
@@ -5219,7 +5513,7 @@
       });
       const grandTotal = passesSum + equipmentSum;
 
-      showToast(`🎉 Booking Confirmed! €${grandTotal.toFixed(2)} Paid via iDEAL.`);
+      showToast(`Booking Confirmed! €${grandTotal.toFixed(2)} Paid via iDEAL.`);
       resetTurnstileToReadyState();
       setTimeout(() => navigateToScreen('screen4'), 400);
     }
@@ -5238,17 +5532,20 @@
       const bannerStateText = document.getElementById('bannerStateText');
       const timerDisplay = document.getElementById('sessionTimerDisplay');
 
-      if (pill) pill.style.cssText = 'background:#F1F5F9; color:#64748B; border:1px solid #CBD5E1;';
-      if (dot) dot.style.background = '#94A3B8';
+      if (pill) pill.style.cssText = 'background:#F3F4F6; color:#4B5563; border:1px solid #E5E7EB;';
+      if (dot) {
+        dot.style.background = '#9CA3AF';
+        dot.style.animation = 'none';
+      }
       if (label) label.textContent = 'READY AT GATE';
       if (bannerMode) {
         bannerMode.textContent = 'Ready to Scan';
-        bannerMode.style.cssText = 'background:#334155; color:#94A3B8; border-color:#475569;';
+        bannerMode.style.cssText = 'background:#F3F4F6; color:#4B5563; border:1px solid #E5E7EB; border-radius:8px; padding:4px 9px; font-size:10.5px; font-weight:600;';
       }
       if (bannerStateText) bannerStateText.textContent = 'Slope Session Countdown';
       if (timerDisplay) {
-        timerDisplay.textContent = '⏱️ 00:00:00';
-        timerDisplay.style.color = '#94A3B8';
+        timerDisplay.textContent = '00:00:00';
+        timerDisplay.style.color = '#11181C';
       }
 
       document.getElementById('btnGateStartGame')?.style.setProperty('display', 'flex');
@@ -5263,7 +5560,7 @@
     function actionScanGateStart() {
       turnstileState = 'active';
       const totalPax = adultCount + childCount + comboCount;
-      showToast(`🟢 Turnstile Gate 03 Unlocked! ${totalPax} Person${totalPax > 1 ? 's' : ''} Admitted.`);
+      showToast(`Turnstile Gate 03 Unlocked! ${totalPax} Person${totalPax > 1 ? 's' : ''} Admitted.`);
 
       const pill = document.getElementById('sessionStatePill');
       const dot = document.getElementById('sessionPulseDot');
@@ -5272,15 +5569,18 @@
       const bannerStateText = document.getElementById('bannerStateText');
       const timerDisplay = document.getElementById('sessionTimerDisplay');
 
-      if (pill) pill.style.cssText = 'background:#ECFDF5; color:#059669; border:1px solid #A7F3D0;';
-      if (dot) dot.style.background = '#10B981';
+      if (pill) pill.style.cssText = 'background:#DEF7EC; color:#03543F; border:1px solid #86EFAC;';
+      if (dot) {
+        dot.style.background = '#10B981';
+        dot.style.animation = 'pulseGreen 1.8s infinite';
+      }
       if (label) label.textContent = 'ACTIVE SESSION';
       if (bannerMode) {
-        bannerMode.textContent = '⏱️ In Session';
-        bannerMode.style.cssText = 'background:#065F46; color:#A7F3D0; border-color:#10B981;';
+        bannerMode.textContent = 'In Session';
+        bannerMode.style.cssText = 'background:#DEF7EC; color:#03543F; border:1px solid #86EFAC; border-radius:8px; padding:4px 9px; font-size:10.5px; font-weight:600;';
       }
       if (bannerStateText) bannerStateText.textContent = 'Slope Session Active';
-      if (timerDisplay) timerDisplay.style.color = '#FFFFFF';
+      if (timerDisplay) timerDisplay.style.color = '#11181C';
 
       document.getElementById('btnGateStartGame')?.style.setProperty('display', 'none');
       document.getElementById('btnGateTakeBreak')?.style.setProperty('display', 'flex');
@@ -5300,7 +5600,7 @@
             updateTimerDOM();
             if (sessionRemainingSeconds === 15 * 60) {
               document.getElementById('extensionAlertBox')?.style.setProperty('display', 'flex');
-              showToast('⚠️ 15 Mins Remaining! Tap Extend to upgrade.');
+              showToast('15 Mins Remaining! Tap Extend to upgrade.');
             }
           }
         } else if (turnstileState === 'break') {
@@ -5312,29 +5612,34 @@
     function updateTimerDOM() {
       const mins = Math.floor(sessionRemainingSeconds / 60);
       const secs = sessionRemainingSeconds % 60;
-      const str = `⏱️ 00:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      const str = `00:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
       const el = document.getElementById('sessionTimerDisplay');
       if (el) el.textContent = str;
     }
 
     function actionScanGateBreak() {
       turnstileState = 'break';
-      showToast('☕ Cafe Break Gate Unlocked! Slope Timer Paused.');
+      showToast('Cafe Break Gate Unlocked! Slope Timer Paused.');
 
       const pill = document.getElementById('sessionStatePill');
       const dot = document.getElementById('sessionPulseDot');
       const label = document.getElementById('sessionStateLabel');
       const bannerMode = document.getElementById('bannerModeTag');
       const bannerStateText = document.getElementById('bannerStateText');
+      const timerDisplay = document.getElementById('sessionTimerDisplay');
 
-      if (pill) pill.style.cssText = 'background:#FEF3C7; color:#B45309; border:1px solid #FDE68A;';
-      if (dot) dot.style.background = '#F59E0B';
+      if (pill) pill.style.cssText = 'background:#FEF3C7; color:#854D0E; border:1px solid #FDE047;';
+      if (dot) {
+        dot.style.background = '#F59E0B';
+        dot.style.animation = 'none';
+      }
       if (label) label.textContent = 'ON BREAK';
       if (bannerMode) {
-        bannerMode.textContent = '☕ Paused';
-        bannerMode.style.cssText = 'background:#78350F; color:#FDE68A; border-color:#F59E0B;';
+        bannerMode.textContent = 'Paused';
+        bannerMode.style.cssText = 'background:#FEF3C7; color:#854D0E; border:1px solid #FDE047; border-radius:8px; padding:4px 9px; font-size:10.5px; font-weight:600;';
       }
       if (bannerStateText) bannerStateText.textContent = 'Break Mode (Slope Paused)';
+      if (timerDisplay) timerDisplay.style.color = '#D97706';
 
       document.getElementById('btnGateTakeBreak')?.style.setProperty('display', 'none');
       document.getElementById('btnGateResumeGame')?.style.setProperty('display', 'flex');
@@ -5342,22 +5647,27 @@
 
     function actionScanGateResume() {
       turnstileState = 'active';
-      showToast('🟢 Resumed Slope Access via Turnstile 03!');
+      showToast('Resumed Slope Access via Turnstile 03!');
 
       const pill = document.getElementById('sessionStatePill');
       const dot = document.getElementById('sessionPulseDot');
       const label = document.getElementById('sessionStateLabel');
       const bannerMode = document.getElementById('bannerModeTag');
       const bannerStateText = document.getElementById('bannerStateText');
+      const timerDisplay = document.getElementById('sessionTimerDisplay');
 
-      if (pill) pill.style.cssText = 'background:#ECFDF5; color:#059669; border:1px solid #A7F3D0;';
-      if (dot) dot.style.background = '#10B981';
+      if (pill) pill.style.cssText = 'background:#DEF7EC; color:#03543F; border:1px solid #86EFAC;';
+      if (dot) {
+        dot.style.background = '#10B981';
+        dot.style.animation = 'pulseGreen 1.8s infinite';
+      }
       if (label) label.textContent = 'ACTIVE SESSION';
       if (bannerMode) {
-        bannerMode.textContent = '⏱️ In Session';
-        bannerMode.style.cssText = 'background:#065F46; color:#A7F3D0; border-color:#10B981;';
+        bannerMode.textContent = 'In Session';
+        bannerMode.style.cssText = 'background:#DEF7EC; color:#03543F; border:1px solid #86EFAC; border-radius:8px; padding:4px 9px; font-size:10.5px; font-weight:600;';
       }
       if (bannerStateText) bannerStateText.textContent = 'Slope Session Active';
+      if (timerDisplay) timerDisplay.style.color = '#11181C';
 
       document.getElementById('btnGateResumeGame')?.style.setProperty('display', 'none');
       document.getElementById('btnGateTakeBreak')?.style.setProperty('display', 'flex');
@@ -5371,7 +5681,7 @@
       updateTimerDOM();
       document.getElementById('extensionAlertBox')?.style.setProperty('display', 'flex');
       openPlayerExtendModal();
-      showToast('⏱️ Jumped to 15m remaining! Smart Extension triggered.');
+      showToast('Jumped to 15m remaining! Smart Extension triggered.');
     }
 
     function openPlayerExtendModal() {
@@ -5395,15 +5705,56 @@
       const counterEl = document.getElementById('plExtCounter');
       if (counterEl) counterEl.textContent = `${count} of 2 selected`;
 
+      // Update participant row badge styles
+      const badgeM = document.getElementById('badgePaxMukund');
+      if (badgeM) {
+        badgeM.textContent = mukundChecked ? 'Selected' : 'Excluded';
+        badgeM.className = mukundChecked ? 'swp-pill-tag blue' : 'swp-pill-tag';
+        badgeM.style.cssText = mukundChecked ? 'font-size:9.5px;' : 'font-size:9.5px; background:#F1F5F9; color:#64748B; border:1px solid #E2E8F0;';
+      }
+      const badgeR = document.getElementById('badgePaxRohan');
+      if (badgeR) {
+        badgeR.textContent = rohanChecked ? 'Selected' : 'Excluded';
+        badgeR.className = rohanChecked ? 'swp-pill-tag blue' : 'swp-pill-tag';
+        badgeR.style.cssText = rohanChecked ? 'font-size:9.5px;' : 'font-size:9.5px; background:#F1F5F9; color:#64748B; border:1px solid #E2E8F0;';
+      }
+
       const option = document.querySelector('input[name="plExtOption"]:checked')?.value || 'upgrade';
       const costPerPax = (option === 'hour') ? 15.00 : 10.00;
       const grandTotal = count * costPerPax;
 
+      // Update selection styling for option cards matching OngoingBookingSheet pattern
+      const cardHour = document.getElementById('cardOptionHour');
+      const cardUpgrade = document.getElementById('cardOptionUpgrade');
+      if (cardHour && cardUpgrade) {
+        if (option === 'hour') {
+          cardHour.style.borderColor = 'var(--swp-primary)';
+          cardHour.style.borderWidth = '1.5px';
+          cardHour.style.background = '#F0F7FF';
+          cardUpgrade.style.borderColor = 'var(--swp-border)';
+          cardUpgrade.style.borderWidth = '1px';
+          cardUpgrade.style.background = '#FFFFFF';
+        } else {
+          cardUpgrade.style.borderColor = 'var(--swp-primary)';
+          cardUpgrade.style.borderWidth = '1.5px';
+          cardUpgrade.style.background = '#F0F7FF';
+          cardHour.style.borderColor = 'var(--swp-border)';
+          cardHour.style.borderWidth = '1px';
+          cardHour.style.background = '#FFFFFF';
+        }
+      }
+
       const costA = document.getElementById('plOptionACost');
-      if (costA) costA.textContent = `€${(count * 15.00).toFixed(2)} Total`;
+      if (costA) {
+        costA.textContent = `€${(count * 15.00).toFixed(2)} Total`;
+        costA.style.color = (option === 'hour') ? 'var(--swp-primary)' : 'var(--swp-text-primary)';
+      }
 
       const costB = document.getElementById('plOptionBCost');
-      if (costB) costB.textContent = `€${(count * 10.00).toFixed(2)} Total`;
+      if (costB) {
+        costB.textContent = `€${(count * 10.00).toFixed(2)} Total`;
+        costB.style.color = (option === 'upgrade') ? 'var(--swp-primary)' : 'var(--swp-text-primary)';
+      }
 
       const grandEl = document.getElementById('plExtGrandTotal');
       if (grandEl) grandEl.textContent = `€${grandTotal.toFixed(2)}`;
@@ -5416,19 +5767,22 @@
       updateTimerDOM();
       closePlayerExtendModal();
       document.getElementById('extensionAlertBox')?.style.setProperty('display', 'none');
-      showToast(`🎉 Extended! +${addedMins / 60}h added to your turnstile pass.`);
+      showToast(`Extended! +${addedMins / 60}h added to your turnstile pass.`);
     }
 
     function actionScanGateExit() {
       if (sessionTimerInterval) clearInterval(sessionTimerInterval);
       turnstileState = 'completed';
-      showToast('🏁 Turnstile Gate 03 Exit Scanned! Thank you.');
+      showToast('Turnstile Gate 03 Exit Scanned! Thank you.');
 
       const pill = document.getElementById('sessionStatePill');
       const dot = document.getElementById('sessionPulseDot');
       const label = document.getElementById('sessionStateLabel');
-      if (pill) pill.style.cssText = 'background:#F1F5F9; color:#475569; border:1px solid #CBD5E1;';
-      if (dot) dot.style.background = '#64748B';
+      if (pill) pill.style.cssText = 'background:#F3F4F6; color:#4B5563; border:1px solid #E5E7EB;';
+      if (dot) {
+        dot.style.background = '#9CA3AF';
+        dot.style.animation = 'none';
+      }
       if (label) label.textContent = 'SESSION COMPLETED';
 
       document.getElementById('btnGateTakeBreak')?.style.setProperty('display', 'none');
@@ -5441,22 +5795,37 @@
 
     function checkHashRoute() {
       const hash = window.location.hash.toLowerCase();
-      if (hash.includes('checkout') || hash.includes('screen3')) {
+      const urlParams = new URLSearchParams(window.location.search);
+      const tabParam = urlParams.get('tab')?.toLowerCase() || '';
+
+      if (hash.includes('upcoming') || tabParam === 'upcoming') {
+        selectScreen1Tab('upcoming', document.getElementById('tabScreen1Upcoming'));
+      } else if (hash.includes('checkout') || hash.includes('screen3')) {
         navigateToScreen('screen3');
       } else if (hash.includes('pass') || hash.includes('turnstile') || hash.includes('screen4')) {
         navigateToScreen('screen4');
+        if (hash.includes('extend') || urlParams.get('modal') === 'extend') {
+          actionScanGateStart();
+          openPlayerExtendModal();
+        } else if (hash.includes('active') || urlParams.get('state') === 'active') {
+          setTimeout(actionScanGateStart, 50);
+        } else if (hash.includes('break') || urlParams.get('state') === 'break') {
+          setTimeout(() => { actionScanGateStart(); actionScanGateBreak(); }, 50);
+        }
       } else if (hash.includes('detail') || hash.includes('screen2')) {
         navigateToScreen('screen2a');
       }
     }
 
-    window.addEventListener('load', () => {
+    document.addEventListener('DOMContentLoaded', () => {
       renderArrivalSlots();
       renderScreen2Players();
       renderScreen3Equipment();
       recalcBookingTotals();
       checkHashRoute();
     });
+    window.addEventListener('hashchange', checkHashRoute);
+    window.addEventListener('load', checkHashRoute);
   </script>
 
 </body>
