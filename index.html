@@ -1663,7 +1663,7 @@
       'player_ui': {
         title: 'Interactive Skiing Player Mobile App (SnowWorld Model)',
         desc: '4-Screen interactive device frames: 1. All Packages, 2. Select Pass & Time, 3. Equipment & Pay (€53), and 4. Redesigned Upcoming Booking Detail & Gate Pass.',
-        file: 'skiing_player.html#screen4',
+        file: 'skiing_player.html#screen1',
         type: 'iframe'
       },
       'player_upcoming': {
@@ -2370,12 +2370,13 @@
               b.style.borderColor = '#CBD5E1';
               b.style.fontWeight = '600';
             });
-            const btn4 = document.getElementById('btnMainScreen4');
-            if (btn4) {
-              btn4.style.background = '#007AFF';
-              btn4.style.color = '#fff';
-              btn4.style.borderColor = '#007AFF';
-              btn4.style.fontWeight = '700';
+            const targetBtnId = (hash === 'player_ui') ? 'btnMainScreen1' : 'btnMainScreen4';
+            const activeBtn = document.getElementById(targetBtnId);
+            if (activeBtn) {
+              activeBtn.style.background = '#007AFF';
+              activeBtn.style.color = '#fff';
+              activeBtn.style.borderColor = '#007AFF';
+              activeBtn.style.fontWeight = '700';
             }
           } else {
             subNav.style.display = 'none';

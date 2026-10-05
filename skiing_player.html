@@ -1037,6 +1037,773 @@
     }
 
     /* ═══════════════════════════════════════════════════════════════════
+       NATIVE SWP PLAYER APP DESIGN SYSTEM: SCREEN 1 FEED & DISCOVERY
+       Grounded in: BookingsScreen.tsx, NewScreen.tsx, BookingSearchBar.tsx,
+       BookingDateControls.tsx, BookingStatsRow.tsx, TimeSlotSelector.tsx,
+       HorizontalFilters.tsx, CourtBookingCard.tsx, GolfBookingCard.tsx
+       ═══════════════════════════════════════════════════════════════════ */
+
+    /* 1. Native Full-width Search Bar (BookingSearchBar.tsx) */
+    .swp-native-search-wrap {
+      padding: 10px 14px 4px;
+      background: #FFFFFF;
+      flex-shrink: 0;
+    }
+
+    .swp-native-search-bar {
+      display: flex;
+      align-items: center;
+      background: #FFFFFF;
+      border: 1px solid #E5E7EB;
+      border-radius: 12px;
+      padding: 10px 14px;
+      box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.08);
+      gap: 10px;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .swp-native-search-bar:focus-within {
+      border-color: #3B82F6;
+      box-shadow: 0px 2px 8px 0px rgba(59, 130, 246, 0.2);
+    }
+
+    .swp-native-search-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .swp-native-search-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      outline: none;
+      font-family: 'Lato', sans-serif;
+      font-size: 14.5px;
+      color: #11181C;
+      padding: 0;
+      min-width: 0;
+    }
+
+    .swp-native-search-input::placeholder {
+      color: #9CA3AF;
+      font-size: 14px;
+    }
+
+    .swp-native-search-clear {
+      width: 20px;
+      height: 20px;
+      border-radius: 10px;
+      background: #E5E7EB;
+      color: #6B7280;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    /* 2. Native Date Controls & Header (BookingDateControls.tsx & DateSelector.tsx) */
+    .swp-native-date-section {
+      background: #FFFFFF;
+      flex-shrink: 0;
+      border-bottom: 1px solid #F1F5F9;
+    }
+
+    .swp-native-date-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px 6px;
+    }
+
+    .swp-native-date-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #1F2937;
+      letter-spacing: -0.2px;
+    }
+
+    .swp-native-month-btn {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: #007AFF;
+      background: #EFF6FF;
+      border: 1px solid #BFDBFE;
+      border-radius: 8px;
+      padding: 4px 10px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+
+    .swp-native-month-btn:hover {
+      background: #DBEAFE;
+    }
+
+    .swp-native-date-scroll {
+      display: flex;
+      gap: 6px;
+      padding: 0 14px 10px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .swp-native-date-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .swp-native-date-item {
+      min-width: 44px;
+      height: 54px;
+      padding: 6px 4px;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .swp-native-date-item.today {
+      border-color: #3B82F6;
+    }
+
+    .swp-native-date-item.selected {
+      background: #3B82F6;
+      box-shadow: 0 3px 8px rgba(59, 130, 246, 0.35);
+    }
+
+    .swp-native-date-num {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15.5px;
+      font-weight: 700;
+      color: #1F2937;
+      line-height: 1.1;
+    }
+
+    .swp-native-date-name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      color: #6B7280;
+      text-transform: capitalize;
+      margin-top: 2px;
+    }
+
+    .swp-native-date-item.today:not(.selected) .swp-native-date-num {
+      color: #1D4ED8;
+    }
+
+    .swp-native-date-item.selected .swp-native-date-num,
+    .swp-native-date-item.selected .swp-native-date-name {
+      color: #FFFFFF;
+    }
+
+    .swp-native-date-indicator {
+      width: 14px;
+      height: 2px;
+      background: #FFFFFF;
+      border-radius: 1px;
+      margin-top: 3px;
+    }
+
+    /* 3. Native Stats Row & Filter Button (BookingStatsRow.tsx) */
+    .swp-native-stats-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px 8px;
+      background: #FFFFFF;
+      flex-shrink: 0;
+    }
+
+    .swp-native-stats-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .swp-native-stat-box {
+      min-width: 74px;
+      background: #F1F6F6;
+      border-radius: 12px;
+      padding: 6px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .swp-native-stat-val {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 17px;
+      font-weight: 800;
+      color: #11181C;
+      line-height: 1.1;
+    }
+
+    .swp-native-stat-lbl {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10.5px;
+      font-weight: 600;
+      color: #6B7280;
+      margin-top: 2px;
+    }
+
+    .swp-native-stat-sep {
+      font-family: 'Lato', sans-serif;
+      font-size: 11.5px;
+      font-weight: 500;
+      color: #6B7280;
+      padding: 0 4px;
+    }
+
+    .swp-native-filter-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 21px;
+      background: #F1F6F6;
+      border: 1px solid #E5E7EB;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .swp-native-filter-btn:hover {
+      background: #E2E8F0;
+      border-color: #CBD5E1;
+    }
+
+    .swp-native-filter-dot {
+      width: 8px;
+      height: 8px;
+      background: #EF4444;
+      border-radius: 50%;
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      border: 1.5px solid #FFFFFF;
+    }
+
+    /* 4. Native Horizontal Category Chips (HorizontalFilters.tsx) */
+    .swp-native-category-strip {
+      display: flex;
+      gap: 8px;
+      padding: 4px 14px 10px;
+      background: #FFFFFF;
+      overflow-x: auto;
+      scrollbar-width: none;
+      flex-shrink: 0;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .swp-native-category-strip::-webkit-scrollbar {
+      display: none;
+    }
+
+    .swp-category-chip {
+      padding: 7px 15px;
+      border-radius: 20px;
+      border: 1px solid #E5E7EB;
+      background: #FFFFFF;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      color: #4B5563;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .swp-category-chip:hover {
+      border-color: #93C5FD;
+      color: #1D4ED8;
+    }
+
+    .swp-category-chip.active {
+      background: #3B82F6;
+      border-color: #3B82F6;
+      color: #FFFFFF;
+      box-shadow: 0 2px 6px rgba(59, 130, 246, 0.3);
+    }
+
+    /* 5. Native Day-Part / Time Slot Selector (TimeSlotSelector.tsx) */
+    .swp-native-timeslot-section {
+      padding: 10px 14px 10px;
+      background: #FFFFFF;
+      border-bottom: 1px solid #F1F5F9;
+      flex-shrink: 0;
+    }
+
+    .swp-native-timeslot-header {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #1F2937;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .swp-native-timeslot-strip {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 2px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .swp-native-timeslot-strip::-webkit-scrollbar {
+      display: none;
+    }
+
+    .swp-timeslot-item {
+      min-width: 126px;
+      padding: 9px 12px;
+      border-radius: 12px;
+      border: 1px solid #E5E7EB;
+      background: #FFFFFF;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .swp-timeslot-item:hover {
+      border-color: #93C5FD;
+    }
+
+    .swp-timeslot-item.active {
+      background: #3B82F6;
+      border-color: #3B82F6;
+      box-shadow: 0 3px 8px rgba(59, 130, 246, 0.35);
+    }
+
+    .swp-timeslot-icon-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .swp-timeslot-texts {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .swp-timeslot-name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #1F2937;
+      line-height: 1.15;
+    }
+
+    .swp-timeslot-sub {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      color: #6B7280;
+      margin-top: 2px;
+    }
+
+    .swp-timeslot-item.active .swp-timeslot-name,
+    .swp-timeslot-item.active .swp-timeslot-sub {
+      color: #FFFFFF;
+    }
+
+    /* 6. Native SWP Package Cards (CourtBookingCard.tsx & GolfBookingCard.tsx) */
+    .swp-screen1-cards-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding: 12px 14px 20px;
+    }
+
+    .swp-screen1-card {
+      background: #FFFFFF;
+      border-radius: 14px;
+      border: 1px solid #E5E7EB;
+      box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.06);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .swp-screen1-card:hover {
+      box-shadow: 0px 6px 16px 0px rgba(0, 0, 0, 0.09);
+    }
+
+    .swp-screen1-card-image-wrap {
+      height: 135px;
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 10px 12px;
+    }
+
+    .swp-screen1-ribbon {
+      background: linear-gradient(135deg, #F59E0B, #D97706);
+      color: #FFFFFF;
+      font-size: 9.5px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 4px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .swp-screen1-ribbon.family {
+      background: linear-gradient(135deg, #EC4899, #BE185D);
+    }
+
+    .swp-screen1-ribbon.lessons {
+      background: linear-gradient(135deg, #10B981, #059669);
+    }
+
+    .swp-screen1-resort-badge {
+      background: rgba(17, 24, 28, 0.75);
+      backdrop-filter: blur(4px);
+      color: #FFFFFF;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .swp-screen1-card-body {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .swp-screen1-header-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .swp-screen1-logo-title-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .swp-screen1-resort-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: #EFF6FF;
+      border: 1px solid #BFDBFE;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .swp-screen1-title-col {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .swp-screen1-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15.5px;
+      font-weight: 800;
+      color: #11181C;
+      line-height: 1.25;
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .swp-screen1-loc {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      color: #6B7280;
+      font-weight: 500;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .swp-screen1-price-col {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      flex-shrink: 0;
+    }
+
+    .swp-screen1-price-lbl {
+      font-size: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      color: #6B7280;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .swp-screen1-price-val {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      color: #007AFF;
+      line-height: 1.1;
+      margin-top: 1px;
+    }
+
+    .swp-screen1-features-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 2px;
+    }
+
+    .swp-screen1-feature-chip {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      color: #374151;
+      background: #F1F5F9;
+      border: 1px solid #E2E8F0;
+      border-radius: 6px;
+      padding: 3px 7px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .swp-screen1-bullets {
+      list-style: none;
+      padding: 0;
+      margin: 2px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .swp-screen1-bullet-item {
+      font-family: 'Lato', sans-serif;
+      font-size: 11.5px;
+      color: #374151;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      line-height: 1.3;
+    }
+
+    .swp-screen1-bullet-check {
+      color: #10B981;
+      font-weight: 700;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .swp-screen1-card-footer {
+      border-top: 1px solid #F1F5F9;
+      padding-top: 10px;
+      margin-top: 2px;
+    }
+
+    .swp-screen1-cta-btn {
+      width: 100%;
+      height: 42px;
+      background: #007AFF;
+      color: #FFFFFF;
+      border-radius: 10px;
+      border: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13.5px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      gap: 6px;
+      transition: background 0.15s ease, transform 0.1s ease;
+      box-shadow: 0px 2px 6px rgba(0, 122, 255, 0.25);
+    }
+
+    .swp-screen1-cta-btn:hover {
+      background: #0062CC;
+    }
+
+    .swp-screen1-cta-btn:active {
+      transform: scale(0.98);
+    }
+
+    /* 7. Interactive Filter Bottom Sheet Modal (Filter.tsx) */
+    .swp-filter-modal-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(3px);
+      z-index: 200;
+      display: none;
+      align-items: flex-end;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .swp-filter-modal-overlay.open {
+      display: flex;
+      opacity: 1;
+    }
+
+    .swp-filter-modal-sheet {
+      width: 100%;
+      background: #FFFFFF;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      box-shadow: 0px -8px 24px rgba(0, 0, 0, 0.15);
+      padding: 16px 18px 24px;
+      max-height: 80%;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      animation: slideUp 0.25s ease forwards;
+    }
+
+    .swp-filter-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #F1F5F9;
+      padding-bottom: 12px;
+    }
+
+    .swp-filter-modal-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      color: #11181C;
+    }
+
+    .swp-filter-modal-close {
+      width: 30px;
+      height: 30px;
+      border-radius: 15px;
+      background: #F1F5F9;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #64748B;
+      cursor: pointer;
+    }
+
+    .swp-filter-section-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: #1F2937;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 8px;
+    }
+
+    .swp-filter-chips-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .swp-filter-chip-option {
+      padding: 7px 12px;
+      border-radius: 8px;
+      border: 1px solid #E5E7EB;
+      background: #FFFFFF;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: #374151;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .swp-filter-chip-option.selected {
+      background: #EFF6FF;
+      border-color: #3B82F6;
+      color: #1D4ED8;
+    }
+
+    .swp-filter-footer-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+      padding-top: 12px;
+      border-top: 1px solid #F1F5F9;
+    }
+
+    .swp-filter-reset-btn {
+      flex: 1;
+      height: 42px;
+      background: #F1F5F9;
+      color: #475569;
+      border: 1px solid #CBD5E1;
+      border-radius: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .swp-filter-apply-btn {
+      flex: 2;
+      height: 42px;
+      background: #007AFF;
+      color: #FFFFFF;
+      border: none;
+      border-radius: 10px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0px 2px 6px rgba(0, 122, 255, 0.3);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════
        DETAIL / BOOKING SHARED MODULES
        ═══════════════════════════════════════════════════════════════════ */
     .hero-banner-box {
@@ -4145,91 +4912,192 @@
           </div>
         </div>
 
-        <!-- Top Segmented Tabs -->
+        <!-- Top Segmented Tabs (BookingsScreen.tsx tabContainer & tabWrapper) -->
         <div class="swp-segment-wrapper">
-          <div class="swp-segment-bg">
-            <button class="segment-btn active" id="tabScreen1New" onclick="selectScreen1Tab('new', this)">New</button>
-            <button class="segment-btn" id="tabScreen1Upcoming"
-              onclick="selectScreen1Tab('upcoming', this)">Upcoming</button>
-            <button class="segment-btn" id="tabScreen1Requests" onclick="selectScreen1Tab('requests', this)">Invitations</button>
+          <div class="swp-segment-bg" style="background:#E1EAEA; padding: 4px; gap: 4px; border-radius: 10px;">
+            <button type="button" class="segment-btn active" id="tabScreen1New" onclick="selectScreen1Tab('new', this)" style="border-radius: 8px;">New</button>
+            <button type="button" class="segment-btn" id="tabScreen1Upcoming" onclick="selectScreen1Tab('upcoming', this)" style="border-radius: 8px;">Upcoming</button>
+            <button type="button" class="segment-btn" id="tabScreen1ComingSoon" onclick="selectScreen1Tab('comingSoon', this)" style="border-radius: 8px;">Coming Soon</button>
+            <button type="button" class="segment-btn" id="tabScreen1Requests" onclick="selectScreen1Tab('requests', this)" style="border-radius: 8px;">SWP Requests</button>
           </div>
         </div>
 
-        <!-- Search Bar -->
-        <div class="swp-search-wrapper" id="screen1SearchSection">
-          <div class="swp-search-row">
-            <div class="swp-search-box">
-              <span>🔍</span>
-              <input type="text" placeholder="Search ski packages, slopes, lessons..." value="SnowWorld Amsterdam">
-            </div>
-            <div class="filter-icon-btn" onclick="showToast('⚡ Filter: Real Snow & Immediate Passes applied')">
-              <span>⚡</span>
-              <span class="filter-dot"></span>
-            </div>
+        <!-- Native SWP Search Bar (BookingSearchBar.tsx) -->
+        <div class="swp-native-search-wrap" id="screen1SearchSection">
+          <div class="swp-native-search-bar">
+            <span class="swp-native-search-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </span>
+            <input type="text" id="screen1SearchInput" class="swp-native-search-input" placeholder="Search by resort, slope or activity..." value="SnowWorld Amsterdam" oninput="handleScreen1Search(this.value)">
+            <button type="button" class="swp-native-search-clear" onclick="clearScreen1Search()" title="Clear search">✕</button>
           </div>
         </div>
 
         <!-- Scrollable Content Viewport -->
-        <div class="swp-viewport">
-          <!-- Main New Feed Section -->
+        <div class="swp-viewport" id="screen1Viewport">
+          <!-- Main New Feed Section (NewScreen.tsx) -->
           <div id="screen1FeedView">
-            <!-- Date & Days Selector (README.md Screen 1 Requirement) -->
-            <div id="screen1DateSection" style="padding: 10px 14px 4px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                <span style="font-family: 'Montserrat', sans-serif; font-size: 10.5px; font-weight: 700; color: var(--swp-text-sec); text-transform: uppercase; letter-spacing: 0.5px;">Select Date &amp; Day</span>
-                <span class="swp-pill-tag blue" id="screen1SelectedDateBadge">Sat, 20 Sep</span>
+            
+            <!-- Native Date Controls (BookingDateControls.tsx & DateSelector.tsx) -->
+            <div class="swp-native-date-section" id="screen1DateSection">
+              <div class="swp-native-date-header">
+                <span class="swp-native-date-title">Select Date &amp; Day</span>
+                <div class="swp-native-month-btn" onclick="showToast('📅 Select Month: September 2026')">
+                  <span id="screen1SelectedMonthLabel">September 2026</span>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
               </div>
-              <div class="swp-date-selector-track">
-                <div class="date-chip today selected" onclick="selectScreen1Date(this, '20', 'Sat', 'Saturday, 20 September 2026')">
-                  <span class="date-num">20</span><span class="date-day">Sat (Today)</span>
+              <div class="swp-native-date-scroll">
+                <div class="swp-native-date-item today selected" onclick="selectScreen1Date(this, '20', 'Sat', 'Saturday, 20 September 2026')">
+                  <span class="swp-native-date-num">20</span>
+                  <span class="swp-native-date-name">Sat</span>
+                  <span class="swp-native-date-indicator"></span>
                 </div>
-                <div class="date-chip" onclick="selectScreen1Date(this, '21', 'Sun', 'Sunday, 21 September 2026')">
-                  <span class="date-num">21</span><span class="date-day">Sun</span>
+                <div class="swp-native-date-item" onclick="selectScreen1Date(this, '21', 'Sun', 'Sunday, 21 September 2026')">
+                  <span class="swp-native-date-num">21</span>
+                  <span class="swp-native-date-name">Sun</span>
                 </div>
-                <div class="date-chip" onclick="selectScreen1Date(this, '22', 'Mon', 'Monday, 22 September 2026')">
-                  <span class="date-num">22</span><span class="date-day">Mon</span>
+                <div class="swp-native-date-item" onclick="selectScreen1Date(this, '22', 'Mon', 'Monday, 22 September 2026')">
+                  <span class="swp-native-date-num">22</span>
+                  <span class="swp-native-date-name">Mon</span>
                 </div>
-                <div class="date-chip" onclick="selectScreen1Date(this, '23', 'Tue', 'Tuesday, 23 September 2026')">
-                  <span class="date-num">23</span><span class="date-day">Tue</span>
+                <div class="swp-native-date-item" onclick="selectScreen1Date(this, '23', 'Tue', 'Tuesday, 23 September 2026')">
+                  <span class="swp-native-date-num">23</span>
+                  <span class="swp-native-date-name">Tue</span>
                 </div>
-                <div class="date-chip" onclick="selectScreen1Date(this, '24', 'Wed', 'Wednesday, 24 September 2026')">
-                  <span class="date-num">24</span><span class="date-day">Wed</span>
+                <div class="swp-native-date-item" onclick="selectScreen1Date(this, '24', 'Wed', 'Wednesday, 24 September 2026')">
+                  <span class="swp-native-date-num">24</span>
+                  <span class="swp-native-date-name">Wed</span>
                 </div>
-                <div class="date-chip" onclick="selectScreen1Date(this, '25', 'Thu', 'Thursday, 25 September 2026')">
-                  <span class="date-num">25</span><span class="date-day">Thu</span>
+                <div class="swp-native-date-item" onclick="selectScreen1Date(this, '25', 'Thu', 'Thursday, 25 September 2026')">
+                  <span class="swp-native-date-num">25</span>
+                  <span class="swp-native-date-name">Thu</span>
                 </div>
-                <div class="date-chip" onclick="selectScreen1Date(this, '26', 'Fri', 'Friday, 26 September 2026')">
-                  <span class="date-num">26</span><span class="date-day">Fri</span>
+                <div class="swp-native-date-item" onclick="selectScreen1Date(this, '26', 'Fri', 'Friday, 26 September 2026')">
+                  <span class="swp-native-date-num">26</span>
+                  <span class="swp-native-date-name">Fri</span>
                 </div>
               </div>
             </div>
 
-            <!-- Feed Cards Stack: SnowWorld Parent Activity Cards (Prompt Screen 1) -->
-            <div class="feed-container" style="padding-top:6px;">
+            <!-- Native Stats Row & Filter Button (BookingStatsRow.tsx) -->
+            <div class="swp-native-stats-row">
+              <div class="swp-native-stats-left">
+                <div class="swp-native-stat-box">
+                  <span class="swp-native-stat-val" id="statPackagesCount">3</span>
+                  <span class="swp-native-stat-lbl">Packages</span>
+                </div>
+                <span class="swp-native-stat-sep">open in</span>
+                <div class="swp-native-stat-box">
+                  <span class="swp-native-stat-val" id="statResortsCount">1</span>
+                  <span class="swp-native-stat-lbl">Resort</span>
+                </div>
+              </div>
+              <button type="button" class="swp-native-filter-btn" onclick="openScreen1FilterModal()" title="Filter options">
+                <span class="swp-native-filter-dot" id="screen1FilterDot"></span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Native Activity Category Chips (HorizontalFilters.tsx) -->
+            <div class="swp-native-category-strip">
+              <button type="button" class="swp-category-chip active" onclick="filterCategory('all', this)">All Activities</button>
+              <button type="button" class="swp-category-chip" onclick="filterCategory('skiing', this)">Skiing &amp; Snowboard</button>
+              <button type="button" class="swp-category-chip" onclick="filterCategory('tubing', this)">Tubing &amp; Fun Park</button>
+              <button type="button" class="swp-category-chip" onclick="filterCategory('lessons', this)">Lessons &amp; Coaching</button>
+            </div>
+
+            <!-- Native Day-Part / Time Slot Selector (TimeSlotSelector.tsx) -->
+            <div class="swp-native-timeslot-section">
+              <div class="swp-native-timeslot-header">
+                <span>Select Time</span>
+                <span style="font-size:11px; font-weight:600; color:#007AFF;" id="screen1ActiveDayPartLabel">All Day Open</span>
+              </div>
+              <div class="swp-native-timeslot-strip">
+                <div class="swp-timeslot-item active" onclick="selectDayPart('all', this)">
+                  <div class="swp-timeslot-icon-wrap">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  </div>
+                  <div class="swp-timeslot-texts">
+                    <span class="swp-timeslot-name">All Day</span>
+                    <span class="swp-timeslot-sub">09:00 – 22:00</span>
+                  </div>
+                </div>
+                <div class="swp-timeslot-item" onclick="selectDayPart('morning', this)">
+                  <div class="swp-timeslot-icon-wrap">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+                  </div>
+                  <div class="swp-timeslot-texts">
+                    <span class="swp-timeslot-name">Morning</span>
+                    <span class="swp-timeslot-sub">06:00 – 12:00</span>
+                  </div>
+                </div>
+                <div class="swp-timeslot-item" onclick="selectDayPart('afternoon', this)">
+                  <div class="swp-timeslot-icon-wrap">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2"/><path d="M12 21v2"/><path d="M4.22 4.22l1.42 1.42"/><path d="M18.36 18.36l1.42 1.42"/><path d="M1 12h2"/><path d="M21 12h2"/></svg>
+                  </div>
+                  <div class="swp-timeslot-texts">
+                    <span class="swp-timeslot-name">Afternoon</span>
+                    <span class="swp-timeslot-sub">12:00 – 18:00</span>
+                  </div>
+                </div>
+                <div class="swp-timeslot-item" onclick="selectDayPart('evening', this)">
+                  <div class="swp-timeslot-icon-wrap">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 10V2"/><path d="m4.93 10.93 1.41-1.41"/><path d="M2 18h2"/><path d="M20 18h2"/><path d="m19.07 10.93-1.41-1.41"/><path d="M22 22H2"/><path d="m8 6 4-4 4 4"/><path d="M16 18a4 4 0 0 0-8 0"/></svg>
+                  </div>
+                  <div class="swp-timeslot-texts">
+                    <span class="swp-timeslot-name">Evening</span>
+                    <span class="swp-timeslot-sub">18:00 – 22:00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Native SWP Package Cards Stack (CourtBookingCard.tsx & GolfBookingCard.tsx) -->
+            <div class="swp-screen1-cards-stack">
 
               <!-- Card 1: Skiing & Snowboarding -->
-              <div class="parent-activity-card">
-                <div class="parent-card-banner" style="background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%);">
-                  <span class="parent-card-ribbon">★ For True Snow Lovers</span>
-                  <span style="font-size:24px;">🎿</span>
+              <div class="swp-screen1-card" id="pkgCardSkiing" data-category="skiing">
+                <div class="swp-screen1-card-image-wrap" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.55) 100%), url('https://images.unsplash.com/photo-1551524559-8af4e6624178?w=800&auto=format&fit=crop&q=80');">
+                  <span class="swp-screen1-ribbon">★ FOR TRUE SNOW LOVERS</span>
+                  <span class="swp-screen1-resort-badge">SnowWorld Amsterdam</span>
                 </div>
-                <div class="parent-card-body">
-                  <h3 class="parent-card-title">Skiing &amp; Snowboarding</h3>
-                  <div class="parent-card-facilities">
-                    <span>📍</span> <span>SnowWorld Amsterdam · Landgraaf · Zoetermeer</span>
-                  </div>
-                  <ul class="parent-card-bullets">
-                    <li><span class="check">✓</span> Real snow 365 days a year</li>
-                    <li><span class="check">✓</span> All open slope access &amp; high-speed chairlifts</li>
-                    <li><span class="check">✓</span> Equipment rental available (Atomic / Burton)</li>
-                    <li><span class="check">✓</span> Children under 4 years free with adult</li>
-                  </ul>
-                  <div class="parent-card-footer">
-                    <div class="parent-card-price-box">
-                      <span class="parent-card-price-lbl">Starting from</span>
-                      <span class="parent-card-price-val">€20.00</span>
+                <div class="swp-screen1-card-body">
+                  <div class="swp-screen1-header-row">
+                    <div class="swp-screen1-logo-title-group">
+                      <div class="swp-screen1-resort-logo">⛷️</div>
+                      <div class="swp-screen1-title-col">
+                        <h3 class="swp-screen1-title">Skiing &amp; Snowboarding</h3>
+                        <span class="swp-screen1-loc">📍 Amsterdam · Landgraaf · Zoetermeer</span>
+                      </div>
                     </div>
-                    <button class="parent-card-book-btn" onclick="selectParentPackage('skiing')">
+                    <div class="swp-screen1-price-col">
+                      <span class="swp-screen1-price-lbl">Starting from</span>
+                      <span class="swp-screen1-price-val">€20.00</span>
+                    </div>
+                  </div>
+
+                  <div class="swp-screen1-features-row">
+                    <span class="swp-screen1-feature-chip">📍 &lt; 1 km away</span>
+                    <span class="swp-screen1-feature-chip">❄️ Real Snow (-2°C)</span>
+                    <span class="swp-screen1-feature-chip">⏱ 1h / 2h / 4h Passes</span>
+                    <span class="swp-screen1-feature-chip">🎿 Gear Rental Available</span>
+                  </div>
+
+                  <ul class="swp-screen1-bullets">
+                    <li class="swp-screen1-bullet-item"><span class="swp-screen1-bullet-check">✓</span> Real snow 365 days a year</li>
+                    <li class="swp-screen1-bullet-item"><span class="swp-screen1-bullet-check">✓</span> All open slope access &amp; high-speed chairlifts</li>
+                    <li class="swp-screen1-bullet-item"><span class="swp-screen1-bullet-check">✓</span> Equipment rental available (Atomic / Burton)</li>
+                    <li class="swp-screen1-bullet-item"><span class="swp-screen1-bullet-check">✓</span> Children under 4 years free with adult</li>
+                  </ul>
+
+                  <div class="swp-screen1-card-footer">
+                    <button type="button" class="swp-screen1-cta-btn" onclick="selectParentPackage('skiing')">
                       <span>Book Now 🎿</span>
                     </button>
                   </div>
@@ -4237,29 +5105,42 @@
               </div>
 
               <!-- Card 2: Tubing & Fun Park -->
-              <div class="parent-activity-card">
-                <div class="parent-card-banner" style="background: linear-gradient(135deg, #D97706 0%, #B45309 100%);">
-                  <span class="parent-card-ribbon" style="background:linear-gradient(135deg,#EC4899,#BE185D);">★ Family
-                    Fun</span>
-                  <span style="font-size:24px;">🛷</span>
+              <div class="swp-screen1-card" id="pkgCardTubing" data-category="tubing">
+                <div class="swp-screen1-card-image-wrap" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.55) 100%), url('https://images.unsplash.com/photo-1516431883659-655d41c09bf9?w=800&auto=format&fit=crop&q=80');">
+                  <span class="swp-screen1-ribbon family">★ FAMILY FUN</span>
+                  <span class="swp-screen1-resort-badge">SnowWorld Amsterdam</span>
                 </div>
-                <div class="parent-card-body">
-                  <h3 class="parent-card-title">Tubing &amp; Fun Park</h3>
-                  <div class="parent-card-facilities">
-                    <span>📍</span> <span>SnowWorld Amsterdam · Rucphen</span>
-                  </div>
-                  <ul class="parent-card-bullets">
-                    <li><span class="check">✓</span> Includes tube &amp; safety helmet rental</li>
-                    <li><span class="check">✓</span> No skiing experience required — pure fun</li>
-                    <li><span class="check">✓</span> Dedicated tubing tracks with conveyor lift</li>
-                    <li><span class="check">✓</span> Fun for all ages (4+)</li>
-                  </ul>
-                  <div class="parent-card-footer">
-                    <div class="parent-card-price-box">
-                      <span class="parent-card-price-lbl">Starting from</span>
-                      <span class="parent-card-price-val">€12.50</span>
+                <div class="swp-screen1-card-body">
+                  <div class="swp-screen1-header-row">
+                    <div class="swp-screen1-logo-title-group">
+                      <div class="swp-screen1-resort-logo" style="background:#FFFBEB; border-color:#FDE68A;">🛷</div>
+                      <div class="swp-screen1-title-col">
+                        <h3 class="swp-screen1-title">Tubing &amp; Fun Park</h3>
+                        <span class="swp-screen1-loc">📍 Amsterdam · Rucphen</span>
+                      </div>
                     </div>
-                    <button class="parent-card-book-btn" onclick="selectParentPackage('tubing')">
+                    <div class="swp-screen1-price-col">
+                      <span class="swp-screen1-price-lbl">Starting from</span>
+                      <span class="swp-screen1-price-val">€12.50</span>
+                    </div>
+                  </div>
+
+                  <div class="swp-screen1-features-row">
+                    <span class="swp-screen1-feature-chip">📍 &lt; 1 km away</span>
+                    <span class="swp-screen1-feature-chip">🛷 Tube &amp; Helmet Included</span>
+                    <span class="swp-screen1-feature-chip">👶 Ages 4+ Welcome</span>
+                    <span class="swp-screen1-feature-chip">⚡ No Experience Needed</span>
+                  </div>
+
+                  <ul class="swp-screen1-bullets">
+                    <li class="swp-screen1-bullet-item"><span class="swp-screen1-bullet-check">✓</span> Includes tube &amp; safety helmet rental</li>
+                    <li class="swp-screen1-bullet-item"><span class="swp-screen1-bullet-check">✓</span> No skiing experience required — pure fun</li>
+                    <li class="swp-screen1-bullet-item"><span class="swp-screen1-bullet-check">✓</span> Dedicated tubing tracks with conveyor lift</li>
+                    <li class="swp-screen1-bullet-item"><span class="swp-screen1-bullet-check">✓</span> Fun for all ages (4+)</li>
+                  </ul>
+
+                  <div class="swp-screen1-card-footer">
+                    <button type="button" class="swp-screen1-cta-btn" style="background:#D97706;" onclick="selectParentPackage('tubing')">
                       <span>Book Now 🛷</span>
                     </button>
                   </div>
@@ -4267,29 +5148,42 @@
               </div>
 
               <!-- Card 3: Lessons & Courses -->
-              <div class="parent-activity-card">
-                <div class="parent-card-banner" style="background: linear-gradient(135deg, #059669 0%, #047857 100%);">
-                  <span class="parent-card-ribbon" style="background:linear-gradient(135deg,#10B981,#059669);">★
-                    Certified Instructors</span>
-                  <span style="font-size:24px;">🎓</span>
+              <div class="swp-screen1-card" id="pkgCardLessons" data-category="lessons">
+                <div class="swp-screen1-card-image-wrap" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.55) 100%), url('https://images.unsplash.com/photo-1605540436563-5bca919ae766?w=800&auto=format&fit=crop&q=80');">
+                  <span class="swp-screen1-ribbon lessons">★ CERTIFIED INSTRUCTORS</span>
+                  <span class="swp-screen1-resort-badge">All SnowWorld Venues</span>
                 </div>
-                <div class="parent-card-body">
-                  <h3 class="parent-card-title">Lessons &amp; Courses</h3>
-                  <div class="parent-card-facilities">
-                    <span>📍</span> <span>All SnowWorld Venues</span>
-                  </div>
-                  <ul class="parent-card-bullets">
-                    <li><span class="check">✓</span> Small groups (max 8 students)</li>
-                    <li><span class="check">✓</span> Equipment rental included in lesson fee</li>
-                    <li><span class="check">✓</span> Certified Austrian / Dutch ski instructors</li>
-                    <li><span class="check">✓</span> Beginner to advanced ski lessons</li>
-                  </ul>
-                  <div class="parent-card-footer">
-                    <div class="parent-card-price-box">
-                      <span class="parent-card-price-lbl">Starting from</span>
-                      <span class="parent-card-price-val">€39.00</span>
+                <div class="swp-screen1-card-body">
+                  <div class="swp-screen1-header-row">
+                    <div class="swp-screen1-logo-title-group">
+                      <div class="swp-screen1-resort-logo" style="background:#ECFDF5; border-color:#A7F3D0;">🎓</div>
+                      <div class="swp-screen1-title-col">
+                        <h3 class="swp-screen1-title">Lessons &amp; Courses</h3>
+                        <span class="swp-screen1-loc">📍 All SnowWorld Venues</span>
+                      </div>
                     </div>
-                    <button class="parent-card-book-btn" onclick="selectParentPackage('lessons')">
+                    <div class="swp-screen1-price-col">
+                      <span class="swp-screen1-price-lbl">Starting from</span>
+                      <span class="swp-screen1-price-val">€39.00</span>
+                    </div>
+                  </div>
+
+                  <div class="swp-screen1-features-row">
+                    <span class="swp-screen1-feature-chip">🎓 Certified Ski School</span>
+                    <span class="swp-screen1-feature-chip">👥 Max 8 Students</span>
+                    <span class="swp-screen1-feature-chip">🎿 Gear Included</span>
+                    <span class="swp-screen1-feature-chip">🔰 Beginner to Pro</span>
+                  </div>
+
+                  <ul class="swp-screen1-bullets">
+                    <li class="swp-screen1-bullet-item"><span class="swp-screen1-bullet-check">✓</span> Small groups (max 8 students)</li>
+                    <li class="swp-screen1-bullet-item"><span class="swp-screen1-bullet-check">✓</span> Equipment rental included in lesson fee</li>
+                    <li class="swp-screen1-bullet-item"><span class="swp-screen1-bullet-check">✓</span> Certified Austrian / Dutch ski instructors</li>
+                    <li class="swp-screen1-bullet-item"><span class="swp-screen1-bullet-check">✓</span> Beginner to advanced ski lessons</li>
+                  </ul>
+
+                  <div class="swp-screen1-card-footer">
+                    <button type="button" class="swp-screen1-cta-btn" style="background:#059669;" onclick="selectParentPackage('lessons')">
                       <span>Book Now 🎓</span>
                     </button>
                   </div>
@@ -4297,6 +5191,13 @@
               </div>
 
             </div>
+          </div>
+
+          <!-- Coming Soon Tab View (ComingSoonScreen.tsx) -->
+          <div id="screen1ComingSoonView" style="display: none; padding: 30px 16px; text-align: center;">
+            <div style="font-size:36px; margin-bottom:10px;">🏔️</div>
+            <h4 style="font-family:'Montserrat',sans-serif; color:#11181C; font-size:15px; font-weight:700;">Coming Soon to SnowWorld</h4>
+            <p style="font-size:12px; color:#6B7280; line-height:1.5; margin-top:6px; max-width:280px; margin-left:auto; margin-right:auto;">New alpine freestyle courses, night racing slopestyle, and summer glacier camps are opening next season.</p>
           </div>
 
           <!-- Upcoming Tab Panel (Exact replica of UpcomingScreen.tsx & UpcomingCourtCard.tsx) -->
@@ -4371,17 +5272,21 @@
 
         </div>
 
-        <!-- Global 5-Tab Bottom Navigation Bar (Section 4.1 Specification) -->
+        <!-- Global 5-Tab Bottom Navigation Bar (BottomTabNavigator.tsx) -->
         <nav class="swp-bottom-tab-bar">
-          <div class="bnav-node active">
-            <span class="bnav-icon">🏠</span>
-            <span>Explore</span>
+          <div class="bnav-node" onclick="showToast('🏠 Home Feed')">
+            <span class="bnav-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </span>
+            <span>Home</span>
           </div>
-          <div class="bnav-node" onclick="selectScreen1Tab('upcoming', document.getElementById('tabScreen1Upcoming'))">
-            <span class="bnav-icon">🎟️</span>
-            <span>My Passes</span>
+          <div class="bnav-node active" id="bnavScreen1Bookings" onclick="selectScreen1Tab('new', document.getElementById('tabScreen1New'))">
+            <span class="bnav-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+            </span>
+            <span style="color:#007AFF; font-weight:700;">Bookings</span>
           </div>
-          <div class="bnav-create-slot" onclick="showToast('⛷️ Quick Book a Session')">
+          <div class="bnav-create-slot" onclick="showToast('⛷️ Quick Book a Session'); navigateToScreen('screen2a');">
             <div class="bnav-create-outer">
               <div class="bnav-create-inner">
                 <span class="bnav-create-plus">+</span>
@@ -4389,14 +5294,78 @@
             </div>
           </div>
           <div class="bnav-node" onclick="showToast('👥 Social &amp; Ski Buddies')">
-            <span class="bnav-icon">👥</span>
-            <span>Buddies</span>
+            <span class="bnav-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </span>
+            <span>Social</span>
           </div>
-          <div class="bnav-node" onclick="showToast('👤 Skier Profile &amp; DIN Sizing')">
-            <span class="bnav-icon">👤</span>
+          <div class="bnav-node" onclick="showToast('👤 Skier Profile &amp; Pass Wallet')">
+            <span class="bnav-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+            </span>
             <span>Profile</span>
           </div>
         </nav>
+
+        <!-- Interactive Filter Bottom Sheet Modal (Filter.tsx) -->
+        <div class="swp-filter-modal-overlay" id="screen1FilterModal" onclick="if(event.target===this) closeScreen1FilterModal()">
+          <div class="swp-filter-modal-sheet" role="dialog" aria-modal="true" aria-labelledby="filterModalTitle">
+            <div class="swp-filter-modal-header">
+              <span class="swp-filter-modal-title" id="filterModalTitle">Filter Activities</span>
+              <button type="button" class="swp-filter-modal-close" onclick="closeScreen1FilterModal()" aria-label="Close filters">✕</button>
+            </div>
+
+            <!-- Filter Section: Activity Type -->
+            <div class="swp-filter-section">
+              <div class="swp-filter-section-title">Activity Type</div>
+              <div class="swp-filter-chips-grid" id="filterChipsActivity">
+                <button type="button" class="swp-filter-chip-option selected" data-type="all" onclick="toggleFilterChip(this, 'activity')">All Activities</button>
+                <button type="button" class="swp-filter-chip-option" data-type="skiing" onclick="toggleFilterChip(this, 'activity')">🎿 Ski &amp; Snowboard</button>
+                <button type="button" class="swp-filter-chip-option" data-type="tubing" onclick="toggleFilterChip(this, 'activity')">🛷 Tubing</button>
+                <button type="button" class="swp-filter-chip-option" data-type="lessons" onclick="toggleFilterChip(this, 'activity')">🎓 Lessons &amp; Coaching</button>
+              </div>
+            </div>
+
+            <!-- Filter Section: Time of Day (TimeSlotSelector.tsx) -->
+            <div class="swp-filter-section">
+              <div class="swp-filter-section-title">Time of Day</div>
+              <div class="swp-filter-chips-grid" id="filterChipsDayPart">
+                <button type="button" class="swp-filter-chip-option selected" data-part="all" onclick="toggleFilterChip(this, 'daypart')">Any Time</button>
+                <button type="button" class="swp-filter-chip-option" data-part="morning" onclick="toggleFilterChip(this, 'daypart')">🌅 Morning (06:00–12:00)</button>
+                <button type="button" class="swp-filter-chip-option" data-part="afternoon" onclick="toggleFilterChip(this, 'daypart')">☀️ Afternoon (12:00–18:00)</button>
+                <button type="button" class="swp-filter-chip-option" data-part="evening" onclick="toggleFilterChip(this, 'daypart')">🌙 Evening (18:00–22:00)</button>
+              </div>
+            </div>
+
+            <!-- Filter Section: Distance -->
+            <div class="swp-filter-section">
+              <div class="swp-filter-section-title">Distance</div>
+              <div class="swp-filter-chips-grid" id="filterChipsDistance">
+                <button type="button" class="swp-filter-chip-option selected" data-dist="all" onclick="toggleFilterChip(this, 'dist')">Any Distance</button>
+                <button type="button" class="swp-filter-chip-option" data-dist="5" onclick="toggleFilterChip(this, 'dist')">&lt; 5 km</button>
+                <button type="button" class="swp-filter-chip-option" data-dist="15" onclick="toggleFilterChip(this, 'dist')">&lt; 15 km</button>
+                <button type="button" class="swp-filter-chip-option" data-dist="30" onclick="toggleFilterChip(this, 'dist')">&lt; 30 km</button>
+              </div>
+            </div>
+
+            <!-- Filter Section: Skill Level -->
+            <div class="swp-filter-section">
+              <div class="swp-filter-section-title">Skill Level</div>
+              <div class="swp-filter-chips-grid" id="filterChipsLevel">
+                <button type="button" class="swp-filter-chip-option selected" data-level="all" onclick="toggleFilterChip(this, 'level')">All Levels</button>
+                <button type="button" class="swp-filter-chip-option" data-level="beginner" onclick="toggleFilterChip(this, 'level')">🟢 Beginner</button>
+                <button type="button" class="swp-filter-chip-option" data-level="intermediate" onclick="toggleFilterChip(this, 'level')">🔵 Intermediate</button>
+                <button type="button" class="swp-filter-chip-option" data-level="advanced" onclick="toggleFilterChip(this, 'level')">⚫ Advanced</button>
+              </div>
+            </div>
+
+            <!-- Filter Footer Actions -->
+            <div class="swp-filter-footer-actions">
+              <button type="button" class="swp-filter-reset-btn" onclick="resetScreen1Filters()">Reset All</button>
+              <button type="button" class="swp-filter-apply-btn" onclick="applyScreen1Filters()">Apply Filters</button>
+            </div>
+          </div>
+        </div>
 
         <div class="swp-app-toast" id="toast-screen1">
           <span class="toast-msg">Alert message</span>
@@ -5533,6 +6502,9 @@
       switchClubTab(tab);
     }
 
+    let currentScreen1Category = 'all';
+    let currentScreen1SearchQuery = '';
+
     function selectScreen1Tab(tab, btn) {
       screen1ActiveTab = tab;
       document.querySelectorAll('.swp-segment-wrapper .segment-btn').forEach(b => b.classList.remove('active'));
@@ -5540,12 +6512,14 @@
 
       const feedView = document.getElementById('screen1FeedView');
       const upView = document.getElementById('screen1UpcomingView');
+      const csView = document.getElementById('screen1ComingSoonView');
       const reqView = document.getElementById('screen1RequestsView');
       const searchSec = document.getElementById('screen1SearchSection');
       const dateSec = document.getElementById('screen1DateSection');
 
       if (feedView) feedView.style.display = (tab === 'new') ? 'block' : 'none';
       if (upView) upView.style.display = (tab === 'upcoming') ? 'block' : 'none';
+      if (csView) csView.style.display = (tab === 'comingSoon') ? 'block' : 'none';
       if (reqView) reqView.style.display = (tab === 'requests') ? 'block' : 'none';
 
       if (searchSec) searchSec.style.display = (tab === 'new') ? 'block' : 'none';
@@ -5562,6 +6536,141 @@
           bnavNodes[1].classList.remove('active');
         }
       }
+    }
+
+    // Screen 1 Search Functions (BookingSearchBar.tsx)
+    function handleScreen1Search(val) {
+      currentScreen1SearchQuery = (val || '').trim().toLowerCase();
+      const clearBtn = document.getElementById('screen1SearchClearBtn');
+      if (clearBtn) {
+        clearBtn.style.display = currentScreen1SearchQuery.length > 0 ? 'flex' : 'none';
+      }
+      applyScreen1FiltersCore();
+    }
+
+    function clearScreen1Search() {
+      const input = document.getElementById('screen1SearchInput');
+      if (input) input.value = '';
+      handleScreen1Search('');
+    }
+
+    // Screen 1 Horizontal Category Chips (HorizontalFilters.tsx)
+    function filterCategory(cat, btn) {
+      currentScreen1Category = cat;
+      document.querySelectorAll('.swp-category-chip-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      // Also sync filter modal activity chips
+      document.querySelectorAll('#filterChipsActivity .swp-filter-chip-option').forEach(b => {
+        b.classList.toggle('selected', b.getAttribute('data-type') === cat);
+      });
+
+      applyScreen1FiltersCore();
+      showToast(`Filtered: ${btn ? btn.textContent.trim() : cat}`);
+    }
+
+    // Screen 1 Day-Part Selector (TimeSlotSelector.tsx)
+    function selectDayPart(part, btn) {
+      document.querySelectorAll('.swp-daypart-slot').forEach(s => s.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+
+      const labels = {
+        morning: 'Morning (06:00 – 12:00)',
+        afternoon: 'Afternoon (12:00 – 18:00)',
+        evening: 'Evening (18:00 – 22:00)'
+      };
+      showToast(`Time Slot: ${labels[part] || part}`);
+    }
+
+    // Core Filter Logic for Cards & Stats Row
+    function applyScreen1FiltersCore() {
+      const cards = [
+        { el: document.getElementById('pkgCardSkiing'), cat: 'skiing', text: 'skiing snowboard freestyle slopes equipment rental snowworld winter sport alpine' },
+        { el: document.getElementById('pkgCardTubing'), cat: 'tubing', text: 'tubing fun park kids family sledding helmet conveyor snow fun beginner' },
+        { el: document.getElementById('pkgCardLessons'), cat: 'lessons', text: 'lessons courses ski school certified instructors private group coaching school' }
+      ];
+
+      let visibleCount = 0;
+      cards.forEach(c => {
+        if (!c.el) return;
+        const matchesCat = (currentScreen1Category === 'all' || c.cat === currentScreen1Category);
+        const matchesSearch = !currentScreen1SearchQuery || c.text.toLowerCase().includes(currentScreen1SearchQuery);
+
+        if (matchesCat && matchesSearch) {
+          c.el.style.display = 'block';
+          visibleCount++;
+        } else {
+          c.el.style.display = 'none';
+        }
+      });
+
+      const statsCount = document.getElementById('screen1StatsCount');
+      if (statsCount) {
+        statsCount.textContent = `${visibleCount} Package${visibleCount === 1 ? '' : 's'}`;
+      }
+    }
+
+    // Filter Modal Functions (Filter.tsx)
+    function openScreen1FilterModal() {
+      const modal = document.getElementById('screen1FilterModal');
+      if (modal) modal.classList.add('open');
+    }
+
+    function closeScreen1FilterModal() {
+      const modal = document.getElementById('screen1FilterModal');
+      if (modal) modal.classList.remove('open');
+    }
+
+    function toggleFilterChip(chip, group) {
+      if (!chip || !chip.parentElement) return;
+      chip.parentElement.querySelectorAll('.swp-filter-chip-option').forEach(c => c.classList.remove('selected'));
+      chip.classList.add('selected');
+    }
+
+    function resetScreen1Filters() {
+      currentScreen1Category = 'all';
+      currentScreen1SearchQuery = '';
+
+      const searchInput = document.getElementById('screen1SearchInput');
+      if (searchInput) searchInput.value = '';
+      const clearBtn = document.getElementById('screen1SearchClearBtn');
+      if (clearBtn) clearBtn.style.display = 'none';
+
+      // Reset modal chips to first option
+      ['filterChipsActivity', 'filterChipsDayPart', 'filterChipsDistance', 'filterChipsLevel'].forEach(id => {
+        const group = document.getElementById(id);
+        if (group) {
+          group.querySelectorAll('.swp-filter-chip-option').forEach((c, idx) => {
+            c.classList.toggle('selected', idx === 0);
+          });
+        }
+      });
+
+      // Reset category chips
+      document.querySelectorAll('.swp-category-chip-btn').forEach((b, idx) => {
+        b.classList.toggle('active', idx === 0);
+      });
+
+      applyScreen1FiltersCore();
+      closeScreen1FilterModal();
+      showToast('Filters reset to default');
+    }
+
+    function applyScreen1Filters() {
+      const selectedActivityChip = document.querySelector('#filterChipsActivity .swp-filter-chip-option.selected');
+      const cat = selectedActivityChip ? selectedActivityChip.getAttribute('data-type') : 'all';
+
+      currentScreen1Category = cat || 'all';
+
+      // Sync category chip in feed
+      document.querySelectorAll('.swp-category-chip-btn').forEach(b => {
+        const onclickAttr = b.getAttribute('onclick') || '';
+        b.classList.toggle('active', onclickAttr.includes(`'${currentScreen1Category}'`));
+      });
+
+      applyScreen1FiltersCore();
+      closeScreen1FilterModal();
+      showToast('Filters applied');
     }
 
     // Screen 1 Date Selection
@@ -6419,6 +7528,10 @@
 
       if (hash.includes('upcoming') || tabParam === 'upcoming') {
         selectScreen1Tab('upcoming', document.getElementById('tabScreen1Upcoming'));
+      } else if (hash.includes('comingsoon') || tabParam === 'comingsoon') {
+        selectScreen1Tab('comingSoon', document.getElementById('tabScreen1ComingSoon'));
+      } else if (hash.includes('requests') || tabParam === 'requests') {
+        selectScreen1Tab('requests', document.getElementById('tabScreen1Requests'));
       } else if (hash.includes('checkout') || hash.includes('screen3')) {
         navigateToScreen('screen3');
       } else if (hash.includes('pass') || hash.includes('turnstile') || hash.includes('screen4')) {
@@ -6446,6 +7559,21 @@
         }
       } else if (hash.includes('detail') || hash.includes('screen2')) {
         navigateToScreen('screen2a');
+      }
+
+      if (hash.includes('modalfilter') || urlParams.get('modal') === 'filter') {
+        setTimeout(openScreen1FilterModal, 100);
+      }
+      if (urlParams.get('scroll') === 'mid1' || hash.includes('scrollmid1')) {
+        setTimeout(() => {
+          const vp = document.getElementById('screen1Viewport');
+          if (vp) vp.scrollTop = 480;
+        }, 120);
+      } else if (urlParams.get('scroll') === 'bottom1' || hash.includes('scrollbottom1')) {
+        setTimeout(() => {
+          const vp = document.getElementById('screen1Viewport');
+          if (vp) vp.scrollTop = vp.scrollHeight;
+        }, 120);
       }
     }
 
