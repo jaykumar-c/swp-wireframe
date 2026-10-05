@@ -1053,12 +1053,6 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="#player_upcoming" id="nav-player_upcoming">
-            <span class="nav-icon">🎫</span>
-            <span>Upcoming Booking Detail (Screen 4)</span>
-          </a>
-        </li>
-        <li class="nav-item">
           <a href="#player_workflow" id="nav-player_workflow">
             <span class="nav-icon">🔄</span>
             <span>Players 18-Screen Workflow</span>
@@ -1407,23 +1401,6 @@
                   </div>
                 </div>
 
-                <!-- ITEM 2: UPCOMING BOOKING DETAIL (SCREEN 4) -->
-                <div class="dir-card" onclick="location.hash='#player_upcoming'" style="border-color:#93C5FD; background:#F0F7FF;">
-                  <div class="dir-card-top">
-                    <div class="dir-card-header">
-                      <div class="dir-card-icon-title">
-                        <span class="dir-icon">🎫</span>
-                        <h3 class="dir-card-title">Upcoming Booking Detail (Native SWP Player App)</h3>
-                      </div>
-                      <span class="dir-badge" style="background:#007AFF; color:#fff;">Redesigned Screen 4</span>
-                    </div>
-                    <p>Native SWP Upcoming Booking Detail screen matching SlotDetailScreen.tsx: SnowWorld Amsterdam hero cover, floating venue card, booking time slot, live countdown gate pass QR, equipment pickup barcode, attendees list, and payment summary.</p>
-                  </div>
-                  <div class="dir-card-footer">
-                    <span class="dir-link-text">Launch Screen 4 →</span>
-                  </div>
-                </div>
-
                 <!-- ITEM 2: PLAYERS SKIING WORKFLOW -->
                 <div class="dir-card" onclick="location.hash='#player_workflow'">
                   <div class="dir-card-top">
@@ -1664,12 +1641,6 @@
         title: 'Interactive Skiing Player Mobile App (SnowWorld Model)',
         desc: '4-Screen interactive device frames: 1. All Packages, 2. Select Pass & Time, 3. Equipment & Pay (€53), and 4. Redesigned Upcoming Booking Detail & Gate Pass.',
         file: 'skiing_player.html#screen1',
-        type: 'iframe'
-      },
-      'player_upcoming': {
-        title: 'Upcoming Booking Detail & Digital Pass (Native SWP Player App)',
-        desc: 'Redesigned Screen 4 matching SlotDetailScreen.tsx: SnowWorld Amsterdam hero cover, floating venue info card, booking time slot, live QR gate pass with countdown, equipment pickup barcode, attendees list, and payment summary.',
-        file: 'skiing_player.html#screen4',
         type: 'iframe'
       },
       'player_workflow': {
@@ -2319,6 +2290,10 @@
         window.location.hash = '#skiing_packages';
         return;
       }
+      if (hash === 'player_upcoming') {
+        window.location.hash = '#player_ui';
+        return;
+      }
       if (!hash || !routes[hash]) {
         hash = 'wireframe_info';
       }
@@ -2362,7 +2337,7 @@
         // Handle player screen sub-nav visibility
         const subNav = document.getElementById('playerScreenSubNav');
         if (subNav) {
-          if (hash === 'player_ui' || hash === 'player_upcoming') {
+          if (hash === 'player_ui') {
             subNav.style.display = 'flex';
             document.querySelectorAll('#playerScreenSubNav button').forEach(b => {
               b.style.background = '#fff';
@@ -2370,8 +2345,7 @@
               b.style.borderColor = '#CBD5E1';
               b.style.fontWeight = '600';
             });
-            const targetBtnId = (hash === 'player_ui') ? 'btnMainScreen1' : 'btnMainScreen4';
-            const activeBtn = document.getElementById(targetBtnId);
+            const activeBtn = document.getElementById('btnMainScreen1');
             if (activeBtn) {
               activeBtn.style.background = '#007AFF';
               activeBtn.style.color = '#fff';

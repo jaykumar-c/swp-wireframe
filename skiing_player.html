@@ -4450,49 +4450,96 @@
     /* ── DYNAMIC ARRIVAL SLOTS GRID (SCREEN 2) ── */
     .arrival-slots-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 6px;
       margin-top: 6px;
     }
     .arrival-slot-btn {
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      padding: 7px 9px;
+      align-items: center;
+      justify-content: center;
+      padding: 9px 4px;
       border-radius: 8px;
       border: 1px solid var(--swp-border);
       background: #FFFFFF;
       cursor: pointer;
-      font-size: 10.5px;
-      font-weight: 700;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
       color: var(--swp-text);
       transition: all 0.15s ease;
-      text-align: left;
+      text-align: center;
+      white-space: nowrap;
+      min-height: 38px;
     }
-    .arrival-slot-btn .slot-status {
-      font-size: 8px;
-      font-weight: 600;
-      color: #059669;
-      margin-top: 1px;
+    .arrival-slot-btn:hover {
+      border-color: #94A3B8;
     }
     .arrival-slot-btn.active {
       border-color: var(--swp-primary);
-      background: var(--swp-primary-tint);
-      color: var(--swp-primary);
+      background: var(--swp-primary);
+      color: #FFFFFF;
+      box-shadow: 0 2px 6px rgba(0, 122, 255, 0.25);
     }
 
     /* ── CO-PLAYERS & ATTENDEE INPUT CARDS (SCREEN 2) ── */
     .coplayer-card {
-      background: #FFFFFF;
+      background: #F8FAFC;
       border: 1px solid var(--swp-border);
-      border-radius: 8px;
-      padding: 8px 10px;
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+    }
+    .coplayer-card:last-child {
+      margin-bottom: 0;
     }
     .coplayer-hdr {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+    }
+    .coplayer-avatar-lead {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: #EFF6FF;
+      color: #007AFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .coplayer-avatar-guest {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: #F1F5F9;
+      color: #475569;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .coplayer-avatar-child {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      background: #ECFDF5;
+      color: #059669;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
     }
 
     /* ── EQUIPMENT RENTAL CARDS (SCREEN 3) ── */
@@ -4859,7 +4906,7 @@
       <button class="showcase-pill-btn active" id="pillBtnScreen1" onclick="switchView('screen1', this)">
         <span>1. All Packages</span>
       </button>
-      <button class="showcase-pill-btn" id="pillBtnScreen2Slope" onclick="openClubDetail('slope', this)">
+      <button class="showcase-pill-btn" id="pillBtnScreen2Slope" onclick="switchView('screen2a', this)">
         <span>2. Select Pass &amp; Time</span>
       </button>
       <button class="showcase-pill-btn" id="pillBtnScreen3" onclick="switchView('screen3', this)">
@@ -5393,102 +5440,123 @@
           <div class="sbar-icons"><span>📶</span><span>5G</span><span>🔋</span></div>
         </div>
 
-        <!-- Hero Header -->
-        <div class="club-hero-header">
-          <div class="hero-top-nav">
-            <button class="hero-circle-btn" onclick="navigateToScreen('screen1')" title="Back to packages">←</button>
-            <div style="display:flex; gap:6px;">
-              <button class="hero-circle-btn" onclick="showToast('🔗 Package link copied')" title="Share">↗</button>
-              <button class="hero-circle-btn" onclick="showToast('❤️ Saved to favorites')" title="Favorite">❤️</button>
-            </div>
+        <!-- Scrollable Content Viewport matching SlotDetailScreen.tsx -->
+        <div class="swp-viewport" id="screen2aViewport" style="padding-top:0;">
+
+          <!-- 1. Native SWP Hero Image Header (SlotDetailScreen imageContainer) -->
+          <div class="swp-detail-hero">
+            <img class="swp-detail-hero-img" id="detailHeroImage"
+              src="https://images.unsplash.com/photo-1551524559-8af4e6624178?auto=format&fit=crop&w=800&q=80"
+              alt="SnowWorld Amsterdam Indoor Skiing Dome" />
+            <div class="swp-detail-hero-overlay"></div>
+            <!-- Back Button matching styles.backButton with <LeftArrow /> -->
+            <button type="button" class="swp-detail-back-btn" onclick="navigateToScreen('screen1')" title="Back to packages">←</button>
+            <!-- Support Menu Button matching styles.menuButton -->
+            <button type="button" class="swp-detail-menu-btn" onclick="showToast('Support: support@shallweplay.com')" title="Booking options">•••</button>
           </div>
-          <div class="hero-club-info">
-            <span class="hero-club-tag" id="detailPackageTag">VERIFIED RESORT · REAL SNOW</span>
-            <h1 class="hero-club-title" id="detailPackageTitle">SnowWorld Amsterdam</h1>
-            <div class="hero-club-address" id="detailPackageSub">Skiing &amp; Snowboarding Package</div>
-            <div class="hero-badges-row">
-              <span class="hero-badge-pill">★ 4.8 (812)</span>
-              <span class="hero-badge-pill">📍 2.3 km</span>
-              <span class="hero-badge-pill green">🟢 Open Now</span>
-              <span class="hero-badge-pill">❄️ -2°C Real Snow</span>
-            </div>
-          </div>
-        </div>
 
-        <!-- 3 UI Sticky Navigation Chips (Prompt Section 3 Screen 2) -->
-        <div class="club-nav-chips-row">
-          <button class="club-nav-chip active" id="chipBookSlope" onclick="switchClubTab('slope')">
-            <span>🎿 Slope Passes</span>
-          </button>
-          <button class="club-nav-chip" id="chipBookLessons" onclick="switchClubTab('lessons')">
-            <span>🎓 Lessons</span>
-          </button>
-          <button class="club-nav-chip" id="chipClubInfo" onclick="switchClubTab('info')">
-            <span>ℹ️ About Venue</span>
-          </button>
-        </div>
-
-        <!-- Scrollable Content Viewport -->
-        <div class="swp-viewport" id="screen2aViewport">
-
-          <!-- Club Info Tab Panel (Hidden by default) -->
-          <div id="panelClubInfo" style="display: none; padding: 14px;">
-            <div class="swp-form-card" style="margin:0;">
-              <span class="module-sec-title">About SnowWorld Amsterdam</span>
-              <p style="font-size:11.5px; color:var(--swp-text-sec); margin-top:4px; line-height:1.4;">
-                Europe's premier indoor snow facility featuring 230-meter main slope, 4 chairlifts, dedicated beginner
-                magic carpet zone, and certified ski school.
-              </p>
-              <div style="margin-top:10px; display:flex; flex-direction:column; gap:6px; font-size:11px;">
-                <div>🕒 <strong>Operating Hours:</strong> Mon–Sun: 09:00 – 23:00</div>
-                <div>🎿 <strong>Rental Shop:</strong> Atomic Skis, Burton Boards, Boots, Helmets</div>
-                <div>🔒 <strong>Lockers:</strong> Smart PIN Lockers available (€2.00 or free with combo pass)</div>
-                <div>☕ <strong>Après-Ski:</strong> Alpine Restaurant &amp; Panorama Lounge</div>
+          <!-- 2. Floating Venue Info Card (SlotDetailScreen infoCard overlapping Hero) -->
+          <div class="swp-floating-venue-card">
+            <div class="venue-card-header-row">
+              <div class="venue-card-logo-title">
+                <div class="venue-card-logo" id="detailResortLogo">🎿</div>
+                <div style="min-width:0; flex:1;">
+                  <h1 class="venue-card-title" id="detailPackageTitle">SnowWorld Amsterdam</h1>
+                  <div class="venue-card-sub" id="detailPackageSub">Skiing &amp; Snowboarding Package</div>
+                </div>
               </div>
-              <button class="feed-btn-pass" style="margin-top:12px; width:100%;" onclick="switchClubTab('slope')">
-                <span>← Back to Slope Booking</span>
-              </button>
+              <div class="venue-card-rating">
+                <div class="venue-card-rating-badge">
+                  <span class="star-icon">★</span>
+                  <span>4.8</span>
+                </div>
+                <a href="javascript:void(0)" class="venue-card-reviews-link" onclick="showToast('812 Player Reviews Verified')">812 reviews</a>
+              </div>
+            </div>
+
+            <div class="venue-card-loc-row">
+              <span id="detailPackageAddress">📍 Heuvelweg 6–8, 1981 LV Velsen-Zuid</span>
+              <span style="font-weight:600; color:#4B5563;">&lt; 1 kms away</span>
+            </div>
+
+            <div class="venue-card-attrs-row">
+              <span>Slope: <strong style="color:#11181C;">Main Slope (230m)</strong></span>
+              <span>Sport: <strong style="color:#11181C;" id="detailSportTag">Indoor Skiing</strong></span>
             </div>
           </div>
 
-          <!-- Slope Booking Main Form (Updated 4 Steps per README.md) -->
-          <div id="panelBookSlope">
+          <!-- 3. Horizontal Feature Attributes Strip (SlotDetailScreen featureCardsContainer) -->
+          <div class="swp-detail-features-strip">
+            <div class="swp-detail-feature-card">
+              <div class="feature-card-top">
+                <span>❄️</span>
+                <span>Snow Type</span>
+              </div>
+              <div class="feature-card-bottom">Real Snow (-2°C)</div>
+            </div>
+            <div class="swp-detail-feature-card">
+              <div class="feature-card-top">
+                <span>🏔️</span>
+                <span>Slope Area</span>
+              </div>
+              <div class="feature-card-bottom">230m Main Slope</div>
+            </div>
+            <div class="swp-detail-feature-card">
+              <div class="feature-card-top">
+                <span>🚡</span>
+                <span>Lifts</span>
+              </div>
+              <div class="feature-card-bottom">4 Chairlifts</div>
+            </div>
+            <div class="swp-detail-feature-card">
+              <div class="feature-card-top">
+                <span>🎿</span>
+                <span>Equipment</span>
+              </div>
+              <div class="feature-card-bottom">Atomic &amp; Burton</div>
+            </div>
+          </div>
 
-            <!-- Step 1: Pass Duration (1hr, 2hr, 3hr, 4hr, Full Day) -->
-            <div class="module-sec-hdr" style="margin-top: 4px;">
-              <span class="module-sec-title">Step 1: Choose Duration</span>
+          <!-- 4. Date & Session Duration Card (BookingTimeSlot.tsx) -->
+          <div class="swp-native-card" style="margin-top: 2px;">
+            <div class="swp-card-sec-header">
+              <span class="timeslot-lbl" style="text-transform:uppercase; font-weight:700; letter-spacing:0.5px;">Date &amp; Pass Duration</span>
               <span class="swp-pill-tag blue" id="activeDurationBadge">1 Hour</span>
             </div>
-            <div class="duration-chips-track" id="durationChipsTrack">
+            <div style="font-family:'Montserrat',sans-serif; font-size:13.5px; font-weight:700; color:#11181C; margin-bottom:10px;">
+              <span id="screen2BookingDateDisplay">Saturday, 20 September 2026</span>
+            </div>
+
+            <!-- Duration Chips Track matching styles.durationContainer in BookingTimeSlot.tsx -->
+            <div style="font-size:10.5px; font-weight:600; color:#64748B; margin-bottom:6px; text-transform:uppercase; letter-spacing:0.3px;">Slot Duration</div>
+            <div class="duration-chips-track" id="durationChipsTrack" style="padding:0; gap:8px;">
               <button type="button" class="duration-chip active" onclick="selectPassDuration('1hr', this)">
-                <span>1 hr</span>
-                <span class="duration-sub">Pass</span>
+                <span>1 hr Pass</span>
               </button>
               <button type="button" class="duration-chip" onclick="selectPassDuration('2hr', this)">
-                <span>2 hr</span>
-                <span class="duration-sub">Pass</span>
+                <span>2 hr Pass</span>
               </button>
               <button type="button" class="duration-chip" onclick="selectPassDuration('3hr', this)">
-                <span>3 hr</span>
-                <span class="duration-sub">Pass</span>
+                <span>3 hr Pass</span>
               </button>
               <button type="button" class="duration-chip" onclick="selectPassDuration('4hr', this)">
-                <span>4 hr</span>
-                <span class="duration-sub">Pass</span>
+                <span>4 hr Pass</span>
               </button>
               <button type="button" class="duration-chip" onclick="selectPassDuration('fullday', this)">
-                <span>Full Day</span>
-                <span class="duration-sub">All Day</span>
+                <span>Full Day Pass</span>
               </button>
             </div>
+          </div>
 
-            <div class="swp-divider-band"></div>
-
-            <!-- Step 2: Display Passes Associated with Selected Duration -->
-            <div class="module-sec-hdr">
-              <span class="module-sec-title">Step 2: Select Passes</span>
+          <!-- 5. Select Passes Card -->
+          <div class="swp-native-card" style="margin-top: 12px;">
+            <div class="swp-card-sec-header">
+              <span class="timeslot-lbl" style="text-transform:uppercase; font-weight:700; letter-spacing:0.5px;">Select Passes</span>
               <span class="swp-pill-tag green" id="selectedDurationPassContext">1 Hour Passes</span>
             </div>
+            <p style="font-size:11px; color:#64748B; margin:0 0 10px; line-height:1.4;">
+              Choose pass types and quantities for yourself and your group:
+            </p>
 
             <div class="configured-passes-list">
               <!-- Pass 1: Adult Slope Pass -->
@@ -5499,9 +5567,9 @@
                   <span class="pass-stepper-price" id="adultPassPriceDisplay">€28.00 <small style="font-weight:normal; color:#64748B;">/ pass</small></span>
                 </div>
                 <div class="stepper-actions">
-                  <button class="step-btn" onclick="stepAdultPass(-1)">–</button>
+                  <button type="button" class="step-btn" onclick="stepAdultPass(-1)">–</button>
                   <span class="step-count" id="adultCountDisplay">1</span>
-                  <button class="step-btn" onclick="stepAdultPass(1)">+</button>
+                  <button type="button" class="step-btn" onclick="stepAdultPass(1)">+</button>
                 </div>
               </div>
 
@@ -5513,13 +5581,13 @@
                   <span class="pass-stepper-price" id="childPassPriceDisplay">€20.00 <small style="font-weight:normal; color:#64748B;">/ pass</small></span>
                 </div>
                 <div class="stepper-actions">
-                  <button class="step-btn" onclick="stepChildPass(-1)">–</button>
+                  <button type="button" class="step-btn" onclick="stepChildPass(-1)">–</button>
                   <span class="step-count" id="childCountDisplay">1</span>
-                  <button class="step-btn" onclick="stepChildPass(1)">+</button>
+                  <button type="button" class="step-btn" onclick="stepChildPass(1)">+</button>
                 </div>
               </div>
 
-              <!-- Pass 3: Slope Pass + Full Gear Rental Combo -->
+              <!-- Pass 3: Slope Pass + Full Gear Combo -->
               <div class="pass-stepper-card">
                 <div class="pass-stepper-info">
                   <span class="pass-stepper-title" id="comboPassTitle">Slope Pass + Full Gear Combo (1 Hour)</span>
@@ -5527,107 +5595,76 @@
                   <span class="pass-stepper-price" id="comboPassPriceDisplay">€42.00 <small style="font-weight:normal; color:#64748B;">/ pass</small></span>
                 </div>
                 <div class="stepper-actions">
-                  <button class="step-btn" onclick="stepComboPass(-1)">–</button>
+                  <button type="button" class="step-btn" onclick="stepComboPass(-1)">–</button>
                   <span class="step-count" id="comboCountDisplay">0</span>
-                  <button class="step-btn" onclick="stepComboPass(1)">+</button>
+                  <button type="button" class="step-btn" onclick="stepComboPass(1)">+</button>
                 </div>
               </div>
             </div>
+          </div>
 
-            <div class="swp-divider-band"></div>
-
-            <!-- Step 3: Select Time of Arrival Slot based on duration -->
-            <div class="module-sec-hdr">
-              <span class="module-sec-title">Step 3: Expected Arrival Time</span>
+          <!-- 6. Expected Arrival Time Slot (BookingTimeSlot.tsx) -->
+          <div class="swp-native-card" style="margin-top: 12px;">
+            <div class="swp-card-sec-header">
+              <span class="timeslot-lbl" style="text-transform:uppercase; font-weight:700; letter-spacing:0.5px;">Expected Arrival Time</span>
               <span class="swp-pill-tag blue" id="arrivalWindowDurationBadge">1-Hour Slots</span>
             </div>
-            <p style="font-size:10px; color:var(--swp-text-sec); margin:2px 0 6px;">
-              Select your expected arrival time:
+            <p style="font-size:11px; color:#64748B; margin:0 0 8px; line-height:1.4;">
+              Select your expected arrival window. Pass duration begins upon turnstile entry:
             </p>
 
             <div class="arrival-slots-grid" id="arrivalSlotsGrid">
-              <!-- Dynamically rendered based on duration -->
+              <!-- Dynamically populated -->
             </div>
 
-            <p style="font-size:9.5px; color:#64748B; margin-top:8px; line-height:1.35;">
-              ℹ️ <em>Note: Your pass time starts when you scan your QR code at the entry gate.</em>
-            </p>
-
-            <div class="swp-divider-band"></div>
-
-            <!-- Step 4: Player & Co-Player Information -->
-            <div class="module-sec-hdr">
-              <span class="module-sec-title">Step 4: Guest Details</span>
-              <span class="swp-pill-tag green" id="screen2PlayerCountBadge">2 Attendees</span>
+            <div style="display:flex; align-items:flex-start; gap:6px; background:#F8FAFC; border:1px solid #E2E8F0; border-radius:8px; padding:8px 10px; margin-top:10px;">
+              <span style="font-size:13px;">ℹ️</span>
+              <span style="font-size:10.5px; color:#64748B; line-height:1.4;">
+                <strong>Flexible Entry:</strong> Your slope countdown timer only starts when scanned at Gate 03.
+              </span>
             </div>
-            <p style="font-size:10px; color:var(--swp-text-sec); margin:2px 0 8px;">
-              Enter guest details for entry passes and gate check-in:
-            </p>
-
-            <div id="screen2PlayersContainer" style="display:flex; flex-direction:column; gap:6px;">
-              <!-- Dynamically populated based on adultCount and childCount -->
-            </div>
-
-            <!-- Safety & Helmet Rules -->
-            <div class="waiver-alert-box" style="margin-top:10px;">
-              <label class="waiver-checkbox-row">
-                <input type="checkbox" checked id="slopeWaiverBox">
-                <span>I confirm all participants can turn and stop safely on real snow slopes, and accept the Safety &amp; Helmet Rules.</span>
-              </label>
-            </div>
-
           </div>
 
-          <!-- Standalone Lessons Booking Panel -->
-          <div id="panelBookLessons" style="display: none;">
-            <div class="module-sec-hdr" style="margin-top: 4px;">
-              <span class="module-sec-title">Available Ski Lessons</span>
-              <span class="swp-pill-tag blue">Club Configured</span>
-            </div>
-
-            <div class="configured-passes-list" id="lessonsConfiguredList">
-              <div class="pass-cfg-card selected" id="cfgLesson_beginner"
-                onclick="selectLessonOption('beginner', 45.00, 'Beginner First Turns Clinic', 'Level 1: Novice', '1.5 Hours', 'Zone C: Practice Slope &amp; Carpet')">
-                <div class="pass-cfg-radio-outer">
-                  <div class="pass-cfg-radio-inner"></div>
-                </div>
-                <div class="pass-cfg-content">
-                  <div class="pass-cfg-top">
-                    <span class="pass-cfg-name">Beginner Ski Lesson</span>
-                    <span class="pass-cfg-rate">€45.00<small> / person</small></span>
-                  </div>
-                  <div class="pass-cfg-desc">Level 1: Beginner · Max 6 people · Skis, boots &amp; helmet included
-                  </div>
-                </div>
-              </div>
-
-              <div class="pass-cfg-card" id="cfgLesson_carving"
-                onclick="selectLessonOption('carving', 60.00, 'Intermediate Carving &amp; Parallel', 'Level 2: Intermediate', '2 Hours', 'Main Slope')">
-                <div class="pass-cfg-radio-outer">
-                  <div class="pass-cfg-radio-inner"></div>
-                </div>
-                <div class="pass-cfg-content">
-                  <div class="pass-cfg-top">
-                    <span class="pass-cfg-name">Intermediate Ski Lesson</span>
-                    <span class="pass-cfg-rate">€60.00<small> / person</small></span>
-                  </div>
-                  <div class="pass-cfg-desc">Level 2 · Parallel turns &amp; slope control · Max 4 people
-                  </div>
-                </div>
+          <!-- 7. Players Section (SlotDetailScreen.tsx styles.playersSection) -->
+          <div class="swp-native-card" style="margin-top: 12px;">
+            <div class="swp-card-sec-header">
+              <span class="timeslot-lbl" style="text-transform:uppercase; font-weight:700; letter-spacing:0.5px;">Players</span>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span class="swp-pill-tag green" id="screen2PlayerCountBadge">2 Attendees</span>
+                <button type="button" onclick="showToast('Add Skier to Booking')" style="border:none; background:#EFF6FF; color:#007AFF; width:26px; height:26px; border-radius:6px; display:inline-flex; align-items:center; justify-content:center; cursor:pointer;" title="Add player">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
+                </button>
               </div>
             </div>
+            <p style="font-size:11px; color:#64748B; margin:0 0 10px; line-height:1.4;">
+              Attendees registered for slope access turnstiles and DIN sizing:
+            </p>
+
+            <div id="screen2PlayersContainer" style="display:flex; flex-direction:column; gap:8px;">
+              <!-- Dynamically populated based on adultCount and childCount -->
+            </div>
+          </div>
+
+          <!-- 8. Safety & Helmet Waiver Checkbox -->
+          <div class="swp-native-card" style="margin-top: 12px; margin-bottom: 80px; background:#F8FAFC;">
+            <label class="waiver-checkbox-row" style="display:flex; align-items:flex-start; gap:8px; cursor:pointer;">
+              <input type="checkbox" checked id="slopeWaiverBox" style="width:16px; height:16px; margin-top:2px; accent-color:#007AFF;">
+              <span style="font-size:11px; color:#374151; line-height:1.45;">
+                I confirm all participants can turn and stop safely on real snow slopes, and agree to the <strong>Mandatory Safety &amp; Helmet Rules</strong>.
+              </span>
+            </label>
           </div>
 
         </div>
 
-        <!-- Sticky Footer Bar (Prompt Screen 4 bottom bar) -->
+        <!-- Sticky Footer Bar (matching GolfBookingFooter.tsx) -->
         <div class="swp-sticky-footer-bar">
           <div class="footer-summary-col">
-            <span class="footer-summary-sub" id="screen2aSummarySub">2 Passes Selected</span>
+            <span class="footer-summary-sub" id="screen2aSummarySub">ESTIMATED TOTAL</span>
             <div class="footer-summary-price" id="screen2aTotalPrice">€48.00</div>
           </div>
-          <button class="swp-btn-cta-submit" onclick="handleScreen2Continue()">
-            <span>Continue to Checkout</span>
+          <button type="button" class="swp-btn-cta-submit" onclick="handleScreen2Continue()">
+            <span>Continue to Equipment &amp; Pay</span>
             <span>→</span>
           </button>
         </div>
@@ -6685,6 +6722,8 @@
       };
       const badge = document.getElementById('screen1SelectedDateBadge');
       if (badge) badge.textContent = `${day}, ${num} Sep`;
+      const s2Date = document.getElementById('screen2BookingDateDisplay');
+      if (s2Date) s2Date.textContent = fullDate;
       const coDate = document.getElementById('checkoutDateDisplay');
       if (coDate) coDate.textContent = fullDate;
       showToast(`Selected Date: ${fullDate}`);
@@ -6696,9 +6735,11 @@
 
     function switchClubTab(tab) {
       currentClubTab = tab;
-      document.querySelectorAll('.club-nav-chip').forEach(c => c.classList.remove('active'));
       const chip = document.getElementById(tab === 'slope' ? 'chipBookSlope' : tab === 'lessons' ? 'chipBookLessons' : 'chipClubInfo');
-      if (chip) chip.classList.add('active');
+      if (chip) {
+        document.querySelectorAll('.club-nav-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+      }
 
       const pSlope = document.getElementById('panelBookSlope');
       const pLessons = document.getElementById('panelBookLessons');
@@ -6717,23 +6758,25 @@
       const tagEl = document.getElementById('detailPackageTag');
       const titleEl = document.getElementById('detailPackageTitle');
       const subEl = document.getElementById('detailPackageSub');
+      const sportEl = document.getElementById('detailSportTag');
 
       if (pkgKey === 'skiing') {
         if (tagEl) tagEl.textContent = 'VERIFIED RESORT · REAL SNOW';
         if (titleEl) titleEl.textContent = 'SnowWorld Amsterdam';
         if (subEl) subEl.textContent = 'Skiing & Snowboarding Package';
-        openClubDetail('slope');
+        if (sportEl) sportEl.textContent = 'Indoor Skiing';
       } else if (pkgKey === 'tubing') {
         if (tagEl) tagEl.textContent = 'FAMILY FUN PARK';
         if (titleEl) titleEl.textContent = 'SnowWorld Amsterdam';
         if (subEl) subEl.textContent = 'Tubing & Fun Park Package';
-        openClubDetail('slope');
+        if (sportEl) sportEl.textContent = 'Snow Tubing';
       } else if (pkgKey === 'lessons') {
         if (tagEl) tagEl.textContent = 'CERTIFIED SKI SCHOOL';
         if (titleEl) titleEl.textContent = 'SnowWorld Amsterdam';
         if (subEl) subEl.textContent = 'Ski & Snowboard Lessons';
-        openClubDetail('lessons');
+        if (sportEl) sportEl.textContent = 'Ski Academy';
       }
+      openClubDetail('slope');
       showToast(`Opened ${titleEl ? titleEl.textContent : 'Package'}`);
     }
 
@@ -6793,8 +6836,7 @@
         if (isActive) selectedArrivalSlotStr = win;
         html += `
           <button type="button" class="arrival-slot-btn ${isActive ? 'active' : ''}" onclick="selectArrivalSlotWindow('${win}', this)">
-            <span>${win}</span>
-            <span class="slot-status">🟢 Available</span>
+            ${win}
           </button>
         `;
       });
@@ -6849,61 +6891,81 @@
       html += `
         <div class="coplayer-card">
           <div class="coplayer-hdr">
-            <strong style="font-size:11px; color:var(--swp-primary);">👤 Pass 1: Adult (You)</strong>
-            <span class="swp-pill-tag blue" style="font-size:8.5px;">Primary Guest</span>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <div class="coplayer-avatar-lead">MP</div>
+              <div>
+                <strong style="font-size:12px; color:#111827; font-family:'Montserrat',sans-serif; display:block;">Mukund Patil</strong>
+                <span style="font-size:9.5px; color:#64748B;">Pass 1 · Primary Skier (You)</span>
+              </div>
+            </div>
+            <span class="swp-pill-tag blue" style="font-size:8.5px;">Lead Booker</span>
           </div>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:8px;">
             <div>
-              <label style="font-size:9px; color:var(--swp-text-sec);">Full Name</label>
-              <input type="text" id="lead_player_name" class="swp-field-input" value="${leadAdult.name}" oninput="saveScreen2PlayerInputs()" style="font-size:11px; padding:5px 6px;">
+              <label style="font-size:8.5px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.3px; display:block; margin-bottom:2px;">Full Name</label>
+              <input type="text" id="lead_player_name" class="swp-field-input" value="${leadAdult.name}" oninput="saveScreen2PlayerInputs()" style="font-size:11px; padding:6px 8px; width:100%;">
             </div>
             <div>
-              <label style="font-size:9px; color:var(--swp-text-sec);">Email Address</label>
-              <input type="email" id="lead_player_email" class="swp-field-input" value="${leadAdult.email}" oninput="saveScreen2PlayerInputs()" style="font-size:11px; padding:5px 6px;">
+              <label style="font-size:8.5px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.3px; display:block; margin-bottom:2px;">Email Address</label>
+              <input type="email" id="lead_player_email" class="swp-field-input" value="${leadAdult.email}" oninput="saveScreen2PlayerInputs()" style="font-size:11px; padding:6px 8px; width:100%;">
             </div>
           </div>
         </div>
       `;
 
-      // 2. Additional Adults (if adult passes selected > 1: take guest names and emails)
+      // 2. Additional Adults
       for (let i = 2; i <= adultCount; i++) {
         const coIdx = i - 2;
         const defaultName = coPlayerDetails[coIdx]?.name || `Guest ${i}`;
         const defaultEmail = coPlayerDetails[coIdx]?.email || `guest${i}@example.com`;
+        const initials = defaultName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || `G${i}`;
         html += `
           <div class="coplayer-card">
             <div class="coplayer-hdr">
-              <strong style="font-size:11px; color:var(--swp-primary);">👤 Pass ${i}: Adult Guest</strong>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <div class="coplayer-avatar-guest">${initials}</div>
+                <div>
+                  <strong style="font-size:12px; color:#111827; font-family:'Montserrat',sans-serif; display:block;">${defaultName}</strong>
+                  <span style="font-size:9.5px; color:#64748B;">Pass ${i} · Adult Guest</span>
+                </div>
+              </div>
               <span class="swp-pill-tag" style="font-size:8.5px;">Adult Pass</span>
             </div>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:8px;">
               <div>
-                <label style="font-size:9px; color:var(--swp-text-sec);">Guest Full Name</label>
-                <input type="text" id="coplayer_name_${i}" class="swp-field-input" value="${defaultName}" placeholder="Guest Full Name" oninput="saveScreen2PlayerInputs()" style="font-size:11px; padding:5px 6px;">
+                <label style="font-size:8.5px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.3px; display:block; margin-bottom:2px;">Full Name</label>
+                <input type="text" id="coplayer_name_${i}" class="swp-field-input" value="${defaultName}" placeholder="Guest Full Name" oninput="saveScreen2PlayerInputs()" style="font-size:11px; padding:6px 8px; width:100%;">
               </div>
               <div>
-                <label style="font-size:9px; color:var(--swp-text-sec);">Guest Email</label>
-                <input type="email" id="coplayer_email_${i}" class="swp-field-input" value="${defaultEmail}" placeholder="guest@example.com" oninput="saveScreen2PlayerInputs()" style="font-size:11px; padding:5px 6px;">
+                <label style="font-size:8.5px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.3px; display:block; margin-bottom:2px;">Email Address</label>
+                <input type="email" id="coplayer_email_${i}" class="swp-field-input" value="${defaultEmail}" placeholder="guest@example.com" oninput="saveScreen2PlayerInputs()" style="font-size:11px; padding:6px 8px; width:100%;">
               </div>
             </div>
           </div>
         `;
       }
 
-      // 3. Children passes (if child pass is selected: take child name only as parent name is already known)
+      // 3. Children passes
       for (let c = 1; c <= childCount; c++) {
         const passNum = adultCount + c;
         const chIdx = c - 1;
         const defaultChildName = childDetails[chIdx]?.name || (c === 1 ? 'Rohan Patil' : `Junior Skier ${c}`);
+        const initials = defaultChildName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || `C${c}`;
         html += `
           <div class="coplayer-card">
             <div class="coplayer-hdr">
-              <strong style="font-size:11px; color:#059669;">🧒 Pass ${passNum} (Child)</strong>
-              <span class="swp-pill-tag green" style="font-size:8.5px;">Guardian: ${leadAdult.name}</span>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <div class="coplayer-avatar-child">${initials}</div>
+                <div>
+                  <strong style="font-size:12px; color:#059669; font-family:'Montserrat',sans-serif; display:block;">${defaultChildName}</strong>
+                  <span style="font-size:9.5px; color:#64748B;">Pass ${passNum} · Child (Age 4–12)</span>
+                </div>
+              </div>
+              <span class="swp-pill-tag green" style="font-size:8.5px;">Child Pass</span>
             </div>
-            <div>
-              <label style="font-size:9px; color:var(--swp-text-sec);">Child Full Name (Parent/Guardian: ${leadAdult.name})</label>
-              <input type="text" id="child_name_${c}" class="swp-field-input" value="${defaultChildName}" placeholder="Child Full Name" oninput="saveScreen2PlayerInputs()" style="font-size:11px; padding:5px 6px; width:100%;">
+            <div style="margin-top:8px;">
+              <label style="font-size:8.5px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.3px; display:block; margin-bottom:2px;">Child Full Name (Guardian: ${leadAdult.name})</label>
+              <input type="text" id="child_name_${c}" class="swp-field-input" value="${defaultChildName}" placeholder="Child Full Name" oninput="saveScreen2PlayerInputs()" style="font-size:11px; padding:6px 8px; width:100%;">
             </div>
           </div>
         `;
@@ -7559,6 +7621,17 @@
         }
       } else if (hash.includes('detail') || hash.includes('screen2')) {
         navigateToScreen('screen2a');
+        if (hash.includes('scrollbottom2') || urlParams.get('scroll') === 'bottom2') {
+          setTimeout(() => {
+            const vp = document.getElementById('screen2aViewport');
+            if (vp) vp.scrollTop = vp.scrollHeight;
+          }, 120);
+        } else if (hash.includes('scrollmid2') || urlParams.get('scroll') === 'mid2') {
+          setTimeout(() => {
+            const vp = document.getElementById('screen2aViewport');
+            if (vp) vp.scrollTop = 340;
+          }, 120);
+        }
       }
 
       if (hash.includes('modalfilter') || urlParams.get('modal') === 'filter') {
