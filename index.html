@@ -1053,6 +1053,12 @@
           </a>
         </li>
         <li class="nav-item">
+          <a href="#player_upcoming" id="nav-player_upcoming">
+            <span class="nav-icon">🎫</span>
+            <span>Upcoming Booking Detail (Screen 4)</span>
+          </a>
+        </li>
+        <li class="nav-item">
           <a href="#player_workflow" id="nav-player_workflow">
             <span class="nav-icon">🔄</span>
             <span>Players 18-Screen Workflow</span>
@@ -1093,6 +1099,21 @@
         <span class="top-pill">Prototype</span>
       </div>
     </header>
+
+    <!-- PLAYER SCREEN SUB-NAV (VISIBLE ON PLAYER MODULES) -->
+    <div id="playerScreenSubNav" style="display:none; background:#F8FAFC; border-bottom:1px solid #E2E8F0; padding:8px 24px; align-items:center; justify-content:space-between; flex-shrink:0;">
+      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+        <span style="font-family:'Montserrat',sans-serif; font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.04em;">Mobile Screens:</span>
+        <button type="button" class="top-pill" onclick="switchMainPortalScreen('screen1')" id="btnMainScreen1" style="cursor:pointer; background:#fff; border:1px solid #CBD5E1; color:#334155; font-size:12px; font-weight:600; padding:5px 12px; border-radius:6px;">1. Packages</button>
+        <button type="button" class="top-pill" onclick="switchMainPortalScreen('screen2a')" id="btnMainScreen2" style="cursor:pointer; background:#fff; border:1px solid #CBD5E1; color:#334155; font-size:12px; font-weight:600; padding:5px 12px; border-radius:6px;">2. Pass &amp; Time</button>
+        <button type="button" class="top-pill" onclick="switchMainPortalScreen('screen3')" id="btnMainScreen3" style="cursor:pointer; background:#fff; border:1px solid #CBD5E1; color:#334155; font-size:12px; font-weight:600; padding:5px 12px; border-radius:6px;">3. Gear &amp; Pay</button>
+        <button type="button" class="top-pill" onclick="switchMainPortalScreen('screen4')" id="btnMainScreen4" style="cursor:pointer; background:#007AFF; color:#fff; border:1px solid #007AFF; font-size:12px; font-weight:700; padding:5px 14px; border-radius:6px;">4. Upcoming Detail (Redesigned) ★</button>
+        <button type="button" class="top-pill" onclick="switchMainPortalScreen('all')" id="btnMainScreenAll" style="cursor:pointer; background:#fff; border:1px solid #CBD5E1; color:#334155; font-size:12px; font-weight:600; padding:5px 12px; border-radius:6px;">All 4 Screens</button>
+      </div>
+      <div style="font-size:11px; color:#0284C7; font-weight:600; display:flex; align-items:center; gap:6px;">
+        <span>✨ 100% SWP Player App Native Design System</span>
+      </div>
+    </div>
 
     <!-- CONTENT VIEWPORT CONTAINER -->
     <section class="content-viewport" id="contentViewport">
@@ -1379,12 +1400,27 @@
                       </div>
                       <span class="dir-badge">Interactive Mobile</span>
                     </div>
-                    <p>4-Screen interactive device frames: Parent Activity Cards, 3-Chip Detail View, Pass Steppers,
-                      Arrival Slots, Split Pay Guard, DIN Gear Customizer, €53.00 Summary, Consolidated Turnstile QR.
-                    </p>
+                    <p>4-Screen interactive device frames: All Packages &amp; Activities, Package Details &amp; Booking, Equipment Rental &amp; Checkout (€53.00), and Redesigned Gate Pass QR.</p>
                   </div>
                   <div class="dir-card-footer">
                     <span class="dir-link-text">Launch Wireframe →</span>
+                  </div>
+                </div>
+
+                <!-- ITEM 2: UPCOMING BOOKING DETAIL (SCREEN 4) -->
+                <div class="dir-card" onclick="location.hash='#player_upcoming'" style="border-color:#93C5FD; background:#F0F7FF;">
+                  <div class="dir-card-top">
+                    <div class="dir-card-header">
+                      <div class="dir-card-icon-title">
+                        <span class="dir-icon">🎫</span>
+                        <h3 class="dir-card-title">Upcoming Booking Detail (Native SWP Player App)</h3>
+                      </div>
+                      <span class="dir-badge" style="background:#007AFF; color:#fff;">Redesigned Screen 4</span>
+                    </div>
+                    <p>Native SWP Upcoming Booking Detail screen matching SlotDetailScreen.tsx: SnowWorld Amsterdam hero cover, floating venue card, booking time slot, live countdown gate pass QR, equipment pickup barcode, attendees list, and payment summary.</p>
+                  </div>
+                  <div class="dir-card-footer">
+                    <span class="dir-link-text">Launch Screen 4 →</span>
                   </div>
                 </div>
 
@@ -1626,8 +1662,14 @@
       },
       'player_ui': {
         title: 'Interactive Skiing Player Mobile App (SnowWorld Model)',
-        desc: '4-Screen interactive device frames: Parent Activity Cards, 3-Chip Detail View, Pass Steppers, Arrival Slots, Split Pay Guard, DIN Gear Customizer, €53.00 Summary, Consolidated Turnstile QR',
-        file: 'skiing_player.html',
+        desc: '4-Screen interactive device frames: 1. All Packages, 2. Select Pass & Time, 3. Equipment & Pay (€53), and 4. Redesigned Upcoming Booking Detail & Gate Pass.',
+        file: 'skiing_player.html#screen4',
+        type: 'iframe'
+      },
+      'player_upcoming': {
+        title: 'Upcoming Booking Detail & Digital Pass (Native SWP Player App)',
+        desc: 'Redesigned Screen 4 matching SlotDetailScreen.tsx: SnowWorld Amsterdam hero cover, floating venue info card, booking time slot, live QR gate pass with countdown, equipment pickup barcode, attendees list, and payment summary.',
+        file: 'skiing_player.html#screen4',
         type: 'iframe'
       },
       'player_workflow': {
@@ -2317,10 +2359,43 @@
         openExternalBtn.style.display = 'inline-flex';
         reloadFrameBtn.style.display = 'inline-flex';
 
+        // Handle player screen sub-nav visibility
+        const subNav = document.getElementById('playerScreenSubNav');
+        if (subNav) {
+          if (hash === 'player_ui' || hash === 'player_upcoming') {
+            subNav.style.display = 'flex';
+            document.querySelectorAll('#playerScreenSubNav button').forEach(b => {
+              b.style.background = '#fff';
+              b.style.color = '#334155';
+              b.style.borderColor = '#CBD5E1';
+              b.style.fontWeight = '600';
+            });
+            const btn4 = document.getElementById('btnMainScreen4');
+            if (btn4) {
+              btn4.style.background = '#007AFF';
+              btn4.style.color = '#fff';
+              btn4.style.borderColor = '#007AFF';
+              btn4.style.fontWeight = '700';
+            }
+          } else {
+            subNav.style.display = 'none';
+          }
+        }
+
         // Load iframe source
         const encodedFile = encodeURI(config.file);
         if (wireframeFrame.getAttribute('src') !== encodedFile) {
           wireframeFrame.src = encodedFile;
+        } else if (encodedFile.includes('#')) {
+          try {
+            const h = encodedFile.split('#')[1];
+            if (wireframeFrame.contentWindow) {
+              wireframeFrame.contentWindow.location.hash = '#' + h;
+              if (typeof wireframeFrame.contentWindow.navigateToScreen === 'function') {
+                wireframeFrame.contentWindow.navigateToScreen(h);
+              }
+            }
+          } catch (e) {}
         }
 
         // Set external link
@@ -2329,6 +2404,43 @@
 
       // Close Mobile Sidebar if Open
       appSidebar.classList.remove('open');
+    }
+
+    function switchMainPortalScreen(screenId) {
+      document.querySelectorAll('#playerScreenSubNav button').forEach(b => {
+        b.style.background = '#fff';
+        b.style.color = '#334155';
+        b.style.borderColor = '#CBD5E1';
+        b.style.fontWeight = '600';
+      });
+      const activeBtn = document.getElementById(screenId === 'all' ? 'btnMainScreenAll' : (screenId === 'screen1' ? 'btnMainScreen1' : (screenId === 'screen2a' ? 'btnMainScreen2' : (screenId === 'screen3' ? 'btnMainScreen3' : 'btnMainScreen4'))));
+      if (activeBtn) {
+        activeBtn.style.background = '#007AFF';
+        activeBtn.style.color = '#fff';
+        activeBtn.style.borderColor = '#007AFF';
+        activeBtn.style.fontWeight = '700';
+      }
+
+      const frame = document.getElementById('wireframeFrame');
+      if (frame) {
+        const targetUrl = screenId === 'all' ? 'skiing_player.html' : ('skiing_player.html#' + screenId);
+        frame.src = targetUrl;
+        if (frame.contentWindow) {
+          try {
+            if (screenId === 'all') {
+              frame.contentWindow.location.hash = '';
+              if (typeof frame.contentWindow.switchView === 'function') {
+                frame.contentWindow.switchView('all');
+              }
+            } else {
+              frame.contentWindow.location.hash = '#' + screenId;
+              if (typeof frame.contentWindow.navigateToScreen === 'function') {
+                frame.contentWindow.navigateToScreen(screenId);
+              }
+            }
+          } catch (e) {}
+        }
+      }
     }
 
     // ── EVENT LISTENERS ──
