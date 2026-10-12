@@ -1300,66 +1300,122 @@
     <!-- ========================================================================= -->
     <section id="cview-lessons" class="coach-view-panel max-w-6xl mx-auto py-8 px-6 w-full flex-1">
       
-      <!-- Top Title & Action Bar -->
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
+      <!-- ================= TOP HEADER & PRIMARY ACTIONS (Exact Layout Matching Reference Screenshot) ================= -->
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6 gap-4">
         <div>
-          <div class="flex items-center gap-2">
-            <h1 class="text-2xl font-bold text-gray-900">Create Lessons & Packages</h1>
-            <span class="bg-blue-50 text-blue-700 border border-blue-200 text-[11px] font-bold px-2.5 py-0.5 rounded-full">
-              Tab 4 of 6: Coach Offerings
+          <div class="flex items-center gap-2.5">
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-[#111827] tracking-tight">Membership Management</h1>
+            <span class="bg-blue-50 text-[#0080FF] border border-blue-200 text-[11px] font-bold px-2.5 py-0.5 rounded-full">
+              Coach &amp; Club Offerings
             </span>
           </div>
-          <p class="text-xs text-gray-500 mt-0.5">Offer single private lessons, group clinics, and multi-session retention bundles</p>
+          <p class="text-xs text-slate-500 mt-1">Configure packages, session bundles, lesson types, and member allocations</p>
         </div>
 
-        <!-- Action Buttons -->
-        <div class="flex items-center space-x-2 shrink-0">
-          <button onclick="toggleLessonDrawer('lesson', true)" class="bg-[#007bff] hover:bg-blue-600 text-white font-semibold text-xs px-4 py-2.5 rounded-xl shadow-xs flex items-center space-x-1.5 transition">
+        <!-- Right Action Buttons (Exact Match to Screenshot) -->
+        <div class="flex flex-wrap items-center gap-2 shrink-0">
+          <!-- 1. Members -->
+          <button onclick="openPackageLedgerModal('all')" class="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-semibold text-xs px-3.5 py-2 rounded-lg shadow-2xs flex items-center space-x-1.5 transition">
+            <span class="text-blue-500">👥</span>
+            <span>Members</span>
+          </button>
+          
+          <!-- 2. + Add Member -->
+          <button onclick="openAddMemberModal()" class="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 font-semibold text-xs px-3.5 py-2 rounded-lg shadow-2xs flex items-center space-x-1.5 transition">
+            <span class="font-bold text-slate-500">+</span>
+            <span>Add Member</span>
+          </button>
+
+          <!-- 3. + New Package -->
+          <button onclick="toggleLessonDrawer('package', true)" class="bg-[#0080FF] hover:bg-[#0066CC] text-white font-semibold text-xs px-4 py-2 rounded-lg shadow-xs flex items-center space-x-1.5 transition">
             <span class="text-sm font-bold">+</span>
-            <span>Create New Lesson</span>
+            <span>New Package</span>
           </button>
-          <button onclick="toggleLessonDrawer('package', true)" class="bg-purple-600 hover:bg-purple-700 text-white font-semibold text-xs px-4 py-2.5 rounded-xl shadow-xs flex items-center space-x-1.5 transition">
-            <span class="text-sm font-bold">📦</span>
-            <span>Create Package</span>
+
+          <!-- 4. ➤ Give Membership -->
+          <button onclick="openAssignPackageModal()" class="bg-[#0080FF] hover:bg-[#0066CC] text-white font-semibold text-xs px-4 py-2 rounded-lg shadow-xs flex items-center space-x-1.5 transition">
+            <span class="text-xs font-bold">➤</span>
+            <span>Give Membership</span>
           </button>
-          <button onclick="openPackageLedgerModal('all')" class="bg-purple-50 hover:bg-purple-100 border border-purple-200 text-purple-800 font-semibold text-xs px-3.5 py-2.5 rounded-xl shadow-xs flex items-center space-x-1.5 transition">
-            <span>👥</span>
-            <span>Package Ledger (9 Active)</span>
+
+          <!-- 5. + New Lesson -->
+          <button onclick="toggleLessonDrawer('lesson', true)" class="bg-slate-900 hover:bg-black text-white font-semibold text-xs px-3.5 py-2 rounded-lg shadow-xs flex items-center space-x-1.5 transition">
+            <span class="text-sm font-bold">+</span>
+            <span>New Lesson</span>
           </button>
         </div>
       </div>
 
-      <!-- Segmented Sub-Tabs Bar (2 Clean Views) -->
-      <div class="flex flex-wrap items-center justify-between gap-3 mb-6 bg-white p-1.5 rounded-2xl border border-gray-200 shadow-2xs">
-        <div class="inline-flex space-x-1">
-          <button onclick="switchLessonSubTab('types')" id="lsubtab-types" class="px-5 py-2.5 rounded-xl bg-[#007bff] text-white font-bold text-xs transition flex items-center gap-2 shadow-2xs">
-            <span>👤</span><span>1. Lesson Types (Single &amp; Clinics)</span>
-            <span class="bg-white/20 text-white text-[10px] px-1.5 py-0.2 rounded-full font-semibold">4 Active</span>
-          </button>
-          <button onclick="switchLessonSubTab('packages')" id="lsubtab-packages" class="px-5 py-2.5 rounded-xl text-gray-600 hover:text-black font-semibold text-xs transition flex items-center gap-2">
-            <span>📦</span><span>2. Multi-Lesson Packages</span>
-            <span class="bg-gray-100 text-gray-600 text-[10px] px-1.5 py-0.2 rounded-full font-semibold">3 Active</span>
+      <!-- ================= CONTROLS & FILTER TOOLBAR (Exact Match to Screenshot) ================= -->
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-6 bg-white p-3 rounded-xl border border-slate-200/90 shadow-2xs">
+        <div class="flex flex-wrap items-center gap-2.5 flex-1 min-w-[280px]">
+          <!-- Search Membership Input -->
+          <div class="relative w-full sm:w-64">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </div>
+            <input type="text" id="search-packages-input" oninput="filterPackagesAndLessons(this.value)" placeholder="Search Membership" class="w-full pl-9 pr-3 py-1.5 text-xs text-slate-800 bg-white border border-slate-200 rounded-lg focus:outline-none focus:border-[#0080FF] placeholder-slate-400 font-medium">
+          </div>
+
+          <!-- Sort By Dropdown -->
+          <div class="relative">
+            <select id="sort-packages-select" onchange="sortCards(this.value)" class="text-xs border border-slate-200 rounded-lg px-3 py-1.5 bg-white text-slate-700 font-medium focus:outline-none focus:border-[#0080FF] cursor-pointer">
+              <option value="default">Sort By</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="members-desc">Most Enrolled</option>
+              <option value="name">Name (A-Z)</option>
+            </select>
+          </div>
+
+          <!-- Filter By Dropdown -->
+          <div class="relative">
+            <select id="filter-packages-sport" onchange="filterBySport(this.value)" class="text-xs border border-slate-200 rounded-lg px-3 py-1.5 bg-white text-slate-700 font-medium focus:outline-none focus:border-[#0080FF] cursor-pointer">
+              <option value="all">Filter By</option>
+              <option value="Golf">Golf</option>
+              <option value="Tennis">Tennis</option>
+              <option value="Padel">Padel</option>
+              <option value="CrossFit">CrossFit</option>
+              <option value="Dancing">Dancing / Zumba</option>
+            </select>
+          </div>
+
+          <!-- Complete Rules Button -->
+          <button onclick="openRulesModal()" class="text-xs border border-slate-200 rounded-lg px-3 py-1.5 bg-white text-slate-700 font-medium hover:bg-slate-50 transition flex items-center gap-1.5 shadow-2xs">
+            <span class="text-slate-600 font-bold">✓</span>
+            <span>Complete Rules</span>
           </button>
         </div>
 
-        <div class="flex items-center space-x-2 text-xs pr-2">
-          <span class="text-[11px] text-gray-400 font-medium">Auto-syncs live to Player App feed</span>
+        <!-- View Switcher (Packages vs Lesson Types) -->
+        <div class="inline-flex bg-slate-100 p-1 rounded-xl text-xs font-semibold shrink-0">
+          <button onclick="switchLessonSubTab('packages')" id="lsubtab-packages" class="px-4 py-1.5 rounded-lg bg-[#0080FF] text-white shadow-2xs font-bold transition flex items-center gap-1.5">
+            <span>📦</span><span>Packages (6)</span>
+          </button>
+          <button onclick="switchLessonSubTab('types')" id="lsubtab-types" class="px-4 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5">
+            <span>🎾</span><span>Lesson Types (4)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Helper Banner -->
+      <div class="bg-blue-50/60 border border-blue-100 text-blue-900 text-xs px-4 py-2.5 rounded-xl mb-6 flex items-center justify-between">
+        <div class="flex items-center space-x-2.5">
+          <span class="text-base shrink-0">💡</span>
+          <span class="leading-relaxed">
+            <strong class="font-bold text-blue-950">ShallWe-Play Retention Engine:</strong> Session tokens automatically burn 1-by-1 at booking with €0.00 checkout. Payouts are escrow-protected via Stripe Connect.
+          </span>
+        </div>
+        <div class="hidden sm:flex items-center space-x-2 text-[11px] text-slate-400 font-medium">
+          <span>Auto-syncs live to Player App</span>
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-        </div>
-      </div>
-
-      <!-- Quick Coach Helper Banner -->
-      <div class="bg-blue-50/60 border border-blue-100 text-blue-900 text-xs px-4 py-3 rounded-xl mb-6 flex items-start space-x-3">
-        <span class="text-base shrink-0">💡</span>
-        <div class="leading-relaxed">
-          <strong class="font-bold text-blue-950">Coach-First Workflow:</strong> Set up your base lesson type (e.g. 1-on-1 Tennis @ €50/hr), then create a 5-pack or 10-pack to give players an incentive to commit upfront. Players redeem tokens 1-by-1 directly through your weekly availability slots.
         </div>
       </div>
 
       <!-- ================================================================= -->
       <!-- ================= SUB-TAB 1: LESSON TYPES ======================= -->
       <!-- ================================================================= -->
-      <div id="lpanel-types" class="space-y-6">
+      <div id="lpanel-types" class="hidden space-y-6">
 
         <!-- CREATE LESSON DRAWER / FORM -->
         <div id="drawer-create-lesson" class="hidden bg-white border border-gray-200 rounded-2xl p-6 shadow-sm mb-6 transition-all">
@@ -1593,267 +1649,267 @@
           </form>
         </div>
 
-        <!-- LESSON CARDS GRID (Exact ShallWe-Play Design Tokens) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <!-- ================= LESSON CARDS GRID (Exact ShallWe-Play Design Tokens) ================= -->
+        <div id="lessons-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           
           <!-- Lesson Card 1: Private 1-on-1 Tennis -->
-          <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-2xs hover:shadow-sm transition flex flex-col justify-between">
+          <div class="swp-card bg-white rounded-2xl border border-slate-200/90 shadow-2xs hover:shadow-md transition p-6 flex flex-col justify-between"
+               data-title="Private 1-on-1 Tennis Masterclass" data-sport="Tennis" data-price="50" data-members="24" data-status="active">
             <div>
-              <div class="flex items-start justify-between gap-3 mb-3">
-                <div class="flex items-center space-x-3">
-                  <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl font-bold">
-                    🎾
-                  </div>
-                  <div>
-                    <h3 class="text-sm font-bold text-gray-900">Private 1-on-1 Tennis Masterclass</h3>
-                    <p class="text-[11px] text-gray-500">Tennis • 1 Student Max • 60 Minutes</p>
-                  </div>
-                </div>
-                <div class="flex items-center space-x-1.5">
-                  <span class="bg-blue-50 text-blue-700 text-[10px] font-bold px-2 py-0.5 rounded">All Levels</span>
-                  <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded">Active</span>
-                </div>
+              <!-- Header: Title & Status Badge -->
+              <div class="flex items-start justify-between gap-2 mb-2">
+                <h3 class="text-base font-bold text-slate-900 tracking-tight leading-snug">Private 1-on-1 Tennis Masterclass</h3>
+                <span class="bg-[#e6f9f0] text-[#00b074] font-bold text-[10px] tracking-wider px-2 py-0.5 rounded uppercase shrink-0">ACTIVE</span>
               </div>
 
-              <p class="text-xs text-gray-600 mb-3 leading-relaxed">
-                Dedicated personal training focusing on baseline consistency, service biomechanics, and tactical court positioning.
-              </p>
-
-              <!-- Features Chips -->
-              <div class="flex flex-wrap gap-1.5 mb-3 text-[10px] text-gray-600">
-                <span class="bg-gray-100 px-2 py-0.5 rounded font-medium">🎾 Match Balls Included</span>
-                <span class="bg-gray-100 px-2 py-0.5 rounded font-medium">📹 Video Analysis</span>
-                <span class="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded font-bold">Net Payout: €42.50 (85%)</span>
+              <!-- Pricing -->
+              <div class="mb-3">
+                <div class="text-3xl font-extrabold text-slate-900 tracking-tight leading-none">€50.00</div>
+                <div class="text-[11px] text-slate-400 font-medium mt-1">Per Session (60 Min)</div>
               </div>
 
-              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-3 border-t border-gray-100 text-xs mb-4">
-                <div>
-                  <span class="text-[10px] text-gray-400 font-bold uppercase block">RATE</span>
-                  <span class="text-base font-extrabold text-gray-900">€50.00</span>
-                </div>
-                <div>
-                  <span class="text-[10px] text-gray-400 font-bold uppercase block">COURT FEE</span>
-                  <span class="text-[11px] font-semibold text-gray-700">Excluded (At Club)</span>
-                </div>
-                <div>
-                  <span class="text-[10px] text-gray-400 font-bold uppercase block">NOTICE</span>
-                  <span class="text-[11px] font-semibold text-gray-700">12h Advance</span>
-                </div>
-                <div>
-                  <span class="text-[10px] text-gray-400 font-bold uppercase block">CANCEL</span>
-                  <span class="text-[11px] font-semibold text-gray-700">24h Policy</span>
-                </div>
+              <!-- Sports Tags -->
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                <span class="bg-slate-100 text-slate-600 text-[11px] font-medium px-2.5 py-1 rounded">Tennis</span>
+                <span class="bg-slate-100 text-slate-600 text-[11px] font-medium px-2.5 py-1 rounded">1-on-1 Private</span>
               </div>
 
-              <div class="bg-gray-50 rounded-xl p-2.5 text-[11px] text-gray-600 flex items-center justify-between">
-                <span class="flex items-center gap-1">
-                  <span>📍</span><strong>TC De Meer</strong> (Court 1 &amp; 2)
-                </span>
-                <span class="text-blue-600 font-semibold">5-Pack Bundle Active</span>
+              <!-- Meta Details 2x2 Grid -->
+              <div class="grid grid-cols-2 gap-y-3 gap-x-2 text-xs mb-4">
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Duration</span>
+                  <span class="text-xs font-semibold text-slate-800">60 Minutes</span>
+                </div>
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Visible to players</span>
+                  <span class="text-xs font-semibold text-slate-800">Yes</span>
+                </div>
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Court Fee</span>
+                  <span class="text-xs font-semibold text-slate-800">Excluded (At Club)</span>
+                </div>
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Cancellation</span>
+                  <span class="text-xs font-semibold text-slate-800">24h Policy</span>
+                </div>
               </div>
             </div>
 
-            <div class="flex items-center justify-between pt-4 mt-3 border-t border-gray-100 text-xs">
-              <span class="text-gray-400 text-[11px]">Last booked 3h ago</span>
-              <div class="flex items-center space-x-2">
-                <button onclick="toggleLessonDrawer('lesson', true)" class="text-blue-600 hover:text-blue-800 font-semibold px-2 py-1">Edit</button>
-                <button onclick="toggleLessonDrawer('package', true)" class="bg-purple-50 text-purple-700 border border-purple-200 hover:bg-purple-100 font-bold px-2.5 py-1 rounded-lg transition">+ Create Package</button>
+            <!-- Divider & Footer Members Stack -->
+            <div class="border-t border-slate-100 pt-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-[11px] text-slate-400 font-medium block mb-1.5">Students (24)</span>
+                  <div class="flex items-center -space-x-1.5 cursor-pointer hover:opacity-85 transition" onclick="openPackageLedgerModal('tennis-5')" title="View Active Students">
+                    <span class="w-6 h-6 rounded-full bg-blue-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">JD</span>
+                    <span class="w-6 h-6 rounded-full bg-emerald-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">SM</span>
+                    <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">AK</span>
+                    <span class="w-6 h-6 rounded-full bg-purple-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">RW</span>
+                    <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">+20</span>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-1.5">
+                  <button onclick="toggleLessonDrawer('lesson', true)" class="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition" title="Edit Lesson">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                  </button>
+                  <button onclick="toggleLessonDrawer('package', true)" class="px-2.5 py-1 text-[11px] font-bold bg-blue-50 text-[#0080FF] hover:bg-blue-100 rounded-lg transition" title="Create Package for this Lesson">+ Bundle</button>
+                </div>
               </div>
             </div>
           </div>
 
           <!-- Lesson Card 2: Padel Clinic -->
-          <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-2xs hover:shadow-sm transition flex flex-col justify-between">
+          <div class="swp-card bg-white rounded-2xl border border-slate-200/90 shadow-2xs hover:shadow-md transition p-6 flex flex-col justify-between"
+               data-title="Padel Doubles Tactical Clinic" data-sport="Padel" data-price="25" data-members="18" data-status="active">
             <div>
-              <div class="flex items-start justify-between gap-3 mb-3">
-                <div class="flex items-center space-x-3">
-                  <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center text-xl font-bold">
-                    🏓
-                  </div>
-                  <div>
-                    <h3 class="text-sm font-bold text-gray-900">Padel Doubles Tactical Clinic</h3>
-                    <p class="text-[11px] text-gray-500">Padel • 4 Students Max • 90 Minutes</p>
-                  </div>
-                </div>
-                <div class="flex items-center space-x-1.5">
-                  <span class="bg-purple-50 text-purple-700 text-[10px] font-bold px-2 py-0.5 rounded">Intermediate+</span>
-                  <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded">Active</span>
-                </div>
+              <!-- Header: Title & Status Badge -->
+              <div class="flex items-start justify-between gap-2 mb-2">
+                <h3 class="text-base font-bold text-slate-900 tracking-tight leading-snug">Padel Doubles Tactical Clinic</h3>
+                <span class="bg-[#e6f9f0] text-[#00b074] font-bold text-[10px] tracking-wider px-2 py-0.5 rounded uppercase shrink-0">ACTIVE</span>
               </div>
 
-              <p class="text-xs text-gray-600 mb-3 leading-relaxed">
-                Doubles positioning, bandeja execution, glass wall rebounds, and match play strategies for intermediate players.
-              </p>
-
-              <!-- Features Chips -->
-              <div class="flex flex-wrap gap-1.5 mb-3 text-[10px] text-gray-600">
-                <span class="bg-gray-100 px-2 py-0.5 rounded font-medium">🏓 Padel Balls Provided</span>
-                <span class="bg-blue-50 text-blue-700 px-2 py-0.5 rounded font-medium">Fixed: Saturdays 10:00</span>
-                <span class="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded font-bold">Net Payout: €85.00/court</span>
+              <!-- Pricing -->
+              <div class="mb-3">
+                <div class="text-3xl font-extrabold text-slate-900 tracking-tight leading-none">€25.00</div>
+                <div class="text-[11px] text-slate-400 font-medium mt-1">Per Student (4 Max)</div>
               </div>
 
-              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-3 border-t border-gray-100 text-xs mb-4">
-                <div>
-                  <span class="text-[10px] text-gray-400 font-bold uppercase block">RATE</span>
-                  <span class="text-base font-extrabold text-gray-900">€25.00<span class="text-[10px] text-gray-400 font-normal">/ea</span></span>
-                </div>
-                <div>
-                  <span class="text-[10px] text-gray-400 font-bold uppercase block">COURT FEE</span>
-                  <span class="text-[11px] font-semibold text-emerald-600">Included</span>
-                </div>
-                <div>
-                  <span class="text-[10px] text-gray-400 font-bold uppercase block">NOTICE</span>
-                  <span class="text-[11px] font-semibold text-gray-700">24h Advance</span>
-                </div>
-                <div>
-                  <span class="text-[10px] text-gray-400 font-bold uppercase block">CANCEL</span>
-                  <span class="text-[11px] font-semibold text-gray-700">48h Policy</span>
-                </div>
+              <!-- Sports Tags -->
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                <span class="bg-slate-100 text-slate-600 text-[11px] font-medium px-2.5 py-1 rounded">Padel</span>
+                <span class="bg-slate-100 text-slate-600 text-[11px] font-medium px-2.5 py-1 rounded">Group Clinic</span>
               </div>
 
-              <div class="bg-gray-50 rounded-xl p-2.5 text-[11px] text-gray-600 flex items-center justify-between">
-                <span class="flex items-center gap-1">
-                  <span>📍</span><strong>LTC Victoria</strong> (Cage 4)
-                </span>
-                <span class="text-purple-600 font-semibold">€100 Court Total</span>
+              <!-- Meta Details 2x2 Grid -->
+              <div class="grid grid-cols-2 gap-y-3 gap-x-2 text-xs mb-4">
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Duration</span>
+                  <span class="text-xs font-semibold text-slate-800">90 Minutes</span>
+                </div>
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Visible to players</span>
+                  <span class="text-xs font-semibold text-slate-800">Yes</span>
+                </div>
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Schedule</span>
+                  <span class="text-xs font-semibold text-slate-800">Saturdays 10:00</span>
+                </div>
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Court Fee</span>
+                  <span class="text-xs font-semibold text-emerald-600">Included</span>
+                </div>
               </div>
             </div>
 
-            <div class="flex items-center justify-between pt-4 mt-3 border-t border-gray-100 text-xs">
-              <span class="text-gray-400 text-[11px]">3 of 4 spots booked</span>
-              <div class="flex items-center space-x-2">
-                <button onclick="toggleLessonDrawer('lesson', true)" class="text-blue-600 hover:text-blue-800 font-semibold px-2 py-1">Edit</button>
-                <button onclick="toggleLessonDrawer('package', true)" class="bg-purple-50 text-purple-700 border border-purple-200 hover:bg-purple-100 font-bold px-2.5 py-1 rounded-lg transition">+ Create Package</button>
+            <!-- Divider & Footer Members Stack -->
+            <div class="border-t border-slate-100 pt-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-[11px] text-slate-400 font-medium block mb-1.5">Students (18)</span>
+                  <div class="flex items-center -space-x-1.5 cursor-pointer hover:opacity-85 transition" onclick="openPackageLedgerModal('padel-5')" title="View Active Students">
+                    <span class="w-6 h-6 rounded-full bg-pink-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">LM</span>
+                    <span class="w-6 h-6 rounded-full bg-cyan-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">TC</span>
+                    <span class="w-6 h-6 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">NH</span>
+                    <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">+15</span>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-1.5">
+                  <button onclick="toggleLessonDrawer('lesson', true)" class="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition" title="Edit Lesson">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                  </button>
+                  <button onclick="toggleLessonDrawer('package', true)" class="px-2.5 py-1 text-[11px] font-bold bg-blue-50 text-[#0080FF] hover:bg-blue-100 rounded-lg transition" title="Create Package for this Lesson">+ Bundle</button>
+                </div>
               </div>
             </div>
           </div>
 
           <!-- Lesson Card 3: Semi-Private Tennis -->
-          <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-2xs hover:shadow-sm transition flex flex-col justify-between">
+          <div class="swp-card bg-white rounded-2xl border border-slate-200/90 shadow-2xs hover:shadow-md transition p-6 flex flex-col justify-between"
+               data-title="Semi-Private Technique & Rallies" data-sport="Tennis" data-price="35" data-members="15" data-status="active">
             <div>
-              <div class="flex items-start justify-between gap-3 mb-3">
-                <div class="flex items-center space-x-3">
-                  <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl font-bold">
-                    🎾
-                  </div>
-                  <div>
-                    <h3 class="text-sm font-bold text-gray-900">Semi-Private Technique &amp; Rallies</h3>
-                    <p class="text-[11px] text-gray-500">Tennis • 2 Students Max • 60 Minutes</p>
-                  </div>
-                </div>
-                <div class="flex items-center space-x-1.5">
-                  <span class="bg-blue-50 text-blue-700 text-[10px] font-bold px-2 py-0.5 rounded">Intermediate</span>
-                  <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded">Active</span>
-                </div>
+              <!-- Header: Title & Status Badge -->
+              <div class="flex items-start justify-between gap-2 mb-2">
+                <h3 class="text-base font-bold text-slate-900 tracking-tight leading-snug">Semi-Private Technique &amp; Rallies</h3>
+                <span class="bg-[#e6f9f0] text-[#00b074] font-bold text-[10px] tracking-wider px-2 py-0.5 rounded uppercase shrink-0">ACTIVE</span>
               </div>
 
-              <p class="text-xs text-gray-600 mb-3 leading-relaxed">
-                Ideal for hitting partners or friends. High intensity repetition, cross-court target drills, and live point play.
-              </p>
-
-              <!-- Features Chips -->
-              <div class="flex flex-wrap gap-1.5 mb-3 text-[10px] text-gray-600">
-                <span class="bg-gray-100 px-2 py-0.5 rounded font-medium">🎾 Match Balls Provided</span>
-                <span class="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded font-bold">Net Payout: €59.50 (85%)</span>
+              <!-- Pricing -->
+              <div class="mb-3">
+                <div class="text-3xl font-extrabold text-slate-900 tracking-tight leading-none">€35.00</div>
+                <div class="text-[11px] text-slate-400 font-medium mt-1">Per Student (2 Max)</div>
               </div>
 
-              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-3 border-t border-gray-100 text-xs mb-4">
-                <div>
-                  <span class="text-[10px] text-gray-400 font-bold uppercase block">RATE</span>
-                  <span class="text-base font-extrabold text-gray-900">€35.00<span class="text-[10px] text-gray-400 font-normal">/ea</span></span>
-                </div>
-                <div>
-                  <span class="text-[10px] text-gray-400 font-bold uppercase block">COURT FEE</span>
-                  <span class="text-[11px] font-semibold text-gray-700">Excluded</span>
-                </div>
-                <div>
-                  <span class="text-[10px] text-gray-400 font-bold uppercase block">NOTICE</span>
-                  <span class="text-[11px] font-semibold text-gray-700">12h Advance</span>
-                </div>
-                <div>
-                  <span class="text-[10px] text-gray-400 font-bold uppercase block">CANCEL</span>
-                  <span class="text-[11px] font-semibold text-gray-700">24h Policy</span>
-                </div>
+              <!-- Sports Tags -->
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                <span class="bg-slate-100 text-slate-600 text-[11px] font-medium px-2.5 py-1 rounded">Tennis</span>
+                <span class="bg-slate-100 text-slate-600 text-[11px] font-medium px-2.5 py-1 rounded">Semi-Private</span>
               </div>
 
-              <div class="bg-gray-50 rounded-xl p-2.5 text-[11px] text-gray-600 flex items-center justify-between">
-                <span class="flex items-center gap-1">
-                  <span>📍</span><strong>Amstelpark Tennis Club</strong>
-                </span>
-                <span class="text-blue-600 font-semibold">€70 Total/Session</span>
+              <!-- Meta Details 2x2 Grid -->
+              <div class="grid grid-cols-2 gap-y-3 gap-x-2 text-xs mb-4">
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Duration</span>
+                  <span class="text-xs font-semibold text-slate-800">60 Minutes</span>
+                </div>
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Visible to players</span>
+                  <span class="text-xs font-semibold text-slate-800">Yes</span>
+                </div>
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Advance Notice</span>
+                  <span class="text-xs font-semibold text-slate-800">12h Advance</span>
+                </div>
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Court Fee</span>
+                  <span class="text-xs font-semibold text-slate-800">Excluded</span>
+                </div>
               </div>
             </div>
 
-            <div class="flex items-center justify-between pt-4 mt-3 border-t border-gray-100 text-xs">
-              <span class="text-gray-400 text-[11px]">Both spots booked</span>
-              <div class="flex items-center space-x-2">
-                <button onclick="toggleLessonDrawer('lesson', true)" class="text-blue-600 hover:text-blue-800 font-semibold px-2 py-1">Edit</button>
-                <button onclick="toggleLessonDrawer('package', true)" class="bg-purple-50 text-purple-700 border border-purple-200 hover:bg-purple-100 font-bold px-2.5 py-1 rounded-lg transition">+ Create Package</button>
+            <!-- Divider & Footer Members Stack -->
+            <div class="border-t border-slate-100 pt-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-[11px] text-slate-400 font-medium block mb-1.5">Students (15)</span>
+                  <div class="flex items-center -space-x-1.5 cursor-pointer hover:opacity-85 transition" onclick="openPackageLedgerModal('tennis-5')" title="View Active Students">
+                    <span class="w-6 h-6 rounded-full bg-pink-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">SP</span>
+                    <span class="w-6 h-6 rounded-full bg-cyan-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">VH</span>
+                    <span class="w-6 h-6 rounded-full bg-rose-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">TG</span>
+                    <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">+12</span>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-1.5">
+                  <button onclick="toggleLessonDrawer('lesson', true)" class="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition" title="Edit Lesson">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                  </button>
+                  <button onclick="toggleLessonDrawer('package', true)" class="px-2.5 py-1 text-[11px] font-bold bg-blue-50 text-[#0080FF] hover:bg-blue-100 rounded-lg transition" title="Create Package for this Lesson">+ Bundle</button>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- Lesson Card 4: Zumba Cardio -->
-          <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-2xs hover:shadow-sm transition flex flex-col justify-between">
+          <!-- Lesson Card 4: Cardio Zumba -->
+          <div class="swp-card bg-white rounded-2xl border border-slate-200/90 shadow-2xs hover:shadow-md transition p-6 flex flex-col justify-between"
+               data-title="Cardio Zumba Rhythm & Tone" data-sport="Dancing" data-price="15" data-members="41" data-status="active">
             <div>
-              <div class="flex items-start justify-between gap-3 mb-3">
-                <div class="flex items-center space-x-3">
-                  <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xl font-bold">
-                    💃
-                  </div>
-                  <div>
-                    <h3 class="text-sm font-bold text-gray-900">Cardio Zumba Rhythm &amp; Tone</h3>
-                    <p class="text-[11px] text-gray-500">Zumba • 12 Students Max • 45 Minutes</p>
-                  </div>
-                </div>
-                <div class="flex items-center space-x-1.5">
-                  <span class="bg-amber-50 text-amber-700 text-[10px] font-bold px-2 py-0.5 rounded">All Levels</span>
-                  <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded">Active</span>
-                </div>
+              <!-- Header: Title & Status Badge -->
+              <div class="flex items-start justify-between gap-2 mb-2">
+                <h3 class="text-base font-bold text-slate-900 tracking-tight leading-snug">Cardio Zumba Rhythm &amp; Tone</h3>
+                <span class="bg-[#e6f9f0] text-[#00b074] font-bold text-[10px] tracking-wider px-2 py-0.5 rounded uppercase shrink-0">ACTIVE</span>
               </div>
 
-              <p class="text-xs text-gray-600 mb-3 leading-relaxed">
-                High-energy cardio dance workout blending Latin rhythms with full-body conditioning for all fitness levels.
-              </p>
-
-              <!-- Features Chips -->
-              <div class="flex flex-wrap gap-1.5 mb-3 text-[10px] text-gray-600">
-                <span class="bg-gray-100 px-2 py-0.5 rounded font-medium">🎵 Sound System &amp; Towels</span>
-                <span class="bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded font-bold">Net Payout: €153.00/class</span>
+              <!-- Pricing -->
+              <div class="mb-3">
+                <div class="text-3xl font-extrabold text-slate-900 tracking-tight leading-none">€15.00</div>
+                <div class="text-[11px] text-slate-400 font-medium mt-1">Per Student (12 Max)</div>
               </div>
 
-              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-3 border-t border-gray-100 text-xs mb-4">
-                <div>
-                  <span class="text-[10px] text-gray-400 font-bold uppercase block">RATE</span>
-                  <span class="text-base font-extrabold text-gray-900">€15.00<span class="text-[10px] text-gray-400 font-normal">/ea</span></span>
-                </div>
-                <div>
-                  <span class="text-[10px] text-gray-400 font-bold uppercase block">STUDIO</span>
-                  <span class="text-[11px] font-semibold text-emerald-600">Included</span>
-                </div>
-                <div>
-                  <span class="text-[10px] text-gray-400 font-bold uppercase block">NOTICE</span>
-                  <span class="text-[11px] font-semibold text-gray-700">2h Notice</span>
-                </div>
-                <div>
-                  <span class="text-[10px] text-gray-400 font-bold uppercase block">CANCEL</span>
-                  <span class="text-[11px] font-semibold text-gray-700">12h Policy</span>
-                </div>
+              <!-- Sports Tags -->
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                <span class="bg-slate-100 text-slate-600 text-[11px] font-medium px-2.5 py-1 rounded">Dancing</span>
+                <span class="bg-slate-100 text-slate-600 text-[11px] font-medium px-2.5 py-1 rounded">CrossFit</span>
               </div>
 
-              <div class="bg-gray-50 rounded-xl p-2.5 text-[11px] text-gray-600 flex items-center justify-between">
-                <span class="flex items-center gap-1">
-                  <span>📍</span><strong>Sportcampus Zuiderpark</strong> (Studio B)
-                </span>
-                <span class="text-amber-600 font-semibold">10 of 12 Enrolled</span>
+              <!-- Meta Details 2x2 Grid -->
+              <div class="grid grid-cols-2 gap-y-3 gap-x-2 text-xs mb-4">
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Duration</span>
+                  <span class="text-xs font-semibold text-slate-800">45 Minutes</span>
+                </div>
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Visible to players</span>
+                  <span class="text-xs font-semibold text-slate-800">Yes</span>
+                </div>
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Schedule</span>
+                  <span class="text-xs font-semibold text-slate-800">Tuesdays 19:00</span>
+                </div>
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Studio Fee</span>
+                  <span class="text-xs font-semibold text-emerald-600">Included</span>
+                </div>
               </div>
             </div>
 
-            <div class="flex items-center justify-between pt-4 mt-3 border-t border-gray-100 text-xs">
-              <span class="text-gray-400 text-[11px]">Runs Tuesdays 19:00</span>
-              <div class="flex items-center space-x-2">
-                <button onclick="toggleLessonDrawer('lesson', true)" class="text-blue-600 hover:text-blue-800 font-semibold px-2 py-1">Edit</button>
-                <button onclick="toggleLessonDrawer('package', true)" class="bg-purple-50 text-purple-700 border border-purple-200 hover:bg-purple-100 font-bold px-2.5 py-1 rounded-lg transition">+ Create Package</button>
+            <!-- Divider & Footer Members Stack -->
+            <div class="border-t border-slate-100 pt-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-[11px] text-slate-400 font-medium block mb-1.5">Students (41)</span>
+                  <div class="flex items-center -space-x-1.5 cursor-pointer hover:opacity-85 transition" onclick="openPackageLedgerModal('all')" title="View Active Students">
+                    <span class="w-6 h-6 rounded-full bg-blue-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">EJ</span>
+                    <span class="w-6 h-6 rounded-full bg-teal-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">AL</span>
+                    <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">RB</span>
+                    <span class="w-6 h-6 rounded-full bg-purple-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">NK</span>
+                    <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">+37</span>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-1.5">
+                  <button onclick="toggleLessonDrawer('lesson', true)" class="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition" title="Edit Lesson">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                  </button>
+                  <button onclick="toggleLessonDrawer('package', true)" class="px-2.5 py-1 text-[11px] font-bold bg-blue-50 text-[#0080FF] hover:bg-blue-100 rounded-lg transition" title="Create Package for this Lesson">+ Bundle</button>
+                </div>
               </div>
             </div>
           </div>
@@ -1865,291 +1921,562 @@
       <!-- ================================================================= -->
       <!-- ============== SUB-TAB 2: MULTI-LESSON PACKAGES ================= -->
       <!-- ================================================================= -->
-      <div id="lpanel-packages" class="hidden space-y-6">
+      <div id="lpanel-packages" class="space-y-6">
 
         <!-- CREATE PACKAGE DRAWER / FORM -->
-        <div id="drawer-create-package" class="hidden bg-white border border-gray-200 rounded-2xl p-6 shadow-sm mb-6 transition-all">
-          <div class="flex justify-between items-center pb-4 mb-5 border-b border-gray-100">
+        <div id="drawer-create-package" class="hidden bg-white border border-slate-200/90 rounded-2xl p-6 shadow-sm mb-6 transition-all">
+          <div class="flex justify-between items-center pb-4 mb-5 border-b border-slate-100">
             <div>
-              <h2 class="text-base font-bold text-gray-900 flex items-center gap-2">
+              <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
                 <span>📦</span><span>Create Multi-Lesson Package</span>
               </h2>
-              <p class="text-xs text-gray-500 mt-0.5">Bundle multiple session credits at a discount to guarantee student retention</p>
+              <p class="text-xs text-slate-500 mt-0.5">Bundle session credits into a multi-session package with upfront player payment</p>
             </div>
-            <button onclick="toggleLessonDrawer('package', false)" class="text-gray-400 hover:text-gray-700 text-lg font-bold">✕</button>
+            <button onclick="toggleLessonDrawer('package', false)" class="text-slate-400 hover:text-slate-700 text-lg font-bold">✕</button>
           </div>
 
           <form onsubmit="event.preventDefault(); saveNewLessonPackage();" class="space-y-5">
             <!-- Step 1: Base Lesson & Package Title -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label class="text-xs font-bold text-gray-700 block mb-1">Applicable Lesson Type *</label>
-                <select id="pkg-base-lesson" onchange="updatePackageSavingsCalculator()" class="w-full px-3 py-2 text-xs border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 font-medium">
-                  <option value="50" selected>Private 1-on-1 Tennis Masterclass (€50 / session)</option>
-                  <option value="25">Padel Doubles Tactical Clinic (€25 / session)</option>
-                  <option value="35">Semi-Private Technique (€35 / session)</option>
-                  <option value="15">Cardio Zumba Rhythm (€15 / session)</option>
+                <label class="text-xs font-bold text-slate-700 block mb-1">Applicable Sports &amp; Lessons *</label>
+                <select id="pkg-base-lesson" onchange="updatePackageSavingsCalculator()" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-[#0080FF] font-medium text-slate-800 bg-white">
+                  <option value="50" selected>Tennis • Private 1-on-1 Tennis Masterclass (€50 / session)</option>
+                  <option value="25">Padel • Padel Doubles Tactical Clinic (€25 / session)</option>
+                  <option value="35">Tennis • Semi-Private Technique (€35 / session)</option>
+                  <option value="15">Zumba • Cardio Rhythm &amp; Tone (€15 / session)</option>
+                  <option value="45">Golf • Golf Elite Master (€45 / session)</option>
+                  <option value="60">CrossFit • High Performance Fitness (€60 / session)</option>
                 </select>
               </div>
 
               <div>
-                <label class="text-xs font-bold text-gray-700 block mb-1">Package Title *</label>
-                <input type="text" id="pkg-title-input" required value="5-Lesson Tennis Foundation Pack" class="w-full px-3 py-2 text-xs border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 font-medium">
+                <label class="text-xs font-bold text-slate-700 block mb-1">Package Title *</label>
+                <input type="text" id="pkg-title-input" required value="Premium All-Access Bundle" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-[#0080FF] font-medium text-slate-800">
               </div>
             </div>
 
             <!-- Step 2: Session Count Presets -->
-            <div class="pt-2 border-t border-gray-100">
-              <label class="text-xs font-bold text-gray-700 block mb-1.5">Number of Sessions *</label>
+            <div class="pt-2 border-t border-slate-100">
+              <label class="text-xs font-bold text-slate-700 block mb-1.5">Number of Sessions *</label>
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 <label class="cursor-pointer text-center">
                   <input type="radio" name="pkg-count-radio" value="3" onchange="setPkgCount(3)" class="peer sr-only">
-                  <div class="p-3 rounded-xl border text-xs peer-checked:bg-purple-50 peer-checked:border-purple-600 peer-checked:text-purple-900 border-gray-200 transition">
+                  <div class="p-3 rounded-xl border text-xs peer-checked:bg-blue-50 peer-checked:border-[#0080FF] peer-checked:text-[#0080FF] border-slate-200 transition">
                     <strong class="text-sm font-bold block">3 Sessions</strong>
-                    <span class="text-[10px] text-gray-500">Starter Pack</span>
+                    <span class="text-[10px] text-slate-500">Starter Pack</span>
                   </div>
                 </label>
                 <label class="cursor-pointer text-center">
                   <input type="radio" name="pkg-count-radio" value="5" checked onchange="setPkgCount(5)" class="peer sr-only">
-                  <div class="p-3 rounded-xl border text-xs peer-checked:bg-purple-50 peer-checked:border-purple-600 peer-checked:text-purple-900 border-gray-200 transition">
+                  <div class="p-3 rounded-xl border text-xs peer-checked:bg-blue-50 peer-checked:border-[#0080FF] peer-checked:text-[#0080FF] border-slate-200 transition">
                     <strong class="text-sm font-bold block">5 Sessions</strong>
-                    <span class="text-[10px] text-purple-600 font-semibold">Recommended (10% OFF)</span>
+                    <span class="text-[10px] text-[#0080FF] font-semibold">Recommended (10% OFF)</span>
                   </div>
                 </label>
                 <label class="cursor-pointer text-center">
                   <input type="radio" name="pkg-count-radio" value="10" onchange="setPkgCount(10)" class="peer sr-only">
-                  <div class="p-3 rounded-xl border text-xs peer-checked:bg-purple-50 peer-checked:border-purple-600 peer-checked:text-purple-900 border-gray-200 transition">
+                  <div class="p-3 rounded-xl border text-xs peer-checked:bg-blue-50 peer-checked:border-[#0080FF] peer-checked:text-[#0080FF] border-slate-200 transition">
                     <strong class="text-sm font-bold block">10 Sessions</strong>
-                    <span class="text-[10px] text-purple-600 font-semibold">High Value (16% OFF)</span>
+                    <span class="text-[10px] text-[#0080FF] font-semibold">High Value (16% OFF)</span>
                   </div>
                 </label>
                 <label class="cursor-pointer text-center">
                   <input type="radio" name="pkg-count-radio" value="custom" onchange="setPkgCount('custom')" class="peer sr-only">
-                  <div class="p-3 rounded-xl border text-xs peer-checked:bg-purple-50 peer-checked:border-purple-600 peer-checked:text-purple-900 border-gray-200 transition">
+                  <div class="p-3 rounded-xl border text-xs peer-checked:bg-blue-50 peer-checked:border-[#0080FF] peer-checked:text-[#0080FF] border-slate-200 transition">
                     <strong class="text-sm font-bold block">Custom Count</strong>
-                    <span class="text-[10px] text-gray-500">e.g. 8, 12, 15</span>
+                    <span class="text-[10px] text-slate-500">e.g. 8, 12, 15</span>
                   </div>
                 </label>
               </div>
             </div>
 
             <!-- Step 3: Package Pricing & Live Calculator -->
-            <div class="bg-purple-50/50 border border-purple-200 rounded-xl p-4 pt-3">
+            <div class="bg-blue-50/40 border border-blue-200 rounded-xl p-4 pt-3">
               <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
                 <div>
-                  <span class="text-[10px] text-gray-500 font-bold uppercase block">STANDARD VALUE</span>
-                  <span id="pkg-calc-standard" class="text-base font-bold text-gray-700 mt-1 block">5 × €50 = €250.00</span>
-                  <span class="text-[10px] text-gray-400">Regular single-lesson price</span>
+                  <span class="text-[10px] text-slate-500 font-bold uppercase block">STANDARD VALUE</span>
+                  <span id="pkg-calc-standard" class="text-base font-bold text-slate-700 mt-1 block">5 × €50 = €250.00</span>
+                  <span class="text-[10px] text-slate-400">Regular single-lesson price</span>
                 </div>
 
                 <div>
-                  <label class="text-[10px] text-purple-900 font-bold uppercase block">PACKAGE BUNDLE PRICE *</label>
+                  <label class="text-[10px] text-[#0080FF] font-bold uppercase block">PACKAGE BUNDLE PRICE *</label>
                   <div class="relative mt-1">
-                    <span class="absolute left-2.5 top-1.5 text-xs font-bold text-gray-500">€</span>
-                    <input type="number" id="pkg-calc-price" value="225" oninput="updatePackageSavingsCalculator()" class="w-full pl-6 pr-2 py-1.5 text-xs font-bold border border-purple-300 rounded-lg bg-white focus:outline-none focus:border-purple-600">
+                    <span class="absolute left-2.5 top-1.5 text-xs font-bold text-slate-500">€</span>
+                    <input type="number" id="pkg-calc-price" value="225" oninput="updatePackageSavingsCalculator()" class="w-full pl-6 pr-2 py-1.5 text-xs font-bold border border-blue-300 rounded-lg bg-white focus:outline-none focus:border-[#0080FF]">
                   </div>
-                  <span id="pkg-calc-persession" class="text-[10px] text-purple-700 font-semibold mt-1 block">€45.00 / session credit</span>
+                  <span id="pkg-calc-persession" class="text-[10px] text-[#0080FF] font-semibold mt-1 block">€45.00 / session credit</span>
                 </div>
 
                 <div>
-                  <span class="text-[10px] text-gray-500 font-bold uppercase block">SAVINGS &amp; COACH EARNINGS</span>
+                  <span class="text-[10px] text-slate-500 font-bold uppercase block">SAVINGS &amp; COACH EARNINGS</span>
                   <div id="pkg-calc-badge" class="mt-1 bg-emerald-100 text-emerald-800 text-[11px] font-bold px-2 py-0.5 rounded inline-block">
                     Save €25.00 (10% OFF)
                   </div>
-                  <span id="pkg-calc-coach" class="text-[10px] text-gray-600 font-medium block mt-1">Coach Net: €191.25 (85%)</span>
+                  <span id="pkg-calc-coach" class="text-[10px] text-slate-600 font-medium block mt-1">Coach Net: €191.25 (85%)</span>
                 </div>
               </div>
             </div>
 
             <!-- Step 4: Validity & Expiration -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 border-t border-gray-100">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2 border-t border-slate-100">
               <div>
-                <label class="text-xs font-bold text-gray-700 block mb-1">Package Validity (Expiry) *</label>
-                <select id="pkg-validity-select" class="w-full px-3 py-2 text-xs border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 font-medium">
-                  <option value="90">3 Months (90 Days)</option>
-                  <option value="180" selected>6 Months (180 Days - Recommended)</option>
-                  <option value="365">12 Months (1 Year)</option>
+                <label class="text-xs font-bold text-slate-700 block mb-1">Package Validity (Duration) *</label>
+                <select id="pkg-validity-select" class="w-full px-3 py-2 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-[#0080FF] font-medium text-slate-800 bg-white">
+                  <option value="30">1 Month</option>
+                  <option value="90">3 Months</option>
+                  <option value="180" selected>6 Months</option>
+                  <option value="365">12 Months</option>
                 </select>
               </div>
 
               <div>
-                <label class="text-xs font-bold text-gray-700 block mb-1">Token Deduction Rule</label>
-                <div class="p-2.5 bg-gray-50 rounded-lg border border-gray-200 text-xs text-gray-600">
-                  <span>🎟️ <strong>1 Token Burn per Booking:</strong> When the student books any matching time slot, 1 session token is immediately consumed with €0.00 checkout.</span>
+                <label class="text-xs font-bold text-slate-700 block mb-1">Visible to Players in App Feed *</label>
+                <select class="w-full px-3 py-2 text-xs border border-slate-200 rounded-lg focus:outline-none focus:border-[#0080FF] font-medium text-slate-800 bg-white">
+                  <option selected value="yes">Yes (Public in SWP Explore Feed)</option>
+                  <option value="no">No (Private / Direct Assign Only)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="text-xs font-bold text-slate-700 block mb-1">Token Deduction Rule</label>
+                <div class="p-2 bg-slate-50 rounded-lg border border-slate-200 text-[11px] text-slate-600">
+                  <span>🎟️ <strong>1 Token Consumed:</strong> Deducted upon player booking with €0.00 checkout.</span>
                 </div>
               </div>
             </div>
 
-            <div class="flex justify-end space-x-2 pt-3 border-t border-gray-100">
-              <button type="button" onclick="toggleLessonDrawer('package', false)" class="px-4 py-2 text-xs font-semibold text-gray-600 hover:text-gray-900 transition">Cancel</button>
-              <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white font-bold px-6 py-2.5 rounded-xl text-xs shadow-md transition">
+            <div class="flex justify-end space-x-2 pt-3 border-t border-slate-100">
+              <button type="button" onclick="toggleLessonDrawer('package', false)" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-slate-900 transition">Cancel</button>
+              <button type="submit" class="bg-[#0080FF] hover:bg-[#0066CC] text-white font-bold px-6 py-2.5 rounded-xl text-xs shadow-md transition">
                 ✓ Publish Multi-Lesson Package
               </button>
             </div>
           </form>
         </div>
 
-        <!-- PACKAGE CARDS GRID -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <!-- ================= PACKAGE CARDS GRID (Exact Layout from Reference Screenshot) ================= -->
+        <div id="packages-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-          <!-- Package Card 1: 5-Lesson Tennis -->
-          <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-2xs hover:shadow-sm transition flex flex-col justify-between">
+          <!-- Card 1: Premium All-Access -->
+          <div class="swp-card bg-white rounded-2xl border border-slate-200/90 shadow-2xs hover:shadow-md transition p-6 flex flex-col justify-between"
+               data-title="Premium All-Access" data-sport="Golf,Tennis,Padel,CrossFit" data-price="199" data-members="24" data-status="active">
             <div>
-              <div class="flex items-center justify-between mb-3">
-                <span class="bg-purple-100 text-purple-800 text-[10px] font-bold px-2 py-0.5 rounded">
-                  Most Popular
-                </span>
-                <span class="text-emerald-700 bg-emerald-50 text-[10px] font-bold px-2 py-0.5 rounded border border-emerald-200">
-                  Save 10% (€25 OFF)
-                </span>
+              <!-- Header: Title & Status Badge -->
+              <div class="flex items-start justify-between gap-2 mb-2">
+                <h3 class="text-base font-bold text-slate-900 tracking-tight leading-snug">Premium All-Access</h3>
+                <span class="bg-[#e6f9f0] text-[#00b074] font-bold text-[10px] tracking-wider px-2 py-0.5 rounded uppercase shrink-0">ACTIVE</span>
               </div>
 
-              <h3 class="text-base font-bold text-gray-900 mb-1">5-Lesson Tennis Foundation Pack</h3>
-              <p class="text-xs text-gray-500 mb-4">For: Private 1-on-1 Tennis Masterclass</p>
-
-              <div class="bg-purple-50/50 rounded-xl p-3 border border-purple-100 mb-4">
-                <div class="flex items-baseline justify-between mb-1">
-                  <span class="text-2xl font-black text-purple-900">€225.00</span>
-                  <span class="text-xs text-gray-400 line-through">€250.00</span>
-                </div>
-                <div class="text-[11px] text-purple-800 font-semibold flex items-center justify-between">
-                  <span>5 Session Tokens</span>
-                  <span>€45.00 / session</span>
-                </div>
+              <!-- Pricing -->
+              <div class="mb-3">
+                <div class="text-3xl font-extrabold text-slate-900 tracking-tight leading-none">$199.00</div>
+                <div class="text-[11px] text-slate-400 font-medium mt-1">Per Package</div>
               </div>
 
-              <div class="space-y-1.5 text-xs text-gray-600 mb-4">
-                <div class="flex items-center justify-between">
-                  <span class="text-gray-400">Validity:</span>
-                  <span class="font-semibold text-gray-800">6 Months (180 Days)</span>
+              <!-- Sports Tags -->
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                <span class="bg-slate-100 text-slate-600 text-[11px] font-medium px-2.5 py-1 rounded">Golf</span>
+                <span class="bg-slate-100 text-slate-600 text-[11px] font-medium px-2.5 py-1 rounded">Tennis</span>
+                <span class="bg-slate-100 text-slate-600 text-[11px] font-medium px-2.5 py-1 rounded">Padel</span>
+                <span class="bg-slate-100 text-slate-600 text-[11px] font-medium px-2.5 py-1 rounded">CrossFit</span>
+              </div>
+
+              <!-- Meta Details 2x2 Grid -->
+              <div class="grid grid-cols-2 gap-y-3 gap-x-2 text-xs mb-4">
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Duration</span>
+                  <span class="text-xs font-semibold text-slate-800">12 Months</span>
                 </div>
-                <div class="flex items-center justify-between">
-                  <span class="text-gray-400">Coach Payout:</span>
-                  <span class="font-semibold text-emerald-600">€191.25 Net (85%)</span>
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Visible to players</span>
+                  <span class="text-xs font-semibold text-slate-800">Yes</span>
                 </div>
-                <div class="flex items-center justify-between">
-                  <span class="text-gray-400">Active Students:</span>
-                  <span class="font-bold text-gray-900">4 Enrolled</span>
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Start Date</span>
+                  <span class="text-xs font-semibold text-slate-800">01 Jan, 2026</span>
+                </div>
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Expiry Date</span>
+                  <span class="text-xs font-semibold text-slate-800">31 Dec, 2026</span>
                 </div>
               </div>
             </div>
 
-            <div class="pt-3 border-t border-gray-100 space-y-2">
-              <button onclick="openPackageLedgerModal('tennis-5')" class="w-full text-xs bg-purple-50 hover:bg-purple-100 border border-purple-200 text-purple-800 font-bold py-2 rounded-lg transition flex items-center justify-center space-x-1.5">
-                <span>👥</span>
-                <span>View Enrolled Students (4)</span>
-              </button>
-              <div class="flex items-center justify-between text-xs">
-                <button onclick="toggleLessonDrawer('package', true)" class="text-xs text-purple-700 hover:text-purple-900 font-bold">Edit Package</button>
-                <button onclick="showToast('🎁 Link to share this 5-pack copied to clipboard!')" class="text-xs bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-700 font-semibold px-2.5 py-1 rounded-lg transition">Share Link 🔗</button>
+            <!-- Divider & Footer Members Stack -->
+            <div class="border-t border-slate-100 pt-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-[11px] text-slate-400 font-medium block mb-1.5">Members (24)</span>
+                  <div class="flex items-center -space-x-1.5 cursor-pointer hover:opacity-85 transition" onclick="openPackageLedgerModal('tennis-10')" title="View Enrolled Members">
+                    <span class="w-6 h-6 rounded-full bg-blue-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">JD</span>
+                    <span class="w-6 h-6 rounded-full bg-emerald-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">SM</span>
+                    <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">AK</span>
+                    <span class="w-6 h-6 rounded-full bg-purple-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">RW</span>
+                    <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">+20</span>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-1.5">
+                  <button onclick="openAssignPackageModal('Premium All-Access')" class="p-1.5 text-slate-400 hover:text-[#0080FF] hover:bg-blue-50 rounded-lg transition" title="Assign / Give Membership">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                  </button>
+                  <button onclick="toggleLessonDrawer('package', true)" class="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition" title="Edit Package">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                  </button>
+                  <button onclick="showToast('🎁 Direct booking link copied for Premium All-Access!')" class="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition" title="Share Link">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- Package Card 2: 10-Lesson Tennis -->
-          <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-2xs hover:shadow-sm transition flex flex-col justify-between">
+          <!-- Card 2: Golf Elite Membership -->
+          <div class="swp-card bg-white rounded-2xl border border-slate-200/90 shadow-2xs hover:shadow-md transition p-6 flex flex-col justify-between"
+               data-title="Golf Elite Membership" data-sport="Golf" data-price="149" data-members="18" data-status="active">
             <div>
-              <div class="flex items-center justify-between mb-3">
-                <span class="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-0.5 rounded">
-                  Best Value
-                </span>
-                <span class="text-emerald-700 bg-emerald-50 text-[10px] font-bold px-2 py-0.5 rounded border border-emerald-200">
-                  Save 16% (€80 OFF)
-                </span>
+              <!-- Header: Title & Status Badge -->
+              <div class="flex items-start justify-between gap-2 mb-2">
+                <h3 class="text-base font-bold text-slate-900 tracking-tight leading-snug">Golf Elite Membership</h3>
+                <span class="bg-[#e6f9f0] text-[#00b074] font-bold text-[10px] tracking-wider px-2 py-0.5 rounded uppercase shrink-0">ACTIVE</span>
               </div>
 
-              <h3 class="text-base font-bold text-gray-900 mb-1">10-Lesson High-Performance Master</h3>
-              <p class="text-xs text-gray-500 mb-4">For: Private 1-on-1 Tennis Masterclass</p>
-
-              <div class="bg-blue-50/50 rounded-xl p-3 border border-blue-100 mb-4">
-                <div class="flex items-baseline justify-between mb-1">
-                  <span class="text-2xl font-black text-blue-900">€420.00</span>
-                  <span class="text-xs text-gray-400 line-through">€500.00</span>
-                </div>
-                <div class="text-[11px] text-blue-800 font-semibold flex items-center justify-between">
-                  <span>10 Session Tokens</span>
-                  <span>€42.00 / session</span>
-                </div>
+              <!-- Pricing -->
+              <div class="mb-3">
+                <div class="text-3xl font-extrabold text-slate-900 tracking-tight leading-none">$149.00</div>
+                <div class="text-[11px] text-slate-400 font-medium mt-1">Per Package</div>
               </div>
 
-              <div class="space-y-1.5 text-xs text-gray-600 mb-4">
-                <div class="flex items-center justify-between">
-                  <span class="text-gray-400">Validity:</span>
-                  <span class="font-semibold text-gray-800">12 Months (365 Days)</span>
+              <!-- Sports Tags -->
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                <span class="bg-slate-100 text-slate-600 text-[11px] font-medium px-2.5 py-1 rounded">Golf</span>
+              </div>
+
+              <!-- Meta Details 2x2 Grid -->
+              <div class="grid grid-cols-2 gap-y-3 gap-x-2 text-xs mb-4">
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Duration</span>
+                  <span class="text-xs font-semibold text-slate-800">6 Months</span>
                 </div>
-                <div class="flex items-center justify-between">
-                  <span class="text-gray-400">Coach Payout:</span>
-                  <span class="font-semibold text-emerald-600">€357.00 Net (85%)</span>
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Visible to players</span>
+                  <span class="text-xs font-semibold text-slate-800">Yes</span>
                 </div>
-                <div class="flex items-center justify-between">
-                  <span class="text-gray-400">Active Students:</span>
-                  <span class="font-bold text-gray-900">2 Enrolled</span>
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Start Date</span>
+                  <span class="text-xs font-semibold text-slate-800">01 Feb, 2026</span>
+                </div>
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Expiry Date</span>
+                  <span class="text-xs font-semibold text-slate-800">31 Jul, 2026</span>
                 </div>
               </div>
             </div>
 
-            <div class="pt-3 border-t border-gray-100 space-y-2">
-              <button onclick="openPackageLedgerModal('tennis-10')" class="w-full text-xs bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-800 font-bold py-2 rounded-lg transition flex items-center justify-center space-x-1.5">
-                <span>👥</span>
-                <span>View Enrolled Students (2)</span>
-              </button>
-              <div class="flex items-center justify-between text-xs">
-                <button onclick="toggleLessonDrawer('package', true)" class="text-xs text-blue-700 hover:text-blue-900 font-bold">Edit Package</button>
-                <button onclick="showToast('🎁 Link to share this 10-pack copied!')" class="text-xs bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-700 font-semibold px-2.5 py-1 rounded-lg transition">Share Link 🔗</button>
+            <!-- Divider & Footer Members Stack -->
+            <div class="border-t border-slate-100 pt-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-[11px] text-slate-400 font-medium block mb-1.5">Members (18)</span>
+                  <div class="flex items-center -space-x-1.5 cursor-pointer hover:opacity-85 transition" onclick="openPackageLedgerModal('tennis-5')" title="View Enrolled Members">
+                    <span class="w-6 h-6 rounded-full bg-pink-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">LM</span>
+                    <span class="w-6 h-6 rounded-full bg-cyan-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">TC</span>
+                    <span class="w-6 h-6 rounded-full bg-red-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">NH</span>
+                    <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">+15</span>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-1.5">
+                  <button onclick="openAssignPackageModal('Golf Elite Membership')" class="p-1.5 text-slate-400 hover:text-[#0080FF] hover:bg-blue-50 rounded-lg transition" title="Assign / Give Membership">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                  </button>
+                  <button onclick="toggleLessonDrawer('package', true)" class="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition" title="Edit Package">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                  </button>
+                  <button onclick="showToast('🎁 Direct booking link copied!')" class="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition" title="Share Link">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- Package Card 3: 5-Session Padel Clinic -->
-          <div class="bg-white border border-gray-200 rounded-2xl p-5 shadow-2xs hover:shadow-sm transition flex flex-col justify-between">
+          <!-- Card 3: Padel Club Monthly -->
+          <div class="swp-card bg-white rounded-2xl border border-slate-200/90 shadow-2xs hover:shadow-md transition p-6 flex flex-col justify-between"
+               data-title="Padel Club Monthly" data-sport="Padel" data-price="79" data-members="32" data-status="active">
             <div>
-              <div class="flex items-center justify-between mb-3">
-                <span class="bg-gray-100 text-gray-800 text-[10px] font-bold px-2 py-0.5 rounded">
-                  Group Bundle
-                </span>
-                <span class="text-emerald-700 bg-emerald-50 text-[10px] font-bold px-2 py-0.5 rounded border border-emerald-200">
-                  Save 12% (€15 OFF)
-                </span>
+              <!-- Header: Title & Status Badge -->
+              <div class="flex items-start justify-between gap-2 mb-2">
+                <h3 class="text-base font-bold text-slate-900 tracking-tight leading-snug">Padel Club Monthly</h3>
+                <span class="bg-[#e6f9f0] text-[#00b074] font-bold text-[10px] tracking-wider px-2 py-0.5 rounded uppercase shrink-0">ACTIVE</span>
               </div>
 
-              <h3 class="text-base font-bold text-gray-900 mb-1">5-Session Padel Clinic Bundle</h3>
-              <p class="text-xs text-gray-500 mb-4">For: Padel Doubles Tactical Clinic</p>
-
-              <div class="bg-gray-50 rounded-xl p-3 border border-gray-200 mb-4">
-                <div class="flex items-baseline justify-between mb-1">
-                  <span class="text-2xl font-black text-gray-900">€110.00</span>
-                  <span class="text-xs text-gray-400 line-through">€125.00</span>
-                </div>
-                <div class="text-[11px] text-gray-700 font-semibold flex items-center justify-between">
-                  <span>5 Clinic Passes</span>
-                  <span>€22.00 / clinic</span>
-                </div>
+              <!-- Pricing -->
+              <div class="mb-3">
+                <div class="text-3xl font-extrabold text-slate-900 tracking-tight leading-none">$79.00</div>
+                <div class="text-[11px] text-slate-400 font-medium mt-1">Per Package</div>
               </div>
 
-              <div class="space-y-1.5 text-xs text-gray-600 mb-4">
-                <div class="flex items-center justify-between">
-                  <span class="text-gray-400">Validity:</span>
-                  <span class="font-semibold text-gray-800">6 Months (180 Days)</span>
+              <!-- Sports Tags -->
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                <span class="bg-slate-100 text-slate-600 text-[11px] font-medium px-2.5 py-1 rounded">Padel</span>
+              </div>
+
+              <!-- Meta Details 2x2 Grid -->
+              <div class="grid grid-cols-2 gap-y-3 gap-x-2 text-xs mb-4">
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Duration</span>
+                  <span class="text-xs font-semibold text-slate-800">1 Month</span>
                 </div>
-                <div class="flex items-center justify-between">
-                  <span class="text-gray-400">Coach Payout:</span>
-                  <span class="font-semibold text-emerald-600">€93.50 Net (85%)</span>
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Visible to players</span>
+                  <span class="text-xs font-semibold text-slate-800">Yes</span>
                 </div>
-                <div class="flex items-center justify-between">
-                  <span class="text-gray-400">Active Students:</span>
-                  <span class="font-bold text-gray-900">3 Enrolled</span>
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Start Date</span>
+                  <span class="text-xs font-semibold text-slate-800">01 Feb, 2026</span>
+                </div>
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Expiry Date</span>
+                  <span class="text-xs font-semibold text-slate-800">28 Feb, 2026</span>
                 </div>
               </div>
             </div>
 
-            <div class="pt-3 border-t border-gray-100 space-y-2">
-              <button onclick="openPackageLedgerModal('padel-5')" class="w-full text-xs bg-gray-100 hover:bg-gray-200 border border-gray-300 text-gray-800 font-bold py-2 rounded-lg transition flex items-center justify-center space-x-1.5">
-                <span>👥</span>
-                <span>View Enrolled Students (3)</span>
-              </button>
-              <div class="flex items-center justify-between text-xs">
-                <button onclick="toggleLessonDrawer('package', true)" class="text-xs text-gray-700 hover:text-black font-bold">Edit Package</button>
-                <button onclick="showToast('🎁 Link copied to clipboard!')" class="text-xs bg-gray-50 hover:bg-gray-100 border border-gray-200 text-gray-700 font-semibold px-2.5 py-1 rounded-lg transition">Share Link 🔗</button>
+            <!-- Divider & Footer Members Stack -->
+            <div class="border-t border-slate-100 pt-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-[11px] text-slate-400 font-medium block mb-1.5">Members (32)</span>
+                  <div class="flex items-center -space-x-1.5 cursor-pointer hover:opacity-85 transition" onclick="openPackageLedgerModal('padel-5')" title="View Enrolled Members">
+                    <span class="w-6 h-6 rounded-full bg-purple-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">KP</span>
+                    <span class="w-6 h-6 rounded-full bg-emerald-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">DL</span>
+                    <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">BC</span>
+                    <span class="w-6 h-6 rounded-full bg-blue-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">MR</span>
+                    <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">+28</span>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-1.5">
+                  <button onclick="openAssignPackageModal('Padel Club Monthly')" class="p-1.5 text-slate-400 hover:text-[#0080FF] hover:bg-blue-50 rounded-lg transition" title="Assign / Give Membership">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                  </button>
+                  <button onclick="toggleLessonDrawer('package', true)" class="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition" title="Edit Package">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                  </button>
+                  <button onclick="showToast('🎁 Direct booking link copied!')" class="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition" title="Share Link">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: Tennis & Fitness Bundle -->
+          <div class="swp-card bg-white rounded-2xl border border-slate-200/90 shadow-2xs hover:shadow-md transition p-6 flex flex-col justify-between"
+               data-title="Tennis & Fitness Bundle" data-sport="Tennis,CrossFit" data-price="129" data-members="15" data-status="active">
+            <div>
+              <!-- Header: Title & Status Badge -->
+              <div class="flex items-start justify-between gap-2 mb-2">
+                <h3 class="text-base font-bold text-slate-900 tracking-tight leading-snug">Tennis &amp; Fitness Bundle</h3>
+                <span class="bg-[#e6f9f0] text-[#00b074] font-bold text-[10px] tracking-wider px-2 py-0.5 rounded uppercase shrink-0">ACTIVE</span>
+              </div>
+
+              <!-- Pricing -->
+              <div class="mb-3">
+                <div class="text-3xl font-extrabold text-slate-900 tracking-tight leading-none">$129.00</div>
+                <div class="text-[11px] text-slate-400 font-medium mt-1">Per Package</div>
+              </div>
+
+              <!-- Sports Tags -->
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                <span class="bg-slate-100 text-slate-600 text-[11px] font-medium px-2.5 py-1 rounded">Tennis</span>
+                <span class="bg-slate-100 text-slate-600 text-[11px] font-medium px-2.5 py-1 rounded">CrossFit</span>
+              </div>
+
+              <!-- Meta Details 2x2 Grid -->
+              <div class="grid grid-cols-2 gap-y-3 gap-x-2 text-xs mb-4">
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Duration</span>
+                  <span class="text-xs font-semibold text-slate-800">3 Months</span>
+                </div>
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Visible to players</span>
+                  <span class="text-xs font-semibold text-slate-800">Yes</span>
+                </div>
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Start Date</span>
+                  <span class="text-xs font-semibold text-slate-800">15 Jan, 2026</span>
+                </div>
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Expiry Date</span>
+                  <span class="text-xs font-semibold text-slate-800">14 Apr, 2026</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Divider & Footer Members Stack -->
+            <div class="border-t border-slate-100 pt-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-[11px] text-slate-400 font-medium block mb-1.5">Members (15)</span>
+                  <div class="flex items-center -space-x-1.5 cursor-pointer hover:opacity-85 transition" onclick="openPackageLedgerModal('tennis-5')" title="View Enrolled Members">
+                    <span class="w-6 h-6 rounded-full bg-pink-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">SP</span>
+                    <span class="w-6 h-6 rounded-full bg-cyan-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">VH</span>
+                    <span class="w-6 h-6 rounded-full bg-rose-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">TG</span>
+                    <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">+12</span>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-1.5">
+                  <button onclick="openAssignPackageModal('Tennis & Fitness Bundle')" class="p-1.5 text-slate-400 hover:text-[#0080FF] hover:bg-blue-50 rounded-lg transition" title="Assign / Give Membership">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                  </button>
+                  <button onclick="toggleLessonDrawer('package', true)" class="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition" title="Edit Package">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                  </button>
+                  <button onclick="showToast('🎁 Direct booking link copied!')" class="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition" title="Share Link">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 5: Student Special - All Sports -->
+          <div class="swp-card bg-white rounded-2xl border border-slate-200/90 shadow-2xs hover:shadow-md transition p-6 flex flex-col justify-between"
+               data-title="Student Special - All Sports" data-sport="Golf,Tennis,Padel,Dancing" data-price="49" data-members="41" data-status="active">
+            <div>
+              <!-- Header: Title & Status Badge -->
+              <div class="flex items-start justify-between gap-2 mb-2">
+                <h3 class="text-base font-bold text-slate-900 tracking-tight leading-snug">Student Special - All Sports</h3>
+                <span class="bg-[#e6f9f0] text-[#00b074] font-bold text-[10px] tracking-wider px-2 py-0.5 rounded uppercase shrink-0">ACTIVE</span>
+              </div>
+
+              <!-- Pricing -->
+              <div class="mb-3">
+                <div class="text-3xl font-extrabold text-slate-900 tracking-tight leading-none">$49.00</div>
+                <div class="text-[11px] text-slate-400 font-medium mt-1">Per Package</div>
+              </div>
+
+              <!-- Sports Tags -->
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                <span class="bg-slate-100 text-slate-600 text-[11px] font-medium px-2.5 py-1 rounded">Golf</span>
+                <span class="bg-slate-100 text-slate-600 text-[11px] font-medium px-2.5 py-1 rounded">Tennis</span>
+                <span class="bg-slate-100 text-slate-600 text-[11px] font-medium px-2.5 py-1 rounded">Padel</span>
+                <span class="bg-slate-100 text-slate-600 text-[11px] font-medium px-2.5 py-1 rounded">Dancing</span>
+              </div>
+
+              <!-- Meta Details 2x2 Grid -->
+              <div class="grid grid-cols-2 gap-y-3 gap-x-2 text-xs mb-4">
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Duration</span>
+                  <span class="text-xs font-semibold text-slate-800">1 Month</span>
+                </div>
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Visible to players</span>
+                  <span class="text-xs font-semibold text-slate-800">Yes</span>
+                </div>
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Start Date</span>
+                  <span class="text-xs font-semibold text-slate-800">01 Feb, 2026</span>
+                </div>
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Expiry Date</span>
+                  <span class="text-xs font-semibold text-slate-800">28 Feb, 2026</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Divider & Footer Members Stack -->
+            <div class="border-t border-slate-100 pt-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-[11px] text-slate-400 font-medium block mb-1.5">Members (41)</span>
+                  <div class="flex items-center -space-x-1.5 cursor-pointer hover:opacity-85 transition" onclick="openPackageLedgerModal('all')" title="View Enrolled Members">
+                    <span class="w-6 h-6 rounded-full bg-blue-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">EJ</span>
+                    <span class="w-6 h-6 rounded-full bg-teal-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">AL</span>
+                    <span class="w-6 h-6 rounded-full bg-amber-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">RB</span>
+                    <span class="w-6 h-6 rounded-full bg-purple-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">NK</span>
+                    <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">+37</span>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-1.5">
+                  <button onclick="openAssignPackageModal('Student Special - All Sports')" class="p-1.5 text-slate-400 hover:text-[#0080FF] hover:bg-blue-50 rounded-lg transition" title="Assign / Give Membership">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                  </button>
+                  <button onclick="toggleLessonDrawer('package', true)" class="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition" title="Edit Package">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                  </button>
+                  <button onclick="showToast('🎁 Direct booking link copied!')" class="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition" title="Share Link">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 6: Holiday Special 2025 -->
+          <div class="swp-card bg-white rounded-2xl border border-slate-200/90 shadow-2xs hover:shadow-md transition p-6 flex flex-col justify-between"
+               data-title="Holiday Special 2025" data-sport="Golf,Padel" data-price="89" data-members="27" data-status="expired">
+            <div>
+              <!-- Header: Title & Status Badge -->
+              <div class="flex items-start justify-between gap-2 mb-2">
+                <h3 class="text-base font-bold text-slate-900 tracking-tight leading-snug">Holiday Special 2025</h3>
+                <span class="bg-[#fde8e8] text-[#e02424] font-bold text-[10px] tracking-wider px-2 py-0.5 rounded uppercase shrink-0">EXPIRED</span>
+              </div>
+
+              <!-- Pricing -->
+              <div class="mb-3">
+                <div class="text-3xl font-extrabold text-slate-900 tracking-tight leading-none">$89.00</div>
+                <div class="text-[11px] text-slate-400 font-medium mt-1">Per Package</div>
+              </div>
+
+              <!-- Sports Tags -->
+              <div class="flex flex-wrap gap-1.5 mb-4">
+                <span class="bg-slate-100 text-slate-600 text-[11px] font-medium px-2.5 py-1 rounded">Golf</span>
+                <span class="bg-slate-100 text-slate-600 text-[11px] font-medium px-2.5 py-1 rounded">Padel</span>
+              </div>
+
+              <!-- Meta Details 2x2 Grid -->
+              <div class="grid grid-cols-2 gap-y-3 gap-x-2 text-xs mb-4">
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Duration</span>
+                  <span class="text-xs font-semibold text-slate-800">1 Month</span>
+                </div>
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Visible to players</span>
+                  <span class="text-xs font-semibold text-slate-800">No</span>
+                </div>
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Start Date</span>
+                  <span class="text-xs font-semibold text-slate-800">20 Dec, 2025</span>
+                </div>
+                <div>
+                  <span class="text-[11px] text-slate-400 font-normal block mb-0.5">Expiry Date</span>
+                  <span class="text-xs font-semibold text-slate-800">19 Jan, 2026</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Divider & Footer Members Stack -->
+            <div class="border-t border-slate-100 pt-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <span class="text-[11px] text-slate-400 font-medium block mb-1.5">Members (27)</span>
+                  <div class="flex items-center -space-x-1.5 cursor-pointer hover:opacity-85 transition" onclick="openPackageLedgerModal('all')" title="View Enrolled Members">
+                    <span class="w-6 h-6 rounded-full bg-gray-500 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">PW</span>
+                    <span class="w-6 h-6 rounded-full bg-slate-600 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">MQ</span>
+                    <span class="w-6 h-6 rounded-full bg-zinc-700 text-white text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">TS</span>
+                    <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 text-[9px] font-bold flex items-center justify-center border-2 border-white shadow-2xs">+24</span>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-1.5">
+                  <button onclick="openAssignPackageModal('Holiday Special 2025')" class="p-1.5 text-slate-400 hover:text-[#0080FF] hover:bg-blue-50 rounded-lg transition" title="Assign / Renew Package">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                  </button>
+                  <button onclick="toggleLessonDrawer('package', true)" class="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition" title="Edit Package">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -6200,6 +6527,166 @@
       </div>
 
     </div>
+  <!-- ================= ASSIGN PACKAGE / GIVE MEMBERSHIP MODAL ================= -->
+  <div id="modal-assign-package" class="hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 text-slate-900 relative">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-9 h-9 rounded-xl bg-blue-50 text-[#0080FF] flex items-center justify-center text-lg font-bold">➤</div>
+          <div>
+            <h3 class="text-base font-bold text-slate-900">Give Membership / Assign Package</h3>
+            <p class="text-xs text-slate-500">Directly grant session package credits to a student</p>
+          </div>
+        </div>
+        <button onclick="closeAssignPackageModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center font-bold text-sm transition">✕</button>
+      </div>
+
+      <form onsubmit="event.preventDefault(); submitAssignPackage();" class="space-y-4 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Select Package *</label>
+          <select id="assign-input-package" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-xs font-semibold text-slate-800 bg-white focus:outline-none focus:border-[#0080FF]">
+            <option value="Premium All-Access">Premium All-Access ($199.00 - 12 Months)</option>
+            <option value="Golf Elite Membership">Golf Elite Membership ($149.00 - 6 Months)</option>
+            <option value="Padel Club Monthly">Padel Club Monthly ($79.00 - 1 Month)</option>
+            <option value="Tennis & Fitness Bundle">Tennis &amp; Fitness Bundle ($129.00 - 3 Months)</option>
+            <option value="Student Special - All Sports">Student Special - All Sports ($49.00 - 1 Month)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Select Student / Member *</label>
+          <select id="assign-input-student" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-xs font-semibold text-slate-800 bg-white focus:outline-none focus:border-[#0080FF]">
+            <option value="Sophie Bakker">Sophie Bakker (Intermediate • NTRP 3.5)</option>
+            <option value="Liam Chen">Liam Chen (Advanced • NTRP 4.5)</option>
+            <option value="Noah de Bruin">Noah de Bruin (Beginner • Adult Starter)</option>
+            <option value="Alex van Dijk">Alex van Dijk (Advanced Competition)</option>
+            <option value="Emma de Jong">Emma de Jong (Padel Level 4)</option>
+            <option value="+ Custom Student">+ Enter New Student Email/Phone...</option>
+          </select>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Effective Start Date</label>
+            <input type="date" value="2026-10-12" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-xs font-medium text-slate-800 focus:outline-none focus:border-[#0080FF]">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Reason for Direct Grant</label>
+            <select class="w-full px-3 py-2 border border-slate-200 rounded-lg text-xs font-medium text-slate-800 bg-white focus:outline-none focus:border-[#0080FF]">
+              <option>Cash Payment at Club Reception</option>
+              <option>Complimentary Trial / Promotion</option>
+              <option>VIP Athlete Scholarship</option>
+              <option>Loyalty Re-order Bonus</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="bg-blue-50/70 border border-blue-200 rounded-xl p-3 text-[11px] text-blue-900 leading-relaxed">
+          <strong>ℹ️ Automatic Token Activation:</strong> The student will immediately receive the associated credits in their ShallWe-Play mobile app wallet and can book matching time slots with €0.00 checkout.
+        </div>
+
+        <div class="flex items-center justify-end space-x-2 pt-3 border-t border-slate-100">
+          <button type="button" onclick="closeAssignPackageModal()" class="px-4 py-2 rounded-lg text-slate-600 hover:text-slate-900 font-semibold transition">Cancel</button>
+          <button type="submit" class="px-5 py-2 rounded-lg bg-[#0080FF] hover:bg-[#0066CC] text-white font-bold shadow-sm transition">
+            ✓ Grant &amp; Assign Package
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================= COMPLETE RULES & POLICIES MODAL ================= -->
+  <div id="modal-complete-rules" class="hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-slate-200 text-slate-900 relative">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-lg font-bold">✓</div>
+          <div>
+            <h3 class="text-base font-bold text-slate-900">ShallWe-Play Booking &amp; Package Rules</h3>
+            <p class="text-xs text-slate-500">Official platform operational standards &amp; settlement terms</p>
+          </div>
+        </div>
+        <button onclick="closeRulesModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center font-bold text-sm transition">✕</button>
+      </div>
+
+      <div class="space-y-3.5 text-xs text-slate-600 max-h-[65vh] overflow-y-auto no-scrollbar pr-1">
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-3">
+          <strong class="font-bold text-slate-900 block mb-1">1. Revenue Split &amp; Payout Escrow</strong>
+          <p class="text-[11px] leading-relaxed">Coaches receive <strong>85% Net Payout</strong> on all packages and lessons. ShallWe-Play collects a 15% platform and payment processing fee. Payouts are transferred automatically via Stripe Connect upon session completion.</p>
+        </div>
+
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-3">
+          <strong class="font-bold text-slate-900 block mb-1">2. Token Consumption &amp; Redemption</strong>
+          <p class="text-[11px] leading-relaxed">Purchasing a package issues 1 session token per included lesson. When a student books any matching availability slot, 1 token is burned with €0.00 checkout. Unused tokens expire on the package expiry date.</p>
+        </div>
+
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-3">
+          <strong class="font-bold text-slate-900 block mb-1">3. Court Fee Settlement Model</strong>
+          <p class="text-[11px] leading-relaxed">Unless explicitly marked "Court Fee Included", students pay club court hire directly at the front desk or added during checkout. The coach is completely protected against unpaid court fees.</p>
+        </div>
+
+        <div class="bg-slate-50 border border-slate-200 rounded-xl p-3">
+          <strong class="font-bold text-slate-900 block mb-1">4. 24-Hour Cancellation &amp; No-Show Policy</strong>
+          <p class="text-[11px] leading-relaxed">Students can reschedule up to 24 hours prior to the lesson without penalty. Cancellations within 24 hours burn 1 token with 100% coach payout guaranteed.</p>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end pt-4 mt-3 border-t border-slate-100">
+        <button type="button" onclick="closeRulesModal()" class="px-5 py-2 rounded-lg bg-slate-900 hover:bg-black text-white font-bold text-xs transition">
+          I Understand &amp; Agree
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= ADD MEMBER / STUDENT MODAL ================= -->
+  <div id="modal-add-member" class="hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-200 text-slate-900 relative">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-9 h-9 rounded-xl bg-slate-100 text-slate-700 flex items-center justify-center text-lg font-bold">👤</div>
+          <div>
+            <h3 class="text-base font-bold text-slate-900">Add New Member / Student</h3>
+            <p class="text-xs text-slate-500">Register a player into your coaching roster</p>
+          </div>
+        </div>
+        <button onclick="closeAddMemberModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center font-bold text-sm transition">✕</button>
+      </div>
+
+      <form onsubmit="event.preventDefault(); submitAddMember();" class="space-y-3.5 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Full Name *</label>
+          <input type="text" id="add-member-name" required placeholder="e.g. Robin van Persie" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-xs font-semibold text-slate-800 focus:outline-none focus:border-[#0080FF]">
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Email Address *</label>
+          <input type="email" id="add-member-email" required placeholder="robin@example.com" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-xs font-semibold text-slate-800 focus:outline-none focus:border-[#0080FF]">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Phone (Optional)</label>
+            <input type="tel" placeholder="+31 6 12345678" class="w-full px-3 py-2 border border-slate-200 rounded-lg text-xs font-medium text-slate-800 focus:outline-none focus:border-[#0080FF]">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Skill Level</label>
+            <select class="w-full px-3 py-2 border border-slate-200 rounded-lg text-xs font-medium text-slate-800 bg-white focus:outline-none focus:border-[#0080FF]">
+              <option>Beginner (1.0 - 2.5)</option>
+              <option selected>Intermediate (3.0 - 4.5)</option>
+              <option>Advanced (5.0+)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-end space-x-2 pt-3 border-t border-slate-100">
+          <button type="button" onclick="closeAddMemberModal()" class="px-4 py-2 rounded-lg text-slate-600 hover:text-slate-900 font-semibold transition">Cancel</button>
+          <button type="submit" class="px-5 py-2 rounded-lg bg-[#0080FF] hover:bg-[#0066CC] text-white font-bold shadow-sm transition">
+            ✓ Add to Roster
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 
   <!-- ================= TOAST NOTIFICATION ================= -->
@@ -6223,7 +6710,7 @@
     }
 
     function closeAllLifecycleModals() {
-      ['modal-cancel-booking', 'modal-booking-detail', 'modal-coach-certificate', 'modal-kvk-registration', 'modal-pricing-choice', 'modal-admin-proposal', 'modal-package-ledger', 'modal-add-holiday', 'modal-add-break', 'modal-edit-profile', 'modal-add-sport-expertise'].forEach(id => {
+      ['modal-cancel-booking', 'modal-booking-detail', 'modal-coach-certificate', 'modal-kvk-registration', 'modal-pricing-choice', 'modal-admin-proposal', 'modal-package-ledger', 'modal-add-holiday', 'modal-add-break', 'modal-edit-profile', 'modal-add-sport-expertise', 'modal-assign-package', 'modal-complete-rules', 'modal-add-member'].forEach(id => {
         closeModal(id);
       });
     }
@@ -6583,15 +7070,130 @@
       if (tab === 'types') {
         if (panelTypes) panelTypes.classList.remove('hidden');
         if (panelPackages) panelPackages.classList.add('hidden');
-        if (btnTypes) btnTypes.className = 'px-5 py-2.5 rounded-xl bg-[#007bff] text-white font-bold text-xs transition flex items-center gap-2 shadow-2xs';
-        if (btnPackages) btnPackages.className = 'px-5 py-2.5 rounded-xl text-gray-600 hover:text-black font-semibold text-xs transition flex items-center gap-2';
-        showToast('Sub-Tab 1: Lesson Types (Private & Clinics)');
+        if (btnTypes) btnTypes.className = 'px-4 py-1.5 rounded-lg bg-[#0080FF] text-white shadow-2xs font-bold transition flex items-center gap-1.5';
+        if (btnPackages) btnPackages.className = 'px-4 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5';
+        showToast('Viewing: Single & Clinic Lesson Offerings');
       } else if (tab === 'packages') {
         if (panelTypes) panelTypes.classList.add('hidden');
         if (panelPackages) panelPackages.classList.remove('hidden');
-        if (btnTypes) btnTypes.className = 'px-5 py-2.5 rounded-xl text-gray-600 hover:text-black font-semibold text-xs transition flex items-center gap-2';
-        if (btnPackages) btnPackages.className = 'px-5 py-2.5 rounded-xl bg-purple-600 text-white font-bold text-xs transition flex items-center gap-2 shadow-2xs';
-        showToast('Sub-Tab 2: Multi-Lesson Retention Packages');
+        if (btnTypes) btnTypes.className = 'px-4 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5';
+        if (btnPackages) btnPackages.className = 'px-4 py-1.5 rounded-lg bg-[#0080FF] text-white shadow-2xs font-bold transition flex items-center gap-1.5';
+        showToast('Viewing: Multi-Lesson Retention Packages');
+      }
+    }
+
+    // Assign Package / Give Membership Modal Controllers
+    function openAssignPackageModal(pkgName) {
+      if (pkgName) {
+        const select = document.getElementById('assign-input-package');
+        if (select) {
+          for (let i = 0; i < select.options.length; i++) {
+            if (select.options[i].value.toLowerCase().includes(pkgName.toLowerCase())) {
+              select.selectedIndex = i;
+              break;
+            }
+          }
+        }
+      }
+      openModal('modal-assign-package');
+    }
+
+    function closeAssignPackageModal() {
+      closeModal('modal-assign-package');
+    }
+
+    function submitAssignPackage() {
+      const pkg = document.getElementById('assign-input-package')?.value || 'Selected Package';
+      const student = document.getElementById('assign-input-student')?.value || 'Student';
+      closeAssignPackageModal();
+      showToast(`✓ Package "${pkg}" successfully assigned to ${student}! Credits added to wallet.`);
+    }
+
+    // Rules Modal Controllers
+    function openRulesModal() {
+      openModal('modal-complete-rules');
+    }
+
+    function closeRulesModal() {
+      closeModal('modal-complete-rules');
+    }
+
+    // Add Member Modal Controllers
+    function openAddMemberModal() {
+      openModal('modal-add-member');
+    }
+
+    function closeAddMemberModal() {
+      closeModal('modal-add-member');
+    }
+
+    function submitAddMember() {
+      const name = document.getElementById('add-member-name')?.value || 'New Member';
+      closeAddMemberModal();
+      showToast(`✓ ${name} added to Coaching Roster!`);
+    }
+
+    // Real-Time Search Filtering
+    function filterPackagesAndLessons(query) {
+      const q = (query || '').toLowerCase().trim();
+      const cards = document.querySelectorAll('.swp-card');
+      cards.forEach(card => {
+        const title = (card.getAttribute('data-title') || '').toLowerCase();
+        const sport = (card.getAttribute('data-sport') || '').toLowerCase();
+        const text = card.textContent.toLowerCase();
+        if (!q || title.includes(q) || sport.includes(q) || text.includes(q)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    // Sport Filtering
+    function filterBySport(sport) {
+      const s = (sport || 'all').toLowerCase();
+      const cards = document.querySelectorAll('.swp-card');
+      cards.forEach(card => {
+        const cardSports = (card.getAttribute('data-sport') || '').toLowerCase();
+        if (s === 'all' || cardSports.includes(s)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+      if (s !== 'all') {
+        showToast(`Filtered by Sport: ${sport}`);
+      } else {
+        showToast('Showing all sports');
+      }
+    }
+
+    // Card Sorting
+    function sortCards(criteria) {
+      const gridPackages = document.getElementById('packages-cards-grid');
+      const gridLessons = document.getElementById('lessons-cards-grid');
+
+      [gridPackages, gridLessons].forEach(grid => {
+        if (!grid) return;
+        const cards = Array.from(grid.querySelectorAll('.swp-card'));
+        cards.sort((a, b) => {
+          const priceA = parseFloat(a.getAttribute('data-price')) || 0;
+          const priceB = parseFloat(b.getAttribute('data-price')) || 0;
+          const memA = parseInt(a.getAttribute('data-members')) || 0;
+          const memB = parseInt(b.getAttribute('data-members')) || 0;
+          const titleA = (a.getAttribute('data-title') || '').toLowerCase();
+          const titleB = (b.getAttribute('data-title') || '').toLowerCase();
+
+          if (criteria === 'price-desc') return priceB - priceA;
+          if (criteria === 'price-asc') return priceA - priceB;
+          if (criteria === 'members-desc') return memB - memA;
+          if (criteria === 'name') return titleA.localeCompare(titleB);
+          return 0;
+        });
+        cards.forEach(card => grid.appendChild(card));
+      });
+      if (criteria !== 'default') {
+        showToast(`Sorted cards by: ${criteria.replace('-', ' ')}`);
       }
     }
 
