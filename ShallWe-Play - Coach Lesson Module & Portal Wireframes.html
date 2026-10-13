@@ -310,6 +310,116 @@
       scrollbar-width: none;
     }
 
+    
+    /* ── ShallWe-Play Official Onboarding Step 2 Split Screen (LeftPanel Parity) ── */
+    .onboarding-split-container {
+      display: flex;
+      width: 100%;
+      min-height: calc(100vh - 72px);
+      background-color: #F8FAFC;
+      overflow: hidden;
+      position: relative;
+    }
+    .onboarding-promo-left {
+      flex: 0 0 540px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      min-width: 440px;
+      max-width: 50%;
+      background-color: #000000;
+      border-right: 1px solid rgba(0, 0, 0, 0.08);
+    }
+    @media (max-width: 1024px) {
+      .onboarding-promo-left {
+        display: none;
+      }
+    }
+    .promo-allinone {
+      background-color: #000000;
+      flex: 0 0 220px;
+      padding: 2rem 2.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: #F4F5FA;
+      box-sizing: border-box;
+    }
+    .promo-section {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      min-height: 200px;
+    }
+    .promo-section-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+    .promo-section-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .promo-text {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 2rem;
+      z-index: 2;
+      color: #F8FAFC;
+      font-weight: 500;
+      font-family: 'Montserrat', sans-serif !important;
+      font-size: 1.85rem;
+      line-height: 1.15;
+      text-transform: uppercase;
+      max-width: 13rem;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+    }
+    .promo-vector-campaigns {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 115px;
+      height: 115px;
+      z-index: 2;
+      opacity: 0.95;
+    }
+    .onboarding-content-right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2.5rem 1.5rem;
+      background-color: #F8FAFC;
+      overflow-y: auto;
+      min-height: 100%;
+      box-sizing: border-box;
+      width: 100%;
+    }
+    @media (min-width: 1024px) {
+      .onboarding-content-right {
+        padding: 3rem 2.5rem;
+      }
+    }
+    .onboarding-card-box {
+      background-color: #FFFFFF;
+      border-radius: 1rem;
+      padding: 2.25rem 2rem;
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      width: 100%;
+      max-width: 520px;
+      box-sizing: border-box;
+    }
+
     /* ── ShallWe-Play Official Auth Layout CSS (Extracted from AuthLayout.module.css) ── */
     .auth-split-wrapper {
       display: flex;
@@ -992,60 +1102,204 @@
       </div>
     </section>
 
-    <!-- ONBOARDING STEP 2: ABOUT YOU (Matches media_1789645207909.png + Location replacement) -->
-    <section id="ostep-2" class="ostep-panel hidden flex justify-center">
-      <div class="w-full max-w-[540px] flex flex-col items-center">
-        <h1 class="text-3xl font-bold text-center text-[#111827] mb-6">About you</h1>
-
-        <div class="w-full bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
-          <!-- Profile Picture Upload Area -->
-          <div class="flex justify-center mb-6">
-            <div class="w-32 h-28 border-2 border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center p-3 bg-gray-50/70 cursor-pointer hover:bg-gray-100 hover:border-blue-400 transition">
-              <svg class="w-8 h-8 text-gray-400 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-              <span class="text-xs text-gray-500 font-medium">Profile Picture</span>
+        <!-- ONBOARDING STEP 2: ABOUT YOU (1:1 Match with media_1791869882842.png + LeftPanel Parity) -->
+    <section id="ostep-2" class="ostep-panel hidden w-full">
+      <div class="onboarding-split-container">
+        
+        <!-- LEFT COLUMN: AUTHENTIC PROMOTIONAL PANELS (LeftPanel.tsx Parity) -->
+        <aside class="onboarding-promo-left">
+          <!-- All in One Place Header (Solid Black) -->
+          <div class="promo-allinone">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="switchMode('portal', 'lessons')">
+              <img src="images/authentication/logo.png" alt="ShallWe-Play" class="h-9 w-auto" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/jaykumar-c/swp-wireframe/main/mobile_screen2.png'">
+              <span class="text-2xl font-semibold text-[#F4F5FA] tracking-tight font-heading">ShallWe-Play</span>
+            </div>
+            <div class="text-2xl font-normal text-[#F4F5FA] font-heading leading-tight pt-4">
+              ALL IN<br>ONE PLACE
             </div>
           </div>
 
-          <form onsubmit="event.preventDefault(); goOnboardingStep(3);" class="w-full space-y-4">
-            <div class="grid grid-cols-2 gap-3">
-              <div class="field-group"><label>First Name *</label><input type="text" value="Mukund" required></div>
-              <div class="field-group"><label>Last Name *</label><input type="text" value="Patil" required></div>
+          <!-- Section 1: Manage Appointments (Primary Blue 60% overlay) -->
+          <div class="promo-section">
+            <img src="images/authentication/ManageAppointments.jpg" alt="Manage Appointments" class="promo-section-img">
+            <div class="promo-section-overlay" style="background-color: rgba(0, 122, 255, 0.6);"></div>
+            <div class="promo-text">MANAGE APPOINTMENTS</div>
+          </div>
+
+          <!-- Section 2: Campaigns (Light Green 60% overlay + Megaphone Vector) -->
+          <div class="promo-section">
+            <img src="images/authentication/Campaigns.jpg" alt="Campaigns" class="promo-section-img">
+            <div class="promo-section-overlay" style="background-color: rgba(76, 175, 80, 0.6);"></div>
+            <img src="images/authentication/VectorCampaigns.png" alt="Campaigns Vector" class="promo-vector-campaigns">
+            <div class="promo-text">CAMPAIGNS</div>
+          </div>
+
+          <!-- Section 3: Services Listings (Light Orange 60% overlay) -->
+          <div class="promo-section">
+            <img src="images/authentication/ServicesListings.jpg" alt="Services Listings" class="promo-section-img">
+            <div class="promo-section-overlay" style="background-color: rgba(255, 111, 0, 0.6);"></div>
+            <div class="promo-text">SERVICES LISTINGS</div>
+          </div>
+        </aside>
+
+        <!-- RIGHT COLUMN: ABOUT YOU FORM & WIZARD CONTROLS -->
+        <div class="onboarding-content-right">
+          <!-- Top Row Header -->
+          <div class="w-full max-w-[520px] flex items-center justify-between mb-6">
+            <!-- Back Navigation -->
+            <button type="button" onclick="goOnboardingStep(1)" class="flex items-center gap-1.5 text-[#007AFF] hover:underline font-medium text-sm focus:outline-none cursor-pointer">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+              <span>Back</span>
+            </button>
+
+            <!-- Center Heading -->
+            <h1 class="text-2xl font-bold text-[#1C1C1C] text-center font-heading">About you</h1>
+
+            <!-- Step Indicator -->
+            <div class="text-right">
+              <div class="text-xs text-[#1C1C1C] opacity-60">Step 2 / 4</div>
+              <div class="text-xs font-semibold text-[#1C1C1C]">About</div>
             </div>
-            
-            <div class="grid grid-cols-2 gap-3">
-              <div class="field-group">
-                <label>Gender *</label>
-                <select class="text-gray-800">
-                  <option value="Male" selected>Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Other">Other</option>
+          </div>
+
+          <!-- Main White Card Container -->
+          <div class="onboarding-card-box">
+            <!-- Company Logo / Profile Picture Uploader -->
+            <div class="flex justify-center mb-6">
+              <div onclick="document.getElementById('coach-logo-file').click()" class="w-24 h-24 border border-dashed border-[#CBD5E1] rounded-2xl flex flex-col items-center justify-center p-2 bg-[#F8FAFC] hover:bg-[#F1F5F9] hover:border-[#007AFF] cursor-pointer transition relative group" title="Click to upload profile photo or company logo">
+                <img id="coach-logo-preview" src="" alt="Logo" class="hidden absolute inset-0 w-full h-full object-cover rounded-2xl">
+                <div id="coach-logo-placeholder" class="flex flex-col items-center">
+                  <svg class="w-6 h-6 text-[#64748B] mb-1 group-hover:text-[#007AFF] transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                  <span class="text-[11px] text-[#64748B] font-medium text-center leading-tight">Company Logo</span>
+                </div>
+                <input type="file" id="coach-logo-file" class="hidden" accept="image/*" onchange="previewCoachLogo(this)">
+              </div>
+            </div>
+
+            <!-- Form -->
+            <form id="coach-about-form" onsubmit="event.preventDefault(); goOnboardingStep(3);" class="space-y-4">
+              <!-- First Name -->
+              <div class="swp-field-container">
+                <label class="swp-label">FIRST NAME *</label>
+                <input type="text" id="coach-first-name" required value="Mukund" placeholder="Enter your first name" class="swp-input font-medium text-[#1C1C1C]">
+              </div>
+
+              <!-- Last Name -->
+              <div class="swp-field-container">
+                <label class="swp-label">LAST NAME *</label>
+                <input type="text" id="coach-last-name" required value="Patil" placeholder="Enter your last name" class="swp-input font-medium text-[#1C1C1C]">
+              </div>
+
+              <!-- Gender * (10 Options Matching media_1791869882842.png) -->
+              <div class="pt-1 pb-1">
+                <label class="block text-xs font-semibold text-[#475569] mb-2 font-heading">Gender *</label>
+                <div class="grid grid-cols-3 gap-y-2.5 gap-x-2 text-xs text-[#1C1C1C]">
+                  <label class="flex items-center gap-1.5 cursor-pointer">
+                    <input type="radio" name="coach_gender" value="Male" checked class="w-3.5 h-3.5 text-[#007AFF] focus:ring-[#007AFF]">
+                    <span class="text-[11px]">Male</span>
+                  </label>
+                  <label class="flex items-center gap-1.5 cursor-pointer">
+                    <input type="radio" name="coach_gender" value="Female" class="w-3.5 h-3.5 text-[#007AFF] focus:ring-[#007AFF]">
+                    <span class="text-[11px]">Female</span>
+                  </label>
+                  <label class="flex items-center gap-1.5 cursor-pointer">
+                    <input type="radio" name="coach_gender" value="Transgender" class="w-3.5 h-3.5 text-[#007AFF] focus:ring-[#007AFF]">
+                    <span class="text-[11px]">Transgender</span>
+                  </label>
+                  <label class="flex items-center gap-1.5 cursor-pointer">
+                    <input type="radio" name="coach_gender" value="Gender Neutral" class="w-3.5 h-3.5 text-[#007AFF] focus:ring-[#007AFF]">
+                    <span class="text-[11px]">Gender Neutral</span>
+                  </label>
+                  <label class="flex items-center gap-1.5 cursor-pointer">
+                    <input type="radio" name="coach_gender" value="Non-Binary" class="w-3.5 h-3.5 text-[#007AFF] focus:ring-[#007AFF]">
+                    <span class="text-[11px]">Non-Binary</span>
+                  </label>
+                  <label class="flex items-center gap-1.5 cursor-pointer">
+                    <input type="radio" name="coach_gender" value="Agender" class="w-3.5 h-3.5 text-[#007AFF] focus:ring-[#007AFF]">
+                    <span class="text-[11px]">Agender</span>
+                  </label>
+                  <label class="flex items-center gap-1.5 cursor-pointer">
+                    <input type="radio" name="coach_gender" value="Pangender" class="w-3.5 h-3.5 text-[#007AFF] focus:ring-[#007AFF]">
+                    <span class="text-[11px]">Pangender</span>
+                  </label>
+                  <label class="flex items-center gap-1.5 cursor-pointer">
+                    <input type="radio" name="coach_gender" value="Genderqueer" class="w-3.5 h-3.5 text-[#007AFF] focus:ring-[#007AFF]">
+                    <span class="text-[11px]">Genderqueer</span>
+                  </label>
+                  <label class="flex items-center gap-1.5 cursor-pointer">
+                    <input type="radio" name="coach_gender" value="Two-Spirit" class="w-3.5 h-3.5 text-[#007AFF] focus:ring-[#007AFF]">
+                    <span class="text-[11px]">Two-Spirit</span>
+                  </label>
+                  <label class="flex items-center gap-1.5 cursor-pointer col-span-3">
+                    <input type="radio" name="coach_gender" value="Third Gender" class="w-3.5 h-3.5 text-[#007AFF] focus:ring-[#007AFF]">
+                    <span class="text-[11px]">Third Gender</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Date of Birth * -->
+              <div class="swp-field-container relative">
+                <label class="swp-label">DATE OF BIRTH *</label>
+                <input type="text" id="coach-dob" required value="16/09/1997" placeholder="Enter date of birth" class="swp-input font-medium text-[#1C1C1C] pr-10">
+                <svg class="w-5 h-5 text-[#8C98A4] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              </div>
+
+              <!-- Country of Residence -->
+              <div class="swp-field-container relative">
+                <label class="swp-label">COUNTRY OF RESIDENCE</label>
+                <select id="coach-country-residence" class="swp-input font-medium text-[#1C1C1C] appearance-none pr-10 cursor-pointer bg-transparent">
+                  <option value="Netherlands" selected>Netherlands</option>
+                  <option value="Belgium">Belgium</option>
+                  <option value="Germany">Germany</option>
+                  <option value="France">France</option>
+                  <option value="United Kingdom">United Kingdom</option>
+                  <option value="Spain">Spain</option>
                 </select>
+                <svg class="w-4 h-4 text-[#8C98A4] absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
               </div>
-              <div class="field-group"><label>Date of Birth *</label><input type="text" value="16/09/1997" placeholder="DD/MM/YYYY" required></div>
-            </div>
 
-            <div class="field-group"><label>Phone / WhatsApp Number *</label><input type="tel" value="+31 6 8765 4321" required></div>
-
-            <!-- Operating Location Fields (Replaced Promote yourself as requested) -->
-            <div class="border-t border-gray-100 pt-4 mt-2">
-              <div class="flex items-center justify-between mb-3">
-                <h3 class="text-xs font-bold text-gray-700 uppercase tracking-wider">Coach Operating Facility / Address</h3>
-                <span class="text-[11px] text-blue-600 bg-blue-50 px-2 py-0.5 rounded">Primary Base</span>
+              <!-- Operating Facility / Address Section (Requested Addition) -->
+              <div class="border-t border-gray-100 pt-5 mt-4">
+                <div class="flex items-center justify-between mb-4">
+                  <h3 class="text-xs font-bold text-[#1E293B] uppercase tracking-wider font-heading">Coach Operating Facility / Address</h3>
+                  <span class="text-[11px] font-semibold text-[#007AFF] bg-[#EBF5FF] px-2.5 py-1 rounded-[6px]">Primary Base</span>
+                </div>
+                <div class="space-y-4">
+                  <div class="swp-field-container">
+                    <label class="swp-label">OPERATING ADDRESS / STREET *</label>
+                    <input type="text" id="coach-operating-street" required value="Herculesplein 241" placeholder="e.g. Herculesplein 241" class="swp-input font-medium text-[#1C1C1C]">
+                  </div>
+                  <div class="grid grid-cols-2 gap-3">
+                    <div class="swp-field-container">
+                      <label class="swp-label">POSTAL CODE *</label>
+                      <input type="text" id="coach-postal-code" required value="3584 AA" placeholder="e.g. 3584 AA" class="swp-input font-medium text-[#1C1C1C]">
+                    </div>
+                    <div class="swp-field-container">
+                      <label class="swp-label">CITY *</label>
+                      <input type="text" id="coach-city" required value="Utrecht" placeholder="e.g. Utrecht" class="swp-input font-medium text-[#1C1C1C]">
+                    </div>
+                  </div>
+                  <div class="swp-field-container">
+                    <label class="swp-label">COUNTRY *</label>
+                    <input type="text" id="coach-country" required value="Netherlands" placeholder="e.g. Netherlands" class="swp-input font-medium text-[#1C1C1C]">
+                  </div>
+                </div>
               </div>
-              <div class="field-group"><label>Operating Address / Street *</label><input type="text" value="Herculesplein 241" required></div>
-              <div class="grid grid-cols-2 gap-3">
-                <div class="field-group"><label>Postal Code *</label><input type="text" value="3584 AA" required></div>
-                <div class="field-group"><label>City *</label><input type="text" value="Utrecht" required></div>
-              </div>
-              <div class="field-group"><label>Country *</label><input type="text" value="Netherlands" required></div>
-            </div>
 
-            <div class="flex space-x-3 pt-2">
-              <button type="button" onclick="goOnboardingStep(1)" class="w-1/3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-3 rounded-lg text-sm transition">Back</button>
-              <button type="submit" class="w-2/3 bg-[#007AFF] hover:bg-blue-700 text-white font-bold py-3 rounded-lg text-sm shadow-md transition">Next</button>
-            </div>
-          </form>
+              <!-- Submit CTA -->
+              <button type="submit" class="w-full bg-[#007AFF] hover:bg-[#0062cc] text-white font-semibold py-3 px-4 rounded-[6px] shadow-sm transition text-sm flex items-center justify-center mt-6 cursor-pointer">
+                Next
+              </button>
+            </form>
+          </div>
+
+          <!-- Bottom: Footer Legal Links -->
+          <footer class="auth-footer py-6">
+            <a href="javascript:void(0)" onclick="showToast('Viewing ShallWe-Play Privacy Policy')">Privacy Policy</a>
+            <a href="javascript:void(0)" onclick="showToast('Viewing ShallWe-Play Terms & Conditions')">Terms &amp; Conditions</a>
+          </footer>
         </div>
+
       </div>
     </section>
 
@@ -8448,7 +8702,7 @@
       const stepperBar = document.getElementById('onboarding-stepper-bar');
       const flowOnboarding = document.getElementById('flow-onboarding');
 
-      if (stepNum === 1) {
+      if (stepNum === 1 || stepNum === 2) {
         if (stepperBar) stepperBar.classList.add('hidden');
         if (flowOnboarding) flowOnboarding.className = 'w-full flex-1 p-0 m-0';
       } else {
@@ -9324,6 +9578,26 @@
         showToast(`📲 6-digit verification OTP dispatched to ${email}!`);
       } else {
         submitSignInOtp();
+      }
+    }
+
+    
+    function previewCoachLogo(input) {
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const preview = document.getElementById('coach-logo-preview');
+          const placeholder = document.getElementById('coach-logo-placeholder');
+          if (preview) {
+            preview.src = e.target.result;
+            preview.classList.remove('hidden');
+          }
+          if (placeholder) {
+            placeholder.classList.add('hidden');
+          }
+          showToast('Company logo updated successfully!');
+        };
+        reader.readAsDataURL(input.files[0]);
       }
     }
 
