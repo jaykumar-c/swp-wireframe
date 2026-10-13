@@ -309,6 +309,254 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
+
+    /* ── ShallWe-Play Official Auth Layout CSS (Extracted from AuthLayout.module.css) ── */
+    .auth-split-wrapper {
+      display: flex;
+      width: 100%;
+      min-height: calc(100vh - 72px);
+      background-color: #FFFFFF;
+      overflow: hidden;
+      position: relative;
+    }
+    .auth-left-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 2.5rem 1.5rem 2rem 1.5rem;
+      background-color: #FFFFFF;
+      max-width: 540px;
+      margin: 0 auto;
+      z-index: 10;
+      box-sizing: border-box;
+      width: 100%;
+    }
+    @media (min-width: 1024px) {
+      .auth-left-col {
+        padding-left: 3.5rem;
+        padding-right: 3.5rem;
+        margin: 0;
+      }
+    }
+    .auth-form-card {
+      background-color: #FFFFFF;
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .auth-tabs {
+      position: relative;
+      display: flex;
+      background-color: #F1F5F9;
+      border-radius: 0.5rem;
+      padding: 0.25rem;
+      margin-bottom: 1.5rem;
+    }
+    .auth-tab-btn {
+      flex: 1;
+      padding: 0.625rem 0.75rem;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      text-align: center;
+      border-radius: 0.375rem;
+      border: none;
+      cursor: pointer;
+      background: transparent;
+      color: #64748b;
+      transition: all 0.2s ease;
+      font-family: 'Montserrat', sans-serif !important;
+    }
+    .auth-tab-btn.active {
+      background-color: #007AFF;
+      color: #FFFFFF;
+      box-shadow: 0 1px 3px rgba(0, 122, 255, 0.3);
+    }
+    .auth-divider {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 1.25rem 0;
+      font-size: 0.75rem;
+      color: #94a3b8;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .auth-divider::before,
+    .auth-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background-color: rgba(0, 0, 0, 0.08);
+    }
+    .auth-footer {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding-top: 2rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #007AFF;
+    }
+    .auth-footer a {
+      text-decoration: none;
+      color: inherit;
+    }
+    .auth-footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Right Section 3D Tilted Sports Marquee */
+    .auth-right-col {
+      position: relative;
+      display: none;
+      flex: 1;
+      overflow: hidden;
+      background-color: #F8FAFC;
+      min-height: 100%;
+    }
+    @media (min-width: 1024px) {
+      .auth-right-col {
+        display: block;
+      }
+    }
+    .auth-parallax-box {
+      position: absolute;
+      inset: -15%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.875rem;
+      transform: rotate(-8deg) scale(1.15);
+      transform-origin: center center;
+    }
+    .auth-marquee-row {
+      display: flex;
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+    }
+    .auth-marquee-inner {
+      display: flex;
+      gap: 0.875rem;
+      width: max-content;
+      will-change: transform;
+    }
+    .marquee-left {
+      animation: swp-marquee-left 40s linear infinite;
+    }
+    .marquee-right {
+      animation: swp-marquee-right 36s linear infinite;
+    }
+    .marquee-left-fast {
+      animation: swp-marquee-left 32s linear infinite;
+    }
+    .marquee-right-slow {
+      animation: swp-marquee-right 44s linear infinite;
+    }
+    @keyframes swp-marquee-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    @keyframes swp-marquee-right {
+      0% { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+    .auth-thumb-item {
+      position: relative;
+      height: 8.5rem;
+      width: 13.5rem;
+      flex-shrink: 0;
+      overflow: hidden;
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 10px -1px rgba(0, 0, 0, 0.12);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .auth-thumb-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 16px 24px -2px rgba(0, 0, 0, 0.2);
+      z-index: 5;
+    }
+    .auth-thumb-item img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      display: block;
+      background-color: #E2E8F0;
+    }
+    .auth-vignette-left {
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(248, 250, 252, 0.98) 0%, rgba(248, 250, 252, 0.6) 35%, rgba(248, 250, 252, 0.05) 75%);
+      z-index: 2;
+    }
+    .auth-vignette-edge {
+      pointer-events: none;
+      position: absolute;
+      top: 0; bottom: 0; left: 0;
+      width: 7rem;
+      background: linear-gradient(to right, #FFFFFF, transparent);
+      z-index: 3;
+    }
+    .auth-overlay-text {
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      padding-left: 3.5rem;
+      z-index: 4;
+    }
+    @media (min-width: 1280px) {
+      .auth-overlay-text {
+        padding-left: 5rem;
+      }
+    }
+    .auth-headline {
+      font-size: 3.85rem;
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -0.025em;
+      margin: 0;
+      font-family: 'Montserrat', sans-serif !important;
+    }
+    @media (min-width: 1280px) {
+      .auth-headline {
+        font-size: 4.5rem;
+      }
+    }
+    .auth-headline-book {
+      color: #007AFF;
+      display: block;
+      font-weight: 900;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+    .auth-headline-play {
+      color: #228B22;
+      display: block;
+      font-weight: 900;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+    .auth-headline-connect {
+      color: #FF3E1D;
+      display: block;
+      font-weight: 900;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+    .auth-subheadline {
+      margin-top: 1.5rem;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #334155;
+      line-height: 1.4;
+      margin-bottom: 0;
+      font-family: 'Montserrat', sans-serif !important;
+    }
+
   </style>
 </head>
 <body class="bg-[#F8F9FA] text-[#1E293B] antialiased min-h-screen flex flex-col">
@@ -454,10 +702,10 @@
   <!-- ========================================================================= -->
   <!-- ======================== 1. ONBOARDING FLOW ============================= -->
   <!-- ========================================================================= -->
-  <main id="flow-onboarding" class="hidden max-w-2xl mx-auto py-8 px-4 flex-1 w-full">
+  <main id="flow-onboarding" class="hidden w-full flex-1">
     
-    <!-- Onboarding Stepper Bar -->
-    <div class="flex items-center justify-between mb-8 max-w-md mx-auto">
+    <!-- Onboarding Stepper Bar (Shown for Steps 2-4) -->
+    <div id="onboarding-stepper-bar" class="hidden flex items-center justify-between my-8 max-w-md mx-auto px-4">
       <div class="flex items-center space-x-2 cursor-pointer" onclick="goOnboardingStep(1)">
         <div id="step-dot-1" class="w-8 h-8 rounded-full bg-blue-600 text-white font-bold text-xs flex items-center justify-center shadow">1</div>
         <span class="text-xs font-semibold text-gray-800">Sign-Up</span>
@@ -479,40 +727,268 @@
       </div>
     </div>
 
-    <!-- ONBOARDING STEP 1: SIGN-UP (Matches media_1789645058467.png) -->
-    <section id="ostep-1" class="ostep-panel flex justify-center">
-      <div class="w-full max-w-[460px] flex flex-col items-center bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
-        <!-- Logo -->
-        <div class="flex items-center space-x-2.5 mb-6">
-          <svg class="w-9 h-9" viewBox="0 0 100 100" fill="none">
-            <circle cx="38" cy="38" r="24" stroke="#007AFF" stroke-width="7"/>
-            <circle cx="62" cy="38" r="24" stroke="#10b981" stroke-width="7"/>
-            <circle cx="50" cy="62" r="24" stroke="#f97316" stroke-width="7"/>
-          </svg>
-          <span class="text-2xl font-extrabold tracking-tight text-[#111827]">ShallWe-Play</span>
-        </div>
-
-        <h1 class="text-3xl font-extrabold text-center text-[#111827] mb-6">Let's get started!</h1>
-
-        <!-- Persona Toggle Segment -->
-        <div class="w-full bg-[#f3f4f6] border border-[#e5e7eb] p-1.5 rounded-xl mb-6 flex text-center text-xs font-semibold text-gray-600">
-          <button type="button" class="flex-1 py-2.5 rounded-lg text-gray-700 hover:text-black">Club</button>
-          <button type="button" class="flex-1 py-2.5 rounded-lg bg-[#007AFF] text-white shadow-sm font-semibold">Coach</button>
-          <button type="button" class="flex-1 py-2.5 rounded-lg text-gray-700 hover:text-black">Sports Business</button>
-        </div>
-
-        <form onsubmit="event.preventDefault(); goOnboardingStep(2);" class="w-full space-y-4">
-          <div class="field-group"><label>Email ID *</label><input type="email" value="kihi@yopmail.com" required></div>
-          <div class="field-group relative"><label>Password *</label><input type="password" value="••••••••" required></div>
-          <div class="field-group relative"><label>Confirm Password *</label><input type="password" value="••••••••" required></div>
-          
-          <button type="submit" class="w-full bg-[#007AFF] hover:bg-blue-700 text-white font-bold py-3.5 rounded-lg shadow-md text-sm transition mt-2">
-            Create Account
-          </button>
-          <div class="text-center mt-3">
-            <span class="text-xs text-gray-500">Already have an account? <a href="#" class="text-[#007AFF] font-semibold hover:underline">Sign In</a></span>
+        <!-- ONBOARDING STEP 1: AUTHENTICATION GATEWAY (Exact 1:1 Match with ShallWe-Play Auth Layout) -->
+    <section id="ostep-1" class="ostep-panel w-full">
+      <div class="auth-split-wrapper">
+        <!-- LEFT COLUMN: AUTHENTICATION FORM & CONTROLS -->
+        <div class="auth-left-col">
+          <!-- Top: ShallWe-Play Brand Logo -->
+          <div class="flex items-center gap-3 mb-6 cursor-pointer" onclick="switchMode('portal', 'lessons')">
+            <img src="images/authentication/logo.png" alt="ShallWe-Play" class="h-9 w-auto" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/jaykumar-c/swp-wireframe/main/mobile_screen2.png'">
+            <span class="text-2xl font-extrabold text-[#0f172a] tracking-tight font-heading">ShallWe-Play</span>
           </div>
-        </form>
+
+          <!-- Center: Dynamic Auth Card (Sign In vs Sign Up) -->
+          <div class="my-auto w-full">
+            <h1 id="auth-main-title" class="text-3xl font-extrabold text-[#0f172a] mb-6 text-center font-heading">Welcome back!</h1>
+
+            <div class="auth-form-card">
+              <!-- SIGN IN MODE CONTAINER -->
+              <div id="auth-signin-container">
+                <!-- Segmented Tabs: With Password vs With OTP -->
+                <div class="auth-tabs">
+                  <button type="button" onclick="setSignInTab('password')" id="btn-tab-pwd" class="auth-tab-btn active">
+                    With Password
+                  </button>
+                  <button type="button" onclick="setSignInTab('otp')" id="btn-tab-otp" class="auth-tab-btn">
+                    With OTP
+                  </button>
+                </div>
+
+                <!-- 1. SIGN IN WITH PASSWORD FORM (Matches media_1791869357310.png) -->
+                <form id="form-signin-password" onsubmit="event.preventDefault(); submitSignInPassword();" class="space-y-4">
+                  <div class="swp-field-container">
+                    <label class="swp-label">EMAIL ID *</label>
+                    <input type="email" id="signin-email-pwd" required value="jaychavadasportsclub@yopmail.com" placeholder="e.g. coach@example.com" class="swp-input font-medium text-[#1C1C1C]">
+                  </div>
+
+                  <div class="swp-field-container relative">
+                    <label class="swp-label">PASSWORD *</label>
+                    <input type="password" id="signin-password-pwd" required value="••••••••" placeholder="Enter password" class="swp-input font-medium text-[#1C1C1C] pr-11">
+                    <button type="button" onclick="togglePasswordVisibility('signin-password-pwd', this)" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#8C98A4] hover:text-[#1C1C1C] p-1.5 focus:outline-none" title="Toggle password visibility">
+                      <svg class="w-5 h-5 eye-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                    </button>
+                  </div>
+
+                  <div class="flex justify-end pt-0.5">
+                    <a href="javascript:void(0)" onclick="showToast('Password reset link sent to your registered email!')" class="text-xs font-semibold text-[#007AFF] hover:underline">
+                      Forgot Password?
+                    </a>
+                  </div>
+
+                  <button type="submit" class="w-full bg-[#007AFF] hover:bg-[#0062cc] text-white font-semibold py-3 px-4 rounded-[6px] shadow-sm transition text-sm flex items-center justify-center mt-4">
+                    Sign In
+                  </button>
+                </form>
+
+                <!-- 2. SIGN IN WITH OTP FORM (Matches media_1791869423426.png) -->
+                <form id="form-signin-otp" onsubmit="event.preventDefault(); submitSignInOtp();" class="space-y-4 hidden">
+                  <div class="swp-field-container">
+                    <label class="swp-label">EMAIL ID *</label>
+                    <input type="email" id="signin-email-otp" required placeholder="Enter your email" class="swp-input font-medium text-[#1C1C1C]">
+                  </div>
+
+                  <!-- Dynamic OTP Verification Fields (Appears after Send OTP) -->
+                  <div id="otp-verify-block" class="hidden space-y-3 pt-1">
+                    <div class="swp-field-container">
+                      <label class="swp-label">VERIFICATION OTP *</label>
+                      <input type="text" id="signin-otp-code" maxlength="6" placeholder="• • • • • •" class="swp-input font-bold tracking-widest text-center text-lg text-[#1C1C1C]">
+                    </div>
+                    <div class="flex justify-between items-center text-xs">
+                      <span class="text-[#8C98A4]">Verification code sent</span>
+                      <a href="javascript:void(0)" onclick="resendAuthOtp()" class="font-semibold text-[#007AFF] hover:underline">Resend OTP</a>
+                    </div>
+                  </div>
+
+                  <button type="button" id="btn-otp-trigger" onclick="handleOtpTriggerClick()" class="w-full bg-[#007AFF] hover:bg-[#0062cc] text-white font-semibold py-3 px-4 rounded-[6px] shadow-sm transition text-sm flex items-center justify-center mt-4">
+                    Send OTP
+                  </button>
+                </form>
+
+                <!-- Bottom Switcher to Sign Up -->
+                <div class="auth-divider">OR</div>
+                <div class="text-center text-xs text-[#475569]">
+                  Don't have an account ? <a href="javascript:void(0)" onclick="setAuthMode('signup')" class="font-bold text-[#007AFF] hover:underline ml-1">Sign up</a>
+                </div>
+              </div>
+
+              <!-- SIGN UP MODE CONTAINER (Matches SWP Signup Flow) -->
+              <div id="auth-signup-container" class="hidden">
+                <!-- Persona Role Switcher -->
+                <div class="w-full bg-[#F1F5F9] border border-[#E2E8F0] p-1 rounded-[8px] mb-4 flex text-center text-xs font-semibold">
+                  <button type="button" onclick="setSignupRole('club')" id="role-btn-club" class="flex-1 py-2 rounded-[6px] text-[#475569] transition">Club</button>
+                  <button type="button" onclick="setSignupRole('coach')" id="role-btn-coach" class="flex-1 py-2 rounded-[6px] bg-[#007AFF] text-white shadow-xs transition">Coach</button>
+                  <button type="button" onclick="setSignupRole('business')" id="role-btn-business" class="flex-1 py-2 rounded-[6px] text-[#475569] transition">Sports Business</button>
+                </div>
+
+                <form onsubmit="event.preventDefault(); submitSignUp();" class="space-y-3.5">
+                  <div class="swp-field-container">
+                    <label class="swp-label">EMAIL ID *</label>
+                    <input type="email" id="signup-email" required placeholder="e.g. coach@example.com" value="mukund.coach@swp.io" class="swp-input font-medium text-[#1C1C1C]">
+                  </div>
+
+                  <div class="swp-field-container relative">
+                    <label class="swp-label">PASSWORD *</label>
+                    <input type="password" id="signup-password" required placeholder="Create password" value="MukundSWP2026!" class="swp-input font-medium text-[#1C1C1C] pr-11">
+                    <button type="button" onclick="togglePasswordVisibility('signup-password', this)" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#8C98A4] hover:text-[#1C1C1C] p-1.5 focus:outline-none">
+                      <svg class="w-5 h-5 eye-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                    </button>
+                  </div>
+
+                  <div class="swp-field-container relative">
+                    <label class="swp-label">CONFIRM PASSWORD *</label>
+                    <input type="password" id="signup-confirm-password" required placeholder="Confirm password" value="MukundSWP2026!" class="swp-input font-medium text-[#1C1C1C] pr-11">
+                    <button type="button" onclick="togglePasswordVisibility('signup-confirm-password', this)" class="absolute right-3 top-1/2 -translate-y-1/2 text-[#8C98A4] hover:text-[#1C1C1C] p-1.5 focus:outline-none">
+                      <svg class="w-5 h-5 eye-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                    </button>
+                  </div>
+
+                  <div class="flex items-start gap-2 pt-1">
+                    <input type="checkbox" id="signup-consent-chk" checked required class="mt-0.5 accent-[#007AFF] w-4 h-4 rounded">
+                    <label for="signup-consent-chk" class="text-xs text-[#475569] leading-tight">
+                      I agree to the <a href="javascript:void(0)" onclick="showToast('Viewing Terms of Use')" class="text-[#007AFF] font-bold hover:underline">Terms of Use</a> and <a href="javascript:void(0)" onclick="showToast('Viewing Privacy Policy')" class="text-[#007AFF] font-bold hover:underline">Privacy Policy</a>
+                    </label>
+                  </div>
+
+                  <button type="submit" class="w-full bg-[#007AFF] hover:bg-[#0062cc] text-white font-semibold py-3 px-4 rounded-[6px] shadow-sm transition text-sm flex items-center justify-center mt-3">
+                    Create Account
+                  </button>
+
+                  <button type="button" onclick="showToast('Continuing with Google OAuth...'); setTimeout(() => goOnboardingStep(2), 800);" class="w-full bg-white hover:bg-gray-50 text-[#1C1C1C] border border-[#CBD5E1] font-semibold py-2.5 px-4 rounded-[6px] shadow-2xs transition text-xs flex items-center justify-center gap-2 mt-2">
+                    <img src="images/authentication/Google.svg" alt="Google" class="w-4 h-4" onerror="this.onerror=null; this.src='https://www.gstatic.com/images/branding/product/1x/gsa_512dp.png'">
+                    <span>Continue with Google</span>
+                  </button>
+                </form>
+
+                <div class="auth-divider">OR</div>
+                <div class="text-center text-xs text-[#475569]">
+                  Already have an account ? <a href="javascript:void(0)" onclick="setAuthMode('signin')" class="font-bold text-[#007AFF] hover:underline ml-1">Sign in</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom: Footer Legal Links -->
+          <footer class="auth-footer">
+            <a href="javascript:void(0)" onclick="showToast('Viewing ShallWe-Play Privacy Policy')">Privacy Policy</a>
+            <a href="javascript:void(0)" onclick="showToast('Viewing ShallWe-Play Terms & Conditions')">Terms &amp; Conditions</a>
+          </footer>
+        </div>
+
+        <!-- RIGHT COLUMN: 3D TILTED MARQUEE SPORTS COLLAGE (Matches Live Product AuthLayout.tsx) -->
+        <section class="auth-right-col">
+          <!-- 3D Tilted Floating Container (-8deg, 1.15 Scale) -->
+          <div class="auth-parallax-box">
+            <!-- Row 1: Left Marquee -->
+            <div class="auth-marquee-row">
+              <div class="auth-marquee-inner marquee-left">
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/1.png" alt="Rowing"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/2.png" alt="CrossFit"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/3.png" alt="Mountain Biking"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/4.png" alt="Bowling"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/5.png" alt="Equestrian"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/6.png" alt="Fitness"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/1.png" alt="Rowing"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/2.png" alt="CrossFit"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/3.png" alt="Mountain Biking"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/4.png" alt="Bowling"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/5.png" alt="Equestrian"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/6.png" alt="Fitness"></div>
+              </div>
+            </div>
+
+            <!-- Row 2: Right Marquee -->
+            <div class="auth-marquee-row">
+              <div class="auth-marquee-inner marquee-right">
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/Badminton.png" alt="Badminton"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/Baseball.png" alt="Baseball"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/Basketball.png" alt="Basketball"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/Cricket.png" alt="Cricket"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/7.png" alt="Tennis"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/8.png" alt="Padel"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/Badminton.png" alt="Badminton"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/Baseball.png" alt="Baseball"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/Basketball.png" alt="Basketball"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/Cricket.png" alt="Cricket"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/7.png" alt="Tennis"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/8.png" alt="Padel"></div>
+              </div>
+            </div>
+
+            <!-- Row 3: Left Fast Marquee -->
+            <div class="auth-marquee-row">
+              <div class="auth-marquee-inner marquee-left-fast">
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/9.png" alt="Volleyball"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/1.png" alt="Rowing"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/2.png" alt="CrossFit"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/3.png" alt="Cycling"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/4.png" alt="Bowling"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/5.png" alt="Equestrian"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/9.png" alt="Volleyball"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/1.png" alt="Rowing"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/2.png" alt="CrossFit"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/3.png" alt="Cycling"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/4.png" alt="Bowling"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/5.png" alt="Equestrian"></div>
+              </div>
+            </div>
+
+            <!-- Row 4: Right Slow Marquee -->
+            <div class="auth-marquee-row">
+              <div class="auth-marquee-inner marquee-right-slow">
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/6.png" alt="Gym"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/7.png" alt="Tennis"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/8.png" alt="Padel"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/Badminton.png" alt="Badminton"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/Baseball.png" alt="Baseball"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/Basketball.png" alt="Basketball"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/6.png" alt="Gym"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/7.png" alt="Tennis"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/8.png" alt="Padel"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/Badminton.png" alt="Badminton"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/Baseball.png" alt="Baseball"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/Basketball.png" alt="Basketball"></div>
+              </div>
+            </div>
+
+            <!-- Row 5: Left Marquee -->
+            <div class="auth-marquee-row">
+              <div class="auth-marquee-inner marquee-left">
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/Cricket.png" alt="Cricket"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/1.png" alt="Rowing"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/2.png" alt="CrossFit"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/3.png" alt="Mountain Biking"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/4.png" alt="Bowling"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/5.png" alt="Equestrian"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/Cricket.png" alt="Cricket"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/1.png" alt="Rowing"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/2.png" alt="CrossFit"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/3.png" alt="Mountain Biking"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/4.png" alt="Bowling"></div>
+                <div class="auth-thumb-item"><img src="assets/sport-thumbnails/5.png" alt="Equestrian"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Legibility Vignettes -->
+          <div class="auth-vignette-left"></div>
+          <div class="auth-vignette-edge"></div>
+
+          <!-- Headline Overlay: Book / Play / Connect -->
+          <div class="auth-overlay-text">
+            <div>
+              <h2 class="auth-headline">
+                <span class="auth-headline-book">Book</span>
+                <span class="auth-headline-play">Play</span>
+                <span class="auth-headline-connect">Connect</span>
+              </h2>
+              <p class="auth-subheadline">
+                All your sports.<br>
+                One place.
+              </p>
+            </div>
+          </div>
+        </section>
       </div>
     </section>
 
@@ -7969,11 +8445,22 @@
       const targetStep = document.getElementById('ostep-' + stepNum);
       if (targetStep) targetStep.classList.remove('hidden');
 
+      const stepperBar = document.getElementById('onboarding-stepper-bar');
+      const flowOnboarding = document.getElementById('flow-onboarding');
+
+      if (stepNum === 1) {
+        if (stepperBar) stepperBar.classList.add('hidden');
+        if (flowOnboarding) flowOnboarding.className = 'w-full flex-1 p-0 m-0';
+      } else {
+        if (stepperBar) stepperBar.classList.remove('hidden');
+        if (flowOnboarding) flowOnboarding.className = 'max-w-2xl mx-auto py-8 px-4 flex-1 w-full';
+      }
+
       for (let i = 1; i <= 4; i++) {
         const dot = document.getElementById('step-dot-' + i);
         if (!dot) continue;
         if (i <= stepNum) {
-          dot.className = 'w-8 h-8 rounded-full bg-blue-600 text-white font-bold text-xs flex items-center justify-center shadow';
+          dot.className = 'w-8 h-8 rounded-full bg-[#007AFF] text-white font-bold text-xs flex items-center justify-center shadow';
         } else {
           dot.className = 'w-8 h-8 rounded-full bg-gray-200 text-gray-600 font-bold text-xs flex items-center justify-center';
         }
@@ -8767,6 +9254,118 @@
 
     function saveCoachAvailability() {
       showToast('🎉 Coach availability, weekly schedule, and breaks saved successfully!');
+    }
+
+
+    // ================= AUTHENTICATION LAYOUT CONTROLLERS =================
+    let currentAuthMode = 'signin'; // 'signin' or 'signup'
+    let currentSignInTab = 'password'; // 'password' or 'otp'
+    let isOtpSentState = false;
+
+    function setAuthMode(mode) {
+      currentAuthMode = mode;
+      const title = document.getElementById('auth-main-title');
+      const signinContainer = document.getElementById('auth-signin-container');
+      const signupContainer = document.getElementById('auth-signup-container');
+
+      if (mode === 'signup') {
+        if (title) title.textContent = "Let's get started!";
+        if (signinContainer) signinContainer.classList.add('hidden');
+        if (signupContainer) signupContainer.classList.remove('hidden');
+      } else {
+        if (title) title.textContent = "Welcome back!";
+        if (signinContainer) signinContainer.classList.remove('hidden');
+        if (signupContainer) signupContainer.classList.add('hidden');
+      }
+    }
+
+    function setSignInTab(tab) {
+      currentSignInTab = tab;
+      const btnPwd = document.getElementById('btn-tab-pwd');
+      const btnOtp = document.getElementById('btn-tab-otp');
+      const formPwd = document.getElementById('form-signin-password');
+      const formOtp = document.getElementById('form-signin-otp');
+
+      if (tab === 'otp') {
+        if (btnPwd) btnPwd.classList.remove('active');
+        if (btnOtp) btnOtp.classList.add('active');
+        if (formPwd) formPwd.classList.add('hidden');
+        if (formOtp) formOtp.classList.remove('hidden');
+      } else {
+        if (btnPwd) btnPwd.classList.add('active');
+        if (btnOtp) btnOtp.classList.remove('active');
+        if (formPwd) formPwd.classList.remove('hidden');
+        if (formOtp) formOtp.classList.add('hidden');
+      }
+    }
+
+    function togglePasswordVisibility(inputId, btn) {
+      const input = document.getElementById(inputId);
+      if (!input) return;
+      if (input.type === 'password') {
+        input.type = 'text';
+        btn.innerHTML = `<svg class="w-5 h-5 eye-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"/></svg>`;
+      } else {
+        input.type = 'password';
+        btn.innerHTML = `<svg class="w-5 h-5 eye-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>`;
+      }
+    }
+
+    function handleOtpTriggerClick() {
+      const emailInput = document.getElementById('signin-email-otp');
+      const email = emailInput?.value.trim() || 'coach@example.com';
+      const verifyBlock = document.getElementById('otp-verify-block');
+      const triggerBtn = document.getElementById('btn-otp-trigger');
+
+      if (!isOtpSentState) {
+        isOtpSentState = true;
+        if (verifyBlock) verifyBlock.classList.remove('hidden');
+        if (triggerBtn) triggerBtn.textContent = 'Sign In';
+        showToast(`📲 6-digit verification OTP dispatched to ${email}!`);
+      } else {
+        submitSignInOtp();
+      }
+    }
+
+    function resendAuthOtp() {
+      showToast('🔄 New verification OTP code resent to your email!');
+    }
+
+    function submitSignInPassword() {
+      const email = document.getElementById('signin-email-pwd')?.value || 'jaychavadasportsclub@yopmail.com';
+      showToast(`✓ Welcome back, ${email}! Loading Coach Portal...`);
+      setTimeout(() => {
+        switchMode('portal', 'lessons');
+      }, 600);
+    }
+
+    function submitSignInOtp() {
+      showToast('✓ OTP verified! Authenticating into ShallWe-Play Coach Portal...');
+      setTimeout(() => {
+        switchMode('portal', 'lessons');
+      }, 600);
+    }
+
+    function setSignupRole(role) {
+      const roles = ['club', 'coach', 'business'];
+      roles.forEach(r => {
+        const btn = document.getElementById('role-btn-' + r);
+        if (!btn) return;
+        if (r === role) {
+          btn.className = 'flex-1 py-2 rounded-[6px] bg-[#007AFF] text-white shadow-xs transition';
+        } else {
+          btn.className = 'flex-1 py-2 rounded-[6px] text-[#475569] transition';
+        }
+      });
+      showToast(`Selected account type: ${role.toUpperCase()}`);
+    }
+
+    function submitSignUp() {
+      const email = document.getElementById('signup-email')?.value || 'mukund.coach@swp.io';
+      showToast(`🎉 Account created for ${email}! Proceeding to Coach Bio...`);
+      setTimeout(() => {
+        goOnboardingStep(2);
+      }, 600);
     }
 
     // Explicit Initialization on Page Load & URL Hash Deep-Linking
