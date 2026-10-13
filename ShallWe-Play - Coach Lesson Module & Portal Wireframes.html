@@ -830,11 +830,7 @@
         <div id="step-dot-3" class="w-8 h-8 rounded-full bg-gray-200 text-gray-600 font-bold text-xs flex items-center justify-center">3</div>
         <span class="text-xs font-semibold text-gray-500">Sports</span>
       </div>
-      <div class="h-0.5 w-8 bg-gray-300"></div>
-      <div class="flex items-center space-x-2 cursor-pointer" onclick="goOnboardingStep(4)">
-        <div id="step-dot-4" class="w-8 h-8 rounded-full bg-gray-200 text-gray-600 font-bold text-xs flex items-center justify-center">4</div>
-        <span class="text-xs font-semibold text-gray-500">Training</span>
-      </div>
+
     </div>
 
         <!-- ONBOARDING STEP 1: AUTHENTICATION GATEWAY (Exact 1:1 Match with ShallWe-Play Auth Layout) -->
@@ -1157,7 +1153,7 @@
 
             <!-- Step Indicator -->
             <div class="text-right">
-              <div class="text-xs text-[#1C1C1C] opacity-60">Step 2 / 4</div>
+              <div class="text-xs text-[#1C1C1C] opacity-60">Step 2 / 3</div>
               <div class="text-xs font-semibold text-[#1C1C1C]">About</div>
             </div>
           </div>
@@ -1358,7 +1354,7 @@
 
             <!-- Step Indicator -->
             <div class="text-right">
-              <div class="text-xs text-[#1C1C1C] opacity-60">Step 3 / 4</div>
+              <div class="text-xs text-[#1C1C1C] opacity-60">Step 3 / 3</div>
               <div class="text-xs font-semibold text-[#1C1C1C]">Sports</div>
             </div>
           </div>
@@ -1422,7 +1418,10 @@
             <!-- Action Buttons -->
             <div class="flex space-x-3">
               <button type="button" onclick="goOnboardingStep(2)" class="w-1/3 bg-[#F1F5F9] hover:bg-[#E2E8F0] text-[#334155] font-semibold py-3 px-4 rounded-lg text-sm transition text-center cursor-pointer">Back</button>
-              <button type="button" onclick="goOnboardingStep(4)" class="w-2/3 bg-[#007AFF] hover:bg-[#0062cc] text-white font-semibold py-3 px-4 rounded-lg text-sm shadow-sm transition text-center cursor-pointer">Next</button>
+              <button type="button" onclick="switchMode('portal', 'lessons'); showToast('Onboarding completed! Welcome to ShallWe-Play Coach Portal.');" class="w-2/3 bg-[#007AFF] hover:bg-[#0062cc] text-white font-semibold py-3 px-4 rounded-lg text-sm shadow-sm transition text-center cursor-pointer flex items-center justify-center space-x-1.5">
+                <span>Complete & Open Coach Portal</span>
+                <span>→</span>
+              </button>
             </div>
           </div>
 
@@ -1433,56 +1432,6 @@
           </footer>
         </div>
 
-      </div>
-    </section>
-
-    <!-- ONBOARDING STEP 4: TRAINING DETAILS (Matches media_1789645832770.png) -->
-    <section id="ostep-4" class="ostep-panel hidden flex justify-center">
-      <div class="w-full max-w-[560px] flex flex-col items-center">
-        <h1 class="text-3xl font-bold text-center text-[#111827] mb-6">Training you offer</h1>
-        
-        <div class="w-full bg-white border border-gray-200 rounded-2xl p-7 shadow-sm">
-          <p class="text-xs text-gray-500 font-medium mb-5">Define training details, format, and bio for your selected sports.</p>
-
-          <form onsubmit="event.preventDefault(); switchMode('portal', 'lessons');" class="w-full space-y-6">
-            
-            <!-- Sport 1: Zumba -->
-            <div class="border border-blue-100 bg-blue-50/20 rounded-xl p-4">
-              <div class="flex justify-between items-center mb-3">
-                <span class="text-sm font-bold text-[#007AFF] flex items-center gap-1.5">
-                  <span class="text-base">💃</span> Zumba Training
-                </span>
-                <span class="text-[10px] font-bold bg-blue-100 text-blue-700 px-2 py-0.5 rounded">Active</span>
-              </div>
-              <div class="field-group mb-0">
-                <label>Training Bio & Qualifications *</label>
-                <textarea rows="5" class="text-gray-800 resize-y" placeholder="Describe your coaching background, target goals, rhythm styles, etc.">Experienced Tutor with 6+ years teaching cardio rhythm and fitness routines across community sports centers.</textarea>
-              </div>
-            </div>
-
-            <!-- Sport 2: Tennis -->
-            <div class="border border-gray-200 bg-gray-50/30 rounded-xl p-4">
-              <div class="flex justify-between items-center mb-3">
-                <span class="text-sm font-bold text-gray-800 flex items-center gap-1.5">
-                  <span class="text-base">🎾</span> Tennis Training
-                </span>
-                <span class="text-[10px] font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded">Active</span>
-              </div>
-              <div class="field-group mb-0">
-                <label>Training Bio & Qualifications *</label>
-                <textarea rows="4" class="text-gray-800 resize-y">Certified KNLTB Coach focusing on baseline consistency, service technique, and match tactics for youth & adults.</textarea>
-              </div>
-            </div>
-
-            <div class="flex space-x-3 pt-2">
-              <button type="button" onclick="goOnboardingStep(3)" class="w-1/3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-3 rounded-lg text-sm transition">Back</button>
-              <button type="submit" class="w-2/3 bg-[#007AFF] hover:bg-blue-700 text-white font-bold py-3 rounded-lg text-sm shadow-md transition flex items-center justify-center space-x-2">
-                <span>Complete & Open Coach Portal</span>
-                <span>→</span>
-              </button>
-            </div>
-          </form>
-        </div>
       </div>
     </section>
 
@@ -8777,7 +8726,7 @@
         if (flowOnboarding) flowOnboarding.className = 'max-w-2xl mx-auto py-8 px-4 flex-1 w-full';
       }
 
-      for (let i = 1; i <= 4; i++) {
+      for (let i = 1; i <= 3; i++) {
         const dot = document.getElementById('step-dot-' + i);
         if (!dot) continue;
         if (i <= stepNum) {
