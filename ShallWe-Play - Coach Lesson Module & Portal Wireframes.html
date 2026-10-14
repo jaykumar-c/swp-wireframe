@@ -759,7 +759,7 @@
               <span>🛡️</span><span>2. Dutch KvK & Proposal View</span>
             </a>
             <a href="javascript:void(0)" onclick="switchMode('portal', 'availability'); toggleQuickFlowMenu();" class="flex items-center gap-2 px-3 py-2 hover:bg-gray-50 text-gray-700 font-medium">
-              <span>📅</span><span>3. Availability & Lunch Break UI</span>
+              <span>📅</span><span>3. Availability</span>
             </a>
             <a href="javascript:void(0)" onclick="switchMode('portal', 'lessons'); toggleQuickFlowMenu();" class="flex items-center gap-2 px-3 py-2 hover:bg-gray-50 text-gray-700 font-medium">
               <span>🎾</span><span>4. Create Lessons & Packages</span>
@@ -3536,755 +3536,386 @@
     </section>
 
 
-    <!-- ==================== VIEW: AVAILABILITY & BREAKS (COMMON COMPONENT MATCHING media_1789650568617.png) ==================== -->
+        <!-- ==================== VIEW: AVAILABILITY (EXACT MATCH TO media_1791956845097.png, media_1791956858628.png, media_1791956864313.png) ==================== -->
     <section id="cview-availability" class="coach-view-panel hidden max-w-6xl mx-auto py-8 px-6 w-full flex-1">
       
-      <!-- Top Title Bar (Exact matching media_1789650568617.png) -->
-      <div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-        <div>
-          <h1 class="text-2xl font-bold text-gray-900">Availability</h1>
-          <p class="text-xs text-gray-500 mt-0.5">Set your monthly availability schedule</p>
-        </div>
-        <div class="flex items-center gap-2">
-          <span class="bg-blue-50 text-blue-700 border border-blue-200 text-[11px] font-bold px-3 py-1 rounded-md flex items-center gap-1.5 shadow-xs">
-            <span>🔄</span> Common Platform Component: Coach & Facility Scheduling
-          </span>
-        </div>
+      <!-- Top Title Bar -->
+      <div class="mb-6">
+        <h1 class="text-2xl font-bold text-gray-900 font-heading">Availability</h1>
+        <p class="text-xs text-gray-500 mt-1">Set your weekly availability schedule</p>
       </div>
 
-      <!-- Section Switcher Bar (User Requested: Two Sections in Availability) -->
-      <div class="mb-6 bg-white border border-gray-200 rounded-2xl p-2.5 shadow-xs flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-        <div class="flex items-center space-x-2 overflow-x-auto">
-          <button id="btn-avail-tab-coach" onclick="switchAvailabilitySection('coach')" class="px-4 py-2 rounded-xl text-xs font-bold bg-[#007AFF] text-white shadow-xs transition flex items-center gap-1.5">
-            <span>👨‍🏫</span><span>Section 1: Coach Granular Availability & Breaks (Current UI)</span>
-          </button>
-          <button id="btn-avail-tab-club" onclick="switchAvailabilitySection('club')" class="px-4 py-2 rounded-xl text-xs font-bold bg-gray-100 hover:bg-gray-200 text-gray-700 transition flex items-center gap-1.5">
-            <span>🏟️</span><span>Section 2: Club Operating Schedule UI (New Screenshot)</span>
-          </button>
-          <button id="btn-avail-tab-both" onclick="switchAvailabilitySection('both')" class="px-3 py-2 rounded-xl text-xs font-semibold bg-gray-50 hover:bg-gray-100 text-gray-600 border border-gray-200 transition flex items-center gap-1.5">
-            <span>📑</span><span>View Both Sections Stacked</span>
-          </button>
-        </div>
-        <div class="flex items-center gap-2 text-[11px] text-gray-500 font-medium px-2">
-          <span>Compare Granular Coach vs Standard Club Schedule UI</span>
-        </div>
-      </div>
-
-      <!-- ==================== SECTION 1: COACH GRANULAR AVAILABILITY & BREAKS ==================== -->
-      <div id="avail-section-coach" class="space-y-6">
-
-      <!-- SECTION 1: WEEKLY SCHEDULE OVERVIEW (Exact matching top card in media_1789650568617.png) -->
-      <div class="bg-white border border-gray-200 rounded-xl p-5 mb-6 shadow-xs">
-        <h3 class="text-xs font-bold text-gray-800 uppercase tracking-wider mb-3">Weekly Schedule Overview</h3>
+      <!-- CARD 1: WEEKLY SCHEDULE OVERVIEW (Matches media_1791956845097.png) -->
+      <div class="bg-white border border-gray-200/80 rounded-2xl p-6 shadow-xs mb-6">
+        <h3 class="text-sm font-bold text-gray-900 mb-4 font-heading">Weekly Schedule Overview</h3>
         
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 text-xs">
-          <!-- Monday with Lunch Break Breakdown -->
-          <div class="bg-[#f0fdf4] border border-emerald-200/80 rounded-lg p-3">
-            <div class="flex items-center justify-between font-semibold text-gray-900">
-              <span class="font-bold">Monday</span>
-              <span class="text-emerald-700 text-[11px] font-mono font-bold">09:00 - 20:00</span>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs">
+          <!-- Monday -->
+          <div class="bg-[#F7FCF7] border border-[#E6F4E6] rounded-xl p-3.5 flex items-center justify-between font-medium">
+            <span class="text-gray-800">Monday</span>
+            <span class="text-gray-900 font-mono font-medium">06:00 - 00:00</span>
+          </div>
+
+          <!-- Tuesday -->
+          <div class="bg-[#F7FCF7] border border-[#E6F4E6] rounded-xl p-3.5 flex items-center justify-between font-medium">
+            <span class="text-gray-800">Tuesday</span>
+            <span class="text-gray-900 font-mono font-medium">06:00 - 00:00</span>
+          </div>
+
+          <!-- Wednesday -->
+          <div class="bg-[#F7FCF7] border border-[#E6F4E6] rounded-xl p-3.5 flex items-center justify-between font-medium">
+            <span class="text-gray-800">Wednesday</span>
+            <span class="text-gray-900 font-mono font-medium">06:00 - 00:00</span>
+          </div>
+
+          <!-- Thursday -->
+          <div class="bg-[#F7FCF7] border border-[#E6F4E6] rounded-xl p-3.5 flex items-center justify-between font-medium">
+            <span class="text-gray-800">Thursday</span>
+            <span class="text-gray-900 font-mono font-medium">06:00 - 00:00</span>
+          </div>
+
+          <!-- Friday -->
+          <div class="bg-[#F7FCF7] border border-[#E6F4E6] rounded-xl p-3.5 flex items-center justify-between font-medium">
+            <span class="text-gray-800">Friday</span>
+            <span class="text-gray-900 font-mono font-medium">06:00 - 00:00</span>
+          </div>
+
+          <!-- Saturday -->
+          <div class="bg-[#F7FCF7] border border-[#E6F4E6] rounded-xl p-3.5 flex items-center justify-between font-medium">
+            <span class="text-gray-800">Saturday</span>
+            <span class="text-gray-900 font-mono font-medium">06:00 - 00:00</span>
+          </div>
+
+          <!-- Sunday -->
+          <div class="bg-[#F7FCF7] border border-[#E6F4E6] rounded-xl p-3.5 flex items-center justify-between font-medium">
+            <span class="text-gray-800">Sunday</span>
+            <span class="text-gray-900 font-mono font-medium">06:00 - 00:00</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2: CLUB AVAILABILITY SETTINGS (Matches media_1791956845097.png & media_1791956858628.png) -->
+      <div class="bg-white border border-gray-200/80 rounded-2xl p-6 shadow-xs mb-6">
+        <div class="mb-5">
+          <h3 class="text-sm font-bold text-gray-900 font-heading">Club availability Settings</h3>
+          <p class="text-xs text-gray-500 mt-1">Configure your club's operating hours for each day of the week. Courts will be available for booking during these times.</p>
+        </div>
+
+        <div class="space-y-4">
+          <!-- Monday -->
+          <div class="flex items-center justify-between border-b border-gray-100 pb-3.5">
+            <div class="flex items-center space-x-3 w-40">
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" checked onchange="toggleDayRowAvailability(this)" class="sr-only peer">
+                <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#007AFF]"></div>
+              </label>
+              <span class="text-xs font-semibold text-gray-800">Monday</span>
             </div>
-            <div class="mt-2 pt-2 border-t border-emerald-200/60 flex items-center justify-between text-[11px]">
-              <span class="text-amber-800 font-medium flex items-center gap-1">
-                <span>🍽️</span> Lunch Break
-              </span>
-              <span class="bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded text-[10px]">
-                13:00 - 14:00 (Unavailable)
-              </span>
+            <div class="flex items-center space-x-3">
+              <div class="relative">
+                <span class="absolute -top-2 left-2 px-1 bg-white text-[10px] text-gray-500 font-medium z-10">Start</span>
+                <div class="flex items-center border border-gray-300 rounded-lg px-3 py-1.5 w-32 bg-white shadow-2xs">
+                  <input type="text" value="06:00" class="time-start w-full text-xs font-mono font-semibold text-gray-800 outline-none">
+                  <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+              </div>
+              <span class="text-xs text-gray-400 font-medium">To</span>
+              <div class="relative">
+                <span class="absolute -top-2 left-2 px-1 bg-white text-[10px] text-gray-500 font-medium z-10">End</span>
+                <div class="flex items-center border border-gray-300 rounded-lg px-3 py-1.5 w-32 bg-white shadow-2xs">
+                  <input type="text" value="24:00" class="time-end w-full text-xs font-mono font-semibold text-gray-800 outline-none">
+                  <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+              </div>
             </div>
           </div>
 
           <!-- Tuesday -->
-          <div class="bg-[#f0fdf4] border border-emerald-200/80 rounded-lg p-3 flex items-center justify-between font-semibold text-gray-900">
-            <span class="font-bold">Tuesday</span>
-            <span class="text-emerald-700 text-[11px] font-mono font-bold">08:00 - 18:00</span>
+          <div class="flex items-center justify-between border-b border-gray-100 pb-3.5">
+            <div class="flex items-center space-x-3 w-40">
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" checked onchange="toggleDayRowAvailability(this)" class="sr-only peer">
+                <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#007AFF]"></div>
+              </label>
+              <span class="text-xs font-semibold text-gray-800">Tuesday</span>
+            </div>
+            <div class="flex items-center space-x-3">
+              <div class="relative">
+                <span class="absolute -top-2 left-2 px-1 bg-white text-[10px] text-gray-500 font-medium z-10">Start</span>
+                <div class="flex items-center border border-gray-300 rounded-lg px-3 py-1.5 w-32 bg-white shadow-2xs">
+                  <input type="text" value="06:00" class="time-start w-full text-xs font-mono font-semibold text-gray-800 outline-none">
+                  <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+              </div>
+              <span class="text-xs text-gray-400 font-medium">To</span>
+              <div class="relative">
+                <span class="absolute -top-2 left-2 px-1 bg-white text-[10px] text-gray-500 font-medium z-10">End</span>
+                <div class="flex items-center border border-gray-300 rounded-lg px-3 py-1.5 w-32 bg-white shadow-2xs">
+                  <input type="text" value="24:00" class="time-end w-full text-xs font-mono font-semibold text-gray-800 outline-none">
+                  <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- Wednesday -->
-          <div class="bg-[#f0fdf4] border border-emerald-200/80 rounded-lg p-3 flex items-center justify-between font-semibold text-gray-900">
-            <span class="font-bold">Wednesday</span>
-            <span class="text-emerald-700 text-[11px] font-mono font-bold">08:00 - 18:00</span>
+          <div class="flex items-center justify-between border-b border-gray-100 pb-3.5">
+            <div class="flex items-center space-x-3 w-40">
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" checked onchange="toggleDayRowAvailability(this)" class="sr-only peer">
+                <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#007AFF]"></div>
+              </label>
+              <span class="text-xs font-semibold text-gray-800">Wednesday</span>
+            </div>
+            <div class="flex items-center space-x-3">
+              <div class="relative">
+                <span class="absolute -top-2 left-2 px-1 bg-white text-[10px] text-gray-500 font-medium z-10">Start</span>
+                <div class="flex items-center border border-gray-300 rounded-lg px-3 py-1.5 w-32 bg-white shadow-2xs">
+                  <input type="text" value="06:00" class="time-start w-full text-xs font-mono font-semibold text-gray-800 outline-none">
+                  <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+              </div>
+              <span class="text-xs text-gray-400 font-medium">To</span>
+              <div class="relative">
+                <span class="absolute -top-2 left-2 px-1 bg-white text-[10px] text-gray-500 font-medium z-10">End</span>
+                <div class="flex items-center border border-gray-300 rounded-lg px-3 py-1.5 w-32 bg-white shadow-2xs">
+                  <input type="text" value="24:00" class="time-end w-full text-xs font-mono font-semibold text-gray-800 outline-none">
+                  <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- Thursday -->
-          <div class="bg-[#f0fdf4] border border-emerald-200/80 rounded-lg p-3 flex items-center justify-between font-semibold text-gray-900">
-            <span class="font-bold">Thursday</span>
-            <span class="text-emerald-700 text-[11px] font-mono font-bold">08:00 - 18:00</span>
+          <div class="flex items-center justify-between border-b border-gray-100 pb-3.5">
+            <div class="flex items-center space-x-3 w-40">
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" checked onchange="toggleDayRowAvailability(this)" class="sr-only peer">
+                <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#007AFF]"></div>
+              </label>
+              <span class="text-xs font-semibold text-gray-800">Thursday</span>
+            </div>
+            <div class="flex items-center space-x-3">
+              <div class="relative">
+                <span class="absolute -top-2 left-2 px-1 bg-white text-[10px] text-gray-500 font-medium z-10">Start</span>
+                <div class="flex items-center border border-gray-300 rounded-lg px-3 py-1.5 w-32 bg-white shadow-2xs">
+                  <input type="text" value="06:00" class="time-start w-full text-xs font-mono font-semibold text-gray-800 outline-none">
+                  <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+              </div>
+              <span class="text-xs text-gray-400 font-medium">To</span>
+              <div class="relative">
+                <span class="absolute -top-2 left-2 px-1 bg-white text-[10px] text-gray-500 font-medium z-10">End</span>
+                <div class="flex items-center border border-gray-300 rounded-lg px-3 py-1.5 w-32 bg-white shadow-2xs">
+                  <input type="text" value="24:00" class="time-end w-full text-xs font-mono font-semibold text-gray-800 outline-none">
+                  <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- Friday -->
-          <div class="bg-[#f0fdf4] border border-emerald-200/80 rounded-lg p-3 flex items-center justify-between font-semibold text-gray-900">
-            <span class="font-bold">Friday</span>
-            <span class="text-emerald-700 text-[11px] font-mono font-bold">08:00 - 18:00</span>
+          <div class="flex items-center justify-between border-b border-gray-100 pb-3.5">
+            <div class="flex items-center space-x-3 w-40">
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" checked onchange="toggleDayRowAvailability(this)" class="sr-only peer">
+                <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#007AFF]"></div>
+              </label>
+              <span class="text-xs font-semibold text-gray-800">Friday</span>
+            </div>
+            <div class="flex items-center space-x-3">
+              <div class="relative">
+                <span class="absolute -top-2 left-2 px-1 bg-white text-[10px] text-gray-500 font-medium z-10">Start</span>
+                <div class="flex items-center border border-gray-300 rounded-lg px-3 py-1.5 w-32 bg-white shadow-2xs">
+                  <input type="text" value="06:00" class="time-start w-full text-xs font-mono font-semibold text-gray-800 outline-none">
+                  <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+              </div>
+              <span class="text-xs text-gray-400 font-medium">To</span>
+              <div class="relative">
+                <span class="absolute -top-2 left-2 px-1 bg-white text-[10px] text-gray-500 font-medium z-10">End</span>
+                <div class="flex items-center border border-gray-300 rounded-lg px-3 py-1.5 w-32 bg-white shadow-2xs">
+                  <input type="text" value="24:00" class="time-end w-full text-xs font-mono font-semibold text-gray-800 outline-none">
+                  <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- Saturday -->
-          <div class="bg-[#f0fdf4] border border-emerald-200/80 rounded-lg p-3 flex items-center justify-between font-semibold text-gray-900">
-            <span class="font-bold">Saturday</span>
-            <span class="text-emerald-700 text-[11px] font-mono font-bold">09:00 - 15:00</span>
+          <div class="flex items-center justify-between border-b border-gray-100 pb-3.5">
+            <div class="flex items-center space-x-3 w-40">
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" checked onchange="toggleDayRowAvailability(this)" class="sr-only peer">
+                <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#007AFF]"></div>
+              </label>
+              <span class="text-xs font-semibold text-gray-800">Saturday</span>
+            </div>
+            <div class="flex items-center space-x-3">
+              <div class="relative">
+                <span class="absolute -top-2 left-2 px-1 bg-white text-[10px] text-gray-500 font-medium z-10">Start</span>
+                <div class="flex items-center border border-gray-300 rounded-lg px-3 py-1.5 w-32 bg-white shadow-2xs">
+                  <input type="text" value="06:00" class="time-start w-full text-xs font-mono font-semibold text-gray-800 outline-none">
+                  <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+              </div>
+              <span class="text-xs text-gray-400 font-medium">To</span>
+              <div class="relative">
+                <span class="absolute -top-2 left-2 px-1 bg-white text-[10px] text-gray-500 font-medium z-10">End</span>
+                <div class="flex items-center border border-gray-300 rounded-lg px-3 py-1.5 w-32 bg-white shadow-2xs">
+                  <input type="text" value="24:00" class="time-end w-full text-xs font-mono font-semibold text-gray-800 outline-none">
+                  <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- Sunday -->
-          <div class="bg-gray-50 border border-gray-200 rounded-lg p-3 flex items-center justify-between font-semibold text-gray-500">
-            <span class="font-bold">Sunday</span>
-            <span class="text-gray-400 text-[11px] font-medium">Closed (Rest Day)</span>
+          <div class="flex items-center justify-between pb-1">
+            <div class="flex items-center space-x-3 w-40">
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" checked onchange="toggleDayRowAvailability(this)" class="sr-only peer">
+                <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#007AFF]"></div>
+              </label>
+              <span class="text-xs font-semibold text-gray-800">Sunday</span>
+            </div>
+            <div class="flex items-center space-x-3">
+              <div class="relative">
+                <span class="absolute -top-2 left-2 px-1 bg-white text-[10px] text-gray-500 font-medium z-10">Start</span>
+                <div class="flex items-center border border-gray-300 rounded-lg px-3 py-1.5 w-32 bg-white shadow-2xs">
+                  <input type="text" value="06:00" class="time-start w-full text-xs font-mono font-semibold text-gray-800 outline-none">
+                  <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+              </div>
+              <span class="text-xs text-gray-400 font-medium">To</span>
+              <div class="relative">
+                <span class="absolute -top-2 left-2 px-1 bg-white text-[10px] text-gray-500 font-medium z-10">End</span>
+                <div class="flex items-center border border-gray-300 rounded-lg px-3 py-1.5 w-32 bg-white shadow-2xs">
+                  <input type="text" value="24:00" class="time-end w-full text-xs font-mono font-semibold text-gray-800 outline-none">
+                  <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- SECTION 2: COACH AVAILABILITY SETTINGS (Exact matching middle card in media_1789650568617.png with Break Feature) -->
-      <div class="bg-white border border-gray-200 rounded-xl p-6 mb-6 shadow-xs">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-gray-100 pb-4 mb-5 gap-2">
-          <div>
-            <h3 class="text-sm font-bold text-gray-900">Coach Availability Settings</h3>
-            <p class="text-xs text-gray-500 mt-0.5">Configure your operating hours and breaks for each day of the week. Courts/lessons will be available for booking during these times.</p>
-          </div>
-          <div class="flex items-center space-x-2 shrink-0">
-            <button onclick="openAddBreakModal('Monday')" class="bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-300 text-xs font-bold px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 shadow-2xs">
-              <span>🍽️</span><span>+ Add Lunch / Rest Break</span>
-            </button>
-          </div>
-        </div>
-
-        <div class="space-y-4">
-          
-          <!-- ROW 1: MONDAY (HIGHLIGHTED EXAMPLE WITH LUNCH BREAK BREAKDOWN!) -->
-          <div class="border border-blue-200 bg-blue-50/20 rounded-xl p-4 transition">
-            <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
-              <div class="flex items-center space-x-3">
-                <!-- Toggle Switch (Blue active matching screenshot) -->
-                <label class="relative inline-flex items-center cursor-pointer">
-                  <input type="checkbox" checked class="sr-only peer">
-                  <div class="w-10 h-5 bg-blue-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all"></div>
-                </label>
-                <span class="text-xs font-bold text-gray-900 uppercase tracking-wide">Monday</span>
-                <span class="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-0.5 rounded">Multi-Shift + Break Active</span>
-              </div>
-
-              <div class="flex items-center space-x-2">
-                <button onclick="openAddBreakModal('Monday')" class="text-xs font-bold text-blue-600 hover:text-blue-800 bg-white border border-blue-200 px-2.5 py-1 rounded shadow-2xs transition">
-                  + Add Break
-                </button>
-                <button onclick="copyToAllDays('Monday')" class="text-xs font-semibold text-gray-500 hover:text-gray-800 bg-white border border-gray-200 px-2.5 py-1 rounded shadow-2xs transition" title="Apply these hours to all active weekdays">
-                  📋 Copy to All
-                </button>
-              </div>
-            </div>
-
-            <!-- Monday Breakdown Sub-Container -->
-            <div class="bg-white border border-gray-200 rounded-lg p-3.5 space-y-3">
-              
-              <!-- Shift 1 (Morning Coaching) -->
-              <div class="flex items-center justify-between gap-3 text-xs">
-                <div class="flex items-center space-x-2">
-                  <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                  <span class="font-bold text-gray-700">Morning Session:</span>
-                </div>
-                <div class="flex items-center space-x-3">
-                  <div class="flex items-center space-x-1.5">
-                    <span class="text-[11px] text-gray-400 font-medium">From</span>
-                    <div class="relative">
-                      <input type="text" value="09:00" class="w-20 border border-gray-300 rounded px-2 py-1 text-center font-mono font-bold text-xs bg-gray-50 focus:bg-white">
-                      <span class="absolute right-2 top-1.5 text-gray-400 text-[10px]">🕒</span>
-                    </div>
-                  </div>
-                  <span class="text-gray-400 font-bold">to</span>
-                  <div class="flex items-center space-x-1.5">
-                    <span class="text-[11px] text-gray-400 font-medium">To</span>
-                    <div class="relative">
-                      <input type="text" value="13:00" class="w-20 border border-gray-300 rounded px-2 py-1 text-center font-mono font-bold text-xs bg-gray-50 focus:bg-white">
-                      <span class="absolute right-2 top-1.5 text-gray-400 text-[10px]">🕒</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- LUNCH BREAK WINDOW (The exact user requirement!) -->
-              <div id="break-box-monday" class="bg-amber-50/80 border-2 border-dashed border-amber-300 rounded-lg p-2.5 flex flex-wrap items-center justify-between gap-2 transition">
-                <div class="flex items-center space-x-2.5">
-                  <div class="w-7 h-7 rounded-lg bg-amber-200 text-amber-900 flex items-center justify-center text-sm shadow-2xs font-bold">
-                    🍽️
-                  </div>
-                  <div>
-                    <div class="flex items-center space-x-2">
-                      <span class="text-xs font-bold text-amber-950">Lunch Break</span>
-                      <span class="bg-amber-200/70 text-amber-900 text-[9px] font-extrabold px-1.5 py-0.5 rounded tracking-wide">BLOCKED FROM BOOKING</span>
-                    </div>
-                    <p class="text-[10px] text-amber-800">Coach rest & meal window. Players cannot book lessons between 13:00 and 14:00.</p>
-                  </div>
-                </div>
-
-                <div class="flex items-center space-x-3 text-xs">
-                  <span class="font-mono font-bold text-amber-950 bg-white border border-amber-300 px-2.5 py-1 rounded shadow-2xs">
-                    13:00 - 14:00 (1 hr)
-                  </span>
-                  <button onclick="openAddBreakModal('Monday')" class="text-[11px] font-bold text-blue-700 hover:underline">Edit</button>
-                  <button onclick="removeMondayLunchBreak()" class="text-[11px] font-bold text-red-600 hover:text-red-800 ml-1" title="Remove lunch break">✕</button>
-                </div>
-              </div>
-
-              <!-- Shift 2 (Afternoon / Evening Coaching) -->
-              <div class="flex items-center justify-between gap-3 text-xs pt-1">
-                <div class="flex items-center space-x-2">
-                  <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                  <span class="font-bold text-gray-700">Afternoon Session:</span>
-                </div>
-                <div class="flex items-center space-x-3">
-                  <div class="flex items-center space-x-1.5">
-                    <span class="text-[11px] text-gray-400 font-medium">From</span>
-                    <div class="relative">
-                      <input type="text" value="14:00" class="w-20 border border-gray-300 rounded px-2 py-1 text-center font-mono font-bold text-xs bg-gray-50 focus:bg-white">
-                      <span class="absolute right-2 top-1.5 text-gray-400 text-[10px]">🕒</span>
-                    </div>
-                  </div>
-                  <span class="text-gray-400 font-bold">to</span>
-                  <div class="flex items-center space-x-1.5">
-                    <span class="text-[11px] text-gray-400 font-medium">To</span>
-                    <div class="relative">
-                      <input type="text" value="20:00" class="w-20 border border-gray-300 rounded px-2 py-1 text-center font-mono font-bold text-xs bg-gray-50 focus:bg-white">
-                      <span class="absolute right-2 top-1.5 text-gray-400 text-[10px]">🕒</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-          <!-- ROW 2: TUESDAY (Matching media_1789650568617.png) -->
-          <div class="border border-gray-200 rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-3 hover:bg-gray-50/50 transition">
-            <div class="flex items-center space-x-3">
-              <label class="relative inline-flex items-center cursor-pointer">
-                <input type="checkbox" checked class="sr-only peer">
-                <div class="w-10 h-5 bg-blue-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all"></div>
-              </label>
-              <span class="text-xs font-bold text-gray-800 uppercase tracking-wide">Tuesday</span>
-            </div>
-            <div class="flex items-center space-x-3 text-xs">
-              <div class="flex items-center space-x-1.5">
-                <span class="text-[11px] text-gray-400">From</span>
-                <div class="relative"><input type="text" value="08:00" class="w-20 border border-gray-300 rounded px-2 py-1 text-center font-mono text-xs"><span class="absolute right-2 top-1.5 text-gray-400 text-[10px]">🕒</span></div>
-              </div>
-              <span class="text-gray-400">to</span>
-              <div class="flex items-center space-x-1.5">
-                <span class="text-[11px] text-gray-400">To</span>
-                <div class="relative"><input type="text" value="18:00" class="w-20 border border-gray-300 rounded px-2 py-1 text-center font-mono text-xs"><span class="absolute right-2 top-1.5 text-gray-400 text-[10px]">🕒</span></div>
-              </div>
-              <button onclick="openAddBreakModal('Tuesday')" class="text-xs text-blue-600 hover:text-blue-800 font-semibold px-2 py-1 border border-blue-200 rounded bg-blue-50/50">+ Add Break</button>
-            </div>
-          </div>
-
-          <!-- ROW 3: WEDNESDAY -->
-          <div class="border border-gray-200 rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-3 hover:bg-gray-50/50 transition">
-            <div class="flex items-center space-x-3">
-              <label class="relative inline-flex items-center cursor-pointer">
-                <input type="checkbox" checked class="sr-only peer">
-                <div class="w-10 h-5 bg-blue-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all"></div>
-              </label>
-              <span class="text-xs font-bold text-gray-800 uppercase tracking-wide">Wednesday</span>
-            </div>
-            <div class="flex items-center space-x-3 text-xs">
-              <div class="flex items-center space-x-1.5">
-                <span class="text-[11px] text-gray-400">From</span>
-                <div class="relative"><input type="text" value="08:00" class="w-20 border border-gray-300 rounded px-2 py-1 text-center font-mono text-xs"><span class="absolute right-2 top-1.5 text-gray-400 text-[10px]">🕒</span></div>
-              </div>
-              <span class="text-gray-400">to</span>
-              <div class="flex items-center space-x-1.5">
-                <span class="text-[11px] text-gray-400">To</span>
-                <div class="relative"><input type="text" value="18:00" class="w-20 border border-gray-300 rounded px-2 py-1 text-center font-mono text-xs"><span class="absolute right-2 top-1.5 text-gray-400 text-[10px]">🕒</span></div>
-              </div>
-              <button onclick="openAddBreakModal('Wednesday')" class="text-xs text-blue-600 hover:text-blue-800 font-semibold px-2 py-1 border border-blue-200 rounded bg-blue-50/50">+ Add Break</button>
-            </div>
-          </div>
-
-          <!-- ROW 4: THURSDAY -->
-          <div class="border border-gray-200 rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-3 hover:bg-gray-50/50 transition">
-            <div class="flex items-center space-x-3">
-              <label class="relative inline-flex items-center cursor-pointer">
-                <input type="checkbox" checked class="sr-only peer">
-                <div class="w-10 h-5 bg-blue-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all"></div>
-              </label>
-              <span class="text-xs font-bold text-gray-800 uppercase tracking-wide">Thursday</span>
-            </div>
-            <div class="flex items-center space-x-3 text-xs">
-              <div class="flex items-center space-x-1.5">
-                <span class="text-[11px] text-gray-400">From</span>
-                <div class="relative"><input type="text" value="08:00" class="w-20 border border-gray-300 rounded px-2 py-1 text-center font-mono text-xs"><span class="absolute right-2 top-1.5 text-gray-400 text-[10px]">🕒</span></div>
-              </div>
-              <span class="text-gray-400">to</span>
-              <div class="flex items-center space-x-1.5">
-                <span class="text-[11px] text-gray-400">To</span>
-                <div class="relative"><input type="text" value="18:00" class="w-20 border border-gray-300 rounded px-2 py-1 text-center font-mono text-xs"><span class="absolute right-2 top-1.5 text-gray-400 text-[10px]">🕒</span></div>
-              </div>
-              <button onclick="openAddBreakModal('Thursday')" class="text-xs text-blue-600 hover:text-blue-800 font-semibold px-2 py-1 border border-blue-200 rounded bg-blue-50/50">+ Add Break</button>
-            </div>
-          </div>
-
-          <!-- ROW 5: FRIDAY -->
-          <div class="border border-gray-200 rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-3 hover:bg-gray-50/50 transition">
-            <div class="flex items-center space-x-3">
-              <label class="relative inline-flex items-center cursor-pointer">
-                <input type="checkbox" checked class="sr-only peer">
-                <div class="w-10 h-5 bg-blue-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all"></div>
-              </label>
-              <span class="text-xs font-bold text-gray-800 uppercase tracking-wide">Friday</span>
-            </div>
-            <div class="flex items-center space-x-3 text-xs">
-              <div class="flex items-center space-x-1.5">
-                <span class="text-[11px] text-gray-400">From</span>
-                <div class="relative"><input type="text" value="08:00" class="w-20 border border-gray-300 rounded px-2 py-1 text-center font-mono text-xs"><span class="absolute right-2 top-1.5 text-gray-400 text-[10px]">🕒</span></div>
-              </div>
-              <span class="text-gray-400">to</span>
-              <div class="flex items-center space-x-1.5">
-                <span class="text-[11px] text-gray-400">To</span>
-                <div class="relative"><input type="text" value="18:00" class="w-20 border border-gray-300 rounded px-2 py-1 text-center font-mono text-xs"><span class="absolute right-2 top-1.5 text-gray-400 text-[10px]">🕒</span></div>
-              </div>
-              <button onclick="openAddBreakModal('Friday')" class="text-xs text-blue-600 hover:text-blue-800 font-semibold px-2 py-1 border border-blue-200 rounded bg-blue-50/50">+ Add Break</button>
-            </div>
-          </div>
-
-          <!-- ROW 6: SATURDAY -->
-          <div class="border border-gray-200 rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-3 hover:bg-gray-50/50 transition">
-            <div class="flex items-center space-x-3">
-              <label class="relative inline-flex items-center cursor-pointer">
-                <input type="checkbox" checked class="sr-only peer">
-                <div class="w-10 h-5 bg-blue-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all"></div>
-              </label>
-              <span class="text-xs font-bold text-gray-800 uppercase tracking-wide">Saturday</span>
-            </div>
-            <div class="flex items-center space-x-3 text-xs">
-              <div class="flex items-center space-x-1.5">
-                <span class="text-[11px] text-gray-400">From</span>
-                <div class="relative"><input type="text" value="09:00" class="w-20 border border-gray-300 rounded px-2 py-1 text-center font-mono text-xs"><span class="absolute right-2 top-1.5 text-gray-400 text-[10px]">🕒</span></div>
-              </div>
-              <span class="text-gray-400">to</span>
-              <div class="flex items-center space-x-1.5">
-                <span class="text-[11px] text-gray-400">To</span>
-                <div class="relative"><input type="text" value="15:00" class="w-20 border border-gray-300 rounded px-2 py-1 text-center font-mono text-xs"><span class="absolute right-2 top-1.5 text-gray-400 text-[10px]">🕒</span></div>
-              </div>
-              <button onclick="openAddBreakModal('Saturday')" class="text-xs text-blue-600 hover:text-blue-800 font-semibold px-2 py-1 border border-blue-200 rounded bg-blue-50/50">+ Add Break</button>
-            </div>
-          </div>
-
-          <!-- ROW 7: SUNDAY (CLOSED) -->
-          <div class="border border-gray-200 bg-gray-50/70 rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-3 transition">
-            <div class="flex items-center space-x-3">
-              <label class="relative inline-flex items-center cursor-pointer">
-                <input type="checkbox" class="sr-only peer">
-                <div class="w-10 h-5 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all"></div>
-              </label>
-              <span class="text-xs font-bold text-gray-500 uppercase tracking-wide">Sunday</span>
-              <span class="text-[11px] text-gray-400 font-medium">Closed (Rest Day)</span>
-            </div>
-            <div class="flex items-center space-x-3 text-xs opacity-50 pointer-events-none">
-              <div class="flex items-center space-x-1.5">
-                <span class="text-[11px] text-gray-400">From</span>
-                <div class="relative"><input type="text" value="00:00" disabled class="w-20 border border-gray-300 rounded px-2 py-1 text-center font-mono text-xs"><span class="absolute right-2 top-1.5 text-gray-400 text-[10px]">🕒</span></div>
-              </div>
-              <span class="text-gray-400">to</span>
-              <div class="flex items-center space-x-1.5">
-                <span class="text-[11px] text-gray-400">To</span>
-                <div class="relative"><input type="text" value="00:00" disabled class="w-20 border border-gray-300 rounded px-2 py-1 text-center font-mono text-xs"><span class="absolute right-2 top-1.5 text-gray-400 text-[10px]">🕒</span></div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Card Footer Action (Save Availability Button matching media_1789650568617.png) -->
-        <div class="flex items-center justify-between pt-5 mt-5 border-t border-gray-100">
-          <div class="text-xs text-gray-500 flex items-center gap-1.5">
-            <span>ℹ️</span>
-            <span>Breaks and off-hours are automatically subtracted from player booking slots.</span>
-          </div>
-          <button onclick="saveCoachAvailability()" class="bg-[#007AFF] hover:bg-blue-600 text-white font-bold text-xs uppercase px-6 py-2.5 rounded-lg shadow-sm transition">
+        <!-- Save Availability Button (Matches media_1791956858628.png) -->
+        <div class="mt-6 flex justify-end">
+          <button onclick="showToast('✓ Availability schedule saved successfully!')" class="bg-[#E2E8F0] hover:bg-[#CBD5E1] text-[#64748B] font-semibold px-6 py-2.5 rounded-md text-xs tracking-wider uppercase transition cursor-pointer">
             SAVE AVAILABILITY
           </button>
         </div>
       </div>
 
-      <!-- SECTION 3: COACH HOLIDAYS & SPECIAL CLOSURES (Exact matching bottom card in media_1789650568617.png) -->
-      <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-xs">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between border-b border-gray-100 pb-4 mb-4 gap-2">
+      <!-- CARD 3: CLUB HOLIDAYS & SPECIAL CLOSURES (Matches media_1791956864313.png) -->
+      <div class="bg-white border border-gray-200/80 rounded-2xl p-6 shadow-xs mb-8">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-4 mb-4 border-b border-gray-100 gap-2">
           <div>
-            <h3 class="text-sm font-bold text-gray-900">Coach Holidays & Special Closures</h3>
-            <p class="text-xs text-gray-500 mt-0.5">Add single dates or multiple days/ranges when the coach is closed or operating on special holiday hours.</p>
+            <h3 class="text-sm font-bold text-gray-900 font-heading">Club Holidays & Special Closures</h3>
+            <p class="text-xs text-gray-500 mt-0.5">Add single dates or multiple day ranges when the club is closed or operating on special holiday hours.</p>
           </div>
-          <!-- Exact Blue + ADD HOLIDAY button matching screenshot -->
-          <button onclick="openAddHolidayModal()" class="bg-[#007AFF] hover:bg-blue-600 text-white font-bold text-xs uppercase px-4 py-2 rounded-lg shadow-sm flex items-center space-x-1.5 transition self-start sm:self-auto">
-            <span>+</span>
-            <span>ADD HOLIDAY</span>
+          <button onclick="openAddHolidayModal()" class="bg-[#007AFF] hover:bg-blue-600 text-white text-xs font-semibold px-4 py-2.5 rounded-[6px] shadow-xs flex items-center space-x-1.5 transition self-start sm:self-auto cursor-pointer uppercase tracking-wider">
+            <span>+ ADD HOLIDAY</span>
           </button>
         </div>
 
-        <!-- Populated List of Configured Holidays -->
-        <div id="holidays-list-container" class="space-y-3">
-          <!-- Holiday 1: Tournament Travel -->
-          <div class="border border-gray-200 rounded-xl p-4 flex flex-wrap items-center justify-between gap-3 hover:border-gray-300 transition">
-            <div class="flex items-center space-x-3">
-              <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-700 border border-blue-200 flex items-center justify-center text-lg">
-                ✈️
+        <!-- Holiday List matching screenshot -->
+        <div id="holiday-list-container" class="space-y-3">
+          <!-- Row 1: Test with Special Hours: 10:00 - 18:00 (Amber Badge) -->
+          <div class="holiday-row flex items-center justify-between border border-gray-100 rounded-xl p-3 bg-white hover:bg-gray-50 transition">
+            <div class="flex items-center space-x-3.5">
+              <div class="w-10 h-10 rounded-xl bg-[#EBF5FF] flex items-center justify-center text-[#007AFF] shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
               </div>
               <div>
                 <div class="flex items-center space-x-2">
-                  <h4 class="text-xs font-bold text-gray-900">Tournament Travel - ITF Dutch Junior Open</h4>
-                  <span class="bg-blue-100 text-blue-800 text-[10px] font-extrabold px-2 py-0.5 rounded">Holiday / Closure</span>
+                  <span class="text-xs font-bold text-gray-900">Test</span>
+                  <span class="text-[10px] font-bold text-[#D97706] bg-[#FEF3C7] px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                    SPECIAL HOURS: 10:00 - 18:00
+                  </span>
                 </div>
-                <p class="text-[11px] text-gray-500 mt-0.5">18/10/2026 to 22/10/2026 • Closed all day (5 days)</p>
+                <span class="text-xs text-gray-400 block mt-0.5 font-mono">2026-09-18</span>
               </div>
             </div>
-            <div class="flex items-center space-x-2">
-              <button onclick="openAddHolidayModal()" class="text-xs font-bold text-blue-600 hover:text-blue-800 px-3 py-1.5 border border-blue-200 rounded-lg bg-blue-50">Edit</button>
-              <button onclick="this.closest('.border').remove(); showToast('Holiday removed');" class="text-xs font-bold text-red-600 hover:text-red-800 px-3 py-1.5 border border-red-200 rounded-lg bg-red-50">Delete</button>
-            </div>
+            <button onclick="deleteHolidayItem(this)" class="text-[#EF4444] hover:text-red-700 p-2 rounded-lg hover:bg-red-50 transition cursor-pointer" title="Delete closure">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>
           </div>
 
-          <!-- Holiday 2: King's Day Special Schedule -->
-          <div class="border border-gray-200 rounded-xl p-4 flex flex-wrap items-center justify-between gap-3 hover:border-gray-300 transition">
-            <div class="flex items-center space-x-3">
-              <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 border border-amber-200 flex items-center justify-center text-lg">
-                👑
+          <!-- Row 2: Test with Special Pricing (Green Badge) -->
+          <div class="holiday-row flex items-center justify-between border border-gray-100 rounded-xl p-3 bg-white hover:bg-gray-50 transition">
+            <div class="flex items-center space-x-3.5">
+              <div class="w-10 h-10 rounded-xl bg-[#EBF5FF] flex items-center justify-center text-[#007AFF] shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
               </div>
               <div>
                 <div class="flex items-center space-x-2">
-                  <h4 class="text-xs font-bold text-gray-900">King's Day Holiday Schedule</h4>
-                  <span class="bg-amber-100 text-amber-800 text-[10px] font-extrabold px-2 py-0.5 rounded">Special Pricing & Hours</span>
+                  <span class="text-xs font-bold text-gray-900">Test</span>
+                  <span class="text-[10px] font-bold text-[#059669] bg-[#D1FAE5] px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                    SPECIAL PRICING
+                  </span>
                 </div>
-                <p class="text-[11px] text-gray-500 mt-0.5">27/04/2026 • Operating 09:00 AM - 02:00 PM only</p>
+                <span class="text-xs text-gray-400 block mt-0.5 font-mono">2026-09-18</span>
               </div>
             </div>
-            <div class="flex items-center space-x-2">
-              <button onclick="openAddHolidayModal()" class="text-xs font-bold text-blue-600 hover:text-blue-800 px-3 py-1.5 border border-blue-200 rounded-lg bg-blue-50">Edit</button>
-              <button onclick="this.closest('.border').remove(); showToast('Holiday removed');" class="text-xs font-bold text-red-600 hover:text-red-800 px-3 py-1.5 border border-red-200 rounded-lg bg-red-50">Delete</button>
-            </div>
+            <button onclick="deleteHolidayItem(this)" class="text-[#EF4444] hover:text-red-700 p-2 rounded-lg hover:bg-red-50 transition cursor-pointer" title="Delete closure">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>
           </div>
-        </div>
 
-        <!-- Exact Empty State matching media_1789650568617.png (Can be toggled) -->
-        <div id="holidays-empty-state" class="hidden border border-dashed border-gray-300 rounded-xl p-8 text-center bg-gray-50/50">
-          <p class="text-xs text-gray-400 font-medium">No holidays or special closures added yet. Click "+ ADD HOLIDAY" to create one.</p>
-        </div>
+          <!-- Row 3: Club Anniversary Cheers..!!! (Green Badge) -->
+          <div class="holiday-row flex items-center justify-between border border-gray-100 rounded-xl p-3 bg-white hover:bg-gray-50 transition">
+            <div class="flex items-center space-x-3.5">
+              <div class="w-10 h-10 rounded-xl bg-[#EBF5FF] flex items-center justify-center text-[#007AFF] shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              </div>
+              <div>
+                <div class="flex items-center space-x-2">
+                  <span class="text-xs font-bold text-gray-900">Club Anniversary Cheers..!!!</span>
+                  <span class="text-[10px] font-bold text-[#059669] bg-[#D1FAE5] px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                    SPECIAL PRICING
+                  </span>
+                </div>
+                <span class="text-xs text-gray-400 block mt-0.5 font-mono">2026-09-25 - 2026-09-30</span>
+              </div>
+            </div>
+            <button onclick="deleteHolidayItem(this)" class="text-[#EF4444] hover:text-red-700 p-2 rounded-lg hover:bg-red-50 transition cursor-pointer" title="Delete closure">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>
+          </div>
 
-        <!-- Toggle to view empty state -->
-        <div class="mt-4 pt-3 border-t border-gray-100 flex justify-end">
-          <button onclick="toggleHolidayEmptyState()" class="text-[11px] text-gray-400 hover:text-gray-700 underline">
-            Toggle Empty State Preview
-          </button>
+          <!-- Row 4: Weekend Club Employee Bonus (Amber Badge) -->
+          <div class="holiday-row flex items-center justify-between border border-gray-100 rounded-xl p-3 bg-white hover:bg-gray-50 transition">
+            <div class="flex items-center space-x-3.5">
+              <div class="w-10 h-10 rounded-xl bg-[#EBF5FF] flex items-center justify-center text-[#007AFF] shrink-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              </div>
+              <div>
+                <div class="flex items-center space-x-2">
+                  <span class="text-xs font-bold text-gray-900">Weekend Club Employee Bonus</span>
+                  <span class="text-[10px] font-bold text-[#D97706] bg-[#FEF3C7] px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                    SPECIAL HOURS: 10:00 - 18:00
+                  </span>
+                </div>
+                <span class="text-xs text-gray-400 block mt-0.5 font-mono">2026-09-26 - 2026-09-27</span>
+              </div>
+            </div>
+            <button onclick="deleteHolidayItem(this)" class="text-[#EF4444] hover:text-red-700 p-2 rounded-lg hover:bg-red-50 transition cursor-pointer" title="Delete closure">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+            </button>
+          </div>
         </div>
       </div>
-      </div> <!-- END #avail-section-coach -->
 
-      <!-- ==================== SECTION 2: CLUB OPERATING SCHEDULE UI (EXACT MATCH TO media_1789729965752.png) ==================== -->
-      <div id="avail-section-club" class="hidden space-y-6">
-        
-        <!-- CARD 1: WEEKLY SCHEDULE OVERVIEW -->
-        <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-xs">
-          <h3 class="text-sm font-bold text-gray-900 mb-4">Weekly Schedule Overview</h3>
-          
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs">
-            <div class="bg-gray-50 border border-gray-100 rounded-xl p-3.5 flex items-center justify-between font-medium">
-              <span class="text-gray-700">Monday</span>
-              <span class="text-gray-900 font-mono font-bold">06:00 - 00:00</span>
-            </div>
-            <div class="bg-gray-50 border border-gray-100 rounded-xl p-3.5 flex items-center justify-between font-medium">
-              <span class="text-gray-700">Tuesday</span>
-              <span class="text-gray-900 font-mono font-bold">06:00 - 00:00</span>
-            </div>
-            <div class="bg-gray-50 border border-gray-100 rounded-xl p-3.5 flex items-center justify-between font-medium">
-              <span class="text-gray-700">Wednesday</span>
-              <span class="text-gray-900 font-mono font-bold">06:00 - 00:00</span>
-            </div>
-            <div class="bg-gray-50 border border-gray-100 rounded-xl p-3.5 flex items-center justify-between font-medium">
-              <span class="text-gray-700">Thursday</span>
-              <span class="text-gray-900 font-mono font-bold">06:00 - 00:00</span>
-            </div>
-            <div class="bg-gray-50 border border-gray-100 rounded-xl p-3.5 flex items-center justify-between font-medium">
-              <span class="text-gray-700">Friday</span>
-              <span class="text-gray-900 font-mono font-bold">06:00 - 00:00</span>
-            </div>
-            <div class="bg-gray-50 border border-gray-100 rounded-xl p-3.5 flex items-center justify-between font-medium">
-              <span class="text-gray-700">Saturday</span>
-              <span class="text-gray-900 font-mono font-bold">06:00 - 00:00</span>
-            </div>
-            <div class="bg-gray-50 border border-gray-100 rounded-xl p-3.5 flex items-center justify-between font-medium">
-              <span class="text-gray-700">Sunday</span>
-              <span class="text-gray-900 font-mono font-bold">06:00 - 00:00</span>
-            </div>
-          </div>
-        </div>
+      <!-- Footer & Floating Scroll-To-Top Button (Matches media_1791956864313.png) -->
+      <footer class="text-center py-6 text-xs text-gray-400">
+        Copyright &copy; 2026 All Rights Reserved.
+      </footer>
 
-        <!-- CARD 2: CLUB AVAILABILITY SETTINGS -->
-        <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-xs">
-          <div class="mb-5">
-            <h3 class="text-sm font-bold text-gray-900">Club availability Settings</h3>
-            <p class="text-xs text-gray-500 mt-0.5">Configure your club's operating hours for each day of the week. Courts will be available for booking during these times.</p>
-          </div>
-
-          <div class="space-y-4">
-            <!-- Monday -->
-            <div class="flex items-center justify-between border-b border-gray-100 pb-3">
-              <div class="flex items-center space-x-3 w-40">
-                <label class="relative inline-flex items-center cursor-pointer">
-                  <input type="checkbox" checked class="sr-only peer">
-                  <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#007AFF]"></div>
-                </label>
-                <span class="text-xs font-bold text-gray-800">Monday</span>
-              </div>
-              <div class="flex items-center space-x-3">
-                <div class="relative">
-                  <span class="absolute -top-2 left-2 px-1 bg-white text-[10px] text-gray-500 font-medium">Start</span>
-                  <div class="flex items-center border border-gray-300 rounded-lg px-3 py-1.5 w-32 bg-white shadow-2xs">
-                    <input type="text" value="06:00" class="w-full text-xs font-mono font-semibold text-gray-800 outline-none">
-                    <span class="text-gray-400 text-xs">🕒</span>
-                  </div>
-                </div>
-                <span class="text-xs text-gray-500 font-medium">To</span>
-                <div class="relative">
-                  <span class="absolute -top-2 left-2 px-1 bg-white text-[10px] text-gray-500 font-medium">End</span>
-                  <div class="flex items-center border border-gray-300 rounded-lg px-3 py-1.5 w-32 bg-white shadow-2xs">
-                    <input type="text" value="24:00" class="w-full text-xs font-mono font-semibold text-gray-800 outline-none">
-                    <span class="text-gray-400 text-xs">🕒</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Tuesday -->
-            <div class="flex items-center justify-between border-b border-gray-100 pb-3">
-              <div class="flex items-center space-x-3 w-40">
-                <label class="relative inline-flex items-center cursor-pointer">
-                  <input type="checkbox" checked class="sr-only peer">
-                  <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#007AFF]"></div>
-                </label>
-                <span class="text-xs font-bold text-gray-800">Tuesday</span>
-              </div>
-              <div class="flex items-center space-x-3">
-                <div class="relative">
-                  <span class="absolute -top-2 left-2 px-1 bg-white text-[10px] text-gray-500 font-medium">Start</span>
-                  <div class="flex items-center border border-gray-300 rounded-lg px-3 py-1.5 w-32 bg-white shadow-2xs">
-                    <input type="text" value="06:00" class="w-full text-xs font-mono font-semibold text-gray-800 outline-none">
-                    <span class="text-gray-400 text-xs">🕒</span>
-                  </div>
-                </div>
-                <span class="text-xs text-gray-500 font-medium">To</span>
-                <div class="relative">
-                  <span class="absolute -top-2 left-2 px-1 bg-white text-[10px] text-gray-500 font-medium">End</span>
-                  <div class="flex items-center border border-gray-300 rounded-lg px-3 py-1.5 w-32 bg-white shadow-2xs">
-                    <input type="text" value="24:00" class="w-full text-xs font-mono font-semibold text-gray-800 outline-none">
-                    <span class="text-gray-400 text-xs">🕒</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Wednesday -->
-            <div class="flex items-center justify-between border-b border-gray-100 pb-3">
-              <div class="flex items-center space-x-3 w-40">
-                <label class="relative inline-flex items-center cursor-pointer">
-                  <input type="checkbox" checked class="sr-only peer">
-                  <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#007AFF]"></div>
-                </label>
-                <span class="text-xs font-bold text-gray-800">Wednesday</span>
-              </div>
-              <div class="flex items-center space-x-3">
-                <div class="relative">
-                  <span class="absolute -top-2 left-2 px-1 bg-white text-[10px] text-gray-500 font-medium">Start</span>
-                  <div class="flex items-center border border-gray-300 rounded-lg px-3 py-1.5 w-32 bg-white shadow-2xs">
-                    <input type="text" value="06:00" class="w-full text-xs font-mono font-semibold text-gray-800 outline-none">
-                    <span class="text-gray-400 text-xs">🕒</span>
-                  </div>
-                </div>
-                <span class="text-xs text-gray-500 font-medium">To</span>
-                <div class="relative">
-                  <span class="absolute -top-2 left-2 px-1 bg-white text-[10px] text-gray-500 font-medium">End</span>
-                  <div class="flex items-center border border-gray-300 rounded-lg px-3 py-1.5 w-32 bg-white shadow-2xs">
-                    <input type="text" value="24:00" class="w-full text-xs font-mono font-semibold text-gray-800 outline-none">
-                    <span class="text-gray-400 text-xs">🕒</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Thursday -->
-            <div class="flex items-center justify-between border-b border-gray-100 pb-3">
-              <div class="flex items-center space-x-3 w-40">
-                <label class="relative inline-flex items-center cursor-pointer">
-                  <input type="checkbox" checked class="sr-only peer">
-                  <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#007AFF]"></div>
-                </label>
-                <span class="text-xs font-bold text-gray-800">Thursday</span>
-              </div>
-              <div class="flex items-center space-x-3">
-                <div class="relative">
-                  <span class="absolute -top-2 left-2 px-1 bg-white text-[10px] text-gray-500 font-medium">Start</span>
-                  <div class="flex items-center border border-gray-300 rounded-lg px-3 py-1.5 w-32 bg-white shadow-2xs">
-                    <input type="text" value="06:00" class="w-full text-xs font-mono font-semibold text-gray-800 outline-none">
-                    <span class="text-gray-400 text-xs">🕒</span>
-                  </div>
-                </div>
-                <span class="text-xs text-gray-500 font-medium">To</span>
-                <div class="relative">
-                  <span class="absolute -top-2 left-2 px-1 bg-white text-[10px] text-gray-500 font-medium">End</span>
-                  <div class="flex items-center border border-gray-300 rounded-lg px-3 py-1.5 w-32 bg-white shadow-2xs">
-                    <input type="text" value="24:00" class="w-full text-xs font-mono font-semibold text-gray-800 outline-none">
-                    <span class="text-gray-400 text-xs">🕒</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Friday -->
-            <div class="flex items-center justify-between border-b border-gray-100 pb-3">
-              <div class="flex items-center space-x-3 w-40">
-                <label class="relative inline-flex items-center cursor-pointer">
-                  <input type="checkbox" checked class="sr-only peer">
-                  <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#007AFF]"></div>
-                </label>
-                <span class="text-xs font-bold text-gray-800">Friday</span>
-              </div>
-              <div class="flex items-center space-x-3">
-                <div class="relative">
-                  <span class="absolute -top-2 left-2 px-1 bg-white text-[10px] text-gray-500 font-medium">Start</span>
-                  <div class="flex items-center border border-gray-300 rounded-lg px-3 py-1.5 w-32 bg-white shadow-2xs">
-                    <input type="text" value="06:00" class="w-full text-xs font-mono font-semibold text-gray-800 outline-none">
-                    <span class="text-gray-400 text-xs">🕒</span>
-                  </div>
-                </div>
-                <span class="text-xs text-gray-500 font-medium">To</span>
-                <div class="relative">
-                  <span class="absolute -top-2 left-2 px-1 bg-white text-[10px] text-gray-500 font-medium">End</span>
-                  <div class="flex items-center border border-gray-300 rounded-lg px-3 py-1.5 w-32 bg-white shadow-2xs">
-                    <input type="text" value="24:00" class="w-full text-xs font-mono font-semibold text-gray-800 outline-none">
-                    <span class="text-gray-400 text-xs">🕒</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Saturday -->
-            <div class="flex items-center justify-between border-b border-gray-100 pb-3">
-              <div class="flex items-center space-x-3 w-40">
-                <label class="relative inline-flex items-center cursor-pointer">
-                  <input type="checkbox" checked class="sr-only peer">
-                  <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#007AFF]"></div>
-                </label>
-                <span class="text-xs font-bold text-gray-800">Saturday</span>
-              </div>
-              <div class="flex items-center space-x-3">
-                <div class="relative">
-                  <span class="absolute -top-2 left-2 px-1 bg-white text-[10px] text-gray-500 font-medium">Start</span>
-                  <div class="flex items-center border border-gray-300 rounded-lg px-3 py-1.5 w-32 bg-white shadow-2xs">
-                    <input type="text" value="06:00" class="w-full text-xs font-mono font-semibold text-gray-800 outline-none">
-                    <span class="text-gray-400 text-xs">🕒</span>
-                  </div>
-                </div>
-                <span class="text-xs text-gray-500 font-medium">To</span>
-                <div class="relative">
-                  <span class="absolute -top-2 left-2 px-1 bg-white text-[10px] text-gray-500 font-medium">End</span>
-                  <div class="flex items-center border border-gray-300 rounded-lg px-3 py-1.5 w-32 bg-white shadow-2xs">
-                    <input type="text" value="24:00" class="w-full text-xs font-mono font-semibold text-gray-800 outline-none">
-                    <span class="text-gray-400 text-xs">🕒</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Sunday -->
-            <div class="flex items-center justify-between pb-1">
-              <div class="flex items-center space-x-3 w-40">
-                <label class="relative inline-flex items-center cursor-pointer">
-                  <input type="checkbox" checked class="sr-only peer">
-                  <div class="w-10 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#007AFF]"></div>
-                </label>
-                <span class="text-xs font-bold text-gray-800">Sunday</span>
-              </div>
-              <div class="flex items-center space-x-3">
-                <div class="relative">
-                  <span class="absolute -top-2 left-2 px-1 bg-white text-[10px] text-gray-500 font-medium">Start</span>
-                  <div class="flex items-center border border-gray-300 rounded-lg px-3 py-1.5 w-32 bg-white shadow-2xs">
-                    <input type="text" value="06:00" class="w-full text-xs font-mono font-semibold text-gray-800 outline-none">
-                    <span class="text-gray-400 text-xs">🕒</span>
-                  </div>
-                </div>
-                <span class="text-xs text-gray-500 font-medium">To</span>
-                <div class="relative">
-                  <span class="absolute -top-2 left-2 px-1 bg-white text-[10px] text-gray-500 font-medium">End</span>
-                  <div class="flex items-center border border-gray-300 rounded-lg px-3 py-1.5 w-32 bg-white shadow-2xs">
-                    <input type="text" value="24:00" class="w-full text-xs font-mono font-semibold text-gray-800 outline-none">
-                    <span class="text-gray-400 text-xs">🕒</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Bottom Action Button -->
-          <div class="mt-6 flex justify-end">
-            <button onclick="showToast('✓ Club operating schedule saved successfully!')" class="bg-gray-100 hover:bg-gray-200 text-gray-500 font-bold px-5 py-2.5 rounded-lg text-xs tracking-wider uppercase transition">
-              SAVE AVAILABILITY
-            </button>
-          </div>
-        </div>
-
-        <!-- CARD 3: CLUB HOLIDAYS & SPECIAL CLOSURES (Exact Match to media_1789729965752.png) -->
-        <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-xs">
-          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-4 mb-4 border-b border-gray-100 gap-2">
-            <div>
-              <h3 class="text-sm font-bold text-gray-900">Club Holidays & Special Closures</h3>
-              <p class="text-xs text-gray-500 mt-0.5">Add single dates or multiple day ranges when the club is closed or operating on special holiday hours.</p>
-            </div>
-            <button onclick="openAddHolidayModal()" class="bg-[#007AFF] hover:bg-blue-600 text-white text-xs font-bold px-3.5 py-2 rounded-lg shadow-xs flex items-center space-x-1.5 transition self-start sm:self-auto">
-              <span>+ ADD HOLIDAY</span>
-            </button>
-          </div>
-
-          <!-- Holiday List matching screenshot -->
-          <div class="space-y-3">
-            <!-- Row 1: Test with Special Hours: 10:00 - 15:00 (Yellow badge) -->
-            <div class="flex items-center justify-between border border-gray-100 rounded-xl p-3 bg-white hover:bg-gray-50 transition">
-              <div class="flex items-center space-x-3">
-                <div class="w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-500">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                </div>
-                <div>
-                  <div class="flex items-center space-x-2">
-                    <span class="text-xs font-bold text-gray-900">Test</span>
-                    <span class="text-[10px] font-bold text-amber-800 bg-amber-100/90 px-2 py-0.5 rounded">
-                      Special Hours: 10:00 - 15:00
-                    </span>
-                  </div>
-                  <span class="text-[11px] text-gray-400 block mt-0.5 font-mono">2026-09-18</span>
-                </div>
-              </div>
-              <button onclick="this.closest('.border').remove(); showToast('Holiday removed');" class="text-gray-400 hover:text-red-600 p-1.5 rounded-lg hover:bg-gray-100 transition">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-              </button>
-            </div>
-
-            <!-- Row 2: Test with Special Pricing (Green badge) -->
-            <div class="flex items-center justify-between border border-gray-100 rounded-xl p-3 bg-white hover:bg-gray-50 transition">
-              <div class="flex items-center space-x-3">
-                <div class="w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-500">
-                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                </div>
-                <div>
-                  <div class="flex items-center space-x-2">
-                    <span class="text-xs font-bold text-gray-900">Test</span>
-                    <span class="text-[10px] font-bold text-emerald-800 bg-emerald-100/90 px-2 py-0.5 rounded">
-                      Special Pricing
-                    </span>
-                  </div>
-                  <span class="text-[11px] text-gray-400 block mt-0.5 font-mono">2026-09-18</span>
-                </div>
-              </div>
-              <button onclick="this.closest('.border').remove(); showToast('Holiday removed');" class="text-gray-400 hover:text-red-600 p-1.5 rounded-lg hover:bg-gray-100 transition">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-              </button>
-            </div>
-          </div>
-        </div>
-
-      </div> <!-- END #avail-section-club -->
+      <!-- Floating Scroll-To-Top Button -->
+      <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-6 right-6 w-11 h-11 rounded-full bg-[#007AFF] hover:bg-blue-600 text-white flex items-center justify-center shadow-lg transition z-30 cursor-pointer" title="Scroll to top">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+      </button>
 
     </section> <!-- END #cview-availability -->
 
@@ -9526,6 +9157,36 @@
 
     function copyToAllDays(day) {
       showToast(`Copied ${day} hours & lunch break to all active weekdays!`);
+    }
+
+    
+    function toggleDayRowAvailability(checkbox) {
+      const row = checkbox.closest('.border-b') || checkbox.closest('.pb-1');
+      if (!row) return;
+      const inputs = row.querySelectorAll('input[type="text"]');
+      if (checkbox.checked) {
+        inputs.forEach(inp => {
+          inp.disabled = false;
+          inp.parentElement.classList.remove('opacity-40', 'bg-gray-100');
+          inp.parentElement.classList.add('bg-white');
+        });
+        showToast('Enabled schedule for day');
+      } else {
+        inputs.forEach(inp => {
+          inp.disabled = true;
+          inp.parentElement.classList.add('opacity-40', 'bg-gray-100');
+          inp.parentElement.classList.remove('bg-white');
+        });
+        showToast('Day set to closed/unavailable');
+      }
+    }
+
+    function deleteHolidayItem(btn) {
+      const row = btn.closest('.holiday-row') || btn.closest('.border');
+      if (row) {
+        row.remove();
+        showToast('Special closure entry deleted');
+      }
     }
 
     function saveCoachAvailability() {
