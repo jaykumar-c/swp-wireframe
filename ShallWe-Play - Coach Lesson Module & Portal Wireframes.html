@@ -3888,13 +3888,14 @@
 
     </section> <!-- END #cview-availability -->
 
-    <!-- ==================== VIEW 4: COACH PROFILE & CREDENTIALS ==================== -->
-    <section id="cview-profile" class="coach-view-panel hidden max-w-6xl mx-auto py-6 px-4 sm:px-6 w-full flex-1">
+        <!-- ==================== VIEW 4: COACH PROFILE & CREDENTIALS ==================== -->
+    <section id="cview-profile" class="coach-view-panel hidden max-w-7xl mx-auto py-6 px-4 sm:px-6 w-full flex-1">
       
       <!-- Canonical Page Header (Matches ShallWe-Play UserProfileHeader) -->
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-5 gap-3">
         <div>
-          <h1 class="text-xl sm:text-2xl font-bold text-[#32475C]" style="font-family: 'Montserrat', sans-serif;">Profile Details</h1>
+          <h1 class="text-xl sm:text-2xl font-bold text-[#32475C] font-heading" style="font-family: 'Montserrat', sans-serif;">Profile Details</h1>
+          <p class="text-xs text-[#32475C]/60 mt-0.5">Manage your public coaching profile, media, specialties, and compliance accounts</p>
         </div>
 
         <!-- Mode / Sub-View Switcher & Actions -->
@@ -3910,10 +3911,16 @@
           </div>
 
           <!-- Actions -->
-          <button type="button" onclick="previewPublicCoachProfile()" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-xs font-semibold px-3 py-2 rounded-md transition flex items-center space-x-1.5">
+          <button type="button" onclick="previewPublicCoachProfile()" class="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-xs font-semibold px-3 py-2 rounded-[4px] transition flex items-center space-x-1.5">
+            <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
             <span>Player Preview</span>
           </button>
-          <button type="button" onclick="openEditProfileModal('public')" class="bg-[#007AFF] hover:bg-[#0062cc] text-white text-xs font-semibold px-4 py-2 rounded-md shadow-xs flex items-center space-x-1.5 transition">
+          <button type="button" onclick="openCoachQrModal()" class="bg-white hover:bg-gray-50 text-[#32475C] border border-gray-200 text-xs font-semibold px-3 py-2 rounded-[4px] transition flex items-center space-x-1.5">
+            <svg class="w-3.5 h-3.5 text-[#007AFF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"/></svg>
+            <span>Coach QR</span>
+          </button>
+          <button type="button" onclick="openEditProfileModal('public')" class="bg-[#007AFF] hover:bg-[#0062cc] text-white text-xs font-semibold px-4 py-2 rounded-[4px] shadow-xs flex items-center space-x-1.5 transition">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
             <span>Edit Profile</span>
           </button>
         </div>
@@ -3922,617 +3929,516 @@
       <!-- ========================================================================= -->
       <!-- ================= SUB-PANEL 1: PUBLIC COACH PROFILE ===================== -->
       <!-- ========================================================================= -->
-      <div id="profile-sub-public">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      <div id="profile-sub-public" class="space-y-6">
 
-          <!-- ================= LEFT COLUMN: CANONICAL PROFILE CARD (5 COLS) ================= -->
-          <div class="lg:col-span-5 space-y-6">
+        <!-- 1. Panoramic Hero Banner Card (Matches media_1791987032380.jpg Exactly) -->
+        <div class="relative rounded-[8px] overflow-hidden border border-[#E2E8F0] shadow-[0px_2px_10px_0px_rgba(50,71,92,0.1)] min-h-[360px] bg-cover bg-center" style="background-image: linear-gradient(to right, rgba(15, 23, 42, 0.94) 0%, rgba(15, 23, 42, 0.82) 48%, rgba(15, 23, 42, 0.65) 100%), url('images/pages/hero_full_banner.jpg');">
+          <div class="relative z-10 p-6 sm:p-8 lg:p-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
             
-            <div class="bg-white rounded-[6px] border border-gray-200/80 shadow-[0px_3px_8px_0px_rgba(34,48,62,0.1)] overflow-hidden">
+            <!-- Left Info Block: Coach Portrait + Badges + Name + Specialties -->
+            <div class="max-w-2xl text-white">
               
-              <!-- Cover Banner (163px height, profile-banner.png) -->
-              <div class="w-full h-[163px] bg-cover bg-center relative" style="background-image: url('images/pages/profile-banner.png');">
+              <!-- Badges Row -->
+              <div class="flex flex-wrap items-center gap-2 mb-3">
+                <span class="inline-flex items-center gap-1.5 bg-[#E8F8F0] text-[#00A86B] font-bold text-xs px-2.5 py-1 rounded-full shadow-2xs">
+                  <svg class="w-3.5 h-3.5 text-[#00A86B]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                  Verified Coach
+                </span>
+                <span class="inline-flex items-center gap-1.5 bg-[#EBF5FF] text-[#007AFF] font-bold text-xs px-2.5 py-1 rounded-full shadow-2xs">
+                  KNLTB Certified
+                </span>
+                <span class="inline-flex items-center gap-1 bg-white/15 text-white/90 text-xs px-2.5 py-1 rounded-full backdrop-blur-xs border border-white/10">
+                  KvK #21312421
+                </span>
               </div>
 
-              <!-- Overlapping Avatar & Floating Edit Pencil -->
-              <div class="relative flex flex-col items-center -mt-[42px] px-6">
-                <div class="relative">
-                  <!-- Avatar Container (84x84px, 10.5px radius) -->
-                  <div id="disp-coach-avatar" class="w-[84px] h-[84px] rounded-[10.5px] bg-[#007AFF] text-white font-bold text-3xl flex items-center justify-center border-2 border-white shadow-md overflow-hidden">
-                    <span id="disp-coach-initials">MP</span>
+              <!-- Coach Title & Portrait Row -->
+              <div class="flex items-start gap-4 sm:gap-5 mt-2">
+                <!-- Avatar with fallback and floating edit button -->
+                <div class="relative shrink-0">
+                  <div id="disp-coach-avatar" class="w-20 h-20 sm:w-24 sm:h-24 rounded-[12px] bg-[#007AFF] text-white font-bold text-3xl flex items-center justify-center border-2 border-white/90 shadow-xl overflow-hidden">
+                    <img id="disp-coach-avatar-img" src="images/pages/coach_mukund_hero.jpg" class="w-full h-full object-cover" alt="Mukund Patil" onerror="this.style.display='none'">
+                    <span id="disp-coach-initials" class="hidden">MP</span>
                   </div>
-                  <!-- Floating #007AFF Edit Pencil Icon Button -->
-                  <button type="button" onclick="openEditProfileModal('public')" class="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-white hover:bg-gray-50 border border-gray-200 shadow-sm flex items-center justify-center text-[#007AFF] transition" title="Edit Profile &amp; Photo">
+                  <button type="button" onclick="openEditProfileModal('public')" class="absolute -bottom-1 -right-1 w-7 h-7 rounded-full bg-white hover:bg-gray-100 text-[#007AFF] border border-gray-200 shadow-sm flex items-center justify-center transition" title="Edit Profile Photo">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
                   </button>
                 </div>
 
-                <!-- Coach Name & Role -->
-                <div class="mt-4 text-center">
-                  <h2 id="disp-coach-name" class="text-2xl font-semibold text-[#32475C] tracking-tight">Mukund Patil</h2>
-                  <p id="disp-coach-headline" class="text-base text-[#32475C]/60 font-normal mt-0.5">Coach</p>
+                <div>
+                  <h1 id="disp-coach-name" class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white font-['Montserrat']">Mukund Patil</h1>
+                  <p id="disp-coach-headline" class="text-sm sm:text-base text-white/90 font-medium mt-1">Tennis &amp; Padel Coach | Beginners to High-Performance</p>
                   
-                  <!-- Subtle Verified Badge Row -->
-                  <div class="flex flex-wrap items-center justify-center gap-1.5 mt-2">
-                    <span class="inline-flex items-center gap-1 text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 px-2 py-0.5 rounded">
-                      <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                      Verified Coach
+                  <!-- Metadata row: Rating, City, Languages -->
+                  <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-white/80 mt-2 font-medium">
+                    <span class="inline-flex items-center gap-1 text-amber-400 font-bold">
+                      <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                      4.9 (42 reviews)
                     </span>
-                    <span class="text-[11px] font-medium bg-blue-50 text-[#007AFF] border border-blue-200 px-2 py-0.5 rounded">
-                      KNLTB Certified
+                    <span class="text-white/40">•</span>
+                    <span class="inline-flex items-center gap-1">
+                      <svg class="w-3.5 h-3.5 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                      Utrecht &amp; Amsterdam
                     </span>
-                    <span class="text-[10px] font-medium bg-gray-50 text-gray-500 border border-gray-200 px-2 py-0.5 rounded">
-                      KvK #21312421
+                    <span class="text-white/40">•</span>
+                    <span id="disp-coach-languages" class="inline-flex items-center gap-1 text-white/90">
+                      <svg class="w-3.5 h-3.5 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/></svg>
+                      Dutch, English, German
                     </span>
                   </div>
                 </div>
               </div>
 
-              <!-- Information Details List (Padding 24px, 16px gap, Public Sans / Montserrat) -->
-              <div class="p-6 pt-5 space-y-4 text-left border-t border-gray-100 mt-4">
-                
-                <!-- About -->
-                <div>
-                  <label class="block text-[12px] font-semibold text-[#32475C] uppercase tracking-wider mb-1">About:</label>
-                  <p id="disp-coach-bio" class="text-sm text-[#32475C]/70 leading-relaxed font-normal">
-                    Former national-level competitive player with over 8 years of professional coaching experience across the Netherlands and Europe. My methodology combines modern biomechanical video analysis with high-intensity game-situation drills. Passionate about helping both ambitious adult beginners and elite junior players unlock consistent strokes and tactical composure.
-                  </p>
-                </div>
+              <!-- Coach Slogan / Quote -->
+              <p class="italic text-white/90 text-sm mt-3.5 border-l-2 border-[#007AFF] pl-3 font-normal">
+                “Better players. Happier people.”
+              </p>
 
-                <!-- Email -->
-                <div>
-                  <label class="block text-[12px] font-semibold text-[#32475C] uppercase tracking-wider mb-0.5">Email:</label>
-                  <p class="text-sm text-[#32475C]/70 font-normal">info@shallwe-play.com</p>
-                </div>
+              <!-- Bio Snippet -->
+              <p id="disp-coach-bio" class="text-white/75 text-xs mt-2.5 max-w-xl leading-relaxed font-normal">
+                Former national-level competitive player with over 8 years of professional coaching experience across the Netherlands. Combines biomechanical video analysis with high-intensity game-situation drills.
+              </p>
 
-                <!-- Secondary Email -->
-                <div>
-                  <label class="block text-[12px] font-semibold text-[#32475C] uppercase tracking-wider mb-0.5">Secondary Email</label>
-                  <p class="text-sm text-[#32475C]/70 font-normal">info@shallwe-play.com</p>
-                </div>
+              <!-- Specialty Pills (Glass Capsules Matching Screenshot) -->
+              <div class="flex flex-wrap items-center gap-2 mt-4">
+                <span class="bg-white/15 hover:bg-white/20 backdrop-blur-xs text-white text-xs font-semibold px-3 py-1 rounded-full border border-white/20 transition">Tennis</span>
+                <span class="bg-white/15 hover:bg-white/20 backdrop-blur-xs text-white text-xs font-semibold px-3 py-1 rounded-full border border-white/20 transition">Padel</span>
+                <span class="bg-white/10 text-white/80 text-xs px-2.5 py-1 rounded-full border border-white/15">Beginners</span>
+                <span class="bg-white/10 text-white/80 text-xs px-2.5 py-1 rounded-full border border-white/15">Intermediate</span>
+                <span class="bg-white/10 text-white/80 text-xs px-2.5 py-1 rounded-full border border-white/15">Advanced</span>
+                <span class="bg-white/10 text-white/80 text-xs px-2.5 py-1 rounded-full border border-white/15">Game Strategy</span>
+                <span class="bg-white/10 text-white/80 text-xs px-2.5 py-1 rounded-full border border-white/15">Fitness &amp; Footwork</span>
+              </div>
 
-                <!-- Contact 1 -->
-                <div>
-                  <label class="block text-[12px] font-semibold text-[#32475C] uppercase tracking-wider mb-0.5">Contact 1</label>
-                  <p id="disp-coach-phone" class="text-sm text-[#32475C]/70 font-normal">+31688888888</p>
-                </div>
+            </div>
 
-                <!-- Contact 2 -->
-                <div>
-                  <label class="block text-[12px] font-semibold text-[#32475C] uppercase tracking-wider mb-0.5">Contact 2</label>
-                  <p class="text-sm text-[#32475C]/70 font-normal">-</p>
-                </div>
+            <!-- Right Floating Booking / Pricing Card (Exact to media_1791987032380.jpg) -->
+            <div class="w-full lg:w-[320px] bg-white/95 backdrop-blur-md rounded-[8px] p-5 border border-white/60 shadow-xl text-[#32475C] shrink-0">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-semibold text-[#32475C]/70 uppercase tracking-wider">Lesson Rates</span>
+                <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded">Guaranteed Best Rate</span>
+              </div>
+              
+              <div class="mt-2 flex items-baseline gap-1">
+                <span class="text-xs text-[#32475C]/70 font-medium">Lessons from</span>
+                <span id="disp-coach-startprice" class="text-2xl font-black text-[#32475C] tracking-tight font-['Montserrat']">€40</span>
+                <span class="text-xs text-[#32475C]/60 font-semibold">/ hour</span>
+              </div>
 
-                <!-- Website Link -->
-                <div>
-                  <label class="block text-[12px] font-semibold text-[#32475C] uppercase tracking-wider mb-0.5">Website Link:</label>
-                  <p class="text-sm text-[#32475C]/70 font-normal">USC.nl</p>
-                </div>
+              <!-- Action Buttons -->
+              <div class="space-y-2 mt-4">
+                <button type="button" onclick="openPortalBookLessonModal()" class="w-full bg-[#007AFF] hover:bg-[#0062cc] text-white font-bold py-2.5 px-4 rounded-[4px] shadow-sm transition flex items-center justify-center space-x-2 text-xs">
+                  <span>Book Lesson</span>
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                </button>
+                <button type="button" onclick="switchCoachView('lessons')" class="w-full bg-white hover:bg-gray-50 text-[#007AFF] border border-[#007AFF]/30 font-bold py-2 px-4 rounded-[4px] transition flex items-center justify-center space-x-1.5 text-xs">
+                  <span>View All Lessons</span>
+                </button>
+              </div>
 
-                <!-- Address -->
-                <div>
-                  <label class="block text-[12px] font-semibold text-[#32475C] uppercase tracking-wider mb-0.5">Address</label>
-                  <p id="disp-coach-address" class="text-sm text-[#32475C]/70 font-normal leading-snug">Herculesplein 241, 3584 AA Utrecht, Netherlands</p>
+              <!-- Perks with Checkmarks -->
+              <div class="mt-4 pt-3.5 border-t border-gray-100 space-y-2 text-xs text-[#32475C]/80">
+                <div class="flex items-center gap-2">
+                  <svg class="w-3.5 h-3.5 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                  <span>Flexible scheduling</span>
                 </div>
-
-                <!-- Bottom Full-Width Primary Action Button (Matches Screenshot Exactly) -->
-                <div class="pt-2">
-                  <button type="button" onclick="openCoachQrModal()" class="w-full bg-[#007AFF] hover:bg-[#0062cc] text-white text-sm font-semibold tracking-wider uppercase py-2.5 rounded-[4px] shadow-none transition flex items-center justify-center space-x-2">
-                    <span>COACH QR CODE</span>
-                  </button>
+                <div class="flex items-center gap-2">
+                  <svg class="w-3.5 h-3.5 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                  <span>Individual &amp; group lessons</span>
                 </div>
-
+                <div class="flex items-center gap-2">
+                  <svg class="w-3.5 h-3.5 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                  <span>Train at top Dutch clubs</span>
+                </div>
               </div>
 
             </div>
 
           </div>
+        </div>
 
-          <!-- ================= RIGHT COLUMN: STYLED CARDS (7 COLS) ================= -->
-          <div class="lg:col-span-7 space-y-6">
+        <!-- 2. Horizontal Metrics Ribbon Bar (Single Compact Row) -->
+        <div class="bg-white rounded-[8px] border border-[#E2E8F0] shadow-[0px_2px_10px_0px_rgba(50,71,92,0.1)] p-4 grid grid-cols-2 sm:grid-cols-4 gap-4 divide-y sm:divide-y-0 sm:divide-x divide-gray-100 text-center">
+          <div class="pt-2 sm:pt-0">
+            <span class="text-2xl sm:text-3xl font-extrabold text-[#32475C] block leading-none font-['Montserrat']">8+</span>
+            <span class="text-xs text-[#32475C]/70 font-medium mt-1 block">Years of Experience</span>
+          </div>
+          <div class="pt-2 sm:pt-0 sm:pl-4">
+            <span class="text-2xl sm:text-3xl font-extrabold text-[#32475C] block leading-none font-['Montserrat']">1,200+</span>
+            <span class="text-xs text-[#32475C]/70 font-medium mt-1 block">Hours Taught</span>
+          </div>
+          <div class="pt-2 sm:pt-0 sm:pl-4">
+            <span class="text-2xl sm:text-3xl font-extrabold text-[#32475C] block leading-none font-['Montserrat']">3</span>
+            <span class="text-xs text-[#32475C]/70 font-medium mt-1 block">Clubs Connected</span>
+          </div>
+          <div class="pt-2 sm:pt-0 sm:pl-4">
+            <div class="flex items-center justify-center gap-1.5">
+              <span class="text-2xl sm:text-3xl font-extrabold text-[#32475C] leading-none font-['Montserrat']">4.9</span>
+              <span class="text-amber-400 text-base">★</span>
+            </div>
+            <span class="text-xs text-[#32475C]/70 font-medium mt-1 block">42 Verified Reviews</span>
+          </div>
+        </div>
 
-            <!-- CARD 1: SPORTS OFFERED (StyledCard) -->
-            <div class="bg-white rounded-[6px] border border-gray-200/80 shadow-[0px_3px_8px_0px_rgba(34,48,62,0.1)] p-6">
-              <div class="flex items-center justify-between pb-3 border-b border-gray-100 mb-5">
-                <h3 class="text-[15px] font-normal uppercase tracking-wider text-[#32475C]" style="font-family: 'Public Sans', sans-serif;">SPORTS OFFERED</h3>
-                <button type="button" onclick="openAddSportExpertiseModal()" class="text-[#007AFF] hover:opacity-80 transition p-1" title="Manage Sports Offered">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+        <!-- 3. Middle 3-Column Content Row (Lesson Types | Locations & Clubs | Reviews) -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+          
+          <!-- Column 1: Lesson Types -->
+          <div class="bg-white rounded-[8px] border border-[#E2E8F0] shadow-[0px_2px_10px_0px_rgba(50,71,92,0.1)] p-5 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between pb-3 border-b border-gray-100 mb-4">
+                <h3 class="text-base font-bold text-[#32475C] font-['Montserrat']">Lesson Types</h3>
+                <button type="button" onclick="switchCoachView('lessons')" class="text-xs font-semibold text-[#007AFF] hover:underline flex items-center gap-1">
+                  <span>View All Lessons</span>
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </button>
               </div>
 
-              <!-- Canonical 80x80px Sports Grid Matching Screenshot Exactly -->
-              <div class="grid grid-cols-3 sm:grid-cols-6 gap-3.5 items-start mb-6">
-                
-                <!-- 1. Yoga -->
-                <div class="flex flex-col items-center max-w-[80px]">
-                  <div class="w-[80px] h-[80px] bg-[#F5F5F9] rounded-[8px] flex items-center justify-center mb-1.5 transition hover:bg-gray-200/80">
-                    <svg class="w-10 h-10 text-[#32475C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                      <circle cx="12" cy="4.5" r="2.25"/>
-                      <path d="M12 7.5v6"/>
-                      <path d="M7 11.5l5 2 5-2"/>
-                      <path d="M4.5 15.5l3.5-1.5 4 4.5 4-4.5 3.5 1.5"/>
-                      <path d="M6 19.5c2 1 4 1.5 6 1.5s4-.5 6-1.5"/>
-                    </svg>
+              <div class="space-y-3">
+                <!-- Tennis Lessons Card -->
+                <div onclick="switchCoachView('lessons')" class="p-3 rounded-[6px] border border-gray-200/80 hover:border-[#007AFF]/50 bg-[#F9FAFB] hover:bg-blue-50/20 transition cursor-pointer flex items-center gap-3">
+                  <div class="w-14 h-14 rounded-[6px] overflow-hidden shrink-0 border border-gray-200">
+                    <img src="images/pages/lesson_tennis_thumb.jpg" class="w-full h-full object-cover" alt="Tennis Lessons">
                   </div>
-                  <span class="text-[13px] font-medium text-[#32475C] text-center leading-tight">Yoga</span>
-                </div>
-
-                <!-- 2. Pickleball -->
-                <div class="flex flex-col items-center max-w-[80px]">
-                  <div class="w-[80px] h-[80px] bg-[#F5F5F9] rounded-[8px] flex items-center justify-center mb-1.5 transition hover:bg-gray-200/80">
-                    <svg class="w-10 h-10 text-[#32475C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                      <rect x="5" y="3" width="10" height="12" rx="4"/>
-                      <path d="M10 15v6"/>
-                      <circle cx="8" cy="7" r="0.8" fill="currentColor"/>
-                      <circle cx="12" cy="7" r="0.8" fill="currentColor"/>
-                      <circle cx="10" cy="9" r="0.8" fill="currentColor"/>
-                      <circle cx="8" cy="11" r="0.8" fill="currentColor"/>
-                      <circle cx="12" cy="11" r="0.8" fill="currentColor"/>
-                      <circle cx="18" cy="17" r="3"/>
-                      <circle cx="17.5" cy="16.5" r="0.5" fill="currentColor"/>
-                      <circle cx="18.5" cy="17.5" r="0.5" fill="currentColor"/>
-                    </svg>
-                  </div>
-                  <span class="text-[13px] font-medium text-[#32475C] text-center leading-tight">Pickleball</span>
-                </div>
-
-                <!-- 3. Golf -->
-                <div class="flex flex-col items-center max-w-[80px]">
-                  <div class="w-[80px] h-[80px] bg-[#F5F5F9] rounded-[8px] flex items-center justify-center mb-1.5 transition hover:bg-gray-200/80">
-                    <svg class="w-10 h-10 text-[#32475C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M12 3v16"/>
-                      <path d="M12 3l6 3.5-6 3.5V3z"/>
-                      <ellipse cx="12" cy="19" rx="6" ry="2"/>
-                      <circle cx="16" cy="19" r="1.5" fill="currentColor"/>
-                    </svg>
-                  </div>
-                  <span class="text-[13px] font-medium text-[#32475C] text-center leading-tight">Golf</span>
-                </div>
-
-                <!-- 4. Padel -->
-                <div class="flex flex-col items-center max-w-[80px]">
-                  <div class="w-[80px] h-[80px] bg-[#F5F5F9] rounded-[8px] flex items-center justify-center mb-1.5 transition hover:bg-gray-200/80">
-                    <svg class="w-10 h-10 text-[#32475C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M12 2C7.58 2 4 5.58 4 10c0 3.31 2.01 6.16 4.9 7.37L8.5 21a1.5 1.5 0 001.5 1.5h4a1.5 1.5 0 001.5-1.5l-.4-3.63C17.99 16.16 20 13.31 20 10c0-4.42-3.58-8-8-8z"/>
-                      <circle cx="10" cy="8" r="0.75" fill="currentColor"/>
-                      <circle cx="14" cy="8" r="0.75" fill="currentColor"/>
-                      <circle cx="12" cy="10" r="0.75" fill="currentColor"/>
-                      <circle cx="10" cy="12" r="0.75" fill="currentColor"/>
-                      <circle cx="14" cy="12" r="0.75" fill="currentColor"/>
-                    </svg>
-                  </div>
-                  <span class="text-[13px] font-medium text-[#32475C] text-center leading-tight">Padel</span>
-                </div>
-
-                <!-- 5. Tennis -->
-                <div class="flex flex-col items-center max-w-[80px]">
-                  <div class="w-[80px] h-[80px] bg-[#F5F5F9] rounded-[8px] flex items-center justify-center mb-1.5 transition hover:bg-gray-200/80">
-                    <svg class="w-10 h-10 text-[#32475C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                      <ellipse cx="13.5" cy="8.5" rx="5.5" ry="6.5" transform="rotate(-25 13.5 8.5)"/>
-                      <path d="M9.5 13.5L4 20l1 1 6.5-5.5"/>
-                      <circle cx="5" cy="5" r="3"/>
-                      <path d="M3.2 3.8a3 3 0 013.6 2.4"/>
-                    </svg>
-                  </div>
-                  <span class="text-[13px] font-medium text-[#32475C] text-center leading-tight">Tennis</span>
-                </div>
-
-                <!-- 6. Wall Climbing / Bouldering -->
-                <div class="flex flex-col items-center max-w-[80px]">
-                  <div class="w-[80px] h-[80px] bg-[#F5F5F9] rounded-[8px] flex items-center justify-center mb-1.5 transition hover:bg-gray-200/80">
-                    <svg class="w-10 h-10 text-[#32475C]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                      <circle cx="12" cy="5" r="1.75"/>
-                      <path d="M9 10l3-2 3 2"/>
-                      <path d="M8 8l-2 3 1.5 1.5"/>
-                      <path d="M16 8l2 3-1.5 1.5"/>
-                      <path d="M12 11v4l-3 3"/>
-                      <path d="M12 15l3 3"/>
-                      <circle cx="5" cy="5" r="1" fill="currentColor"/>
-                      <circle cx="19" cy="6" r="1" fill="currentColor"/>
-                      <circle cx="4" cy="16" r="1" fill="currentColor"/>
-                      <circle cx="20" cy="15" r="1" fill="currentColor"/>
-                    </svg>
-                  </div>
-                  <span class="text-[12px] font-medium text-[#32475C] text-center leading-tight">Wall Climbing / Bouldering</span>
-                </div>
-
-              </div>
-
-              <!-- Coach Active Specialties Breakdown (Preserving All Detailed Specialty Data) -->
-              <div class="border-t border-gray-100 pt-4 space-y-3">
-                <span class="text-[11px] font-bold text-[#32475C]/70 uppercase tracking-wider block">COACH SPECIALTIES &amp; TARGET LEVELS:</span>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
-                  <!-- Tennis Specialties -->
-                  <div class="bg-[#F9FAFB] rounded-lg p-3 border border-gray-200/80">
-                    <div class="flex items-center justify-between mb-1.5">
-                      <span class="font-bold text-[#32475C] text-xs">Tennis</span>
-                      <span class="text-[10px] font-bold text-[#007AFF] bg-blue-50 px-2 py-0.5 rounded">Primary</span>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center justify-between">
+                      <h4 class="text-xs font-bold text-[#32475C] truncate">Tennis Lessons</h4>
+                      <span class="text-xs font-extrabold text-[#007AFF]">From €40<span class="text-[10px] font-normal text-gray-500">/hr</span></span>
                     </div>
-                    <ul class="text-[11px] text-[#32475C]/70 space-y-1">
-                      <li>• Beginners (NTRP 1.0 - 2.5)</li>
-                      <li>• Junior Academy (Ages 7-16)</li>
-                      <li>• Intermediate (NTRP 3.0 - 4.0)</li>
-                      <li>• Advanced &amp; Tournament (4.5+)</li>
-                    </ul>
-                  </div>
-
-                  <!-- Padel Specialties -->
-                  <div class="bg-[#F9FAFB] rounded-lg p-3 border border-gray-200/80">
-                    <div class="flex items-center justify-between mb-1.5">
-                      <span class="font-bold text-[#32475C] text-xs">Padel</span>
-                      <span class="text-[10px] font-bold text-teal-700 bg-teal-50 px-2 py-0.5 rounded">FIP Level 1</span>
+                    <p class="text-[11px] text-[#32475C]/60 truncate mt-0.5">Private 1:1, Duo &amp; junior clinics</p>
+                    <div class="flex items-center gap-1.5 mt-1">
+                      <span class="text-[10px] font-semibold bg-blue-50 text-[#007AFF] px-1.5 py-0.2 rounded">1:1 Private</span>
+                      <span class="text-[10px] font-semibold bg-gray-100 text-gray-600 px-1.5 py-0.2 rounded">Duo</span>
                     </div>
-                    <ul class="text-[11px] text-[#32475C]/70 space-y-1">
-                      <li>• Beginners &amp; Wall Rebounds</li>
-                      <li>• Bandeja &amp; Víbora Placement</li>
-                      <li>• Chiquita Drops &amp; Pairing</li>
-                    </ul>
                   </div>
+                  <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </div>
 
-                  <!-- Zumba Fitness -->
-                  <div class="bg-[#F9FAFB] rounded-lg p-3 border border-gray-200/80">
-                    <div class="flex items-center justify-between mb-1.5">
-                      <span class="font-bold text-[#32475C] text-xs">Zumba Fitness</span>
-                      <span class="text-[10px] font-bold text-purple-700 bg-purple-50 px-2 py-0.5 rounded">ZIN™ Level 2</span>
-                    </div>
-                    <ul class="text-[11px] text-[#32475C]/70 space-y-1">
-                      <li>• Latin Cardio &amp; Conditioning</li>
-                      <li>• Full-body endurance</li>
-                      <li>• All fitness levels welcome</li>
-                    </ul>
+                <!-- Padel Lessons Card -->
+                <div onclick="switchCoachView('lessons')" class="p-3 rounded-[6px] border border-gray-200/80 hover:border-[#007AFF]/50 bg-[#F9FAFB] hover:bg-blue-50/20 transition cursor-pointer flex items-center gap-3">
+                  <div class="w-14 h-14 rounded-[6px] overflow-hidden shrink-0 border border-gray-200">
+                    <img src="images/pages/lesson_padel_thumb.jpg" class="w-full h-full object-cover" alt="Padel Lessons">
                   </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center justify-between">
+                      <h4 class="text-xs font-bold text-[#32475C] truncate">Padel Lessons</h4>
+                      <span class="text-xs font-extrabold text-[#007AFF]">From €45<span class="text-[10px] font-normal text-gray-500">/hr</span></span>
+                    </div>
+                    <p class="text-[11px] text-[#32475C]/60 truncate mt-0.5">Wall rebound drills &amp; bandeja tactics</p>
+                    <div class="flex items-center gap-1.5 mt-1">
+                      <span class="text-[10px] font-semibold bg-teal-50 text-teal-700 px-1.5 py-0.2 rounded">FIP Level 1</span>
+                      <span class="text-[10px] font-semibold bg-gray-100 text-gray-600 px-1.5 py-0.2 rounded">Clinics</span>
+                    </div>
+                  </div>
+                  <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </div>
               </div>
-
             </div>
 
-            <!-- CARD 2: COVER GALLERY (StyledCard, Matches Screenshot) -->
-            <div class="bg-white rounded-[6px] border border-gray-200/80 shadow-[0px_3px_8px_0px_rgba(34,48,62,0.1)] p-6">
+            <div class="pt-3 border-t border-gray-100 mt-3 flex items-center justify-between text-[11px] text-[#32475C]/70">
+              <span>Court hire settled at front desk</span>
+              <span class="font-semibold text-emerald-600">✓ Token escrow eligible</span>
+            </div>
+          </div>
+
+          <!-- Column 2: Locations & Clubs -->
+          <div class="bg-white rounded-[8px] border border-[#E2E8F0] shadow-[0px_2px_10px_0px_rgba(50,71,92,0.1)] p-5 flex flex-col justify-between">
+            <div>
               <div class="flex items-center justify-between pb-3 border-b border-gray-100 mb-4">
-                <h3 class="text-[15px] font-normal uppercase tracking-wider text-[#32475C]" style="font-family: 'Public Sans', sans-serif;">COVER GALLERY</h3>
-                <button type="button" onclick="openEditProfileModal('public')" class="text-[#007AFF] hover:opacity-80 transition p-1" title="Manage Cover Gallery">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+                <h3 class="text-base font-bold text-[#32475C] font-['Montserrat']">Locations &amp; Clubs</h3>
+                <button type="button" onclick="switchCoachView('explore')" class="text-xs font-semibold text-[#007AFF] hover:underline flex items-center gap-1">
+                  <span>Explore All</span>
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </button>
               </div>
 
-              <!-- 4 Square Thumbnails Matching Screenshot -->
-              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
-                <div class="relative rounded-[8px] overflow-hidden aspect-square border border-gray-200/80 shadow-2xs">
-                  <img src="images/pages/golf.jpg" alt="Golf facility training" class="w-full h-full object-cover">
+              <div class="space-y-3">
+                <!-- Club 1: Utrecht Sports Club -->
+                <div onclick="switchCoachView('explore')" class="p-3 rounded-[6px] border border-blue-200 bg-blue-50/30 hover:bg-blue-50/50 transition cursor-pointer flex items-center gap-3">
+                  <div class="w-14 h-14 rounded-[6px] overflow-hidden shrink-0 border border-blue-200">
+                    <img src="images/pages/club_utrecht_thumb.jpg" class="w-full h-full object-cover" alt="Utrecht Sports Club">
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center justify-between">
+                      <h4 class="text-xs font-bold text-[#32475C] truncate">Utrecht Sports Club</h4>
+                      <span class="text-[10px] font-bold text-[#007AFF] bg-blue-100 px-1.5 py-0.2 rounded">Primary Base</span>
+                    </div>
+                    <p class="text-[11px] text-[#32475C]/60 truncate mt-0.5">Utrecht • 12 Courts (8 Clay, 4 Hard)</p>
+                    <span class="text-[10px] font-semibold text-emerald-700 block mt-1">Connected ✓</span>
+                  </div>
+                  <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </div>
-                <div class="relative rounded-[8px] overflow-hidden aspect-square border border-gray-200/80 shadow-2xs">
-                  <img src="images/pages/tennis.jpg" alt="Tennis court session" class="w-full h-full object-cover">
-                </div>
-                <div class="relative rounded-[8px] overflow-hidden aspect-square border border-gray-200/80 shadow-2xs">
-                  <img src="images/pages/cycle.jpg" alt="Conditioning and endurance" class="w-full h-full object-cover">
-                </div>
-                <div class="relative rounded-[8px] overflow-hidden aspect-square border border-gray-200/80 shadow-2xs">
-                  <img src="assets/sport-thumbnails/1.png" alt="Facility sports club" class="w-full h-full object-cover">
+
+                <!-- Club 2: Amstelpark Tennis Center -->
+                <div onclick="switchCoachView('explore')" class="p-3 rounded-[6px] border border-gray-200/80 hover:border-[#007AFF]/50 bg-[#F9FAFB] hover:bg-gray-100 transition cursor-pointer flex items-center gap-3">
+                  <div class="w-14 h-14 rounded-[6px] overflow-hidden shrink-0 border border-gray-200">
+                    <img src="images/pages/club_amstelpark_thumb.jpg" class="w-full h-full object-cover" alt="Amstelpark Tennis Center">
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center justify-between">
+                      <h4 class="text-xs font-bold text-[#32475C] truncate">Amstelpark Tennis Center</h4>
+                      <span class="text-[10px] font-medium text-gray-600 bg-gray-100 px-1.5 py-0.2 rounded">Partner</span>
+                    </div>
+                    <p class="text-[11px] text-[#32475C]/60 truncate mt-0.5">Amsterdam • 6 Clay Courts, Lighted</p>
+                    <span class="text-[10px] font-semibold text-emerald-700 block mt-1">Connected ✓</span>
+                  </div>
+                  <svg class="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </div>
               </div>
             </div>
 
-            <!-- CARD 3: LESSON TYPES & TRANSPARENT PRICING (StyledCard) -->
-            <div class="bg-white rounded-[6px] border border-gray-200/80 shadow-[0px_3px_8px_0px_rgba(34,48,62,0.1)] p-6">
+            <div class="pt-3 border-t border-gray-100 mt-3 text-[11px] text-[#32475C]/70 truncate">
+              <span>Operating Address: <strong id="disp-coach-address" class="text-[#32475C]">Herculesplein 241, 3584 AA Utrecht</strong></span>
+            </div>
+          </div>
+
+          <!-- Column 3: Reviews Carousel Card -->
+          <div class="bg-white rounded-[8px] border border-[#E2E8F0] shadow-[0px_2px_10px_0px_rgba(50,71,92,0.1)] p-5 flex flex-col justify-between">
+            <div>
               <div class="flex items-center justify-between pb-3 border-b border-gray-100 mb-4">
-                <div>
-                  <h3 class="text-[15px] font-normal uppercase tracking-wider text-[#32475C]" style="font-family: 'Public Sans', sans-serif;">LESSON TYPES &amp; TRANSPARENT PRICING</h3>
+                <div class="flex items-center gap-2">
+                  <h3 class="text-base font-bold text-[#32475C] font-['Montserrat']">Reviews</h3>
+                  <span class="text-xs font-bold text-amber-500 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">★ 4.9</span>
                 </div>
-                <div class="flex items-center space-x-2">
-                  <span id="disp-coach-startprice" class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200">
-                    From €40/hr
-                  </span>
-                  <button type="button" onclick="switchCoachView('lessons')" class="text-xs font-semibold text-[#007AFF] hover:underline">
-                    + Manage Lessons
-                  </button>
-                </div>
+                <button type="button" onclick="switchCoachView('review')" class="text-xs font-semibold text-[#007AFF] hover:underline flex items-center gap-1">
+                  <span>See All 42</span>
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </button>
               </div>
 
-              <div class="space-y-2.5 text-xs">
-                <!-- 1:1 Private -->
-                <div class="flex items-center justify-between p-3 rounded-lg border border-gray-200/70 bg-[#F9FAFB] hover:bg-gray-100/60 transition">
-                  <div class="flex items-center space-x-3">
-                    <span class="w-8 h-8 rounded bg-blue-50 text-[#007AFF] flex items-center justify-center font-bold text-xs shrink-0">1:1</span>
+              <!-- Testimonial Content (Sophie M. from screenshot) -->
+              <div class="bg-[#F9FAFB] rounded-[6px] p-3.5 border border-gray-200/80">
+                <div class="flex items-center justify-between mb-2">
+                  <div class="flex items-center gap-2.5">
+                    <img src="images/pages/reviewer_sophie.jpg" class="w-9 h-9 rounded-full object-cover border border-gray-200" alt="Sophie M.">
                     <div>
-                      <h4 class="font-bold text-[#32475C]">1-to-1 Private Lesson</h4>
-                      <p class="text-[11px] text-[#32475C]/60">60-minute intensive stroke instruction &amp; biomechanics</p>
+                      <h4 class="text-xs font-bold text-[#32475C]">Sophie M.</h4>
+                      <span class="text-[10px] text-gray-400">2 weeks ago</span>
                     </div>
                   </div>
-                  <div class="text-right">
-                    <span class="text-sm font-bold text-[#32475C]">€50.00</span>
-                    <span class="text-[10px] text-[#32475C]/50 block">/ hour session</span>
-                  </div>
+                  <span class="text-amber-400 text-xs">★★★★★</span>
                 </div>
 
-                <!-- Duo Semi-Private -->
-                <div class="flex items-center justify-between p-3 rounded-lg border border-gray-200/70 bg-[#F9FAFB] hover:bg-gray-100/60 transition">
-                  <div class="flex items-center space-x-3">
-                    <span class="w-8 h-8 rounded bg-blue-50 text-[#007AFF] flex items-center justify-center font-bold text-xs shrink-0">2:1</span>
-                    <div>
-                      <h4 class="font-bold text-[#32475C]">Duo / Semi-Private (2 Players)</h4>
-                      <p class="text-[11px] text-[#32475C]/60">60-minute paired session: tactical drills, competitive points</p>
-                    </div>
-                  </div>
-                  <div class="text-right">
-                    <span class="text-sm font-bold text-[#32475C]">€30.00</span>
-                    <span class="text-[10px] text-[#32475C]/50 block">per player (€60 total)</span>
-                  </div>
-                </div>
+                <p class="text-xs text-[#32475C]/80 italic leading-relaxed">
+                  "Mukund transformed my backhand in just three sessions. His approach is structured yet fun, and he explains technical concepts in a way that just clicks."
+                </p>
 
-                <!-- Group Clinic -->
-                <div class="flex items-center justify-between p-3 rounded-lg border border-gray-200/70 bg-[#F9FAFB] hover:bg-gray-100/60 transition">
-                  <div class="flex items-center space-x-3">
-                    <span class="w-8 h-8 rounded bg-blue-50 text-[#007AFF] flex items-center justify-center font-bold text-xs shrink-0">GRP</span>
-                    <div>
-                      <h4 class="font-bold text-[#32475C]">Group Clinic (3-4 Players)</h4>
-                      <p class="text-[11px] text-[#32475C]/60">High-repetition feeder drills, court positioning, game play</p>
-                    </div>
-                  </div>
-                  <div class="text-right">
-                    <span class="text-sm font-bold text-[#32475C]">€20.00</span>
-                    <span class="text-[10px] text-[#32475C]/50 block">per player (€80 total)</span>
-                  </div>
-                </div>
-
-                <!-- Junior Clinic -->
-                <div class="flex items-center justify-between p-3 rounded-lg border border-gray-200/70 bg-[#F9FAFB] hover:bg-gray-100/60 transition">
-                  <div class="flex items-center space-x-3">
-                    <span class="w-8 h-8 rounded bg-blue-50 text-[#007AFF] flex items-center justify-center font-bold text-xs shrink-0">JNR</span>
-                    <div>
-                      <h4 class="font-bold text-[#32475C]">Junior Academy Clinic (Ages 7-16)</h4>
-                      <p class="text-[11px] text-[#32475C]/60">Youth motor skill development, footwork agility, match play</p>
-                    </div>
-                  </div>
-                  <div class="text-right">
-                    <span class="text-sm font-bold text-[#007AFF]">€18.00</span>
-                    <span class="text-[10px] text-[#32475C]/50 block">per junior player</span>
-                  </div>
-                </div>
-
-                <!-- 5-Lesson Package -->
-                <div class="flex items-center justify-between p-3 rounded-lg border border-purple-200 bg-purple-50/40 hover:bg-purple-50 transition">
-                  <div class="flex items-center space-x-3">
-                    <span class="w-8 h-8 rounded bg-purple-100 text-purple-700 flex items-center justify-center font-bold text-xs shrink-0">5PK</span>
-                    <div>
-                      <div class="flex items-center space-x-1.5">
-                        <h4 class="font-bold text-[#32475C]">5-Lesson Foundation Pack</h4>
-                        <span class="text-[10px] font-bold text-purple-700 bg-purple-100 px-1.5 py-0.2 rounded">Save 10%</span>
-                      </div>
-                      <p class="text-[11px] text-[#32475C]/60">5 prepaid session credits in player wallet • Valid for 3 months</p>
-                    </div>
-                  </div>
-                  <div class="text-right">
-                    <span class="text-sm font-bold text-purple-700">€225.00</span>
-                    <span class="text-[10px] text-purple-600 block font-semibold">€45.00 / session</span>
-                  </div>
+                <div class="flex items-center gap-1.5 mt-3">
+                  <span class="text-[10px] font-semibold bg-white text-gray-700 border border-gray-200 px-2 py-0.5 rounded">Tennis</span>
+                  <span class="text-[10px] font-semibold bg-white text-gray-700 border border-gray-200 px-2 py-0.5 rounded">Intermediate</span>
                 </div>
               </div>
             </div>
 
-            <!-- CARD 4: LOCATIONS & FACILITIES (StyledCard) -->
-            <div class="bg-white rounded-[6px] border border-gray-200/80 shadow-[0px_3px_8px_0px_rgba(34,48,62,0.1)] p-6">
-              <div class="flex items-center justify-between pb-3 border-b border-gray-100 mb-4">
-                <h3 class="text-[15px] font-normal uppercase tracking-wider text-[#32475C]" style="font-family: 'Public Sans', sans-serif;">LOCATIONS &amp; FACILITIES</h3>
-                <button type="button" onclick="switchCoachView('explore')" class="text-xs font-semibold text-[#007AFF] hover:underline">+ Explore</button>
+            <!-- Carousel Bottom Controls (Exact to media_1791987032380.jpg) -->
+            <div class="pt-3 border-t border-gray-100 mt-3 flex items-center justify-between">
+              <div class="flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-[#007AFF]"></span>
+                <span class="w-2 h-2 rounded-full bg-gray-200"></span>
+                <span class="w-2 h-2 rounded-full bg-gray-200"></span>
               </div>
-
-              <div class="space-y-3 text-xs">
-                <!-- Location 1 -->
-                <div class="border border-blue-200 rounded-lg p-3.5 bg-blue-50/20">
-                  <div class="flex items-start justify-between">
-                    <div class="flex items-center space-x-2.5">
-                      <span class="w-8 h-8 rounded bg-[#EBF5FF] text-[#007AFF] flex items-center justify-center font-bold text-xs shrink-0">USC</span>
-                      <div>
-                        <h4 class="font-bold text-[#32475C]">Utrecht Sports Club</h4>
-                        <span class="text-[10px] text-[#007AFF] font-bold uppercase block">PRIMARY BASE</span>
-                      </div>
-                    </div>
-                    <span class="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">CONNECTED ✓</span>
-                  </div>
-                  <p class="text-[11px] text-[#32475C]/70 mt-2">Herculesplein 241, 3584 AA Utrecht • 8 Clay Courts, 4 Hard Courts</p>
-                </div>
-
-                <!-- Location 2 -->
-                <div class="border border-gray-200 rounded-lg p-3.5 bg-[#F9FAFB]">
-                  <div class="flex items-start justify-between">
-                    <div class="flex items-center space-x-2.5">
-                      <span class="w-8 h-8 rounded bg-gray-100 text-[#32475C] flex items-center justify-center font-bold text-xs shrink-0">ATC</span>
-                      <div>
-                        <h4 class="font-bold text-[#32475C]">Amstelpark Tennis Center</h4>
-                        <span class="text-[10px] text-gray-500 font-medium uppercase block">PARTNER CLUB</span>
-                      </div>
-                    </div>
-                    <span class="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">CONNECTED ✓</span>
-                  </div>
-                  <p class="text-[11px] text-[#32475C]/70 mt-2">Karel Lotsyweg 8, 1081 VD Amsterdam • 6 Clay Courts, Lighted Evening</p>
-                </div>
-
-                <!-- Location 3 -->
-                <div class="border border-gray-200 rounded-lg p-3.5 bg-[#F9FAFB]">
-                  <div class="flex items-start justify-between">
-                    <div class="flex items-center space-x-2.5">
-                      <span class="w-8 h-8 rounded bg-gray-100 text-[#32475C] flex items-center justify-center font-bold text-xs shrink-0">PCA</span>
-                      <div>
-                        <h4 class="font-bold text-[#32475C]">Padel Club Amsterdam West</h4>
-                        <span class="text-[10px] text-gray-500 font-medium uppercase block">PADEL FACILITY</span>
-                      </div>
-                    </div>
-                    <span class="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">CONNECTED ✓</span>
-                  </div>
-                  <p class="text-[11px] text-[#32475C]/70 mt-2">Contactweg 47, 1014 AN Amsterdam • 4 Indoor Glass Courts</p>
-                </div>
+              <div class="flex items-center gap-1">
+                <button type="button" class="w-6 h-6 rounded border border-gray-200 hover:bg-gray-100 text-gray-600 flex items-center justify-center text-xs transition">‹</button>
+                <button type="button" class="w-6 h-6 rounded border border-gray-200 hover:bg-gray-100 text-gray-600 flex items-center justify-center text-xs transition">›</button>
               </div>
             </div>
-
-            <!-- CARD 5: CERTIFICATES & QUALIFICATIONS (StyledCard) -->
-            <div class="bg-white rounded-[6px] border border-gray-200/80 shadow-[0px_3px_8px_0px_rgba(34,48,62,0.1)] p-6">
-              <div class="flex items-center justify-between pb-3 border-b border-gray-100 mb-4">
-                <h3 class="text-[15px] font-normal uppercase tracking-wider text-[#32475C]" style="font-family: 'Public Sans', sans-serif;">CERTIFICATES &amp; QUALIFICATIONS</h3>
-                <span class="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">
-                  ALL VERIFIED ✓
-                </span>
-              </div>
-
-              <div class="space-y-2.5 text-xs">
-                <div class="p-3 rounded-lg border border-gray-200/70 bg-[#F9FAFB] flex items-center justify-between">
-                  <div class="flex items-center space-x-2.5">
-                    <svg class="w-5 h-5 text-[#007AFF] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                    <div>
-                      <h4 class="font-bold text-[#32475C]">KNLTB Tennis Coach License A/B</h4>
-                      <p class="text-[10px] text-[#32475C]/60">Royal Dutch Lawn Tennis Association • Reg #NL-89241</p>
-                    </div>
-                  </div>
-                  <span class="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded shrink-0">VERIFIED ✓</span>
-                </div>
-
-                <div class="p-3 rounded-lg border border-gray-200/70 bg-[#F9FAFB] flex items-center justify-between">
-                  <div class="flex items-center space-x-2.5">
-                    <svg class="w-5 h-5 text-[#007AFF] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                    <div>
-                      <h4 class="font-bold text-[#32475C]">FIP Padel Certified Coach Level 1</h4>
-                      <p class="text-[10px] text-[#32475C]/60">International Padel Federation • Reg #FIP-45129</p>
-                    </div>
-                  </div>
-                  <span class="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded shrink-0">VERIFIED ✓</span>
-                </div>
-
-                <div class="p-3 rounded-lg border border-gray-200/70 bg-[#F9FAFB] flex items-center justify-between">
-                  <div class="flex items-center space-x-2.5">
-                    <svg class="w-5 h-5 text-[#007AFF] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                    <div>
-                      <h4 class="font-bold text-[#32475C]">Certified Zumba Instructor (ZIN™)</h4>
-                      <p class="text-[10px] text-[#32475C]/60">Zumba Fitness LLC • Valid thru 2027</p>
-                    </div>
-                  </div>
-                  <span class="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded shrink-0">VERIFIED ✓</span>
-                </div>
-
-                <div class="p-3 rounded-lg border border-gray-200/70 bg-[#F9FAFB] flex items-center justify-between">
-                  <div class="flex items-center space-x-2.5">
-                    <svg class="w-5 h-5 text-[#007AFF] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                    <div>
-                      <h4 class="font-bold text-[#32475C]">Sports First Aid &amp; CPR Certified</h4>
-                      <p class="text-[10px] text-[#32475C]/60">Dutch Red Cross (Rode Kruis) • Valid thru 2027</p>
-                    </div>
-                  </div>
-                  <span class="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded shrink-0">VERIFIED ✓</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- CARD 6: REVIEWS & RATING (StyledCard) -->
-            <div class="bg-white rounded-[6px] border border-gray-200/80 shadow-[0px_3px_8px_0px_rgba(34,48,62,0.1)] p-6">
-              <div class="flex items-center justify-between pb-3 border-b border-gray-100 mb-4">
-                <h3 class="text-[15px] font-normal uppercase tracking-wider text-[#32475C]" style="font-family: 'Public Sans', sans-serif;">REVIEWS &amp; RATING</h3>
-                <span class="text-xs font-bold text-amber-500">★★★★★ 4.9</span>
-              </div>
-
-              <!-- Rating Snapshot -->
-              <div class="flex items-center gap-4 bg-[#F9FAFB] border border-gray-200/70 rounded-lg p-3.5 mb-3.5">
-                <div class="text-center shrink-0">
-                  <span class="text-3xl font-black text-[#32475C] block leading-none">4.9</span>
-                  <span class="text-amber-500 text-xs">★★★★★</span>
-                  <span class="text-[10px] text-[#32475C]/50 block mt-0.5">42 reviews</span>
-                </div>
-                <div class="flex-1 text-[11px] text-[#32475C]/70 border-l border-gray-200 pl-3.5 space-y-1">
-                  <div class="flex justify-between"><span>Technique &amp; Clarity</span><span class="font-bold text-[#32475C]">5.0 / 5.0</span></div>
-                  <div class="flex justify-between"><span>Punctuality &amp; Organization</span><span class="font-bold text-[#32475C]">4.9 / 5.0</span></div>
-                  <div class="flex justify-between"><span>Student Encouragement</span><span class="font-bold text-[#32475C]">5.0 / 5.0</span></div>
-                </div>
-              </div>
-
-              <!-- Testimonials -->
-              <div class="space-y-2.5 text-xs">
-                <div class="p-3 rounded-lg bg-[#F9FAFB] border border-gray-200/60">
-                  <div class="flex justify-between items-center mb-1">
-                    <span class="font-bold text-[#32475C]">Sarah van Dijk</span>
-                    <span class="text-amber-500 text-[10px]">★★★★★</span>
-                  </div>
-                  <p class="text-[11px] text-[#32475C]/70 italic">"Mukund is an exceptional coach! He quickly corrected my backhand grip and gave me actionable drills that improved my consistency immediately."</p>
-                </div>
-                <div class="p-3 rounded-lg bg-[#F9FAFB] border border-gray-200/60">
-                  <div class="flex justify-between items-center mb-1">
-                    <span class="font-bold text-[#32475C]">Sophie Bakker</span>
-                    <span class="text-amber-500 text-[10px]">★★★★★</span>
-                  </div>
-                  <p class="text-[11px] text-[#32475C]/70 italic">"The video stroke analysis was a game-changer for my serve. Highly recommend his 5-lesson package!"</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- CARD 7: COACHING MATRIX: 7 CORE QUESTIONS (StyledCard) -->
-            <div class="bg-white rounded-[6px] border border-gray-200/80 shadow-[0px_3px_8px_0px_rgba(34,48,62,0.1)] p-6">
-              <div class="flex items-center justify-between pb-3 border-b border-gray-100 mb-4">
-                <h3 class="text-[15px] font-normal uppercase tracking-wider text-[#32475C]" style="font-family: 'Public Sans', sans-serif;">AT A GLANCE: 7 CORE QUESTIONS ANSWERED</h3>
-                <span class="text-[10px] font-bold text-[#007AFF] bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
-                  ShallWe-Play Profile Matrix
-                </span>
-              </div>
-
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-                <!-- Q1 -->
-                <div class="bg-[#F9FAFB] rounded-lg p-3 border border-gray-200/70">
-                  <span class="text-[10px] font-bold text-[#007AFF] uppercase tracking-wider block">1. WHO IS THIS COACH?</span>
-                  <p class="font-bold text-[#32475C] mt-1">Mukund Patil</p>
-                  <p class="text-[11px] text-[#32475C]/70 mt-0.5">KNLTB License A/B &amp; ITF Level 3 certified head coach with 8+ years experience.</p>
-                </div>
-
-                <!-- Q2 -->
-                <div class="bg-[#F9FAFB] rounded-lg p-3 border border-gray-200/70">
-                  <span class="text-[10px] font-bold text-[#007AFF] uppercase tracking-wider block">2. WHAT SPORTS DO THEY COACH?</span>
-                  <p class="font-bold text-[#32475C] mt-1">Tennis • Padel • Zumba</p>
-                  <p class="text-[11px] text-[#32475C]/70 mt-0.5">Tennis as primary discipline, plus certified competitive Padel and cardio clinics.</p>
-                </div>
-
-                <!-- Q3 -->
-                <div class="bg-[#F9FAFB] rounded-lg p-3 border border-gray-200/70">
-                  <span class="text-[10px] font-bold text-[#007AFF] uppercase tracking-wider block">3. WHO DO THEY COACH?</span>
-                  <p class="font-bold text-[#32475C] mt-1">Beginners to High-Performance</p>
-                  <p class="text-[11px] text-[#32475C]/70 mt-0.5">Adult starters, youth academy (ages 7-16), intermediate regulars, and tournament players.</p>
-                </div>
-
-                <!-- Q4 -->
-                <div class="bg-[#F9FAFB] rounded-lg p-3 border border-gray-200/70">
-                  <span class="text-[10px] font-bold text-[#007AFF] uppercase tracking-wider block">4. WHAT DO THEY SPECIALISE IN?</span>
-                  <p class="font-bold text-[#32475C] mt-1">Biomechanics &amp; Tactical Footwork</p>
-                  <p class="text-[11px] text-[#32475C]/70 mt-0.5">Video stroke analysis, serve kick &amp; power, wall rebound defense, cardio drills.</p>
-                </div>
-
-                <!-- Q5 -->
-                <div class="bg-[#F9FAFB] rounded-lg p-3 border border-gray-200/70">
-                  <span class="text-[10px] font-bold text-[#007AFF] uppercase tracking-wider block">5. WHERE DO THEY COACH?</span>
-                  <p class="font-bold text-[#32475C] mt-1">Utrecht &amp; Amsterdam Facilities</p>
-                  <p class="text-[11px] text-[#32475C]/70 mt-0.5">Utrecht Sports Club (Primary base), Amstelpark Tennis Center, Padel Club Amsterdam West.</p>
-                </div>
-
-                <!-- Q6 -->
-                <div class="bg-[#F9FAFB] rounded-lg p-3 border border-gray-200/70">
-                  <span class="text-[10px] font-bold text-emerald-700 uppercase tracking-wider block">6. WHAT DOES IT COST?</span>
-                  <p class="font-bold text-[#32475C] mt-1">From €40 to €50 / Session</p>
-                  <p class="text-[11px] text-[#32475C]/70 mt-0.5">1-on-1: €50/hr • Duo: €30/pp • Group: €20/pp • 5-Lesson Pack: €225 (€45/session).</p>
-                </div>
-
-                <!-- Q7 & Languages -->
-                <div class="bg-[#F9FAFB] rounded-lg p-3 border border-gray-200/70 md:col-span-2">
-                  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                    <div>
-                      <span class="text-[10px] font-bold text-emerald-700 uppercase tracking-wider block">7. ARE THEY QUALIFIED &amp; VERIFIED?</span>
-                      <p class="font-bold text-[#32475C] mt-0.5">100% Federation Licensed &amp; Dutch KvK Verified ✓</p>
-                      <p class="text-[11px] text-[#32475C]/70">KNLTB License A/B, FIP Padel Coach Level 1, ZIN™ Master Instructor, KvK #21312421 registered.</p>
-                    </div>
-                    <div class="sm:text-right shrink-0">
-                      <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider block">LANGUAGES</span>
-                      <span id="disp-coach-languages" class="font-bold text-[#32475C] text-xs">Dutch, English, German</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
           </div>
 
         </div>
+
+        <!-- 4. Bottom 3-Column Content Row (Qualifications | Coaching Specialties | Who I Work With) -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+          
+          <!-- Column 1: Qualifications & Credentials -->
+          <div class="bg-white rounded-[8px] border border-[#E2E8F0] shadow-[0px_2px_10px_0px_rgba(50,71,92,0.1)] p-5">
+            <div class="flex items-center justify-between pb-3 border-b border-gray-100 mb-4">
+              <h3 class="text-base font-bold text-[#32475C] font-['Montserrat']">Qualifications &amp; Credentials</h3>
+              <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded">
+                ✓ Verified
+              </span>
+            </div>
+
+            <div class="space-y-2.5">
+              <div class="p-2.5 rounded-[6px] border border-gray-200/70 bg-[#F9FAFB] flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-[#007AFF] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  <div>
+                    <h4 class="text-xs font-bold text-[#32475C]">KNLTB Tennis Coach License A/B</h4>
+                    <p class="text-[10px] text-[#32475C]/60">Royal Dutch Lawn Tennis Association</p>
+                  </div>
+                </div>
+                <span class="text-[10px] font-bold text-emerald-600">✓</span>
+              </div>
+
+              <div class="p-2.5 rounded-[6px] border border-gray-200/70 bg-[#F9FAFB] flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-[#007AFF] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  <div>
+                    <h4 class="text-xs font-bold text-[#32475C]">FIP Padel Certified Coach Level 1</h4>
+                    <p class="text-[10px] text-[#32475C]/60">International Padel Federation</p>
+                  </div>
+                </div>
+                <span class="text-[10px] font-bold text-emerald-600">✓</span>
+              </div>
+
+              <div class="p-2.5 rounded-[6px] border border-gray-200/70 bg-[#F9FAFB] flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-[#007AFF] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  <div>
+                    <h4 class="text-xs font-bold text-[#32475C]">ZIN™ Master Instructor</h4>
+                    <p class="text-[10px] text-[#32475C]/60">Zumba Fitness LLC • Valid thru 2027</p>
+                  </div>
+                </div>
+                <span class="text-[10px] font-bold text-emerald-600">✓</span>
+              </div>
+
+              <div class="p-2.5 rounded-[6px] border border-gray-200/70 bg-[#F9FAFB] flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-[#007AFF] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  <div>
+                    <h4 class="text-xs font-bold text-[#32475C]">Sports First Aid &amp; CPR Certified</h4>
+                    <p class="text-[10px] text-[#32475C]/60">Dutch Red Cross (Rode Kruis)</p>
+                  </div>
+                </div>
+                <span class="text-[10px] font-bold text-emerald-600">✓</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 2: Coaching Specialties -->
+          <div class="bg-white rounded-[8px] border border-[#E2E8F0] shadow-[0px_2px_10px_0px_rgba(50,71,92,0.1)] p-5">
+            <div class="flex items-center justify-between pb-3 border-b border-gray-100 mb-4">
+              <h3 class="text-base font-bold text-[#32475C] font-['Montserrat']">Coaching Specialties</h3>
+              <button type="button" onclick="openAddSportExpertiseModal()" class="text-xs font-semibold text-[#007AFF] hover:underline">+ Manage</button>
+            </div>
+
+            <!-- 2x2 Mini-Card Grid (Exact to media_1791987032380.jpg) -->
+            <div class="grid grid-cols-2 gap-2.5">
+              <div class="p-3 rounded-[6px] bg-[#F9FAFB] border border-gray-200/80">
+                <div class="w-7 h-7 rounded bg-blue-50 text-[#007AFF] flex items-center justify-center mb-1.5">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <h4 class="text-xs font-bold text-[#32475C]">Technical Development</h4>
+                <p class="text-[10px] text-[#32475C]/60 mt-0.5 leading-snug">Grip, swing path &amp; biomechanics</p>
+              </div>
+
+              <div class="p-3 rounded-[6px] bg-[#F9FAFB] border border-gray-200/80">
+                <div class="w-7 h-7 rounded bg-blue-50 text-[#007AFF] flex items-center justify-center mb-1.5">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                </div>
+                <h4 class="text-xs font-bold text-[#32475C]">Game Strategy</h4>
+                <p class="text-[10px] text-[#32475C]/60 mt-0.5 leading-snug">Match play tactics &amp; shot selection</p>
+              </div>
+
+              <div class="p-3 rounded-[6px] bg-[#F9FAFB] border border-gray-200/80">
+                <div class="w-7 h-7 rounded bg-blue-50 text-[#007AFF] flex items-center justify-center mb-1.5">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <h4 class="text-xs font-bold text-[#32475C]">Fitness &amp; Footwork</h4>
+                <p class="text-[10px] text-[#32475C]/60 mt-0.5 leading-snug">Court coverage, agility &amp; stamina</p>
+              </div>
+
+              <div class="p-3 rounded-[6px] bg-[#F9FAFB] border border-gray-200/80">
+                <div class="w-7 h-7 rounded bg-blue-50 text-[#007AFF] flex items-center justify-center mb-1.5">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <h4 class="text-xs font-bold text-[#32475C]">Mental Confidence</h4>
+                <p class="text-[10px] text-[#32475C]/60 mt-0.5 leading-snug">Composure under pressure &amp; focus</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 3: Who I Work With -->
+          <div class="bg-white rounded-[8px] border border-[#E2E8F0] shadow-[0px_2px_10px_0px_rgba(50,71,92,0.1)] p-5">
+            <div class="flex items-center justify-between pb-3 border-b border-gray-100 mb-4">
+              <h3 class="text-base font-bold text-[#32475C] font-['Montserrat']">Who I Work With</h3>
+              <span class="text-[10px] font-semibold text-gray-400">All Ages &amp; Levels</span>
+            </div>
+
+            <!-- 2x2 Mini-Card Grid (Exact to media_1791987032380.jpg) -->
+            <div class="grid grid-cols-2 gap-2.5">
+              <div class="p-3 rounded-[6px] bg-[#F9FAFB] border border-gray-200/80">
+                <div class="w-7 h-7 rounded bg-emerald-50 text-emerald-600 flex items-center justify-center mb-1.5 font-bold text-xs">
+                  BEG
+                </div>
+                <h4 class="text-xs font-bold text-[#32475C]">Adult Beginners</h4>
+                <p class="text-[10px] text-[#32475C]/60 mt-0.5 leading-snug">Building clean fundamentals</p>
+              </div>
+
+              <div class="p-3 rounded-[6px] bg-[#F9FAFB] border border-gray-200/80">
+                <div class="w-7 h-7 rounded bg-blue-50 text-[#007AFF] flex items-center justify-center mb-1.5 font-bold text-xs">
+                  INT
+                </div>
+                <h4 class="text-xs font-bold text-[#32475C]">Intermediate Players</h4>
+                <p class="text-[10px] text-[#32475C]/60 mt-0.5 leading-snug">Refining technique &amp; depth</p>
+              </div>
+
+              <div class="p-3 rounded-[6px] bg-[#F9FAFB] border border-gray-200/80">
+                <div class="w-7 h-7 rounded bg-purple-50 text-purple-600 flex items-center justify-center mb-1.5 font-bold text-xs">
+                  PRO
+                </div>
+                <h4 class="text-xs font-bold text-[#32475C]">Competitive Players</h4>
+                <p class="text-[10px] text-[#32475C]/60 mt-0.5 leading-snug">Tournament prep &amp; high pace</p>
+              </div>
+
+              <div class="p-3 rounded-[6px] bg-[#F9FAFB] border border-gray-200/80">
+                <div class="w-7 h-7 rounded bg-amber-50 text-amber-600 flex items-center justify-center mb-1.5 font-bold text-xs">
+                  GRP
+                </div>
+                <h4 class="text-xs font-bold text-[#32475C]">Groups &amp; Private</h4>
+                <p class="text-[10px] text-[#32475C]/60 mt-0.5 leading-snug">Tailored 1:1 and social clinics</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 5. Action CTA Banner (Ice Blue #EBF5FF, Exact to media_1791987032380.jpg) -->
+        <div class="bg-[#EBF5FF] border border-[#007AFF]/25 rounded-[8px] p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xs">
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-[#007AFF]/15 text-[#007AFF] flex items-center justify-center shrink-0">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            </div>
+            <div>
+              <h3 class="text-lg sm:text-xl font-bold text-[#32475C] font-['Montserrat']">Ready to take your game to the next level?</h3>
+              <p class="text-xs sm:text-sm text-[#32475C]/75 mt-0.5">Book a lesson with Mukund or send a message to discuss your coaching goals.</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 shrink-0 w-full md:w-auto">
+            <button type="button" onclick="openPortalBookLessonModal()" class="flex-1 md:flex-none bg-[#007AFF] hover:bg-[#0062cc] text-white font-bold text-xs sm:text-sm px-6 py-2.5 rounded-[4px] shadow-sm transition">
+              Book Lesson
+            </button>
+            <button type="button" onclick="openMessageCoachModal()" class="flex-1 md:flex-none bg-white hover:bg-gray-50 text-[#007AFF] border border-[#007AFF]/40 font-bold text-xs sm:text-sm px-6 py-2.5 rounded-[4px] shadow-2xs transition">
+              Message Coach
+            </button>
+          </div>
+        </div>
+
+        <!-- 6. Footer Trust Badges Ribbon (Exact to media_1791987032380.jpg) -->
+        <div class="bg-white rounded-[8px] border border-[#E2E8F0] p-4 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+          <div class="flex flex-col items-center">
+            <span class="text-[#007AFF] text-base mb-1">✓</span>
+            <span class="text-xs font-bold text-[#32475C]">Verified Coaches</span>
+            <span class="text-[10px] text-[#32475C]/60 mt-0.5">KNLTB &amp; FIP licensed</span>
+          </div>
+          <div class="flex flex-col items-center">
+            <span class="text-[#007AFF] text-base mb-1">⏱</span>
+            <span class="text-xs font-bold text-[#32475C]">Flexible Scheduling</span>
+            <span class="text-[10px] text-[#32475C]/60 mt-0.5">Book slots fitting your week</span>
+          </div>
+          <div class="flex flex-col items-center">
+            <span class="text-[#007AFF] text-base mb-1">🏟</span>
+            <span class="text-xs font-bold text-[#32475C]">Top Clubs</span>
+            <span class="text-[10px] text-[#32475C]/60 mt-0.5">Utrecht &amp; Amsterdam venues</span>
+          </div>
+          <div class="flex flex-col items-center">
+            <span class="text-[#007AFF] text-base mb-1">⚡</span>
+            <span class="text-xs font-bold text-[#32475C]">A More Active You</span>
+            <span class="text-[10px] text-[#32475C]/60 mt-0.5">Skill growth &amp; court fun</span>
+          </div>
+        </div>
+
       </div> <!-- END #profile-sub-public -->
 
       <!-- ========================================================================= -->
@@ -4541,7 +4447,7 @@
       <div id="profile-sub-account" class="hidden space-y-6">
         
         <!-- Privacy Notice Banner (StyledCard Token) -->
-        <div class="bg-amber-50 border border-amber-200 rounded-[6px] p-4 flex items-start space-x-3 text-xs text-amber-900 shadow-2xs">
+        <div class="bg-amber-50 border border-amber-200 rounded-[8px] p-4 flex items-start space-x-3 text-xs text-amber-900 shadow-2xs">
           <svg class="w-5 h-5 text-amber-700 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
           <div>
             <span class="font-bold block">Confidential Account &amp; Compliance Information</span>
@@ -4554,10 +4460,10 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
           
           <!-- Card 1: Personal Identity & Demographics -->
-          <div class="bg-white rounded-[6px] border border-gray-200/80 shadow-[0px_3px_8px_0px_rgba(34,48,62,0.1)] p-6">
+          <div class="bg-white rounded-[8px] border border-[#E2E8F0] shadow-[0px_2px_10px_0px_rgba(50,71,92,0.1)] p-6">
             <div class="flex justify-between items-center pb-3 border-b border-gray-100 mb-4">
               <div>
-                <h3 class="text-[15px] font-normal uppercase tracking-wider text-[#32475C]" style="font-family: 'Public Sans', sans-serif;">PERSONAL IDENTITY &amp; DEMOGRAPHICS</h3>
+                <h3 class="text-[15px] font-semibold uppercase tracking-wider text-[#32475C]" style="font-family: 'Public Sans', sans-serif;">PERSONAL IDENTITY &amp; DEMOGRAPHICS</h3>
               </div>
               <span class="text-[10px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
                 PASSPORT VERIFIED ✓
@@ -4566,29 +4472,29 @@
 
             <div class="space-y-3.5 text-xs">
               <div class="grid grid-cols-2 gap-3">
-                <div class="bg-[#F9FAFB] rounded-lg p-3 border border-gray-200/70">
+                <div class="bg-[#F9FAFB] rounded-[6px] p-3 border border-gray-200/70">
                   <span class="text-[10px] font-semibold text-[#32475C] uppercase tracking-wider block">FIRST NAME</span>
                   <span class="font-bold text-[#32475C] text-sm mt-0.5 block">Mukund</span>
                 </div>
-                <div class="bg-[#F9FAFB] rounded-lg p-3 border border-gray-200/70">
+                <div class="bg-[#F9FAFB] rounded-[6px] p-3 border border-gray-200/70">
                   <span class="text-[10px] font-semibold text-[#32475C] uppercase tracking-wider block">LAST NAME</span>
                   <span class="font-bold text-[#32475C] text-sm mt-0.5 block">Patil</span>
                 </div>
               </div>
 
               <div class="grid grid-cols-2 gap-3">
-                <div class="bg-[#F9FAFB] rounded-lg p-3 border border-gray-200/70">
+                <div class="bg-[#F9FAFB] rounded-[6px] p-3 border border-gray-200/70">
                   <span class="text-[10px] font-semibold text-[#32475C] uppercase tracking-wider block">DATE OF BIRTH</span>
                   <span class="font-bold text-[#32475C] mt-0.5 block">16/09/1997</span>
                   <span class="text-[10px] text-[#32475C]/60">29 Years Old</span>
                 </div>
-                <div class="bg-[#F9FAFB] rounded-lg p-3 border border-gray-200/70">
+                <div class="bg-[#F9FAFB] rounded-[6px] p-3 border border-gray-200/70">
                   <span class="text-[10px] font-semibold text-[#32475C] uppercase tracking-wider block">GENDER</span>
                   <span class="font-bold text-[#32475C] mt-0.5 block">Male</span>
                 </div>
               </div>
 
-              <div class="bg-[#F9FAFB] rounded-lg p-3 border border-gray-200/70">
+              <div class="bg-[#F9FAFB] rounded-[6px] p-3 border border-gray-200/70">
                 <span class="text-[10px] font-semibold text-[#32475C] uppercase tracking-wider block">NATIONALITY</span>
                 <span class="font-bold text-[#32475C] mt-0.5 block">Dutch / Netherlands</span>
               </div>
@@ -4596,10 +4502,10 @@
           </div>
 
           <!-- Card 2: Contact & Operating Address -->
-          <div class="bg-white rounded-[6px] border border-gray-200/80 shadow-[0px_3px_8px_0px_rgba(34,48,62,0.1)] p-6">
+          <div class="bg-white rounded-[8px] border border-[#E2E8F0] shadow-[0px_2px_10px_0px_rgba(50,71,92,0.1)] p-6">
             <div class="flex justify-between items-center pb-3 border-b border-gray-100 mb-4">
               <div>
-                <h3 class="text-[15px] font-normal uppercase tracking-wider text-[#32475C]" style="font-family: 'Public Sans', sans-serif;">CONTACT &amp; OPERATING ADDRESS</h3>
+                <h3 class="text-[15px] font-semibold uppercase tracking-wider text-[#32475C]" style="font-family: 'Public Sans', sans-serif;">CONTACT &amp; OPERATING ADDRESS</h3>
               </div>
               <button type="button" onclick="openEditProfileModal('account')" class="text-[#007AFF] hover:underline text-xs font-semibold">
                 Edit Contact
@@ -4607,25 +4513,25 @@
             </div>
 
             <div class="space-y-3.5 text-xs">
-              <div class="bg-[#F9FAFB] rounded-lg p-3 border border-gray-200/70">
+              <div class="bg-[#F9FAFB] rounded-[6px] p-3 border border-gray-200/70">
                 <span class="text-[10px] font-semibold text-[#32475C] uppercase tracking-wider block">REGISTERED EMAIL</span>
                 <span class="font-bold text-[#32475C] text-sm mt-0.5 block">kihi@yopmail.com</span>
                 <span class="text-[10px] text-emerald-600 font-medium">Primary login &amp; platform alerts</span>
               </div>
 
               <div class="grid grid-cols-2 gap-3">
-                <div class="bg-[#F9FAFB] rounded-lg p-3 border border-gray-200/70">
+                <div class="bg-[#F9FAFB] rounded-[6px] p-3 border border-gray-200/70">
                   <span class="text-[10px] font-semibold text-[#32475C] uppercase tracking-wider block">MOBILE PHONE 1</span>
                   <span class="font-bold text-[#32475C] mt-0.5 block">+31 6 8765 4321</span>
                   <span class="text-[10px] text-[#32475C]/60">2FA SMS Verified</span>
                 </div>
-                <div class="bg-[#F9FAFB] rounded-lg p-3 border border-gray-200/70">
+                <div class="bg-[#F9FAFB] rounded-[6px] p-3 border border-gray-200/70">
                   <span class="text-[10px] font-semibold text-[#32475C] uppercase tracking-wider block">CONTACT 2 / EMERGENCY</span>
                   <span class="font-medium text-[#32475C]/50 mt-0.5 block">- None on file -</span>
                 </div>
               </div>
 
-              <div class="bg-[#F9FAFB] rounded-lg p-3 border border-gray-200/70">
+              <div class="bg-[#F9FAFB] rounded-[6px] p-3 border border-gray-200/70">
                 <span class="text-[10px] font-semibold text-[#32475C] uppercase tracking-wider block">OPERATING &amp; BILLING ADDRESS</span>
                 <span class="font-bold text-[#32475C] mt-0.5 block">Herculesplein 241, 3584 AA Utrecht</span>
                 <span class="text-[10px] text-[#32475C]/60">Netherlands</span>
@@ -4634,10 +4540,10 @@
           </div>
 
           <!-- Card 3: Business & Dutch KvK Compliance -->
-          <div class="bg-white rounded-[6px] border border-gray-200/80 shadow-[0px_3px_8px_0px_rgba(34,48,62,0.1)] p-6">
+          <div class="bg-white rounded-[8px] border border-[#E2E8F0] shadow-[0px_2px_10px_0px_rgba(50,71,92,0.1)] p-6">
             <div class="flex justify-between items-center pb-3 border-b border-gray-100 mb-4">
               <div>
-                <h3 class="text-[15px] font-normal uppercase tracking-wider text-[#32475C]" style="font-family: 'Public Sans', sans-serif;">BUSINESS &amp; KVK REGISTRATION</h3>
+                <h3 class="text-[15px] font-semibold uppercase tracking-wider text-[#32475C]" style="font-family: 'Public Sans', sans-serif;">BUSINESS &amp; KVK REGISTRATION</h3>
               </div>
               <span class="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">
                 ACTIVE IN HANDELSREGISTER ✓
@@ -4645,18 +4551,18 @@
             </div>
 
             <div class="space-y-3.5 text-xs">
-              <div class="bg-[#F9FAFB] rounded-lg p-3 border border-gray-200/70">
+              <div class="bg-[#F9FAFB] rounded-[6px] p-3 border border-gray-200/70">
                 <span class="text-[10px] font-semibold text-[#32475C] uppercase tracking-wider block">DUTCH KVK NUMBER</span>
                 <span class="font-mono text-base font-bold text-[#007AFF] mt-0.5 block">21312421</span>
                 <span class="text-[10px] text-[#32475C]/60">Registered entity: Mukund Patil Sports Coaching (Eenmanszaak)</span>
               </div>
 
               <div class="grid grid-cols-2 gap-3">
-                <div class="bg-[#F9FAFB] rounded-lg p-3 border border-gray-200/70">
+                <div class="bg-[#F9FAFB] rounded-[6px] p-3 border border-gray-200/70">
                   <span class="text-[10px] font-semibold text-[#32475C] uppercase tracking-wider block">BTW / VAT ID</span>
                   <span class="font-mono font-bold text-[#32475C] mt-0.5 block">NL823456789B01</span>
                 </div>
-                <div class="bg-[#F9FAFB] rounded-lg p-3 border border-gray-200/70">
+                <div class="bg-[#F9FAFB] rounded-[6px] p-3 border border-gray-200/70">
                   <span class="text-[10px] font-semibold text-[#32475C] uppercase tracking-wider block">LEGAL STRUCTURE</span>
                   <span class="font-bold text-[#32475C] mt-0.5 block">Sole Trader (ZZP)</span>
                 </div>
@@ -4665,10 +4571,10 @@
           </div>
 
           <!-- Card 4: Stripe Connect Payout & Banking -->
-          <div class="bg-white rounded-[6px] border border-gray-200/80 shadow-[0px_3px_8px_0px_rgba(34,48,62,0.1)] p-6">
+          <div class="bg-white rounded-[8px] border border-[#E2E8F0] shadow-[0px_2px_10px_0px_rgba(50,71,92,0.1)] p-6">
             <div class="flex justify-between items-center pb-3 border-b border-gray-100 mb-4">
               <div>
-                <h3 class="text-[15px] font-normal uppercase tracking-wider text-[#32475C]" style="font-family: 'Public Sans', sans-serif;">AUTOMATED PAYOUTS (STRIPE CONNECT)</h3>
+                <h3 class="text-[15px] font-semibold uppercase tracking-wider text-[#32475C]" style="font-family: 'Public Sans', sans-serif;">AUTOMATED PAYOUTS (STRIPE CONNECT)</h3>
               </div>
               <span class="text-[10px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
                 STRIPE ACTIVE ✓
@@ -4676,18 +4582,18 @@
             </div>
 
             <div class="space-y-3.5 text-xs">
-              <div class="bg-[#F9FAFB] rounded-lg p-3 border border-gray-200/70">
+              <div class="bg-[#F9FAFB] rounded-[6px] p-3 border border-gray-200/70">
                 <span class="text-[10px] font-semibold text-[#32475C] uppercase tracking-wider block">LINKED IBAN BANK ACCOUNT</span>
                 <span class="font-mono text-sm font-bold text-[#32475C] mt-0.5 block">NL91 ABNA 0412 8912 ••</span>
                 <span class="text-[10px] text-[#32475C]/60">ABN AMRO Bank N.V. (SEPA Instant Enabled)</span>
               </div>
 
               <div class="grid grid-cols-2 gap-3">
-                <div class="bg-[#F9FAFB] rounded-lg p-3 border border-gray-200/70">
+                <div class="bg-[#F9FAFB] rounded-[6px] p-3 border border-gray-200/70">
                   <span class="text-[10px] font-semibold text-[#32475C] uppercase tracking-wider block">SETTLEMENT FREQUENCY</span>
                   <span class="font-bold text-[#32475C] mt-0.5 block">Weekly on Mondays</span>
                 </div>
-                <div class="bg-[#F9FAFB] rounded-lg p-3 border border-gray-200/70">
+                <div class="bg-[#F9FAFB] rounded-[6px] p-3 border border-gray-200/70">
                   <span class="text-[10px] font-semibold text-[#32475C] uppercase tracking-wider block">ASSIGNED SPLIT</span>
                   <span class="font-bold text-emerald-600 mt-0.5 block">85% Coach / 15% SWP</span>
                 </div>
@@ -4699,7 +4605,8 @@
 
       </div> <!-- END #profile-sub-account -->
 
-    </section>\n\n
+    </section>
+
 
     <!-- ==================== VIEW 5: REVIEW & RATINGS ==================== -->
     <section id="cview-review" class="coach-view-panel hidden max-w-6xl mx-auto py-8 px-6 w-full flex-1">
@@ -5947,127 +5854,123 @@
 
 
 
-  <!-- ================= EDIT PROFILE & CREDENTIALS MODAL (ShallWe-Play Design System, Spacious max-w-4xl) ================= -->
-  <div id="modal-edit-profile" class="hidden fixed inset-0 bg-black/70 backdrop-blur-xs z-50 flex items-center justify-center p-3 sm:p-6">
-    <div class="bg-white rounded-3xl max-w-4xl w-full p-6 sm:p-8 shadow-2xl border border-gray-200 text-gray-900 relative max-h-[92vh] flex flex-col">
+    <!-- ================= EDIT PROFILE & CREDENTIALS MODAL (Strict SWP Design System) ================= -->
+  <div id="modal-edit-profile" class="hidden fixed inset-0 bg-black/80 backdrop-blur-xs z-50 flex items-center justify-center p-3 sm:p-6">
+    <div class="bg-white rounded-[8px] max-w-4xl w-full p-6 sm:p-8 shadow-[0px_2px_10px_0px_rgba(50,71,92,0.1)] border border-[#E2E8F0] text-[#32475C] relative max-h-[92vh] flex flex-col">
       
       <!-- Modal Header -->
-      <div class="flex items-center justify-between border-b border-gray-100 pb-4 mb-4 shrink-0">
+      <div class="flex items-center justify-between border-b border-[#E2E8F0] pb-4 mb-4 shrink-0">
         <div class="flex items-center space-x-3">
-          <div class="w-11 h-11 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl border border-blue-100 shadow-2xs"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg></div>
+          <div class="w-10 h-10 rounded-[6px] bg-[#EBF5FF] text-[#007AFF] flex items-center justify-center text-lg border border-[#007AFF]/20">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg>
+          </div>
           <div>
             <div class="flex items-center gap-2">
-              <span class="text-[10px] font-extrabold text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200 uppercase tracking-wider">PROFILE &amp; CREDENTIALS EDITOR</span>
-              <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">Live Wireframe Sync</span>
+              <span class="text-[10px] font-bold text-[#007AFF] bg-[#EBF5FF] px-2 py-0.5 rounded border border-[#007AFF]/25 uppercase tracking-wider">PROFILE &amp; CREDENTIALS EDITOR</span>
+              <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Live Wireframe Sync</span>
             </div>
-            <h3 class="text-lg sm:text-xl font-black text-gray-950 mt-0.5">Edit Coach Profile Presentation &amp; Account</h3>
+            <h3 class="text-base sm:text-lg font-bold text-[#32475C] mt-0.5 font-heading" style="font-family: 'Montserrat', sans-serif;">Edit Coach Profile Presentation &amp; Account</h3>
           </div>
         </div>
-        <button type="button" onclick="closeEditProfileModal()" class="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500 hover:text-gray-900 flex items-center justify-center font-bold text-base transition">✕</button>
+        <button type="button" onclick="closeEditProfileModal()" class="w-8 h-8 rounded-[4px] bg-white hover:bg-gray-100 border border-[#E2E8F0] text-gray-500 hover:text-[#32475C] flex items-center justify-center font-bold text-sm transition shadow-2xs">✕</button>
       </div>
 
       <!-- Segmented Sub-Tab Switcher Inside Modal -->
-      <div class="flex items-center space-x-1.5 bg-gray-100 p-1.5 rounded-2xl mb-4 shrink-0 overflow-x-auto no-scrollbar">
-        <button type="button" onclick="switchEditProfileTab('public')" id="btn-edit-tab-public" class="px-4 py-2 rounded-xl text-xs font-bold bg-[#007AFF] text-white shadow-2xs transition flex items-center gap-1.5 whitespace-nowrap">
+      <div class="flex items-center space-x-1.5 bg-[#F5F5F9] p-1.5 rounded-[6px] mb-4 shrink-0 overflow-x-auto no-scrollbar border border-gray-200">
+        <button type="button" onclick="switchEditProfileTab('public')" id="btn-edit-tab-public" class="px-4 py-2 rounded-[4px] text-xs font-bold bg-[#007AFF] text-white shadow-2xs transition flex items-center gap-1.5 whitespace-nowrap">
           <span>1. Public Presentation</span>
         </button>
-        <button type="button" onclick="switchEditProfileTab('sports')" id="btn-edit-tab-sports" class="px-4 py-2 rounded-xl text-xs font-semibold text-gray-600 hover:text-black transition flex items-center gap-1.5 whitespace-nowrap">
+        <button type="button" onclick="switchEditProfileTab('sports')" id="btn-edit-tab-sports" class="px-4 py-2 rounded-[4px] text-xs font-semibold text-[#32475C]/70 hover:text-[#32475C] transition flex items-center gap-1.5 whitespace-nowrap">
           <span>2. Sports, Specialties &amp; Lessons</span>
         </button>
-        <button type="button" onclick="switchEditProfileTab('account')" id="btn-edit-tab-account" class="px-4 py-2 rounded-xl text-xs font-semibold text-gray-600 hover:text-black transition flex items-center gap-1.5 whitespace-nowrap">
+        <button type="button" onclick="switchEditProfileTab('account')" id="btn-edit-tab-account" class="px-4 py-2 rounded-[4px] text-xs font-semibold text-[#32475C]/70 hover:text-[#32475C] transition flex items-center gap-1.5 whitespace-nowrap">
           <span>3. Confidential Account &amp; Compliance</span>
         </button>
       </div>
 
       <!-- Scrollable Form Body -->
-      <form onsubmit="event.preventDefault(); saveEditProfileForm();" class="overflow-y-auto no-scrollbar flex-1 pr-1 space-y-5 text-xs">
+      <form onsubmit="event.preventDefault(); saveEditProfileForm();" class="overflow-y-auto no-scrollbar flex-1 pr-1 space-y-4 text-xs">
         
         <!-- ================= TAB PANEL 1: PUBLIC PRESENTATION ================= -->
         <div id="edit-tab-panel-public" class="space-y-4">
           
           <!-- Avatar & Photo Upload Banner -->
-          <div class="bg-gradient-to-r from-blue-50/70 via-indigo-50/40 to-white border border-blue-200/80 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="bg-[#F9FAFB] border border-[#E2E8F0] rounded-[8px] p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="flex items-center space-x-4 text-left">
               <div class="relative">
-                <div id="edit-avatar-preview" class="w-18 h-18 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white font-black text-2xl flex items-center justify-center shadow-md border-2 border-white overflow-hidden">
+                <div id="edit-avatar-preview" class="w-16 h-16 sm:w-18 sm:h-18 rounded-[8px] bg-[#007AFF] text-white font-bold text-2xl flex items-center justify-center shadow-md border-2 border-white overflow-hidden">
                   <span id="edit-avatar-text">MP</span>
                   <img id="edit-avatar-img" src="" class="w-full h-full object-cover hidden" alt="Coach photo">
                 </div>
-                <div class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-emerald-500 border-2 border-white flex items-center justify-center text-[10px] text-white font-bold" title="Verified Photo">✓</div>
+                <div class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-emerald-500 border-2 border-white flex items-center justify-center text-[9px] text-white font-bold" title="Verified Photo">✓</div>
               </div>
               <div>
-                <span class="text-[10px] font-bold text-blue-600 uppercase tracking-wider block">COACH AVATAR / PROFILE PHOTO</span>
-                <h4 id="edit-avatar-name" class="font-bold text-gray-900 text-sm">Mukund Patil</h4>
-                <p class="text-[11px] text-gray-500 mt-0.5">Shown on Player Mobile App, Club Discovery, and Booking Receipts.</p>
-                <span class="text-[10px] text-gray-400">JPG, PNG or WebP • Recommended min. 400×400px</span>
+                <span class="text-[10px] font-bold text-[#007AFF] uppercase tracking-wider block">COACH AVATAR / PROFILE PHOTO</span>
+                <h4 id="edit-avatar-name" class="font-bold text-[#32475C] text-sm">Mukund Patil</h4>
+                <p class="text-[11px] text-[#32475C]/60 mt-0.5">Shown on Player Mobile App, Club Discovery, and Booking Receipts.</p>
+                <span class="text-[10px] text-[#32475C]/50">JPG, PNG or WebP • Recommended min. 400×400px</span>
               </div>
             </div>
 
             <div class="flex items-center space-x-2 shrink-0">
-              <label class="cursor-pointer bg-white hover:bg-gray-50 text-blue-600 border border-blue-300 font-bold px-3.5 py-2 rounded-xl text-xs transition shadow-2xs flex items-center space-x-1.5">
+              <label class="cursor-pointer bg-white hover:bg-gray-50 text-[#007AFF] border border-[#007AFF]/40 font-bold px-3 py-2 rounded-[4px] text-xs transition shadow-2xs flex items-center space-x-1.5">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                 <span>Upload Photo</span>
                 <input type="file" accept="image/*" class="hidden" onchange="simulatePhotoUpload(this)">
               </label>
-              <button type="button" onclick="resetAvatarInitials()" class="bg-gray-100 hover:bg-gray-200 text-gray-600 font-semibold px-3 py-2 rounded-xl text-xs transition">
+              <button type="button" onclick="resetAvatarInitials()" class="bg-[#F5F5F9] hover:bg-gray-200 text-[#32475C] font-semibold px-3 py-2 rounded-[4px] text-xs transition border border-gray-200">
                 Use Initials
               </button>
             </div>
           </div>
 
-          <!-- Names & Headline Row -->
+          <!-- Names Row: Canonical SWP 52px Notched Inset Floating Labels -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1.5">First Name *</label>
-              <input type="text" id="input-edit-fname" value="Mukund" required class="w-full border border-gray-300 rounded-xl px-3.5 py-2.5 text-xs bg-white focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none font-medium transition">
+            <div class="relative min-h-[52px]">
+              <label class="absolute -top-2 left-3 bg-white px-1 text-[11px] font-semibold text-[#32475C]/80 z-10 uppercase tracking-wider">First Name *</label>
+              <input type="text" id="input-edit-fname" value="Mukund" required class="h-[52px] w-full rounded-[4px] border border-[#32475C]/25 bg-white px-3.5 text-sm font-medium text-[#32475C] focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none transition">
             </div>
-            <div>
-              <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1.5">Last Name *</label>
-              <input type="text" id="input-edit-lname" value="Patil" required class="w-full border border-gray-300 rounded-xl px-3.5 py-2.5 text-xs bg-white focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none font-medium transition">
+            <div class="relative min-h-[52px]">
+              <label class="absolute -top-2 left-3 bg-white px-1 text-[11px] font-semibold text-[#32475C]/80 z-10 uppercase tracking-wider">Last Name *</label>
+              <input type="text" id="input-edit-lname" value="Patil" required class="h-[52px] w-full rounded-[4px] border border-[#32475C]/25 bg-white px-3.5 text-sm font-medium text-[#32475C] focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none transition">
             </div>
           </div>
 
           <!-- Coach Title / Headline -->
           <div>
-            <div class="flex items-center justify-between mb-1.5">
-              <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider">Coach Title / Headline *</label>
-              <span class="text-[10px] text-gray-400">Displayed on student search cards</span>
+            <div class="relative min-h-[52px]">
+              <label class="absolute -top-2 left-3 bg-white px-1 text-[11px] font-semibold text-[#32475C]/80 z-10 uppercase tracking-wider">Coach Title / Headline *</label>
+              <input type="text" id="input-edit-headline" value="Tennis &amp; Padel Coach | Beginners to High-Performance" placeholder="e.g. Tennis &amp; Padel Coach | Beginners to High-Performance" required class="h-[52px] w-full rounded-[4px] border border-[#32475C]/25 bg-white px-3.5 text-sm font-medium text-[#32475C] focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none transition">
             </div>
-            <input type="text" id="input-edit-headline" value="Tennis &amp; Padel Coach | Beginners &amp; Performance" placeholder="e.g. Golf Coach | Beginners &amp; Performance" required class="w-full border border-gray-300 rounded-xl px-3.5 py-2.5 text-xs bg-white focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none font-medium transition">
             
             <!-- Quick Suggestions Chips -->
             <div class="flex flex-wrap items-center gap-1.5 mt-2">
-              <span class="text-[10px] text-gray-400 font-semibold">Suggestions:</span>
-              <button type="button" onclick="setHeadlineSuggestion('Tennis &amp; Padel Coach | Beginners &amp; Performance')" class="text-[10px] bg-gray-100 hover:bg-gray-200 text-gray-700 px-2.5 py-0.5 rounded-md transition font-medium">Tennis &amp; Padel Coach | Beginners &amp; Performance</button>
-              <button type="button" onclick="setHeadlineSuggestion('High-Performance Tennis Pro | Biomechanics Specialist')" class="text-[10px] bg-gray-100 hover:bg-gray-200 text-gray-700 px-2.5 py-0.5 rounded-md transition font-medium">High-Performance Tennis Pro | Biomechanics</button>
-              <button type="button" onclick="setHeadlineSuggestion('Head Coach | Junior Academy &amp; Adult Starters')" class="text-[10px] bg-gray-100 hover:bg-gray-200 text-gray-700 px-2.5 py-0.5 rounded-md transition font-medium">Junior Academy &amp; Adult Starters</button>
+              <span class="text-[10px] text-[#32475C]/50 font-semibold">Suggestions:</span>
+              <button type="button" onclick="setHeadlineSuggestion('Tennis &amp; Padel Coach | Beginners to High-Performance')" class="text-[10px] bg-[#F5F5F9] hover:bg-gray-200 text-[#32475C] border border-gray-200 px-2.5 py-0.5 rounded-[4px] transition font-medium">Tennis &amp; Padel Coach | Beginners to High-Performance</button>
+              <button type="button" onclick="setHeadlineSuggestion('High-Performance Tennis Pro | Biomechanics Specialist')" class="text-[10px] bg-[#F5F5F9] hover:bg-gray-200 text-[#32475C] border border-gray-200 px-2.5 py-0.5 rounded-[4px] transition font-medium">High-Performance Tennis Pro | Biomechanics</button>
+              <button type="button" onclick="setHeadlineSuggestion('Head Coach | Junior Academy &amp; Adult Starters')" class="text-[10px] bg-[#F5F5F9] hover:bg-gray-200 text-[#32475C] border border-gray-200 px-2.5 py-0.5 rounded-[4px] transition font-medium">Junior Academy &amp; Adult Starters</button>
             </div>
           </div>
 
-          <!-- Short Bio / Coaching Philosophy -->
-          <div>
-            <div class="flex items-center justify-between mb-1.5">
-              <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider">Short Bio &amp; Coaching Philosophy *</label>
-              <span class="text-[10px] text-gray-400">Introduction about coach, methodology and experience</span>
-            </div>
-            <textarea id="input-edit-bio" rows="4" required class="w-full border border-gray-300 rounded-xl px-3.5 py-2.5 text-xs bg-white focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none font-medium leading-relaxed transition" placeholder="Introduce yourself, your competitive playing background, and coaching style...">Former national-level competitive player with over 8 years of professional coaching experience across the Netherlands and Europe. My methodology combines modern biomechanical video analysis with high-intensity game-situation drills. Passionate about helping both ambitious adult beginners and elite junior players unlock consistent strokes, mental composure, and competitive confidence.</textarea>
+          <!-- Short Bio & Coaching Philosophy -->
+          <div class="relative min-h-[110px]">
+            <label class="absolute -top-2 left-3 bg-white px-1 text-[11px] font-semibold text-[#32475C]/80 z-10 uppercase tracking-wider">Short Bio &amp; Coaching Philosophy *</label>
+            <textarea id="input-edit-bio" rows="4" required class="w-full rounded-[4px] border border-[#32475C]/25 bg-white p-3.5 text-sm font-medium text-[#32475C] focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none leading-relaxed transition" placeholder="Introduce yourself, your competitive playing background, and coaching style...">Former national-level competitive player with over 8 years of professional coaching experience across the Netherlands. Combines biomechanical video analysis with high-intensity game-situation drills. Passionate about helping both ambitious adult beginners and elite junior players unlock consistent strokes, mental composure, and competitive confidence.</textarea>
           </div>
 
           <!-- Pricing & Experience Grid (3 Columns) -->
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div>
-              <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1.5">Starting Price Headline</label>
-              <input type="text" id="input-edit-startprice" value="From €40/hr" placeholder="e.g. From €40/hr" class="w-full border border-gray-300 rounded-xl px-3.5 py-2.5 text-xs bg-white focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none font-medium transition">
-              <span class="text-[10px] text-gray-400 mt-1 block">Displayed on coach summary card</span>
+            <div class="relative min-h-[52px]">
+              <label class="absolute -top-2 left-3 bg-white px-1 text-[11px] font-semibold text-[#32475C]/80 z-10 uppercase tracking-wider">Starting Price Headline</label>
+              <input type="text" id="input-edit-startprice" value="From €40/hr" placeholder="e.g. From €40/hr" class="h-[52px] w-full rounded-[4px] border border-[#32475C]/25 bg-white px-3.5 text-sm font-medium text-[#32475C] focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none transition">
             </div>
-            <div>
-              <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1.5">Base 1-on-1 Rate (€ / hr)</label>
-              <input type="number" id="input-edit-baseprice" value="50" min="20" max="250" class="w-full border border-gray-300 rounded-xl px-3.5 py-2.5 text-xs bg-white focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none font-medium transition">
-              <span class="text-[10px] text-gray-400 mt-1 block">Standard private hourly rate</span>
+            <div class="relative min-h-[52px]">
+              <label class="absolute -top-2 left-3 bg-white px-1 text-[11px] font-semibold text-[#32475C]/80 z-10 uppercase tracking-wider">Base 1-on-1 Rate (€ / hr)</label>
+              <input type="number" id="input-edit-baseprice" value="50" min="20" max="250" class="h-[52px] w-full rounded-[4px] border border-[#32475C]/25 bg-white px-3.5 text-sm font-medium text-[#32475C] focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none transition">
             </div>
-            <div>
-              <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1.5">Years of Experience</label>
-              <select id="input-edit-experience" class="w-full border border-gray-300 rounded-xl px-3.5 py-2.5 text-xs bg-white focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none font-medium transition">
+            <div class="relative min-h-[52px]">
+              <label class="absolute -top-2 left-3 bg-white px-1 text-[11px] font-semibold text-[#32475C]/80 z-10 uppercase tracking-wider">Years of Experience</label>
+              <select id="input-edit-experience" class="h-[52px] w-full rounded-[4px] border border-[#32475C]/25 bg-white px-3.5 text-sm font-medium text-[#32475C] focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none transition">
                 <option value="1-2 Years">1-2 Years</option>
                 <option value="3-5 Years">3-5 Years</option>
                 <option value="5-8 Years">5-8 Years</option>
@@ -6075,47 +5978,48 @@
                 <option value="10+ Years">10+ Years (Senior Coach)</option>
                 <option value="15+ Years">15+ Years (Master Coach)</option>
               </select>
-              <span class="text-[10px] text-gray-400 mt-1 block">Verified coaching tenure</span>
             </div>
           </div>
 
           <!-- Languages Spoken -->
           <div>
-            <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1.5">Languages Spoken</label>
-            <input type="text" id="input-edit-languages" value="Dutch, English, German" placeholder="e.g. Dutch, English, German, Spanish" class="w-full border border-gray-300 rounded-xl px-3.5 py-2.5 text-xs bg-white focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none font-medium transition">
+            <div class="relative min-h-[52px]">
+              <label class="absolute -top-2 left-3 bg-white px-1 text-[11px] font-semibold text-[#32475C]/80 z-10 uppercase tracking-wider">Languages Spoken</label>
+              <input type="text" id="input-edit-languages" value="Dutch, English, German" placeholder="e.g. Dutch, English, German, Spanish" class="h-[52px] w-full rounded-[4px] border border-[#32475C]/25 bg-white px-3.5 text-sm font-medium text-[#32475C] focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none transition">
+            </div>
             <div class="flex flex-wrap items-center gap-1.5 mt-2">
-              <span class="text-[10px] text-gray-400 font-semibold">Quick toggle:</span>
-              <button type="button" onclick="toggleLanguageTag('Dutch')" class="text-[10px] bg-blue-50 text-blue-700 border border-blue-200 px-2.5 py-0.5 rounded-md font-bold">✓ Dutch</button>
-              <button type="button" onclick="toggleLanguageTag('English')" class="text-[10px] bg-blue-50 text-blue-700 border border-blue-200 px-2.5 py-0.5 rounded-md font-bold">✓ English</button>
-              <button type="button" onclick="toggleLanguageTag('German')" class="text-[10px] bg-blue-50 text-blue-700 border border-blue-200 px-2.5 py-0.5 rounded-md font-bold">✓ German</button>
-              <button type="button" onclick="toggleLanguageTag('Spanish')" class="text-[10px] bg-gray-100 text-gray-600 hover:bg-gray-200 px-2.5 py-0.5 rounded-md font-medium">+ Spanish</button>
-              <button type="button" onclick="toggleLanguageTag('French')" class="text-[10px] bg-gray-100 text-gray-600 hover:bg-gray-200 px-2.5 py-0.5 rounded-md font-medium">+ French</button>
+              <span class="text-[10px] text-[#32475C]/50 font-semibold">Quick toggle:</span>
+              <button type="button" onclick="toggleLanguageTag('Dutch')" class="text-[10px] bg-[#EBF5FF] text-[#007AFF] border border-[#007AFF]/25 px-2.5 py-0.5 rounded-[4px] font-bold">✓ Dutch</button>
+              <button type="button" onclick="toggleLanguageTag('English')" class="text-[10px] bg-[#EBF5FF] text-[#007AFF] border border-[#007AFF]/25 px-2.5 py-0.5 rounded-[4px] font-bold">✓ English</button>
+              <button type="button" onclick="toggleLanguageTag('German')" class="text-[10px] bg-[#EBF5FF] text-[#007AFF] border border-[#007AFF]/25 px-2.5 py-0.5 rounded-[4px] font-bold">✓ German</button>
+              <button type="button" onclick="toggleLanguageTag('Spanish')" class="text-[10px] bg-[#F5F5F9] text-[#32475C] border border-gray-200 hover:bg-gray-200 px-2.5 py-0.5 rounded-[4px] font-medium">+ Spanish</button>
+              <button type="button" onclick="toggleLanguageTag('French')" class="text-[10px] bg-[#F5F5F9] text-[#32475C] border border-gray-200 hover:bg-gray-200 px-2.5 py-0.5 rounded-[4px] font-medium">+ French</button>
             </div>
           </div>
 
           <!-- Connected Clubs & Active Facilities -->
           <div>
-            <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1.5">Connected Clubs &amp; Training Locations</label>
+            <label class="block text-[11px] font-bold text-[#32475C] uppercase tracking-wider mb-2">Connected Clubs &amp; Training Locations</label>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-              <label class="flex items-start space-x-2.5 p-3 rounded-xl border border-blue-200 bg-blue-50/30 cursor-pointer">
-                <input type="checkbox" id="loc-check-utrecht" checked class="mt-0.5 text-blue-600 rounded">
+              <label class="flex items-start space-x-2.5 p-3 rounded-[6px] border border-[#007AFF]/30 bg-[#EBF5FF]/30 cursor-pointer">
+                <input type="checkbox" id="loc-check-utrecht" checked class="mt-0.5 text-[#007AFF] rounded-[4px]">
                 <div>
-                  <span class="font-bold text-gray-900 block text-[11px]">Utrecht Sports Club</span>
-                  <span class="text-[10px] text-blue-700 font-semibold">Primary Base • 12 Courts</span>
+                  <span class="font-bold text-[#32475C] block text-[11px]">Utrecht Sports Club</span>
+                  <span class="text-[10px] text-[#007AFF] font-semibold">Primary Base • 12 Courts</span>
                 </div>
               </label>
-              <label class="flex items-start space-x-2.5 p-3 rounded-xl border border-gray-200 bg-gray-50/50 cursor-pointer">
-                <input type="checkbox" id="loc-check-amstelpark" checked class="mt-0.5 text-blue-600 rounded">
+              <label class="flex items-start space-x-2.5 p-3 rounded-[6px] border border-gray-200 bg-[#F9FAFB] cursor-pointer">
+                <input type="checkbox" id="loc-check-amstelpark" checked class="mt-0.5 text-[#007AFF] rounded-[4px]">
                 <div>
-                  <span class="font-bold text-gray-900 block text-[11px]">Amstelpark Tennis Center</span>
-                  <span class="text-[10px] text-gray-500">Partner Club • Amsterdam</span>
+                  <span class="font-bold text-[#32475C] block text-[11px]">Amstelpark Tennis Center</span>
+                  <span class="text-[10px] text-[#32475C]/60">Partner Club • Amsterdam</span>
                 </div>
               </label>
-              <label class="flex items-start space-x-2.5 p-3 rounded-xl border border-gray-200 bg-gray-50/50 cursor-pointer">
-                <input type="checkbox" id="loc-check-padelwest" checked class="mt-0.5 text-blue-600 rounded">
+              <label class="flex items-start space-x-2.5 p-3 rounded-[6px] border border-gray-200 bg-[#F9FAFB] cursor-pointer">
+                <input type="checkbox" id="loc-check-padelwest" checked class="mt-0.5 text-[#007AFF] rounded-[4px]">
                 <div>
-                  <span class="font-bold text-gray-900 block text-[11px]">Padel Club Amsterdam West</span>
-                  <span class="text-[10px] text-gray-500">Padel Facility • 4 Courts</span>
+                  <span class="font-bold text-[#32475C] block text-[11px]">Padel Club Amsterdam West</span>
+                  <span class="text-[10px] text-[#32475C]/60">Padel Facility • 4 Courts</span>
                 </div>
               </label>
             </div>
@@ -6124,187 +6028,91 @@
         </div>
 
         <!-- ================= TAB PANEL 2: SPORTS, SPECIALTIES & LESSON TYPES ================= -->
-        <div id="edit-tab-panel-sports" class="hidden space-y-5">
+        <div id="edit-tab-panel-sports" class="hidden space-y-4">
           
           <!-- Sports Coached Selector -->
           <div>
             <div class="flex items-center justify-between mb-2">
-              <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider">Sports Offered *</label>
-              <span class="text-[10px] text-gray-400">Select all sports you offer on ShallWe-Play</span>
+              <label class="block text-[11px] font-bold text-[#32475C] uppercase tracking-wider">Sports Offered *</label>
+              <span class="text-[10px] text-[#32475C]/50">Select all sports you offer on ShallWe-Play</span>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-              <label class="flex items-center space-x-2 p-2.5 rounded-xl border border-blue-500 bg-blue-50 text-blue-900 font-bold cursor-pointer">
-                <input type="checkbox" checked class="rounded text-blue-600">
+              <label class="flex items-center space-x-2 p-2.5 rounded-[6px] border border-[#007AFF] bg-[#EBF5FF] text-[#007AFF] font-bold cursor-pointer">
+                <input type="checkbox" checked class="rounded-[4px] text-[#007AFF]">
                 <span>Tennis (Primary)</span>
               </label>
-              <label class="flex items-center space-x-2 p-2.5 rounded-xl border border-blue-500 bg-blue-50 text-blue-900 font-bold cursor-pointer">
-                <input type="checkbox" checked class="rounded text-blue-600">
+              <label class="flex items-center space-x-2 p-2.5 rounded-[6px] border border-[#007AFF] bg-[#EBF5FF] text-[#007AFF] font-bold cursor-pointer">
+                <input type="checkbox" checked class="rounded-[4px] text-[#007AFF]">
                 <span>Padel</span>
               </label>
-              <label class="flex items-center space-x-2 p-2.5 rounded-xl border border-blue-500 bg-blue-50 text-blue-900 font-bold cursor-pointer">
-                <input type="checkbox" checked class="rounded text-blue-600">
+              <label class="flex items-center space-x-2 p-2.5 rounded-[6px] border border-[#007AFF] bg-[#EBF5FF] text-[#007AFF] font-bold cursor-pointer">
+                <input type="checkbox" checked class="rounded-[4px] text-[#007AFF]">
                 <span>Zumba Fitness</span>
               </label>
-              <label class="flex items-center space-x-2 p-2.5 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 font-medium cursor-pointer">
-                <input type="checkbox" class="rounded text-blue-600">
+              <label class="flex items-center space-x-2 p-2.5 rounded-[6px] border border-gray-200 bg-white hover:bg-gray-50 text-[#32475C] font-medium cursor-pointer">
+                <input type="checkbox" class="rounded-[4px] text-[#007AFF]">
                 <span>Pickleball</span>
               </label>
-              <label class="flex items-center space-x-2 p-2.5 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 font-medium cursor-pointer">
-                <input type="checkbox" class="rounded text-blue-600">
+              <label class="flex items-center space-x-2 p-2.5 rounded-[6px] border border-gray-200 bg-white hover:bg-gray-50 text-[#32475C] font-medium cursor-pointer">
+                <input type="checkbox" class="rounded-[4px] text-[#007AFF]">
                 <span>Squash</span>
               </label>
-              <label class="flex items-center space-x-2 p-2.5 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 font-medium cursor-pointer">
-                <input type="checkbox" class="rounded text-blue-600">
+              <label class="flex items-center space-x-2 p-2.5 rounded-[6px] border border-gray-200 bg-white hover:bg-gray-50 text-[#32475C] font-medium cursor-pointer">
+                <input type="checkbox" class="rounded-[4px] text-[#007AFF]">
                 <span>Golf</span>
               </label>
-              <label class="flex items-center space-x-2 p-2.5 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 font-medium cursor-pointer">
-                <input type="checkbox" class="rounded text-blue-600">
+              <label class="flex items-center space-x-2 p-2.5 rounded-[6px] border border-gray-200 bg-white hover:bg-gray-50 text-[#32475C] font-medium cursor-pointer">
+                <input type="checkbox" class="rounded-[4px] text-[#007AFF]">
                 <span>Cardio Fitness</span>
               </label>
-              <label class="flex items-center space-x-2 p-2.5 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 font-medium cursor-pointer">
-                <input type="checkbox" class="rounded text-blue-600">
+              <label class="flex items-center space-x-2 p-2.5 rounded-[6px] border border-gray-200 bg-white hover:bg-gray-50 text-[#32475C] font-medium cursor-pointer">
+                <input type="checkbox" class="rounded-[4px] text-[#007AFF]">
                 <span>Badminton</span>
               </label>
             </div>
           </div>
 
           <!-- Specialties & Target Skill Levels -->
-          <div class="border border-gray-200 rounded-2xl p-4 bg-gray-50/40 space-y-3">
-            <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider">Specialties Per Sport &amp; Skill Levels</label>
+          <div class="border border-[#E2E8F0] rounded-[8px] p-4 bg-[#F9FAFB] space-y-3">
+            <label class="block text-[11px] font-bold text-[#32475C] uppercase tracking-wider">Specialties Per Sport &amp; Skill Levels</label>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs">
-              <label class="flex items-start space-x-2.5 bg-white p-3 rounded-xl border border-gray-200 cursor-pointer">
-                <input type="checkbox" checked class="mt-0.5 text-blue-600 rounded">
+              <label class="flex items-start space-x-2.5 bg-white p-3 rounded-[6px] border border-gray-200 cursor-pointer">
+                <input type="checkbox" checked class="mt-0.5 text-[#007AFF] rounded-[4px]">
                 <div>
-                  <span class="font-bold text-gray-900 block text-[11px]">Beginners (NTRP 1.0 - 2.5)</span>
-                  <span class="text-[10px] text-gray-500">Grip fundamentals, consistent baseline rally rhythm</span>
+                  <span class="font-bold text-[#32475C] block text-[11px]">Beginners (NTRP 1.0 - 2.5)</span>
+                  <span class="text-[10px] text-[#32475C]/60">Grip fundamentals, consistent baseline rally rhythm</span>
                 </div>
               </label>
-              <label class="flex items-start space-x-2.5 bg-white p-3 rounded-xl border border-gray-200 cursor-pointer">
-                <input type="checkbox" checked class="mt-0.5 text-blue-600 rounded">
+              <label class="flex items-start space-x-2.5 bg-white p-3 rounded-[6px] border border-gray-200 cursor-pointer">
+                <input type="checkbox" checked class="mt-0.5 text-[#007AFF] rounded-[4px]">
                 <div>
-                  <span class="font-bold text-gray-900 block text-[11px]">Junior Academy (Ages 7-16)</span>
-                  <span class="text-[10px] text-gray-500">Dynamic motor agility, footwork, hand-eye coordination</span>
+                  <span class="font-bold text-[#32475C] block text-[11px]">Intermediate (NTRP 3.0 - 4.0)</span>
+                  <span class="text-[10px] text-[#32475C]/60">Topspin generation, directional control, net play</span>
                 </div>
               </label>
-              <label class="flex items-start space-x-2.5 bg-white p-3 rounded-xl border border-gray-200 cursor-pointer">
-                <input type="checkbox" checked class="mt-0.5 text-blue-600 rounded">
+              <label class="flex items-start space-x-2.5 bg-white p-3 rounded-[6px] border border-gray-200 cursor-pointer">
+                <input type="checkbox" checked class="mt-0.5 text-[#007AFF] rounded-[4px]">
                 <div>
-                  <span class="font-bold text-gray-900 block text-[11px]">Intermediate (NTRP 3.0 - 4.0)</span>
-                  <span class="text-[10px] text-gray-500">Topspin depth, slice backhand, aggressive net volleys</span>
+                  <span class="font-bold text-[#32475C] block text-[11px]">Junior Academy (Ages 7-16)</span>
+                  <span class="text-[10px] text-[#32475C]/60">Motor skill development, match play, tournament preparation</span>
                 </div>
               </label>
-              <label class="flex items-start space-x-2.5 bg-white p-3 rounded-xl border border-gray-200 cursor-pointer">
-                <input type="checkbox" checked class="mt-0.5 text-blue-600 rounded">
+              <label class="flex items-start space-x-2.5 bg-white p-3 rounded-[6px] border border-gray-200 cursor-pointer">
+                <input type="checkbox" checked class="mt-0.5 text-[#007AFF] rounded-[4px]">
                 <div>
-                  <span class="font-bold text-gray-900 block text-[11px]">Advanced &amp; Tournament (4.5+)</span>
-                  <span class="text-[10px] text-gray-500">High-speed video stroke analysis, serve kick power, match strategy</span>
+                  <span class="font-bold text-[#32475C] block text-[11px]">Advanced / Tournament (4.5+)</span>
+                  <span class="text-[10px] text-[#32475C]/60">High-tempo points, serve weaponization, match psychology</span>
                 </div>
               </label>
-              <label class="flex items-start space-x-2.5 bg-white p-3 rounded-xl border border-gray-200 cursor-pointer">
-                <input type="checkbox" checked class="mt-0.5 text-blue-600 rounded">
-                <div>
-                  <span class="font-bold text-gray-900 block text-[11px]">Biomechanics &amp; Stroke Video Analysis</span>
-                  <span class="text-[10px] text-gray-500">Frame-by-frame kinetic chain and contact point optimization</span>
-                </div>
-              </label>
-              <label class="flex items-start space-x-2.5 bg-white p-3 rounded-xl border border-gray-200 cursor-pointer">
-                <input type="checkbox" checked class="mt-0.5 text-blue-600 rounded">
-                <div>
-                  <span class="font-bold text-gray-900 block text-[11px]">Wall Rebound &amp; Bandeja Execution (Padel)</span>
-                  <span class="text-[10px] text-gray-500">Glass defense angles, víbora speed, partner pairing tactics</span>
-                </div>
-              </label>
-            </div>
-          </div>
-
-          <!-- Lesson Types Offered -->
-          <div class="border border-gray-200 rounded-2xl p-4 bg-gray-50/40 space-y-3">
-            <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider">Lesson Types Configured</label>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-              <label class="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-200 cursor-pointer">
-                <div class="flex items-center space-x-2">
-                  <input type="checkbox" checked class="text-blue-600 rounded">
-                  <span class="font-bold text-gray-900">1-to-1 Private Lesson</span>
-                </div>
-                <span class="text-[11px] font-black text-gray-900">€50.00/hr</span>
-              </label>
-              <label class="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-200 cursor-pointer">
-                <div class="flex items-center space-x-2">
-                  <input type="checkbox" checked class="text-blue-600 rounded">
-                  <span class="font-bold text-gray-900">Duo / Semi-Private (2p)</span>
-                </div>
-                <span class="text-[11px] font-black text-gray-900">€30.00/pp</span>
-              </label>
-              <label class="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-200 cursor-pointer">
-                <div class="flex items-center space-x-2">
-                  <input type="checkbox" checked class="text-blue-600 rounded">
-                  <span class="font-bold text-gray-900">Group Clinic (3-4p)</span>
-                </div>
-                <span class="text-[11px] font-black text-gray-900">€20.00/pp</span>
-              </label>
-              <label class="flex items-center justify-between p-3 bg-white rounded-xl border border-gray-200 cursor-pointer">
-                <div class="flex items-center space-x-2">
-                  <input type="checkbox" checked class="text-blue-600 rounded">
-                  <span class="font-bold text-gray-900">Junior Clinic (7-16)</span>
-                </div>
-                <span class="text-[11px] font-black text-blue-600">€18.00/pp</span>
-              </label>
-              <label class="flex items-center justify-between p-3 bg-white rounded-xl border border-purple-200 bg-purple-50/30 col-span-1 sm:col-span-2 cursor-pointer">
-                <div class="flex items-center space-x-2">
-                  <input type="checkbox" checked class="text-purple-600 rounded">
-                  <span class="font-bold text-purple-900">Multi-Lesson Bundle (5-Pack / 10-Pack)</span>
-                </div>
-                <span class="text-[11px] font-black text-purple-700">€225.00 (€45/session • 10% OFF)</span>
-              </label>
-            </div>
-          </div>
-
-          <!-- Verified Certificates & Qualifications -->
-          <div class="border border-gray-200 rounded-2xl p-4 space-y-3">
-            <div class="flex items-center justify-between">
-              <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider">Certificates &amp; Qualifications</label>
-              <button type="button" onclick="openAddCertificateModal()" class="text-[11px] text-blue-600 hover:text-blue-800 font-bold bg-blue-50 px-2.5 py-1 rounded-lg border border-blue-200 transition">
-                + Add License / Certificate
-              </button>
-            </div>
-            <div class="space-y-2">
-              <div class="flex items-center justify-between p-2.5 bg-gray-50 rounded-xl border border-gray-200 text-xs">
-                <div class="flex items-center space-x-2">
-                  <svg class="w-4 h-4 text-[#007AFF] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                  <span class="font-bold text-gray-900">KNLTB Tennis Coach License A/B (#NL-89241)</span>
-                </div>
-                <span class="text-[10px] font-black text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">VERIFIED ✓</span>
-              </div>
-              <div class="flex items-center justify-between p-2.5 bg-gray-50 rounded-xl border border-gray-200 text-xs">
-                <div class="flex items-center space-x-2">
-                  <svg class="w-4 h-4 text-[#007AFF] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                  <span class="font-bold text-gray-900">FIP Padel Certified Coach Level 1 (#FIP-45129)</span>
-                </div>
-                <span class="text-[10px] font-black text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">VERIFIED ✓</span>
-              </div>
-              <div class="flex items-center justify-between p-2.5 bg-gray-50 rounded-xl border border-gray-200 text-xs">
-                <div class="flex items-center space-x-2">
-                  <svg class="w-4 h-4 text-[#007AFF] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                  <span class="font-bold text-gray-900">Certified Zumba Instructor (ZIN™)</span>
-                </div>
-                <span class="text-[10px] font-black text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">VERIFIED ✓</span>
-              </div>
-              <div class="flex items-center justify-between p-2.5 bg-gray-50 rounded-xl border border-gray-200 text-xs">
-                <div class="flex items-center space-x-2">
-                  <svg class="w-4 h-4 text-[#007AFF] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                  <span class="font-bold text-gray-900">Sports First Aid &amp; CPR (Rode Kruis)</span>
-                </div>
-                <span class="text-[10px] font-black text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">VERIFIED ✓</span>
-              </div>
             </div>
           </div>
 
         </div>
 
         <!-- ================= TAB PANEL 3: CONFIDENTIAL ACCOUNT & COMPLIANCE ================= -->
-        <div id="edit-tab-panel-account" class="hidden space-y-5">
+        <div id="edit-tab-panel-account" class="hidden space-y-4">
           
-          <div class="bg-amber-50 border border-amber-200 rounded-2xl p-3.5 flex items-start space-x-2.5 text-amber-900">
+          <div class="bg-amber-50 border border-amber-200 rounded-[8px] p-3.5 flex items-start space-x-2.5 text-amber-900">
             <svg class="w-4 h-4 text-amber-700 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
             <div class="text-[11px]">
               <span class="font-bold block">Private Compliance Information</span>
@@ -6314,75 +6122,69 @@
 
           <!-- Personal Demographics -->
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div>
-              <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1.5">Date of Birth</label>
-              <input type="text" id="input-edit-dob" value="16/09/1997" class="w-full border border-gray-300 rounded-xl px-3.5 py-2.5 text-xs bg-white focus:border-[#007AFF] focus:outline-none font-medium">
+            <div class="relative min-h-[52px]">
+              <label class="absolute -top-2 left-3 bg-white px-1 text-[11px] font-semibold text-[#32475C]/80 z-10 uppercase tracking-wider">Date of Birth</label>
+              <input type="text" id="input-edit-dob" value="16/09/1997" class="h-[52px] w-full rounded-[4px] border border-[#32475C]/25 bg-white px-3.5 text-sm font-medium text-[#32475C] focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none transition">
             </div>
-            <div>
-              <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1.5">Gender</label>
-              <select id="select-edit-gender" class="w-full border border-gray-300 rounded-xl px-3.5 py-2.5 text-xs bg-white focus:border-[#007AFF] focus:outline-none font-medium">
+            <div class="relative min-h-[52px]">
+              <label class="absolute -top-2 left-3 bg-white px-1 text-[11px] font-semibold text-[#32475C]/80 z-10 uppercase tracking-wider">Gender</label>
+              <select id="select-edit-gender" class="h-[52px] w-full rounded-[4px] border border-[#32475C]/25 bg-white px-3.5 text-sm font-medium text-[#32475C] focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none transition">
                 <option value="Male" selected>Male</option>
                 <option value="Female">Female</option>
                 <option value="Non-binary">Non-binary</option>
                 <option value="Prefer not to say">Prefer not to say</option>
               </select>
             </div>
-            <div>
-              <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1.5">Nationality</label>
-              <input type="text" id="input-edit-nationality" value="Dutch / Netherlands" class="w-full border border-gray-300 rounded-xl px-3.5 py-2.5 text-xs bg-white focus:border-[#007AFF] focus:outline-none font-medium">
+            <div class="relative min-h-[52px]">
+              <label class="absolute -top-2 left-3 bg-white px-1 text-[11px] font-semibold text-[#32475C]/80 z-10 uppercase tracking-wider">Nationality</label>
+              <input type="text" id="input-edit-nationality" value="Dutch / Netherlands" class="h-[52px] w-full rounded-[4px] border border-[#32475C]/25 bg-white px-3.5 text-sm font-medium text-[#32475C] focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none transition">
             </div>
           </div>
 
           <!-- Contact Details -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1.5">Registered Email (Login)</label>
-              <input type="email" id="input-edit-email" value="kihi@yopmail.com" class="w-full border border-gray-300 rounded-xl px-3.5 py-2.5 text-xs bg-white focus:border-[#007AFF] focus:outline-none font-medium">
+            <div class="relative min-h-[52px]">
+              <label class="absolute -top-2 left-3 bg-white px-1 text-[11px] font-semibold text-[#32475C]/80 z-10 uppercase tracking-wider">Registered Email</label>
+              <input type="email" id="input-edit-email" value="kihi@yopmail.com" class="h-[52px] w-full rounded-[4px] border border-[#32475C]/25 bg-white px-3.5 text-sm font-medium text-[#32475C] focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none transition">
             </div>
-            <div>
-              <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1.5">Mobile Phone (2FA &amp; SMS)</label>
-              <input type="text" id="input-edit-phone" value="+31 6 8765 4321" class="w-full border border-gray-300 rounded-xl px-3.5 py-2.5 text-xs bg-white focus:border-[#007AFF] focus:outline-none font-medium">
+            <div class="relative min-h-[52px]">
+              <label class="absolute -top-2 left-3 bg-white px-1 text-[11px] font-semibold text-[#32475C]/80 z-10 uppercase tracking-wider">Mobile Phone</label>
+              <input type="text" id="input-edit-phone" value="+31 6 8765 4321" class="h-[52px] w-full rounded-[4px] border border-[#32475C]/25 bg-white px-3.5 text-sm font-medium text-[#32475C] focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none transition">
             </div>
           </div>
 
           <!-- Address -->
-          <div>
-            <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1.5">Operating &amp; Billing Address</label>
-            <input type="text" id="input-edit-address" value="Herculesplein 241, 3584 AA Utrecht" class="w-full border border-gray-300 rounded-xl px-3.5 py-2.5 text-xs bg-white focus:border-[#007AFF] focus:outline-none font-medium">
+          <div class="relative min-h-[52px]">
+            <label class="absolute -top-2 left-3 bg-white px-1 text-[11px] font-semibold text-[#32475C]/80 z-10 uppercase tracking-wider">Operating &amp; Billing Address</label>
+            <input type="text" id="input-edit-address" value="Herculesplein 241, 3584 AA Utrecht" class="h-[52px] w-full rounded-[4px] border border-[#32475C]/25 bg-white px-3.5 text-sm font-medium text-[#32475C] focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none transition">
           </div>
 
           <!-- Business Compliance & Stripe -->
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div>
-              <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1.5">Dutch KvK Number</label>
-              <input type="text" value="21312421" disabled class="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-xs bg-gray-100 text-gray-500 font-mono cursor-not-allowed">
-              <span class="text-[10px] text-emerald-600 font-semibold mt-1 block">Handelsregister Verified ✓</span>
+            <div class="relative min-h-[52px]">
+              <label class="absolute -top-2 left-3 bg-white px-1 text-[11px] font-semibold text-[#32475C]/80 z-10 uppercase tracking-wider">Dutch KvK Number</label>
+              <input type="text" value="21312421" disabled class="h-[52px] w-full rounded-[4px] border border-gray-200 bg-[#F5F5F9] px-3.5 text-sm font-medium text-[#32475C]/60 font-mono cursor-not-allowed">
             </div>
-            <div>
-              <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1.5">BTW / VAT ID</label>
-              <input type="text" id="input-edit-vat" value="NL823456789B01" class="w-full border border-gray-300 rounded-xl px-3.5 py-2.5 text-xs bg-white focus:border-[#007AFF] focus:outline-none font-medium font-mono">
+            <div class="relative min-h-[52px]">
+              <label class="absolute -top-2 left-3 bg-white px-1 text-[11px] font-semibold text-[#32475C]/80 z-10 uppercase tracking-wider">BTW / VAT ID</label>
+              <input type="text" id="input-edit-vat" value="NL823456789B01" class="h-[52px] w-full rounded-[4px] border border-[#32475C]/25 bg-white px-3.5 text-sm font-medium text-[#32475C] font-mono focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none transition">
             </div>
-            <div>
-              <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1.5">Linked Bank IBAN (Stripe)</label>
-              <input type="text" id="input-edit-iban" value="NL91 ABNA 0412 8912 ••" class="w-full border border-gray-300 rounded-xl px-3.5 py-2.5 text-xs bg-white focus:border-[#007AFF] focus:outline-none font-medium font-mono">
+            <div class="relative min-h-[52px]">
+              <label class="absolute -top-2 left-3 bg-white px-1 text-[11px] font-semibold text-[#32475C]/80 z-10 uppercase tracking-wider">Linked Bank IBAN</label>
+              <input type="text" id="input-edit-iban" value="NL91 ABNA 0412 8912 ••" class="h-[52px] w-full rounded-[4px] border border-[#32475C]/25 bg-white px-3.5 text-sm font-medium text-[#32475C] font-mono focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none transition">
             </div>
           </div>
 
         </div>
 
-        <!-- Sticky Form Footer with Actions -->
-        <div class="flex items-center justify-between pt-4 border-t border-gray-100 shrink-0 bg-white">
-          <button type="button" onclick="closeEditProfileModal()" class="text-xs text-gray-500 hover:text-gray-800 font-semibold px-3 py-2 rounded-xl transition">
+        <!-- Sticky Form Footer with Actions (4px button radius) -->
+        <div class="flex items-center justify-end gap-3 pt-4 border-t border-[#E2E8F0] shrink-0 bg-white">
+          <button type="button" onclick="closeEditProfileModal()" class="h-[40px] px-5 rounded-[4px] border border-[#32475C]/25 text-[#32475C] bg-white hover:bg-gray-50 text-xs font-semibold transition">
             Cancel
           </button>
-          <div class="flex items-center space-x-2">
-            <button type="button" onclick="closeEditProfileModal()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold px-4 py-2.5 rounded-xl text-xs transition">
-              Discard
-            </button>
-            <button type="submit" class="bg-[#007AFF] hover:bg-blue-700 text-white font-bold px-6 py-2.5 rounded-xl text-xs shadow-md transition flex items-center space-x-1.5">
-              <span>✓ Save Profile &amp; Update Live Wireframe</span>
-            </button>
-          </div>
+          <button type="submit" class="h-[40px] px-6 rounded-[4px] bg-[#007AFF] hover:bg-[#0062cc] text-white text-xs font-bold shadow-xs transition flex items-center space-x-1.5">
+            <span>✓ Save Profile Changes</span>
+          </button>
         </div>
 
       </form>
@@ -6390,22 +6192,22 @@
   </div>
 
 
-  <!-- ================= MODAL: ADD / EDIT SPORT & EXPERTISE LEVEL (User Requested) ================= -->
-  <div id="modal-add-sport-expertise" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl relative border border-gray-100 max-h-[90vh] overflow-y-auto">
-      <div class="flex justify-between items-center border-b border-gray-100 pb-3 mb-4">
+  <!-- ================= MODAL: ADD / EDIT SPORT & EXPERTISE LEVEL (Strict SWP Design System) ================= -->
+  <div id="modal-add-sport-expertise" class="hidden fixed inset-0 bg-black/80 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-[8px] max-w-md w-full p-6 shadow-2xl relative border border-[#E2E8F0] max-h-[90vh] overflow-y-auto text-[#32475C]">
+      <div class="flex justify-between items-center border-b border-[#E2E8F0] pb-3 mb-4">
         <div>
-          <h3 class="font-bold text-sm text-gray-900">Add / Configure Sport & Expertise</h3>
-          <p class="text-[11px] text-gray-500">Specify sport coached and your certified expertise level</p>
+          <h3 class="font-bold text-sm text-[#32475C] font-heading" style="font-family: 'Montserrat', sans-serif;">Add / Configure Sport &amp; Expertise</h3>
+          <p class="text-[11px] text-[#32475C]/60">Specify sport coached and your certified expertise level</p>
         </div>
-        <button onclick="closeAddSportExpertiseModal()" class="text-gray-400 hover:text-gray-600 font-bold text-base">✕</button>
+        <button onclick="closeAddSportExpertiseModal()" class="w-8 h-8 rounded-[4px] bg-white hover:bg-gray-100 border border-[#E2E8F0] text-gray-500 hover:text-[#32475C] flex items-center justify-center font-bold text-sm transition shadow-2xs">✕</button>
       </div>
 
       <form onsubmit="event.preventDefault(); saveSportExpertise();" class="space-y-4">
         <!-- Sport Selection -->
-        <div>
-          <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1.5">Sport</label>
-          <select id="sport-exp-name" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs bg-white focus:border-blue-500 focus:outline-none">
+        <div class="relative min-h-[52px]">
+          <label class="absolute -top-2 left-3 bg-white px-1 text-[11px] font-semibold text-[#32475C]/80 z-10 uppercase tracking-wider">Sport *</label>
+          <select id="sport-exp-name" class="h-[52px] w-full rounded-[4px] border border-[#32475C]/25 bg-white px-3.5 text-sm font-medium text-[#32475C] focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none transition">
             <option value="Tennis">Tennis</option>
             <option value="Padel">Padel</option>
             <option value="Zumba Fitness">Zumba Fitness</option>
@@ -6415,55 +6217,55 @@
         </div>
 
         <!-- Expertise Level -->
-        <div>
-          <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1.5">Coach Expertise Level</label>
-          <select id="sport-exp-level" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs bg-white font-semibold text-gray-800 focus:border-blue-500 focus:outline-none">
+        <div class="relative min-h-[52px]">
+          <label class="absolute -top-2 left-3 bg-white px-1 text-[11px] font-semibold text-[#32475C]/80 z-10 uppercase tracking-wider">Coach Expertise Level *</label>
+          <select id="sport-exp-level" class="h-[52px] w-full rounded-[4px] border border-[#32475C]/25 bg-white px-3.5 text-sm font-medium text-[#32475C] focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none transition">
             <option value="Professional / High Performance (ITF Level 3)">Professional / High Performance (ITF Level 3)</option>
             <option value="Advanced / Competitive Club Coach">Advanced / Competitive Club Coach</option>
             <option value="Certified Master Instructor (ZIN™ Level 2)">Certified Master Instructor (ZIN™ Level 2)</option>
             <option value="Intermediate / Club Teaching Pro">Intermediate / Club Teaching Pro</option>
-            <option value="Grassroots & Youth Development Coach">Grassroots & Youth Development Coach</option>
+            <option value="Grassroots &amp; Youth Development Coach">Grassroots &amp; Youth Development Coach</option>
           </select>
         </div>
 
         <!-- Target Student Level -->
         <div>
-          <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1.5">Target Student Skill Level</label>
+          <label class="block text-[11px] font-bold text-[#32475C] uppercase tracking-wider mb-1.5">Target Student Skill Level</label>
           <div class="grid grid-cols-2 gap-2 text-xs">
-            <label class="flex items-center space-x-2 border border-gray-200 rounded-lg p-2 bg-gray-50 cursor-pointer">
-              <input type="checkbox" checked class="text-blue-600 rounded">
-              <span class="text-[11px] font-medium text-gray-700">Beginners</span>
+            <label class="flex items-center space-x-2 border border-gray-200 rounded-[4px] p-2 bg-[#F9FAFB] cursor-pointer">
+              <input type="checkbox" checked class="text-[#007AFF] rounded-[4px]">
+              <span class="text-[11px] font-medium text-[#32475C]">Beginners</span>
             </label>
-            <label class="flex items-center space-x-2 border border-gray-200 rounded-lg p-2 bg-gray-50 cursor-pointer">
-              <input type="checkbox" checked class="text-blue-600 rounded">
-              <span class="text-[11px] font-medium text-gray-700">Intermediate</span>
+            <label class="flex items-center space-x-2 border border-gray-200 rounded-[4px] p-2 bg-[#F9FAFB] cursor-pointer">
+              <input type="checkbox" checked class="text-[#007AFF] rounded-[4px]">
+              <span class="text-[11px] font-medium text-[#32475C]">Intermediate</span>
             </label>
-            <label class="flex items-center space-x-2 border border-gray-200 rounded-lg p-2 bg-gray-50 cursor-pointer">
-              <input type="checkbox" checked class="text-blue-600 rounded">
-              <span class="text-[11px] font-medium text-gray-700">Advanced / Elite</span>
+            <label class="flex items-center space-x-2 border border-gray-200 rounded-[4px] p-2 bg-[#F9FAFB] cursor-pointer">
+              <input type="checkbox" checked class="text-[#007AFF] rounded-[4px]">
+              <span class="text-[11px] font-medium text-[#32475C]">Advanced / Elite</span>
             </label>
-            <label class="flex items-center space-x-2 border border-gray-200 rounded-lg p-2 bg-gray-50 cursor-pointer">
-              <input type="checkbox" checked class="text-blue-600 rounded">
-              <span class="text-[11px] font-medium text-gray-700">All Levels</span>
+            <label class="flex items-center space-x-2 border border-gray-200 rounded-[4px] p-2 bg-[#F9FAFB] cursor-pointer">
+              <input type="checkbox" checked class="text-[#007AFF] rounded-[4px]">
+              <span class="text-[11px] font-medium text-[#32475C]">All Levels</span>
             </label>
           </div>
         </div>
 
         <!-- Years of Coaching -->
-        <div>
-          <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1.5">Years of Coaching Experience</label>
-          <input type="text" id="sport-exp-years" value="8+ Years" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs focus:border-blue-500 focus:outline-none">
+        <div class="relative min-h-[52px]">
+          <label class="absolute -top-2 left-3 bg-white px-1 text-[11px] font-semibold text-[#32475C]/80 z-10 uppercase tracking-wider">Years of Experience</label>
+          <input type="text" id="sport-exp-years" value="8+ Years" class="h-[52px] w-full rounded-[4px] border border-[#32475C]/25 bg-white px-3.5 text-sm font-medium text-[#32475C] focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none transition">
         </div>
 
         <!-- License / Certification ID -->
-        <div>
-          <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1.5">Federation License / ID (Optional)</label>
-          <input type="text" id="sport-exp-cert" value="KNLTB-2026-NL-89421" class="w-full border border-gray-300 rounded-lg px-3 py-2 text-xs font-mono focus:border-blue-500 focus:outline-none">
+        <div class="relative min-h-[52px]">
+          <label class="absolute -top-2 left-3 bg-white px-1 text-[11px] font-semibold text-[#32475C]/80 z-10 uppercase tracking-wider">Federation License / ID (Optional)</label>
+          <input type="text" id="sport-exp-cert" value="KNLTB-2026-NL-89421" class="h-[52px] w-full rounded-[4px] border border-[#32475C]/25 bg-white px-3.5 text-sm font-medium text-[#32475C] font-mono focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none transition">
         </div>
 
-        <div class="flex justify-end space-x-2 pt-3 border-t border-gray-100">
-          <button type="button" onclick="closeAddSportExpertiseModal()" class="px-4 py-2 text-xs font-bold text-gray-600">Cancel</button>
-          <button type="submit" class="bg-[#007AFF] hover:bg-blue-600 text-white text-xs font-bold px-5 py-2 rounded-lg transition shadow-xs">
+        <div class="flex justify-end space-x-2 pt-3 border-t border-[#E2E8F0]">
+          <button type="button" onclick="closeAddSportExpertiseModal()" class="h-[38px] px-4 rounded-[4px] border border-[#32475C]/25 text-[#32475C] bg-white hover:bg-gray-50 text-xs font-semibold transition">Cancel</button>
+          <button type="submit" class="h-[38px] px-5 rounded-[4px] bg-[#007AFF] hover:bg-[#0062cc] text-white text-xs font-bold transition shadow-xs">
             Save Expertise Level
           </button>
         </div>
@@ -7272,16 +7074,16 @@
     </div>
   </div>
 
-  <!-- ================= COACH QR CODE MODAL (ShallWe-Play Design System) ================= -->
-  <div id="modal-coach-qr" class="hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-gray-200 text-gray-900 relative flex flex-col items-center">
+    <!-- ================= COACH QR CODE MODAL (Strict SWP Design System) ================= -->
+  <div id="modal-coach-qr" class="hidden fixed inset-0 bg-black/80 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-[8px] max-w-sm w-full p-6 shadow-2xl border border-[#E2E8F0] text-[#32475C] relative flex flex-col items-center">
       <div class="w-full flex items-center justify-between pb-3 border-b border-gray-100 mb-4">
-        <h3 class="text-base font-bold text-[#32475C]" style="font-family: 'Montserrat', sans-serif;">Coach QR Code</h3>
-        <button type="button" onclick="closeCoachQrModal()" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-500 hover:text-gray-900 flex items-center justify-center font-bold text-sm transition">✕</button>
+        <h3 class="text-base font-bold text-[#32475C] font-heading" style="font-family: 'Montserrat', sans-serif;">Coach QR Code</h3>
+        <button type="button" onclick="closeCoachQrModal()" class="w-8 h-8 rounded-[4px] bg-white hover:bg-gray-100 border border-[#E2E8F0] text-gray-500 hover:text-[#32475C] flex items-center justify-center font-bold text-sm transition shadow-2xs">✕</button>
       </div>
 
       <!-- QR Code Canvas / Box -->
-      <div class="p-4 bg-white rounded-2xl shadow-[0px_4px_20px_rgba(0,0,0,0.1)] border border-gray-100 mb-4 flex items-center justify-center">
+      <div class="p-4 bg-white rounded-[8px] shadow-[0px_4px_20px_rgba(0,0,0,0.08)] border border-gray-100 mb-4 flex items-center justify-center">
         <!-- Crisp SVG QR Code Preview -->
         <svg class="w-52 h-52 text-[#1C1C1C]" viewBox="0 0 100 100" fill="currentColor">
           <!-- Outer finder patterns -->
@@ -7326,27 +7128,161 @@
         </svg>
       </div>
 
-      <p class="text-xs text-center text-[#32475C]/70 mb-2 leading-relaxed">
+      <p class="text-xs text-center text-[#32475C]/70 mb-4 leading-relaxed">
         Scan this QR code with the ShallWe-Play Player App to view Coach Mukund Patil's verified profile and instantly book coaching sessions.
       </p>
 
-      <div class="flex items-center space-x-1.5 text-xs text-gray-400 mb-5">
-        <span class="w-2 h-2 rounded-full bg-[#007AFF]"></span>
-        <span>Powered by ShallWe-Play</span>
-      </div>
-
       <div class="w-full flex space-x-2">
-        <button type="button" onclick="downloadCoachQrCode()" class="flex-1 bg-[#007AFF] hover:bg-[#0062cc] text-white font-semibold py-2.5 rounded-lg text-xs flex items-center justify-center space-x-1.5 transition">
+        <button type="button" onclick="downloadCoachQrCode()" class="flex-1 bg-[#007AFF] hover:bg-[#0062cc] text-white font-semibold py-2.5 rounded-[4px] text-xs flex items-center justify-center space-x-1.5 transition">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
           <span>Download PNG</span>
         </button>
-        <button type="button" onclick="copyCoachProfileLink()" class="px-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-2.5 rounded-lg text-xs transition" title="Copy Profile Link">
+        <button type="button" onclick="copyCoachProfileLink()" class="px-3 bg-gray-100 hover:bg-gray-200 text-[#32475C] font-semibold py-2.5 rounded-[4px] text-xs transition border border-gray-200" title="Copy Profile Link">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
         </button>
       </div>
     </div>
   </div>
-\n  <!-- ================= TOAST NOTIFICATION ================= -->
+
+
+  <!-- ================= MODAL: BOOK LESSON VIA PROFILE (Strict SWP Design System) ================= -->
+  <div id="modal-portal-book-lesson" class="hidden fixed inset-0 bg-black/80 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-[8px] max-w-lg w-full p-6 shadow-2xl relative border border-[#E2E8F0] text-[#32475C] max-h-[90vh] overflow-y-auto">
+      
+      <div class="flex items-center justify-between border-b border-[#E2E8F0] pb-3 mb-4">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-[6px] bg-[#EBF5FF] text-[#007AFF] flex items-center justify-center font-bold">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          </div>
+          <div>
+            <span class="text-[10px] font-bold text-[#007AFF] uppercase tracking-wider block">LESSON RESERVATION</span>
+            <h3 class="text-base font-bold text-[#32475C] font-heading" style="font-family: 'Montserrat', sans-serif;">Book Session with Mukund Patil</h3>
+          </div>
+        </div>
+        <button type="button" onclick="closePortalBookLessonModal()" class="w-8 h-8 rounded-[4px] bg-white hover:bg-gray-100 border border-[#E2E8F0] text-gray-500 hover:text-[#32475C] flex items-center justify-center font-bold text-sm transition shadow-2xs">✕</button>
+      </div>
+
+      <form onsubmit="event.preventDefault(); confirmPortalBookLesson();" class="space-y-4 text-xs">
+        
+        <!-- Select Sport & Lesson Format -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="relative min-h-[52px]">
+            <label class="absolute -top-2 left-3 bg-white px-1 text-[11px] font-semibold text-[#32475C]/80 z-10 uppercase tracking-wider">Sport</label>
+            <select id="pbook-sport" class="h-[52px] w-full rounded-[4px] border border-[#32475C]/25 bg-white px-3.5 text-sm font-medium text-[#32475C] focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none transition">
+              <option value="Tennis">Tennis</option>
+              <option value="Padel">Padel</option>
+            </select>
+          </div>
+          <div class="relative min-h-[52px]">
+            <label class="absolute -top-2 left-3 bg-white px-1 text-[11px] font-semibold text-[#32475C]/80 z-10 uppercase tracking-wider">Format</label>
+            <select id="pbook-format" class="h-[52px] w-full rounded-[4px] border border-[#32475C]/25 bg-white px-3.5 text-sm font-medium text-[#32475C] focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none transition">
+              <option value="1:1 Private">1:1 Private Lesson (€50.00 / hr)</option>
+              <option value="Duo Semi-Private">Duo Semi-Private (€30.00 / pp)</option>
+              <option value="Group Clinic">Group Clinic (€20.00 / pp)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Training Facility -->
+        <div class="relative min-h-[52px]">
+          <label class="absolute -top-2 left-3 bg-white px-1 text-[11px] font-semibold text-[#32475C]/80 z-10 uppercase tracking-wider">Club Facility</label>
+          <select id="pbook-club" class="h-[52px] w-full rounded-[4px] border border-[#32475C]/25 bg-white px-3.5 text-sm font-medium text-[#32475C] focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none transition">
+            <option value="Utrecht Sports Club">Utrecht Sports Club (Primary Base • 12 Courts)</option>
+            <option value="Amstelpark Tennis Center">Amstelpark Tennis Center (Amsterdam • Clay)</option>
+            <option value="Padel Club Amsterdam West">Padel Club Amsterdam West (Indoor Glass)</option>
+          </select>
+        </div>
+
+        <!-- Date & Time Slot -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="relative min-h-[52px]">
+            <label class="absolute -top-2 left-3 bg-white px-1 text-[11px] font-semibold text-[#32475C]/80 z-10 uppercase tracking-wider">Session Date</label>
+            <input type="text" id="pbook-date" value="Tomorrow, 10:00 - 11:00" class="h-[52px] w-full rounded-[4px] border border-[#32475C]/25 bg-white px-3.5 text-sm font-medium text-[#32475C] focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none transition">
+          </div>
+          <div class="relative min-h-[52px]">
+            <label class="absolute -top-2 left-3 bg-white px-1 text-[11px] font-semibold text-[#32475C]/80 z-10 uppercase tracking-wider">Student Level</label>
+            <select id="pbook-level" class="h-[52px] w-full rounded-[4px] border border-[#32475C]/25 bg-white px-3.5 text-sm font-medium text-[#32475C] focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none transition">
+              <option value="Beginner">Beginner (NTRP 1.0 - 2.5)</option>
+              <option value="Intermediate" selected>Intermediate (NTRP 3.0 - 4.0)</option>
+              <option value="Advanced">Advanced (NTRP 4.5+)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Fee & Escrow Summary -->
+        <div class="bg-[#F9FAFB] rounded-[6px] p-3.5 border border-gray-200/80 space-y-1.5">
+          <div class="flex justify-between text-[#32475C]/70"><span>Coach Fee:</span><span class="font-bold text-[#32475C]">€50.00</span></div>
+          <div class="flex justify-between text-[#32475C]/70"><span>Court Lock:</span><span class="font-semibold text-emerald-600">Reserved &amp; Included</span></div>
+          <div class="flex justify-between text-[#32475C]/70"><span>Settlement:</span><span class="text-[#007AFF] font-medium">Session token or Stripe Escrow</span></div>
+          <div class="flex justify-between text-xs font-bold text-[#32475C] border-t border-gray-200 pt-1.5 mt-1.5">
+            <span>Total Payable:</span><span class="text-[#007AFF]">€50.00</span>
+          </div>
+        </div>
+
+        <div class="flex justify-end gap-2.5 pt-3 border-t border-[#E2E8F0]">
+          <button type="button" onclick="closePortalBookLessonModal()" class="h-[40px] px-5 rounded-[4px] border border-[#32475C]/25 text-[#32475C] bg-white hover:bg-gray-50 font-semibold transition">Cancel</button>
+          <button type="submit" class="h-[40px] px-6 rounded-[4px] bg-[#007AFF] hover:bg-[#0062cc] text-white font-bold transition shadow-xs flex items-center gap-1.5">
+            <span>Confirm Reservation</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ================= MODAL: MESSAGE COACH (Strict SWP Design System) ================= -->
+  <div id="modal-portal-message-coach" class="hidden fixed inset-0 bg-black/80 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-[8px] max-w-lg w-full p-6 shadow-2xl relative border border-[#E2E8F0] text-[#32475C] max-h-[90vh] overflow-y-auto">
+      
+      <div class="flex items-center justify-between border-b border-[#E2E8F0] pb-3 mb-4">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-[6px] bg-[#EBF5FF] text-[#007AFF] flex items-center justify-center font-bold">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"/></svg>
+          </div>
+          <div>
+            <span class="text-[10px] font-bold text-[#007AFF] uppercase tracking-wider block">DIRECT INQUIRY</span>
+            <h3 class="text-base font-bold text-[#32475C] font-heading" style="font-family: 'Montserrat', sans-serif;">Message Coach Mukund</h3>
+          </div>
+        </div>
+        <button type="button" onclick="closeMessageCoachModal()" class="w-8 h-8 rounded-[4px] bg-white hover:bg-gray-100 border border-[#E2E8F0] text-gray-500 hover:text-[#32475C] flex items-center justify-center font-bold text-sm transition shadow-2xs">✕</button>
+      </div>
+
+      <form onsubmit="event.preventDefault(); sendMessageToCoach();" class="space-y-4 text-xs">
+        
+        <div class="relative min-h-[52px]">
+          <label class="absolute -top-2 left-3 bg-white px-1 text-[11px] font-semibold text-[#32475C]/80 z-10 uppercase tracking-wider">Inquiry Topic</label>
+          <select id="msg-topic" class="h-[52px] w-full rounded-[4px] border border-[#32475C]/25 bg-white px-3.5 text-sm font-medium text-[#32475C] focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none transition">
+            <option value="Lesson Planning & Availability">Lesson Planning &amp; Custom Availability</option>
+            <option value="Junior Academy Clinic">Junior Academy Clinic Registration</option>
+            <option value="Padel Group Coaching">Padel Group Coaching (3-4 Players)</option>
+            <option value="Tournament Preparation">High-Performance &amp; Tournament Prep</option>
+          </select>
+        </div>
+
+        <div class="relative min-h-[52px]">
+          <label class="absolute -top-2 left-3 bg-white px-1 text-[11px] font-semibold text-[#32475C]/80 z-10 uppercase tracking-wider">Subject *</label>
+          <input type="text" id="msg-subject" value="Inquiry regarding intermediate tennis coaching in Utrecht" required class="h-[52px] w-full rounded-[4px] border border-[#32475C]/25 bg-white px-3.5 text-sm font-medium text-[#32475C] focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none transition">
+        </div>
+
+        <div class="relative min-h-[110px]">
+          <label class="absolute -top-2 left-3 bg-white px-1 text-[11px] font-semibold text-[#32475C]/80 z-10 uppercase tracking-wider">Message *</label>
+          <textarea id="msg-content" rows="4" required class="w-full rounded-[4px] border border-[#32475C]/25 bg-white p-3.5 text-sm font-medium text-[#32475C] focus:border-[#007AFF] focus:ring-1 focus:ring-[#007AFF] focus:outline-none leading-relaxed transition" placeholder="Tell Coach Mukund about your tennis/padel experience, goals, and preferred days...">Hi Mukund, I would like to book a private session at Utrecht Sports Club next week to work on my backhand technique and serve rhythm. Are weekday afternoons convenient for you?</textarea>
+        </div>
+
+        <div class="flex justify-end gap-2.5 pt-3 border-t border-[#E2E8F0]">
+          <button type="button" onclick="closeMessageCoachModal()" class="h-[40px] px-5 rounded-[4px] border border-[#32475C]/25 text-[#32475C] bg-white hover:bg-gray-50 font-semibold transition">Cancel</button>
+          <button type="submit" class="h-[40px] px-6 rounded-[4px] bg-[#007AFF] hover:bg-[#0062cc] text-white font-bold transition shadow-xs flex items-center gap-1.5">
+            <span>Send Message</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ================= TOAST NOTIFICATION ================= -->
   <div id="toast" class="hidden fixed bottom-6 right-6 bg-gray-900 text-white px-5 py-3 rounded-xl shadow-xl z-50 text-xs font-semibold flex items-center space-x-2 border border-gray-800 transition-all">
     <span class="text-green-400 text-base">✓</span>
     <span id="toast-text">Action completed successfully</span>
@@ -8852,6 +8788,62 @@
         chipAvatar.innerHTML = `MP`;
       }
       showToast('Restored initials avatar icon');
+    }
+
+    // Modal Helpers for Coach QR, Book Lesson & Message Coach
+    function openCoachQrModal() {
+      const modal = document.getElementById('modal-coach-qr');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeCoachQrModal() {
+      const modal = document.getElementById('modal-coach-qr');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function downloadCoachQrCode() {
+      showToast('Downloading Coach Mukund QR Code (PNG high-res)...');
+      setTimeout(() => {
+        showToast('✓ Coach QR Code downloaded successfully!');
+      }, 700);
+    }
+
+    function copyCoachProfileLink() {
+      navigator.clipboard?.writeText(window.location.href);
+      showToast('✓ Coach profile link copied to clipboard!');
+    }
+
+    function openPortalBookLessonModal() {
+      const modal = document.getElementById('modal-portal-book-lesson');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closePortalBookLessonModal() {
+      const modal = document.getElementById('modal-portal-book-lesson');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function confirmPortalBookLesson() {
+      const sport = document.getElementById('pbook-sport')?.value || 'Tennis';
+      const format = document.getElementById('pbook-format')?.value || '1:1 Private';
+      const club = document.getElementById('pbook-club')?.value || 'Utrecht Sports Club';
+      closePortalBookLessonModal();
+      showToast(`✓ Reserved ${sport} (${format}) at ${club}! Confirmation sent.`);
+    }
+
+    function openMessageCoachModal() {
+      const modal = document.getElementById('modal-portal-message-coach');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeMessageCoachModal() {
+      const modal = document.getElementById('modal-portal-message-coach');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function sendMessageToCoach() {
+      closeMessageCoachModal();
+      showToast('✓ Inquiry message successfully delivered to Coach Mukund Patil!');
     }
 
     function saveEditProfileForm() {
