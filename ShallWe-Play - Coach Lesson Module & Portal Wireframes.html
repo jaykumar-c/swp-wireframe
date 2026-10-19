@@ -736,6 +736,11 @@
           <span>Profile</span>
         </button>
 
+        <button onclick="switchMode('portal', 'passport')" id="tab-nav-passport" class="main-tab-item px-2.5 sm:px-3 py-1.5 rounded-lg font-semibold text-gray-600 hover:text-black hover:bg-gray-200/60 transition flex items-center gap-1.5 shrink-0">
+          <span class="tab-badge w-4 h-4 rounded-full bg-gray-200 text-gray-700 text-[10px] flex items-center justify-center font-bold">9</span>
+          <span>Player Passport</span>
+        </button>
+
         <div class="h-4 w-[1px] bg-gray-300 mx-1 shrink-0"></div>
 
         <button onclick="switchMode('player', 'lessons')" id="tab-nav-player" class="main-tab-item px-3 py-1.5 rounded-lg font-bold text-emerald-800 bg-emerald-100 hover:bg-emerald-200 border border-emerald-300 transition flex items-center gap-1.5 shrink-0">
@@ -776,6 +781,9 @@
             </a>
             <a href="javascript:void(0)" onclick="switchMode('portal', 'clubs'); toggleQuickFlowMenu();" class="flex items-center gap-2 px-3 py-2 hover:bg-gray-50 text-gray-700 font-medium">
               <span>6. My Clubs Management</span>
+            </a>
+            <a href="javascript:void(0)" onclick="switchMode('portal', 'passport'); toggleQuickFlowMenu();" class="flex items-center gap-2 px-3 py-2 hover:bg-blue-50 text-blue-700 font-semibold">
+              <span>7. Player Passport (Full Suite)</span>
             </a>
             <div class="border-t border-gray-100 my-1"></div>
             <div class="px-3 py-1 text-[10px] font-bold text-emerald-600 uppercase tracking-wider">
@@ -5406,6 +5414,36 @@
         </div>
       </div>
     </section>
+    <!-- ==================== VIEW 6: PLAYER PASSPORT SUITE ==================== -->
+    <section id="cview-passport" class="coach-view-panel hidden max-w-7xl mx-auto py-6 px-4 sm:px-6 w-full flex-1">
+      <!-- Header banner with deep link -->
+      <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center text-2xl shrink-0 shadow-xs">
+            🪪
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-[11px] font-extrabold text-[#007AFF] uppercase tracking-wider bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200">ShallWe-Play Ecosystem</span>
+              <span class="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">26 Interactive Screens</span>
+            </div>
+            <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight mt-1">Official ShallWe-Play Player Passport Suite</h1>
+            <p class="text-xs text-gray-500 mt-1 max-w-2xl">Complete digital sports passport system: Onboarding questions, KNLTB-verified skill radar, privacy-first phone protection, post-match pulses, coach endorsements, and continuous growth loop.</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <a href="swp_player_passport_wireframes.html" target="_blank" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-bold rounded-xl border border-gray-300 transition flex items-center gap-1.5">
+            <span>Open Dedicated Window</span>
+            <span>↗</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Embedded Interactive Passport Wireframe Workspace -->
+      <div class="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden" style="height: 920px;">
+        <iframe src="swp_player_passport_wireframes.html" class="w-full h-full border-0" title="Player Passport Wireframes"></iframe>
+      </div>
+    </section>
 
   </div>
 
@@ -9679,7 +9717,7 @@
     // ================= NAVIGATION MODE SWITCHING (CLEAN SINGLE HEADER) =================
     function switchMode(mode, sub) {
       // 1. Reset all tab pills styling
-      const tabs = ['onboarding', 'verification', 'availability', 'lessons', 'explore', 'clubs', 'profile', 'player'];
+      const tabs = ['onboarding', 'verification', 'availability', 'calendar', 'lessons', 'explore', 'clubs', 'profile', 'passport', 'player'];
       tabs.forEach(t => {
         const btn = document.getElementById('tab-nav-' + t);
         if (!btn) return;
@@ -9760,7 +9798,7 @@
       if (targetView) targetView.classList.remove('hidden');
 
       // Update top tab styling if matching one of the main tabs
-      const tabs = ['verification', 'availability', 'calendar', 'lessons', 'explore', 'clubs', 'profile'];
+      const tabs = ['verification', 'availability', 'calendar', 'lessons', 'explore', 'clubs', 'profile', 'passport'];
       tabs.forEach(t => {
         const btn = document.getElementById('tab-nav-' + t);
         if (!btn) return;
@@ -9791,6 +9829,9 @@
 
       if (viewId === 'profile') {
         showToast('Coach Profile & Credentials (Public Presentation & Private Account)');
+      }
+      if (viewId === 'passport') {
+        showToast('Player Passport: 26 Mobile Screens, System Flow & Architecture Trace');
       }
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
