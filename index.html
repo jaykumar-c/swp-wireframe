@@ -1011,12 +1011,6 @@
             <span>Sports Rules: Skiing (Unified 5 Steps)</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a href="#skiing-club" id="nav-skiing-club">
-            <span class="nav-icon">📅</span>
-            <span>Skiing Club Calendar &amp; Desk</span>
-          </a>
-        </li>
         <!-- <li class="nav-item">
           <a href="#booking_rule" id="nav-booking_rule">
             <span class="nav-icon">📋</span>
@@ -1317,23 +1311,6 @@
                   </div>
                 </div>
 
-                <!-- CLUB CALENDAR & ON-BEHALF DESK -->
-                <div class="dir-card" onclick="location.hash='#skiing-club'">
-                  <div class="dir-card-top">
-                    <div class="dir-card-header">
-                      <div class="dir-card-icon-title">
-                        <span class="dir-icon">📅</span>
-                        <h3 class="dir-card-title">Skiing Club Calendar &amp; Desk</h3>
-                      </div>
-                      <span class="dir-badge">Operations</span>
-                    </div>
-                    <p>Timeline scheduling, capacity holds, on-behalf booking desk, and Front Desk Smart Session
-                      Extension &amp; Pass Upsell.</p>
-                  </div>
-                  <div class="dir-card-footer">
-                    <span class="dir-link-text">Launch Calendar →</span>
-                  </div>
-                </div>
 
                 <!-- BOOKING RULES -->
                 <div class="dir-card" onclick="location.hash='#booking_rule'">
@@ -1638,18 +1615,6 @@
         file: 'ShallWe-Play - Coach Lesson Module & Portal Wireframes.html',
         type: 'iframe'
       },
-      'skiing-club': {
-        title: 'Club Booking Calendar & On-Behalf Desk',
-        desc: 'Real-time slope timeline, capacity holds, on-behalf booking desk, and asset maintenance scheduling',
-        file: 'skiing_club_calendar.html',
-        type: 'iframe'
-      },
-      'club_calendar': {
-        title: 'Club Booking Calendar & On-Behalf Desk',
-        desc: 'Real-time slope timeline, capacity holds, on-behalf booking desk, and asset maintenance scheduling',
-        file: 'skiing_club_calendar.html',
-        type: 'iframe'
-      },
       'player_ui': {
         title: 'Interactive Skiing Player Mobile App (SnowWorld Model)',
         desc: '4-Screen interactive device frames: 1. All Packages, 2. Select Pass & Time, 3. Equipment & Pay (€53), and 4. Redesigned Upcoming Booking Detail & Gate Pass.',
@@ -1705,7 +1670,7 @@
         id: "smart_session_extension",
         name: "Smart Session Extension & Pass Upsell (Option A +1h vs Option B Half-Day Upgrade)",
         module: "Session Extension Flow",
-        route: "skiing-club",
+        route: "skiing_packages",
         need: "Maximizes revenue and player convenience by recommending higher-tier pass upgrades (e.g. Half-Day 4h) when adding hours would cost more.",
         understanding: "When a player on a 2-hour pass extends time, standalone +1 hour is €15. Upgrading to a 4-hour pass (€45) only costs the €10 difference, granting 2 extra hours for less money and saving €10.",
         systemLogic: "Calculates difference: Higher Tier Rate minus Already Paid amount. Supports multi-attendee checkboxes for selective extension.",
@@ -1739,7 +1704,7 @@
         id: "on_behalf_hold_duration",
         name: "Temporary Hold Duration (15, 30, 60 mins)",
         module: "Club Booking Calendar",
-        route: "skiing-club",
+        route: "skiing_packages",
         need: "Allows staff to hold slope capacity while waiting for player payment without risking permanent ghost bookings.",
         understanding: "When creating a phone/walk-in booking, the system places a timed hold on capacity and pushes a payment link.",
         systemLogic: "Locks slot capacity for X minutes; if unpaid upon countdown expiry, the hold is automatically released to public inventory.",
@@ -1750,7 +1715,7 @@
         id: "access_model_selection",
         name: "Access Model (Shared QR vs Individual Access)",
         module: "Club Booking Calendar",
-        route: "skiing-club",
+        route: "skiing_packages",
         need: "Determines whether a multi-pass booking enters under one lead booker QR or issues individual QR codes to all skiers.",
         understanding: "Families with young children benefit from a Shared QR (parent scans 3 times); corporate groups or friends require individual email/app tickets.",
         systemLogic: "Shared QR allows multiple scan turnstile increments on one barcode; Individual Access sends invite onboarding emails to companions.",
@@ -1761,7 +1726,7 @@
         id: "realtime_live_occupancy",
         name: "Real-Time Slope Live Occupancy",
         module: "Club Booking Calendar",
-        route: "skiing-club",
+        route: "skiing_packages",
         need: "Monitors exact headcounts on slopes for safety compliance, snow degradation, and lift throughput.",
         understanding: "Calculated dynamically as: (Entrance Turnstile Scans) minus (Exit Turnstile Scans).",
         systemLogic: "Increments live counter on Gate 1 QR scan ('Start Game') and decrements on exit turnstile checkout scan.",
