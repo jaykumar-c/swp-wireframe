@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShallWe-Play — Mobile App Wireframes & Business Strategy</title>
+  
+  <!-- Fonts: Montserrat (Headings) & Inter (Body/UI) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+
+  <style>
+    :root {
+      --color-primary: #007AFF;
+      --color-primary-hover: #0062CC;
+      --color-primary-light: #EBF5FF;
+      --color-success: #228B22;
+      --color-warning: #FF9800;
+      --color-danger: #FF3E1D;
+      --color-bg-canvas: #F5F5F9;
+      --color-bg-surface: #FFFFFF;
+      --color-text-main: #1C1C1C;
+      --color-text-muted: #64748B;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--color-bg-canvas);
+      color: var(--color-text-main);
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4, h5, h6, .brand-font, .btn-font {
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    /* iPhone 15 Pro Frame */
+    .mobile-phone {
+      width: 375px;
+      min-width: 375px;
+      max-width: 375px;
+      height: 750px;
+      background: #FFFFFF;
+      border-radius: 46px;
+      box-shadow: 0 24px 50px -12px rgba(15, 23, 42, 0.28), 0 0 0 10px #1E293B, 0 0 0 12px #334155;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      margin: 0 auto;
+    }
+
+    .phone-island {
+      width: 110px;
+      height: 26px;
+      background: #000000;
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 20px;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 9px;
+    }
+
+    .phone-island-cam {
+      width: 8px;
+      height: 8px;
+      background: #1C1917;
+      border-radius: 50%;
+    }
+
+    .phone-status {
+      height: 44px;
+      padding: 12px 24px 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #0F172A;
+      z-index: 40;
+      background: #FFFFFF;
+    }
+
+    .phone-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px 16px 82px 16px;
+      background: #F8F9FA;
+    }
+
+    .phone-body::-webkit-scrollbar {
+      width: 3px;
+    }
+    .phone-body::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 3px;
+    }
+
+    .phone-nav {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 62px;
+      background: #FFFFFF;
+      border-top: 1px solid rgba(50, 71, 92, 0.1);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding-bottom: 10px;
+      z-index: 40;
+    }
+
+    .phone-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+    }
+
+    .phone-bar {
+      position: absolute;
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 125px;
+      height: 4px;
+      background: #94A3B8;
+      border-radius: 2px;
+      z-index: 50;
+    }
+
+    /* Primary and Secondary Buttons */
+    .swp-btn-primary {
+      background-color: #007AFF;
+      color: #FFFFFF;
+      font-weight: 600;
+      font-size: 13px;
+      border-radius: 9px;
+      padding: 10px 18px;
+      box-shadow: 0 2px 5px rgba(0, 122, 255, 0.28);
+      transition: all 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      border: none;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .swp-btn-primary:hover {
+      background-color: #0062CC;
+    }
+
+    .swp-btn-secondary {
+      background-color: #FFFFFF;
+      color: #1C1C1C;
+      font-weight: 600;
+      font-size: 13px;
+      border-radius: 9px;
+      padding: 10px 18px;
+      border: 1px solid rgba(50, 71, 92, 0.22);
+      transition: all 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .swp-btn-secondary:hover {
+      background-color: #F8FAFC;
+      border-color: rgba(50, 71, 92, 0.35);
+    }
+
+    /* Status Pills */
+    .pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: 'Inter', sans-serif;
+    }
+    .pill-blue { background: #EBF5FF; color: #007AFF; border: 1px solid rgba(0, 122, 255, 0.22); }
+    .pill-green { background: #ECFDF5; color: #047857; border: 1px solid #A7F3D0; }
+    .pill-amber { background: #FFFBEB; color: #B45309; border: 1px solid #FDE68A; }
+    .pill-gray { background: #F1F5F9; color: #475569; border: 1px solid #E2E8F0; }
+
+    /* Top Tabs */
+    .top-tab {
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748B;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: none;
+      background: transparent;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .top-tab:hover {
+      color: #007AFF;
+      background: rgba(0, 122, 255, 0.06);
+    }
+    .top-tab.active {
+      color: #007AFF;
+      background: #FFFFFF;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body class="bg-[#F5F5F9] min-h-screen text-[#1C1C1C]">
+
+  <!-- Top Header with ShallWe-Play Logo -->
+  <header class="bg-white border-b border-[rgba(50,71,92,0.12)] sticky top-0 z-50 shadow-sm">
+    <div class="max-w-[1360px] mx-auto px-6 min-h-16 py-2.5 flex flex-wrap items-center justify-between gap-3">
+      
+      <!-- Logo & Title (Top-Left) -->
+      <div class="flex items-center gap-3">
+        <div class="flex items-center">
+          <svg width="40" height="36" viewBox="0 0 45 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="shrink-0 drop-shadow-sm">
+            <path d="M19.5926 15.0017C19.6217 15.1425 19.6217 15.1425 19.6513 15.2861C19.8131 16.0489 20.0059 16.7819 20.2683 17.5167C20.3484 17.7539 20.3484 17.7539 20.3484 17.9207C20.2808 17.9375 20.2808 17.9375 20.2118 17.9547C18.6508 18.3512 17.2214 18.8739 15.9817 19.9222C15.8737 20.0107 15.8737 20.0107 15.7635 20.101C14.2596 21.3823 13.2607 23.1049 12.7906 25.0094C12.7734 25.0774 12.7562 25.1453 12.7385 25.2153C12.3402 27.1141 12.6092 29.2749 13.4624 31.014C13.4907 31.0724 13.519 31.1308 13.5482 31.1909C13.9211 31.9499 14.3203 32.633 14.89 33.2657C14.9476 33.3338 15.0052 33.4018 15.0645 33.4719C16.7287 35.3952 19.1777 36.5734 21.7137 36.7842C24.3725 36.941 27.0576 36.0026 29.0578 34.2673C31.1452 32.3977 32.176 29.7906 32.3305 27.0474C32.3407 26.8407 32.3492 26.634 32.3567 26.4272C32.4036 26.4255 32.4504 26.4239 32.4986 26.4222C33.4684 26.3863 34.4207 26.3277 35.3798 26.177C35.433 28.5897 35.1802 30.7706 34.0362 32.9321C34.0078 32.9867 33.9793 33.0413 33.95 33.0976C32.5853 35.6902 30.4133 37.6494 27.7381 38.8533C27.6867 38.8766 27.6352 38.8998 27.5821 38.9237C25.1673 39.991 22.337 40.3024 19.7605 39.6873C19.6522 39.6651 19.5438 39.6428 19.4322 39.6199C16.3587 38.9636 13.4545 36.8853 11.7177 34.3085C10.9176 33.0701 10.3282 31.7896 9.90926 30.3781C9.88889 30.3106 9.86852 30.243 9.84753 30.1735C9.54844 29.1154 9.48335 28.0373 9.48939 26.9432C9.48954 26.8851 9.48969 26.827 9.48985 26.7672C9.49387 25.8574 9.53766 24.9763 9.76755 24.092C9.78917 24.0085 9.78917 24.0085 9.81122 23.9232C10.6691 20.7332 12.7271 17.9503 15.6084 16.2921C16.7901 15.6316 18.2056 14.9612 19.5926 15.0017Z" fill="#E85A2C"/>
+            <path d="M31.4671 0.0667466C35.1561 -0.0390557 38.4945 1.21085 41.2082 3.70014C43.1023 5.47968 44.3101 7.88536 44.7849 10.4141C44.8037 10.5088 44.8226 10.6034 44.842 10.7008C45.1222 12.3781 45.0189 14.1055 44.617 15.7516C44.594 15.8466 44.594 15.8466 44.5707 15.9435C44.1318 17.7034 43.2986 19.3859 42.0977 20.7554C42.0372 20.8246 41.9767 20.8939 41.9143 20.9652C41.7264 21.1761 41.5353 21.3834 41.3419 21.5894C41.2834 21.652 41.2248 21.7147 41.1645 21.7793C39.2604 23.7463 36.3775 25.1235 33.6191 25.2723C32.3913 25.2887 31.2039 25.2933 30.0054 25.0087C29.9211 24.9899 29.9211 24.9899 29.8351 24.9707C27.7719 24.4973 25.4207 23.3023 24.1271 21.5894C24.1962 21.5319 24.2652 21.4743 24.3364 21.4151C25.3942 20.5329 25.3942 20.5329 26.3944 19.5878C26.4315 19.6254 26.4685 19.6629 26.5066 19.7015C28.2069 21.3157 30.5837 22.1325 32.9107 22.1021C34.4679 22.0613 35.8798 21.5878 37.2272 20.8388C37.311 20.7925 37.3947 20.7461 37.4811 20.6984C38.7967 19.9178 39.8414 18.7342 40.5862 17.4195C40.6321 17.3388 40.678 17.258 40.7252 17.1749C41.9108 14.9613 42.0853 12.2538 41.3611 9.87062C40.5729 7.44249 38.8672 5.42462 36.5833 4.24732C34.2512 3.09543 31.5236 2.87168 29.0396 3.6694C27.6224 4.14935 26.4453 4.87771 25.3467 5.89278C25.2188 5.9941 25.2188 5.9941 25.0508 5.9941C25.0131 5.92336 24.9753 5.85262 24.9364 5.77974C24.5925 5.15223 24.2167 4.58911 23.7498 4.04432C23.5228 3.77349 23.4553 3.69156 23.4553 3.32539C25.2247 1.44988 28.4516 0.197193 30.9839 0.077782C31.1449 0.0749818 31.306 0.0716461 31.4671 0.0667466Z" fill="#1A7BE6"/>
+            <path d="M21.2629 3.19604C21.4663 3.37423 21.6638 3.55686 21.8599 3.74301C21.9213 3.7988 21.9828 3.8546 22.0462 3.91208C23.7607 5.52184 24.8481 7.83069 25.3868 10.0812C25.4065 10.1628 25.4262 10.2444 25.4465 10.3285C25.6713 11.3527 25.6493 12.3907 25.644 13.4327C25.6436 13.5772 25.6432 13.7217 25.6428 13.8662C25.6419 14.2169 25.6405 14.5675 25.6387 14.9182C25.5717 14.8898 25.5047 14.8613 25.4356 14.832C25.3466 14.7945 25.2575 14.7571 25.1657 14.7185C25.0779 14.6815 24.9901 14.6444 24.8996 14.6062C24.112 14.2984 23.2831 14.1886 22.4477 14.0843C22.4494 14.0337 22.4512 13.9831 22.453 13.931C22.5425 10.9316 21.8232 8.34341 19.792 6.08301C18.0336 4.25802 15.5563 3.27747 13.0355 3.20903C10.191 3.1787 7.73811 4.22336 5.71146 6.1814C3.80112 8.20026 3.14105 10.7942 3.20641 13.4962C3.29942 15.634 4.24663 17.6627 5.65274 19.2549C5.75082 19.3665 5.75082 19.3665 5.85087 19.4803C6.80228 20.4886 8.03318 21.1443 9.26366 21.7568C9.12855 22.3904 8.96259 23.0136 8.7913 23.6385C8.76402 23.7385 8.73674 23.8385 8.70864 23.9416C8.64187 24.1863 8.57495 24.431 8.50788 24.6757C8.03995 24.609 7.67641 24.4653 7.25351 24.2639C7.18342 24.2307 7.11333 24.1974 7.04111 24.1631C4.06444 22.7132 1.7862 20.1013 0.698235 17.0032C0.599968 16.7076 0.508265 16.4105 0.420069 16.1119C0.389512 16.0095 0.389512 16.0095 0.358339 15.9051C0.0766051 14.9045 -0.00456496 13.9002 0.000195415 12.8646C0.000669003 12.7554 0.00114259 12.6463 0.00163053 12.5338C0.0344144 9.91204 0.824714 7.33051 2.4617 5.24416C2.54419 5.13628 2.54419 5.13628 2.62834 5.02622C3.3014 4.16662 4.02236 3.40114 4.89697 2.74224C4.94068 2.70882 4.98438 2.6754 5.02941 2.64097C6.63682 1.41913 8.46232 0.651171 10.4393 0.240325C10.5258 0.221512 10.6123 0.202698 10.7014 0.183315C14.4926 -0.498269 18.3683 0.768092 21.2629 3.19604Z" fill="#72CE72"/>
+            <path d="M20.8522 15.1687C22.8358 15.0732 24.7519 15.6383 26.4785 16.5864C26.3645 16.9747 26.2003 17.3018 25.9799 17.6393C25.9469 17.6899 25.9139 17.7404 25.88 17.7925C25.274 18.6946 24.3565 19.8753 23.2874 20.1725C22.1773 19.0321 20.8522 16.8189 20.8522 15.1687Z" fill="#1A7BE6"/>
+          </svg>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-base font-extrabold text-[#1C1C1C] tracking-tight">ShallWe-Play</h1>
+            <span class="pill pill-blue text-[10px]">Mobile Wireframes</span>
+          </div>
+          <p class="text-[11px] font-semibold text-gray-500">Player Passport &amp; Community Matching</p>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs (Cleaned & Organized) -->
+      <nav class="flex items-center gap-1 bg-[#F5F5F9] p-1.5 rounded-xl border border-gray-200">
+        <button onclick="showSection('wireframes')" id="nav-wireframes" class="top-tab active">
+          <span>📱</span> Mobile Screens
+        </button>
+        <button onclick="showSection('strategy')" id="nav-strategy" class="top-tab">
+          <span>💡</span> Why We Made This
+        </button>
+        <button onclick="showSection('personas')" id="nav-personas" class="top-tab">
+          <span>👤</span> Player Stories
+        </button>
+        <button onclick="showSection('club')" id="nav-club" class="top-tab">
+          <span>🏢</span> For Sports Clubs
+        </button>
+      </nav>
+
+      <!-- Currency Badge (Netherlands Standard) -->
+      <div class="text-right hidden sm:block">
+        <span class="text-[10px] uppercase font-bold text-gray-400 block tracking-wider">Currency</span>
+        <span class="text-xs font-bold text-gray-800">EUR (€) Netherlands</span>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <main class="max-w-[1360px] mx-auto px-6 py-6">
+
+    <!-- ========================================================================= -->
+    <!-- 1. MOBILE SCREENS SHOWCASE (PRIMARY FOCUS) -->
+    <!-- ========================================================================= -->
+    <section id="sec-wireframes" class="block space-y-6">
+      
+      <!-- Top Screen Switcher -->
+      <div class="bg-white p-4 rounded-2xl border border-gray-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-base font-bold text-gray-900">Interactive Player App Screens</h2>
+          <p class="text-xs text-gray-500">Click each button below to explore the real screens in the phone.</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <button onclick="openPhone('onboarding')" id="btn-wf-onboarding" class="swp-btn-primary !py-2 !px-3.5 text-xs">
+            1. Quick 1-Min Setup
+          </button>
+          <button onclick="openPhone('passport')" id="btn-wf-passport" class="swp-btn-secondary !py-2 !px-3.5 text-xs">
+            2. Player Passport
+          </button>
+          <button onclick="openPhone('checkin')" id="btn-wf-checkin" class="swp-btn-secondary !py-2 !px-3.5 text-xs">
+            3. Post-Game Check-In
+          </button>
+          <button onclick="openPhone('compare')" id="btn-wf-compare" class="swp-btn-secondary !py-2 !px-3.5 text-xs">
+            4. Compare &amp; Match
+          </button>
+        </div>
+      </div>
+
+      <!-- Phone Frame + Clean Explanation Side-by-Side -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left: Easy Explanation Panel (5 cols) -->
+        <div class="lg:col-span-5 space-y-4">
+          
+          <div id="screen-info-card" class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm space-y-3">
+            <!-- Dynamically populated in simple English -->
+          </div>
+
+          <!-- Plain English Rules Box -->
+          <div class="bg-blue-50/70 border border-blue-200 rounded-2xl p-5 space-y-2">
+            <h4 class="text-xs font-bold text-[#007AFF] uppercase flex items-center gap-2">
+              <span>✨</span> Why This Works for Real Players
+            </h4>
+            <ul class="text-xs text-gray-700 space-y-2 list-disc pl-4">
+              <li><strong>Zero Form Fatigue:</strong> No 20-field profile questions. You can start in 60 seconds.</li>
+              <li><strong>Your Passport Grows As You Play:</strong> Every match you complete unlocks new badges and better partner recommendations.</li>
+              <li><strong>Friendly Matching:</strong> We match players to have fun together, not to intimidate them with harsh win-loss records.</li>
+            </ul>
+          </div>
+
+          <!-- Quick Tip for Client Presentation -->
+          <div class="bg-white rounded-2xl p-4 border border-gray-200 text-xs text-gray-500 flex items-center gap-3 shadow-sm">
+            <span class="text-lg">💡</span>
+            <span><strong>Tip:</strong> You can interact with the buttons and choices directly inside the phone screen on the right.</span>
+          </div>
+
+        </div>
+
+        <!-- Right: Mobile Device Frame (7 cols) -->
+        <div class="lg:col-span-7 flex justify-center">
+          
+          <!-- SCREEN 1: QUICK ONBOARDING (UNDER 60 SECONDS) -->
+          <div id="phone-screen-onboarding" class="mobile-phone">
+            <div class="phone-island"><div class="phone-island-cam"></div></div>
+            <div class="phone-status">
+              <span>09:41</span>
+              <span>5G 100%</span>
+            </div>
+
+            <div class="phone-body">
+              <!-- Step Progress -->
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-[10px] font-bold uppercase text-[#007AFF] tracking-wider" id="step-count">Step 1 of 5</span>
+                <span class="text-[10px] text-gray-400 font-semibold">1-Minute Setup</span>
+              </div>
+              <div class="w-full bg-gray-200 h-1.5 rounded-full mb-4 overflow-hidden">
+                <div id="step-bar" class="bg-[#007AFF] h-1.5 rounded-full transition-all duration-300" style="width: 20%;"></div>
+              </div>
+
+              <!-- Question 1: What do you want to do? -->
+              <div id="q-step-1" class="space-y-3">
+                <div>
+                  <h3 class="text-base font-bold text-gray-900">What are you looking for?</h3>
+                  <p class="text-xs text-gray-500 mt-0.5">Pick what matters most to you right now.</p>
+                </div>
+
+                <div class="space-y-2">
+                  <label class="block p-3 bg-white border-2 border-[#007AFF] rounded-xl cursor-pointer shadow-sm">
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-3">
+                        <span class="text-xl">🎾</span>
+                        <div>
+                          <span class="text-xs font-bold text-gray-900 block">Play Friendly Games</span>
+                          <span class="text-[10px] text-gray-500">Find reliable partners nearby</span>
+                        </div>
+                      </div>
+                      <input type="radio" name="goal" checked class="accent-[#007AFF]">
+                    </div>
+                  </label>
+
+                  <label class="block p-3 bg-white border border-gray-200 rounded-xl cursor-pointer hover:border-gray-300">
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-3">
+                        <span class="text-xl">🚀</span>
+                        <div>
+                          <span class="text-xs font-bold text-gray-900 block">Learn &amp; Get Better</span>
+                          <span class="text-[10px] text-gray-500">Take lessons with friendly coaches</span>
+                        </div>
+                      </div>
+                      <input type="radio" name="goal" class="accent-[#007AFF]">
+                    </div>
+                  </label>
+
+                  <label class="block p-3 bg-white border border-gray-200 rounded-xl cursor-pointer hover:border-gray-300">
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-3">
+                        <span class="text-xl">🔄</span>
+                        <div>
+                          <span class="text-xs font-bold text-gray-900 block">Get Back Into Sports</span>
+                          <span class="text-[10px] text-gray-500">Start playing again safely without overdoing it</span>
+                        </div>
+                      </div>
+                      <input type="radio" name="goal" class="accent-[#007AFF]">
+                    </div>
+                  </label>
+
+                  <label class="block p-3 bg-white border border-gray-200 rounded-xl cursor-pointer hover:border-gray-300">
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-3">
+                        <span class="text-xl">🏆</span>
+                        <div>
+                          <span class="text-xs font-bold text-gray-900 block">Join Club Competitions</span>
+                          <span class="text-[10px] text-gray-500">Play in amateur leagues and tournaments</span>
+                        </div>
+                      </div>
+                      <input type="radio" name="goal" class="accent-[#007AFF]">
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Question 2: Which sport? -->
+              <div id="q-step-2" class="space-y-3 hidden">
+                <div>
+                  <h3 class="text-base font-bold text-gray-900">Choose your main sport</h3>
+                  <p class="text-xs text-gray-500 mt-0.5">You can add more sports anytime.</p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2.5">
+                  <div class="p-4 bg-white border-2 border-[#007AFF] rounded-xl text-center cursor-pointer shadow-sm">
+                    <span class="text-2xl block mb-1">🎾</span>
+                    <span class="text-xs font-bold text-gray-900 block">Padel</span>
+                    <span class="text-[10px] text-[#007AFF] font-bold">Most Popular</span>
+                  </div>
+                  <div class="p-4 bg-white border border-gray-200 rounded-xl text-center cursor-pointer hover:border-gray-300">
+                    <span class="text-2xl block mb-1">🎾</span>
+                    <span class="text-xs font-bold text-gray-900 block">Tennis</span>
+                    <span class="text-[10px] text-gray-400">Available</span>
+                  </div>
+                  <div class="p-4 bg-white border border-gray-200 rounded-xl text-center cursor-pointer hover:border-gray-300">
+                    <span class="text-2xl block mb-1">⚽</span>
+                    <span class="text-xs font-bold text-gray-900 block">Football</span>
+                    <span class="text-[10px] text-gray-400">7v7 &amp; Casual</span>
+                  </div>
+                  <div class="p-4 bg-white border border-gray-200 rounded-xl text-center cursor-pointer hover:border-gray-300">
+                    <span class="text-2xl block mb-1">🏓</span>
+                    <span class="text-xs font-bold text-gray-900 block">Pickleball</span>
+                    <span class="text-[10px] text-gray-400">Easy &amp; Fun</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Question 3: How is your level? -->
+              <div id="q-step-3" class="space-y-3 hidden">
+                <div>
+                  <h3 class="text-base font-bold text-gray-900">What is your playing level?</h3>
+                  <p class="text-xs text-gray-500 mt-0.5">This helps match you with players of similar skill.</p>
+                </div>
+
+                <div class="space-y-2">
+                  <div class="p-3 bg-white border border-gray-200 rounded-xl cursor-pointer hover:border-gray-300">
+                    <span class="text-xs font-bold text-gray-900 block">Brand New</span>
+                    <span class="text-[10px] text-gray-500">Learning the rules and basic hits</span>
+                  </div>
+                  <div class="p-3 bg-white border-2 border-[#007AFF] rounded-xl cursor-pointer shadow-sm">
+                    <span class="text-xs font-bold text-[#007AFF] block">Casual &amp; Regular</span>
+                    <span class="text-[10px] text-gray-500">Can keep rallies going, understand court positioning</span>
+                  </div>
+                  <div class="p-3 bg-white border border-gray-200 rounded-xl cursor-pointer hover:border-gray-300">
+                    <span class="text-xs font-bold text-gray-900 block">Experienced Player</span>
+                    <span class="text-[10px] text-gray-500">Play tournaments, good spin and court tactics</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Question 4: What is most important? -->
+              <div id="q-step-4" class="space-y-3 hidden">
+                <div>
+                  <h3 class="text-base font-bold text-gray-900">Why do you play sports?</h3>
+                  <p class="text-xs text-gray-500 mt-0.5">Helps us suggest the best next steps for you.</p>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 text-xs">
+                  <div class="p-3.5 bg-white border-2 border-[#007AFF] rounded-xl text-center font-bold text-[#007AFF] shadow-sm">
+                    👋 Making Friends
+                  </div>
+                  <div class="p-3.5 bg-white border border-gray-200 rounded-xl text-center text-gray-700">
+                    ⚡ Staying Healthy
+                  </div>
+                  <div class="p-3.5 bg-white border border-gray-200 rounded-xl text-center text-gray-700">
+                    🎯 Learning Skills
+                  </div>
+                  <div class="p-3.5 bg-white border border-gray-200 rounded-xl text-center text-gray-700">
+                    🛡️ Avoiding Injuries
+                  </div>
+                </div>
+              </div>
+
+              <!-- Question 5: Where to play? -->
+              <div id="q-step-5" class="space-y-3 hidden">
+                <div>
+                  <h3 class="text-base font-bold text-gray-900">Where do you want to play?</h3>
+                  <p class="text-xs text-gray-500 mt-0.5">Find nearby clubs and games.</p>
+                </div>
+
+                <div class="p-3 bg-white border border-gray-200 rounded-xl space-y-1">
+                  <label class="text-[10px] uppercase font-bold text-gray-500 block">Your City or Postal Code</label>
+                  <input type="text" value="Amsterdam (1076 EB)" class="w-full text-xs font-bold text-gray-900 outline-none">
+                </div>
+
+                <div class="p-3 bg-white border border-gray-200 rounded-xl space-y-1.5">
+                  <div class="flex justify-between text-xs text-gray-700 font-semibold">
+                    <span>How far will you travel?</span>
+                    <span class="text-[#007AFF] font-bold">10 km</span>
+                  </div>
+                  <input type="range" class="w-full accent-[#007AFF]" value="40">
+                </div>
+
+                <div class="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-center">
+                  <span class="text-xs font-bold text-emerald-800 block">✓ All Set!</span>
+                  <span class="text-[10px] text-emerald-700">Your sports profile is ready to go.</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Onboarding Buttons (Bottom Aligned) -->
+            <div class="p-4 pb-7 bg-white border-t border-gray-100 flex items-center justify-between z-40">
+              <button onclick="stepBack()" id="btn-back" class="swp-btn-secondary !py-2 !px-4 text-xs opacity-40 cursor-not-allowed">
+                Back
+              </button>
+              <button onclick="stepNext()" id="btn-next" class="swp-btn-primary !py-2 !px-5 text-xs">
+                Continue →
+              </button>
+            </div>
+            <div class="phone-bar"></div>
+          </div>
+
+          <!-- SCREEN 2: SPORTS PASSPORT (HOME HUB) -->
+          <div id="phone-screen-passport" class="mobile-phone hidden">
+            <div class="phone-island"><div class="phone-island-cam"></div></div>
+            <div class="phone-status">
+              <span>09:41</span>
+              <span>5G 100%</span>
+            </div>
+
+            <div class="phone-body">
+              
+              <!-- Passport Card -->
+              <div class="bg-gradient-to-br from-[#007AFF] to-[#0056B3] rounded-2xl p-4 text-white shadow-md mb-3.5 relative overflow-hidden">
+                <div class="flex items-start justify-between">
+                  <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-xl bg-white text-[#007AFF] font-black text-lg flex items-center justify-center border-2 border-white/40 shadow">
+                      AD
+                    </div>
+                    <div>
+                      <div class="flex items-center gap-1.5">
+                        <h3 class="text-sm font-bold text-white">Alex De Vries</h3>
+                        <span class="bg-emerald-400 text-emerald-950 text-[9px] font-extrabold px-1.5 py-0.5 rounded">VERIFIED</span>
+                      </div>
+                      <p class="text-[11px] text-blue-100">Amsterdam • Age 32</p>
+                    </div>
+                  </div>
+                  <button class="bg-white/20 hover:bg-white/30 text-white rounded-lg p-1.5 text-xs">
+                    QR ⚏
+                  </button>
+                </div>
+
+                <div class="mt-3.5 pt-3 border-t border-white/20 flex items-center justify-between text-xs">
+                  <div>
+                    <span class="text-[9px] uppercase tracking-wider text-blue-200 block">Playing Level</span>
+                    <span class="font-bold text-white flex items-center gap-1">
+                      Regular Player <span class="text-emerald-300">↗ Improving</span>
+                    </span>
+                  </div>
+                  <div class="text-right">
+                    <span class="text-[9px] uppercase tracking-wider text-blue-200 block">Active Sports</span>
+                    <span class="font-bold text-white">Padel &amp; Tennis</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- How You Feel Today -->
+              <div class="bg-white rounded-xl p-3 border border-gray-200 shadow-sm mb-3.5">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-bold text-gray-800">How You Feel Today</span>
+                  <span class="text-[10px] text-gray-400">Updated 2d ago</span>
+                </div>
+                
+                <div class="grid grid-cols-3 gap-2 text-center">
+                  <div class="p-2 bg-emerald-50 rounded-lg border border-emerald-100">
+                    <span class="text-xs font-bold text-emerald-800 block">82%</span>
+                    <span class="text-[9px] text-emerald-700 font-semibold uppercase">Body</span>
+                    <span class="text-[8px] text-gray-500 block">Fresh &amp; Ready</span>
+                  </div>
+                  <div class="p-2 bg-blue-50 rounded-lg border border-blue-100">
+                    <span class="text-xs font-bold text-blue-800 block">75%</span>
+                    <span class="text-[9px] text-blue-700 font-semibold uppercase">Mind</span>
+                    <span class="text-[8px] text-gray-500 block">Ready to Play</span>
+                  </div>
+                  <div class="p-2 bg-purple-50 rounded-lg border border-purple-100">
+                    <span class="text-xs font-bold text-purple-800 block">90%</span>
+                    <span class="text-[9px] text-purple-700 font-semibold uppercase">Community</span>
+                    <span class="text-[8px] text-gray-500 block">Friendly Group</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Suggested Next Step -->
+              <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-3.5 mb-3.5 shadow-sm">
+                <div class="flex items-center gap-1.5 mb-1">
+                  <span class="text-xs">⚡</span>
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-[#007AFF]">Suggested for You</span>
+                </div>
+                <h4 class="text-xs font-bold text-gray-900">Work on your Backhand Glass Hit</h4>
+                <p class="text-[11px] text-gray-600 mt-0.5">
+                  Coach Mukund has 1 open spot for an intermediate clinic at Amstelpark this Thursday.
+                </p>
+                <div class="mt-2.5 flex items-center justify-between">
+                  <span class="text-xs font-bold text-gray-900">€35.00</span>
+                  <button class="swp-btn-primary !py-1 !px-3 text-[11px]">
+                    Reserve Spot
+                  </button>
+                </div>
+              </div>
+
+              <!-- Active Sports Passports -->
+              <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-gray-800">Your Sports (2)</span>
+                  <button class="text-[11px] text-[#007AFF] font-bold">+ Add Sport</button>
+                </div>
+
+                <!-- Padel -->
+                <div class="bg-white rounded-xl p-3 border border-gray-200 shadow-sm">
+                  <div class="flex items-center justify-between mb-2">
+                    <div class="flex items-center gap-2">
+                      <span class="text-lg">🎾</span>
+                      <div>
+                        <span class="text-xs font-bold text-gray-900 block">Padel Passport</span>
+                        <span class="text-[10px] text-gray-500">Regular Player • Intermediate</span>
+                      </div>
+                    </div>
+                    <span class="pill pill-blue text-[10px]">Main Sport</span>
+                  </div>
+                  <div class="grid grid-cols-3 gap-2 text-center text-[10px] bg-gray-50 p-2 rounded-lg">
+                    <div>
+                      <span class="font-bold text-gray-800 block">42</span>
+                      <span class="text-gray-500">Games Played</span>
+                    </div>
+                    <div>
+                      <span class="font-bold text-emerald-600 block">98%</span>
+                      <span class="text-gray-500">Shows Up on Time</span>
+                    </div>
+                    <div>
+                      <span class="font-bold text-blue-600 block">Friendly</span>
+                      <span class="text-gray-500">Playing Style</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Tennis -->
+                <div class="bg-white rounded-xl p-3 border border-gray-200 shadow-sm">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <span class="text-lg">🎾</span>
+                      <div>
+                        <span class="text-xs font-bold text-gray-900 block">Tennis Passport</span>
+                        <span class="text-[10px] text-gray-500">Casual Weekend Games</span>
+                      </div>
+                    </div>
+                    <span class="pill pill-gray text-[10px]">12 Games</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Bottom Navigation -->
+            <div class="phone-nav">
+              <div class="phone-nav-item text-[#007AFF]" onclick="openPhone('passport')">
+                <span class="text-base block">🪪</span>
+                <span class="text-[9px] font-bold">Passport</span>
+              </div>
+              <div class="phone-nav-item text-gray-400">
+                <span class="text-base block">📅</span>
+                <span class="text-[9px] font-medium">Courts</span>
+              </div>
+              <div class="phone-nav-item text-gray-400" onclick="openPhone('compare')">
+                <span class="text-base block">👥</span>
+                <span class="text-[9px] font-medium">Games</span>
+              </div>
+              <div class="phone-nav-item text-gray-400">
+                <span class="text-base block">💬</span>
+                <span class="text-[9px] font-medium">Chat</span>
+              </div>
+            </div>
+            <div class="phone-bar"></div>
+          </div>
+
+          <!-- SCREEN 3: POST-GAME CHECK-IN (15 SECONDS) -->
+          <div id="phone-screen-checkin" class="mobile-phone hidden">
+            <div class="phone-island"><div class="phone-island-cam"></div></div>
+            <div class="phone-status">
+              <span>21:35</span>
+              <span>5G 88%</span>
+            </div>
+
+            <div class="phone-body">
+              <div class="bg-white rounded-2xl p-4 border border-blue-200 shadow-sm space-y-4">
+                
+                <div class="text-center space-y-1">
+                  <div class="w-10 h-10 rounded-full bg-blue-50 text-[#007AFF] text-lg flex items-center justify-center mx-auto mb-1">
+                    🎾
+                  </div>
+                  <span class="pill pill-blue text-[10px]">Quick Game Check-In</span>
+                  <h3 class="text-sm font-bold text-gray-900">How was your game at Amstelpark?</h3>
+                  <p class="text-[11px] text-gray-500">Takes 15 seconds. Helps us find good matches for you next time.</p>
+                </div>
+
+                <!-- 1. Body check -->
+                <div class="space-y-2 pt-2 border-t border-gray-100">
+                  <label class="text-xs font-bold text-gray-800 block">1. How does your body feel right now?</label>
+                  <div class="grid grid-cols-3 gap-2">
+                    <button class="p-2.5 rounded-xl border-2 border-emerald-500 bg-emerald-50 text-center">
+                      <span class="text-base block">🟢</span>
+                      <span class="text-[10px] font-bold text-emerald-900 block mt-1">Great</span>
+                      <span class="text-[8px] text-emerald-700">Ready to play</span>
+                    </button>
+                    <button class="p-2.5 rounded-xl border border-gray-200 bg-white hover:border-gray-300 text-center">
+                      <span class="text-base block">🟡</span>
+                      <span class="text-[10px] font-bold text-gray-800 block mt-1">Tired</span>
+                      <span class="text-[8px] text-gray-500">Good workout</span>
+                    </button>
+                    <button class="p-2.5 rounded-xl border border-gray-200 bg-white hover:border-gray-300 text-center">
+                      <span class="text-base block">🔴</span>
+                      <span class="text-[10px] font-bold text-gray-800 block mt-1">Sore</span>
+                      <span class="text-[8px] text-gray-500">Needs rest</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- 2. Match chemistry -->
+                <div class="space-y-2 pt-2 border-t border-gray-100">
+                  <label class="text-xs font-bold text-gray-800 block">2. How was playing with this group?</label>
+                  <div class="space-y-1.5">
+                    <label class="flex items-center gap-2.5 p-2 bg-gray-50 rounded-lg text-xs cursor-pointer border border-transparent hover:border-blue-300">
+                      <input type="radio" name="match-fit" checked class="accent-[#007AFF]">
+                      <span class="text-xs font-medium text-gray-800">🔥 Great match &amp; lots of fun</span>
+                    </label>
+                    <label class="flex items-center gap-2.5 p-2 bg-gray-50 rounded-lg text-xs cursor-pointer border border-transparent hover:border-blue-300">
+                      <input type="radio" name="match-fit" class="accent-[#007AFF]">
+                      <span class="text-xs font-medium text-gray-800">⚖️ Decent game, small skill difference</span>
+                    </label>
+                    <label class="flex items-center gap-2.5 p-2 bg-gray-50 rounded-lg text-xs cursor-pointer border border-transparent hover:border-blue-300">
+                      <input type="radio" name="match-fit" class="accent-[#007AFF]">
+                      <span class="text-xs font-medium text-gray-800">👎 Skill levels didn't match well</span>
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Reward -->
+                <div class="p-2.5 bg-emerald-50 border border-emerald-200 rounded-xl text-center space-y-0.5">
+                  <span class="text-[10px] font-bold text-emerald-800">Saved to Your Passport!</span>
+                  <p class="text-[10px] text-emerald-700">+1 Game added • Still 98% on-time attendance.</p>
+                </div>
+
+                <button onclick="openPhone('passport')" class="w-full swp-btn-primary !py-2.5 text-xs">
+                  Save Check-In
+                </button>
+              </div>
+            </div>
+
+            <div class="phone-nav">
+              <div class="phone-nav-item text-gray-400" onclick="openPhone('passport')">
+                <span class="text-base block">🪪</span>
+                <span class="text-[9px] font-medium">Passport</span>
+              </div>
+              <div class="phone-nav-item text-gray-400">
+                <span class="text-base block">📅</span>
+                <span class="text-[9px] font-medium">Courts</span>
+              </div>
+              <div class="phone-nav-item text-[#007AFF]" onclick="openPhone('checkin')">
+                <span class="text-base block">👥</span>
+                <span class="text-[9px] font-bold">Games</span>
+              </div>
+              <div class="phone-nav-item text-gray-400">
+                <span class="text-base block">💬</span>
+                <span class="text-[9px] font-medium">Chat</span>
+              </div>
+            </div>
+            <div class="phone-bar"></div>
+          </div>
+
+          <!-- SCREEN 4: COMPARE & SHARE (FIND THE RIGHT MATCH) -->
+          <div id="phone-screen-compare" class="mobile-phone hidden">
+            <div class="phone-island"><div class="phone-island-cam"></div></div>
+            <div class="phone-status">
+              <span>09:41</span>
+              <span>5G 100%</span>
+            </div>
+
+            <div class="phone-body">
+              <div class="flex items-center justify-between mb-3">
+                <h3 class="text-sm font-bold text-gray-900">Partner Matching</h3>
+                <span class="pill pill-blue text-[10px]">Padel Doubles</span>
+              </div>
+
+              <!-- Comparison Card -->
+              <div class="bg-white rounded-2xl p-4 border border-gray-200 shadow-sm space-y-4 mb-3.5">
+                
+                <div class="flex items-center justify-between px-2">
+                  <div class="text-center">
+                    <div class="w-11 h-11 rounded-full bg-blue-100 text-[#007AFF] font-bold flex items-center justify-center mx-auto mb-1 border-2 border-[#007AFF]">
+                      AD
+                    </div>
+                    <span class="text-xs font-bold text-gray-900 block">Alex D.</span>
+                    <span class="text-[9px] text-gray-500">Regular</span>
+                  </div>
+
+                  <!-- Score -->
+                  <div class="text-center">
+                    <div class="w-14 h-14 rounded-full bg-emerald-500 text-white font-black flex flex-col items-center justify-center shadow-md">
+                      <span class="text-sm leading-none">92%</span>
+                      <span class="text-[8px] uppercase font-bold">Fit</span>
+                    </div>
+                    <span class="text-[9px] font-bold text-emerald-600 mt-1 block">Great Match</span>
+                  </div>
+
+                  <div class="text-center">
+                    <div class="w-11 h-11 rounded-full bg-purple-100 text-purple-700 font-bold flex items-center justify-center mx-auto mb-1 border-2 border-purple-500">
+                      JK
+                    </div>
+                    <span class="text-xs font-bold text-gray-900 block">Jordan K.</span>
+                    <span class="text-[9px] text-gray-500">Regular</span>
+                  </div>
+                </div>
+
+                <!-- Match Breakdown -->
+                <div class="space-y-2 pt-2 border-t border-gray-100 text-xs">
+                  <div>
+                    <div class="flex justify-between text-[11px] mb-1">
+                      <span class="text-gray-500">Skill Level:</span>
+                      <span class="font-bold text-gray-800">Both Intermediate (98%)</span>
+                    </div>
+                    <div class="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
+                      <div class="bg-emerald-500 h-1.5 rounded-full" style="width: 98%;"></div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div class="flex justify-between text-[11px] mb-1">
+                      <span class="text-gray-500">Playing Style:</span>
+                      <span class="font-bold text-gray-800">Both Enjoy Friendly Games (90%)</span>
+                    </div>
+                    <div class="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
+                      <div class="bg-emerald-500 h-1.5 rounded-full" style="width: 90%;"></div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div class="flex justify-between text-[11px] mb-1">
+                      <span class="text-gray-500">When You Play:</span>
+                      <span class="font-bold text-gray-800">Tuesday &amp; Thursday Evenings</span>
+                    </div>
+                    <div class="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
+                      <div class="bg-emerald-500 h-1.5 rounded-full" style="width: 88%;"></div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div class="flex justify-between text-[11px] mb-1">
+                      <span class="text-gray-500">Reliability:</span>
+                      <span class="font-bold text-gray-800">Both Show Up on Time (98% vs 95%)</span>
+                    </div>
+                    <div class="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
+                      <div class="bg-blue-500 h-1.5 rounded-full" style="width: 96%;"></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="p-2 bg-gray-50 rounded-xl text-center">
+                  <span class="text-[10px] text-gray-600 block">
+                    🤝 <strong>No Awkwardness:</strong> You both play for fun and have similar skill levels.
+                  </span>
+                </div>
+              </div>
+
+              <div class="space-y-2">
+                <button class="w-full swp-btn-primary !py-2.5 text-xs">
+                  Invite Jordan to Play Padel
+                </button>
+                <button class="w-full swp-btn-secondary !py-2 text-xs">
+                  Share Player Card via QR Code
+                </button>
+              </div>
+
+            </div>
+
+            <div class="phone-nav">
+              <div class="phone-nav-item text-gray-400" onclick="openPhone('passport')">
+                <span class="text-base block">🪪</span>
+                <span class="text-[9px] font-medium">Passport</span>
+              </div>
+              <div class="phone-nav-item text-gray-400">
+                <span class="text-base block">📅</span>
+                <span class="text-[9px] font-medium">Courts</span>
+              </div>
+              <div class="phone-nav-item text-[#007AFF]" onclick="openPhone('compare')">
+                <span class="text-base block">👥</span>
+                <span class="text-[9px] font-bold">Games</span>
+              </div>
+              <div class="phone-nav-item text-gray-400">
+                <span class="text-base block">💬</span>
+                <span class="text-[9px] font-medium">Chat</span>
+              </div>
+            </div>
+            <div class="phone-bar"></div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 2. WHY WE MADE THIS (STRATEGY IN SIMPLE WORDS) -->
+    <!-- ========================================================================= -->
+    <section id="sec-strategy" class="hidden space-y-6">
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm space-y-6">
+        
+        <div class="border-b border-gray-100 pb-4">
+          <span class="pill pill-blue text-[10px]">Business Strategy</span>
+          <h2 class="text-xl font-black text-gray-900 mt-1">Why Are We Doing This? (In Simple Words)</h2>
+          <p class="text-xs text-gray-500">The clear story behind ShallWe-Play's business direction.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <!-- What Happened in Attempt 1 -->
+          <div class="bg-red-50/70 border border-red-200 rounded-2xl p-5 space-y-3">
+            <div class="flex items-center gap-2">
+              <span class="w-7 h-7 rounded-full bg-red-100 text-[#FF3E1D] flex items-center justify-center font-bold text-sm">✕</span>
+              <h3 class="text-sm font-bold text-[#FF3E1D]">What Didn't Work (Attempt 1 - 2025)</h3>
+            </div>
+            <p class="text-xs text-gray-700 leading-relaxed">
+              We tried to build a court booking and club management tool for sports clubs. 
+              <strong>It failed because clubs already have software they won't replace</strong> (like Matchi, Playtomic, and Sportlink). Clubs don't want another administrative tool.
+            </p>
+            <div class="p-3 bg-white rounded-xl border border-red-100 text-xs text-gray-600 space-y-1">
+              <div>• Booking tools only record 60-minute time slots.</div>
+              <div>• When a player stops booking, the club has no idea why they quit.</div>
+            </div>
+          </div>
+
+          <!-- The New Winning Position -->
+          <div class="bg-blue-50/70 border border-blue-200 rounded-2xl p-5 space-y-3">
+            <div class="flex items-center gap-2">
+              <span class="w-7 h-7 rounded-full bg-blue-100 text-[#007AFF] flex items-center justify-center font-bold text-sm">✓</span>
+              <h3 class="text-sm font-bold text-[#007AFF]">The New Direction (Our Winning Idea)</h3>
+            </div>
+            <p class="text-xs text-gray-700 leading-relaxed">
+              <strong>"The club owns the season. The coach owns the lesson. ShallWe-Play helps the player keep playing for life."</strong>
+              Instead of competing with court booking tools, ShallWe-Play becomes the player's personal sports buddy.
+            </p>
+            <div class="p-3 bg-white rounded-xl border border-blue-100 text-xs text-gray-600 space-y-1">
+              <div>• We bring ready-to-play players to clubs and coaches.</div>
+              <div>• We notice when someone is losing interest and help them get back on track.</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- The 3 Simple Steps of the Passport -->
+        <div class="bg-gray-50 border border-gray-200 rounded-2xl p-5 space-y-3">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-gray-600">How the Universal Sports Passport Works</h4>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 bg-white rounded-xl border border-gray-200">
+              <span class="pill pill-blue text-[10px] mb-2">Step 1: 1-Minute Setup</span>
+              <h5 class="text-xs font-bold text-gray-900">Start Fast</h5>
+              <p class="text-xs text-gray-600 mt-1">Answer 5 simple questions in under a minute so you can start playing right away.</p>
+            </div>
+            <div class="p-4 bg-white rounded-xl border border-gray-200">
+              <span class="pill pill-amber text-[10px] mb-2">Step 2: Quick Check-Ins</span>
+              <h5 class="text-xs font-bold text-gray-900">Grow As You Play</h5>
+              <p class="text-xs text-gray-600 mt-1">A 15-second tap after each game updates how your body feels and if you liked the group.</p>
+            </div>
+            <div class="p-4 bg-white rounded-xl border border-gray-200">
+              <span class="pill pill-green text-[10px] mb-2">Step 3: Helpful Next Steps</span>
+              <h5 class="text-xs font-bold text-gray-900">Never Get Stuck</h5>
+              <p class="text-xs text-gray-600 mt-1">Get suggestions for friendly matches, coach clinics, or safe return after an injury.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 3. REAL PLAYER STORIES (EXAMPLES) -->
+    <!-- ========================================================================= -->
+    <section id="sec-personas" class="hidden space-y-6">
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm space-y-6">
+        
+        <div class="border-b border-gray-100 pb-4">
+          <span class="pill pill-blue text-[10px]">Real Examples</span>
+          <h2 class="text-xl font-black text-gray-900 mt-1">Real Player Stories (Before vs With ShallWe-Play)</h2>
+          <p class="text-xs text-gray-500">See how this solves everyday frustrations for real sports players.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          
+          <!-- Alex -->
+          <div class="border border-gray-200 rounded-2xl p-5 space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-blue-100 text-[#007AFF] font-bold flex items-center justify-center">
+                AD
+              </div>
+              <div>
+                <h3 class="text-sm font-bold text-gray-900">Alex (Age 32, Amsterdam) — Padel Improver</h3>
+                <span class="text-[11px] text-gray-500">Wants friendly matches &amp; better technique</span>
+              </div>
+            </div>
+
+            <div class="p-3 bg-red-50 rounded-xl border border-red-100 text-xs space-y-1">
+              <span class="font-bold text-red-800 block text-[11px]">Before ShallWe-Play:</span>
+              <p class="text-gray-700">Arranges games through WhatsApp. Matches are often uneven (someone is too competitive or too beginner). Gets frustrated, stops improving, and gives up after 2 months.</p>
+            </div>
+
+            <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-xs space-y-1">
+              <span class="font-bold text-emerald-800 block text-[11px]">With ShallWe-Play:</span>
+              <p class="text-gray-700">Matched with Jordan (92% fit). His check-in notices he wants to improve his backhand. ShallWe-Play suggests a €35 weekend clinic with Coach Mukund. Alex keeps playing weekly.</p>
+            </div>
+          </div>
+
+          <!-- Sarah -->
+          <div class="border border-gray-200 rounded-2xl p-5 space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 font-bold flex items-center justify-center">
+                SB
+              </div>
+              <div>
+                <h3 class="text-sm font-bold text-gray-900">Sarah (Age 44, Utrecht) — Tennis to Padel Switch</h3>
+                <span class="text-[11px] text-gray-500">Needs gentler sport after tennis elbow</span>
+              </div>
+            </div>
+
+            <div class="p-3 bg-red-50 rounded-xl border border-red-100 text-xs space-y-1">
+              <span class="font-bold text-red-800 block text-[11px]">Before ShallWe-Play:</span>
+              <p class="text-gray-700">Her elbow hurts after singles tennis. Can't find doubles partners. Cancels her club membership and stops doing sports completely.</p>
+            </div>
+
+            <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-xs space-y-1">
+              <span class="font-bold text-emerald-800 block text-[11px]">With ShallWe-Play:</span>
+              <p class="text-gray-700">Her check-in flags arm soreness. The app suggests switching to Padel (easier on joints) and connects her to a friendly beginner doubles morning. She stays active.</p>
+            </div>
+          </div>
+
+          <!-- Liam -->
+          <div class="border border-gray-200 rounded-2xl p-5 space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-purple-100 text-purple-700 font-bold flex items-center justify-center">
+                LV
+              </div>
+              <div>
+                <h3 class="text-sm font-bold text-gray-900">Liam (Age 14, Rotterdam) — Youth Football</h3>
+                <span class="text-[11px] text-gray-500">Developing player, needs safe privacy</span>
+              </div>
+            </div>
+
+            <div class="p-3 bg-red-50 rounded-xl border border-red-100 text-xs space-y-1">
+              <span class="font-bold text-red-800 block text-[11px]">Before ShallWe-Play:</span>
+              <p class="text-gray-700">Coach feedback is on loose paper. Too many training sessions cause tiredness and burnout before his parents even notice.</p>
+            </div>
+
+            <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-xs space-y-1">
+              <span class="font-bold text-emerald-800 block text-[11px]">With ShallWe-Play:</span>
+              <p class="text-gray-700">Parent-approved private profile. The app balances game load and tracks verified coach badges, keeping sports fun and safe.</p>
+            </div>
+          </div>
+
+          <!-- Jan -->
+          <div class="border border-gray-200 rounded-2xl p-5 space-y-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center">
+                JW
+              </div>
+              <div>
+                <h3 class="text-sm font-bold text-gray-900">Jan (Age 58, Haarlem) — Safe Return After Surgery</h3>
+                <span class="text-[11px] text-gray-500">Returning to sports safely</span>
+              </div>
+            </div>
+
+            <div class="p-3 bg-red-50 rounded-xl border border-red-100 text-xs space-y-1">
+              <span class="font-bold text-red-800 block text-[11px]">Before ShallWe-Play:</span>
+              <p class="text-gray-700">Fears playing competitive games again after minor knee surgery. Sits at home for months and becomes completely inactive.</p>
+            </div>
+
+            <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-xs space-y-1">
+              <span class="font-bold text-emerald-800 block text-[11px]">With ShallWe-Play:</span>
+              <p class="text-gray-700">The app starts him in a gentle "Return" phase. Recommends low-impact Pickleball games with peers. Jan stays healthy and happy.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- 4. FOR SPORTS CLUBS (PREDICTING CHURN) -->
+    <!-- ========================================================================= -->
+    <section id="sec-club" class="hidden space-y-6">
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm space-y-6">
+        
+        <div class="flex flex-wrap items-center justify-between border-b border-gray-100 pb-4 gap-2">
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="text-xl font-black text-gray-900">Amstelpark Padel Club — Member Activity Dashboard</h2>
+              <span class="pill pill-blue">Club View</span>
+            </div>
+            <p class="text-xs text-gray-500">Helping clubs keep members active instead of only tracking court fees.</p>
+          </div>
+          <span class="text-xs font-semibold text-gray-500">Active Club Members: <strong class="text-gray-900">412 Players</strong></span>
+        </div>
+
+        <!-- 4 Simple Numbers -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div class="p-4 bg-white rounded-xl border border-gray-200 shadow-sm">
+            <span class="text-xs text-gray-500 block">Members Staying Active</span>
+            <span class="text-2xl font-black text-emerald-600 block mt-1">94.2%</span>
+            <span class="text-[10px] text-emerald-700 font-semibold">↑ +2.1% this quarter</span>
+          </div>
+          <div class="p-4 bg-white rounded-xl border border-gray-200 shadow-sm">
+            <span class="text-xs text-gray-500 block">Playing Every Week</span>
+            <span class="text-2xl font-black text-[#007AFF] block mt-1">268</span>
+            <span class="text-[10px] text-gray-500">Regular happy members</span>
+          </div>
+          <div class="p-4 bg-amber-50 rounded-xl border border-amber-200 shadow-sm">
+            <span class="text-xs text-amber-800 font-bold block">Missing Games Lately</span>
+            <span class="text-2xl font-black text-amber-600 block mt-1">14 Players</span>
+            <span class="text-[10px] text-amber-700 font-semibold">Haven't played in 3 weeks</span>
+          </div>
+          <div class="p-4 bg-blue-50 rounded-xl border border-blue-200 shadow-sm">
+            <span class="text-xs text-blue-800 font-bold block">New Players Nearby</span>
+            <span class="text-2xl font-black text-[#007AFF] block mt-1">38 People</span>
+            <span class="text-[10px] text-blue-700 font-semibold">Looking for beginner clinics</span>
+          </div>
+        </div>
+
+        <!-- Table of Actionable Alerts -->
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <h3 class="text-sm font-bold text-gray-900 flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+              Members Who Need a Friendly Nudge (Before They Cancel)
+            </h3>
+            <span class="text-xs text-gray-500">Automated by ShallWe-Play</span>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs text-left border border-gray-200 rounded-xl">
+              <thead class="bg-gray-50 border-b border-gray-200 text-gray-700">
+                <tr>
+                  <th class="p-3 font-bold">Player</th>
+                  <th class="p-3 font-bold">What's Happening</th>
+                  <th class="p-3 font-bold">Recommended Action</th>
+                  <th class="p-3 font-bold">Action</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                <tr>
+                  <td class="p-3 font-bold text-gray-900">Mark V. (Member 6m)</td>
+                  <td class="p-3 text-gray-600">Hasn't played in 3 weeks. Said he has trouble finding partners.</td>
+                  <td class="p-3 font-semibold text-[#007AFF]">Invite to Wednesday Social Mixer</td>
+                  <td class="p-3"><button class="swp-btn-primary !py-1 !px-3 text-[10px]">Send Invite</button></td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-bold text-gray-900">Sophie B. (Member 1y)</td>
+                  <td class="p-3 text-gray-600">Reported sore elbow after game. Cancelled 2 court bookings.</td>
+                  <td class="p-3 font-semibold text-purple-700">Offer Gentle Padel Session with Coach Elena</td>
+                  <td class="p-3"><button class="swp-btn-secondary !py-1 !px-3 text-[10px]">Send Note</button></td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-bold text-gray-900">Daan K. (New)</td>
+                  <td class="p-3 text-gray-600">Finished his first game. Really enjoyed it and wants to improve.</td>
+                  <td class="p-3 font-semibold text-emerald-700">Offer €15 Starter Clinic on Saturday</td>
+                  <td class="p-3"><button class="swp-btn-primary !py-1 !px-3 text-[10px]">Offer Clinic</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Interactive JavaScript -->
+  <script>
+    let currentStep = 1;
+    const maxSteps = 5;
+
+    // Explanations for each screen (Simple English)
+    const screenDetails = {
+      onboarding: {
+        title: "1. Quick 1-Minute Setup",
+        pill: "Quick & Easy Start",
+        summary: "Most sports apps force people through long, boring registration forms with dozens of fields. Players get tired and leave. ShallWe-Play asks only 5 quick questions so players can find a game immediately.",
+        points: [
+          "<strong>Takes under a minute:</strong> Pick your goal, sport, level, motivation, and city.",
+          "<strong>Creates your sports card immediately:</strong> No long verification wait.",
+          "<strong>Less friction:</strong> Extra details are only asked later when you actually need them."
+        ]
+      },
+      passport: {
+        title: "2. Your Sports Card (Home Screen)",
+        pill: "Your Lifelong Sports Profile",
+        summary: "Your personal sports record that stays with you everywhere. If you move house, join a different club, or start a new sport like padel, all your games and achievements stay in one place.",
+        points: [
+          "<strong>How You Feel Today:</strong> Simple check on your Body energy, Mind, and Community connection.",
+          "<strong>Helpful Next Steps:</strong> Recommends real nearby games, coaching clinics, or safe return tips.",
+          "<strong>All Your Sports in One Place:</strong> See your games played and reliability rating across padel, tennis, and football."
+        ]
+      },
+      checkin: {
+        title: "3. 30-Second Post-Game Check-In",
+        pill: "Takes 15 Seconds",
+        summary: "After playing a sports match, nobody wants to answer a 10-minute survey. This simple screen takes 2 quick taps right after a match to see how your body feels and if you enjoyed your partners.",
+        points: [
+          "<strong>Body check:</strong> 🟢 Feeling great, 🟡 Tired, or 🔴 Sore. Tells you if you need rest so you don't get injured.",
+          "<strong>Group fit:</strong> Did you enjoy playing with these partners? Helps us make future partner matching even better.",
+          "<strong>Instant record:</strong> Automatically adds +1 game to your passport."
+        ]
+      },
+      compare: {
+        title: "4. Finding the Right Partner (Compare Passports)",
+        pill: "Friendly Matching, Not Bragging",
+        summary: "Traditional sports apps compare players by who has the most wins, which intimidates everyday casual players. ShallWe-Play compares players for friendliness and compatibility: level, playing style, free evenings, and showing up on time.",
+        points: [
+          "<strong>92% Match:</strong> Shows why two players will have a fun, balanced game.",
+          "<strong>Schedule overlap:</strong> Shows when both players are free to play (e.g. Tuesday & Thursday evenings).",
+          "<strong>1-click invite:</strong> Send a friendly invite to play doubles with zero awkwardness."
+        ]
+      }
+    };
+
+    // Open Screen
+    function openPhone(screenName) {
+      const screens = ['onboarding', 'passport', 'checkin', 'compare'];
+      screens.forEach(s => {
+        document.getElementById(`phone-screen-${s}`).classList.add('hidden');
+        document.getElementById(`btn-wf-${s}`).className = 'swp-btn-secondary !py-2 !px-3.5 text-xs';
+      });
+
+      document.getElementById(`phone-screen-${screenName}`).classList.remove('hidden');
+      document.getElementById(`btn-wf-${screenName}`).className = 'swp-btn-primary !py-2 !px-3.5 text-xs';
+
+      // Update info card
+      const d = screenDetails[screenName];
+      document.getElementById('screen-info-card').innerHTML = `
+        <div class="flex items-center justify-between">
+          <span class="pill pill-blue text-[10px]">${d.pill}</span>
+          <span class="text-xs font-bold text-gray-400">Mobile Screen</span>
+        </div>
+        <h3 class="text-base font-bold text-gray-900">${d.title}</h3>
+        <p class="text-xs text-gray-600 leading-relaxed">${d.summary}</p>
+        <div class="pt-2 border-t border-gray-100 space-y-1.5">
+          <span class="text-[11px] font-bold text-gray-800 uppercase tracking-wide block">Key Points:</span>
+          <ul class="text-xs text-gray-600 space-y-1 list-disc pl-4">
+            ${d.points.map(p => `<li>${p}</li>`).join('')}
+          </ul>
+        </div>
+      `;
+    }
+
+    // Onboarding step logic
+    function renderStep() {
+      for (let i = 1; i <= maxSteps; i++) {
+        document.getElementById(`q-step-${i}`).classList.add('hidden');
+      }
+      document.getElementById(`q-step-${currentStep}`).classList.remove('hidden');
+      document.getElementById('step-count').textContent = `Step ${currentStep} of ${maxSteps}`;
+      document.getElementById('step-bar').style.width = `${(currentStep / maxSteps) * 100}%`;
+
+      const backBtn = document.getElementById('btn-back');
+      if (currentStep === 1) {
+        backBtn.classList.add('opacity-40', 'cursor-not-allowed');
+      } else {
+        backBtn.classList.remove('opacity-40', 'cursor-not-allowed');
+      }
+
+      const nextBtn = document.getElementById('btn-next');
+      if (currentStep === maxSteps) {
+        nextBtn.textContent = 'View My Passport →';
+      } else {
+        nextBtn.textContent = 'Continue →';
+      }
+    }
+
+    function stepNext() {
+      if (currentStep < maxSteps) {
+        currentStep++;
+        renderStep();
+      } else {
+        openPhone('passport');
+      }
+    }
+
+    function stepBack() {
+      if (currentStep > 1) {
+        currentStep--;
+        renderStep();
+      }
+    }
+
+    // Top section switcher
+    function showSection(sectionId) {
+      const sections = ['wireframes', 'strategy', 'personas', 'club'];
+      sections.forEach(s => {
+        document.getElementById(`sec-${s}`).classList.add('hidden');
+        document.getElementById(`nav-${s}`).classList.remove('active');
+      });
+
+      document.getElementById(`sec-${sectionId}`).classList.remove('hidden');
+      document.getElementById(`nav-${sectionId}`).classList.add('active');
+
+      if (sectionId === 'wireframes') {
+        openPhone('onboarding');
+      }
+    }
+
+    // Initialize
+    openPhone('onboarding');
+    renderStep();
+  </script>
+</body>
+</html>

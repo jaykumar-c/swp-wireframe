@@ -1,0 +1,1666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShallWe-Play - Coach Lesson Management & Inhaalweken Rescheduling Suite</title>
+  
+  <!-- Fonts: Montserrat & Inter (Official ShallWe-Play Design System) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+
+  <style>
+    :root {
+      --color-primary: #007AFF;
+      --color-primary-hover: #0062CC;
+      --color-primary-light: #EBF5FF;
+      --color-navy: #1B2E4B;
+      --color-navy-dark: #061D42;
+      --color-slate: #32475C;
+      --color-text-main: #1C1C1C;
+      --color-text-muted: rgba(50, 71, 92, 0.68);
+      --color-bg-canvas: #F5F5F9;
+      --color-card-border: rgba(50, 71, 92, 0.12);
+      --color-input-border: rgba(50, 71, 92, 0.22);
+      --color-success: #228B22;
+      --color-success-bg: rgba(34, 139, 34, 0.08);
+      --color-warning: #FFAB00;
+      --color-warning-bg: rgba(255, 171, 0, 0.08);
+      --color-danger: #FF3E1D;
+      --color-danger-bg: rgba(255, 62, 29, 0.08);
+    }
+
+    * {
+      font-family: 'Montserrat', sans-serif !important;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--color-bg-canvas);
+      color: var(--color-text-main);
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── SWP Material Notched Inset-Label Form Fields ── */
+    .swp-field-container {
+      position: relative;
+      margin-top: 10px;
+      margin-bottom: 8px;
+    }
+    .swp-input, .swp-select {
+      width: 100%;
+      min-height: 52px;
+      padding: 14px 12px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #1C1C1C;
+      background-color: #FFFFFF;
+      border: 1px solid rgba(50, 71, 92, 0.22);
+      border-radius: 4px;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+    .swp-input:focus, .swp-select:focus {
+      border-color: #007AFF;
+      box-shadow: 0 1px 3px rgba(0, 122, 255, 0.4);
+    }
+    .swp-label {
+      position: absolute;
+      top: -9px;
+      left: 10px;
+      background-color: #FFFFFF;
+      padding: 0 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(50, 71, 92, 0.68);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      z-index: 2;
+    }
+
+    /* ── SWP Surface Cards & Headers ── */
+    .swp-card-surface {
+      background-color: #FFFFFF;
+      border: 1px solid rgba(50, 71, 92, 0.12);
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      transition: all 0.2s ease;
+    }
+    .swp-card-surface:hover {
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.09);
+    }
+    .swp-card-header-ice {
+      height: 48px;
+      background-color: #EBF5FF;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 18px;
+      border-bottom: 1px solid rgba(0, 122, 255, 0.12);
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+    }
+
+    /* ── SWP Buttons ── */
+    .swp-btn-primary {
+      background-color: #007AFF;
+      color: #FFFFFF;
+      font-weight: 600;
+      font-size: 13px;
+      min-height: 38px;
+      padding: 8px 18px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border: 1px solid #007AFF;
+      box-shadow: 0 2px 4px rgba(0, 122, 255, 0.3);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-decoration: none;
+    }
+    .swp-btn-primary:hover {
+      background-color: #0062CC;
+      border-color: #0062CC;
+      transform: translateY(-1px);
+    }
+    .swp-btn-neutral {
+      background-color: #FFFFFF;
+      color: #32475C;
+      font-weight: 600;
+      font-size: 13px;
+      min-height: 38px;
+      padding: 8px 16px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border: 1px solid rgba(50, 71, 92, 0.22);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .swp-btn-neutral:hover {
+      background-color: #F8FAFC;
+      border-color: rgba(50, 71, 92, 0.35);
+    }
+    .swp-btn-danger {
+      background-color: #FF3E1D;
+      color: #FFFFFF;
+      font-weight: 600;
+      font-size: 13px;
+      min-height: 38px;
+      padding: 8px 16px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid #FF3E1D;
+      box-shadow: 0 2px 4px rgba(255, 62, 29, 0.3);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .swp-btn-danger:hover {
+      background-color: #e03212;
+    }
+
+    /* ── SWP Canonical Toggle Switch ── */
+    .swp-switch {
+      position: relative;
+      display: inline-block;
+      width: 27px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+    .swp-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .swp-switch-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #CBD5E1;
+      transition: .2s;
+      border-radius: 16px;
+    }
+    .swp-switch-slider:before {
+      position: absolute;
+      content: "";
+      height: 8px;
+      width: 8px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .2s;
+      border-radius: 50%;
+    }
+    input:checked + .swp-switch-slider {
+      background-color: #007AFF;
+    }
+    input:checked + .swp-switch-slider:before {
+      transform: translateX(11px);
+    }
+
+    /* ── Status Chips ── */
+    .swp-chip {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .swp-chip-active {
+      background-color: rgba(34, 139, 34, 0.08);
+      color: #228B22;
+      border: 1px solid rgba(34, 139, 34, 0.2);
+    }
+    .swp-chip-warning {
+      background-color: rgba(255, 171, 0, 0.1);
+      color: #B45309;
+      border: 1px solid rgba(255, 171, 0, 0.3);
+    }
+    .swp-chip-danger {
+      background-color: rgba(255, 62, 29, 0.08);
+      color: #FF3E1D;
+      border: 1px solid rgba(255, 62, 29, 0.2);
+    }
+    .swp-chip-primary {
+      background-color: #EBF5FF;
+      color: #007AFF;
+      border: 1px solid rgba(0, 122, 255, 0.25);
+    }
+    .swp-chip-navy {
+      background-color: #F1F5F9;
+      color: #1B2E4B;
+      border: 1px solid #CBD5E1;
+    }
+
+    /* ── Custom Scrollbars ── */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F1F5F9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94A3B8;
+    }
+
+    /* ── Phone Frame Styling (Court-Side Mobile View) ── */
+    .phone-mockup {
+      width: 380px;
+      height: 780px;
+      background: #000000;
+      border-radius: 48px;
+      padding: 12px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+      position: relative;
+      margin: 0 auto;
+    }
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      background: #F8FAFC;
+      border-radius: 38px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .phone-notch {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 24px;
+      background: #000000;
+      border-bottom-left-radius: 14px;
+      border-bottom-right-radius: 14px;
+      z-index: 50;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- ================= TOP WORKBENCH CONTROL BAR ================= -->
+  <header class="bg-[#061D42] text-white border-b border-blue-950 px-6 py-2.5 flex flex-wrap items-center justify-between text-xs sticky top-0 z-50 shadow-md">
+    <div class="flex items-center space-x-3 mb-1 sm:mb-0">
+      <div class="flex items-center space-x-2">
+        <span class="bg-[#007AFF] text-white font-extrabold px-2 py-0.5 rounded text-[11px] tracking-wide">ShallWe-Play</span>
+        <span class="bg-amber-400/20 text-amber-300 border border-amber-400/30 font-bold px-2 py-0.5 rounded text-[10px]">COACH LESSON MANAGEMENT</span>
+      </div>
+      <span class="text-blue-200/70 font-normal hidden lg:inline">| Meeting Ground Truth: Head Coach Jeroen Froma (House of Padel / SCO Sportcentrum Oudenrijn)</span>
+    </div>
+
+    <!-- Dual-Tier Role Switcher Simulator -->
+    <div class="flex items-center space-x-3">
+      <div class="flex items-center space-x-1.5 bg-blue-900/60 border border-blue-800/80 px-2.5 py-1 rounded text-xs">
+        <span class="text-blue-300 font-medium">Coach Authority:</span>
+        <button id="auth-tier-btn" onclick="toggleCoachTier()" class="font-bold text-amber-300 hover:text-white flex items-center gap-1">
+          <span id="auth-tier-label">Tier A: Head Coach (Autonomous)</span>
+          <span class="text-[10px] text-blue-300">⇄</span>
+        </button>
+      </div>
+
+      <div class="hidden sm:flex items-center space-x-1.5 text-xs text-gray-300 bg-black/30 border border-white/10 px-2.5 py-1 rounded">
+        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+        <span>SCO Sportcentrum Oudenrijn (Court 3)</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= SUB-NAVIGATION BAR (MODULE VIEWS) ================= -->
+  <nav class="bg-white border-b border-gray-200 px-6 py-2 flex flex-wrap items-center justify-between sticky top-[41px] z-40 shadow-xs">
+    <div class="flex items-center space-x-2 overflow-x-auto no-scrollbar py-1">
+      <button onclick="switchView('calendar')" id="tab-calendar" class="px-3.5 py-1.5 rounded-[4px] text-xs font-bold bg-[#007AFF] text-white shadow-xs transition flex items-center gap-1.5 shrink-0">
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+        <span>1. 8-Week Series & Inhaalweken Grid</span>
+      </button>
+
+      <button onclick="switchView('reschedule')" id="tab-reschedule" class="px-3.5 py-1.5 rounded-[4px] text-xs font-semibold text-[#32475C] hover:text-[#007AFF] hover:bg-blue-50 transition flex items-center gap-1.5 shrink-0">
+        <svg class="w-3.5 h-3.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <span>2. Reschedule & Lease-Lock Engine</span>
+      </button>
+
+      <button onclick="switchView('mobile')" id="tab-mobile" class="px-3.5 py-1.5 rounded-[4px] text-xs font-semibold text-[#32475C] hover:text-[#007AFF] hover:bg-blue-50 transition flex items-center gap-1.5 shrink-0">
+        <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+        <span>3. Court-Side Mobile App</span>
+      </button>
+
+      <button onclick="switchView('clubops')" id="tab-clubops" class="px-3.5 py-1.5 rounded-[4px] text-xs font-semibold text-[#32475C] hover:text-[#007AFF] hover:bg-blue-50 transition flex items-center gap-1.5 shrink-0">
+        <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+        <span>4. Club Court Sheet Audit (Baanbezetting)</span>
+      </button>
+
+      <button onclick="switchView('spec')" id="tab-spec" class="px-3.5 py-1.5 rounded-[4px] text-xs font-semibold text-[#32475C] hover:text-[#007AFF] hover:bg-blue-50 transition flex items-center gap-1.5 shrink-0">
+        <svg class="w-3.5 h-3.5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+        <span>5. Architecture & PO Meeting Understanding</span>
+      </button>
+    </div>
+
+    <div class="flex items-center space-x-2 mt-2 sm:mt-0">
+      <button onclick="triggerQuickRescheduleModal()" class="swp-btn-primary text-xs py-1.5 px-3 min-h-[32px]">
+        <span>⚡ Quick Reschedule Action</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ================= MAIN CONTENT CONTAINER ================= -->
+  <main class="flex-1 p-6 max-w-7xl mx-auto w-full">
+
+    <!-- Active Series Context Banner -->
+    <div class="swp-card-surface p-4 mb-6 bg-gradient-to-r from-blue-50 via-white to-amber-50/40 border-l-4 border-l-[#007AFF]">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="flex items-start gap-3.5">
+          <div class="w-12 h-12 rounded-[6px] bg-[#1B2E4B] text-white flex items-center justify-center font-extrabold text-base shrink-0 shadow-sm">
+            8+2
+          </div>
+          <div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <h1 class="text-base font-bold text-[#1C1C1C]">Spring 2026 Padel Intermediate Group A</h1>
+              <span class="swp-chip swp-chip-primary">Recurring Series (RRULE: Weekly Fri)</span>
+              <span class="swp-chip swp-chip-warning" id="series-status-badge">Session #2 Pending Reschedule</span>
+            </div>
+            <div class="flex items-center gap-4 text-xs text-[#32475C] mt-1 flex-wrap">
+              <span><strong>Coach:</strong> Jeroen Froma (Head Coach)</span>
+              <span>•</span>
+              <span><strong>Slot:</strong> Fridays 18:00 – 19:30</span>
+              <span>•</span>
+              <span><strong>Home Base:</strong> SCO Utrecht (Court 3)</span>
+              <span>•</span>
+              <span><strong>Cohort:</strong> 4 Enrolled Students</span>
+              <span>•</span>
+              <span><strong>Structure:</strong> 8 Curriculum Weeks + 2 Reserved Buffer Weeks (Inhaalweken)</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Live Action Hub -->
+        <div class="flex items-center gap-2 shrink-0">
+          <button onclick="openRescheduleModal(2)" class="swp-btn-primary text-xs py-1.5 px-3">
+            <span>🌧️ Move Session #2 to Week 9</span>
+          </button>
+          <button onclick="resetDemoData()" class="swp-btn-neutral text-xs py-1.5 px-2.5" title="Reset Demo">
+            ↺ Reset
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================================= -->
+    <!-- VIEW 1: MASTER SERIES & 10-WEEK CALENDAR GRID -->
+    <!-- ========================================================================= -->
+    <section id="view-calendar" class="space-y-6">
+      
+      <!-- Key Architecture Notice -->
+      <div class="bg-blue-50/70 border border-blue-200 rounded-[8px] p-4 flex items-start gap-3">
+        <div class="text-[#007AFF] text-lg mt-0.5">ℹ️</div>
+        <div class="text-xs text-[#32475C]">
+          <strong class="text-[#1C1C1C] block text-sm font-semibold mb-0.5">Architectural Rule: Individual Child Session Override (No Cascade Slippage)</strong>
+          When Session #2 (13 March) is cancelled due to rain and rescheduled into Reserved Week 9 (01 May), <strong>Weeks 3 through 8 stay locked on their original planned dates</strong>. The master series recurrence RRULE remains intact; only child session <code class="bg-white px-1.5 py-0.5 rounded text-blue-700 font-mono text-[11px] border border-blue-200">Session[2].rescheduledTo = '2026-05-01'</code> is updated. Court fee settlement is €0.00 rollover.
+        </div>
+      </div>
+
+      <!-- 10-Week Grid -->
+      <div class="swp-card-surface">
+        <div class="swp-card-header-ice">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-xs text-[#1C1C1C] uppercase tracking-wide">10-Week Curriculum Schedule & Catch-Up Allocation</span>
+            <span class="text-[11px] text-[#32475C] font-medium">(8 Regular Sessions + 2 Inhaalweken)</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="swp-chip swp-chip-active">Court 3 Guaranteed</span>
+            <span class="text-xs text-[#32475C] font-semibold">4 / 4 Students Enrolled</span>
+          </div>
+        </div>
+
+        <div class="p-5">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4" id="week-cards-grid">
+
+            <!-- Week 1: Completed -->
+            <div class="border border-emerald-200 bg-emerald-50/30 rounded-[6px] p-3.5 relative flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-[11px] font-bold text-emerald-800 uppercase tracking-wider">Week 1 (Lesson 1/8)</span>
+                  <span class="swp-chip swp-chip-active text-[10px] py-0.5">Completed</span>
+                </div>
+                <div class="text-sm font-bold text-[#1C1C1C]">Fri, 06 Mar 2026</div>
+                <div class="text-xs text-[#32475C] mt-0.5">18:00 – 19:30 • Court 3</div>
+                <div class="text-[11px] text-gray-500 mt-2">Topic: Bandeja fundamentals & court positioning.</div>
+              </div>
+              <div class="mt-3 pt-2.5 border-t border-emerald-200/60 flex items-center justify-between text-[11px]">
+                <span class="text-emerald-700 font-semibold">✓ 4/4 Attended</span>
+                <span class="text-gray-400">Paid & Settled</span>
+              </div>
+            </div>
+
+            <!-- Week 2: Affected Session (Rained Out) -->
+            <div id="card-session-2" class="border-2 border-amber-400 bg-amber-50/40 rounded-[6px] p-3.5 relative flex flex-col justify-between shadow-xs">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-[11px] font-bold text-amber-900 uppercase tracking-wider">Week 2 (Lesson 2/8)</span>
+                  <span id="badge-session-2" class="swp-chip swp-chip-warning text-[10px] py-0.5 animate-pulse">🌧️ Rained Out</span>
+                </div>
+                <div class="text-sm font-bold text-[#1C1C1C]">Fri, 13 Mar 2026</div>
+                <div class="text-xs text-[#32475C] mt-0.5">18:00 – 19:30 • Court 3</div>
+                <div class="text-[11px] text-amber-900/80 mt-2" id="desc-session-2">
+                  Session canceled at 17:30 due to unplayable rain conditions.
+                </div>
+              </div>
+              <div class="mt-3 pt-2.5 border-t border-amber-300 flex items-center justify-between" id="action-session-2">
+                <button onclick="openRescheduleModal(2)" class="w-full swp-btn-primary text-xs py-1 px-2 font-bold justify-center">
+                  ⚡ Reschedule to Inhaalweek
+                </button>
+              </div>
+            </div>
+
+            <!-- Week 3: Unchanged -->
+            <div class="border border-gray-200 bg-white rounded-[6px] p-3.5 relative flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-[11px] font-bold text-[#1B2E4B] uppercase tracking-wider">Week 3 (Lesson 3/8)</span>
+                  <span class="swp-chip swp-chip-navy text-[10px] py-0.5">Confirmed</span>
+                </div>
+                <div class="text-sm font-bold text-[#1C1C1C]">Fri, 20 Mar 2026</div>
+                <div class="text-xs text-[#32475C] mt-0.5">18:00 – 19:30 • Court 3</div>
+                <div class="text-[11px] text-gray-500 mt-2">Topic: Vibora mechanics & deep wall defense.</div>
+              </div>
+              <div class="mt-3 pt-2.5 border-t border-gray-100 flex items-center justify-between text-[11px] text-[#32475C]">
+                <span>Status: Locked Date</span>
+                <span class="text-emerald-600 font-semibold">Court 3 Reserved</span>
+              </div>
+            </div>
+
+            <!-- Week 4: Unchanged -->
+            <div class="border border-gray-200 bg-white rounded-[6px] p-3.5 relative flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-[11px] font-bold text-[#1B2E4B] uppercase tracking-wider">Week 4 (Lesson 4/8)</span>
+                  <span class="swp-chip swp-chip-navy text-[10px] py-0.5">Confirmed</span>
+                </div>
+                <div class="text-sm font-bold text-[#1C1C1C]">Fri, 27 Mar 2026</div>
+                <div class="text-xs text-[#32475C] mt-0.5">18:00 – 19:30 • Court 3</div>
+                <div class="text-[11px] text-gray-500 mt-2">Topic: Chiquita & transition net volleys.</div>
+              </div>
+              <div class="mt-3 pt-2.5 border-t border-gray-100 flex items-center justify-between text-[11px] text-[#32475C]">
+                <span>Status: Locked Date</span>
+                <span class="text-emerald-600 font-semibold">Court 3 Reserved</span>
+              </div>
+            </div>
+
+            <!-- Week 5: Unchanged -->
+            <div class="border border-gray-200 bg-white rounded-[6px] p-3.5 relative flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-[11px] font-bold text-[#1B2E4B] uppercase tracking-wider">Week 5 (Lesson 5/8)</span>
+                  <span class="swp-chip swp-chip-navy text-[10px] py-0.5">Confirmed</span>
+                </div>
+                <div class="text-sm font-bold text-[#1C1C1C]">Fri, 03 Apr 2026</div>
+                <div class="text-xs text-[#32475C] mt-0.5">18:00 – 19:30 • Court 3</div>
+                <div class="text-[11px] text-gray-500 mt-2">Topic: Bajada de pared aggressive attack.</div>
+              </div>
+              <div class="mt-3 pt-2.5 border-t border-gray-100 flex items-center justify-between text-[11px] text-[#32475C]">
+                <span>Status: Locked Date</span>
+                <span class="text-emerald-600 font-semibold">Court 3 Reserved</span>
+              </div>
+            </div>
+
+            <!-- Week 6: Unchanged -->
+            <div class="border border-gray-200 bg-white rounded-[6px] p-3.5 relative flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-[11px] font-bold text-[#1B2E4B] uppercase tracking-wider">Week 6 (Lesson 6/8)</span>
+                  <span class="swp-chip swp-chip-navy text-[10px] py-0.5">Confirmed</span>
+                </div>
+                <div class="text-sm font-bold text-[#1C1C1C]">Fri, 10 Apr 2026</div>
+                <div class="text-xs text-[#32475C] mt-0.5">18:00 – 19:30 • Court 3</div>
+                <div class="text-[11px] text-gray-500 mt-2">Topic: Overhead smashes: Por Tres & Kick.</div>
+              </div>
+              <div class="mt-3 pt-2.5 border-t border-gray-100 flex items-center justify-between text-[11px] text-[#32475C]">
+                <span>Status: Locked Date</span>
+                <span class="text-emerald-600 font-semibold">Court 3 Reserved</span>
+              </div>
+            </div>
+
+            <!-- Week 7: Unchanged -->
+            <div class="border border-gray-200 bg-white rounded-[6px] p-3.5 relative flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-[11px] font-bold text-[#1B2E4B] uppercase tracking-wider">Week 7 (Lesson 7/8)</span>
+                  <span class="swp-chip swp-chip-navy text-[10px] py-0.5">Confirmed</span>
+                </div>
+                <div class="text-sm font-bold text-[#1C1C1C]">Fri, 17 Apr 2026</div>
+                <div class="text-xs text-[#32475C] mt-0.5">18:00 – 19:30 • Court 3</div>
+                <div class="text-[11px] text-gray-500 mt-2">Topic: Match strategy, poaching & switches.</div>
+              </div>
+              <div class="mt-3 pt-2.5 border-t border-gray-100 flex items-center justify-between text-[11px] text-[#32475C]">
+                <span>Status: Locked Date</span>
+                <span class="text-emerald-600 font-semibold">Court 3 Reserved</span>
+              </div>
+            </div>
+
+            <!-- Week 8: Final Regular Curriculum Session -->
+            <div class="border border-gray-200 bg-white rounded-[6px] p-3.5 relative flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-[11px] font-bold text-[#1B2E4B] uppercase tracking-wider">Week 8 (Lesson 8/8)</span>
+                  <span class="swp-chip swp-chip-navy text-[10px] py-0.5">Confirmed</span>
+                </div>
+                <div class="text-sm font-bold text-[#1C1C1C]">Fri, 24 Apr 2026</div>
+                <div class="text-xs text-[#32475C] mt-0.5">18:00 – 19:30 • Court 3</div>
+                <div class="text-[11px] text-gray-500 mt-2">Topic: Full match simulation & evaluation.</div>
+              </div>
+              <div class="mt-3 pt-2.5 border-t border-gray-100 flex items-center justify-between text-[11px] text-[#32475C]">
+                <span>Regular End</span>
+                <span class="text-emerald-600 font-semibold">Court 3 Reserved</span>
+              </div>
+            </div>
+
+            <!-- Reserved Week 9: Inhaalweek 1 -->
+            <div id="card-inhaal-9" class="border-2 border-dashed border-[#007AFF] bg-blue-50/40 rounded-[6px] p-3.5 relative flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-[11px] font-bold text-[#007AFF] uppercase tracking-wider">Week 9 (Inhaalweek 1)</span>
+                  <span id="badge-inhaal-9" class="swp-chip swp-chip-primary text-[10px] py-0.5">Buffer Slot</span>
+                </div>
+                <div class="text-sm font-bold text-[#1C1C1C]">Fri, 01 May 2026</div>
+                <div class="text-xs text-[#32475C] mt-0.5">18:00 – 19:30 • Court 3</div>
+                <div class="text-[11px] text-[#32475C] mt-2" id="desc-inhaal-9">
+                  Pre-allocated buffer week. Court 3 reserved for rainouts.
+                </div>
+              </div>
+              <div class="mt-3 pt-2.5 border-t border-blue-200 flex items-center justify-between text-[11px]" id="status-inhaal-9">
+                <span class="text-[#007AFF] font-bold">€0.00 Rollover</span>
+                <span class="text-gray-500">Target for Sess #2</span>
+              </div>
+            </div>
+
+            <!-- Reserved Week 10: Inhaalweek 2 -->
+            <div class="border-2 border-dashed border-gray-300 bg-gray-50/60 rounded-[6px] p-3.5 relative flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-[11px] font-bold text-gray-700 uppercase tracking-wider">Week 10 (Inhaalweek 2)</span>
+                  <span class="swp-chip swp-chip-navy text-[10px] py-0.5">Buffer Slot</span>
+                </div>
+                <div class="text-sm font-bold text-[#1C1C1C]">Fri, 08 May 2026</div>
+                <div class="text-xs text-[#32475C] mt-0.5">18:00 – 19:30 • Court 3</div>
+                <div class="text-[11px] text-gray-500 mt-2">
+                  Secondary pre-allocated buffer week for severe multi-week disruptions.
+                </div>
+              </div>
+              <div class="mt-3 pt-2.5 border-t border-gray-200 flex items-center justify-between text-[11px]">
+                <span class="text-gray-600 font-medium">Secondary Buffer</span>
+                <span class="text-gray-400">Open</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Cohort Enrolled Students List -->
+        <div class="bg-gray-50/80 border-t border-gray-200 px-5 py-3 flex flex-wrap items-center justify-between gap-4 text-xs">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-[#1C1C1C]">Enrolled Cohort (4/4):</span>
+            <div class="flex items-center -space-x-1">
+              <span class="w-6 h-6 rounded-full bg-blue-600 text-white font-bold text-[10px] flex items-center justify-center border border-white" title="Mark van Dijk">MD</span>
+              <span class="w-6 h-6 rounded-full bg-emerald-600 text-white font-bold text-[10px] flex items-center justify-center border border-white" title="Sophie de Jong">SJ</span>
+              <span class="w-6 h-6 rounded-full bg-purple-600 text-white font-bold text-[10px] flex items-center justify-center border border-white" title="Bram Bakker">BB</span>
+              <span class="w-6 h-6 rounded-full bg-amber-600 text-white font-bold text-[10px] flex items-center justify-center border border-white" title="Lisa Meijer">LM</span>
+            </div>
+            <span class="text-[#32475C]">Mark van Dijk, Sophie de Jong, Bram Bakker, Lisa Meijer</span>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <span class="text-gray-500">ICS Calendar Sync: <strong class="text-emerald-700">Active (4 Subscribed)</strong></span>
+            <span class="text-gray-500">•</span>
+            <span class="text-gray-500">Platform Escrow: <strong class="text-blue-700">Protected (85% Net Coach Split)</strong></span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- VIEW 2: RESCHEDULE & LEASE-LOCK ENGINE (INTERACTIVE WORKBENCH) -->
+    <!-- ========================================================================= -->
+    <section id="view-reschedule" class="space-y-6 hidden">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- Left 7 Cols: Reschedule Configuration Wizard -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="swp-card-surface">
+            <div class="swp-card-header-ice">
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-xs text-[#1C1C1C] uppercase tracking-wide">Lesson Rescheduling Wizard</span>
+                <span class="swp-chip swp-chip-warning text-[10px]">Session #2</span>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                <span class="text-[11px] text-emerald-700 font-bold">API Connected: SCO Club Engine</span>
+              </div>
+            </div>
+
+            <div class="p-5 space-y-5">
+
+              <!-- Step 1: Select Affected Session -->
+              <div>
+                <label class="block text-xs font-bold text-[#1C1C1C] uppercase tracking-wider mb-2">1. Select Affected Session</label>
+                <div class="swp-field-container">
+                  <span class="swp-label">SESSION TO RESCHEDULE *</span>
+                  <select id="select-session" onchange="onSessionSelectChange(this.value)" class="swp-select">
+                    <option value="2" selected>Session #2 — Friday 13 March 2026 (18:00 - 19:30) • RAINED OUT</option>
+                    <option value="3">Session #3 — Friday 20 March 2026 (18:00 - 19:30)</option>
+                    <option value="4">Session #4 — Friday 27 March 2026 (18:00 - 19:30)</option>
+                    <option value="5">Session #5 — Friday 03 April 2026 (18:00 - 19:30)</option>
+                  </select>
+                </div>
+
+                <div class="swp-field-container">
+                  <span class="swp-label">CANCELLATION REASON *</span>
+                  <select id="select-reason" class="swp-select">
+                    <option value="rain" selected>Unplayable Weather / Rainout (Outdoor Court Wet)</option>
+                    <option value="coach">Coach Emergency / Illness</option>
+                    <option value="club">Club Court Maintenance / Tournament Takeover</option>
+                    <option value="cohort">Cohort Majority Request (All 4 Confirmed)</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Step 2: Target Inhaalweek or Custom Slot -->
+              <div>
+                <label class="block text-xs font-bold text-[#1C1C1C] uppercase tracking-wider mb-2">2. Choose Replacement Date & Time</label>
+                
+                <!-- Target Options Radio Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  
+                  <!-- Option 1: Reserved Week 9 (Recommended) -->
+                  <label class="cursor-pointer border-2 border-[#007AFF] bg-blue-50/50 p-3.5 rounded-[6px] flex flex-col justify-between hover:bg-blue-50 transition">
+                    <div>
+                      <div class="flex items-center justify-between mb-1.5">
+                        <span class="text-xs font-bold text-[#007AFF]">Reserved Week 9 (Inhaalweek 1)</span>
+                        <input type="radio" name="targetSlot" value="week9" checked class="text-[#007AFF]" onchange="updateTargetSlot('week9')">
+                      </div>
+                      <div class="text-sm font-extrabold text-[#1C1C1C]">Friday, 01 May 2026</div>
+                      <div class="text-xs text-[#32475C] mt-0.5">18:00 – 19:30 (Original time slot)</div>
+                    </div>
+                    <div class="mt-2.5 pt-2 border-t border-blue-200/80 flex items-center justify-between text-[11px]">
+                      <span class="text-emerald-700 font-bold">★ 100% Student Match</span>
+                      <span class="swp-chip swp-chip-primary text-[10px]">Pre-Held</span>
+                    </div>
+                  </label>
+
+                  <!-- Option 2: Reserved Week 10 -->
+                  <label class="cursor-pointer border border-gray-200 bg-white p-3.5 rounded-[6px] flex flex-col justify-between hover:border-gray-300 transition">
+                    <div>
+                      <div class="flex items-center justify-between mb-1.5">
+                        <span class="text-xs font-bold text-gray-700">Reserved Week 10 (Inhaalweek 2)</span>
+                        <input type="radio" name="targetSlot" value="week10" class="text-[#007AFF]" onchange="updateTargetSlot('week10')">
+                      </div>
+                      <div class="text-sm font-extrabold text-[#1C1C1C]">Friday, 08 May 2026</div>
+                      <div class="text-xs text-[#32475C] mt-0.5">18:00 – 19:30 (Backup buffer)</div>
+                    </div>
+                    <div class="mt-2.5 pt-2 border-t border-gray-100 flex items-center justify-between text-[11px]">
+                      <span class="text-gray-500">Secondary Backup</span>
+                      <span class="swp-chip swp-chip-navy text-[10px]">Pre-Held</span>
+                    </div>
+                  </label>
+
+                </div>
+
+                <!-- Custom Slot Trigger -->
+                <div class="mt-3">
+                  <button type="button" onclick="toggleCustomSlotLookup()" class="text-xs font-semibold text-[#007AFF] hover:underline flex items-center gap-1">
+                    <span>🔍 Or look up alternative date/time outside reserved weeks...</span>
+                  </button>
+                  <div id="custom-slot-box" class="hidden mt-3 p-3 bg-gray-50 border border-gray-200 rounded-[6px] space-y-3">
+                    <div class="grid grid-cols-2 gap-3">
+                      <div class="swp-field-container">
+                        <span class="swp-label">CUSTOM DATE *</span>
+                        <input type="date" value="2026-04-03" class="swp-input">
+                      </div>
+                      <div class="swp-field-container">
+                        <span class="swp-label">CUSTOM TIME *</span>
+                        <select class="swp-select">
+                          <option>18:00 - 19:30</option>
+                          <option>19:30 - 21:00</option>
+                          <option>09:00 - 10:30 (Saturday)</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Step 3: Real-Time Court Availability & Lease-Lock Engine -->
+              <div class="bg-gray-50 border border-gray-200 rounded-[6px] p-4 space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-bold text-[#1C1C1C] uppercase tracking-wider">3. Court Availability & Atomic Lease Lock</span>
+                  <span class="swp-chip swp-chip-active" id="court-lock-badge">
+                    <svg class="w-3 h-3 text-emerald-600 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span id="court-lock-status">Court 3 Available — 5-Min Hold Active</span>
+                  </span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                  <div class="bg-white p-2.5 rounded border border-gray-200">
+                    <span class="text-gray-500 block text-[10px] uppercase">Venue & Court</span>
+                    <strong class="text-[#1C1C1C] text-xs">SCO Utrecht • Court 3 (Padel)</strong>
+                  </div>
+                  <div class="bg-white p-2.5 rounded border border-gray-200">
+                    <span class="text-gray-500 block text-[10px] uppercase">Court Hire Settlement</span>
+                    <strong class="text-emerald-700 text-xs">€0.00 (Series Rollover)</strong>
+                  </div>
+                  <div class="bg-white p-2.5 rounded border border-gray-200">
+                    <span class="text-gray-500 block text-[10px] uppercase">Atomic Lease Timer</span>
+                    <strong class="text-[#007AFF] text-xs font-mono" id="lease-countdown">04:47 Remaining</strong>
+                  </div>
+                </div>
+
+                <!-- Fallback Alternatives if Court 3 occupied -->
+                <div class="text-[11px] text-[#32475C] flex items-center justify-between pt-1">
+                  <span>Alternative fallback courts on Friday 01 May: Court 2 (Indoor Panorama) is also available.</span>
+                  <a href="javascript:void(0)" onclick="simulateCourtConflict()" class="text-[#007AFF] font-medium hover:underline">Simulate Conflict</a>
+                </div>
+              </div>
+
+              <!-- Step 4: Dual-Tier Governance & Confirmation Mode -->
+              <div class="p-3.5 bg-blue-50/50 border border-blue-200 rounded-[6px] text-xs space-y-2">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-[#1C1C1C]">Approval Governance Protocol:</span>
+                  <span class="swp-chip swp-chip-primary" id="gov-mode-badge">Tier A: Autonomous Direct Book</span>
+                </div>
+                <p class="text-[#32475C] text-[11px]" id="gov-mode-desc">
+                  As Head Coach / Pro (*Hoofdtrainer*), Jeroen Froma has direct autonomous booking privilege on SCO courts. Confirmation executes instantly without waiting for club front desk approval.
+                </p>
+              </div>
+
+              <!-- Action Bar -->
+              <div class="flex items-center justify-between pt-2">
+                <button type="button" onclick="switchView('calendar')" class="swp-btn-neutral text-xs">
+                  Back to Calendar
+                </button>
+                <div class="flex items-center gap-2">
+                  <button type="button" onclick="executeRescheduleConfirmation()" id="btn-confirm-reschedule" class="swp-btn-primary text-xs py-2 px-4 font-bold shadow-md">
+                    <span>✓ Confirm Reschedule & Broadcast (01 May)</span>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Right 5 Cols: Multi-Stakeholder Broadcast Impact Preview -->
+        <div class="lg:col-span-5 space-y-6">
+          
+          <!-- Broadcast Preview Card -->
+          <div class="swp-card-surface">
+            <div class="swp-card-header-ice">
+              <span class="font-bold text-xs text-[#1C1C1C] uppercase tracking-wide">Multi-Stakeholder Sync Preview</span>
+              <span class="text-xs text-[#32475C] font-semibold">3 Broadcast Channels</span>
+            </div>
+
+            <div class="p-5 space-y-4">
+
+              <!-- Channel 1: Enrolled Cohort (4 Students) -->
+              <div class="border border-gray-200 rounded-[6px] p-3.5 bg-white">
+                <div class="flex items-center justify-between mb-2">
+                  <div class="flex items-center gap-2">
+                    <span class="text-blue-600 font-bold text-sm">📱</span>
+                    <span class="text-xs font-bold text-[#1C1C1C]">1. Enrolled Cohort (4 Students)</span>
+                  </div>
+                  <span class="swp-chip swp-chip-active text-[10px]">Ready</span>
+                </div>
+                <div class="text-xs text-[#32475C] space-y-1">
+                  <div><strong>Push Notification:</strong> <em>"Lesson #2 Rescheduled: Moved from Mar 13 to Reserved Week 9 (May 01) due to rain."</em></div>
+                  <div><strong>Calendar Attachment:</strong> <span class="font-mono text-[11px] text-blue-700">lesson_session_2_replacement.ics</span> (Auto-updates Google / Apple Calendar).</div>
+                  <div class="text-[11px] text-gray-500 mt-1">Recipients: Mark van Dijk, Sophie de Jong, Bram Bakker, Lisa Meijer.</div>
+                </div>
+              </div>
+
+              <!-- Channel 2: Club Operations & Front Desk -->
+              <div class="border border-gray-200 rounded-[6px] p-3.5 bg-white">
+                <div class="flex items-center justify-between mb-2">
+                  <div class="flex items-center gap-2">
+                    <span class="text-amber-600 font-bold text-sm">🏢</span>
+                    <span class="text-xs font-bold text-[#1C1C1C]">2. Club Operations & Front Desk</span>
+                  </div>
+                  <span class="swp-chip swp-chip-primary text-[10px]">Live Sync</span>
+                </div>
+                <div class="text-xs text-[#32475C] space-y-1">
+                  <div><strong>Baanbezetting Sheet:</strong> Real-time court ledger at SCO Sportcentrum Oudenrijn updated for Court 3 on 01 May.</div>
+                  <div><strong>Settlement Accounting:</strong> €0.00 rollover registered under Spring 2026 Season Agreement (No student re-charge, no coach penalty).</div>
+                  <div><strong>Gate Access:</strong> Digital PIN / QR code extended to Friday 01 May.</div>
+                </div>
+              </div>
+
+              <!-- Channel 3: Coach Personal Agenda -->
+              <div class="border border-gray-200 rounded-[6px] p-3.5 bg-white">
+                <div class="flex items-center justify-between mb-2">
+                  <div class="flex items-center gap-2">
+                    <span class="text-emerald-600 font-bold text-sm">📆</span>
+                    <span class="text-xs font-bold text-[#1C1C1C]">3. Coach Agenda & Payout Escrow</span>
+                  </div>
+                  <span class="swp-chip swp-chip-navy text-[10px]">Protected</span>
+                </div>
+                <div class="text-xs text-[#32475C] space-y-1">
+                  <div><strong>Mobile Agenda:</strong> Training Manager app shifts session marker to Week 9.</div>
+                  <div><strong>Stripe Escrow:</strong> 85% coach split release timer deferred to completion of replacement session on 01 May.</div>
+                </div>
+              </div>
+
+              <!-- Interactive Live Audit Simulator Box -->
+              <div class="p-3.5 bg-gray-900 text-white rounded-[6px] text-xs space-y-2">
+                <div class="flex items-center justify-between text-gray-400 font-mono text-[10px]">
+                  <span>SYSTEM AUDIT STREAM</span>
+                  <span class="text-emerald-400">● LIVE</span>
+                </div>
+                <div id="live-audit-log" class="font-mono text-[11px] text-gray-300 space-y-1 h-28 overflow-y-auto no-scrollbar">
+                  <div>[17:30:02] Weather sensor trigger: Rainout reported SCO Outdoor 1-4.</div>
+                  <div>[17:30:15] LessonSession[2] flagged status='RAINED_OUT'.</div>
+                  <div>[17:30:16] System fetched ReservedWeek[9] ('2026-05-01 18:00').</div>
+                  <div>[17:30:18] Court 3 lease lock held (Expires in 5m).</div>
+                  <div class="text-amber-300">[Awaiting coach confirmation to broadcast payload...]</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- VIEW 3: COURT-SIDE MOBILE APP (TRAINING MANAGER SIMULATOR) -->
+    <!-- ========================================================================= -->
+    <section id="view-mobile" class="space-y-6 hidden">
+      
+      <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-8 justify-center py-4">
+
+        <!-- Phone Mockup -->
+        <div class="phone-mockup shrink-0">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+
+            <!-- Mobile App Top Bar -->
+            <div class="bg-[#061D42] text-white pt-9 pb-3 px-4 flex items-center justify-between shrink-0 shadow-sm">
+              <div class="flex items-center space-x-2">
+                <div class="w-6 h-6 rounded bg-[#007AFF] text-white font-black text-xs flex items-center justify-center">SWP</div>
+                <span class="font-bold text-xs">Training Manager</span>
+              </div>
+              <div class="flex items-center space-x-2 text-[11px] text-blue-200">
+                <span>SCO Utrecht</span>
+                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+              </div>
+            </div>
+
+            <!-- Mobile Content Area -->
+            <div class="p-3.5 flex-1 overflow-y-auto space-y-3">
+
+              <!-- Weather Alert Banner -->
+              <div class="bg-amber-500 text-black p-3 rounded-lg flex items-start gap-2.5 shadow-xs">
+                <span class="text-base">🌧️</span>
+                <div class="text-xs">
+                  <strong class="font-bold block">Rain Warning at SCO Utrecht</strong>
+                  Outdoor courts wet. Unplayable for scheduled 18:00 lesson.
+                </div>
+              </div>
+
+              <!-- Active Session Card -->
+              <div class="bg-white rounded-xl p-3.5 border border-gray-200 shadow-xs space-y-3">
+                <div class="flex items-center justify-between">
+                  <span class="text-[10px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded uppercase">Session 2 of 8</span>
+                  <span class="text-[10px] font-semibold text-gray-500">Today • 18:00</span>
+                </div>
+
+                <div>
+                  <h3 class="font-bold text-sm text-gray-900 leading-tight">Spring Intermediate Padel</h3>
+                  <p class="text-xs text-gray-600 mt-0.5">Court 3 • 4 Enrolled Players</p>
+                </div>
+
+                <!-- 1-Tap Mobile Action Trigger -->
+                <div class="pt-2 border-t border-gray-100">
+                  <button onclick="mobileTriggerRainout()" id="mobile-rainout-btn" class="w-full bg-[#FF3E1D] hover:bg-red-700 text-white font-bold py-2.5 px-3 rounded-lg text-xs flex items-center justify-center gap-1.5 shadow-sm transition">
+                    <span>🌧️ 1-Tap Rainout: Push to Reserved Wk 9</span>
+                  </button>
+                  <p class="text-[10px] text-center text-gray-500 mt-1.5">
+                    Instantly moves session to Reserved Week 9 (May 01) & notifies 4 players.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Cohort Attendance Roster -->
+              <div class="bg-white rounded-xl p-3.5 border border-gray-200 shadow-xs space-y-2.5">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-xs text-gray-900">Cohort Players (4)</span>
+                  <span class="text-[10px] text-emerald-600 font-bold">All 4 Notifications Ready</span>
+                </div>
+
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between text-xs py-1 border-b border-gray-50">
+                    <div class="flex items-center gap-2">
+                      <span class="w-6 h-6 rounded-full bg-blue-100 text-blue-700 font-bold text-[10px] flex items-center justify-center">MD</span>
+                      <span class="font-medium text-gray-800">Mark van Dijk</span>
+                    </div>
+                    <span class="text-[10px] text-gray-400">📱 Push Ready</span>
+                  </div>
+
+                  <div class="flex items-center justify-between text-xs py-1 border-b border-gray-50">
+                    <div class="flex items-center gap-2">
+                      <span class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 font-bold text-[10px] flex items-center justify-center">SJ</span>
+                      <span class="font-medium text-gray-800">Sophie de Jong</span>
+                    </div>
+                    <span class="text-[10px] text-gray-400">📱 Push Ready</span>
+                  </div>
+
+                  <div class="flex items-center justify-between text-xs py-1 border-b border-gray-50">
+                    <div class="flex items-center gap-2">
+                      <span class="w-6 h-6 rounded-full bg-purple-100 text-purple-700 font-bold text-[10px] flex items-center justify-center">BB</span>
+                      <span class="font-medium text-gray-800">Bram Bakker</span>
+                    </div>
+                    <span class="text-[10px] text-gray-400">📱 Push Ready</span>
+                  </div>
+
+                  <div class="flex items-center justify-between text-xs py-1">
+                    <div class="flex items-center gap-2">
+                      <span class="w-6 h-6 rounded-full bg-amber-100 text-amber-700 font-bold text-[10px] flex items-center justify-center">LM</span>
+                      <span class="font-medium text-gray-800">Lisa Meijer</span>
+                    </div>
+                    <span class="text-[10px] text-gray-400">📱 Push Ready</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Quick Mobile Schedule Peeker -->
+              <div class="bg-blue-50 border border-blue-200 rounded-xl p-3 text-xs space-y-1.5">
+                <div class="flex items-center justify-between font-bold text-blue-900">
+                  <span>Reserved Catch-Up Slots</span>
+                  <span class="text-[10px] text-blue-700">SCO Court 3</span>
+                </div>
+                <div class="text-[11px] text-blue-800">
+                  • Week 9: Fri 01 May (18:00 - 19:30) [Primary Buffer]<br>
+                  • Week 10: Fri 08 May (18:00 - 19:30) [Backup Buffer]
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Mobile Bottom Drawer Simulation (Triggered on Rainout) -->
+            <div id="mobile-bottom-drawer" class="hidden absolute inset-x-0 bottom-0 bg-white rounded-t-3xl p-4 border-t border-gray-200 shadow-2xl z-40 space-y-3">
+              <div class="w-10 h-1 bg-gray-300 rounded-full mx-auto mb-1"></div>
+              <div class="flex items-center justify-between">
+                <h4 class="font-bold text-sm text-gray-900">Confirm Weather Reschedule</h4>
+                <button onclick="closeMobileDrawer()" class="text-gray-400 text-sm">✕</button>
+              </div>
+              <p class="text-xs text-gray-600">
+                Move Session #2 to <strong>Reserved Week 9 (Friday 01 May 2026, 18:00)</strong> on Court 3 at €0.00 extra cost?
+              </p>
+              <div class="flex items-center gap-2 pt-1">
+                <button onclick="mobileConfirmReschedule()" class="flex-1 bg-[#007AFF] text-white font-bold py-2 rounded-lg text-xs shadow-sm">
+                  ✓ Broadcast to 4 Players
+                </button>
+                <button onclick="closeMobileDrawer()" class="px-3 py-2 bg-gray-100 text-gray-700 font-semibold rounded-lg text-xs">
+                  Cancel
+                </button>
+              </div>
+            </div>
+
+            <!-- Mobile App Tab Bar -->
+            <div class="bg-white border-t border-gray-200 py-2 px-6 flex items-center justify-around text-[10px] text-gray-500 shrink-0">
+              <div class="flex flex-col items-center text-[#007AFF] font-bold">
+                <span>📆</span>
+                <span>Agenda</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <span>👥</span>
+                <span>Students</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <span>🎾</span>
+                <span>Courts</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <span>⚙️</span>
+                <span>Settings</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Right Side: Mobile View Explainer -->
+        <div class="flex-1 space-y-4">
+          <div class="swp-card-surface p-5">
+            <h2 class="text-sm font-bold text-[#1C1C1C] uppercase tracking-wide mb-2">Ground Truth: Court-Side Mobile Philosophy</h2>
+            <p class="text-xs text-[#32475C] leading-relaxed">
+              In the meeting with Head Coach Jeroen Froma, the team confirmed that coaches operate court-side on their mobile smartphones (Training Manager). When rain starts 30 minutes before a 18:00 session, the coach cannot sit at a laptop to send 4 emails and phone the club desk.
+            </p>
+            <div class="mt-4 space-y-2.5 text-xs text-[#32475C]">
+              <div class="flex items-start gap-2">
+                <span class="text-emerald-600 font-bold">✓</span>
+                <span><strong>1-Tap Weather Push:</strong> Moves the cancelled session directly to pre-allocated Reserved Week 9 without requiring manual date picker re-entry.</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="text-emerald-600 font-bold">✓</span>
+                <span><strong>Automated Player Sync:</strong> All 4 students receive instant push notifications and updated calendar events.</span>
+              </div>
+              <div class="flex items-start gap-2">
+                <span class="text-emerald-600 font-bold">✓</span>
+                <span><strong>Zero Court Billing Stress:</strong> Handled automatically as €0.00 rollover against the venue's master recurring block.</span>
+              </div>
+            </div>
+            <div class="mt-5 pt-3 border-t border-gray-100 flex items-center gap-3">
+              <button onclick="mobileTriggerRainout()" class="swp-btn-danger text-xs">
+                <span>Test 1-Tap Rainout on Phone</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- VIEW 4: CLUB OPERATIONS & FRONT DESK COURT SHEET (BAANBEZETTING) -->
+    <!-- ========================================================================= -->
+    <section id="view-clubops" class="space-y-6 hidden">
+      
+      <div class="swp-card-surface">
+        <div class="swp-card-header-ice">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-xs text-[#1C1C1C] uppercase tracking-wide">SCO Sportcentrum Oudenrijn — Central Court Sheet (Baanbezetting)</span>
+            <span class="swp-chip swp-chip-navy text-[10px]">Target Date: Friday 01 May 2026 (Reserved Week 9)</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-gray-500">Live Front Desk Operations Desk</span>
+          </div>
+        </div>
+
+        <div class="p-5 space-y-5">
+          
+          <!-- Court Grid on Target Catch-Up Date -->
+          <div>
+            <h3 class="text-xs font-bold text-[#1C1C1C] uppercase tracking-wider mb-3">Friday, 01 May 2026 — 18:00 to 19:30 Slot Allocation</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+              <!-- Court 1 -->
+              <div class="border border-gray-200 bg-white p-3.5 rounded-[6px]">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-bold text-[#1B2E4B]">Court 1 (Indoor)</span>
+                  <span class="swp-chip swp-chip-navy text-[10px]">Casual Play</span>
+                </div>
+                <div class="text-xs font-semibold text-gray-800">Member Match Play</div>
+                <div class="text-[11px] text-gray-500 mt-1">Booked by: J. van den Berg</div>
+                <div class="mt-2 text-[10px] text-emerald-700 font-bold">Standard €42.00 Paid</div>
+              </div>
+
+              <!-- Court 2 -->
+              <div class="border border-gray-200 bg-white p-3.5 rounded-[6px]">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-bold text-[#1B2E4B]">Court 2 (Panorama)</span>
+                  <span class="swp-chip swp-chip-primary text-[10px]">Junior Academy</span>
+                </div>
+                <div class="text-xs font-semibold text-gray-800">Junior Training Squad</div>
+                <div class="text-[11px] text-gray-500 mt-1">Coach: Sophie K.</div>
+                <div class="mt-2 text-[10px] text-blue-700 font-bold">Club Contract Block</div>
+              </div>
+
+              <!-- Court 3: Target Catch-Up Court -->
+              <div id="club-ops-court-3" class="border-2 border-[#007AFF] bg-blue-50/60 p-3.5 rounded-[6px] shadow-xs">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-bold text-[#007AFF]">Court 3 (Target Court)</span>
+                  <span id="club-ops-court-3-status" class="swp-chip swp-chip-primary text-[10px]">Hold / Inhaalweek</span>
+                </div>
+                <div class="text-xs font-bold text-[#1C1C1C]" id="club-ops-court-3-title">Spring Intermediate Group A</div>
+                <div class="text-[11px] text-[#32475C] mt-1" id="club-ops-court-3-subtitle">Head Coach Jeroen Froma • 4 Players</div>
+                <div class="mt-2 text-[10px] text-emerald-700 font-extrabold" id="club-ops-court-3-fee">€0.00 Rollover (Season Buffer Block)</div>
+              </div>
+
+              <!-- Court 4 -->
+              <div class="border border-gray-200 bg-white p-3.5 rounded-[6px]">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-bold text-[#1B2E4B]">Court 4 (Outdoor Covered)</span>
+                  <span class="swp-chip swp-chip-active text-[10px]">Available</span>
+                </div>
+                <div class="text-xs font-semibold text-gray-400">Unallocated Slot</div>
+                <div class="text-[11px] text-gray-400 mt-1">Open for public hire</div>
+                <div class="mt-2 text-[10px] text-gray-500">Rate: €38.00 / 90 min</div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Real-Time Reschedule Audit Log Table -->
+          <div>
+            <h3 class="text-xs font-bold text-[#1C1C1C] uppercase tracking-wider mb-2">Club Operational Audit Trail (Automated Changes)</h3>
+            <div class="border border-gray-200 rounded-[6px] overflow-hidden">
+              <table class="w-full text-left text-xs">
+                <thead class="bg-gray-100/70 border-b border-gray-200 text-[#32475C] font-bold text-[11px]">
+                  <tr>
+                    <th class="p-2.5">Timestamp</th>
+                    <th class="p-2.5">Action & Event</th>
+                    <th class="p-2.5">Coach</th>
+                    <th class="p-2.5">Original Slot</th>
+                    <th class="p-2.5">Rescheduled Slot</th>
+                    <th class="p-2.5">Court Balance</th>
+                    <th class="p-2.5">Authority</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100 text-[#1C1C1C]" id="club-audit-table-body">
+                  <tr class="bg-white">
+                    <td class="p-2.5 text-gray-500 font-mono text-[11px]">13-Mar 17:30</td>
+                    <td class="p-2.5 font-semibold text-amber-700">Weather Rainout Reported</td>
+                    <td class="p-2.5">Jeroen Froma</td>
+                    <td class="p-2.5">13-Mar 18:00 (Court 3)</td>
+                    <td class="p-2.5 text-blue-600 font-medium">Pending Placement</td>
+                    <td class="p-2.5 text-emerald-700 font-bold">€0.00 (Escrow held)</td>
+                    <td class="p-2.5"><span class="swp-chip swp-chip-primary text-[10px]">Tier A Auto</span></td>
+                  </tr>
+                  <tr class="bg-gray-50/50">
+                    <td class="p-2.5 text-gray-500 font-mono text-[11px]">06-Mar 19:30</td>
+                    <td class="p-2.5 text-emerald-700 font-semibold">Session #1 Completed</td>
+                    <td class="p-2.5">Jeroen Froma</td>
+                    <td class="p-2.5">06-Mar 18:00 (Court 3)</td>
+                    <td class="p-2.5 text-gray-500">—</td>
+                    <td class="p-2.5 text-emerald-700 font-bold">Settled (€120 Net)</td>
+                    <td class="p-2.5"><span class="swp-chip swp-chip-active text-[10px]">Completed</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Freelance Coach Approval Queue (Simulation for Tier B) -->
+          <div class="border border-amber-200 bg-amber-50/40 rounded-[6px] p-4 text-xs space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-amber-900">Club Manager Approval Queue (Tier B Freelance Coaches)</span>
+              <span class="text-[11px] text-amber-800">0 Pending Requests</span>
+            </div>
+            <p class="text-[11px] text-amber-900/80">
+              When a freelance coach requests to reschedule a lesson, it routes here for the club manager's 1-click confirmation before the court is locked and students are notified. Head Coaches bypass this queue via direct autonomous privilege.
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- VIEW 5: ARCHITECTURE & PO MEETING UNDERSTANDING SPEC -->
+    <!-- ========================================================================= -->
+    <section id="view-spec" class="space-y-6 hidden">
+      
+      <div class="swp-card-surface p-6 space-y-6">
+        <div>
+          <h2 class="text-base font-bold text-[#1C1C1C]">ShallWe-Play Coach Lesson Management — System Ground Truth & Architecture</h2>
+          <p class="text-xs text-[#32475C] mt-1">
+            Derived directly from the meeting understanding with Head Coach Jeroen Froma (House of Padel / SCO Sportcentrum Oudenrijn) and domain analysis.
+          </p>
+        </div>
+
+        <!-- 5 Critical Operational Blindspots & Solutions -->
+        <div class="space-y-3">
+          <h3 class="text-xs font-bold text-[#1C1C1C] uppercase tracking-wider">1. The 5 Critical Operational Blindspots Resolved</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+            
+            <div class="border border-gray-200 p-3.5 rounded-[6px] bg-white">
+              <strong class="text-[#007AFF] block font-bold mb-1">1. Non-Cascading RRULE Integrity</strong>
+              <p class="text-[#32475C]">
+                When Session 2 is rained out, Week 3 does NOT shift to Week 4. Standard club calendars would break if 80 students had all upcoming weeks shifted. SWP isolates child session overrides while keeping the master series recurrence intact.
+              </p>
+            </div>
+
+            <div class="border border-gray-200 p-3.5 rounded-[6px] bg-white">
+              <strong class="text-[#007AFF] block font-bold mb-1">2. 8+2 Buffer Weeks Model (*Inhaalweken*)</strong>
+              <p class="text-[#32475C]">
+                Standard Dutch club coaching runs an 8-week cycle with Weeks 9 & 10 pre-reserved for catch-up sessions. This prevents coaches from scrambling for open court slots when bad weather hits.
+              </p>
+            </div>
+
+            <div class="border border-gray-200 p-3.5 rounded-[6px] bg-white">
+              <strong class="text-[#007AFF] block font-bold mb-1">3. €0.00 Court Hire Rollover Settlement</strong>
+              <p class="text-[#32475C]">
+                Because court hire was already factored into the 8-week season package, moving a lesson to an *inhaalweek* must NOT generate an additional €40 court charge. SWP records a €0.00 rollover settlement.
+              </p>
+            </div>
+
+            <div class="border border-gray-200 p-3.5 rounded-[6px] bg-white">
+              <strong class="text-[#007AFF] block font-bold mb-1">4. Atomic 5-Minute Court Lease Lock</strong>
+              <p class="text-[#32475C]">
+                Prevents race conditions where a public player or another coach books the inhaalweek court while the coach is reviewing student availability.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- The 7 Open Questions from Meeting Understanding & Final System Answers -->
+        <div class="space-y-3 pt-3 border-t border-gray-200">
+          <h3 class="text-xs font-bold text-[#1C1C1C] uppercase tracking-wider">2. Formal System Resolution of the 7 Meeting Open Questions</h3>
+          
+          <div class="space-y-2 text-xs">
+            <details class="border border-gray-200 rounded-[6px] p-3 bg-white cursor-pointer" open>
+              <summary class="font-bold text-[#1C1C1C] flex items-center justify-between">
+                <span>Q1: Can a coach reschedule one session without changing the rest of the recurring series?</span>
+                <span class="text-[#007AFF] font-bold text-xs">[YES — CHILD OVERRIDE]</span>
+              </summary>
+              <p class="text-[#32475C] mt-2 text-[11px] leading-relaxed">
+                Yes. In data modeling terms, the <code class="text-blue-700">LessonSeries</code> defines the master recurrence (RRULE: FREQ=WEEKLY; COUNT=8), and individual <code class="text-blue-700">LessonSession</code> entities represent each week. When Session 2 is postponed, only Session 2's foreign key date is updated to Week 9. Sessions 3 through 8 stay locked on their original planned dates.
+              </p>
+            </details>
+
+            <details class="border border-gray-200 rounded-[6px] p-3 bg-white cursor-pointer" open>
+              <summary class="font-bold text-[#1C1C1C] flex items-center justify-between">
+                <span>Q2: How are the two reserved weeks defined and managed in an eight-week series?</span>
+                <span class="text-[#007AFF] font-bold text-xs">[PRE-ALLOCATED BUFFER WEEKS]</span>
+              </summary>
+              <p class="text-[#32475C] mt-2 text-[11px] leading-relaxed">
+                When a coach creates an 8-week series, the platform automatically holds matching slots on Weeks 9 and 10 (*Inhaalweek 1* and *Inhaalweek 2*). If 0 sessions are missed by Week 8, the reserved slots are automatically released back to the club's open public booking pool 7 days in advance.
+              </p>
+            </details>
+
+            <details class="border border-gray-200 rounded-[6px] p-3 bg-white cursor-pointer" open>
+              <summary class="font-bold text-[#1C1C1C] flex items-center justify-between">
+                <span>Q3 & Q4: Court Availability & Dual-Tier Approval Governance</span>
+                <span class="text-[#007AFF] font-bold text-xs">[DUAL-TIER MODEL]</span>
+              </summary>
+              <p class="text-[#32475C] mt-2 text-[11px] leading-relaxed">
+                SWP displays real-time court availability AND reserves the court. For <strong>Tier A (Head Coaches / Club Pros)</strong>, confirmation executes immediately without waiting for front desk approval. For <strong>Tier B (Freelance Coaches)</strong>, the reschedule request submits to the Club Manager's 1-click approval queue.
+              </p>
+            </details>
+
+            <details class="border border-gray-200 rounded-[6px] p-3 bg-white cursor-pointer" open>
+              <summary class="font-bold text-[#1C1C1C] flex items-center justify-between">
+                <span>Q5: Multi-Stakeholder Automated Notification Broadcast</span>
+                <span class="text-[#007AFF] font-bold text-xs">[PUSH + ICS + BAANBEZETTING]</span>
+              </summary>
+              <p class="text-[#32475C] mt-2 text-[11px] leading-relaxed">
+                All 3 parties are synchronized automatically: (1) Enrolled cohort students receive instant push notifications and auto-updated <code class="text-blue-700">.ics</code> calendar invitations; (2) The club front desk court sheet (*Baanbezetting*) updates live; (3) The coach's mobile agenda updates with Stripe escrow release deferred to the replacement date.
+              </p>
+            </details>
+
+            <details class="border border-gray-200 rounded-[6px] p-3 bg-white cursor-pointer" open>
+              <summary class="font-bold text-[#1C1C1C] flex items-center justify-between">
+                <span>Q6 & Q7: Unavailable Court Fallback & Court-Side Mobile Philosophy</span>
+                <span class="text-[#007AFF] font-bold text-xs">[FALLBACK COURTS + 1-TAP MOBILE]</span>
+              </summary>
+              <p class="text-[#32475C] mt-2 text-[11px] leading-relaxed">
+                If Court 3 has a conflict, SWP instantly suggests adjacent courts (e.g. Court 2 Indoor) or shifts to Reserved Week 10. On mobile, the coach gets a 1-tap "Rainout to Week 9" action directly on the active session card without entering complex forms court-side.
+              </p>
+            </details>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ================= RESCHEDULE MODAL (INTERACTIVE DIALOG) ================= -->
+  <div id="reschedule-modal" class="fixed inset-0 bg-black/70 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-[8px] max-w-xl w-full shadow-2xl overflow-hidden border border-gray-200">
+      
+      <!-- Modal Header -->
+      <div class="swp-card-header-ice">
+        <div class="flex items-center gap-2">
+          <span class="text-amber-500 text-sm">🌧️</span>
+          <span class="font-bold text-xs text-[#1C1C1C] uppercase tracking-wide">Reschedule Session #2 (Weather Rainout)</span>
+        </div>
+        <button onclick="closeRescheduleModal()" class="text-gray-400 hover:text-black font-bold text-base leading-none">✕</button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-5 space-y-4 text-xs">
+        
+        <!-- Summary Box -->
+        <div class="p-3 bg-amber-50 border border-amber-200 rounded-[6px] space-y-1">
+          <div class="font-bold text-amber-900">Original Session: Friday 13 March 2026 (18:00 – 19:30)</div>
+          <div class="text-[#32475C] text-[11px]">Reason: Unplayable rain conditions at SCO Sportcentrum Oudenrijn.</div>
+        </div>
+
+        <!-- Target Inhaalweek Selector -->
+        <div>
+          <label class="block font-bold text-[#1C1C1C] uppercase tracking-wider mb-2 text-[11px]">Select Destination Buffer Week</label>
+          <div class="space-y-2">
+            
+            <label class="flex items-start gap-3 p-3 border-2 border-[#007AFF] bg-blue-50/50 rounded-[6px] cursor-pointer">
+              <input type="radio" name="modalTargetSlot" value="week9" checked class="mt-0.5 text-[#007AFF]">
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-[#007AFF]">Reserved Week 9 (Inhaalweek 1) — Recommended</span>
+                  <span class="swp-chip swp-chip-active text-[10px]">Pre-Held</span>
+                </div>
+                <div class="font-bold text-[#1C1C1C] text-sm mt-0.5">Friday, 01 May 2026 (18:00 – 19:30)</div>
+                <div class="text-[#32475C] text-[11px] mt-0.5">Court 3 • €0.00 Rollover • 4/4 Student Calendar Availability Verified</div>
+              </div>
+            </label>
+
+            <label class="flex items-start gap-3 p-3 border border-gray-200 bg-white rounded-[6px] cursor-pointer hover:border-gray-300">
+              <input type="radio" name="modalTargetSlot" value="week10" class="mt-0.5 text-[#007AFF]">
+              <div class="flex-1">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-gray-700">Reserved Week 10 (Inhaalweek 2)</span>
+                  <span class="swp-chip swp-chip-navy text-[10px]">Backup Slot</span>
+                </div>
+                <div class="font-bold text-[#1C1C1C] text-sm mt-0.5">Friday, 08 May 2026 (18:00 – 19:30)</div>
+                <div class="text-[#32475C] text-[11px] mt-0.5">Court 3 • €0.00 Rollover</div>
+              </div>
+            </label>
+
+          </div>
+        </div>
+
+        <!-- Multi-Stakeholder Broadcast Notice -->
+        <div class="bg-gray-50 border border-gray-200 rounded-[6px] p-3 text-[11px] text-[#32475C] space-y-1">
+          <div class="font-bold text-[#1C1C1C]">Automated Multi-Stakeholder Broadcast:</div>
+          <div>✓ Push notification + .ics calendar payload sent to all 4 enrolled students.</div>
+          <div>✓ SCO Utrecht Front Desk central court sheet updated for Court 3.</div>
+          <div>✓ Escrow payout release timer deferred to 01 May with zero penalties.</div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="bg-gray-50 px-5 py-3 border-t border-gray-200 flex items-center justify-between">
+        <button onclick="closeRescheduleModal()" class="swp-btn-neutral text-xs py-1.5 px-3">
+          Cancel
+        </button>
+        <button onclick="executeModalReschedule()" class="swp-btn-primary text-xs py-2 px-4 font-bold shadow-sm">
+          <span>✓ Confirm Reschedule & Broadcast</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= LIVE TOAST NOTIFICATION ================= -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
+  <script>
+    // State Variables
+    let currentCoachTier = 'A'; // 'A' = Head Coach (Autonomous), 'B' = Freelance
+    let session2Rescheduled = false;
+    let leaseSeconds = 287; // 4m 47s countdown
+    let leaseInterval = null;
+
+    // View Switcher
+    function switchView(viewName) {
+      const views = ['calendar', 'reschedule', 'mobile', 'clubops', 'spec'];
+      views.forEach(v => {
+        const el = document.getElementById(`view-${v}`);
+        const tab = document.getElementById(`tab-${v}`);
+        if (el) el.classList.toggle('hidden', v !== viewName);
+        if (tab) {
+          if (v === viewName) {
+            tab.className = "px-3.5 py-1.5 rounded-[4px] text-xs font-bold bg-[#007AFF] text-white shadow-xs transition flex items-center gap-1.5 shrink-0";
+          } else {
+            tab.className = "px-3.5 py-1.5 rounded-[4px] text-xs font-semibold text-[#32475C] hover:text-[#007AFF] hover:bg-blue-50 transition flex items-center gap-1.5 shrink-0";
+          }
+        }
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Toggle Coach Authority Tier (Head Coach vs Freelance)
+    function toggleCoachTier() {
+      const label = document.getElementById('auth-tier-label');
+      const govBadge = document.getElementById('gov-mode-badge');
+      const govDesc = document.getElementById('gov-mode-desc');
+
+      if (currentCoachTier === 'A') {
+        currentCoachTier = 'B';
+        label.innerText = 'Tier B: Freelance Coach (Club Approval)';
+        if (govBadge) govBadge.innerText = 'Tier B: Club Manager 1-Tap Approval';
+        if (govDesc) govDesc.innerText = 'As a Freelance Coach, moving lessons to buffer weeks submits a request to the SCO Club Manager desk for 1-tap confirmation before public courts are modified.';
+        showToast('Switched to Tier B: Freelance Coach (Requires Club Confirmation)', 'info');
+      } else {
+        currentCoachTier = 'A';
+        label.innerText = 'Tier A: Head Coach (Autonomous)';
+        if (govBadge) govBadge.innerText = 'Tier A: Autonomous Direct Book';
+        if (govDesc) govDesc.innerText = 'As Head Coach / Pro (*Hoofdtrainer*), Jeroen Froma has direct autonomous booking privilege on SCO courts. Confirmation executes instantly without waiting for club front desk approval.';
+        showToast('Switched to Tier A: Head Coach (Autonomous Direct Booking)', 'success');
+      }
+    }
+
+    // Modal Controls
+    function openRescheduleModal(sessionNum) {
+      const modal = document.getElementById('reschedule-modal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeRescheduleModal() {
+      const modal = document.getElementById('reschedule-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function triggerQuickRescheduleModal() {
+      openRescheduleModal(2);
+    }
+
+    // Execute Confirmation from Modal
+    function executeModalReschedule() {
+      closeRescheduleModal();
+      applyRescheduleSuccess('01 May 2026', 'Week 9 Inhaalweek 1');
+    }
+
+    // Execute Confirmation from Workbench View 2
+    function executeRescheduleConfirmation() {
+      applyRescheduleSuccess('01 May 2026', 'Week 9 Inhaalweek 1');
+    }
+
+    // Core Reschedule Success Applier
+    function applyRescheduleSuccess(targetDate, targetSlotLabel) {
+      session2Rescheduled = true;
+
+      // 1. Update Week 2 Card in Calendar
+      const card2 = document.getElementById('card-session-2');
+      const badge2 = document.getElementById('badge-session-2');
+      const desc2 = document.getElementById('desc-session-2');
+      const action2 = document.getElementById('action-session-2');
+
+      if (badge2) {
+        badge2.className = 'swp-chip swp-chip-primary text-[10px] py-0.5';
+        badge2.innerText = '✓ Rescheduled to Wk 9';
+      }
+      if (card2) {
+        card2.className = 'border border-blue-300 bg-blue-50/20 rounded-[6px] p-3.5 relative flex flex-col justify-between';
+      }
+      if (desc2) {
+        desc2.innerHTML = '<span class="text-blue-800 font-semibold">Rescheduled to Friday 01 May (Week 9 Inhaalweek).</span> All 4 players notified.';
+      }
+      if (action2) {
+        action2.innerHTML = '<span class="text-xs text-blue-700 font-bold">✓ Slot: Fri 01 May 18:00</span><button onclick="openRescheduleModal(2)" class="text-xs text-gray-500 hover:text-black">Change</button>';
+      }
+
+      // 2. Update Reserved Week 9 Card in Calendar
+      const badge9 = document.getElementById('badge-inhaal-9');
+      const desc9 = document.getElementById('desc-inhaal-9');
+      const status9 = document.getElementById('status-inhaal-9');
+
+      if (badge9) {
+        badge9.className = 'swp-chip swp-chip-active text-[10px] py-0.5';
+        badge9.innerText = 'Active (Sess #2)';
+      }
+      if (desc9) {
+        desc9.innerHTML = '<strong>Rescheduled Session #2 (Bandeja defense).</strong> 4/4 students confirmed.';
+      }
+      if (status9) {
+        status9.innerHTML = '<span class="text-emerald-700 font-bold">✓ €0.00 Rollover Confirmed</span><span class="text-gray-500">Court 3 Locked</span>';
+      }
+
+      // 3. Update Series Status Badge
+      const seriesBadge = document.getElementById('series-status-badge');
+      if (seriesBadge) {
+        seriesBadge.className = 'swp-chip swp-chip-active';
+        seriesBadge.innerText = 'Session #2 Rescheduled to Week 9';
+      }
+
+      // 4. Update Club Ops View
+      const clubOpsTitle = document.getElementById('club-ops-court-3-title');
+      const clubOpsStatus = document.getElementById('club-ops-court-3-status');
+      if (clubOpsTitle) clubOpsTitle.innerText = 'Spring Intermediate Group A (Sess #2 Replacement)';
+      if (clubOpsStatus) {
+        clubOpsStatus.className = 'swp-chip swp-chip-active text-[10px]';
+        clubOpsStatus.innerText = 'Confirmed & Locked';
+      }
+
+      // 5. Add Audit Log
+      const auditLog = document.getElementById('live-audit-log');
+      if (auditLog) {
+        const time = new Date().toLocaleTimeString();
+        auditLog.innerHTML += `<div class="text-emerald-400">[${time}] Reschedule CONFIRMED by Coach Jeroen Froma.</div>`;
+        auditLog.innerHTML += `<div class="text-blue-300">[${time}] 4 Push Notifications + ICS payloads dispatched.</div>`;
+        auditLog.innerHTML += `<div class="text-gray-300">[${time}] SCO Court 3 locked for 01-May 18:00 (€0.00 Rollover).</div>`;
+        auditLog.scrollTop = auditLog.scrollHeight;
+      }
+
+      // 6. Update Club Ops Table
+      const auditTable = document.getElementById('club-audit-table-body');
+      if (auditTable) {
+        const newRow = document.createElement('tr');
+        newRow.className = 'bg-blue-50/50';
+        newRow.innerHTML = `
+          <td class="p-2.5 text-gray-500 font-mono text-[11px]">Today Just Now</td>
+          <td class="p-2.5 font-bold text-blue-700">Session #2 Confirmed to Inhaalweek 1</td>
+          <td class="p-2.5">Jeroen Froma</td>
+          <td class="p-2.5">13-Mar 18:00 (Court 3)</td>
+          <td class="p-2.5 text-emerald-700 font-bold">01-May 18:00 (Court 3)</td>
+          <td class="p-2.5 text-emerald-700 font-bold">€0.00 Rollover</td>
+          <td class="p-2.5"><span class="swp-chip swp-chip-active text-[10px]">Tier A Auto</span></td>
+        `;
+        auditTable.insertBefore(newRow, auditTable.firstChild);
+      }
+
+      showToast(`✓ Successfully rescheduled Session #2 to ${targetSlotLabel}! Multi-stakeholder broadcast dispatched.`, 'success');
+      switchView('calendar');
+    }
+
+    // Mobile Phone Actions
+    function mobileTriggerRainout() {
+      const drawer = document.getElementById('mobile-bottom-drawer');
+      if (drawer) drawer.classList.remove('hidden');
+    }
+
+    function closeMobileDrawer() {
+      const drawer = document.getElementById('mobile-bottom-drawer');
+      if (drawer) drawer.classList.add('hidden');
+    }
+
+    function mobileConfirmReschedule() {
+      closeMobileDrawer();
+      const rainoutBtn = document.getElementById('mobile-rainout-btn');
+      if (rainoutBtn) {
+        rainoutBtn.className = 'w-full bg-emerald-600 text-white font-bold py-2.5 px-3 rounded-lg text-xs flex items-center justify-center gap-1.5 shadow-sm';
+        rainoutBtn.innerHTML = '<span>✓ Rescheduled to Fri 01 May (Week 9)</span>';
+      }
+      applyRescheduleSuccess('01 May 2026', 'Week 9 Inhaalweek 1');
+    }
+
+    // Custom Slot Toggle
+    function toggleCustomSlotLookup() {
+      const box = document.getElementById('custom-slot-box');
+      if (box) box.classList.toggle('hidden');
+    }
+
+    function updateTargetSlot(slotType) {
+      const status = document.getElementById('court-lock-status');
+      if (status) {
+        if (slotType === 'week9') {
+          status.innerText = 'Court 3 Available — 5-Min Hold Active';
+        } else {
+          status.innerText = 'Court 3 (Week 10) Available — Hold Active';
+        }
+      }
+    }
+
+    function simulateCourtConflict() {
+      const status = document.getElementById('court-lock-status');
+      const badge = document.getElementById('court-lock-badge');
+      if (status && badge) {
+        status.innerText = 'Court 3 Occupied! Auto-Switched to Court 2 (Indoor Panorama)';
+        badge.className = 'swp-chip swp-chip-warning';
+        showToast('Court 3 had a club league conflict. System auto-locked adjacent Court 2 (Indoor Panorama)!', 'warning');
+      }
+    }
+
+    // Reset Demo
+    function resetDemoData() {
+      location.reload();
+    }
+
+    // Countdown Timer Simulator (5-Min Atomic Lease Lock)
+    function startLeaseCountdown() {
+      leaseInterval = setInterval(() => {
+        if (leaseSeconds > 0) {
+          leaseSeconds--;
+          const mins = Math.floor(leaseSeconds / 60);
+          const secs = leaseSeconds % 60;
+          const display = `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs} Remaining`;
+          const timerEl = document.getElementById('lease-countdown');
+          if (timerEl) timerEl.innerText = display;
+        } else {
+          clearInterval(leaseInterval);
+        }
+      }, 1000);
+    }
+
+    // Toast Notification Utility
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toast-container');
+      if (!container) return;
+
+      const toast = document.createElement('div');
+      const bgColor = type === 'success' ? 'bg-[#007AFF]' : (type === 'warning' ? 'bg-[#FFAB00] text-black' : 'bg-[#1B2E4B]');
+      toast.className = `${bgColor} text-white text-xs font-semibold px-4 py-3 rounded-[6px] shadow-lg flex items-center gap-2 transform transition-all duration-300 pointer-events-auto max-w-md`;
+      toast.innerHTML = `
+        <span>${type === 'success' ? '✓' : 'ℹ'}</span>
+        <span class="flex-1">${message}</span>
+        <button onclick="this.parentElement.remove()" class="text-white/80 hover:text-white font-bold ml-2">✕</button>
+      `;
+
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+      }, 5000);
+    }
+
+    // Initializer
+    document.addEventListener('DOMContentLoaded', () => {
+      startLeaseCountdown();
+    });
+  </script>
+</body>
+</html>

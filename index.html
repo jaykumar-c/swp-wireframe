@@ -1041,6 +1041,12 @@
             <span>Coach Lesson Module &amp; Portal</span>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="#coach_rescheduling" id="nav-coach_rescheduling">
+            <span class="nav-icon">⚡</span>
+            <span>Coach Reschedule &amp; Inhaalweken</span>
+          </a>
+        </li>
       </ul>
 
       <!-- PLAYER SECTION -->
@@ -1056,6 +1062,18 @@
           <a href="#player_workflow" id="nav-player_workflow">
             <span class="nav-icon">🔄</span>
             <span>Players 18-Screen Workflow</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#sports_passport" id="nav-sports_passport">
+            <span class="nav-icon">🪪</span>
+            <span>Sports Passport Strategy Deck</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#passport_wireframes" id="nav-passport_wireframes">
+            <span class="nav-icon">📱</span>
+            <span>Player Passport Wireframes (16 Screens)</span>
           </a>
         </li>
       </ul>
@@ -1374,6 +1392,23 @@
                     <span class="dir-link-text" style="color:#007bff; font-weight:700;">Launch Coach Portal →</span>
                   </div>
                 </div>
+
+                <!-- COACH LESSON RESCHEDULING & INHAALWEKEN MANAGEMENT -->
+                <div class="dir-card" onclick="location.hash='#coach_rescheduling'" style="border: 2px solid #007bff; background: linear-gradient(180deg, #F0F7FF 0%, #FFFFFF 100%);">
+                  <div class="dir-card-top">
+                    <div class="dir-card-header">
+                      <div class="dir-card-icon-title">
+                        <span class="dir-icon">⚡</span>
+                        <h3 class="dir-card-title" style="color: #007bff;">Coach Rescheduling &amp; Inhaalweken</h3>
+                      </div>
+                      <span class="dir-badge" style="background:#061D42; color:#FFFFFF;">Jeroen Froma Spec</span>
+                    </div>
+                    <p>Meeting ground truth suite: 8-Week recurring series + 2 reserved buffer weeks (Inhaalweken), child session override without cascade, live court lease-lock, €0.00 rollover, and court-side mobile app.</p>
+                  </div>
+                  <div class="dir-card-footer">
+                    <span class="dir-link-text" style="color:#007bff; font-weight:700;">Launch Rescheduling Suite →</span>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -1625,6 +1660,12 @@
         file: 'ShallWe-Play - Coach Lesson Module & Portal Wireframes.html',
         type: 'iframe'
       },
+      'coach_rescheduling': {
+        title: 'ShallWe-Play - Coach Lesson Management & Inhaalweken Rescheduling Suite',
+        desc: 'Built on meeting ground truth with Head Coach Jeroen Froma (House of Padel / SCO): 8-Week series, reserved inhaalweken, non-cascading individual session reschedule, 5-minute atomic court lease lock, and court-side mobile app.',
+        file: 'coach_lesson_rescheduling_management_wireframes.html',
+        type: 'iframe'
+      },
       'skiing-club': {
         title: 'Club Booking Calendar & On-Behalf Desk',
         desc: 'Real-time slope timeline, capacity holds, on-behalf booking desk, and asset maintenance scheduling',
@@ -1647,6 +1688,18 @@
         title: 'Player Mobile Walkthrough Simulator (18-Screen SnowWorld Journey)',
         desc: '18-Screen complete walkthrough: Screens 1–9 SnowWorld player booking flow & Screens 10–18 venue arrival, gate scans, session extensions, and exit settlement',
         file: 'skiing_player_booking_workflow.html',
+        type: 'iframe'
+      },
+      'sports_passport': {
+        title: 'Player Sports Passport & Mobile Strategy Deck',
+        desc: 'Interactive 4-Screen mobile wireframes: Quick Setup, Digital Sports Passport, 15s Check-In, and Friendly Partner Matching',
+        file: 'swp_business_strategy_presentation.html',
+        type: 'iframe'
+      },
+      'passport_wireframes': {
+        title: 'Player Passport Creation & Progressive Growth Wireframes (Layer 1)',
+        desc: 'Complete 16-Screen mobile wireframes (390 × 844), 4-lane system architecture flow diagram, and passport growth loop',
+        file: 'swp_player_passport_wireframes.html',
         type: 'iframe'
       }
     };
