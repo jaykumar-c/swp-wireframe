@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <title>ShallWe-Play (SWP) — Player Passport BRD v1.0</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-main: 'Poppins', Arial, sans-serif;
+      --primary: #0D6EFD;
+      --primary-hover: #0b5ed7;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ── LIGHT THEME ── */
+    [data-theme="light"] {
+      --bg-page: #F4F7FC;
+      --bg-card: #FFFFFF;
+      --border-card: #D0D5DD;
+      --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.06);
+      --text-main: #141439;
+      --text-title: #061D42;
+      --text-sub: #565656;
+      --text-meta: #676767;
+      --border-divider: #E2E8F0;
+      --part-header-bg: #DBEEFF;
+      --part-header-color: #0D6EFD;
+      --part-header-border: #0D6EFD;
+      --toggle-bg: #FFFFFF;
+      --toggle-border: #CBD5E1;
+      --toggle-text: #061D42;
+      --toggle-hover-bg: #F1F5F9;
+    }
+
+    /* ── DARK THEME ── */
+    [data-theme="dark"] {
+      --bg-page: #080B18;
+      --bg-card: #0D1424;
+      --border-card: rgba(255, 255, 255, 0.1);
+      --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.45);
+      --text-main: #CBD5E1;
+      --text-title: #F8FAFC;
+      --text-sub: #94A3B8;
+      --text-meta: #64748B;
+      --border-divider: rgba(255, 255, 255, 0.08);
+      --part-header-bg: rgba(13, 110, 253, 0.16);
+      --part-header-color: #60A5FA;
+      --part-header-border: #3B82F6;
+      --toggle-bg: #161F36;
+      --toggle-border: rgba(255, 255, 255, 0.18);
+      --toggle-text: #F8FAFC;
+      --toggle-hover-bg: #1E293B;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-main);
+      font-size: 11pt;
+      line-height: 1.65;
+      color: var(--text-main);
+      background-color: var(--bg-page);
+      margin: 0;
+      padding: 40px 20px;
+      transition: var(--transition);
+    }
+
+    .theme-bar {
+      position: fixed;
+      top: 20px;
+      right: 24px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .theme-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: var(--toggle-bg);
+      border: 1px solid var(--toggle-border);
+      border-radius: 9999px;
+      color: var(--toggle-text);
+      font-family: var(--font-main);
+      font-size: 9.5pt;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+      transition: var(--transition);
+      backdrop-filter: blur(8px);
+    }
+
+    .theme-toggle-btn:hover {
+      background: var(--toggle-hover-bg);
+      transform: translateY(-1px);
+    }
+
+    .doc-page {
+      max-width: 820px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      padding: 60px 70px;
+      border: 1px solid var(--border-card);
+      box-shadow: var(--shadow-card);
+      border-radius: 6px;
+      transition: var(--transition);
+    }
+
+    .cover-meta {
+      border-bottom: 2px solid var(--border-divider);
+      padding-bottom: 24px;
+      margin-bottom: 32px;
+    }
+
+    .company-tag {
+      font-size: 10pt;
+      font-weight: 600;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    h1 {
+      font-size: 24pt;
+      font-weight: 700;
+      color: var(--text-title);
+      margin: 6px 0 2px 0;
+    }
+
+    .doc-type {
+      font-size: 13pt;
+      font-weight: 500;
+      color: var(--text-sub);
+      margin-bottom: 16px;
+    }
+
+    .meta-line {
+      font-size: 9.5pt;
+      color: var(--text-meta);
+      margin: 3px 0;
+    }
+
+    h2 {
+      font-size: 16pt;
+      font-weight: 700;
+      color: var(--text-title);
+      margin-top: 36px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border-divider);
+      padding-bottom: 6px;
+    }
+
+    .part-header {
+      font-size: 14pt;
+      font-weight: 700;
+      color: var(--part-header-color);
+      margin-top: 28px;
+      margin-bottom: 12px;
+      background-color: var(--part-header-bg);
+      padding: 8px 14px;
+      border-radius: 4px;
+      border-left: 4px solid var(--part-header-border);
+      transition: var(--transition);
+    }
+
+    h3 {
+      font-size: 12.5pt;
+      font-weight: 600;
+      color: var(--text-title);
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+
+    ul {
+      margin: 8px 0 16px 20px;
+      padding: 0;
+    }
+
+    li {
+      font-size: 10.5pt;
+      color: var(--text-main);
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+
+    .footer-box {
+      margin-top: 60px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-divider);
+      font-size: 9pt;
+      color: var(--text-meta);
+    }
+
+    @media (max-width: 768px) {
+      .doc-page { padding: 30px 20px; }
+      .theme-bar { top: 12px; right: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Theme Switcher Button -->
+  <div class="theme-bar">
+    <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle between Dark and Light mode">
+      <span id="themeToggleIcon">☀️</span>
+      <span id="themeToggleText">Light Mode</span>
+    </button>
+  </div>
+
+  <div class="doc-page">
+
+    <!-- Document Cover Meta -->
+    <div class="cover-meta">
+      <div class="company-tag">ShallWe-Play (SWP) &bull; Netherlands</div>
+      <h1>Player Passport Platform</h1>
+      <div class="doc-type">Mobile App &amp; Club Ecosystem &mdash; Web &amp; Mobile BRD</div>
+      <div class="meta-line"><strong>Version:</strong> 1.0 &bull; <strong>Date:</strong> 19/10/2026</div>
+      <div class="meta-line"><strong>Prepared For:</strong> ShallWe-Play Team &amp; Venue Partners</div>
+      <div class="meta-line"><strong>Prepared By:</strong> Zignuts Technolab Private Limited (India)</div>
+    </div>
+
+    <!-- Current Business Problem -->
+    <h2>Current Business Problem</h2>
+    <ul>
+      <li><strong>Long Onboarding Forms:</strong> Traditional sports apps in the Netherlands ask new players 10 to 15 questions before they can book a court or find a match. This takes 10+ minutes and causes over 60% of new players to leave before finishing signup.</li>
+      <li><strong>Scattered Player Levels:</strong> A player's rating is often locked inside a single club ladder, official federation league (like KNLTB), or local WhatsApp group. When a player visits a new venue, they start as an unknown beginner, leading to mismatched and uncompetitive games.</li>
+      <li><strong>Forced Public Information:</strong> Conventional sports portals make player phone numbers, skill ratings, and match history public by default. Privacy-conscious Dutch players hesitate to register when their personal information is visible without permission.</li>
+      <li><strong>Unilateral Club Changes:</strong> Clubs and coaches sometimes change a player's level without asking them. When a club lowers or raises a player's rating without their consent, players feel frustrated and lose trust in the venue.</li>
+    </ul>
+
+    <!-- The Proposed Solution -->
+    <h2>The Proposed Solution</h2>
+    <ul>
+      <li><strong>Fast 60-Second Onboarding:</strong> New players answer at most 5 quick questions during signup to get their starting passport in under 60 seconds, so they can book or play immediately.</li>
+      <li><strong>Passport Grows From Real Play:</strong> Instead of long forms upfront, the passport evolves naturally from real matches played, short reflections, and coaching notes.</li>
+      <li><strong>Player Owns Their Level (The Golden Rule):</strong> A player's level changes only if the player accepts. Clubs and coaches can suggest adjustments, but the system never changes a rating without the player's explicit approval.</li>
+      <li><strong>100% Private by Default:</strong> Every new passport starts completely private. The player decides what is visible to others, and can hide or show individual sports anytime.</li>
+      <li><strong>Quick 15-Second Match Reflection:</strong> After a session, players complete a short 4-tap check to rate enjoyment, level, and rematch preferences. Physical feelings are kept in a private log protected by clear GDPR consent.</li>
+    </ul>
+
+    <!-- Systems Impacted -->
+    <h2>Systems Impacted</h2>
+    <ul>
+      <li><strong>SWP Player Mobile App (iOS &amp; Android):</strong> Sign-up flow, 5 starting questions, player passport profile, court booking, post-match check, and club notes.</li>
+      <li><strong>SWP Club &amp; Coach Web Portal:</strong> Venue portal where clubs check in players, confirm court sessions, and submit coaching notes and level suggestions.</li>
+      <li><strong>SWP Booking &amp; Matchmaking Service:</strong> Core backend handling court bookings, player levels, location search radius, and rental add-ons (&euro;3.50 racket hire).</li>
+    </ul>
+
+    <!-- Assumptions & Dependencies -->
+    <h2>Assumptions &amp; Dependencies</h2>
+    <ul>
+      <li>The launch focuses on the Netherlands sports market.</li>
+      <li>The app defaults to Dutch with an easy English switch.</li>
+      <li>Padel is the primary sport for launch, with support for tennis and squash.</li>
+      <li>Adult players (18+) can register directly. Players under 18 must get parent or guardian approval via email.</li>
+      <li>All text on screens uses simple words with zero decorative emojis.</li>
+    </ul>
+
+    <!-- Business Requirements -->
+    <h2>Business Requirements</h2>
+
+    <div class="part-header">Part A: Player Mobile App (ShallWe-Play App)</div>
+
+    <h3>1. Account Setup &amp; Safe Sign-In</h3>
+    <ul>
+      <li>Ability for players to sign up using email code, Google, or Apple sign-in.</li>
+      <li>Ability to receive a 6-digit code via email with a 60-second resend timer.</li>
+      <li>Ability to choose between an Adult account (18+) or a Child account (under 18).</li>
+      <li>Ability for child accounts to require parent or guardian email verification before access is granted.</li>
+      <li>Ability to set a display name with live checkmark validation and helpful suggestions.</li>
+    </ul>
+
+    <h3>2. 60-Second Onboarding (5 Starting Questions)</h3>
+    <ul>
+      <li>Ability for new players to answer at most 5 quick questions during signup.</li>
+      <li>Ability to pick what brings them to the app (play, improve, book, return, explore) with up to 2 selections.</li>
+      <li>Ability to select their main sport (Padel, Tennis, Squash).</li>
+      <li>Ability to choose their starting skill level (Beginner, Intermediate 3.5, Advanced, Pro).</li>
+      <li>Ability to select what matters most to them (fun, fitness, coaching, meeting people, safe courts) with up to 3 selections.</li>
+      <li>Ability to set their playing area by postcode and search radius slider (such as Amsterdam 1071 within 5 km).</li>
+      <li>Ability to skip questions and see a progress counter on every question screen.</li>
+      <li>Ability to see their trial passport immediately in under 60 seconds with a clear starting phase based on their answers.</li>
+    </ul>
+
+    <h3>3. Player Passport &amp; Privacy Controls</h3>
+    <ul>
+      <li>Ability to view a clean personal passport card showing avatar, handle, sessions played, followers, and 4 strength tags without numeric scores.</li>
+      <li>Ability for the passport to remain 100% private by default until the player chooses to share it.</li>
+      <li>Ability for players to hide or show individual sports from their profile anytime.</li>
+      <li>Ability to edit personal details (name, photo, bio) anytime in one place.</li>
+      <li>Ability to view a timeline of past matches, lessons, milestones, and club notes with clear source labels.</li>
+    </ul>
+
+    <h3>4. Passport Growth &amp; Weekly Question Prompts</h3>
+    <ul>
+      <li>Ability for the passport to grow automatically from real games, lessons, and verified club notes.</li>
+      <li>Ability to open an optional questions backlog anytime to complete extra profile details at the player's own pace.</li>
+      <li>Ability for the system to show at most one optional question card per week on the home screen.</li>
+      <li>Ability to see a clear "Why we ask" note and a Skip button on every optional question prompt.</li>
+    </ul>
+
+    <h3>5. Court Booking &amp; Pre-Arrival</h3>
+    <ul>
+      <li>Ability to add racket rentals (&euro;3.50) directly during court booking with transparent price breakdown.</li>
+      <li>Ability to mark if this is the player's first visit to a club.</li>
+      <li>Ability to answer an optional pre-arrival question about court adjustments before their first visit.</li>
+    </ul>
+
+    <h3>6. Post-Match 15-Second Reflection &amp; Physical Wellbeing</h3>
+    <ul>
+      <li>Ability to complete a quick 4-tap reflection check in under 15 seconds after a match.</li>
+      <li>Ability to rate match enjoyment, level fit, physical feeling, and rematch preference with the group.</li>
+      <li>Ability for the system to ask for clear GDPR consent before saving any physical feeling data.</li>
+      <li>Ability to view past feeling check-ins in a private list and delete any individual record with one tap.</li>
+      <li>Ability for the post-match check to expire automatically after 24 hours so players are never bothered by old matches.</li>
+    </ul>
+
+    <h3>7. Club Notes &amp; Player Level Rule</h3>
+    <ul>
+      <li>Ability to receive official coaching tips and notes from verified clubs on the passport timeline.</li>
+      <li>Ability for the system to enforce the Golden Rule: a player's level changes only if the player accepts.</li>
+      <li>Ability for players to choose between 4 clear actions when a club suggests a level change: Accept new level, Keep current level, Decline note, or Ask a question.</li>
+      <li>Ability to see verified badges on club notes so players know the feedback is authentic.</li>
+    </ul>
+
+    <div class="part-header">Part B: Club &amp; Coach Web Portal</div>
+
+    <h3>8. Player Check-In &amp; Attendance</h3>
+    <ul>
+      <li>Ability for clubs to check in players for court bookings and group sessions.</li>
+      <li>Ability to mark session completion so matches count toward the player's passport activity.</li>
+    </ul>
+
+    <h3>9. Coach Feedback &amp; Verified Level Suggestions</h3>
+    <ul>
+      <li>Ability for accredited coaches to submit feedback, tips, and session notes to a player's timeline.</li>
+      <li>Ability for coaches to suggest a level adjustment without being able to force-change it without player approval.</li>
+      <li>Ability to see whether a player accepted or declined a suggested level change in the venue dashboard.</li>
+    </ul>
+
+    <!-- Footer Box -->
+    <div class="footer-box">
+      <strong>Contact:</strong> hello@zignuts.com &bull; www.zignuts.com<br>
+      A-409, Siddhraj Zori, Near Sargasan Cross Road, S. G. Road, Gandhinagar, 382421, Gujarat, India.
+    </div>
+
+  </div>
+
+  <script>
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeToggleIcon = document.getElementById('themeToggleIcon');
+    const themeToggleText = document.getElementById('themeToggleText');
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      try {
+        localStorage.setItem('swp_brd_theme', theme);
+      } catch (e) {}
+      if (theme === 'dark') {
+        themeToggleIcon.textContent = '☀️';
+        themeToggleText.textContent = 'Light Mode';
+      } else {
+        themeToggleIcon.textContent = '🌙';
+        themeToggleText.textContent = 'Dark Mode';
+      }
+    }
+
+    const initialTheme = localStorage.getItem('swp_brd_theme') || 'dark';
+    applyTheme(initialTheme);
+
+    themeToggleBtn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+  </script>
+</body>
+</html>
