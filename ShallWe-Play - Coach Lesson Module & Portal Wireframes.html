@@ -711,23 +711,28 @@
           <span>Availability</span>
         </button>
 
+        <button onclick="switchMode('portal', 'calendar')" id="tab-nav-calendar" class="main-tab-item px-2.5 sm:px-3 py-1.5 rounded-lg font-semibold text-gray-600 hover:text-black hover:bg-gray-200/60 transition flex items-center gap-1.5 shrink-0">
+          <span class="tab-badge w-4 h-4 rounded-full bg-gray-200 text-gray-700 text-[10px] flex items-center justify-center font-bold">4</span>
+          <span>Calendar &amp; Students</span>
+        </button>
+
         <button onclick="switchMode('portal', 'lessons')" id="tab-nav-lessons" class="main-tab-item px-2.5 sm:px-3 py-1.5 rounded-lg font-bold bg-[#007AFF] text-white shadow-2xs transition flex items-center gap-1.5 shrink-0">
-          <span class="tab-badge w-4 h-4 rounded-full bg-white text-blue-700 text-[10px] flex items-center justify-center font-bold">4</span>
+          <span class="tab-badge w-4 h-4 rounded-full bg-white text-blue-700 text-[10px] flex items-center justify-center font-bold">5</span>
           <span>Lessons &amp; Bundles</span>
         </button>
 
         <button onclick="switchMode('portal', 'explore')" id="tab-nav-explore" class="main-tab-item px-2.5 sm:px-3 py-1.5 rounded-lg font-semibold text-gray-600 hover:text-black hover:bg-gray-200/60 transition flex items-center gap-1.5 shrink-0">
-          <span class="tab-badge w-4 h-4 rounded-full bg-gray-200 text-gray-700 text-[10px] flex items-center justify-center font-bold">5</span>
+          <span class="tab-badge w-4 h-4 rounded-full bg-gray-200 text-gray-700 text-[10px] flex items-center justify-center font-bold">6</span>
           <span>Explore Clubs</span>
         </button>
 
         <button onclick="switchMode('portal', 'clubs')" id="tab-nav-clubs" class="main-tab-item px-2.5 sm:px-3 py-1.5 rounded-lg font-semibold text-gray-600 hover:text-black hover:bg-gray-200/60 transition flex items-center gap-1.5 shrink-0">
-          <span class="tab-badge w-4 h-4 rounded-full bg-gray-200 text-gray-700 text-[10px] flex items-center justify-center font-bold">6</span>
+          <span class="tab-badge w-4 h-4 rounded-full bg-gray-200 text-gray-700 text-[10px] flex items-center justify-center font-bold">7</span>
           <span>My Clubs</span>
         </button>
 
         <button onclick="switchMode('portal', 'profile')" id="tab-nav-profile" class="main-tab-item px-2.5 sm:px-3 py-1.5 rounded-lg font-semibold text-gray-600 hover:text-black hover:bg-gray-200/60 transition flex items-center gap-1.5 shrink-0">
-          <span class="tab-badge w-4 h-4 rounded-full bg-gray-200 text-gray-700 text-[10px] flex items-center justify-center font-bold">7</span>
+          <span class="tab-badge w-4 h-4 rounded-full bg-gray-200 text-gray-700 text-[10px] flex items-center justify-center font-bold">8</span>
           <span>Profile</span>
         </button>
 
@@ -759,6 +764,9 @@
             </a>
             <a href="javascript:void(0)" onclick="switchMode('portal', 'availability'); toggleQuickFlowMenu();" class="flex items-center gap-2 px-3 py-2 hover:bg-gray-50 text-gray-700 font-medium">
               <span>3. Availability</span>
+            </a>
+            <a href="javascript:void(0)" onclick="switchMode('portal', 'calendar'); toggleQuickFlowMenu();" class="flex items-center gap-2 px-3 py-2 hover:bg-gray-50 text-gray-700 font-medium">
+              <span>4. Calendar &amp; Student Management</span>
             </a>
             <a href="javascript:void(0)" onclick="switchMode('portal', 'lessons'); toggleQuickFlowMenu();" class="flex items-center gap-2 px-3 py-2 hover:bg-gray-50 text-gray-700 font-medium">
               <span>4. Create Lessons & Packages</span>
@@ -3844,7 +3852,777 @@
 
     </section> <!-- END #cview-availability -->
 
-        <!-- ==================== VIEW 4: COACH PROFILE & CREDENTIALS ==================== -->
+        
+    <!-- ========================================================================= -->
+    <!-- ==== VIEW 4: COACH CALENDAR & STUDENT MANAGEMENT (Centralized Schedule) == -->
+    <!-- ========================================================================= -->
+    <section id="cview-calendar" class="coach-view-panel hidden max-w-7xl mx-auto py-6 px-4 sm:px-6 w-full flex-1">
+      
+      <!-- Top Title Bar & Primary Actions -->
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-5 gap-3">
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-[#007AFF] bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200">
+              Centralized Schedule &amp; Roster
+            </span>
+            <span class="text-xs text-gray-400">•</span>
+            <span class="text-xs text-gray-500 font-medium">Autumn Cycle 2026</span>
+          </div>
+          <h1 class="text-xl sm:text-2xl font-bold text-[#1E293B] font-heading mt-1">Coach Calendar &amp; Student Management</h1>
+          <p class="text-xs text-[#475569] mt-0.5">Manage sports, student bookings, group cohorts, availability, notes, and session rescheduling</p>
+        </div>
+
+        <!-- Right Quick Action Hub -->
+        <div class="flex flex-wrap items-center gap-2">
+          <button onclick="openRescheduleHubModal()" class="swp-btn-neutral text-xs px-3 py-2 flex items-center gap-1.5 shadow-2xs relative">
+            <svg class="w-3.5 h-3.5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span>Reschedule Hub</span>
+            <span id="badge-reschedule-count" class="w-4 h-4 rounded-full bg-amber-500 text-white text-[9px] font-bold flex items-center justify-center">1</span>
+          </button>
+
+          <button onclick="openStudentGroupModal()" class="swp-btn-primary text-xs px-4 py-2 flex items-center gap-1.5 shadow-xs">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+            <span>+ Create Student Group</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ================= 1. SPORT SELECTION & CALENDAR CONTROLS BAR ================= -->
+      <div class="bg-white border border-[#E0E0E0] rounded-[8px] p-4 mb-5 shadow-xs">
+        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+          
+          <!-- Sport Filter Pills (Item 1: Coach selects a particular sport to filter bookings & players) -->
+          <div>
+            <label class="text-[11px] font-bold text-gray-500 uppercase tracking-wider block mb-2 font-heading">
+              Filter by Sport (Select to view players &amp; sessions booked under that sport)
+            </label>
+            <div id="sport-filter-pills" class="flex flex-wrap gap-2">
+              <button onclick="setSportCalendarFilter('all')" id="btn-sport-all" class="sport-filter-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#007AFF] text-white shadow-xs transition flex items-center gap-1.5">
+                <span>All Sports</span>
+                <span class="text-[10px] bg-white/20 px-1.5 py-0.5 rounded-full font-bold" id="cnt-sport-all">12</span>
+              </button>
+              <button onclick="setSportCalendarFilter('tennis')" id="btn-sport-tennis" class="sport-filter-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-gray-100 hover:bg-gray-200 text-gray-700 transition flex items-center gap-1.5">
+                <span>🎾 Tennis</span>
+                <span class="text-[10px] bg-gray-200 px-1.5 py-0.5 rounded-full font-bold text-gray-800" id="cnt-sport-tennis">5</span>
+              </button>
+              <button onclick="setSportCalendarFilter('padel')" id="btn-sport-padel" class="sport-filter-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-gray-100 hover:bg-gray-200 text-gray-700 transition flex items-center gap-1.5">
+                <span>🏸 Padel</span>
+                <span class="text-[10px] bg-gray-200 px-1.5 py-0.5 rounded-full font-bold text-gray-800" id="cnt-sport-padel">5</span>
+              </button>
+              <button onclick="setSportCalendarFilter('zumba')" id="btn-sport-zumba" class="sport-filter-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-gray-100 hover:bg-gray-200 text-gray-700 transition flex items-center gap-1.5">
+                <span>💃 Zumba</span>
+                <span class="text-[10px] bg-gray-200 px-1.5 py-0.5 rounded-full font-bold text-gray-800" id="cnt-sport-zumba">2</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Calendar View Switches & Week Navigator -->
+          <div class="flex flex-wrap items-center gap-2.5">
+            <!-- Associated Club Selector -->
+            <div class="relative">
+              <select id="cal-club-filter" onchange="filterCalendarByClub(this.value)" class="text-xs font-semibold py-2 px-3 pr-8 rounded-[4px] border border-gray-300 bg-gray-50 focus:bg-white focus:outline-none focus:border-[#007AFF] text-gray-700">
+                <option value="all">All Associated Clubs (2)</option>
+                <option value="amstelpark">Amstelpark Padel &amp; Tennis</option>
+                <option value="utrecht">SCO Utrecht Sports Club</option>
+              </select>
+            </div>
+
+            <!-- View Mode Switcher: Week vs Day vs List -->
+            <div class="inline-flex bg-gray-100 p-0.5 rounded-[4px] border border-gray-200 text-xs font-semibold">
+              <button onclick="switchCalendarViewMode('week')" id="btn-vmode-week" class="px-3 py-1.5 rounded-[4px] bg-white text-gray-900 shadow-2xs font-bold transition">Week Grid</button>
+              <button onclick="switchCalendarViewMode('day')" id="btn-vmode-day" class="px-3 py-1.5 rounded-[4px] text-gray-500 hover:text-black transition">Day View</button>
+              <button onclick="switchCalendarViewMode('list')" id="btn-vmode-list" class="px-3 py-1.5 rounded-[4px] text-gray-500 hover:text-black transition">Agenda List</button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Dynamic Filter Feedback Banner -->
+        <div id="sport-filter-banner" class="hidden mt-3 pt-3 border-t border-gray-100 flex items-center justify-between text-xs">
+          <div class="flex items-center space-x-2 text-blue-900 font-medium">
+            <span class="w-2 h-2 rounded-full bg-[#007AFF]"></span>
+            <span id="sport-filter-banner-text">Filtered by Tennis: Showing 5 sessions and 7 enrolled players.</span>
+          </div>
+          <button onclick="setSportCalendarFilter('all')" class="text-xs text-[#007AFF] hover:underline font-bold cursor-pointer">
+            ✕ Clear Sport Filter
+          </button>
+        </div>
+      </div>
+
+      <!-- ================= 2-COLUMN MASTER WORKBENCH ================= -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+        
+        <!-- ================= LEFT COLUMN: STUDENT MANAGEMENT & COHORT POOL (4 COLS) ================= -->
+        <div class="lg:col-span-4 bg-white border border-[#E0E0E0] rounded-[8px] p-4 shadow-xs flex flex-col min-h-[750px]">
+          
+          <!-- Pool Header & Search -->
+          <div class="pb-3 border-b border-gray-100">
+            <div class="flex items-center justify-between mb-2">
+              <div class="flex items-center space-x-2">
+                <h2 class="text-sm font-bold text-gray-900 font-heading">Student Management</h2>
+                <span id="badge-total-students" class="bg-blue-100 text-[#007AFF] text-[11px] px-2 py-0.5 rounded-full font-bold">18</span>
+              </div>
+              <span class="text-[11px] text-gray-400 font-medium" id="pool-sport-indicator">All Sports</span>
+            </div>
+
+            <!-- Student Search -->
+            <div class="relative">
+              <input type="text" id="input-search-students" onkeyup="searchStudentPool()" placeholder="Search students by name, rating, or club..." class="w-full text-xs pl-8 pr-3 py-2 rounded-[4px] border border-gray-300 focus:outline-none focus:border-[#007AFF]">
+              <svg class="w-3.5 h-3.5 text-gray-400 absolute left-2.5 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </div>
+          </div>
+
+          <!-- Pool Sub-tabs: All Students vs Active Groups vs Unassigned -->
+          <div class="flex border-b border-gray-200 my-2.5 text-xs font-bold">
+            <button onclick="switchStudentPoolTab('all')" id="tab-spool-all" class="flex-1 pb-2 border-b-2 border-[#007AFF] text-[#007AFF] flex items-center justify-center gap-1">
+              <span>All Students</span>
+              <span class="text-[10px] bg-blue-50 text-blue-700 px-1.5 py-0.2 rounded-full font-bold" id="cnt-spool-all">18</span>
+            </button>
+            <button onclick="switchStudentPoolTab('groups')" id="tab-spool-groups" class="flex-1 pb-2 border-b-2 border-transparent text-gray-400 hover:text-gray-700 flex items-center justify-center gap-1">
+              <span>Active Groups</span>
+              <span class="text-[10px] bg-emerald-50 text-emerald-700 px-1.5 py-0.2 rounded-full font-bold">4</span>
+            </button>
+            <button onclick="switchStudentPoolTab('unassigned')" id="tab-spool-unassigned" class="flex-1 pb-2 border-b-2 border-transparent text-gray-400 hover:text-gray-700 flex items-center justify-center gap-1">
+              <span>Unassigned</span>
+              <span class="text-[10px] bg-amber-50 text-amber-700 px-1.5 py-0.2 rounded-full font-bold">6</span>
+            </button>
+          </div>
+
+          <!-- Smart Recommendation Tip for Group Creation -->
+          <div class="bg-gradient-to-r from-blue-50/70 to-indigo-50/70 border border-blue-200/80 rounded-[6px] p-2.5 mb-3 text-xs flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+              <span class="text-sm">⚡</span>
+              <div>
+                <span class="font-bold text-blue-900 block text-[11px]">Group Placement Helper</span>
+                <span class="text-[10px] text-blue-700">Select checkboxes below to group students into a cohort</span>
+              </div>
+            </div>
+            <button onclick="openStudentGroupModal()" class="text-[11px] font-bold text-[#007AFF] hover:underline whitespace-nowrap">
+              + Group →
+            </button>
+          </div>
+
+          <!-- Student Cards Roster (Interactive List) -->
+          <div id="student-pool-list" class="flex-1 overflow-y-auto space-y-2.5 pr-1 max-h-[580px]">
+            
+            <!-- Student 1: Arjen Laferte (Padel, Phone Shared) -->
+            <div class="student-card bg-white border border-gray-200 hover:border-blue-300 rounded-[6px] p-3 shadow-2xs hover:shadow-xs transition cursor-pointer" data-sport="padel" data-student-id="arjen" onclick="handleStudentCardClick(event, 'arjen')">
+              <div class="flex items-start justify-between">
+                <div class="flex items-center space-x-2.5">
+                  <div class="w-9 h-9 rounded-full bg-blue-100 text-[#007AFF] font-bold text-xs flex items-center justify-center shrink-0 border border-blue-200">
+                    AL
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-xs text-gray-900 flex items-center gap-1.5">
+                      <span>Arjen Laferte</span>
+                      <span class="text-[10px] bg-amber-50 text-amber-800 border border-amber-200 px-1.5 py-0.2 rounded font-semibold">Rating 6.2</span>
+                    </h4>
+                    <div class="flex items-center space-x-1.5 text-[10px] text-gray-500 mt-0.5">
+                      <span class="text-[#007AFF] font-semibold">🏸 Padel</span>
+                      <span>•</span>
+                      <span>SCO Utrecht Member</span>
+                    </div>
+                  </div>
+                </div>
+                <input type="checkbox" onchange="toggleStudentSelection(this, 'arjen')" class="student-select-chk rounded text-[#007AFF] h-4 w-4 mt-0.5 cursor-pointer">
+              </div>
+
+              <!-- Student Profile Availability Preview (Item 4) -->
+              <div class="mt-2 pt-2 border-t border-gray-100 text-[10px]">
+                <div class="flex items-center justify-between text-gray-500">
+                  <span class="font-semibold text-gray-700">Availability:</span>
+                  <span class="text-blue-700 font-bold bg-blue-50 px-1.5 py-0.5 rounded">Mon 17–19h, Wed 18–21h</span>
+                </div>
+              </div>
+
+              <!-- Phone Number Display with Privacy Check (Item 5: Phone Shared) -->
+              <div class="mt-1.5 flex items-center justify-between text-[10px]">
+                <div class="flex items-center space-x-1 text-emerald-700 font-semibold">
+                  <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                  <span>+31 6 52 89 14 20</span>
+                  <span class="text-[9px] bg-emerald-50 text-emerald-700 px-1 rounded font-bold">Shared</span>
+                </div>
+                <button type="button" onclick="openPlayerPassportModal('arjen'); event.stopPropagation();" class="text-[#007AFF] hover:underline font-bold text-[10px]">
+                  View Passport →
+                </button>
+              </div>
+            </div>
+
+            <!-- Student 2: Julia van Veen (Padel, Phone Hidden by Player) -->
+            <div class="student-card bg-white border border-gray-200 hover:border-blue-300 rounded-[6px] p-3 shadow-2xs hover:shadow-xs transition cursor-pointer" data-sport="padel" data-student-id="julia" onclick="handleStudentCardClick(event, 'julia')">
+              <div class="flex items-start justify-between">
+                <div class="flex items-center space-x-2.5">
+                  <div class="w-9 h-9 rounded-full bg-purple-100 text-purple-700 font-bold text-xs flex items-center justify-center shrink-0 border border-purple-200">
+                    JV
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-xs text-gray-900 flex items-center gap-1.5">
+                      <span>Julia van Veen</span>
+                      <span class="text-[10px] bg-amber-50 text-amber-800 border border-amber-200 px-1.5 py-0.2 rounded font-semibold">Rating 6.4</span>
+                    </h4>
+                    <div class="flex items-center space-x-1.5 text-[10px] text-gray-500 mt-0.5">
+                      <span class="text-[#007AFF] font-semibold">🏸 Padel</span>
+                      <span>•</span>
+                      <span>SCO Utrecht Member</span>
+                    </div>
+                  </div>
+                </div>
+                <input type="checkbox" onchange="toggleStudentSelection(this, 'julia')" class="student-select-chk rounded text-[#007AFF] h-4 w-4 mt-0.5 cursor-pointer">
+              </div>
+
+              <!-- Student Profile Availability Preview (Item 4) -->
+              <div class="mt-2 pt-2 border-t border-gray-100 text-[10px]">
+                <div class="flex items-center justify-between text-gray-500">
+                  <span class="font-semibold text-gray-700">Availability:</span>
+                  <span class="text-blue-700 font-bold bg-blue-50 px-1.5 py-0.5 rounded">Mon 17–19h, Thu 19–21h</span>
+                </div>
+              </div>
+
+              <!-- Phone Number Display with Privacy Check (Item 5: Phone Hidden) -->
+              <div class="mt-1.5 flex items-center justify-between text-[10px]">
+                <div class="flex items-center space-x-1 text-gray-500 font-medium">
+                  <svg class="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                  <span class="text-[10px] text-gray-400 italic">Phone Hidden by Player</span>
+                </div>
+                <button type="button" onclick="openPlayerPassportModal('julia'); event.stopPropagation();" class="text-[#007AFF] hover:underline font-bold text-[10px]">
+                  View Passport →
+                </button>
+              </div>
+            </div>
+
+            <!-- Student 3: Sophie de Jong (Tennis, Phone Shared) -->
+            <div class="student-card bg-white border border-gray-200 hover:border-blue-300 rounded-[6px] p-3 shadow-2xs hover:shadow-xs transition cursor-pointer" data-sport="tennis" data-student-id="sophie" onclick="handleStudentCardClick(event, 'sophie')">
+              <div class="flex items-start justify-between">
+                <div class="flex items-center space-x-2.5">
+                  <div class="w-9 h-9 rounded-full bg-rose-100 text-rose-700 font-bold text-xs flex items-center justify-center shrink-0 border border-rose-200">
+                    SJ
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-xs text-gray-900 flex items-center gap-1.5">
+                      <span>Sophie de Jong</span>
+                      <span class="text-[10px] bg-emerald-50 text-emerald-800 border border-emerald-200 px-1.5 py-0.2 rounded font-semibold">Rating 5.4</span>
+                    </h4>
+                    <div class="flex items-center space-x-1.5 text-[10px] text-gray-500 mt-0.5">
+                      <span class="text-emerald-700 font-semibold">🎾 Tennis</span>
+                      <span>•</span>
+                      <span>Amstelpark Member</span>
+                    </div>
+                  </div>
+                </div>
+                <input type="checkbox" onchange="toggleStudentSelection(this, 'sophie')" class="student-select-chk rounded text-[#007AFF] h-4 w-4 mt-0.5 cursor-pointer">
+              </div>
+
+              <!-- Student Profile Availability Preview (Item 4) -->
+              <div class="mt-2 pt-2 border-t border-gray-100 text-[10px]">
+                <div class="flex items-center justify-between text-gray-500">
+                  <span class="font-semibold text-gray-700">Availability:</span>
+                  <span class="text-blue-700 font-bold bg-blue-50 px-1.5 py-0.5 rounded">Tue 18–21h, Thu 18–21h</span>
+                </div>
+              </div>
+
+              <!-- Phone Number Display with Privacy Check (Item 5: Phone Shared) -->
+              <div class="mt-1.5 flex items-center justify-between text-[10px]">
+                <div class="flex items-center space-x-1 text-emerald-700 font-semibold">
+                  <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                  <span>+31 6 33 91 88 02</span>
+                  <span class="text-[9px] bg-emerald-50 text-emerald-700 px-1 rounded font-bold">Shared</span>
+                </div>
+                <button type="button" onclick="openPlayerPassportModal('sophie'); event.stopPropagation();" class="text-[#007AFF] hover:underline font-bold text-[10px]">
+                  View Passport →
+                </button>
+              </div>
+            </div>
+
+            <!-- Student 4: Daan Bakker (Tennis, Phone Hidden) -->
+            <div class="student-card bg-white border border-gray-200 hover:border-blue-300 rounded-[6px] p-3 shadow-2xs hover:shadow-xs transition cursor-pointer" data-sport="tennis" data-student-id="daan" onclick="handleStudentCardClick(event, 'daan')">
+              <div class="flex items-start justify-between">
+                <div class="flex items-center space-x-2.5">
+                  <div class="w-9 h-9 rounded-full bg-indigo-100 text-indigo-700 font-bold text-xs flex items-center justify-center shrink-0 border border-indigo-200">
+                    DB
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-xs text-gray-900 flex items-center gap-1.5">
+                      <span>Daan Bakker</span>
+                      <span class="text-[10px] bg-amber-50 text-amber-800 border border-amber-200 px-1.5 py-0.2 rounded font-semibold">Rating 5.8</span>
+                    </h4>
+                    <div class="flex items-center space-x-1.5 text-[10px] text-gray-500 mt-0.5">
+                      <span class="text-emerald-700 font-semibold">🎾 Tennis</span>
+                      <span>•</span>
+                      <span>SCO Utrecht Tennis</span>
+                    </div>
+                  </div>
+                </div>
+                <input type="checkbox" onchange="toggleStudentSelection(this, 'daan')" class="student-select-chk rounded text-[#007AFF] h-4 w-4 mt-0.5 cursor-pointer">
+              </div>
+
+              <!-- Student Profile Availability Preview (Item 4) -->
+              <div class="mt-2 pt-2 border-t border-gray-100 text-[10px]">
+                <div class="flex items-center justify-between text-gray-500">
+                  <span class="font-semibold text-gray-700">Availability:</span>
+                  <span class="text-blue-700 font-bold bg-blue-50 px-1.5 py-0.5 rounded">Tue 17–20h, Fri 17–20h</span>
+                </div>
+              </div>
+
+              <!-- Phone Number Display with Privacy Check (Item 5: Phone Hidden) -->
+              <div class="mt-1.5 flex items-center justify-between text-[10px]">
+                <div class="flex items-center space-x-1 text-gray-500 font-medium">
+                  <svg class="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                  <span class="text-[10px] text-gray-400 italic">Phone Hidden by Player</span>
+                </div>
+                <button type="button" onclick="openPlayerPassportModal('daan'); event.stopPropagation();" class="text-[#007AFF] hover:underline font-bold text-[10px]">
+                  View Passport →
+                </button>
+              </div>
+            </div>
+
+            <!-- Student 5: Emma van Dijk (Zumba, Phone Hidden) -->
+            <div class="student-card bg-white border border-gray-200 hover:border-blue-300 rounded-[6px] p-3 shadow-2xs hover:shadow-xs transition cursor-pointer" data-sport="zumba" data-student-id="emma" onclick="handleStudentCardClick(event, 'emma')">
+              <div class="flex items-start justify-between">
+                <div class="flex items-center space-x-2.5">
+                  <div class="w-9 h-9 rounded-full bg-pink-100 text-pink-700 font-bold text-xs flex items-center justify-center shrink-0 border border-pink-200">
+                    ED
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-xs text-gray-900 flex items-center gap-1.5">
+                      <span>Emma van Dijk</span>
+                      <span class="text-[10px] bg-pink-50 text-pink-800 border border-pink-200 px-1.5 py-0.2 rounded font-semibold">All Levels</span>
+                    </h4>
+                    <div class="flex items-center space-x-1.5 text-[10px] text-gray-500 mt-0.5">
+                      <span class="text-pink-600 font-semibold">💃 Zumba</span>
+                      <span>•</span>
+                      <span>Amstelpark Fitness</span>
+                    </div>
+                  </div>
+                </div>
+                <input type="checkbox" onchange="toggleStudentSelection(this, 'emma')" class="student-select-chk rounded text-[#007AFF] h-4 w-4 mt-0.5 cursor-pointer">
+              </div>
+
+              <div class="mt-2 pt-2 border-t border-gray-100 text-[10px]">
+                <div class="flex items-center justify-between text-gray-500">
+                  <span class="font-semibold text-gray-700">Availability:</span>
+                  <span class="text-blue-700 font-bold bg-blue-50 px-1.5 py-0.5 rounded">Tue 10–12h, Fri 16–18h</span>
+                </div>
+              </div>
+
+              <div class="mt-1.5 flex items-center justify-between text-[10px]">
+                <div class="flex items-center space-x-1 text-gray-500 font-medium">
+                  <svg class="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                  <span class="text-[10px] text-gray-400 italic">Phone Hidden by Player</span>
+                </div>
+                <button type="button" onclick="openPlayerPassportModal('emma'); event.stopPropagation();" class="text-[#007AFF] hover:underline font-bold text-[10px]">
+                  View Passport →
+                </button>
+              </div>
+            </div>
+
+            <!-- Student 6: Lars Visser (Zumba, Phone Shared) -->
+            <div class="student-card bg-white border border-gray-200 hover:border-blue-300 rounded-[6px] p-3 shadow-2xs hover:shadow-xs transition cursor-pointer" data-sport="zumba" data-student-id="lars" onclick="handleStudentCardClick(event, 'lars')">
+              <div class="flex items-start justify-between">
+                <div class="flex items-center space-x-2.5">
+                  <div class="w-9 h-9 rounded-full bg-teal-100 text-teal-700 font-bold text-xs flex items-center justify-center shrink-0 border border-teal-200">
+                    LV
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-xs text-gray-900 flex items-center gap-1.5">
+                      <span>Lars Visser</span>
+                      <span class="text-[10px] bg-teal-50 text-teal-800 border border-teal-200 px-1.5 py-0.2 rounded font-semibold">Cardio Fitness</span>
+                    </h4>
+                    <div class="flex items-center space-x-1.5 text-[10px] text-gray-500 mt-0.5">
+                      <span class="text-pink-600 font-semibold">💃 Zumba</span>
+                      <span>•</span>
+                      <span>Amstelpark Member</span>
+                    </div>
+                  </div>
+                </div>
+                <input type="checkbox" onchange="toggleStudentSelection(this, 'lars')" class="student-select-chk rounded text-[#007AFF] h-4 w-4 mt-0.5 cursor-pointer">
+              </div>
+
+              <div class="mt-2 pt-2 border-t border-gray-100 text-[10px]">
+                <div class="flex items-center justify-between text-gray-500">
+                  <span class="font-semibold text-gray-700">Availability:</span>
+                  <span class="text-blue-700 font-bold bg-blue-50 px-1.5 py-0.5 rounded">Tue 10–12h, Fri 16–18h</span>
+                </div>
+              </div>
+
+              <div class="mt-1.5 flex items-center justify-between text-[10px]">
+                <div class="flex items-center space-x-1 text-emerald-700 font-semibold">
+                  <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                  <span>+31 6 42 11 90 85</span>
+                  <span class="text-[9px] bg-emerald-50 text-emerald-700 px-1 rounded font-bold">Shared</span>
+                </div>
+                <button type="button" onclick="openPlayerPassportModal('lars'); event.stopPropagation();" class="text-[#007AFF] hover:underline font-bold text-[10px]">
+                  View Passport →
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Action Bar (Item 2: Coach groups selected students & books slot) -->
+          <div id="pool-selection-bar" class="hidden pt-3 border-t border-gray-200 mt-2">
+            <div class="bg-blue-50 border border-blue-200 rounded-[6px] p-2.5 flex items-center justify-between">
+              <div>
+                <span class="text-xs font-bold text-blue-900 block" id="lbl-selected-students-count">2 students selected</span>
+                <span class="text-[10px] text-blue-700">Ready for group session</span>
+              </div>
+              <button onclick="bookSlotForSelectedGroup()" class="bg-[#007AFF] hover:bg-[#0062cc] text-white text-xs font-bold px-3 py-1.5 rounded-[4px] shadow-xs cursor-pointer">
+                Book Group Slot →
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- ================= RIGHT COLUMN: CENTRAL INTERACTIVE CALENDAR (8 COLS) ================= -->
+        <div class="lg:col-span-8 bg-white border border-[#E0E0E0] rounded-[8px] p-4 sm:p-5 shadow-xs flex flex-col min-h-[750px]">
+          
+          <!-- Calendar Navigator Bar -->
+          <div class="flex flex-wrap items-center justify-between pb-3 border-b border-gray-100 gap-3">
+            <div class="flex items-center space-x-3">
+              <div>
+                <h2 class="text-base font-bold text-gray-900 font-heading" id="cal-week-heading">Week 43 · 19 Oct – 25 Oct 2026</h2>
+                <span class="text-xs text-gray-500 font-medium" id="cal-filter-status">All Sports Active • 12 Total Scheduled Sessions</span>
+              </div>
+            </div>
+
+            <!-- Week Step Buttons -->
+            <div class="flex items-center space-x-1 text-xs">
+              <button onclick="navigateCalendarWeek(-1)" class="px-2.5 py-1.5 bg-gray-100 hover:bg-gray-200 rounded-[4px] font-bold text-gray-700 transition" title="Previous Week">‹ Prev</button>
+              <button onclick="navigateCalendarWeek(0)" class="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 rounded-[4px] font-bold text-gray-800 transition">Today</button>
+              <button onclick="navigateCalendarWeek(1)" class="px-2.5 py-1.5 bg-gray-100 hover:bg-gray-200 rounded-[4px] font-bold text-gray-700 transition" title="Next Week">Next ›</button>
+            </div>
+          </div>
+
+          <!-- ================= VIEW MODE A: WEEKLY TIMETABLE GRID (Default) ================= -->
+          <div id="cal-view-week" class="flex-1 overflow-x-auto overflow-y-auto mt-3 border border-gray-200 rounded-[6px]">
+            <table class="w-full border-collapse text-xs min-w-[700px]">
+              <thead class="bg-gray-50 sticky top-0 border-b border-gray-200 z-10 text-center">
+                <tr>
+                  <th class="py-2.5 px-2 w-14 font-semibold text-gray-400 text-[10px]">Time</th>
+                  <th class="py-2.5 px-2 font-bold text-gray-800 border-l border-gray-200 bg-blue-50/30">
+                    <span>MON 19</span>
+                    <span class="block text-[9px] text-[#007AFF] font-bold">Today</span>
+                  </th>
+                  <th class="py-2.5 px-2 font-bold text-gray-800 border-l border-gray-200">TUE 20</th>
+                  <th class="py-2.5 px-2 font-bold text-gray-800 border-l border-gray-200">WED 21</th>
+                  <th class="py-2.5 px-2 font-bold text-gray-800 border-l border-gray-200">THU 22</th>
+                  <th class="py-2.5 px-2 font-bold text-gray-800 border-l border-gray-200">FRI 23</th>
+                  <th class="py-2.5 px-2 font-bold text-gray-800 border-l border-gray-200 bg-gray-50/50">SAT 24</th>
+                  <th class="py-2.5 px-2 font-bold text-gray-800 border-l border-gray-200 bg-gray-50/50">SUN 25</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-100 text-gray-700">
+                
+                <!-- 09:00 Row -->
+                <tr class="h-20 hover:bg-gray-50/40 transition">
+                  <td class="text-center font-mono text-[11px] text-gray-400 bg-gray-50/30 font-medium">09:00</td>
+                  
+                  <!-- Monday 09:00: Junior Tennis Academy (Tennis) -->
+                  <td class="border-l border-gray-100 p-1 align-top cal-slot-cell">
+                    <div class="cal-session-card bg-emerald-50/90 border border-emerald-300 rounded-[6px] p-2 shadow-2xs hover:shadow-xs transition cursor-pointer" data-sport="tennis" data-booking-id="BK-TENNIS-201" onclick="openBookingDetailDrawer('BK-TENNIS-201')">
+                      <div class="flex items-center justify-between mb-1">
+                        <span class="text-[9px] bg-emerald-600 text-white font-bold px-1.5 py-0.2 rounded">🎾 Tennis</span>
+                        <span class="text-[10px] font-bold text-gray-800">09:00 - 10:30</span>
+                      </div>
+                      <div class="text-[11px] font-bold text-emerald-950 truncate">Junior Academy Group B</div>
+                      <div class="text-[10px] text-emerald-800/80 truncate">SCO Utrecht • Court 1</div>
+                      <div class="flex items-center space-x-1 pt-1.5">
+                        <div class="w-4 h-4 rounded-full bg-emerald-600 text-white text-[8px] font-bold flex items-center justify-center">LM</div>
+                        <div class="w-4 h-4 rounded-full bg-indigo-600 text-white text-[8px] font-bold flex items-center justify-center">DB</div>
+                        <div class="w-4 h-4 rounded-full bg-rose-600 text-white text-[8px] font-bold flex items-center justify-center">SJ</div>
+                        <span class="text-[9px] text-emerald-700 font-extrabold ml-1">3/4</span>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td class="border-l border-gray-100 p-1"><div class="h-full border border-dashed border-gray-200 rounded-[4px] flex items-center justify-center text-[10px] text-gray-300">+ Free</div></td>
+                  <td class="border-l border-gray-100 p-1"><div class="h-full border border-dashed border-gray-200 rounded-[4px] flex items-center justify-center text-[10px] text-gray-300">+ Free</div></td>
+                  <td class="border-l border-gray-100 p-1"><div class="h-full border border-dashed border-gray-200 rounded-[4px] flex items-center justify-center text-[10px] text-gray-300">+ Free</div></td>
+                  <td class="border-l border-gray-100 p-1"><div class="h-full border border-dashed border-gray-200 rounded-[4px] flex items-center justify-center text-[10px] text-gray-300">+ Free</div></td>
+                  <td class="border-l border-gray-100 p-1"><div class="h-full border border-dashed border-gray-200 rounded-[4px] flex items-center justify-center text-[10px] text-gray-300">+ Free</div></td>
+                  <td class="border-l border-gray-100 p-1 bg-gray-50/30 text-center text-[10px] text-gray-400">Day Off</td>
+                </tr>
+
+                <!-- 10:00 Row -->
+                <tr class="h-20 hover:bg-gray-50/40 transition">
+                  <td class="text-center font-mono text-[11px] text-gray-400 bg-gray-50/30 font-medium">10:00</td>
+                  <td class="border-l border-gray-100 p-1"><div class="h-full border border-dashed border-gray-200 rounded-[4px] flex items-center justify-center text-[10px] text-gray-300">+ Free</div></td>
+
+                  <!-- Tuesday 10:00: Zumba Morning Fitness (Zumba) -->
+                  <td class="border-l border-gray-100 p-1 align-top cal-slot-cell">
+                    <div class="cal-session-card bg-pink-50/90 border border-pink-300 rounded-[6px] p-2 shadow-2xs hover:shadow-xs transition cursor-pointer" data-sport="zumba" data-booking-id="BK-ZUMBA-301" onclick="openBookingDetailDrawer('BK-ZUMBA-301')">
+                      <div class="flex items-center justify-between mb-1">
+                        <span class="text-[9px] bg-pink-600 text-white font-bold px-1.5 py-0.2 rounded">💃 Zumba</span>
+                        <span class="text-[10px] font-bold text-gray-800">10:00 - 11:00</span>
+                      </div>
+                      <div class="text-[11px] font-bold text-pink-950 truncate">Zumba Morning Rhythm</div>
+                      <div class="text-[10px] text-pink-800/80 truncate">Amstelpark • Studio A</div>
+                      <div class="flex items-center space-x-1 pt-1.5">
+                        <div class="w-4 h-4 rounded-full bg-pink-600 text-white text-[8px] font-bold flex items-center justify-center">ED</div>
+                        <div class="w-4 h-4 rounded-full bg-teal-600 text-white text-[8px] font-bold flex items-center justify-center">LV</div>
+                        <span class="text-[9px] text-pink-700 font-extrabold ml-1">8/10 Enrolled</span>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td class="border-l border-gray-100 p-1"><div class="h-full border border-dashed border-gray-200 rounded-[4px] flex items-center justify-center text-[10px] text-gray-300">+ Free</div></td>
+                  <td class="border-l border-gray-100 p-1"><div class="h-full border border-dashed border-gray-200 rounded-[4px] flex items-center justify-center text-[10px] text-gray-300">+ Free</div></td>
+                  <td class="border-l border-gray-100 p-1"><div class="h-full border border-dashed border-gray-200 rounded-[4px] flex items-center justify-center text-[10px] text-gray-300">+ Free</div></td>
+                  
+                  <!-- Saturday 10:00: Weekend Tennis Matchplay (Tennis) -->
+                  <td class="border-l border-gray-100 p-1 align-top cal-slot-cell">
+                    <div class="cal-session-card bg-emerald-50/90 border border-emerald-300 rounded-[6px] p-2 shadow-2xs hover:shadow-xs transition cursor-pointer" data-sport="tennis" data-booking-id="BK-TENNIS-204" onclick="openBookingDetailDrawer('BK-TENNIS-204')">
+                      <div class="flex items-center justify-between mb-1">
+                        <span class="text-[9px] bg-emerald-600 text-white font-bold px-1.5 py-0.2 rounded">🎾 Tennis</span>
+                        <span class="text-[10px] font-bold text-gray-800">10:00 - 11:30</span>
+                      </div>
+                      <div class="text-[11px] font-bold text-emerald-950 truncate">Weekend Matchplay League</div>
+                      <div class="text-[10px] text-emerald-800/80 truncate">SCO Utrecht • Court 1 &amp; 2</div>
+                      <div class="flex items-center space-x-1 pt-1.5">
+                        <span class="text-[9px] text-emerald-700 font-extrabold">4/4 Full</span>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td class="border-l border-gray-100 p-1 bg-gray-50/30 text-center text-[10px] text-gray-400">Day Off</td>
+                </tr>
+
+                <!-- 13:00 Turnaround Break -->
+                <tr class="h-10 bg-amber-50/20 border-y border-amber-200/40">
+                  <td class="text-center font-mono text-[11px] text-amber-700 font-bold">13:00</td>
+                  <td colspan="7" class="px-3 text-center text-[11px] font-semibold text-amber-800">
+                    🥪 13:00 - 14:00 Turnaround Break &amp; Court Transition
+                  </td>
+                </tr>
+
+                <!-- 14:00 Row -->
+                <tr class="h-20 hover:bg-gray-50/40 transition">
+                  <td class="text-center font-mono text-[11px] text-gray-400 bg-gray-50/30 font-medium">14:00</td>
+                  <td class="border-l border-gray-100 p-1"><div class="h-full border border-dashed border-gray-200 rounded-[4px] flex items-center justify-center text-[10px] text-gray-300">+ Free</div></td>
+                  <td class="border-l border-gray-100 p-1"><div class="h-full border border-dashed border-gray-200 rounded-[4px] flex items-center justify-center text-[10px] text-gray-300">+ Free</div></td>
+                  
+                  <!-- Wednesday 14:00: Beginner Glass Wall Clinic (Padel) -->
+                  <td class="border-l border-gray-100 p-1 align-top cal-slot-cell">
+                    <div class="cal-session-card bg-blue-50/90 border border-blue-300 rounded-[6px] p-2 shadow-2xs hover:shadow-xs transition cursor-pointer" data-sport="padel" data-booking-id="BK-PADEL-102" onclick="openBookingDetailDrawer('BK-PADEL-102')">
+                      <div class="flex items-center justify-between mb-1">
+                        <span class="text-[9px] bg-[#007AFF] text-white font-bold px-1.5 py-0.2 rounded">🏸 Padel</span>
+                        <span class="text-[10px] font-bold text-gray-800">14:00 - 15:00</span>
+                      </div>
+                      <div class="text-[11px] font-bold text-blue-950 truncate">Beginner Glass Wall Clinic</div>
+                      <div class="text-[10px] text-blue-800/80 truncate">Amstelpark • Court 1</div>
+                      <div class="flex items-center space-x-1 pt-1.5">
+                        <div class="w-4 h-4 rounded-full bg-blue-600 text-white text-[8px] font-bold flex items-center justify-center">AL</div>
+                        <div class="w-4 h-4 rounded-full bg-purple-600 text-white text-[8px] font-bold flex items-center justify-center">JV</div>
+                        <span class="text-[9px] text-blue-700 font-extrabold ml-1">4/4 Full</span>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td class="border-l border-gray-100 p-1"><div class="h-full border border-dashed border-gray-200 rounded-[4px] flex items-center justify-center text-[10px] text-gray-300">+ Free</div></td>
+                  <td class="border-l border-gray-100 p-1"><div class="h-full border border-dashed border-gray-200 rounded-[4px] flex items-center justify-center text-[10px] text-gray-300">+ Free</div></td>
+                  <td class="border-l border-gray-100 p-1"><div class="h-full border border-dashed border-gray-200 rounded-[4px] flex items-center justify-center text-[10px] text-gray-300">+ Free</div></td>
+                  <td class="border-l border-gray-100 p-1 bg-gray-50/30 text-center text-[10px] text-gray-400">Day Off</td>
+                </tr>
+
+                <!-- 17:00 Row (Core Active Group Slot) -->
+                <tr class="h-24 hover:bg-gray-50/40 transition">
+                  <td class="text-center font-mono text-[11px] text-gray-400 bg-gray-50/30 font-medium">17:00</td>
+                  
+                  <!-- Monday 17:00: Intermediate Padel Cohort (Padel - Primary Interactive Card) -->
+                  <td class="border-l border-gray-100 p-1 align-top cal-slot-cell">
+                    <div id="card-bk-padel-101" class="cal-session-card bg-blue-50 border-2 border-[#007AFF] rounded-[6px] p-2 shadow-2xs hover:shadow-xs transition cursor-pointer relative" data-sport="padel" data-booking-id="BK-PADEL-101" onclick="openBookingDetailDrawer('BK-PADEL-101')">
+                      <div class="flex items-center justify-between mb-1">
+                        <span class="text-[9px] bg-[#007AFF] text-white font-bold px-1.5 py-0.2 rounded">🏸 Padel</span>
+                        <span class="text-[10px] font-bold text-gray-900">17:00 - 18:00</span>
+                      </div>
+                      <div class="text-[11px] font-bold text-blue-900 truncate">Intermediate Padel Clinic</div>
+                      <div class="text-[10px] text-gray-500 truncate">Amstelpark • Court 2 (Indoor)</div>
+                      
+                      <!-- 4 Students Avatars in Group -->
+                      <div class="flex items-center space-x-1 pt-1.5">
+                        <div class="w-5 h-5 rounded-full bg-blue-600 text-white text-[9px] font-bold flex items-center justify-center" title="Arjen Laferte">AL</div>
+                        <div class="w-5 h-5 rounded-full bg-purple-600 text-white text-[9px] font-bold flex items-center justify-center" title="Julia van Veen">JV</div>
+                        <div class="w-5 h-5 rounded-full bg-emerald-600 text-white text-[9px] font-bold flex items-center justify-center" title="Aras Güner">AG</div>
+                        <div class="w-5 h-5 rounded-full bg-amber-600 text-white text-[9px] font-bold flex items-center justify-center" title="Soyan Chiang">SC</div>
+                        <span id="badge-status-101" class="text-[9px] text-emerald-700 font-extrabold ml-1">4/4 Full</span>
+                      </div>
+                      <div class="mt-1 pt-1 border-t border-blue-200/60 flex items-center justify-between text-[9px] text-blue-700 font-medium">
+                        <span>📝 Notes Attached</span>
+                        <span>Manage →</span>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td class="border-l border-gray-100 p-1"><div class="h-full border border-dashed border-gray-200 rounded-[4px] flex items-center justify-center text-[10px] text-gray-300">+ Free</div></td>
+                  <td class="border-l border-gray-100 p-1"><div class="h-full border border-dashed border-gray-200 rounded-[4px] flex items-center justify-center text-[10px] text-gray-300">+ Free</div></td>
+                  
+                  <!-- Thursday 17:00: Forehand Topspin Workshop (Tennis) -->
+                  <td class="border-l border-gray-100 p-1 align-top cal-slot-cell">
+                    <div class="cal-session-card bg-emerald-50/90 border border-emerald-300 rounded-[6px] p-2 shadow-2xs hover:shadow-xs transition cursor-pointer" data-sport="tennis" data-booking-id="BK-TENNIS-203" onclick="openBookingDetailDrawer('BK-TENNIS-203')">
+                      <div class="flex items-center justify-between mb-1">
+                        <span class="text-[9px] bg-emerald-600 text-white font-bold px-1.5 py-0.2 rounded">🎾 Tennis</span>
+                        <span class="text-[10px] font-bold text-gray-800">17:00 - 18:00</span>
+                      </div>
+                      <div class="text-[11px] font-bold text-emerald-950 truncate">Topspin &amp; Matchplay</div>
+                      <div class="text-[10px] text-emerald-800/80 truncate">SCO Utrecht • Court 2</div>
+                      <div class="flex items-center space-x-1 pt-1.5">
+                        <span class="text-[9px] text-emerald-700 font-extrabold">4/4 Full</span>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td class="border-l border-gray-100 p-1"><div class="h-full border border-dashed border-gray-200 rounded-[4px] flex items-center justify-center text-[10px] text-gray-300">+ Free</div></td>
+                  <td class="border-l border-gray-100 p-1"><div class="h-full border border-dashed border-gray-200 rounded-[4px] flex items-center justify-center text-[10px] text-gray-300">+ Free</div></td>
+                  <td class="border-l border-gray-100 p-1 bg-gray-50/30 text-center text-[10px] text-gray-400">Day Off</td>
+                </tr>
+
+                <!-- 18:30 Evening Row -->
+                <tr class="h-22 hover:bg-gray-50/40 transition">
+                  <td class="text-center font-mono text-[11px] text-gray-400 bg-gray-50/30 font-medium">18:30</td>
+                  <td class="border-l border-gray-100 p-1"><div class="h-full border border-dashed border-gray-200 rounded-[4px] flex items-center justify-center text-[10px] text-gray-300">+ Free</div></td>
+                  
+                  <!-- Tuesday 18:30: Advanced Singles Strategy (Tennis) -->
+                  <td class="border-l border-gray-100 p-1 align-top cal-slot-cell">
+                    <div class="cal-session-card bg-emerald-50/90 border border-emerald-300 rounded-[6px] p-2 shadow-2xs hover:shadow-xs transition cursor-pointer" data-sport="tennis" data-booking-id="BK-TENNIS-202" onclick="openBookingDetailDrawer('BK-TENNIS-202')">
+                      <div class="flex items-center justify-between mb-1">
+                        <span class="text-[9px] bg-emerald-600 text-white font-bold px-1.5 py-0.2 rounded">🎾 Tennis</span>
+                        <span class="text-[10px] font-bold text-gray-800">18:30 - 19:30</span>
+                      </div>
+                      <div class="text-[11px] font-bold text-emerald-950 truncate">Advanced Singles Tactics</div>
+                      <div class="text-[10px] text-emerald-800/80 truncate">SCO Utrecht • Court 3</div>
+                      <div class="flex items-center space-x-1 pt-1.5">
+                        <span class="text-[9px] text-emerald-700 font-extrabold">2/2 Players</span>
+                      </div>
+                    </div>
+                  </td>
+
+                  <!-- Wednesday 19:00: Padel Duo Private Clinic (Padel) -->
+                  <td class="border-l border-gray-100 p-1 align-top cal-slot-cell">
+                    <div class="cal-session-card bg-blue-50/90 border border-blue-300 rounded-[6px] p-2 shadow-2xs hover:shadow-xs transition cursor-pointer" data-sport="padel" data-booking-id="BK-PADEL-103" onclick="openBookingDetailDrawer('BK-PADEL-103')">
+                      <div class="flex items-center justify-between mb-1">
+                        <span class="text-[9px] bg-[#007AFF] text-white font-bold px-1.5 py-0.2 rounded">🏸 Padel</span>
+                        <span class="text-[10px] font-bold text-gray-800">19:00 - 20:00</span>
+                      </div>
+                      <div class="text-[11px] font-bold text-blue-950 truncate">Padel Duo Masterclass</div>
+                      <div class="text-[10px] text-blue-800/80 truncate">Amstelpark • Court 4</div>
+                      <div class="flex items-center space-x-1 pt-1.5">
+                        <span class="text-[9px] text-blue-700 font-extrabold">2/2 Full</span>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td class="border-l border-gray-100 p-1"><div class="h-full border border-dashed border-gray-200 rounded-[4px] flex items-center justify-center text-[10px] text-gray-300">+ Free</div></td>
+                  
+                  <!-- Friday 18:00: Weekend Prep Doubles (Padel) -->
+                  <td class="border-l border-gray-100 p-1 align-top cal-slot-cell">
+                    <div class="cal-session-card bg-blue-50/90 border border-blue-300 rounded-[6px] p-2 shadow-2xs hover:shadow-xs transition cursor-pointer" data-sport="padel" data-booking-id="BK-PADEL-104" onclick="openBookingDetailDrawer('BK-PADEL-104')">
+                      <div class="flex items-center justify-between mb-1">
+                        <span class="text-[9px] bg-[#007AFF] text-white font-bold px-1.5 py-0.2 rounded">🏸 Padel</span>
+                        <span class="text-[10px] font-bold text-gray-800">18:00 - 19:00</span>
+                      </div>
+                      <div class="text-[11px] font-bold text-blue-950 truncate">Weekend Prep Doubles</div>
+                      <div class="text-[10px] text-blue-800/80 truncate">Amstelpark • Court 3</div>
+                      <div class="flex items-center space-x-1 pt-1.5">
+                        <span class="text-[9px] text-blue-700 font-extrabold">4/4 Full</span>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td class="border-l border-gray-100 p-1"><div class="h-full border border-dashed border-gray-200 rounded-[4px] flex items-center justify-center text-[10px] text-gray-300">+ Free</div></td>
+                  <td class="border-l border-gray-100 p-1 bg-gray-50/30 text-center text-[10px] text-gray-400">Day Off</td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+
+          <!-- ================= VIEW MODE B: AGENDA LIST VIEW (Hidden by Default) ================= -->
+          <div id="cal-view-list" class="hidden flex-1 overflow-y-auto mt-3 border border-gray-200 rounded-[6px] divide-y divide-gray-100">
+            <!-- Agenda Item 1 -->
+            <div class="p-3.5 hover:bg-gray-50 flex items-center justify-between cursor-pointer" onclick="openBookingDetailDrawer('BK-PADEL-101')">
+              <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-[6px] bg-blue-50 border border-blue-200 flex flex-col items-center justify-center text-[#007AFF] font-bold text-xs shrink-0">
+                  <span>MON</span>
+                  <span class="text-[10px] font-normal">19 OCT</span>
+                </div>
+                <div>
+                  <div class="flex items-center space-x-2">
+                    <span class="text-[10px] bg-[#007AFF] text-white font-bold px-1.5 py-0.2 rounded">🏸 Padel</span>
+                    <h4 class="font-bold text-xs text-gray-900">Intermediate Padel Clinic (4 Players)</h4>
+                  </div>
+                  <p class="text-[11px] text-gray-500 mt-0.5">17:00 – 18:00 • Amstelpark Court 2 (Indoor) • Arjen, Julia, Aras, Soyan</p>
+                </div>
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Confirmed</span>
+                <span class="text-xs text-gray-400">›</span>
+              </div>
+            </div>
+
+            <!-- Agenda Item 2 -->
+            <div class="p-3.5 hover:bg-gray-50 flex items-center justify-between cursor-pointer" onclick="openBookingDetailDrawer('BK-TENNIS-201')">
+              <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-[6px] bg-emerald-50 border border-emerald-200 flex flex-col items-center justify-center text-emerald-700 font-bold text-xs shrink-0">
+                  <span>MON</span>
+                  <span class="text-[10px] font-normal">19 OCT</span>
+                </div>
+                <div>
+                  <div class="flex items-center space-x-2">
+                    <span class="text-[10px] bg-emerald-600 text-white font-bold px-1.5 py-0.2 rounded">🎾 Tennis</span>
+                    <h4 class="font-bold text-xs text-gray-900">Junior Academy Group B</h4>
+                  </div>
+                  <p class="text-[11px] text-gray-500 mt-0.5">09:00 – 10:30 • SCO Utrecht Court 1 • Lucas, Daan, Sophie</p>
+                </div>
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Confirmed</span>
+                <span class="text-xs text-gray-400">›</span>
+              </div>
+            </div>
+
+            <!-- Agenda Item 3 -->
+            <div class="p-3.5 hover:bg-gray-50 flex items-center justify-between cursor-pointer" onclick="openBookingDetailDrawer('BK-ZUMBA-301')">
+              <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-[6px] bg-pink-50 border border-pink-200 flex flex-col items-center justify-center text-pink-700 font-bold text-xs shrink-0">
+                  <span>TUE</span>
+                  <span class="text-[10px] font-normal">20 OCT</span>
+                </div>
+                <div>
+                  <div class="flex items-center space-x-2">
+                    <span class="text-[10px] bg-pink-600 text-white font-bold px-1.5 py-0.2 rounded">💃 Zumba</span>
+                    <h4 class="font-bold text-xs text-gray-900">Zumba Morning Rhythm &amp; Cardio</h4>
+                  </div>
+                  <p class="text-[11px] text-gray-500 mt-0.5">10:00 – 11:00 • Amstelpark Studio A • Emma, Lars + 6 members</p>
+                </div>
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Confirmed</span>
+                <span class="text-xs text-gray-400">›</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Calendar Footer Legend & Ground Truth Status -->
+          <div class="pt-3 border-t border-gray-100 mt-3 flex flex-wrap items-center justify-between text-xs text-gray-500 gap-2">
+            <div class="flex items-center space-x-3">
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-[#007AFF]"></span> 🏸 Padel</span>
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span> 🎾 Tennis</span>
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-pink-600"></span> 💃 Zumba</span>
+            </div>
+            <div class="text-[11px] text-gray-400">
+              Click any calendar slot to view enrolled student passports, session notes, or reschedule
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section> <!-- END #cview-calendar -->
+
+
+    <!-- ==================== VIEW 4: COACH PROFILE & CREDENTIALS ==================== -->
     <section id="cview-profile" class="coach-view-panel hidden max-w-7xl mx-auto py-6 px-4 sm:px-6 w-full flex-1">
       
       <!-- Canonical Page Header (Matches ShallWe-Play UserProfileHeader) -->
@@ -6233,6 +7011,754 @@
   <!-- ========================================================================= -->
   <!-- ===== SWP NATIVE CANCEL BOOKING MODAL (Exact to CancelBookingModal.tsx) ===== -->
   <!-- ========================================================================= -->
+  
+  <!-- ========================================================================= -->
+  <!-- ===== DRAWER / MODAL: BOOKING DETAIL, NOTES & RESCHEDULING HUB ========== -->
+  <!-- ========================================================================= -->
+  <div id="drawer-booking-detail" class="hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-3 sm:p-5">
+    <div class="bg-white border border-[#E0E0E0] rounded-[8px] max-w-2xl w-full shadow-2xl flex flex-col max-h-[92vh] overflow-hidden">
+      
+      <!-- Drawer Header -->
+      <div class="bg-[#F5F5F9] border-b border-gray-200 px-5 py-3.5 flex items-center justify-between">
+        <div>
+          <div class="flex items-center space-x-2">
+            <span id="bk-drawer-sport-badge" class="text-[10px] font-bold bg-[#007AFF] text-white px-2 py-0.5 rounded uppercase tracking-wider">🏸 Padel Clinic</span>
+            <span id="bk-drawer-status-badge" class="text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300 px-2 py-0.5 rounded uppercase tracking-wider">Confirmed ✓</span>
+          </div>
+          <h3 id="bk-drawer-title" class="text-base font-bold text-gray-900 font-heading mt-1">Intermediate Padel Clinic (GRP-104)</h3>
+        </div>
+        <button onclick="closeBookingDetailDrawer()" class="w-8 h-8 rounded-[4px] bg-white hover:bg-gray-100 text-gray-500 hover:text-black flex items-center justify-center text-sm font-bold border border-gray-200 transition">
+          ✕
+        </button>
+      </div>
+
+      <!-- Drawer Content (Scrollable) -->
+      <div class="p-5 overflow-y-auto space-y-4 text-xs">
+        
+        <!-- Booking Metadata Grid -->
+        <div class="bg-gray-50 border border-gray-200 rounded-[6px] p-3.5 grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div>
+            <span class="text-[10px] text-gray-400 font-bold uppercase block">Date &amp; Time</span>
+            <span id="bk-drawer-time" class="font-bold text-gray-900 text-xs mt-0.5 block">Mon, 19 Oct • 17:00–18:00</span>
+          </div>
+          <div>
+            <span class="text-[10px] text-gray-400 font-bold uppercase block">Venue &amp; Court</span>
+            <span id="bk-drawer-venue" class="font-bold text-gray-900 text-xs mt-0.5 block">Amstelpark • Court 2</span>
+          </div>
+          <div>
+            <span class="text-[10px] text-gray-400 font-bold uppercase block">Format</span>
+            <span id="bk-drawer-format" class="font-bold text-gray-900 text-xs mt-0.5 block">Group (4 Students)</span>
+          </div>
+          <div>
+            <span class="text-[10px] text-gray-400 font-bold uppercase block">Booking ID</span>
+            <span id="bk-drawer-id" class="font-mono font-bold text-[#007AFF] text-xs mt-0.5 block">#SWP-BK-101</span>
+          </div>
+        </div>
+
+        <!-- ================= 5. ENROLLED STUDENTS & PLAYER PASSPORTS ================= -->
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <h4 class="font-bold text-gray-900 font-heading text-xs uppercase tracking-wider">
+              Enrolled Students (4/4) · Player Passports &amp; Phone Privacy
+            </h4>
+            <span class="text-[10px] text-gray-400">Click student to inspect passport</span>
+          </div>
+
+          <!-- Students Roster in Booking -->
+          <div class="space-y-2" id="bk-drawer-roster">
+            
+            <!-- Student Row 1: Arjen (Phone Shared) -->
+            <div class="border border-gray-200 rounded-[6px] p-2.5 bg-white flex items-center justify-between hover:border-blue-300 transition">
+              <div class="flex items-center space-x-2.5">
+                <div class="w-8 h-8 rounded-full bg-blue-100 text-[#007AFF] font-bold text-xs flex items-center justify-center">AL</div>
+                <div>
+                  <h5 class="font-bold text-xs text-gray-900 flex items-center gap-1.5">
+                    <span>Arjen Laferte</span>
+                    <span class="text-[9px] bg-amber-50 text-amber-800 border border-amber-200 px-1 rounded font-semibold">Rating 6.2</span>
+                  </h5>
+                  <div class="flex items-center space-x-2 text-[10px] mt-0.5">
+                    <span class="text-emerald-700 font-bold flex items-center gap-1">
+                      <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                      <span>+31 6 52 89 14 20</span>
+                    </span>
+                    <span class="text-gray-300">•</span>
+                    <span class="text-gray-500">Available: Mon 17–19h</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center space-x-1.5">
+                <a href="https://wa.me/31652891420" target="_blank" class="px-2 py-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 rounded text-[10px] font-bold border border-emerald-200">
+                  WhatsApp
+                </a>
+                <button onclick="openPlayerPassportModal('arjen')" class="px-2.5 py-1 bg-[#007AFF] text-white hover:bg-[#0062cc] rounded text-[10px] font-bold shadow-2xs">
+                  Passport →
+                </button>
+              </div>
+            </div>
+
+            <!-- Student Row 2: Julia (Phone Hidden by Player) -->
+            <div class="border border-gray-200 rounded-[6px] p-2.5 bg-white flex items-center justify-between hover:border-blue-300 transition">
+              <div class="flex items-center space-x-2.5">
+                <div class="w-8 h-8 rounded-full bg-purple-100 text-purple-700 font-bold text-xs flex items-center justify-center">JV</div>
+                <div>
+                  <h5 class="font-bold text-xs text-gray-900 flex items-center gap-1.5">
+                    <span>Julia van Veen</span>
+                    <span class="text-[9px] bg-amber-50 text-amber-800 border border-amber-200 px-1 rounded font-semibold">Rating 6.4</span>
+                  </h5>
+                  <div class="flex items-center space-x-2 text-[10px] mt-0.5">
+                    <span class="text-gray-400 italic flex items-center gap-1">
+                      <svg class="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                      <span>Phone Hidden by Player</span>
+                    </span>
+                    <span class="text-gray-300">•</span>
+                    <span class="text-gray-500">Available: Mon 17–19h</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center space-x-1.5">
+                <button onclick="showToast('In-App chat opened with Julia van Veen')" class="px-2 py-1 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded text-[10px] font-bold border border-gray-200">
+                  In-App Chat
+                </button>
+                <button onclick="openPlayerPassportModal('julia')" class="px-2.5 py-1 bg-[#007AFF] text-white hover:bg-[#0062cc] rounded text-[10px] font-bold shadow-2xs">
+                  Passport →
+                </button>
+              </div>
+            </div>
+
+            <!-- Student Row 3: Aras Güner -->
+            <div class="border border-gray-200 rounded-[6px] p-2.5 bg-white flex items-center justify-between hover:border-blue-300 transition">
+              <div class="flex items-center space-x-2.5">
+                <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-700 font-bold text-xs flex items-center justify-center">AG</div>
+                <div>
+                  <h5 class="font-bold text-xs text-gray-900 flex items-center gap-1.5">
+                    <span>Aras Güner</span>
+                    <span class="text-[9px] bg-amber-50 text-amber-800 border border-amber-200 px-1 rounded font-semibold">Rating 6.1</span>
+                  </h5>
+                  <div class="flex items-center space-x-2 text-[10px] mt-0.5">
+                    <span class="text-emerald-700 font-bold flex items-center gap-1">
+                      <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                      <span>+31 6 18 44 92 11</span>
+                    </span>
+                    <span class="text-gray-300">•</span>
+                    <span class="text-gray-500">Available: Mon 17–21h</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center space-x-1.5">
+                <a href="https://wa.me/31618449211" target="_blank" class="px-2 py-1 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 rounded text-[10px] font-bold border border-emerald-200">
+                  WhatsApp
+                </a>
+                <button onclick="openPlayerPassportModal('aras')" class="px-2.5 py-1 bg-[#007AFF] text-white hover:bg-[#0062cc] rounded text-[10px] font-bold shadow-2xs">
+                  Passport →
+                </button>
+              </div>
+            </div>
+
+            <!-- Student Row 4: Soyan Chiang -->
+            <div class="border border-gray-200 rounded-[6px] p-2.5 bg-white flex items-center justify-between hover:border-blue-300 transition">
+              <div class="flex items-center space-x-2.5">
+                <div class="w-8 h-8 rounded-full bg-amber-100 text-amber-800 font-bold text-xs flex items-center justify-center">SC</div>
+                <div>
+                  <h5 class="font-bold text-xs text-gray-900 flex items-center gap-1.5">
+                    <span>Soyan Chiang</span>
+                    <span class="text-[9px] bg-amber-50 text-amber-800 border border-amber-200 px-1 rounded font-semibold">Rating 6.5</span>
+                  </h5>
+                  <div class="flex items-center space-x-2 text-[10px] mt-0.5">
+                    <span class="text-gray-400 italic flex items-center gap-1">
+                      <svg class="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                      <span>Phone Hidden by Player</span>
+                    </span>
+                    <span class="text-gray-300">•</span>
+                    <span class="text-gray-500">Available: Mon 16–18h</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center space-x-1.5">
+                <button onclick="showToast('In-App chat opened with Soyan Chiang')" class="px-2 py-1 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded text-[10px] font-bold border border-gray-200">
+                  In-App Chat
+                </button>
+                <button onclick="openPlayerPassportModal('soyan')" class="px-2.5 py-1 bg-[#007AFF] text-white hover:bg-[#0062cc] rounded text-[10px] font-bold shadow-2xs">
+                  Passport →
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ================= 3. BOOKING NOTES & DRILLS (Item 3) ================= -->
+        <div class="bg-gray-50 border border-gray-200 rounded-[6px] p-3.5 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <h4 class="font-bold text-gray-900 font-heading text-xs uppercase tracking-wider flex items-center gap-1.5">
+              <span>Session Notes &amp; Drills</span>
+              <span class="text-[10px] bg-blue-100 text-blue-700 font-bold px-1.5 py-0.2 rounded">Item 3</span>
+            </h4>
+            <span class="text-[10px] text-gray-500">Visible to coach &amp; shared students</span>
+          </div>
+
+          <!-- Existing Notes Timeline -->
+          <div id="booking-notes-timeline" class="space-y-2 max-h-36 overflow-y-auto pr-1">
+            <div class="bg-white border border-gray-200 p-2.5 rounded-[4px] shadow-2xs">
+              <div class="flex justify-between text-[10px] text-gray-400 mb-1">
+                <span class="font-bold text-gray-700">12 Oct 2026 • Lesson 6 Review</span>
+                <span class="text-emerald-700 font-bold bg-emerald-50 px-1 rounded">Shared with Students ✓</span>
+              </div>
+              <p class="text-gray-700 text-[11px]">
+                Continental grip slips during high bandeja setup. Focused on wall rebound timing. Homework: 30 wall shadow swings before next Monday.
+              </p>
+            </div>
+          </div>
+
+          <!-- Add New Note Form -->
+          <div class="pt-2 border-t border-gray-200 space-y-2">
+            <textarea id="input-booking-note" rows="2" placeholder="Add session feedback, tactical drills practiced, homework, or conditioning notes..." class="w-full text-xs p-2.5 border border-gray-300 rounded-[4px] focus:border-[#007AFF] focus:outline-none bg-white"></textarea>
+            
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+              <label class="flex items-center space-x-2 text-[11px] text-gray-700 cursor-pointer font-medium">
+                <input type="checkbox" id="chk-share-booking-notes" checked class="w-4 h-4 rounded text-[#007AFF] border-gray-300 cursor-pointer">
+                <span>Share notes with relevant students (Push alert to Player App)</span>
+              </label>
+
+              <button onclick="saveCurrentBookingNotes()" class="bg-[#007AFF] hover:bg-[#0062cc] text-white text-xs font-bold px-3 py-1.5 rounded-[4px] shadow-2xs transition self-end sm:self-auto">
+                Save &amp; Broadcast Notes ✓
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= 6. CANCELLATION & RESCHEDULING HUB (Item 6) ================= -->
+        <div class="pt-2 border-t border-gray-200">
+          <div class="flex flex-col sm:flex-row items-center justify-between gap-2">
+            <div>
+              <span class="text-xs font-bold text-gray-800 block">Session Management Actions</span>
+              <span class="text-[10px] text-gray-500">Reschedule to another date or cancel due to weather/illness</span>
+            </div>
+            <div class="flex items-center space-x-2 w-full sm:w-auto">
+              <!-- Cancel Booking Button -->
+              <button onclick="openCoachCancelModal('BK-PADEL-101')" class="flex-1 sm:flex-none px-3.5 py-2 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-300 font-bold rounded-[4px] text-xs transition flex items-center justify-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                <span>Cancel Session</span>
+              </button>
+
+              <!-- Reschedule Booking Button -->
+              <button onclick="openCoachRescheduleModal('BK-PADEL-101')" class="flex-1 sm:flex-none px-4 py-2 bg-[#007AFF] hover:bg-[#0062cc] text-white font-bold rounded-[4px] text-xs shadow-xs transition flex items-center justify-center gap-1.5">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                <span>Reschedule Session →</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ========================================================================= -->
+  <!-- ===== MODAL: CREATE STUDENT GROUP & BOOK SESSION (Item 2) =============== -->
+  <!-- ========================================================================= -->
+  <div id="modal-create-student-group" class="hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-3 sm:p-5">
+    <div class="bg-white border border-[#E0E0E0] rounded-[8px] max-w-xl w-full shadow-2xl flex flex-col max-h-[92vh] overflow-hidden">
+      
+      <!-- Modal Header -->
+      <div class="bg-[#F5F5F9] border-b border-gray-200 px-5 py-3.5 flex items-center justify-between">
+        <div>
+          <span class="text-[10px] font-bold text-[#007AFF] uppercase tracking-wider bg-blue-50 border border-blue-200 px-2 py-0.5 rounded">
+            STUDENT GROUP MANAGEMENT
+          </span>
+          <h3 class="text-base font-bold text-gray-900 font-heading mt-1">Create Student Group &amp; Book Slot</h3>
+        </div>
+        <button onclick="closeStudentGroupModal()" class="w-8 h-8 rounded-[4px] bg-white hover:bg-gray-100 text-gray-500 hover:text-black flex items-center justify-center text-sm font-bold border border-gray-200 transition">
+          ✕
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-5 overflow-y-auto space-y-4 text-xs">
+        
+        <!-- Step 1: Group Name & Sport -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1">Group Cohort Name</label>
+            <input type="text" id="grp-input-name" value="Monday Evening Padel Cohort" class="w-full p-2.5 border border-gray-300 rounded-[4px] text-xs font-semibold focus:border-[#007AFF] focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1">Sport</label>
+            <select id="grp-select-sport" onchange="filterGroupWizardBySport(this.value)" class="w-full p-2.5 border border-gray-300 rounded-[4px] text-xs font-semibold focus:border-[#007AFF] focus:outline-none bg-white">
+              <option value="padel" selected>🏸 Padel</option>
+              <option value="tennis">🎾 Tennis</option>
+              <option value="zumba">💃 Zumba</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Step 2: Select Students with Availability Radar (Item 2 & 4) -->
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider">
+              Select Students from Pool (Max 4 for Court Capacity)
+            </label>
+            <span id="grp-selected-counter" class="text-[11px] font-bold text-[#007AFF]">4 Students Selected</span>
+          </div>
+
+          <div class="border border-gray-200 rounded-[6px] divide-y divide-gray-100 max-h-48 overflow-y-auto p-1 bg-gray-50/50" id="grp-student-picker-list">
+            
+            <label class="flex items-center justify-between p-2 hover:bg-white rounded cursor-pointer transition">
+              <div class="flex items-center space-x-2.5">
+                <input type="checkbox" checked class="grp-student-chk rounded text-[#007AFF] w-4 h-4">
+                <div class="w-7 h-7 rounded-full bg-blue-100 text-[#007AFF] font-bold text-xs flex items-center justify-center">AL</div>
+                <div>
+                  <span class="font-bold text-xs text-gray-900 block">Arjen Laferte (Rating 6.2)</span>
+                  <span class="text-[10px] text-blue-700 font-medium">Free: Mon 17:00–19:00, Wed 18:00–21:00</span>
+                </div>
+              </div>
+              <span class="text-[10px] bg-emerald-50 text-emerald-700 font-bold px-1.5 py-0.5 rounded">Matches Slot ✓</span>
+            </label>
+
+            <label class="flex items-center justify-between p-2 hover:bg-white rounded cursor-pointer transition">
+              <div class="flex items-center space-x-2.5">
+                <input type="checkbox" checked class="grp-student-chk rounded text-[#007AFF] w-4 h-4">
+                <div class="w-7 h-7 rounded-full bg-purple-100 text-purple-700 font-bold text-xs flex items-center justify-center">JV</div>
+                <div>
+                  <span class="font-bold text-xs text-gray-900 block">Julia van Veen (Rating 6.4)</span>
+                  <span class="text-[10px] text-blue-700 font-medium">Free: Mon 17:00–19:00, Thu 19:00–21:00</span>
+                </div>
+              </div>
+              <span class="text-[10px] bg-emerald-50 text-emerald-700 font-bold px-1.5 py-0.5 rounded">Matches Slot ✓</span>
+            </label>
+
+            <label class="flex items-center justify-between p-2 hover:bg-white rounded cursor-pointer transition">
+              <div class="flex items-center space-x-2.5">
+                <input type="checkbox" checked class="grp-student-chk rounded text-[#007AFF] w-4 h-4">
+                <div class="w-7 h-7 rounded-full bg-emerald-100 text-emerald-700 font-bold text-xs flex items-center justify-center">AG</div>
+                <div>
+                  <span class="font-bold text-xs text-gray-900 block">Aras Güner (Rating 6.1)</span>
+                  <span class="text-[10px] text-blue-700 font-medium">Free: Mon 17:00–21:00, Wed 18:00–21:00</span>
+                </div>
+              </div>
+              <span class="text-[10px] bg-emerald-50 text-emerald-700 font-bold px-1.5 py-0.5 rounded">Matches Slot ✓</span>
+            </label>
+
+            <label class="flex items-center justify-between p-2 hover:bg-white rounded cursor-pointer transition">
+              <div class="flex items-center space-x-2.5">
+                <input type="checkbox" checked class="grp-student-chk rounded text-[#007AFF] w-4 h-4">
+                <div class="w-7 h-7 rounded-full bg-amber-100 text-amber-800 font-bold text-xs flex items-center justify-center">SC</div>
+                <div>
+                  <span class="font-bold text-xs text-gray-900 block">Soyan Chiang (Rating 6.5)</span>
+                  <span class="text-[10px] text-blue-700 font-medium">Free: Mon 16:00–18:00, Wed 17:00–19:00</span>
+                </div>
+              </div>
+              <span class="text-[10px] bg-emerald-50 text-emerald-700 font-bold px-1.5 py-0.5 rounded">Matches Slot ✓</span>
+            </label>
+
+          </div>
+        </div>
+
+        <!-- Step 3: Date, Time & Court Selection (Item 2: Coach selects date & books slot) -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 border-t border-gray-100">
+          <div>
+            <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1">Session Date</label>
+            <input type="date" id="grp-input-date" value="2026-10-21" class="w-full p-2 border border-gray-300 rounded-[4px] text-xs font-semibold focus:border-[#007AFF] focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1">Time Slot</label>
+            <select id="grp-select-time" class="w-full p-2 border border-gray-300 rounded-[4px] text-xs font-semibold focus:border-[#007AFF] focus:outline-none bg-white">
+              <option value="17:00 - 18:00" selected>17:00 - 18:00</option>
+              <option value="18:30 - 19:30">18:30 - 19:30</option>
+              <option value="19:30 - 20:30">19:30 - 20:30</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1">Venue &amp; Court</label>
+            <select id="grp-select-court" class="w-full p-2 border border-gray-300 rounded-[4px] text-xs font-semibold focus:border-[#007AFF] focus:outline-none bg-white">
+              <option value="Amstelpark Court 2 (Indoor)">Amstelpark • Court 2 (Indoor)</option>
+              <option value="Amstelpark Court 3 (Outdoor)">Amstelpark • Court 3 (Outdoor)</option>
+              <option value="SCO Utrecht Court 1">SCO Utrecht • Court 1</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Group Notes & Notification Check -->
+        <div class="space-y-2 pt-2 border-t border-gray-100">
+          <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1">Initial Group Drills &amp; Session Notes</label>
+          <textarea id="grp-input-notes" rows="2" placeholder="e.g. Focus on wall transitions and doubles communication. Bring water and padel racket." class="w-full p-2.5 border border-gray-300 rounded-[4px] text-xs focus:border-[#007AFF] focus:outline-none"></textarea>
+          
+          <label class="flex items-center space-x-2 text-[11px] text-gray-700 cursor-pointer font-medium">
+            <input type="checkbox" id="chk-grp-notify" checked class="w-4 h-4 rounded text-[#007AFF] border-gray-300 cursor-pointer">
+            <span>Send instant booking confirmation &amp; session invite to all 4 students</span>
+          </label>
+        </div>
+
+        <!-- Modal Actions -->
+        <div class="pt-3 border-t border-gray-200 flex items-center justify-end space-x-2">
+          <button type="button" onclick="closeStudentGroupModal()" class="swp-btn-neutral text-xs px-4 py-2">
+            Cancel
+          </button>
+          <button type="button" onclick="submitCreateStudentGroup()" class="swp-btn-primary text-xs px-4 py-2">
+            Confirm Group &amp; Book Court Slot ✓
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ========================================================================= -->
+  <!-- ===== MODAL: PLAYER PASSPORT (Official ShallWe-Play Passport Standard) == -->
+  <!-- ========================================================================= -->
+  <div id="modal-player-passport" class="hidden fixed inset-0 bg-black/70 backdrop-blur-xs z-50 flex items-center justify-center p-3 sm:p-5">
+    <div class="bg-white border border-[#E0E0E0] rounded-[8px] max-w-lg w-full shadow-2xl flex flex-col max-h-[92vh] overflow-hidden">
+      
+      <!-- Passport Official Gold Header -->
+      <div class="bg-gradient-to-r from-[#1B2E4B] via-[#061D42] to-[#1B2E4B] text-white p-5 relative overflow-hidden">
+        <div class="flex items-center justify-between relative z-10">
+          <div class="flex items-center space-x-2.5">
+            <div class="w-8 h-8 rounded-full bg-amber-400 text-blue-950 flex items-center justify-center font-extrabold text-sm shadow-xs">
+              ★
+            </div>
+            <div>
+              <span class="text-[10px] text-amber-300 font-bold uppercase tracking-widest block">SHALLWE-PLAY PLATFORM</span>
+              <h3 class="text-base font-extrabold font-heading text-white">Official Player Passport</h3>
+            </div>
+          </div>
+          <button onclick="closePlayerPassportModal()" class="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-xs font-bold transition">
+            ✕
+          </button>
+        </div>
+        
+        <div class="mt-3 flex items-center justify-between text-[11px] text-gray-300 relative z-10">
+          <span id="passport-id-code" class="font-mono font-semibold text-amber-200">#PASSPORT-NL-84920</span>
+          <span class="bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 px-2 py-0.5 rounded text-[10px] font-bold">KNLTB Verified ✓</span>
+        </div>
+      </div>
+
+      <!-- Passport Card Body -->
+      <div class="p-5 overflow-y-auto space-y-4 text-xs">
+        
+        <!-- Player Bio Row -->
+        <div class="flex items-center space-x-3.5 pb-3 border-b border-gray-100">
+          <div id="passport-avatar" class="w-14 h-14 rounded-full bg-blue-100 text-[#007AFF] font-bold text-lg flex items-center justify-center border-2 border-[#007AFF] shrink-0">
+            AL
+          </div>
+          <div class="flex-1">
+            <div class="flex items-center justify-between">
+              <h4 id="passport-name" class="text-base font-bold text-gray-900 font-heading">Arjen Laferte</h4>
+              <span id="passport-rating-badge" class="bg-amber-100 text-amber-900 border border-amber-300 px-2 py-0.5 rounded text-xs font-extrabold">Speelsterkte 6.2</span>
+            </div>
+            <p id="passport-meta" class="text-xs text-gray-500 mt-0.5">31 yrs • Amsterdam • SCO Utrecht Club Member</p>
+            <div class="flex items-center space-x-2 text-[10px] text-gray-400 mt-1">
+              <span>Dominant: Right Hand</span>
+              <span>•</span>
+              <span>Preferred Side: Left (Drive)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= PHONE NUMBER PRIVACY ENFORCEMENT (Item 5) ================= -->
+        <div id="passport-phone-box" class="p-3 rounded-[6px] border transition">
+          <!-- Dynamically populated via JS depending on student.phoneShared boolean -->
+        </div>
+
+        <!-- Skill Attribute Breakdown -->
+        <div>
+          <h5 class="text-xs font-bold text-gray-900 uppercase tracking-wider mb-2 font-heading">
+            Technical Skill Ratings &amp; Attributes
+          </h5>
+          <div class="space-y-2">
+            <div>
+              <div class="flex justify-between text-[11px] font-semibold text-gray-700 mb-0.5">
+                <span>Forehand &amp; Volley</span>
+                <span class="text-[#007AFF] font-bold">7.2 / 10</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-1.5">
+                <div class="bg-[#007AFF] h-1.5 rounded-full" style="width: 72%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-[11px] font-semibold text-gray-700 mb-0.5">
+                <span>Tactical Bandeja &amp; Vibora</span>
+                <span class="text-[#007AFF] font-bold">7.0 / 10</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-1.5">
+                <div class="bg-[#007AFF] h-1.5 rounded-full" style="width: 70%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-[11px] font-semibold text-gray-700 mb-0.5">
+                <span>Court Positioning &amp; Communication</span>
+                <span class="text-[#007AFF] font-bold">6.8 / 10</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-1.5">
+                <div class="bg-[#007AFF] h-1.5 rounded-full" style="width: 68%"></div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-[11px] font-semibold text-gray-700 mb-0.5">
+                <span>Physical Stamina &amp; Agility</span>
+                <span class="text-[#007AFF] font-bold">7.5 / 10</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-1.5">
+                <div class="bg-emerald-600 h-1.5 rounded-full" style="width: 75%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Student Intake Preferences (Wants vs Avoids) -->
+        <div class="bg-gray-50 border border-gray-200 rounded-[6px] p-3 space-y-1.5">
+          <span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider block">Student Intake Learning Goals</span>
+          <div class="flex flex-wrap gap-1">
+            <span class="text-[10px] bg-emerald-50 text-emerald-800 border border-emerald-200 px-2 py-0.5 rounded font-semibold">🟢 Wants: Bandeja, Tactical Defense</span>
+            <span class="text-[10px] bg-rose-50 text-rose-800 border border-rose-200 px-2 py-0.5 rounded font-semibold">🔴 Avoid: Heavy Singles Sprints</span>
+          </div>
+        </div>
+
+        <!-- Attendance & Match Record -->
+        <div class="grid grid-cols-3 gap-2 text-center pt-1">
+          <div class="p-2 bg-gray-50 rounded border border-gray-100">
+            <span class="text-base font-extrabold text-gray-900 block font-heading">28</span>
+            <span class="text-[10px] text-gray-500">Matches Played</span>
+          </div>
+          <div class="p-2 bg-gray-50 rounded border border-gray-100">
+            <span class="text-base font-extrabold text-emerald-600 block font-heading">64%</span>
+            <span class="text-[10px] text-gray-500">Win Rate</span>
+          </div>
+          <div class="p-2 bg-gray-50 rounded border border-gray-100">
+            <span class="text-base font-extrabold text-[#007AFF] block font-heading">14</span>
+            <span class="text-[10px] text-gray-500">Lessons Completed</span>
+          </div>
+        </div>
+
+        <!-- Close Button -->
+        <div class="pt-2">
+          <button type="button" onclick="closePlayerPassportModal()" class="w-full swp-btn-neutral text-xs py-2">
+            Close Passport
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ========================================================================= -->
+  <!-- ===== MODAL: CANCEL SESSION (Item 6: Rain, Event, Illness) ============== -->
+  <!-- ========================================================================= -->
+  <div id="modal-coach-cancel-session" class="hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-3 sm:p-5">
+    <div class="bg-white border border-[#E0E0E0] rounded-[8px] max-w-md w-full shadow-2xl flex flex-col max-h-[92vh] overflow-hidden">
+      
+      <!-- Header -->
+      <div class="bg-rose-50 border-b border-rose-200 px-5 py-3.5 flex items-center justify-between">
+        <div>
+          <span class="text-[10px] font-bold text-rose-700 uppercase tracking-wider bg-rose-100 px-2 py-0.5 rounded">
+            COACH SESSION CANCELLATION
+          </span>
+          <h3 class="text-base font-bold text-gray-900 font-heading mt-1">Cancel Booking #SWP-BK-101</h3>
+        </div>
+        <button onclick="closeCoachCancelModal()" class="w-8 h-8 rounded-[4px] bg-white hover:bg-gray-100 text-gray-500 hover:text-black flex items-center justify-center text-sm font-bold border border-gray-200 transition">
+          ✕
+        </button>
+      </div>
+
+      <!-- Body -->
+      <div class="p-5 overflow-y-auto space-y-3.5 text-xs">
+        <p class="text-xs text-gray-600">
+          You are cancelling <strong class="text-gray-900">Intermediate Padel Clinic</strong> on <strong class="text-gray-900">Monday, 19 Oct at 17:00</strong> (4 Enrolled Students).
+        </p>
+
+        <!-- Reason Selector (Item 6: Rain, Event, Illness) -->
+        <div>
+          <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1.5">
+            Cancellation Reason
+          </label>
+          <div class="space-y-1.5">
+            <label class="flex items-center space-x-2.5 p-2 border border-gray-200 rounded hover:bg-gray-50 cursor-pointer">
+              <input type="radio" name="cancel_coach_reason" value="rain" checked class="text-[#007AFF] w-4 h-4">
+              <div>
+                <span class="font-bold text-gray-900 block text-xs">🌧️ Bad Weather / Rain</span>
+                <span class="text-[10px] text-gray-500">Outdoor court unplayable due to rainfall or storm</span>
+              </div>
+            </label>
+
+            <label class="flex items-center space-x-2.5 p-2 border border-gray-200 rounded hover:bg-gray-50 cursor-pointer">
+              <input type="radio" name="cancel_coach_reason" value="event" class="text-[#007AFF] w-4 h-4">
+              <div>
+                <span class="font-bold text-gray-900 block text-xs">🏟️ Club Event / Facility Closure</span>
+                <span class="text-[10px] text-gray-500">Court re-allocated by club for tournament or maintenance</span>
+              </div>
+            </label>
+
+            <label class="flex items-center space-x-2.5 p-2 border border-gray-200 rounded hover:bg-gray-50 cursor-pointer">
+              <input type="radio" name="cancel_coach_reason" value="illness" class="text-[#007AFF] w-4 h-4">
+              <div>
+                <span class="font-bold text-gray-900 block text-xs">🤒 Illness / Medical Emergency</span>
+                <span class="text-[10px] text-gray-500">Coach or key players unwell</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Multi-party Notification Toggles (Item 6: Notify Club and Players) -->
+        <div class="bg-gray-50 border border-gray-200 rounded-[6px] p-3 space-y-2">
+          <span class="text-[11px] font-bold text-gray-700 uppercase tracking-wider block">Automatic Notification Broadcast</span>
+          
+          <label class="flex items-start space-x-2 cursor-pointer">
+            <input type="checkbox" id="chk-cancel-notify-club" checked class="w-4 h-4 rounded text-[#007AFF] border-gray-300 mt-0.5">
+            <div>
+              <span class="font-bold text-xs text-gray-900 block">Notify Amstelpark Front Desk &amp; Management</span>
+              <span class="text-[10px] text-gray-500">Releases Court 2 reservation with zero penalty fee</span>
+            </div>
+          </label>
+
+          <label class="flex items-start space-x-2 cursor-pointer">
+            <input type="checkbox" id="chk-cancel-notify-players" checked class="w-4 h-4 rounded text-[#007AFF] border-gray-300 mt-0.5">
+            <div>
+              <span class="font-bold text-xs text-gray-900 block">Notify 4 Enrolled Players</span>
+              <span class="text-[10px] text-gray-500">Sends urgent push notification, SMS, and restores session tokens to their package</span>
+            </div>
+          </label>
+        </div>
+
+        <!-- Modal Actions -->
+        <div class="pt-3 border-t border-gray-200 grid grid-cols-2 gap-2">
+          <button type="button" onclick="closeCoachCancelModal()" class="swp-btn-neutral text-xs py-2">
+            Keep Booking
+          </button>
+          <button type="button" onclick="executeCoachCancellation()" class="bg-rose-600 hover:bg-rose-700 text-white font-bold py-2 px-3 rounded-[4px] text-xs shadow-xs transition">
+            Confirm Cancel &amp; Notify
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ========================================================================= -->
+  <!-- ===== MODAL: RESCHEDULE CANCELLED SESSION (Item 6) ====================== -->
+  <!-- ========================================================================= -->
+  <div id="modal-coach-reschedule-session" class="hidden fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-3 sm:p-5">
+    <div class="bg-white border border-[#E0E0E0] rounded-[8px] max-w-lg w-full shadow-2xl flex flex-col max-h-[92vh] overflow-hidden">
+      
+      <!-- Header -->
+      <div class="bg-blue-50 border-b border-blue-200 px-5 py-3.5 flex items-center justify-between">
+        <div>
+          <span class="text-[10px] font-bold text-[#007AFF] uppercase tracking-wider bg-white border border-blue-300 px-2 py-0.5 rounded">
+            RESCHEDULING ENGINE
+          </span>
+          <h3 class="text-base font-bold text-gray-900 font-heading mt-1">Reschedule Session #SWP-BK-101</h3>
+        </div>
+        <button onclick="closeCoachRescheduleModal()" class="w-8 h-8 rounded-[4px] bg-white hover:bg-gray-100 text-gray-500 hover:text-black flex items-center justify-center text-sm font-bold border border-gray-200 transition">
+          ✕
+        </button>
+      </div>
+
+      <!-- Body -->
+      <div class="p-5 overflow-y-auto space-y-4 text-xs">
+        
+        <div class="bg-amber-50 border border-amber-200 rounded-[6px] p-2.5 text-xs text-amber-900">
+          <span class="font-bold block">Rescheduling Previous Session:</span>
+          <span class="text-[11px]">Original: Monday 19 Oct 17:00 (Cancelled due to weather). Select a replacement date and notify players.</span>
+        </div>
+
+        <!-- Replacement Date & Time Slot -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1">New Replacement Date</label>
+            <input type="date" id="resched-input-date" value="2026-10-23" onchange="checkRescheduleAvailability()" class="w-full p-2.5 border border-gray-300 rounded-[4px] text-xs font-semibold focus:border-[#007AFF] focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1">New Time Slot</label>
+            <select id="resched-select-time" onchange="checkRescheduleAvailability()" class="w-full p-2.5 border border-gray-300 rounded-[4px] text-xs font-semibold focus:border-[#007AFF] focus:outline-none bg-white">
+              <option value="17:00 - 18:00" selected>17:00 - 18:00 (Evening)</option>
+              <option value="18:00 - 19:00">18:00 - 19:00</option>
+              <option value="19:00 - 20:00">19:00 - 20:00</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Replacement Court & Venue -->
+        <div>
+          <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1">Venue &amp; Court</label>
+          <select id="resched-select-court" class="w-full p-2.5 border border-gray-300 rounded-[4px] text-xs font-semibold focus:border-[#007AFF] focus:outline-none bg-white">
+            <option value="Amstelpark Court 2 (Indoor)" selected>Amstelpark • Court 2 (Indoor) - Available ✓</option>
+            <option value="Amstelpark Court 4 (Indoor)">Amstelpark • Court 4 (Indoor) - Available ✓</option>
+            <option value="SCO Utrecht Court 1">SCO Utrecht • Court 1 - Available ✓</option>
+          </select>
+        </div>
+
+        <!-- Live Student Availability Conflict Check (Item 4 & 6) -->
+        <div class="bg-gray-50 border border-gray-200 rounded-[6px] p-3 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] font-bold text-gray-800 uppercase tracking-wider">
+              Student Availability Check for Fri 23 Oct 17:00
+            </span>
+            <span class="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.5 rounded">4/4 Free ✓</span>
+          </div>
+
+          <div class="space-y-1 text-[11px]">
+            <div class="flex items-center justify-between text-gray-700">
+              <span>Arjen Laferte</span>
+              <span class="text-emerald-700 font-semibold">Available (Fri 16:00–19:00) ✓</span>
+            </div>
+            <div class="flex items-center justify-between text-gray-700">
+              <span>Julia van Veen</span>
+              <span class="text-emerald-700 font-semibold">Available (Fri 17:00–20:00) ✓</span>
+            </div>
+            <div class="flex items-center justify-between text-gray-700">
+              <span>Aras Güner</span>
+              <span class="text-emerald-700 font-semibold">Available (Fri 16:00–19:00) ✓</span>
+            </div>
+            <div class="flex items-center justify-between text-gray-700">
+              <span>Soyan Chiang</span>
+              <span class="text-emerald-700 font-semibold">Available (Fri 16:00–18:30) ✓</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Multi-party Reschedule Notification (Item 6) -->
+        <div class="space-y-2">
+          <label class="block text-[11px] font-bold text-gray-700 uppercase tracking-wider mb-1">
+            Reschedule Notice Message to Students
+          </label>
+          <textarea id="resched-broadcast-message" rows="2" class="w-full p-2.5 border border-gray-300 rounded-[4px] text-xs focus:border-[#007AFF] focus:outline-none">Hi team, due to rain on Monday, our session is rescheduled to Friday 23 Oct at 17:00 on Court 2. See you on court!</textarea>
+
+          <div class="space-y-1.5 pt-1">
+            <label class="flex items-center space-x-2 text-[11px] text-gray-700 cursor-pointer font-medium">
+              <input type="checkbox" id="chk-resched-notify-club" checked class="w-4 h-4 rounded text-[#007AFF] border-gray-300 cursor-pointer">
+              <span>Notify Amstelpark Front Desk (Court reservation automatically updated)</span>
+            </label>
+            <label class="flex items-center space-x-2 text-[11px] text-gray-700 cursor-pointer font-medium">
+              <input type="checkbox" id="chk-resched-notify-players" checked class="w-4 h-4 rounded text-[#007AFF] border-gray-300 cursor-pointer">
+              <span>Notify all 4 students via ShallWe-Play push notification &amp; SMS</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Modal Actions -->
+        <div class="pt-3 border-t border-gray-200 flex items-center justify-end space-x-2">
+          <button type="button" onclick="closeCoachRescheduleModal()" class="swp-btn-neutral text-xs px-4 py-2">
+            Cancel
+          </button>
+          <button type="button" onclick="executeCoachReschedule()" class="swp-btn-primary text-xs px-4 py-2">
+            Confirm Reschedule &amp; Notify All Parties ✓
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
   <div id="modal-cancel-booking" class="hidden fixed inset-0 bg-black/80 backdrop-blur-xs z-50 flex items-center justify-center p-4">
     <div class="bg-[#1F1F1F] border border-[#3A3A3A] rounded-3xl p-6 max-w-md w-full shadow-2xl text-[#ECEDEE] relative max-h-[92vh] overflow-y-auto">
       
@@ -8234,7 +9760,7 @@
       if (targetView) targetView.classList.remove('hidden');
 
       // Update top tab styling if matching one of the main tabs
-      const tabs = ['verification', 'availability', 'lessons', 'explore', 'clubs', 'profile'];
+      const tabs = ['verification', 'availability', 'calendar', 'lessons', 'explore', 'clubs', 'profile'];
       tabs.forEach(t => {
         const btn = document.getElementById('tab-nav-' + t);
         if (!btn) return;
@@ -8252,7 +9778,11 @@
       // Highlight Coach Profile Chip if profile view
       const profileChip = document.getElementById('coach-profile-chip');
       if (profileChip) {
-        if (viewId === 'profile') {
+              if (viewId === 'calendar') {
+        showToast('Coach Calendar & Student Management: Bookings, Groups, Notes & Rescheduling');
+      }
+
+      if (viewId === 'profile') {
           profileChip.className = 'flex items-center space-x-2 bg-blue-50 border-2 border-blue-500 ring-2 ring-blue-100 px-2.5 py-1.5 rounded-xl cursor-pointer transition shadow-xs';
         } else {
           profileChip.className = 'flex items-center space-x-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 px-2.5 py-1.5 rounded-xl cursor-pointer transition';
@@ -9329,6 +10859,519 @@
       }
     });
 
-</script>
+
+    // =========================================================================
+    // ==== COACH CALENDAR & STUDENT MANAGEMENT JAVASCRIPT CONTROLLERS =========
+    // =========================================================================
+
+    // Student Database Mock (with phone privacy and profile availability)
+    const swpStudentPoolDB = {
+      arjen: {
+        id: 'arjen',
+        name: 'Arjen Laferte',
+        sport: 'padel',
+        rating: '6.2',
+        ratingBadge: 'Speelsterkte 6.2',
+        avatar: 'AL',
+        avatarBg: 'bg-blue-100 text-[#007AFF]',
+        club: 'SCO Utrecht Member',
+        phoneShared: true, // Phone shared by student
+        phoneNumber: '+31 6 52 89 14 20',
+        availability: 'Mon 17:00–19:00, Wed 18:00–21:00, Sat 10:00–14:00',
+        wants: 'Tactical Bandeja, Wall Defense',
+        avoids: 'Heavy Singles Sprints',
+        matches: 28,
+        winRate: '64%',
+        lessons: 14
+      },
+      julia: {
+        id: 'julia',
+        name: 'Julia van Veen',
+        sport: 'padel',
+        rating: '6.4',
+        ratingBadge: 'Speelsterkte 6.4',
+        avatar: 'JV',
+        avatarBg: 'bg-purple-100 text-purple-700',
+        club: 'SCO Utrecht Member',
+        phoneShared: false, // Phone hidden by player
+        phoneNumber: null,
+        availability: 'Mon 17:00–19:00, Thu 19:00–21:00, Sat 10:00–13:00',
+        wants: 'Glass Volley, Bandeja',
+        avoids: 'Singles Drills',
+        matches: 19,
+        winRate: '58%',
+        lessons: 8
+      },
+      aras: {
+        id: 'aras',
+        name: 'Aras Güner',
+        sport: 'padel',
+        rating: '6.1',
+        ratingBadge: 'Speelsterkte 6.1',
+        avatar: 'AG',
+        avatarBg: 'bg-emerald-100 text-emerald-700',
+        club: 'Peakz Padel Member',
+        phoneShared: true,
+        phoneNumber: '+31 6 18 44 92 11',
+        availability: 'Mon 17:00–21:00, Wed 18:00–21:00, Fri 16:00–19:00',
+        wants: 'Doubles Positioning, Chiquita',
+        avoids: 'High Lobs Defense',
+        matches: 32,
+        winRate: '66%',
+        lessons: 16
+      },
+      soyan: {
+        id: 'soyan',
+        name: 'Soyan Chiang',
+        sport: 'padel',
+        rating: '6.5',
+        ratingBadge: 'Speelsterkte 6.5',
+        avatar: 'SC',
+        avatarBg: 'bg-amber-100 text-amber-800',
+        club: 'Non-member (Package Guest)',
+        phoneShared: false,
+        phoneNumber: null,
+        availability: 'Mon 16:00–18:00, Wed 17:00–19:00, Sun 11:00–15:00',
+        wants: 'Vibora, Footwork',
+        avoids: 'Overhead Smashes',
+        matches: 15,
+        winRate: '53%',
+        lessons: 6
+      },
+      sophie: {
+        id: 'sophie',
+        name: 'Sophie de Jong',
+        sport: 'tennis',
+        rating: '5.4',
+        ratingBadge: 'Speelsterkte 5.4',
+        avatar: 'SJ',
+        avatarBg: 'bg-rose-100 text-rose-700',
+        club: 'Amstelpark Tennis Member',
+        phoneShared: true,
+        phoneNumber: '+31 6 33 91 88 02',
+        availability: 'Tue 18:00–21:00, Thu 18:00–21:00, Sat 09:00–12:00',
+        wants: 'Kick Serve, Slice Backhand',
+        avoids: 'Drill-only sessions',
+        matches: 44,
+        winRate: '72%',
+        lessons: 22
+      },
+      daan: {
+        id: 'daan',
+        name: 'Daan Bakker',
+        sport: 'tennis',
+        rating: '5.8',
+        ratingBadge: 'Speelsterkte 5.8',
+        avatar: 'DB',
+        avatarBg: 'bg-indigo-100 text-indigo-700',
+        club: 'SCO Utrecht Tennis',
+        phoneShared: false,
+        phoneNumber: null,
+        availability: 'Tue 17:00–20:00, Fri 17:00–20:00, Sat 11:00–15:00',
+        wants: 'Approach Shots, Volleys',
+        avoids: 'Endurance Runs',
+        matches: 26,
+        winRate: '61%',
+        lessons: 10
+      },
+      emma: {
+        id: 'emma',
+        name: 'Emma van Dijk',
+        sport: 'zumba',
+        rating: 'All',
+        ratingBadge: 'Fitness All Levels',
+        avatar: 'ED',
+        avatarBg: 'bg-pink-100 text-pink-700',
+        club: 'Amstelpark Fitness Member',
+        phoneShared: false,
+        phoneNumber: null,
+        availability: 'Tue 10:00–12:00, Fri 16:00–18:00',
+        wants: 'Cardio rhythm, Salsa moves',
+        avoids: 'Floor weight exercises',
+        matches: 12,
+        winRate: '100%',
+        lessons: 18
+      },
+      lars: {
+        id: 'lars',
+        name: 'Lars Visser',
+        sport: 'zumba',
+        rating: 'All',
+        ratingBadge: 'Cardio Fitness',
+        avatar: 'LV',
+        avatarBg: 'bg-teal-100 text-teal-700',
+        club: 'Amstelpark Member',
+        phoneShared: true,
+        phoneNumber: '+31 6 42 11 90 85',
+        availability: 'Tue 10:00–12:00, Fri 16:00–18:00',
+        wants: 'High-energy workout',
+        avoids: 'Static stretching',
+        matches: 8,
+        winRate: '100%',
+        lessons: 12
+      }
+    };
+
+    let currentSportCalendarFilter = 'all';
+    let currentCalendarViewMode = 'week';
+    let selectedStudentIds = [];
+    let currentActiveBookingId = 'BK-PADEL-101';
+
+    // 1. Sport Filter Pill Controller (Item 1)
+    function setSportCalendarFilter(sport) {
+      currentSportCalendarFilter = sport;
+
+      // Update pills appearance
+      ['all', 'tennis', 'padel', 'zumba'].forEach(s => {
+        const btn = document.getElementById('btn-sport-' + s);
+        if (!btn) return;
+        if (s === sport) {
+          btn.className = 'sport-filter-btn px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#007AFF] text-white shadow-xs transition flex items-center gap-1.5';
+          const badge = btn.querySelector('span:last-child');
+          if (badge) badge.className = 'text-[10px] bg-white/20 px-1.5 py-0.5 rounded-full font-bold';
+        } else {
+          btn.className = 'sport-filter-btn px-3.5 py-1.5 rounded-full text-xs font-semibold bg-gray-100 hover:bg-gray-200 text-gray-700 transition flex items-center gap-1.5';
+          const badge = btn.querySelector('span:last-child');
+          if (badge) badge.className = 'text-[10px] bg-gray-200 px-1.5 py-0.5 rounded-full font-bold text-gray-800';
+        }
+      });
+
+      // Filter Calendar Cards on Timetable Grid
+      const cards = document.querySelectorAll('.cal-session-card');
+      let visibleCount = 0;
+      cards.forEach(card => {
+        const cardSport = card.getAttribute('data-sport');
+        if (sport === 'all' || cardSport === sport) {
+          card.classList.remove('hidden');
+          card.parentElement.classList.remove('opacity-25');
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+          card.parentElement.classList.add('opacity-25');
+        }
+      });
+
+      // Filter Student Pool Cards
+      const studentCards = document.querySelectorAll('#student-pool-list .student-card');
+      let studentCount = 0;
+      studentCards.forEach(card => {
+        const cSport = card.getAttribute('data-sport');
+        if (sport === 'all' || cSport === sport) {
+          card.classList.remove('hidden');
+          studentCount++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      // Banner Feedback
+      const banner = document.getElementById('sport-filter-banner');
+      const bannerText = document.getElementById('sport-filter-banner-text');
+      const statusText = document.getElementById('cal-filter-status');
+      const poolIndicator = document.getElementById('pool-sport-indicator');
+
+      if (sport === 'all') {
+        if (banner) banner.classList.add('hidden');
+        if (statusText) statusText.innerText = 'All Sports Active • ' + visibleCount + ' Total Scheduled Sessions';
+        if (poolIndicator) poolIndicator.innerText = 'All Sports';
+      } else {
+        const sportCapital = sport.charAt(0).toUpperCase() + sport.slice(1);
+        if (banner) banner.classList.remove('hidden');
+        if (bannerText) bannerText.innerText = 'Filtered by ' + sportCapital + ': Showing ' + visibleCount + ' booked sessions and ' + studentCount + ' enrolled players.';
+        if (statusText) statusText.innerText = sportCapital + ' Filter Active • ' + visibleCount + ' Sessions Visible';
+        if (poolIndicator) poolIndicator.innerText = sportCapital + ' Players';
+      }
+
+      showToast('Calendar filtered by sport: ' + (sport === 'all' ? 'All Sports' : sport.toUpperCase()));
+    }
+
+    // Switch Calendar View Mode (Week vs Day vs List)
+    function switchCalendarViewMode(mode) {
+      currentCalendarViewMode = mode;
+      const weekView = document.getElementById('cal-view-week');
+      const listView = document.getElementById('cal-view-list');
+      const btnWeek = document.getElementById('btn-vmode-week');
+      const btnDay = document.getElementById('btn-vmode-day');
+      const btnList = document.getElementById('btn-vmode-list');
+
+      [btnWeek, btnDay, btnList].forEach(b => {
+        if (b) b.className = 'px-3 py-1.5 rounded-[4px] text-gray-500 hover:text-black transition';
+      });
+
+      if (mode === 'week') {
+        if (weekView) weekView.classList.remove('hidden');
+        if (listView) listView.classList.add('hidden');
+        if (btnWeek) btnWeek.className = 'px-3 py-1.5 rounded-[4px] bg-white text-gray-900 shadow-2xs font-bold transition';
+      } else if (mode === 'list') {
+        if (weekView) weekView.classList.add('hidden');
+        if (listView) listView.classList.remove('hidden');
+        if (btnList) btnList.className = 'px-3 py-1.5 rounded-[4px] bg-white text-gray-900 shadow-2xs font-bold transition';
+      } else if (mode === 'day') {
+        if (weekView) weekView.classList.remove('hidden');
+        if (listView) listView.classList.add('hidden');
+        if (btnDay) btnDay.className = 'px-3 py-1.5 rounded-[4px] bg-white text-gray-900 shadow-2xs font-bold transition';
+        showToast('Viewing today schedule (Monday 19 Oct)');
+      }
+    }
+
+    // Calendar Week Navigation
+    let currentWeekNum = 43;
+    function navigateCalendarWeek(step) {
+      if (step === 0) {
+        currentWeekNum = 43;
+      } else {
+        currentWeekNum += step;
+      }
+      const heading = document.getElementById('cal-week-heading');
+      if (heading) {
+        heading.innerText = 'Week ' + currentWeekNum + ' · October 2026';
+      }
+      showToast('Navigated to Week ' + currentWeekNum);
+    }
+
+    function filterCalendarByClub(club) {
+      showToast('Filtered calendar by venue: ' + (club === 'all' ? 'All Associated Clubs' : club.toUpperCase()));
+    }
+
+    // Student Multi-selection for Group Management (Item 2)
+    function toggleStudentSelection(checkbox, studentId) {
+      if (checkbox.checked) {
+        if (!selectedStudentIds.includes(studentId)) selectedStudentIds.push(studentId);
+      } else {
+        selectedStudentIds = selectedStudentIds.filter(id => id !== studentId);
+      }
+      updateSelectionBar();
+    }
+
+    function updateSelectionBar() {
+      const bar = document.getElementById('pool-selection-bar');
+      const lbl = document.getElementById('lbl-selected-students-count');
+      if (!bar || !lbl) return;
+
+      if (selectedStudentIds.length > 0) {
+        bar.classList.remove('hidden');
+        lbl.innerText = selectedStudentIds.length + ' student' + (selectedStudentIds.length > 1 ? 's' : '') + ' selected';
+      } else {
+        bar.classList.add('hidden');
+      }
+    }
+
+    function handleStudentCardClick(e, studentId) {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') return;
+      openPlayerPassportModal(studentId);
+    }
+
+    function bookSlotForSelectedGroup() {
+      openStudentGroupModal();
+    }
+
+    // Student Group Modal Controller (Item 2)
+    function openStudentGroupModal() {
+      openModal('modal-create-student-group');
+    }
+
+    function closeStudentGroupModal() {
+      closeModal('modal-create-student-group');
+    }
+
+    function submitCreateStudentGroup() {
+      const nameInput = document.getElementById('grp-input-name');
+      const sportSelect = document.getElementById('grp-select-sport');
+      const dateInput = document.getElementById('grp-input-date');
+      const timeSelect = document.getElementById('grp-select-time');
+      const courtSelect = document.getElementById('grp-select-court');
+
+      const grpName = nameInput ? nameInput.value : 'New Student Group';
+      const sport = sportSelect ? sportSelect.value : 'padel';
+      const date = dateInput ? dateInput.value : '2026-10-21';
+      const time = timeSelect ? timeSelect.value : '17:00 - 18:00';
+      const court = courtSelect ? courtSelect.value : 'Court 2';
+
+      closeStudentGroupModal();
+      showToast('✓ Group "' + grpName + '" booked for ' + date + ' (' + time + ') at ' + court + '! Notifications sent.');
+    }
+
+    function filterGroupWizardBySport(sport) {
+      showToast('Group wizard filtered for ' + sport.toUpperCase() + ' eligible students');
+    }
+
+    // Booking Detail Drawer Controller (Item 3, 4, 5, 6)
+    function openBookingDetailDrawer(bookingId) {
+      currentActiveBookingId = bookingId;
+      openModal('drawer-booking-detail');
+    }
+
+    function closeBookingDetailDrawer() {
+      closeModal('drawer-booking-detail');
+    }
+
+    // Save Booking Notes (Item 3)
+    function saveCurrentBookingNotes() {
+      const noteInput = document.getElementById('input-booking-note');
+      const shareChk = document.getElementById('chk-share-booking-notes');
+      const noteText = noteInput ? noteInput.value.trim() : '';
+
+      if (!noteText) {
+        showToast('Please type a note or drill before saving');
+        return;
+      }
+
+      const timeline = document.getElementById('booking-notes-timeline');
+      if (timeline) {
+        const isShared = shareChk && shareChk.checked;
+        const newNoteHtml = '<div class="bg-white border border-gray-200 p-2.5 rounded-[4px] shadow-2xs">' +
+          '<div class="flex justify-between text-[10px] text-gray-400 mb-1">' +
+            '<span class="font-bold text-gray-700">Just Now • Coach Mukund</span>' +
+            (isShared ? '<span class="text-emerald-700 font-bold bg-emerald-50 px-1 rounded">Shared with Students ✓</span>' : '<span class="text-gray-500 font-bold bg-gray-100 px-1 rounded">Coach Only</span>') +
+          '</div>' +
+          '<p class="text-gray-700 text-[11px]">' + noteText + '</p>' +
+        '</div>';
+        timeline.insertAdjacentHTML('afterbegin', newNoteHtml);
+      }
+
+      if (noteInput) noteInput.value = '';
+      if (shareChk && shareChk.checked) {
+        showToast('✓ Notes saved & shared with all enrolled students via Player App push!');
+      } else {
+        showToast('✓ Private coach notes saved successfully.');
+      }
+    }
+
+    // Player Passport Modal Controller (Item 5: Phone Privacy Enforced)
+    function openPlayerPassportModal(studentId) {
+      const student = swpStudentPoolDB[studentId];
+      if (!student) return;
+
+      const pAvatar = document.getElementById('passport-avatar');
+      const pName = document.getElementById('passport-name');
+      const pRating = document.getElementById('passport-rating-badge');
+      const pMeta = document.getElementById('passport-meta');
+      const pPhoneBox = document.getElementById('passport-phone-box');
+
+      if (pAvatar) {
+        pAvatar.innerText = student.avatar;
+        pAvatar.className = 'w-14 h-14 rounded-full font-bold text-lg flex items-center justify-center border-2 border-[#007AFF] shrink-0 ' + student.avatarBg;
+      }
+      if (pName) pName.innerText = student.name;
+      if (pRating) pRating.innerText = student.ratingBadge;
+      if (pMeta) pMeta.innerText = 'Student • ' + student.club;
+
+      // Phone Privacy Enforcement (Item 5)
+      if (pPhoneBox) {
+        if (student.phoneShared && student.phoneNumber) {
+          pPhoneBox.className = 'p-3 rounded-[6px] border border-emerald-200 bg-emerald-50/70 transition flex items-center justify-between';
+          pPhoneBox.innerHTML = '<div>' +
+              '<span class="text-[10px] font-bold text-emerald-800 uppercase tracking-wider block">Student Phone (Opt-in Shared)</span>' +
+              '<span class="text-xs font-bold text-emerald-950 block mt-0.5">' + student.phoneNumber + '</span>' +
+              '<span class="text-[10px] text-emerald-700">Student consented to direct coach contact</span>' +
+            '</div>' +
+            '<div class="flex items-center space-x-1.5">' +
+              '<a href="https://wa.me/' + student.phoneNumber.replace(/[^0-9]/g, '') + '" target="_blank" class="px-2.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded text-xs shadow-2xs flex items-center gap-1">' +
+                '<span>WhatsApp</span>' +
+              '</a>' +
+              '<a href="tel:' + student.phoneNumber + '" class="px-2.5 py-1.5 bg-white border border-emerald-300 text-emerald-800 font-bold rounded text-xs hover:bg-emerald-50">' +
+                'Call' +
+              '</a>' +
+            '</div>';
+        } else {
+          pPhoneBox.className = 'p-3 rounded-[6px] border border-gray-200 bg-gray-50 transition flex items-center justify-between';
+          pPhoneBox.innerHTML = '<div>' +
+              '<span class="text-[10px] font-bold text-gray-500 uppercase tracking-wider block flex items-center gap-1">' +
+                '<svg class="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>' +
+                '<span>Phone Number Hidden by Player</span>' +
+              '</span>' +
+              '<span class="text-[11px] text-gray-600 block mt-0.5">Player has opted out of sharing direct phone number</span>' +
+              '<span class="text-[10px] text-gray-400">All updates delivered via ShallWe-Play in-app notifications</span>' +
+            '</div>' +
+            '<button onclick="showToast(\'In-App message initiated with ' + student.name + '\'); closePlayerPassportModal();" class="px-3 py-1.5 bg-[#007AFF] hover:bg-[#0062cc] text-white font-bold rounded text-xs shadow-2xs">' +
+              'In-App Chat' +
+            '</button>';
+        }
+      }
+
+      openModal('modal-player-passport');
+    }
+
+    function closePlayerPassportModal() {
+      closeModal('modal-player-passport');
+    }
+
+    // Cancellation & Rescheduling Hub (Item 6)
+    function openCoachCancelModal(bookingId) {
+      openModal('modal-coach-cancel-session');
+    }
+
+    function closeCoachCancelModal() {
+      closeModal('modal-coach-cancel-session');
+    }
+
+    function executeCoachCancellation() {
+      const reasonRadio = document.querySelector('input[name="cancel_coach_reason"]:checked');
+      const reasonVal = reasonRadio ? reasonRadio.value : 'rain';
+      const reasonText = reasonVal === 'rain' ? 'Bad Weather / Rain' : (reasonVal === 'event' ? 'Club Event' : 'Illness');
+
+      closeCoachCancelModal();
+
+      // Update card on calendar
+      const card = document.getElementById('card-bk-padel-101');
+      if (card) {
+        card.className = 'cal-session-card bg-rose-50 border-2 border-rose-400 rounded-[6px] p-2 shadow-2xs hover:shadow-xs transition cursor-pointer relative';
+        const statusBadge = document.getElementById('badge-status-101');
+        if (statusBadge) {
+          statusBadge.className = 'text-[9px] text-rose-700 font-extrabold ml-1 bg-rose-100 px-1 rounded';
+          statusBadge.innerText = 'CANCELLED (' + reasonText + ')';
+        }
+      }
+
+      showToast('✓ Booking cancelled due to ' + reasonText + '! Notifications dispatched to Amstelpark and 4 players.');
+    }
+
+    function openCoachRescheduleModal(bookingId) {
+      openModal('modal-coach-reschedule-session');
+    }
+
+    function closeCoachRescheduleModal() {
+      closeModal('modal-coach-reschedule-session');
+    }
+
+    function checkRescheduleAvailability() {
+      showToast('Checked court availability & 4 student schedules: All Free ✓');
+    }
+
+    function executeCoachReschedule() {
+      const dateInput = document.getElementById('resched-input-date');
+      const timeSelect = document.getElementById('resched-select-time');
+      const courtSelect = document.getElementById('resched-select-court');
+
+      const date = dateInput ? dateInput.value : '2026-10-23';
+      const time = timeSelect ? timeSelect.value : '17:00 - 18:00';
+      const court = courtSelect ? courtSelect.value : 'Court 2';
+
+      closeCoachRescheduleModal();
+
+      // Update card on calendar
+      const card = document.getElementById('card-bk-padel-101');
+      if (card) {
+        card.className = 'cal-session-card bg-emerald-50 border-2 border-emerald-500 rounded-[6px] p-2 shadow-2xs hover:shadow-xs transition cursor-pointer relative';
+        const statusBadge = document.getElementById('badge-status-101');
+        if (statusBadge) {
+          statusBadge.className = 'text-[9px] text-emerald-800 font-extrabold ml-1 bg-emerald-100 px-1 rounded';
+          statusBadge.innerText = 'RESCHEDULED (Fri 23 Oct)';
+        }
+      }
+
+      // Decrement reschedule counter badge
+      const badgeCount = document.getElementById('badge-reschedule-count');
+      if (badgeCount) badgeCount.classList.add('hidden');
+
+      showToast('✓ Session successfully rescheduled to ' + date + ' (' + time + ')! Multi-party alerts sent to Club & 4 players.');
+    }
+
+    function openRescheduleHubModal() {
+      showToast('Reschedule Hub: 1 weather-cancelled session ready for re-booking');
+      openCoachRescheduleModal('BK-PADEL-101');
+    }
+
+  </script>
 </body>
 </html>
