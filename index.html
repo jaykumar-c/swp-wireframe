@@ -2347,24 +2347,15 @@
           }
         }
 
-        // Load iframe source
-        const encodedFile = encodeURI(config.file);
-        if (wireframeFrame.getAttribute('src') !== encodedFile) {
-          wireframeFrame.src = encodedFile;
-        } else if (encodedFile.includes('#')) {
-          try {
-            const h = encodedFile.split('#')[1];
-            if (wireframeFrame.contentWindow) {
-              wireframeFrame.contentWindow.location.hash = '#' + h;
-              if (typeof wireframeFrame.contentWindow.navigateToScreen === 'function') {
-                wireframeFrame.contentWindow.navigateToScreen(h);
-              }
-            }
-          } catch (e) {}
-        }
+        // Load iframe source with automatic cache busting to prevent stale browser cache
+        const baseFile = config.file.split('#')[0].split('?')[0];
+        const hashPart = config.file.includes('#') ? ('#' + config.file.split('#')[1]) : '';
+        const cacheBuster = 't=' + Date.now();
+        const targetUrl = `${encodeURI(baseFile)}?${cacheBuster}${hashPart}`;
+        wireframeFrame.src = targetUrl;
 
         // Set external link
-        openExternalBtn.href = encodedFile;
+        openExternalBtn.href = targetUrl;
       }
 
       // Close Mobile Sidebar if Open
@@ -2447,7 +2438,9 @@
 
     reloadFrameBtn.addEventListener('click', () => {
       if (wireframeFrame.style.display !== 'none') {
-        wireframeFrame.contentWindow.location.reload();
+        const baseSrc = wireframeFrame.src.split('?')[0].split('#')[0];
+        const hashPart = wireframeFrame.src.includes('#') ? ('#' + wireframeFrame.src.split('#')[1]) : '';
+        wireframeFrame.src = `${baseSrc}?t=${Date.now()}${hashPart}`;
       }
     });
 
