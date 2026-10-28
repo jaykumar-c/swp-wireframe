@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShallWe-Play — How the Platform Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#007AFF; --blue-d:#0A4FB5; --blue-l:#E8F2FF;
+  --green:#2E9E4F; --green-l:#E9F7EE;
+  --orange:#E85A2C; --orange-l:#FDEEE8;
+  --navy:#061D42; --ink:#0F1B33; --mut:#5B6B85; --line:#E3E9F2; --bg:#F4F6FA;
+  --font:'Montserrat','Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#050B18;overflow:hidden;font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased;user-select:none}
+/* ---------- stage: fixed 1920x1080 canvas scaled to window ---------- */
+#stage{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center center}
+.slide{position:absolute;inset:0;background:#fff;overflow:hidden;display:none}
+.slide.active{display:block}
+.dark{background:radial-gradient(circle at 80% 20%,#0B3A7E 0%,#061D42 55%,#040F26 100%);color:#fff}
+
+/* ---------- animation ---------- */
+.a{opacity:0;transform:translateY(24px)}
+.slide.active .a{animation:rise .7s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--d,0)*120ms + 80ms)}
+@keyframes rise{to{opacity:1;transform:none}}
+.slide.active .pop{animation:pop .6s cubic-bezier(.3,1.5,.5,1) both;animation-delay:calc(var(--d,0)*120ms + 150ms)}
+@keyframes pop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
+@keyframes dash{to{stroke-dashoffset:-40}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(0,122,255,.5)}100%{box-shadow:0 0 0 22px rgba(0,122,255,0)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+/* ---------- common chrome ---------- */
+.top{position:absolute;left:0;right:0;top:0;height:6px}
+.top.club{background:var(--blue)} .top.player{background:var(--green)} .top.both{background:linear-gradient(90deg,var(--blue),var(--green),var(--orange))}
+.head{position:absolute;left:90px;right:90px;top:50px;display:flex;align-items:flex-start;justify-content:space-between}
+.side{display:inline-flex;align-items:center;gap:10px;padding:9px 18px;border-radius:99px;font-weight:700;font-size:19px;letter-spacing:.06em;text-transform:uppercase}
+.side.club{background:var(--blue-l);color:var(--blue-d)} .side.player{background:var(--green-l);color:#1B7A38} .side.both{background:#EEF1F7;color:var(--navy)}
+.side i{width:10px;height:10px;border-radius:50%;background:currentColor}
+h2{font-size:56px;font-weight:800;line-height:1.1;letter-spacing:-.02em;margin-top:20px;max-width:1100px}
+h2 em{font-style:normal;color:var(--blue)} .player h2 em, h2 em.g{color:var(--green)}
+.sub{font-size:24px;line-height:1.5;color:var(--mut);margin-top:16px;max-width:760px;font-weight:500}
+.brandmark{display:inline-flex;align-items:center;gap:12px;font-family:'Montserrat',sans-serif;font-weight:800;font-size:24px;line-height:1;color:var(--navy);letter-spacing:-.02em;user-select:none;flex:none;margin-top:4px}
+.brandmark img{height:34px;width:auto;display:block;flex:none}
+.brandmark .swp-play{color:var(--blue)}
+.dark .brandmark{color:#fff}
+.dark .brandmark .swp-play{color:#5BA8FF}
+.num{position:absolute;right:90px;bottom:34px;font-size:18px;color:#9AA8C0;font-weight:600}
+
+
+.expert-card:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 30px 70px -15px rgba(0,122,255,.45),0 0 0 2px var(--blue)!important}
+
+/* ---------- frames ---------- */
+.browser{position:relative;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 30px 70px -20px rgba(6,29,66,.35),0 0 0 1px var(--line);cursor:zoom-in}
+.browser .bar{height:34px;background:#EEF2F8;display:flex;align-items:center;gap:8px;padding:0 14px;border-bottom:1px solid var(--line)}
+.browser .bar b{width:11px;height:11px;border-radius:50%;background:#FF6058}.browser .bar b:nth-child(2){background:#FFBD2E}.browser .bar b:nth-child(3){background:#28C840}
+.browser .bar span{margin-left:14px;background:#fff;border-radius:8px;padding:3px 16px;font-size:13px;color:#7A8AA3;font-weight:600}
+.shot{position:relative;aspect-ratio:16/10;overflow:hidden}
+.shot img{width:100%;height:100%;display:block;object-fit:cover;object-position:top;transition:opacity .25s}
+.phone{position:relative;width:300px;aspect-ratio:720/1608;background:#111;border-radius:42px;padding:8px;box-shadow:0 30px 60px -18px rgba(0,0,0,.5),0 0 0 2px #2B2F38;cursor:zoom-in}
+.phone .scr{width:100%;height:100%;border-radius:34px;overflow:hidden;background:#000}
+.phone img{width:100%;height:100%;display:block;object-fit:fill;transition:opacity .25s}
+.phone::before{content:"";position:absolute;top:18px;left:50%;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:#000;z-index:2;box-shadow:0 0 0 1px #2d2d2d}
+
+/* annotations — modern non-disturbing translucent glass tags */
+body.hide-pins .pin{opacity:0!important;pointer-events:none!important}
+.pin{
+  position:absolute;
+  z-index:10;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:4px 12px 4px 5px;
+  border-radius:999px;
+  background:rgba(6, 24, 56, 0.72);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  border:1px solid rgba(255, 255, 255, 0.22);
+  box-shadow:0 4px 16px -2px rgba(6, 29, 66, 0.25), 0 1px 3px rgba(0,0,0,0.1);
+  color:#fff;
+  pointer-events:auto;
+  transform:translate(-50%, -50%);
+  transition:opacity .25s ease, transform .25s ease, background .2s ease;
+  white-space:nowrap;
+  user-select:none;
+}
+.pin:hover{
+  background:rgba(6, 24, 56, 0.9);
+  transform:translate(-50%, -50%) scale(1.04);
+  border-color:rgba(255, 255, 255, 0.45);
+  box-shadow:0 6px 20px -2px rgba(0, 122, 255, 0.35);
+}
+.pin .n{
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  background:var(--blue);
+  color:#fff;
+  font-weight:800;
+  font-size:11px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex:none;
+  box-shadow:0 2px 5px rgba(0, 122, 255, 0.4);
+}
+.pin .t{
+  font-size:13px;
+  font-weight:600;
+  letter-spacing:.01em;
+  color:#F0F4FC;
+  line-height:1;
+}
+.pin.l{flex-direction:row-reverse;padding:4px 5px 4px 12px}
+
+/* tabs */
+.tabs{display:flex;flex-direction:column;gap:12px}
+.tab{display:flex;gap:16px;align-items:center;padding:16px 20px;border:2px solid var(--line);border-radius:16px;background:#fff;cursor:pointer;transition:all .2s}
+.tab:hover{border-color:#BBD6FF}
+.tab .k{width:42px;height:42px;border-radius:12px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:19px;color:var(--mut);flex:none;transition:all .2s}
+.tab strong{display:block;font-size:21px;font-weight:700}
+.tab span{font-size:16px;color:var(--mut);font-weight:500}
+.tab.on{border-color:var(--c,var(--blue));background:var(--cl,var(--blue-l))}
+.tab.on .k{background:var(--c,var(--blue));color:#fff}
+.player .tab{--c:var(--green);--cl:var(--green-l)}
+
+/* cards */
+.card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px}
+.chip{display:inline-block;padding:5px 12px;border-radius:8px;font-size:14px;font-weight:700;background:var(--bg);color:var(--mut)}
+
+/* controls */
+#nav{position:fixed;left:0;right:0;bottom:0;height:52px;background:rgba(6,14,32,.92);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:50;color:#9AA8C0;font-size:13px;font-weight:600;transition:opacity .3s}
+#nav button{font:inherit;background:#16233F;color:#D6DFEF;border:0;border-radius:8px;padding:7px 14px;cursor:pointer}
+#nav button:hover{background:#1F3258}
+#nav .pri{background:var(--blue);color:#fff}
+#prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--blue),var(--green),var(--orange));z-index:60;transition:width .3s}
+body.hide-nav #nav{opacity:0;pointer-events:none}
+#drawer{position:fixed;top:0;right:0;bottom:0;width:380px;background:#0A1530;color:#fff;z-index:80;transform:translateX(100%);transition:transform .3s;padding:24px;overflow:auto}
+#drawer.open{transform:none}
+#drawer h4{font-size:15px;margin-bottom:16px;color:#9AA8C0;text-transform:uppercase;letter-spacing:.08em}
+#drawer div.it{padding:11px 14px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;color:#C6D2E8;display:flex;gap:10px}
+#drawer div.it:hover{background:#16233F} #drawer div.it.on{background:var(--blue);color:#fff}
+#lb{position:fixed;inset:0;background:rgba(3,8,20,.9);z-index:100;display:none;align-items:center;justify-content:center;cursor:zoom-out}
+#lb.open{display:flex} #lb img{max-width:94vw;max-height:92vh;border-radius:12px}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<div id="stage">
+
+<!-- ============ 1. COVER ============ -->
+<section class="slide dark" data-title="Welcome to ShallWe-Play">
+  <img src="assets/club_amstelpark.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.18;mix-blend-mode:luminosity">
+  <div class="top both"></div>
+  <div class="head">
+    <span class="side both" style="background:rgba(255,255,255,.1);color:#cfe1ff">Platform Demo</span>
+    <div class="brandmark"><img src="assets/logo.svg" alt="ShallWe-Play"><span>ShallWe<span class="swp-play">-Play</span></span></div>
+  </div>
+  <div style="position:absolute;left:90px;top:300px;width:900px">
+    <div class="a" style="--d:0;font-size:22px;font-weight:700;color:#7DB7FF;letter-spacing:.1em;text-transform:uppercase">The European Sports Ecosystem Platform</div>
+    <h1 class="a" style="--d:1;font-size:84px;font-weight:800;line-height:1.04;letter-spacing:-.03em;margin-top:24px">One platform.<br><span style="color:#5BA8FF">Clubs and players,</span><br>connected.</h1>
+    <p class="a" style="--d:2;font-size:28px;line-height:1.5;color:#C7D6F0;margin-top:34px;font-weight:500">See how clubs run their facilities and how players find and book them — in one booking ecosystem.</p>
+  </div>
+  <!-- floating mini devices -->
+  <div class="a" style="--d:3;position:absolute;right:70px;top:150px;width:640px;transform:rotate(-3deg)"><div class="browser" style="cursor:default"><div class="bar"><b></b><b></b><b></b><span>Club Portal</span></div><div class="shot"><img src="assets/screenshots/portal_booking_calendar.png" alt=""></div></div></div>
+  <div class="a" style="--d:4;position:absolute;right:120px;top:410px;animation-name:rise,float;animation-duration:.7s,6s;animation-delay:.6s,1.4s;animation-iteration-count:1,infinite"><div class="phone" style="width:290px;cursor:default"><div class="scr"><img src="assets/screenshots/player_home_feed.jpg" alt=""></div></div></div>
+  <div style="position:absolute;left:90px;bottom:70px;font-size:18px;color:#8FA6CC;font-weight:600">Padel · Tennis · Squash · Pickleball · Golf · Skiing &amp; more</div>
+  <div style="position:absolute;right:90px;bottom:70px;font-size:16px;color:#8FA6CC;font-weight:600">Press → to begin</div>
+</section>
+
+<!-- ============ 2. ECOSYSTEM ============ -->
+<section class="slide" data-title="1 · The platform at a glance">
+  <div class="top both"></div>
+  <div class="head">
+    <div><span class="side both"><i></i>Introduction</span><h2 class="a" style="--d:0">One ecosystem, <em>two experiences</em></h2></div>
+    <div class="brandmark"><img src="assets/logo.svg" alt="ShallWe-Play"><span>ShallWe<span class="swp-play">-Play</span></span></div>
+  </div>
+  <!-- three-column diagram -->
+  <div style="position:absolute;left:90px;right:90px;top:330px;display:grid;grid-template-columns:1fr 360px 1fr;gap:0;align-items:center">
+    <div class="card a" style="--d:1;border:3px solid var(--blue);background:linear-gradient(180deg,#fff,var(--blue-l));padding:36px">
+      <span class="side club"><i></i>Clubs &amp; Facilities</span>
+      <h3 style="font-size:36px;font-weight:800;margin:20px 0 8px">Club Portal</h3>
+      <div style="color:var(--mut);font-size:19px;font-weight:600;margin-bottom:22px">Web · any computer or tablet</div>
+      <ul style="list-style:none;font-size:22px;line-height:1.9;font-weight:600">
+        <li>✓ Set up sports, courts &amp; pricing</li><li>✓ Control opening hours</li><li>✓ Manage bookings &amp; memberships</li><li>✓ Track earnings &amp; payouts</li>
+      </ul>
+    </div>
+    <div style="position:relative;height:360px">
+      <div style="position:absolute;left:0;right:0;top:16px;text-align:center;font-size:16px;font-weight:700;color:var(--blue-d);letter-spacing:.02em">Courts, hours &amp; prices</div>
+      <svg viewBox="0 0 360 360" width="360" height="360" style="position:absolute;inset:0;pointer-events:none">
+        <defs>
+          <marker id="ar" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto"><path d="M0,0 L11,5.5 L0,11z" fill="#007AFF"/></marker>
+          <marker id="ag" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto"><path d="M0,0 L11,5.5 L0,11z" fill="#2E9E4F"/></marker>
+        </defs>
+        <path d="M20 58 H340" stroke="#007AFF" stroke-width="5" stroke-dasharray="14 10" fill="none" marker-end="url(#ar)" style="animation:dash 1s linear infinite"/>
+        <path d="M340 282 H20" stroke="#2E9E4F" stroke-width="5" stroke-dasharray="14 10" fill="none" marker-end="url(#ag)" style="animation:dash 1s linear infinite"/>
+      </svg>
+      <div class="pop" style="--d:3;position:absolute;left:50%;top:170px;margin-left:-60px;margin-top:-60px;width:120px;height:120px;border-radius:50%;background:#ffffff;box-shadow:0 16px 40px -8px rgba(6,29,66,.22),0 0 0 1px var(--line);display:flex;align-items:center;justify-content:center">
+        <img src="assets/logo.svg" style="width:64px;height:auto;display:block" alt="ShallWe-Play">
+      </div>
+      <div style="position:absolute;left:0;right:0;top:302px;text-align:center;font-size:16px;font-weight:700;color:#1B7A38;letter-spacing:.02em">Bookings &amp; payments</div>
+    </div>
+    <div class="card a" style="--d:2;border:3px solid var(--green);background:linear-gradient(180deg,#fff,var(--green-l));padding:36px">
+      <span class="side player"><i></i>Players</span>
+      <h3 style="font-size:36px;font-weight:800;margin:20px 0 8px">Player App</h3>
+      <div style="color:var(--mut);font-size:19px;font-weight:600;margin-bottom:22px">Mobile · iOS &amp; Android</div>
+      <ul style="list-style:none;font-size:22px;line-height:1.9;font-weight:600">
+        <li>✓ Discover nearby clubs &amp; activities</li><li>✓ See live availability</li><li>✓ Book, pay &amp; split the bill</li><li>✓ Enter with a digital pass</li>
+      </ul>
+    </div>
+  </div>
+  <div class="a" style="--d:5;position:absolute;left:90px;right:90px;bottom:90px;text-align:center;font-size:26px;font-weight:700;color:var(--navy)">Less hassle. <span style="color:var(--blue)">More play.</span></div>
+</section>
+
+<!-- ============ 3. CLUB: SET UP ============ -->
+<section class="slide club" data-title="2 · Club: Set up sports, courts & pricing">
+  <div class="top club"></div>
+  <div class="head">
+    <div><span class="side club"><i></i>Club Portal</span><h2 class="a" style="--d:0">Set up your sports, courts <em>&amp; pricing</em></h2></div>
+    <div class="brandmark"><img src="assets/logo.svg" alt="ShallWe-Play"><span>ShallWe<span class="swp-play">-Play</span></span></div>
+  </div>
+  <div style="position:absolute;left:90px;top:290px;width:560px">
+    <div class="tabs" id="t-setup"></div>
+    <div class="a" style="--d:4;margin-top:26px;font-size:18px;color:var(--mut);font-weight:600">Settings → Sports Rules · every sport configured separately</div>
+  </div>
+  <div style="position:absolute;left:720px;top:290px;width:1110px">
+    <div class="browser a" style="--d:2" onclick="lb(document.getElementById('i-setup').src)"><div class="bar"><b></b><b></b><b></b><span>Club Portal · Sports Rules</span></div>
+      <div class="shot"><img id="i-setup" src="assets/screenshots/sports_rules_tab1_booking.png" alt="">
+        <div class="pin" id="p-setup"><div class="n">1</div><div class="t"></div></div></div></div>
+  </div>
+  <div class="num">02</div>
+</section>
+
+<!-- ============ 4. CLUB: AVAILABILITY + MEMBERSHIPS ============ -->
+<section class="slide club" data-title="2 · Club: Availability & memberships">
+  <div class="top club"></div>
+  <div class="head">
+    <div><span class="side club"><i></i>Club Portal</span><h2 class="a" style="--d:0">Decide <em>when</em> you open and <em>who</em> plays</h2></div>
+    <div class="brandmark"><img src="assets/logo.svg" alt="ShallWe-Play"><span>ShallWe<span class="swp-play">-Play</span></span></div>
+  </div>
+  <div style="position:absolute;left:90px;right:90px;top:290px;display:grid;grid-template-columns:1fr 1fr;gap:50px">
+    <div class="a" style="--d:1">
+      <div class="browser" onclick="lb('assets/screenshots/portal_availability.png')"><div class="bar"><b></b><b></b><b></b><span>Settings → Availability</span></div>
+        <div class="shot"><img src="assets/screenshots/portal_availability.png" alt="">
+          <div class="pin" style="left:38%;top:20%"><div class="n">1</div><div class="t">Opening hours per day</div></div>
+          <div class="pin" style="left:14%;top:64%"><div class="n">2</div><div class="t">Switch a day on / off</div></div></div></div>
+      <h3 style="font-size:30px;font-weight:800;margin-top:26px">Weekly availability</h3>
+      <p style="font-size:21px;color:var(--mut);line-height:1.5;margin-top:8px;font-weight:500">Set opening and closing times for each day. Players can only book inside the hours you define.</p>
+    </div>
+    <div class="a" style="--d:2">
+      <div class="browser" onclick="lb('assets/screenshots/portal_memberships.png')"><div class="bar"><b></b><b></b><b></b><span>Membership</span></div>
+        <div class="shot"><img src="assets/screenshots/portal_memberships.png" alt="">
+          <div class="pin" style="left:76%;top:11%"><div class="n">1</div><div class="t">Create a package</div></div>
+          <div class="pin" style="left:20%;top:33%"><div class="n">2</div><div class="t">Price, sport &amp; duration</div></div></div></div>
+      <h3 style="font-size:30px;font-weight:800;margin-top:26px">Memberships &amp; packages</h3>
+      <p style="font-size:21px;color:var(--mut);line-height:1.5;margin-top:8px;font-weight:500">Create club packages per sport, choose the duration, and decide whether players can see them.</p>
+    </div>
+  </div>
+  <div class="num">03</div>
+</section>
+
+<!-- ============ 5. CLUB: RUN ============ -->
+<section class="slide club" data-title="2 · Club: Run your day-to-day">
+  <div class="top club"></div>
+  <div class="head">
+    <div><span class="side club"><i></i>Club Portal</span><h2 class="a" style="--d:0">Run the day <em>from one place</em></h2></div>
+    <div class="brandmark"><img src="assets/logo.svg" alt="ShallWe-Play"><span>ShallWe<span class="swp-play">-Play</span></span></div>
+  </div>
+  <div style="position:absolute;left:90px;top:290px;width:560px">
+    <div class="tabs" id="t-run"></div>
+  </div>
+  <div style="position:absolute;left:720px;top:290px;width:1110px">
+    <div class="browser a" style="--d:2" onclick="lb(document.getElementById('i-run').src)"><div class="bar"><b></b><b></b><b></b><span id="u-run">Club Portal</span></div>
+      <div class="shot"><img id="i-run" src="assets/screenshots/portal_booking_calendar.png" alt="">
+        <div class="pin" id="p-run"><div class="n">1</div><div class="t"></div></div></div></div>
+  </div>
+  <div class="num">04</div>
+</section>
+
+<!-- ============ 6. PLAYER: BOOK ============ -->
+<section class="slide player" data-title="3 · Player: Discover, choose & book">
+  <div class="top player"></div>
+  <div class="head">
+    <div><span class="side player"><i></i>Player App</span><h2 class="a" style="--d:0">From “where can I play?” to <em>booked</em> in minutes</h2></div>
+    <div class="brandmark"><img src="assets/logo.svg" alt="ShallWe-Play"><span>ShallWe<span class="swp-play">-Play</span></span></div>
+  </div>
+  <div style="position:absolute;left:90px;right:60px;top:290px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+    <div class="a" style="--d:1;display:flex;gap:24px;align-items:flex-start">
+      <div class="phone" style="width:270px;flex:none" onclick="lb('assets/screenshots/player_home_feed.jpg')"><div class="scr"><img src="assets/screenshots/player_home_feed.jpg" alt=""></div></div>
+      <div style="padding-top:30px"><div style="width:48px;height:48px;border-radius:50%;background:var(--green);color:#fff;font-weight:800;font-size:22px;display:flex;align-items:center;justify-content:center">1</div>
+      <div style="font-size:27px;font-weight:800;margin-top:16px;line-height:1.2">Discover</div><p style="font-size:18px;color:var(--mut);line-height:1.5;margin-top:10px;font-weight:500">Browse clubs and activities near you, with starting prices.</p></div>
+    </div>
+    <div class="a" style="--d:2;display:flex;gap:24px;align-items:flex-start">
+      <div class="phone" style="width:270px;flex:none" onclick="lb('assets/screenshots/player_booking_pass_selection.jpg')"><div class="scr"><img src="assets/screenshots/player_booking_pass_selection.jpg" alt=""></div></div>
+      <div style="padding-top:30px"><div style="width:48px;height:48px;border-radius:50%;background:var(--green);color:#fff;font-weight:800;font-size:22px;display:flex;align-items:center;justify-content:center">2</div>
+      <div style="font-size:27px;font-weight:800;margin-top:16px;line-height:1.2">Choose a slot</div><p style="font-size:18px;color:var(--mut);line-height:1.5;margin-top:10px;font-weight:500">Pick the pass and an available time — live availability.</p></div>
+    </div>
+    <div class="a" style="--d:3;display:flex;gap:24px;align-items:flex-start">
+      <div class="phone" style="width:270px;flex:none" onclick="lb('assets/screenshots/player_payment_summary_split.jpg')"><div class="scr"><img src="assets/screenshots/player_payment_summary_split.jpg" alt=""></div></div>
+      <div style="padding-top:30px"><div style="width:48px;height:48px;border-radius:50%;background:var(--green);color:#fff;font-weight:800;font-size:22px;display:flex;align-items:center;justify-content:center">3</div>
+      <div style="font-size:27px;font-weight:800;margin-top:16px;line-height:1.2">Pay or split</div><p style="font-size:18px;color:var(--mut);line-height:1.5;margin-top:10px;font-weight:500">Pay for everyone, or split the bill with friends.</p></div>
+    </div>
+  </div>
+  <div class="num">05</div>
+</section>
+
+<!-- ============ 7. PLAYER: ON THE DAY ============ -->
+<section class="slide player" data-title="3 · Player: On the day & beyond">
+  <div class="top player"></div>
+  <div class="head">
+    <div><span class="side player"><i></i>Player App</span><h2 class="a" style="--d:0">Show up, scan, play — <em>and stay connected</em></h2></div>
+    <div class="brandmark"><img src="assets/logo.svg" alt="ShallWe-Play"><span>ShallWe<span class="swp-play">-Play</span></span></div>
+  </div>
+  <div style="position:absolute;left:90px;top:300px;width:700px">
+    <div class="tabs" id="t-day"></div>
+  </div>
+  <div style="position:absolute;left:1040px;top:290px;display:flex;gap:50px;align-items:flex-start">
+    <div class="phone a" style="--d:1;width:330px" onclick="lb(document.getElementById('i-day').src)"><div class="scr"><img id="i-day" src="assets/screenshots/player_active_session_pass.jpg" alt=""></div></div>
+    <div class="a" style="--d:2;width:360px;padding-top:40px">
+      <div id="c-day-t" style="font-size:30px;font-weight:800;line-height:1.2"></div>
+      <p id="c-day-d" style="font-size:21px;color:var(--mut);line-height:1.55;margin-top:14px;font-weight:500"></p>
+    </div>
+  </div>
+  <div class="num">06</div>
+</section>
+
+<!-- ============ 8. HOW THEY CONNECT ============ -->
+<section class="slide" data-title="4 · How both sides connect" id="s-connect">
+  <div class="top both"></div>
+  <div class="head">
+    <div><span class="side both"><i></i>The booking loop</span><h2 class="a" style="--d:0">What the club sets up, <em class="g">the player sees</em> — and books</h2></div>
+    <div class="brandmark"><img src="assets/logo.svg" alt="ShallWe-Play"><span>ShallWe<span class="swp-play">-Play</span></span></div>
+  </div>
+
+  <!-- lane labels -->
+  <div class="a" style="--d:1;position:absolute;left:90px;top:300px;width:1740px;height:300px;border-radius:24px;background:var(--blue-l);border:2px solid #BBD6FF"></div>
+  <div class="a" style="--d:1;position:absolute;left:90px;top:640px;width:1740px;height:300px;border-radius:24px;background:var(--green-l);border:2px solid #B5E2C3"></div>
+  <div style="position:absolute;left:112px;top:316px;font-size:18px;font-weight:800;letter-spacing:.08em;color:var(--blue-d)">CLUB PORTAL</div>
+  <div style="position:absolute;left:112px;top:656px;font-size:18px;font-weight:800;letter-spacing:.08em;color:#1B7A38">PLAYER APP</div>
+
+  <!-- step cards: 4 steps, zigzag between lanes -->
+  <div id="loop"></div>
+  <svg id="loop-svg" viewBox="0 0 1920 1080" style="position:absolute;inset:0;pointer-events:none"></svg>
+  <div id="loop-cap" style="position:absolute;left:90px;right:90px;bottom:90px;text-align:center;font-size:23px;font-weight:600;color:var(--mut)">Press <b>Space</b> or click a step to walk through the loop</div>
+  <div class="num">07</div>
+</section>
+
+<!-- ============ 9. VALUE ============ -->
+<section class="slide" data-title="5 · Value for clubs and players">
+  <div class="top both"></div>
+  <div class="head">
+    <div><span class="side both"><i></i>Business value</span><h2 class="a" style="--d:0">Why it works for <em>both sides</em></h2></div>
+    <div class="brandmark"><img src="assets/logo.svg" alt="ShallWe-Play"><span>ShallWe<span class="swp-play">-Play</span></span></div>
+  </div>
+  <div style="position:absolute;left:90px;right:90px;top:300px;display:grid;grid-template-columns:1fr 1fr;gap:50px">
+    <div class="card a" style="--d:1;border-top:8px solid var(--blue);padding:40px">
+      <span class="side club"><i></i>For clubs</span>
+      <div class="vrow"><b>01</b><div><strong>One system to run everything</strong><span>Bookings, availability, memberships and earnings together.</span></div></div>
+      <div class="vrow"><b>02</b><div><strong>Fewer calls, fewer gaps</strong><span>Players book on their own, 24/7, within your rules.</span></div></div>
+      <div class="vrow"><b>03</b><div><strong>Clear view of performance</strong><span>Occupancy, revenue and earnings history at a glance.</span></div></div>
+      <div class="vrow"><b>04</b><div><strong>Reach new players</strong><span>Your facility is discoverable in the player app.</span></div></div>
+    </div>
+    <div class="card a" style="--d:2;border-top:8px solid var(--green);padding:40px">
+      <span class="side player"><i></i>For players</span>
+      <div class="vrow g"><b>01</b><div><strong>Find places to play</strong><span>Discover nearby clubs and activities by sport.</span></div></div>
+      <div class="vrow g"><b>02</b><div><strong>See real availability</strong><span>Choose a slot and know it is yours.</span></div></div>
+      <div class="vrow g"><b>03</b><div><strong>Book and pay in-app</strong><span>Pay for everyone or split the bill with friends.</span></div></div>
+      <div class="vrow g"><b>04</b><div><strong>Walk straight in</strong><span>One digital pass admits the whole group.</span></div></div>
+    </div>
+  </div>
+  <style>
+    .vrow{display:flex;gap:22px;align-items:flex-start;margin-top:34px}
+    .vrow b{flex:none;width:52px;height:52px;border-radius:14px;background:var(--blue-l);color:var(--blue-d);display:flex;align-items:center;justify-content:center;font-size:20px}
+    .vrow.g b{background:var(--green-l);color:#1B7A38}
+    .vrow strong{display:block;font-size:30px;font-weight:700}
+    .vrow span{display:block;font-size:22px;color:var(--mut);margin-top:3px;font-weight:500}
+  </style>
+  <div class="num">08</div>
+</section>
+
+<!-- ============ 10. GET STARTED ============ -->
+<section class="slide dark" data-title="Getting started">
+  <div class="top both"></div>
+  <div class="head">
+    <span class="side both" style="background:rgba(255,255,255,.1);color:#cfe1ff">Next steps</span>
+    <div class="brandmark"><img src="assets/logo.svg" alt="ShallWe-Play"><span>ShallWe<span class="swp-play">-Play</span></span></div>
+  </div>
+  <div style="position:absolute;left:90px;top:230px;width:1000px">
+    <h2 class="a" style="--d:0;font-size:76px;color:#fff">Ready to welcome<br><em style="color:#5BA8FF">more players?</em></h2>
+    <p class="a" style="--d:1;font-size:26px;line-height:1.5;color:#C7D6F0;margin-top:26px;font-weight:500;max-width:820px">Your club can be set up with free onboarding. Here is how getting started works.</p>
+  </div>
+  <div style="position:absolute;left:90px;right:90px;top:560px;display:grid;grid-template-columns:repeat(4,1fr);gap:26px;position:absolute">
+    <div class="a st" style="--d:2"><b>1</b><strong>Book a demo</strong><span>Talk to our team about your facilities and sports.</span></div>
+    <div class="a st" style="--d:3"><b>2</b><strong>Set up your club</strong><span>Profile, sports, courts, pricing and opening hours.</span></div>
+    <div class="a st" style="--d:4"><b>3</b><strong>Go live</strong><span>Your facility appears to players in the app.</span></div>
+    <div class="a st" style="--d:5"><b>4</b><strong>Welcome players</strong><span>Bookings arrive in your portal automatically.</span></div>
+  </div>
+  <style>
+    .st{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:20px;padding:30px;position:relative}
+    .st b{display:flex;width:46px;height:46px;border-radius:50%;background:var(--blue);align-items:center;justify-content:center;font-size:22px;margin-bottom:18px}
+    .st strong{display:block;font-size:26px;font-weight:700}
+    .st span{display:block;font-size:19px;color:#B9C9E4;line-height:1.45;margin-top:8px;font-weight:500}
+  </style>
+  <div class="a" style="--d:6;position:absolute;left:90px;bottom:90px;display:flex;gap:22px;align-items:center">
+    <div style="background:var(--blue);padding:18px 36px;border-radius:99px;font-size:24px;font-weight:700;animation:pulse 2s infinite;cursor:pointer" onclick="window.location.href='mailto:info@shallwe-play.com'">Book a club demo</div>
+    <div onclick="go(10)" style="background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.25);padding:16px 32px;border-radius:99px;font-size:22px;font-weight:700;color:#fff;cursor:pointer;display:flex;align-items:center;gap:12px;transition:all .2s" onmouseover="this.style.background='rgba(255,255,255,.2)';this.style.borderColor='var(--blue)'" onmouseout="this.style.background='rgba(255,255,255,.1)';this.style.borderColor='rgba(255,255,255,.25)'"><span>👥</span> Meet Our Experts <span>→</span></div>
+    <div style="font-size:22px;font-weight:600;color:#DCE8FF">info@shallwe-play.com &nbsp;·&nbsp; shallwe-play.com</div>
+  </div>
+</section>
+
+
+<!-- ============ 11. MEET OUR EXPERTS ============ -->
+<section class="slide dark" data-title="Meet Our Experts &amp; Welcome">
+  <div class="top both"></div>
+  <div class="head">
+    <span class="side both" style="background:rgba(255,255,255,.1);color:#cfe1ff"><i></i>Leadership &amp; Advisory</span>
+    <div class="brandmark"><img src="assets/logo.svg" alt="ShallWe-Play"><span>ShallWe<span class="swp-play">-Play</span></span></div>
+  </div>
+
+  <div style="position:absolute;left:90px;top:150px;right:90px">
+    <div class="a" style="--d:0;font-size:20px;font-weight:700;color:#7DB7FF;letter-spacing:.08em;text-transform:uppercase">ShallWe-Play Team</div>
+    <h2 class="a" style="--d:1;font-size:62px;font-weight:800;color:#fff;margin-top:12px;line-height:1.1">
+      Meet Our <em style="color:#5BA8FF">Experts</em>
+    </h2>
+    <p class="a" style="--d:2;font-size:24px;line-height:1.5;color:#C7D6F0;margin-top:14px;font-weight:500;max-width:1150px">
+      Thank you for hearing us! We are enthusiastically waiting to welcome you as a partner club on the ShallWe-Play network.
+    </p>
+  </div>
+
+  <!-- 3 Expert Cards -->
+  <div style="position:absolute;left:90px;right:90px;top:340px;display:flex;justify-content:center;gap:36px;align-items:center">
+    
+    <!-- Parthesh Dave -->
+    <div class="a expert-card" style="--d:3;width:370px;height:490px;border-radius:24px;overflow:hidden;background:#0d1830;box-shadow:0 24px 60px -15px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.15);cursor:zoom-in;transition:all .3s ease" onclick="lb('assets/meet_our_experts_clean.png')">
+      <img src="assets/expert_parthesh.png" style="width:100%;height:100%;object-fit:cover;display:block" alt="Parthesh Dave - Founder | Product &amp; Partnerships">
+    </div>
+
+    <!-- Joop Damhuis -->
+    <div class="a expert-card" style="--d:4;width:370px;height:490px;border-radius:24px;overflow:hidden;background:#0d1830;box-shadow:0 24px 60px -15px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.15);cursor:zoom-in;transition:all .3s ease" onclick="lb('assets/meet_our_experts_clean.png')">
+      <img src="assets/expert_joop.png" style="width:100%;height:100%;object-fit:cover;display:block" alt="Joop Damhuis - Partner | Sales &amp; Marketing">
+    </div>
+
+    <!-- Sastry Bhamidi -->
+    <div class="a expert-card" style="--d:5;width:370px;height:490px;border-radius:24px;overflow:hidden;background:#0d1830;box-shadow:0 24px 60px -15px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.15);cursor:zoom-in;transition:all .3s ease" onclick="lb('assets/meet_our_experts_clean.png')">
+      <img src="assets/expert_sastry.png" style="width:100%;height:100%;object-fit:cover;display:block" alt="Sastry Bhamidi - Partner | Legal &amp; Finance">
+    </div>
+
+  </div>
+
+  <!-- Bottom CTA & Greeting -->
+  <div class="a" style="--d:6;position:absolute;left:90px;right:90px;bottom:70px;display:flex;justify-content:space-between;align-items:center">
+    <div style="display:flex;align-items:center;gap:24px">
+      <div style="background:var(--blue);padding:18px 36px;border-radius:99px;font-size:24px;font-weight:700;color:#fff;animation:pulse 2s infinite;cursor:pointer" onclick="window.location.href='mailto:info@shallwe-play.com'">Book a club demo</div>
+      <div style="font-size:22px;font-weight:600;color:#DCE8FF">info@shallwe-play.com &nbsp;·&nbsp; Amsterdam, The Netherlands</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px">
+      <button onclick="go(9)" style="font:inherit;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#cfe1ff;border-radius:8px;padding:9px 18px;font-size:16px;font-weight:600;cursor:pointer;transition:all .2s" onmouseover="this.style.background='rgba(255,255,255,.2)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">← Back to Next Steps</button>
+      <div style="font-size:16px;color:#8FA6CC;font-weight:600">Available across EU sports venues</div>
+    </div>
+  </div>
+  <div class="num">11</div>
+</section>
+
+</div><!-- /stage -->
+
+<div id="nav">
+  <span id="ctr">1 / 10</span>
+  <span id="ttl" style="color:#D6DFEF"></span>
+  <span style="display:flex;gap:8px;align-items:center">
+    <button onclick="toggleDrawer()">☰ Overview (O)</button>
+    <button id="btn-pin" onclick="togglePins()" title="Toggle annotations (T)">🏷️ Tags (T)</button>
+    <button onclick="prev()">← Prev</button>
+    <button class="pri" onclick="next()">Next →</button>
+    <button onclick="fs()">⛶ Fullscreen (F)</button>
+  </span>
+</div>
+<div id="drawer"><h4>Presentation outline</h4><div id="dl"></div></div>
+<div id="lb" onclick="this.classList.remove('open')"><img id="lbi" alt=""></div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+let cur=0;
+const stage=document.getElementById('stage');
+function fit(){const nh=document.body.classList.contains('hide-nav')?0:52;const s=Math.min(innerWidth/1920,(innerHeight-nh)/1080);stage.style.transform=`translate(-50%,-50%) scale(${s})`;stage.style.top=`calc(50% - ${nh/2}px)`}
+addEventListener('resize',fit);
+
+/* ---------- tab groups ---------- */
+const GROUPS={
+ setup:{el:'t-setup',img:'i-setup',pin:'p-setup',items:[
+  {k:1,t:'Booking rules',s:'Slot length, advance booking, peak times',img:'sports_rules_tab1_booking.png',pin:['Booking block duration per sport',54,46,'']},
+  {k:2,t:'Pricing & cancellation',s:'Base, peak, weekend and member rates',img:'sports_rules_tab2_pricing.png',pin:['Member vs. non-member rates',38,50,'']},
+  {k:3,t:'Courts & assets',s:'Each court with its sport, rate and slot sizes',img:'sports_rules_tab3_assets.png',pin:['Slots offered: 30 or 60 min',32,72,'']},
+  {k:4,t:'Equipment',s:'Rent or sell gear on top of the booking',img:'sports_rules_tab4_equipment.png',pin:['Quantity & price per item',20,32,'']}]},
+ run:{el:'t-run',img:'i-run',pin:'p-run',url:'u-run',items:[
+  {k:1,t:'Booking calendar',s:'Every court, every day — available, reserved, blocked',img:'portal_booking_calendar.png',url:'Club Portal · Booking',pin:['Pick a day · List or Calendar view',70,13,'']},
+  {k:2,t:'Dashboard',s:'Occupancy, active courts and monthly revenue',img:'portal_dashboard.png',url:'Club Portal · Dashboard',pin:['Live occupancy & revenue',72,38,'']},
+  {k:3,t:'Earnings & payouts',s:'Every booking, payment method and status',img:'portal_finance.png',url:'Club Portal · Finance',pin:['Earning history · export to CSV',45,37,'']}]},
+ day:{el:'t-day',img:'i-day',cap:true,items:[
+  {k:1,t:'Entry pass',s:'One QR for the whole group, with live timer',img:'player_active_session_pass.jpg',ct:'One pass admits everyone',cd:'The booking becomes a combined entry pass with a QR code and a live session timer for all attendees.'},
+  {k:2,t:'Scan to check in',s:'Quick QR scan at the venue',img:'player_scan_qr_code.jpg',ct:'Check-in in seconds',cd:'Staff or access points scan the pass, so the club knows who has arrived.'},
+  {k:3,t:'My bookings',s:'Upcoming bookings in one list',img:'player_upcoming_bookings.jpg',ct:'Every booking in one place',cd:'Players see upcoming bookings with date, time and club, and open details with one tap.'},
+  {k:4,t:'Memberships',s:'Club membership right in the app',img:'player_my_membership.jpg',ct:'Memberships in the wallet',cd:'Active memberships show start date, expiry and club rules for the player.'},
+  {k:5,t:'Community',s:'Activity feed and clubs coming soon',img:'player_social_feed_community.jpg',ct:'More than booking',cd:'Players share activity and follow clubs that are joining the platform.'}]}
+};
+function buildTabs(){
+  for(const [g,G] of Object.entries(GROUPS)){
+    const host=document.getElementById(G.el);
+    G.items.forEach((it,i)=>{
+      const d=document.createElement('div');d.className='tab a'+(i?'':' on');d.style.setProperty('--d',i+1);
+      d.innerHTML=`<div class="k">${it.k}</div><div><strong>${it.t}</strong><span>${it.s}</span></div>`;
+      d.onclick=()=>pick(g,i);host.appendChild(d)});
+    G.i=0;
+  }
+  pick('setup',0);pick('run',0);pick('day',0);
+}
+function pick(g,i){
+  const G=GROUPS[g],it=G.items[i];G.i=i;
+  document.querySelectorAll('#'+G.el+' .tab').forEach((t,j)=>t.classList.toggle('on',j===i));
+  const img=document.getElementById(G.img);img.style.opacity=.2;
+  setTimeout(()=>{img.src='assets/screenshots/'+it.img;img.style.opacity=1},120);
+  if(G.url)document.getElementById(G.url).textContent=it.url;
+  if(G.pin){const p=document.getElementById(G.pin);p.style.left=it.pin[1]+'%';p.style.top=it.pin[2]+'%';p.querySelector('.t').textContent=it.pin[0];p.querySelector('.n').textContent=it.k;
+    p.classList.toggle('l',it.pin[1]>65)}
+  if(G.cap){document.getElementById('c-day-t').textContent=it.ct;document.getElementById('c-day-d').textContent=it.cd}
+}
+
+/* ---------- connection loop (slide 8) ---------- */
+const LOOP=[
+ {lane:'c',x:230,t:'Club configures',d:'Sports, courts, prices & opening hours',img:'sports_rules_tab3_assets.png',kind:'b'},
+ {lane:'p',x:620,t:'Player discovers',d:'Club and open slots appear in the app',img:'player_home_feed.jpg',kind:'p'},
+ {lane:'p',x:1010,t:'Player books & pays',d:'Slot is chosen, paid and confirmed',img:'player_payment_summary_split.jpg',kind:'p'},
+ {lane:'c',x:1400,t:'Club sees the booking',d:'It appears on the calendar and in earnings',img:'portal_finance.png',kind:'b'}];
+let loopStep=-1;
+function buildLoop(){
+  const host=document.getElementById('loop');
+  LOOP.forEach((s,i)=>{
+    const top=s.lane==='c'?350:690;
+    const d=document.createElement('div');d.className='lp';d.id='lp'+i;
+    d.style.cssText=`position:absolute;left:${s.x}px;top:${top}px;width:340px;height:230px;background:#fff;border-radius:18px;padding:18px 20px;box-shadow:0 14px 34px -12px rgba(6,29,66,.3);border:3px solid transparent;opacity:.45;transform:scale(.96);transition:all .5s cubic-bezier(.2,.8,.2,1);cursor:pointer`;
+    const thumb=s.kind==='p'
+      ?`<div style="position:absolute;right:16px;top:16px;width:76px;height:170px;border-radius:12px;overflow:hidden;background:#000;box-shadow:0 0 0 3px #111"><img src="assets/screenshots/${s.img}" style="width:100%;height:100%;object-fit:fill"></div>`
+      :`<div style="position:absolute;right:16px;top:16px;width:132px;height:83px;border-radius:8px;overflow:hidden;box-shadow:0 0 0 1px var(--line)"><img src="assets/screenshots/${s.img}" style="width:100%;height:100%;object-fit:cover;object-position:top"></div>`;
+    d.innerHTML=`<div style="width:44px;height:44px;border-radius:50%;background:${s.lane==='c'?'var(--blue)':'var(--green)'};color:#fff;font-weight:800;font-size:21px;display:flex;align-items:center;justify-content:center">${i+1}</div>${thumb}
+      <div style="font-size:24px;font-weight:800;margin-top:${s.kind==='p'?36:46}px;width:${s.kind==='p'?220:300}px;line-height:1.15">${s.t}</div>
+      <div style="font-size:16px;color:var(--mut);font-weight:600;margin-top:8px;width:${s.kind==='p'?220:300}px;line-height:1.4">${s.d}</div>`;
+    d.onclick=()=>setLoop(i);host.appendChild(d);
+  });
+  // arrows
+  const svg=document.getElementById('loop-svg');
+  const pts=LOOP.map(s=>({x:s.x,y:s.lane==='c'?350:690}));
+  let h='<defs><marker id="lm" markerUnits="userSpaceOnUse" markerWidth="22" markerHeight="22" refX="16" refY="11" orient="auto"><path d="M0,0 L22,11 L0,22z" fill="#0F1B33"/></marker></defs>';
+  for(let i=0;i<3;i++){
+    const a=pts[i],b=pts[i+1],down=b.y>a.y,up=b.y<a.y;
+    let x1=a.x+340,y1=a.y+115,x2=b.x,y2=b.y+115;
+    if(i===0){y1=a.y+230;x1=a.x+170+60;x2=b.x+40;y2=b.y;h+=`<path id="ar${i}" d="M${x1} ${y1} C ${x1} ${y1+60}, ${x2} ${y2-60}, ${x2} ${y2}" class="la"/>`}
+    else if(i===1){h+=`<path id="ar${i}" d="M${x1} ${y1} H${x2}" class="la"/>`}
+    else{x1=a.x+170;y1=a.y;x2=b.x+170-30;y2=b.y+230;h+=`<path id="ar${i}" d="M${x1} ${y1} C ${x1} ${y1-60}, ${x2} ${y2+60}, ${x2} ${y2}" class="la"/>`}
+  }
+  svg.innerHTML=h;
+}
+const st=document.createElement('style');st.textContent=`.la{fill:none;stroke:#9FB0CC;stroke-width:5;stroke-dasharray:14 10;marker-end:url(#lm);opacity:.35;transition:all .4s}.la.on{stroke:#0F1B33;opacity:1;animation:dash 1s linear infinite}.lp.on{opacity:1!important;transform:scale(1.03)!important;border-color:var(--orange)!important}.lp.done{opacity:.9!important;transform:scale(1)!important}`;document.head.appendChild(st);
+const CAPS=['Press Space or click a step to walk through the loop','The club defines sports, courts, rates and opening hours in the portal.','Players find the club in the app, filter by sport and see open slots.','The player picks a slot, pays for everyone or splits the bill, and the booking is confirmed.','The booking shows up for the club — in the calendar and in earnings.'];
+function setLoop(i){
+  loopStep=i;
+  LOOP.forEach((_,k)=>{const e=document.getElementById('lp'+k);e.classList.toggle('on',k===i);e.classList.toggle('done',k<i)});
+  for(let k=0;k<3;k++)document.getElementById('ar'+k).classList.toggle('on',k<i);
+  document.getElementById('loop-cap').textContent=CAPS[i+1];document.getElementById('loop-cap').style.color=i>=0?'#0F1B33':'';
+}
+function loopReset(){LOOP.forEach((_,k)=>{const e=document.getElementById('lp'+k);e.classList.remove('on','done')});for(let k=0;k<3;k++)document.getElementById('ar'+k).classList.remove('on');loopStep=-1;document.getElementById('loop-cap').textContent=CAPS[0];document.getElementById('loop-cap').style.color=''}
+
+/* ---------- nav ---------- */
+function go(n,silent){
+  cur=Math.max(0,Math.min(slides.length-1,n));
+  slides.forEach((s,i)=>s.classList.toggle('active',i===cur));
+  document.getElementById('ctr').textContent=`${cur+1} / ${slides.length}`;
+  document.getElementById('ttl').textContent=slides[cur].dataset.title;
+  document.getElementById('prog').style.width=((cur+1)/slides.length*100)+'%';
+  document.querySelectorAll('#dl .it').forEach((e,i)=>e.classList.toggle('on',i===cur));
+  if(slides[cur].id==='s-connect'){loopReset();setTimeout(()=>{if(slides[cur].id==='s-connect'&&loopStep<0)setLoop(0)},900)}
+  history.replaceState(null,'','#'+(cur+1));
+}
+function inLoop(){return slides[cur].id==='s-connect'&&loopStep<LOOP.length-1}
+function next(){if(inLoop()){setLoop(loopStep+1)}else go(cur+1)}
+function prev(){if(slides[cur].id==='s-connect'&&loopStep>0){setLoop(loopStep-1)}else go(cur-1)}
+function toggleDrawer(){document.getElementById('drawer').classList.toggle('open')}
+function togglePins(){
+  document.body.classList.toggle('hide-pins');
+  const hidden=document.body.classList.contains('hide-pins');
+  const b=document.getElementById('btn-pin');
+  if(b){b.style.opacity=hidden?'.45':'1';b.style.background=hidden?'transparent':'#16233F'}
+}
+function fs(){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen().catch(()=>{})}
+function lb(src){document.getElementById('lbi').src=src;document.getElementById('lb').classList.add('open')}
+addEventListener('keydown',e=>{
+  if(e.key==='Escape'){document.getElementById('lb').classList.remove('open');document.getElementById('drawer').classList.remove('open');return}
+  if(['ArrowRight',' ','PageDown'].includes(e.key)){e.preventDefault();next()}
+  else if(['ArrowLeft','PageUp','Backspace'].includes(e.key)){e.preventDefault();prev()}
+  else if(e.key==='Home')go(0);else if(e.key==='End')go(slides.length-1);
+  else if(/^[fF]$/.test(e.key))fs();else if(/^[oO]$/.test(e.key))toggleDrawer();
+  else if(/^[tT]$/.test(e.key))togglePins();
+  else if(/^[hH]$/.test(e.key)){document.body.classList.toggle('hide-nav');fit()}
+  else if(/^[1-9]$/.test(e.key)){const m=slides[cur].querySelector('.tabs');if(m){const id=m.id.slice(2);const i=+e.key-1;if(GROUPS[id].items[i])pick(id,i)}}
+});
+document.getElementById('dl').innerHTML=slides.map((s,i)=>`<div class="it" onclick="go(${i});toggleDrawer()"><span style="opacity:.5">${i+1}</span>${s.dataset.title}</div>`).join('');
+buildTabs();buildLoop();fit();
+go((parseInt(location.hash.slice(1))||1)-1);
+</script>
+</body>
+</html>
