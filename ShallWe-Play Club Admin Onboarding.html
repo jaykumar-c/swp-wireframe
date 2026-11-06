@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShallWe-Play — Club Admin Onboarding</title>
+  
+  <!-- Google Fonts: Poppins & Nunito -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      /* ShallWe-Play & Zignuts Brand Palette */
+      --swp-blue: #0D6EFD;
+      --swp-bright-blue: #1490FE;
+      --swp-navy: #061D42;
+      --swp-dark-navy: #0E1324;
+      --swp-ice-blue: #DBEEFF;
+      --swp-sky: #EDF5FF;
+      --swp-green: #00C758;
+      --swp-green-bg: #E5FFE9;
+      --swp-amber: #EEC643;
+      --swp-amber-bg: #FFF9E6;
+      --swp-crimson: #FB2C36;
+      --swp-crimson-bg: #FFE9E5;
+
+      /* Neutrals & Surfaces */
+      --bg-canvas: #F4F7FC;
+      --bg-card: #FFFFFF;
+      --border-subtle: #E2E8F0;
+      --border-slate: #CBD5E1;
+      --text-main: #0F172A;
+      --text-muted: #475569;
+      --text-light: #64748B;
+
+      /* Typography */
+      --font-heading: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-body: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+      /* Gradients & Shadows */
+      --grad-hero: linear-gradient(135deg, #061D42 0%, #0D6EFD 100%);
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 6px 18px rgba(13,110,253,0.08), 0 2px 6px rgba(0,0,0,0.04);
+      --shadow-lg: 0 14px 30px -4px rgba(6,29,66,0.15);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--text-main);
+      background-color: var(--bg-canvas);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header */
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--swp-navy);
+      color: #FFFFFF;
+      padding: 12px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 3px solid transparent;
+      border-image: linear-gradient(90deg, #007AFF 0%, #228B22 50%, #E63900 100%) 1;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-logo-container {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      transition: opacity 0.2s ease;
+    }
+    .brand-logo-container:hover {
+      opacity: 0.92;
+    }
+
+    .brand-logo-img {
+      height: 38px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+      display: block;
+    }
+
+    .brand-logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+
+    .brand-title {
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: -0.5px;
+      color: #FFFFFF;
+    }
+    .brand-title span { color: var(--swp-bright-blue); }
+
+    .brand-subtitle {
+      font-family: var(--font-body);
+      font-size: 9.5px;
+      font-weight: 600;
+      color: #A0C0E8;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+    }
+
+    .brand-pill {
+      font-family: var(--font-heading);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #DBEEFF;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-pilot {
+      background: rgba(0, 199, 88, 0.2);
+      color: #00C758;
+      border-color: #00C758;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-header {
+      font-family: var(--font-heading);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--swp-blue);
+      color: #FFFFFF;
+      border: 1px solid var(--swp-bright-blue);
+    }
+    .btn-primary:hover { background: #0b5ed7; transform: translateY(-1px); }
+
+    .btn-outline {
+      background: transparent;
+      color: #FFFFFF;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); }
+
+    /* Main Container */
+    .container {
+      max-width: 1040px;
+      margin: 36px auto;
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    /* Hero Banner */
+    .hero-card {
+      background: var(--grad-hero);
+      color: #FFFFFF;
+      border-radius: 16px;
+      padding: 38px 42px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle, rgba(20,144,254,0.35) 0%, rgba(20,144,254,0) 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      font-family: var(--font-heading);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #DBEEFF;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: 30px;
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 12px;
+      color: #FFFFFF;
+    }
+
+    .hero-desc {
+      font-size: 15.5px;
+      line-height: 1.6;
+      color: #E2E8F0;
+      max-width: 840px;
+    }
+
+    .hero-incentives {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-top: 24px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .incentive-box {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      padding: 14px 18px;
+    }
+
+    .incentive-val {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 800;
+      color: #FFFFFF;
+      margin-bottom: 2px;
+    }
+
+    .incentive-label {
+      font-size: 12px;
+      color: #CBD5E1;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Workflow Cards */
+    .step-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 34px 38px;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .step-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .step-num {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--swp-blue);
+      color: #FFFFFF;
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 8px rgba(13,110,253,0.25);
+      flex-shrink: 0;
+    }
+
+    .step-title {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--swp-navy);
+    }
+
+    .step-sub {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .route-badge {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      background: #F1F5F9;
+      color: var(--swp-navy);
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-slate);
+      font-weight: 600;
+    }
+
+    /* Action Checklist */
+    .action-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .action-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: #F8FAFC;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 14px 18px;
+    }
+
+    .action-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--swp-navy);
+      color: #FFFFFF;
+      font-size: 11px;
+      font-weight: 700;
+      font-family: var(--font-heading);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .action-text {
+      flex: 1;
+      font-size: 14.5px;
+    }
+
+    .action-text strong {
+      font-family: var(--font-heading);
+      color: var(--swp-navy);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    /* Screenshots */
+    .screenshot-box {
+      margin: 20px 0 10px;
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      background: #0E1324;
+    }
+
+    .screenshot-bar {
+      background: #1E293B;
+      padding: 9px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #334155;
+    }
+
+    .screenshot-bar span {
+      font-family: var(--font-heading);
+      font-size: 12px;
+      font-weight: 600;
+      color: #E2E8F0;
+    }
+
+    .screenshot-dots {
+      display: flex;
+      gap: 5px;
+    }
+    .dot { width: 9px; height: 9px; border-radius: 50%; }
+    .dot-red { background: #EF4444; }
+    .dot-yellow { background: #F59E0B; }
+    .dot-green { background: #10B981; }
+
+    .screenshot-img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .screenshot-caption {
+      background: #F8FAFC;
+      padding: 9px 16px;
+      font-size: 12px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-subtle);
+      font-style: italic;
+    }
+
+    /* Callouts */
+    .callout {
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin: 18px 0;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .callout-info {
+      background: var(--swp-ice-blue);
+      border-left: 4px solid var(--swp-blue);
+      color: #0654C4;
+    }
+
+    .callout-warning {
+      background: var(--swp-amber-bg);
+      border-left: 4px solid var(--swp-amber);
+      color: #946800;
+    }
+
+    .callout-success {
+      background: var(--swp-green-bg);
+      border-left: 4px solid var(--swp-green);
+      color: #008736;
+    }
+
+    .callout-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      line-height: 1;
+      margin-top: 2px;
+    }
+
+    /* 3-Card Verification Grid */
+    .verif-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    .verif-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 22px 18px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .verif-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--swp-ice-blue);
+      color: var(--swp-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .verif-title {
+      font-family: var(--font-heading);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--swp-navy);
+    }
+
+    .verif-desc {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .status-pill {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-family: var(--font-heading);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      background: #FFF9E6;
+      color: #946800;
+      border: 1px solid #EEC643;
+    }
+
+    /* Field Reference Table */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 18px 0;
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      text-align: left;
+    }
+
+    thead {
+      background: #F1F5F9;
+      border-bottom: 2px solid var(--border-slate);
+    }
+
+    th {
+      font-family: var(--font-heading);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--swp-navy);
+      padding: 12px 16px;
+    }
+
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      vertical-align: middle;
+    }
+
+    tbody tr:hover { background: #F8FAFC; }
+
+    .badge-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 600;
+      background: var(--swp-ice-blue);
+      color: var(--swp-blue);
+    }
+
+    /* Contact Footer */
+    .contact-box {
+      background: linear-gradient(135deg, #061D42 0%, #0E1324 100%);
+      color: #FFFFFF;
+      border-radius: 14px;
+      padding: 30px 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .contact-box h3 {
+      font-family: var(--font-heading);
+      font-size: 19px;
+      margin-bottom: 6px;
+      color: #FFFFFF;
+    }
+
+    .contact-box p {
+      font-size: 13.5px;
+      color: #CBD5E1;
+      max-width: 600px;
+    }
+
+    @media (max-width: 768px) {
+      .verif-grid { grid-template-columns: 1fr; }
+      .contact-box { flex-direction: column; align-items: flex-start; }
+      .app-header { padding: 12px 20px; }
+      .container { padding: 0 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="app-header">
+    <div class="brand-wrap">
+      <a href="https://app.shallwe-play.com" class="brand-logo-container" target="_blank" title="ShallWe-Play Platform">
+        <img src="boxing_guide_assets/swp_logo.png" alt="ShallWe-Play" class="brand-logo-img" />
+        <div class="brand-logo-text">
+          <div class="brand-title">ShallWe<span>-Play</span></div>
+          <div class="brand-subtitle">Sports Venue Platform</div>
+        </div>
+      </a>
+      <div class="brand-pill">Club Admin Onboarding</div>
+      <div class="brand-pill badge-pilot">Boxing Club Estonia</div>
+    </div>
+    <div class="header-actions">
+      <button class="btn-header btn-outline" onclick="window.print()">
+        <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/><path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/></svg>
+        Save / Print PDF
+      </button>
+      <a href="https://app.shallwe-play.com/signup/" target="_blank" class="btn-header btn-primary">
+        Open Signup Portal &rarr;
+      </a>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Hero Card -->
+    <section class="hero-card">
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+        <div class="hero-tag" style="margin-bottom: 0;">&#10024; Official Client Onboarding Guide &bull; Estonia Pilot</div>
+        <div style="display: inline-flex; align-items: center; gap: 8px; font-size: 11.5px; color: #DBEEFF; background: rgba(255,255,255,0.08); padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.18);">
+          <img src="boxing_guide_assets/swp_logo.png" alt="SWP" style="height: 16px; width: auto;" />
+          <span>ShallWe-Play B.V. &bull; Official Partner</span>
+        </div>
+      </div>
+      <h1 class="hero-title">Welcome to ShallWe-Play, Kristina!</h1>
+      <p class="hero-desc">
+        We are thrilled to welcome your new boxing club in Estonia to ShallWe-Play! This clean, step-by-step visual guide walks you through the entire onboarding process on <strong>https://app.shallwe-play.com/signup/</strong> &mdash; from initial registration, uploading your club badge, selecting boxing, to completing the 3-step verification gate and pricing plan.
+      </p>
+
+      <div class="hero-incentives">
+        <div class="incentive-box">
+          <div class="incentive-val">6 Months Free</div>
+          <div class="incentive-label">100% Platform Access Exemption</div>
+        </div>
+        <div class="incentive-box">
+          <div class="incentive-val">Joop Dhamuis</div>
+          <div class="incentive-label">Account Manager at ShallWe-Play</div>
+        </div>
+        <div class="incentive-box">
+          <div class="incentive-val">Tallinn, Estonia</div>
+          <div class="incentive-label">EET Timezone & Euro (&euro;) Setup</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 1: Initial Registration -->
+    <section class="step-card">
+      <div class="step-header">
+        <div class="step-title-wrap">
+          <div class="step-num">1</div>
+          <div>
+            <h2 class="step-title">Step 1: Account Registration</h2>
+            <div class="step-sub">Select the Club tab and set your master administrator credentials</div>
+          </div>
+        </div>
+        <div class="route-badge">https://app.shallwe-play.com/signup/</div>
+      </div>
+
+      <div class="action-list">
+        <div class="action-item">
+          <div class="action-num">1</div>
+          <div class="action-text">
+            <strong>Select the "Club" Tab</strong>
+            Verify that the <strong>Club</strong> tab is active (highlighted in bright blue at the top).
+          </div>
+        </div>
+        <div class="action-item">
+          <div class="action-num">2</div>
+          <div class="action-text">
+            <strong>Enter Your Official Email ID</strong>
+            Input your official club email address (e.g. <code>kristina@yourboxingclub.ee</code>).
+          </div>
+        </div>
+        <div class="action-item">
+          <div class="action-num">3</div>
+          <div class="action-text">
+            <strong>Set &amp; Confirm Master Password</strong>
+            Choose a strong password (minimum 8 characters, with letters, numbers, and symbols).
+          </div>
+        </div>
+        <div class="action-item">
+          <div class="action-num">4</div>
+          <div class="action-text">
+            <strong>Accept Terms &amp; Click "Create Account"</strong>
+            Tick the agreement checkbox and click the blue <strong>"Create Account"</strong> button.
+          </div>
+        </div>
+      </div>
+
+      <div class="screenshot-box">
+        <div class="screenshot-bar">
+          <span>Figure 1: Live Club Signup Form with Credentials Entered</span>
+          <div class="screenshot-dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+        </div>
+        <img src="boxing_guide_assets/client_step1_registration.png" alt="Step 1 Registration Screen" class="screenshot-img" />
+        <div class="screenshot-caption">Screenshot from live application showing the Club registration form</div>
+      </div>
+    </section>
+
+    <!-- Step 2: Cookie Consent & About the Club -->
+    <section class="step-card">
+      <div class="step-header">
+        <div class="step-title-wrap">
+          <div class="step-num">2</div>
+          <div>
+            <h2 class="step-title">Step 2: Cookie Consent &amp; "About the Club"</h2>
+            <div class="step-sub">Confirm privacy preferences, upload club logo, and enter club contact details</div>
+          </div>
+        </div>
+        <div class="route-badge">/onboarding/ &rarr; Step 1 / 2 About</div>
+      </div>
+
+      <div class="action-list">
+        <div class="action-item">
+          <div class="action-num">1</div>
+          <div class="action-text">
+            <strong>Submit Cookie &amp; Privacy Preferences Popup</strong>
+            A standard GDPR privacy modal appears. Simply click the blue <strong>"SUBMIT"</strong> button.
+          </div>
+        </div>
+        <div class="action-item">
+          <div class="action-num">2</div>
+          <div class="action-text">
+            <strong>Upload Company Logo</strong>
+            Click on the logo box to upload your high-resolution boxing club logo or crest.
+          </div>
+        </div>
+        <div class="action-item">
+          <div class="action-num">3</div>
+          <div class="action-text">
+            <strong>Enter Club Name &amp; Website</strong>
+            Type your official Club Name (e.g. <code>Kristina Boxing Club Tallinn</code>) and website URL, then click the blue <strong>"Next"</strong> button.
+          </div>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 18px 0;">
+        <div class="screenshot-box" style="margin: 0;">
+          <div class="screenshot-bar">
+            <span>Cookie &amp; Privacy Popup</span>
+            <div class="screenshot-dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          </div>
+          <img src="boxing_guide_assets/client_step2_cookie_modal.png" alt="Cookie Preferences Modal" class="screenshot-img" />
+        </div>
+        <div class="screenshot-box" style="margin: 0;">
+          <div class="screenshot-bar">
+            <span>Step 1/2: About the Club</span>
+            <div class="screenshot-dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          </div>
+          <img src="boxing_guide_assets/client_step2_about_club.png" alt="About the Club Form" class="screenshot-img" />
+        </div>
+      </div>
+      <div class="screenshot-caption" style="margin-top: 6px;">Figure 2: Cookie compliance submission followed by Club logo, name, and website entry</div>
+    </section>
+
+    <!-- Step 3: Select Sports Offered -->
+    <section class="step-card">
+      <div class="step-header">
+        <div class="step-title-wrap">
+          <div class="step-num">3</div>
+          <div>
+            <h2 class="step-title">Step 3: Select Sports Offered (Choose Boxing)</h2>
+            <div class="step-sub">Select Boxing from the sports catalog and commit initial setup</div>
+          </div>
+        </div>
+        <div class="route-badge">/onboarding/ &rarr; Step 2 / 2 Sports</div>
+      </div>
+
+      <div class="action-list">
+        <div class="action-item">
+          <div class="action-num">1</div>
+          <div class="action-text">
+            <strong>Select "Boxing" Tag</strong>
+            Click the <strong>Boxing</strong> badge in the sports grid (it will highlight in bright blue). If your venue also offers fitness, combat conditioning, or Hyrox/CrossFit, you may select those as well.
+          </div>
+        </div>
+        <div class="action-item">
+          <div class="action-num">2</div>
+          <div class="action-text">
+            <strong>Click "Complete Setup"</strong>
+            Click the blue button at the bottom labeled <strong>"Complete Setup"</strong>.
+          </div>
+        </div>
+      </div>
+
+      <div class="screenshot-box">
+        <div class="screenshot-bar">
+          <span>Figure 3: Sports Catalog with Boxing Selected</span>
+          <div class="screenshot-dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+        </div>
+        <img src="boxing_guide_assets/client_step3_sports_offered.png" alt="Sports Offered Screen" class="screenshot-img" />
+        <div class="screenshot-caption">Figure 3: Select Boxing and click Complete Setup</div>
+      </div>
+    </section>
+
+    <!-- Step 4: The 3-Step Verification Gate -->
+    <section class="step-card">
+      <div class="step-header">
+        <div class="step-title-wrap">
+          <div class="step-num">4</div>
+          <div>
+            <h2 class="step-title">Step 4: The 3-Step Verification Gate</h2>
+            <div class="step-sub">Complete the 3 verification milestones to unlock your live dashboard</div>
+          </div>
+        </div>
+        <div class="route-badge">/home/ &rarr; Complete Your Setup</div>
+      </div>
+
+      <div class="callout callout-warning">
+        <div class="callout-icon">&#128274;</div>
+        <div>
+          <strong>Platform Security Notice:</strong> <em>"All 3 steps must be completed to access your dashboard."</em> This protects your club payouts, validates your Estonian business registration, and binds your bespoke 6-month free pricing plan.
+        </div>
+      </div>
+
+      <div class="screenshot-box">
+        <div class="screenshot-bar">
+          <span>Figure 4: The 3 Verification Milestones on Welcome Screen</span>
+          <div class="screenshot-dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+        </div>
+        <img src="boxing_guide_assets/client_step4_complete_your_setup.png" alt="Complete Your Setup Gate" class="screenshot-img" />
+        <div class="screenshot-caption">Figure 4: The 3 verification cards displayed on the welcome screen</div>
+      </div>
+
+      <!-- 3 Verification Action Details -->
+      <h3 style="font-family: var(--font-heading); font-size: 16px; margin: 24px 0 12px; color: var(--swp-navy);">Milestone Details &amp; Actions:</h3>
+
+      <div class="verif-grid">
+        
+        <!-- Verif 1 -->
+        <div class="verif-card">
+          <div class="verif-icon">&#9989;</div>
+          <div class="verif-title">1. Verify Your Club</div>
+          <div class="status-pill">Pending Account Manager</div>
+          <p class="verif-desc">
+            ShallWe-Play Account Manager <strong>Joop Dhamuis</strong> will review and verify your club profile directly to activate your account.
+          </p>
+        </div>
+
+        <!-- Verif 2 -->
+        <div class="verif-card">
+          <div class="verif-icon">&#128221;</div>
+          <div class="verif-title">2. Registration Code</div>
+          <div class="status-pill">Click "Verify Now"</div>
+          <p class="verif-desc">
+            Click <strong>"Verify Now"</strong> and enter your Estonian Commercial Register Code (<em>&Auml;riregistri kood</em>, 8-digit company code).
+          </p>
+        </div>
+
+        <!-- Verif 3 -->
+        <div class="verif-card">
+          <div class="verif-icon">&#128179;</div>
+          <div class="verif-title">3. Pricing Plan</div>
+          <div class="status-pill">Click "Get Started"</div>
+          <p class="verif-desc">
+            Click <strong>"Get started"</strong> to fill in your asset details or accept the customized proposal set up by Account Manager <strong>Joop Dhamuis</strong> (6 months free platform access).
+          </p>
+        </div>
+
+      </div>
+
+      <div class="callout callout-info" style="margin-top: 16px;">
+        <div class="callout-icon">&#9993;</div>
+        <div>
+          <strong>Account Manager Direct Contact:</strong> You can directly contact your dedicated Account Manager <strong>Joop Dhamuis</strong> at <a href="mailto:info@shallwe-play.com" style="color: var(--swp-blue); font-weight: 700;">info@shallwe-play.com</a> to review your club registration code, activate your 6-month free access proposal, or answer any onboarding questions.
+        </div>
+      </div>
+
+      <!-- Verification Modals -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0;">
+        <div class="screenshot-box" style="margin: 0;">
+          <div class="screenshot-bar">
+            <span>Modal: Verify Registration Number</span>
+            <div class="screenshot-dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          </div>
+          <img src="boxing_guide_assets/client_step4_modal_verify_registration.png" alt="Registration Number Modal" class="screenshot-img" />
+          <div class="screenshot-caption">Enter your Estonian Commercial Register Code (&Auml;riregistri kood)</div>
+        </div>
+
+        <div class="screenshot-box" style="margin: 0;">
+          <div class="screenshot-bar">
+            <span>Modal: Pricing Plan Selection</span>
+            <div class="screenshot-dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          </div>
+          <img src="boxing_guide_assets/client_step4_modal_pricing_plan.png" alt="Pricing Plan Modal" class="screenshot-img" />
+          <div class="screenshot-caption">Choose "Self-onboarding" or review Account Manager custom proposal</div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Step 5: Completing the Pricing Plan Form -->
+    <section class="step-card">
+      <div class="step-header">
+        <div class="step-title-wrap">
+          <div class="step-num">5</div>
+          <div>
+            <h2 class="step-title">Step 5: Completing the Pricing Plan Details (Step 3 of 3)</h2>
+            <div class="step-sub">Input asset count, expected occupancy, payment model, and slot rates</div>
+          </div>
+        </div>
+        <div class="route-badge">/home/ &rarr; STEP 3 OF 3</div>
+      </div>
+
+      <p style="margin-bottom: 16px; color: var(--text-muted);">
+        When selecting <strong>"Self-onboarding &mdash; Fill in my details"</strong>, the portal opens the pricing model calculator. Here is how to complete each field for your boxing club:
+      </p>
+
+      <div class="action-list">
+        <div class="action-item">
+          <div class="action-num">1</div>
+          <div class="action-text">
+            <strong>Exact number of assets (Courts/Fields)</strong>
+            Enter the total number of bookable spaces inside your gym (e.g. <code>6</code> to <code>10</code> for Rings + Heavy Bag rows + Conditioning Studio).
+          </div>
+        </div>
+        <div class="action-item">
+          <div class="action-num">2</div>
+          <div class="action-text">
+            <strong>Expected occupancy</strong>
+            Select from the dropdown: <strong>80% &ndash; 90%</strong> (or Less than 80% / 100%).
+          </div>
+        </div>
+        <div class="action-item">
+          <div class="action-num">3</div>
+          <div class="action-text">
+            <strong>Booking payment type</strong>
+            Choose between <strong>Paid Booking</strong> (all sessions paid via app), <strong>Unpaid Booking</strong> (free access/membership only), or <strong>Hybrid Booking</strong> (mix of paid drop-ins &amp; included membership slots).
+          </div>
+        </div>
+        <div class="action-item">
+          <div class="action-num">4</div>
+          <div class="action-text">
+            <strong>Booking price per slot (&euro;) &amp; Expected daily bookings</strong>
+            Enter your standard slot price in EUR (e.g. <code>&euro; 15.00</code> to <code>&euro; 25.00</code>) and expected daily sessions per asset (e.g. <code>8</code>).
+          </div>
+        </div>
+        <div class="action-item">
+          <div class="action-num">5</div>
+          <div class="action-text">
+            <strong>Hybrid split combination (if Hybrid selected)</strong>
+            Choose the ratio of paid vs. member-unpaid bookings (e.g. <strong>90% Paid &ndash; 10% Unpaid</strong>).
+          </div>
+        </div>
+        <div class="action-item">
+          <div class="action-num">6</div>
+          <div class="action-text">
+            <strong>Click "Submit and Request Proposal"</strong>
+            Click the blue button to submit your pricing structure to the ShallWe-Play operations squad.
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 Screenshots in Carousel/Grid -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 20px 0;">
+        <div class="screenshot-box" style="margin: 0;">
+          <div class="screenshot-bar">
+            <span>1. Expected Occupancy Dropdown</span>
+            <div class="screenshot-dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          </div>
+          <img src="boxing_guide_assets/client_step5_pricing_details_occupancy.png" alt="Occupancy Dropdown" class="screenshot-img" />
+        </div>
+
+        <div class="screenshot-box" style="margin: 0;">
+          <div class="screenshot-bar">
+            <span>2. Booking Payment Type Options</span>
+            <div class="screenshot-dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+          </div>
+          <img src="boxing_guide_assets/client_step5_pricing_details_payment_type.png" alt="Payment Type Dropdown" class="screenshot-img" />
+        </div>
+      </div>
+
+      <div class="screenshot-box" style="margin: 16px 0;">
+        <div class="screenshot-bar">
+          <span>3. Fully Filled Pricing Details & Hybrid Split Combination</span>
+          <div class="screenshot-dots"><span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span></div>
+        </div>
+        <img src="boxing_guide_assets/client_step5_pricing_details_hybrid_filled.png" alt="Fully Filled Pricing Details" class="screenshot-img" />
+        <div class="screenshot-caption">Figure 5: Complete pricing proposal submission with 10 assets, 80-90% occupancy, and 90/10 hybrid split</div>
+      </div>
+
+    </section>
+
+    <!-- What Happens Next Section -->
+    <section class="step-card">
+      <div class="step-header">
+        <div class="step-title-wrap">
+          <div class="step-num" style="background: var(--swp-green);">&#10004;</div>
+          <div>
+            <h2 class="step-title">What Happens Next? (Unlocking Full Dashboard)</h2>
+            <div class="step-sub">Your club is reviewed and your live management portal unlocks</div>
+          </div>
+        </div>
+        <div class="route-badge">NEXT STAGES</div>
+      </div>
+
+      <div class="action-list">
+        <div class="action-item">
+          <div class="action-num">1</div>
+          <div class="action-text">
+            <strong>Account Manager Review & Pricing Activation</strong>
+            Once you click <strong>"Submit and Request Proposal"</strong>, your dedicated Account Manager <strong>Joop Dhamuis</strong> reviews your submission, applies your <strong>6-month free subscription waiver</strong>, and approves your club verification.
+          </div>
+        </div>
+        <div class="action-item">
+          <div class="action-num">2</div>
+          <div class="action-text">
+            <strong>Full Dashboard Unlocks & Facility Setup Continues</strong>
+            Once Joop Dhamuis approves the verification and activates the proposal, the verification gate clears and full dashboard access unlocks:
+            <ul style="margin-top: 6px; padding-left: 20px; font-size: 13.5px; color: var(--text-muted);">
+              <li><code>/availability/</code> &mdash; Set weekly open hours &amp; Estonian national holidays.</li>
+              <li><code>/booking-rules/</code> &mdash; Add Championship Rings, Heavy Bag stations, and glove rentals.</li>
+              <li><code>/memberships/</code> &mdash; Launch Monthly Unlimited Champion passes &amp; 10-Class punch cards.</li>
+              <li><code>/coaches/</code> &mdash; Invite your resident boxing trainers and sparring coaches.</li>
+              <li><code>/finance/</code> &mdash; Connect your Estonian company IBAN (Swedbank, SEB, LHV, Luminor) for direct Euro payouts.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-success">
+        <div class="callout-icon">&#9733;</div>
+        <div>
+          <strong>Detailed Facility Setup Manual Available:</strong>
+          Once your dashboard is unlocked by Joop Dhamuis, refer to our comprehensive companion guide: <strong>"ShallWe-Play Boxing Club Onboarding Manual"</strong> for exact field-by-field instructions on configuring rings, pricing rules, equipment stock, and memberships!
+        </div>
+      </div>
+    </section>
+
+    <!-- Support Contact Box -->
+    <div class="contact-box">
+      <div>
+        <h3>Need Any Assistance With Your Setup?</h3>
+        <p>
+          <strong>Joop Dhamuis</strong> is your dedicated Account Manager at ShallWe-Play. If you prefer to complete the verification and pricing proposal together over a brief call, simply reach out!
+        </p>
+        <div style="margin-top: 10px; font-size: 13px; color: #DBEEFF;">
+          <strong>Account Manager:</strong> Joop Dhamuis &bull; <strong>Email:</strong> <a href="mailto:info@shallwe-play.com" style="color: #FFFFFF; text-decoration: underline;">info@shallwe-play.com</a>
+        </div>
+      </div>
+      <a href="mailto:info@shallwe-play.com?subject=ShallWe-Play%20Boxing%20Club%20Onboarding%20-%20Attn:%20Joop%20Dhamuis" class="btn-header btn-primary" style="padding: 12px 20px; white-space: nowrap;">
+        Contact Joop Dhamuis &rarr;
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <footer style="text-align: center; color: var(--text-light); font-size: 12.5px; padding: 24px 0 40px; border-top: 1px solid var(--border-subtle); margin-top: 40px;">
+      <div style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px;">
+        <img src="boxing_guide_assets/swp_logo.png" alt="ShallWe-Play" style="height: 24px; width: auto; opacity: 0.95;" />
+        <span style="font-family: var(--font-heading); font-weight: 800; font-size: 17px; color: var(--swp-navy); letter-spacing: -0.4px;">ShallWe<span style="color: var(--swp-blue);">-Play</span></span>
+      </div>
+      <div style="margin-bottom: 6px; color: var(--text-muted); font-size: 12px;">
+        Enterprise Sports Venue Management Platform &bull; Tallinn, Estonia &amp; Amsterdam, Netherlands
+      </div>
+      <div style="color: var(--text-light); font-size: 11.5px;">
+        &copy; 2026 ShallWe-Play B.V. All rights reserved. &bull; Dedicated Support: <a href="mailto:info@shallwe-play.com" style="color: var(--swp-blue); text-decoration: underline;">info@shallwe-play.com</a> (Attn: Joop Dhamuis) &bull; Confidential Client Manual for Kristina.
+      </div>
+    </footer>
+
+  </main>
+
+</body>
+</html>

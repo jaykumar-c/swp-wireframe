@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShallWe-Play (SWP) — Coach Lesson Module & Web/Mobile Portal Suite BRD v2.0</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font-main: 'Poppins', Arial, sans-serif;
+      --primary: #0D6EFD;
+      --primary-hover: #0b5ed7;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ── LIGHT THEME ── */
+    [data-theme="light"] {
+      --bg-page: #F4F7FC;
+      --bg-card: #FFFFFF;
+      --bg-card-subtle: #F8FAFC;
+      --border-card: #D0D5DD;
+      --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.06);
+      --text-main: #141439;
+      --text-title: #061D42;
+      --text-sub: #565656;
+      --text-meta: #676767;
+      --border-divider: #E2E8F0;
+      --part-header-bg: #DBEEFF;
+      --part-header-color: #0D6EFD;
+      --part-header-border: #0D6EFD;
+      --toggle-bg: #FFFFFF;
+      --toggle-border: #CBD5E1;
+      --toggle-text: #061D42;
+      --toggle-hover-bg: #F1F5F9;
+      --table-header-bg: #F1F5F9;
+      --table-row-alt: #F8FAFC;
+      --table-border: #E2E8F0;
+      --badge-bg: #E0E7FF;
+      --badge-text: #3730A3;
+      --callout-bg: #EFF6FF;
+      --callout-border: #3B82F6;
+      --callout-text: #1E3A8A;
+      --tag-green-bg: #DCFCE7;
+      --tag-green-text: #166534;
+      --tag-amber-bg: #FEF3C7;
+      --tag-amber-text: #92400E;
+    }
+
+    /* ── DARK THEME ── */
+    [data-theme="dark"] {
+      --bg-page: #080B18;
+      --bg-card: #0D1424;
+      --bg-card-subtle: #131B30;
+      --border-card: rgba(255, 255, 255, 0.1);
+      --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.45);
+      --text-main: #CBD5E1;
+      --text-title: #F8FAFC;
+      --text-sub: #94A3B8;
+      --text-meta: #64748B;
+      --border-divider: rgba(255, 255, 255, 0.08);
+      --part-header-bg: rgba(13, 110, 253, 0.16);
+      --part-header-color: #60A5FA;
+      --part-header-border: #3B82F6;
+      --toggle-bg: #161F36;
+      --toggle-border: rgba(255, 255, 255, 0.18);
+      --toggle-text: #F8FAFC;
+      --toggle-hover-bg: #1E293B;
+      --table-header-bg: #161F36;
+      --table-row-alt: #10182C;
+      --table-border: rgba(255, 255, 255, 0.08);
+      --badge-bg: rgba(99, 102, 241, 0.2);
+      --badge-text: #A5B4FC;
+      --callout-bg: rgba(13, 110, 253, 0.1);
+      --callout-border: #2563EB;
+      --callout-text: #93C5FD;
+      --tag-green-bg: rgba(34, 197, 94, 0.16);
+      --tag-green-text: #4ADE80;
+      --tag-amber-bg: rgba(245, 158, 11, 0.16);
+      --tag-amber-text: #FBBF24;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-main);
+      font-size: 11pt;
+      line-height: 1.68;
+      color: var(--text-main);
+      background-color: var(--bg-page);
+      margin: 0;
+      padding: 40px 20px;
+      transition: var(--transition);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .theme-bar {
+      position: fixed;
+      top: 20px;
+      right: 24px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .theme-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      background: var(--toggle-bg);
+      border: 1px solid var(--toggle-border);
+      border-radius: 9999px;
+      color: var(--toggle-text);
+      font-family: var(--font-main);
+      font-size: 9.5pt;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+      transition: var(--transition);
+      backdrop-filter: blur(8px);
+    }
+
+    .theme-toggle-btn:hover {
+      background: var(--toggle-hover-bg);
+      transform: translateY(-1px);
+    }
+
+    .doc-page {
+      max-width: 880px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      padding: 60px 75px;
+      border: 1px solid var(--border-card);
+      box-shadow: var(--shadow-card);
+      border-radius: 8px;
+      transition: var(--transition);
+    }
+
+    .cover-meta {
+      border-bottom: 2px solid var(--border-divider);
+      padding-bottom: 28px;
+      margin-bottom: 34px;
+    }
+
+    .company-tag {
+      font-size: 10pt;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    h1 {
+      font-size: 25pt;
+      font-weight: 700;
+      color: var(--text-title);
+      margin: 10px 0 4px 0;
+      letter-spacing: -0.5px;
+      line-height: 1.25;
+    }
+
+    .doc-type {
+      font-size: 13pt;
+      font-weight: 500;
+      color: var(--text-sub);
+      margin-bottom: 18px;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px 16px;
+      margin-top: 14px;
+      background: var(--bg-card-subtle);
+      padding: 14px 18px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-divider);
+    }
+
+    .meta-line {
+      font-size: 9.5pt;
+      color: var(--text-meta);
+      margin: 0;
+    }
+    .meta-line strong {
+      color: var(--text-title);
+    }
+
+    h2 {
+      font-size: 16pt;
+      font-weight: 700;
+      color: var(--text-title);
+      margin-top: 42px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--border-divider);
+      padding-bottom: 8px;
+      letter-spacing: -0.2px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .part-header {
+      font-size: 13.5pt;
+      font-weight: 700;
+      color: var(--part-header-color);
+      margin-top: 34px;
+      margin-bottom: 16px;
+      background-color: var(--part-header-bg);
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      border-left: 4px solid var(--part-header-border);
+      transition: var(--transition);
+      letter-spacing: -0.1px;
+    }
+
+    h3 {
+      font-size: 12pt;
+      font-weight: 600;
+      color: var(--text-title);
+      margin-top: 24px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    h4 {
+      font-size: 11pt;
+      font-weight: 600;
+      color: var(--text-title);
+      margin-top: 16px;
+      margin-bottom: 6px;
+    }
+
+    p {
+      margin: 8px 0 14px 0;
+      color: var(--text-main);
+    }
+
+    ul, ol {
+      margin: 8px 0 16px 22px;
+      padding: 0;
+    }
+
+    li {
+      font-size: 10.5pt;
+      color: var(--text-main);
+      line-height: 1.62;
+      margin-bottom: 8px;
+    }
+
+    li strong {
+      color: var(--text-title);
+    }
+
+    .callout {
+      background: var(--callout-bg);
+      border-left: 4px solid var(--callout-border);
+      padding: 14px 18px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin: 18px 0;
+      font-size: 10pt;
+      color: var(--callout-text);
+      line-height: 1.55;
+    }
+
+    .callout-title {
+      font-weight: 700;
+      display: block;
+      margin-bottom: 4px;
+      font-size: 10.5pt;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 24px 0;
+      font-size: 9.5pt;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 1px solid var(--table-border);
+    }
+
+    th {
+      background-color: var(--table-header-bg);
+      color: var(--text-title);
+      text-align: left;
+      padding: 10px 14px;
+      font-weight: 600;
+      border-bottom: 1px solid var(--table-border);
+    }
+
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--table-border);
+      color: var(--text-main);
+      vertical-align: top;
+    }
+
+    tr:nth-child(even) td {
+      background-color: var(--table-row-alt);
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 7.5pt;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .badge-primary { background: rgba(13, 110, 253, 0.15); color: #3B82F6; }
+    .badge-green { background: var(--tag-green-bg); color: var(--tag-green-text); }
+    .badge-amber { background: var(--tag-amber-bg); color: var(--tag-amber-text); }
+
+    .footer-box {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border-divider);
+      font-size: 9pt;
+      color: var(--text-meta);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-left {
+      max-width: 520px;
+      line-height: 1.6;
+    }
+
+    .footer-right {
+      text-align: right;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .doc-page { padding: 30px 20px; }
+      .theme-bar { top: 12px; right: 12px; }
+      .meta-grid { grid-template-columns: 1fr; }
+      .footer-box { flex-direction: column; }
+      .footer-right { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Theme Switcher Button -->
+  <div class="theme-bar">
+    <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle between Dark and Light mode">
+      <span id="themeToggleIcon">☀️</span>
+      <span id="themeToggleText">Light Mode</span>
+    </button>
+  </div>
+
+  <div class="doc-page">
+
+    <!-- Document Cover Meta -->
+    <div class="cover-meta">
+      <div class="company-tag">ShallWe-Play (SWP) &bull; Netherlands Sports Platform</div>
+      <h1>Coach &amp; Academy Management Suite</h1>
+      <div class="doc-type">Web Operations Portal, Club Ecosystem &amp; Player Mobile App &mdash; Business Requirements Document (BRD)</div>
+      
+      <div class="meta-grid">
+        <div class="meta-line"><strong>Document ID:</strong> BRD-SWP-COACH-V2</div>
+        <div class="meta-line"><strong>Version:</strong> 2.0 (Upgraded Release)</div>
+        <div class="meta-line"><strong>Date:</strong> 06/11/2026</div>
+        <div class="meta-line"><strong>Status:</strong> Approved Baseline / Implementation-Ready</div>
+        <div class="meta-line"><strong>Prepared For:</strong> SWP Leadership, Club Venues, Coaches &amp; Players</div>
+        <div class="meta-line"><strong>Prepared By:</strong> Zignuts Technolab Private Limited (India)</div>
+      </div>
+    </div>
+
+    <!-- Executive Summary -->
+    <h2>Executive Summary</h2>
+    <p>
+      The <strong>ShallWe-Play (SWP) Coach &amp; Academy Management Suite (Version 2.0)</strong> delivers a unified, end-to-end digital operating ecosystem connecting professional trainers, multi-court sports venues, and recreational players across the Netherlands. Spanning web-based club operations, accredited coach management, and player mobile booking, Version 2.0 directly addresses systemic fragmentation in sports administration by integrating:
+    </p>
+    <ul>
+      <li><strong>3-Step Coach Onboarding &amp; Dutch KvK Compliance:</strong> Formal identity, certification, and business registry verification with transparent revenue split agreements.</li>
+      <li><strong>Club Hiring Gatekeeper (Feature 1):</strong> Venue-level recruitment status switch ensuring only clubs actively seeking trainers appear in the discovery directory, protecting clubs from unsolicited outreach while providing verified coaches direct application pipelines.</li>
+      <li><strong>Connected Ecosystem Emailing Suite (Feature 2):</strong> Multi-channel targeted broadcast hub enabling clubs to email student cohorts, the SWP platform admin to issue network-wide alerts, and players to receive rich, actionable updates in an in-app inbox.</li>
+      <li><strong>Player Mobile App Booking Journey:</strong> An intuitive 7-step player reservation flow featuring a <strong>Dual Calendar Engine</strong> (Date-by-Date Slot Cards vs. Weekly Timetable Grid), transparent pricing, automatic 10-minute court lock, and instant iDEAL payment settlement.</li>
+      <li><strong>Seamless Two-Tier Navigation Architecture:</strong> Cross-functional wireframe navigation linking Coach Onboarding, Web Portal Operations, and Player Mobile screens into an interactive 18-screen master workflow.</li>
+    </ul>
+
+    <!-- Current Business Problems -->
+    <h2>Current Business Problems</h2>
+    <ul>
+      <li><strong>1. Unsolicited Coach Outreach &amp; Club Administration Burnout:</strong> Club managers in the Netherlands are bombarded by random phone calls, WhatsApp messages, and unsolicited email CVs from independent coaches seeking court space. Clubs currently possess no standardized mechanism to signal whether they are hiring or fully staffed, wasting administrative hours on non-relevant inquiries.</li>
+      <li><strong>2. Manual Spreadsheet Planning &amp; Roster Chaos:</strong> Head coaches spend 15 to 20 hours at the start of each seasonal cycle manually matching 50 to 120 registered students into balanced 4-player training groups in Excel. Conflicting time slots, disparate player skill ratings, and manual adjustments result in frequent double-bookings and last-minute dropouts.</li>
+      <li><strong>3. Disconnected Communication Silos &amp; WhatsApp Clutter:</strong> When weather disrupts outdoor courts or a coach is indisposed, staff manually broadcast messages across fragmented, unmoderated WhatsApp groups. Critical updates are buried, absent students are untracked, and substitute covers cannot be arranged reliably.</li>
+      <li><strong>4. Lack of Targeted Club-to-Player Email Dispatch:</strong> Clubs lack a central, GDPR-compliant communication suite to reach specific student cohorts (e.g., active Thursday evening trainees, unpaid seasonal renewals, or specific skill brackets) without exporting spreadsheets into third-party marketing tools.</li>
+      <li><strong>5. High Player Booking Friction on Mobile:</strong> In conventional systems, players cannot view a coach's live weekly timetable or available single-slot lessons on their mobile phones. Players must exchange multiple messages to align schedules, leading to high drop-off before payment.</li>
+      <li><strong>6. Payment Chasing &amp; Court Rent (Baanhuur) Reconciliation:</strong> Collecting lesson fees via individual Tikkie links or bank transfers takes weeks of administrative chasing. Furthermore, coaches and venue directors frequently dispute court rental splits (<em>baanhuur</em>) due to lack of transparent digital escrow records.</li>
+      <li><strong>7. Fragmented Student Dossiers &amp; Unverified Levels:</strong> When an assistant coach substitutes, they start with zero context on student injury history, technical focus areas, or previous lesson drills. Furthermore, clubs often unilaterally reassign player ratings, frustrating players.</li>
+    </ul>
+
+    <!-- The Proposed Solution -->
+    <h2>The Proposed Solution (Version 2.0)</h2>
+    <ul>
+      <li><strong>1. Guided 3-Step Coach Onboarding &amp; Verification:</strong> A structured registration wizard validating trainer profiles, Dutch KvK registration numbers, IBAN payout credentials, and explicit contract agreements (e.g., 70% Coach / 30% Club split) before platform activation.</li>
+      <li><strong>2. Club Hiring Gatekeeper (Feature 1):</strong> A dedicated recruitment toggle in the Club Venue Portal. Venues mark themselves <em>"Open for Coach Positions"</em> (with role requirements and compensation terms) or <em>"Closed for Coach Positions"</em>. The Coach Explore directory dynamically respects this setting, filtering out closed clubs and protecting venue managers.</li>
+      <li><strong>3. Connected Ecosystem Emailing Suite (Feature 2):</strong> An enterprise-grade communication bridge allowing club managers to broadcast targeted emails to customized player cohorts, the SWP Super Admin to dispatch platform-wide announcements, and players to receive real-time push alerts and read formatted messages in an in-app email center.</li>
+      <li><strong>4. Player Mobile App End-to-End Booking Flow:</strong> A consumer-grade 7-step booking journey allowing players to filter coaches, inspect coach profiles and media teasers, choose between <strong>Slot Cards</strong> or a <strong>Weekly Timetable Grid</strong>, configure packages, and pay via iDEAL/Cards with automatic sync to upcoming bookings.</li>
+      <li><strong>5. Dual Calendar &amp; Shift Management:</strong> Two-way calendar synchronization (Google Calendar / Apple iCal / SWP native) with automated court buffer locks (e.g., 10-minute turnaround buffer between back-to-back sessions) preventing double bookings.</li>
+      <li><strong>6. Court-Side Mobile Web Operations:</strong> Lightweight 1-tap tools allowing coaches on court to mark attendance (Present, Absent, Excused), log homework drills, manage rain delay reschedules, and submit verified skill endorsements to the student's <strong>Player Passport</strong> under the SWP Golden Rule.</li>
+      <li><strong>7. Automated Financial Escrow &amp; Baanhuur Settlement:</strong> Integrated payment processing that automatically splits incoming lesson fees at transaction time into court rental owed to the venue and net compensation routed to the coach's bank account.</li>
+    </ul>
+
+    <!-- Systems Impacted -->
+    <h2>Systems Impacted</h2>
+    <ul>
+      <li><strong>SWP Coach Web Operations Portal:</strong> Desktop management portal for coach onboarding, seasonal cycle planning, weekly shift schedules, explore partner clubs directory, public profile editing, and earnings settlement exports.</li>
+      <li><strong>SWP Club Venue Admin Portal:</strong> Venue administration suite managing court inventory, coach hiring gatekeeper toggle, coach application reviews, cohort roster management, and targeted club email broadcasting.</li>
+      <li><strong>SWP Player Mobile App (iOS &amp; Android):</strong> Native mobile experience encompassing the coach discovery directory, dual calendar selector (Slot Cards vs. Timetable Grid), coach profile dossier, package checkout, and in-app email center.</li>
+      <li><strong>SWP Core Booking &amp; Payment Service:</strong> Backend microservice managing real-time court availability, 10-minute cart hold locks, Stripe Connect escrow splits, and automated invoice/receipt generation.</li>
+      <li><strong>SWP Communications &amp; Notification Engine:</strong> Microservice orchestrating push notifications, transactional emails, club cohort email delivery, and platform-wide Super Admin broadcasts.</li>
+      <li><strong>SWP Player Sports Passport Service:</strong> Digital sports credential system recording verified lesson history, technical drill evaluations, and coach-recommended Speelsterkte ratings (1.0 to 9.0).</li>
+    </ul>
+
+    <!-- Stakeholders & User Personas -->
+    <h2>Target Stakeholders &amp; User Personas</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Persona</th>
+          <th>Role &amp; Context</th>
+          <th>Primary Objectives</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Independent Freelance Coach</strong></td>
+          <td>Accredited trainer operating across multiple venues in the Netherlands.</td>
+          <td>Set recurring shift availability, find hiring clubs via Explore, showcase teaser video, and receive automated weekly payouts.</td>
+        </tr>
+        <tr>
+          <td><strong>Club Staff / Head Coach</strong></td>
+          <td>Resident coaching director at an established padel or tennis club.</td>
+          <td>Plan 8-week seasonal cycles, organize 4-player training cohorts, broadcast updates to active students, and manage assistant trainers.</td>
+        </tr>
+        <tr>
+          <td><strong>Club Manager / Venue Director</strong></td>
+          <td>Executive responsible for venue court occupancy and financial yield.</td>
+          <td>Control coach hiring status (Gatekeeper), collect guaranteed court rent (<em>baanhuur</em>), monitor court buffers, and dispatch venue emails.</td>
+        </tr>
+        <tr>
+          <td><strong>Student / Player</strong></td>
+          <td>Recreational or competitive sports enthusiast booking coaching.</td>
+          <td>Browse verified trainers, inspect open timetable slots on mobile, book 1-on-1 or group packages, and track skill growth in Passport.</td>
+        </tr>
+        <tr>
+          <td><strong>SWP Super Administrator</strong></td>
+          <td>Platform operator managing compliance and ecosystem health.</td>
+          <td>Review coach KvK certifications, monitor dispute rates, and dispatch network-wide emergency announcements.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Assumptions & Dependencies -->
+    <h2>Assumptions &amp; Dependencies</h2>
+    <ul>
+      <li><strong>Regional Focus:</strong> Initial launch is targeted at padel, tennis, and squash clubs in the Netherlands, aligning with KNLTB regulations and Dutch business compliance.</li>
+      <li><strong>Dutch KvK &amp; Tax Compliance:</strong> Freelance trainers must provide an active Kamer van Koophandel (KvK) number and valid European IBAN for direct escrow payouts.</li>
+      <li><strong>Dutch Payment Methods:</strong> Payment processing must natively support iDEAL (covering Rabobank, ING, ABN AMRO, bunq) alongside Mastercard, Visa, and Apple Pay / Google Pay.</li>
+      <li><strong>Golden Rule of Player Level:</strong> Coach skill recommendations (e.g., moving a player from 4.0 to 3.5 Speelsterkte) are advisory; the rating is updated in the database <em>only</em> after the player explicitly taps "Accept" in their mobile app.</li>
+      <li><strong>Court Buffer Safety:</strong> The system automatically enforces buffer locks (minimum 10 minutes between consecutive lessons) to guarantee court changeovers without player-coach overlap.</li>
+      <li><strong>Language Localization:</strong> The ecosystem defaults to Dutch (Nederlands) with an immediate toggle to English across web portals and mobile applications.</li>
+    </ul>
+
+    <!-- Business Requirements -->
+    <h2>Business Requirements</h2>
+
+    <!-- Part A: Coach Onboarding & Accreditation Flow -->
+    <div class="part-header">Part A: Coach Onboarding &amp; Accreditation Flow (3-Step Guided Wizard)</div>
+
+    <h3>1. Step 1: Personal Profile &amp; Professional Credentials</h3>
+    <ul>
+      <li><strong>BR-ONB-01:</strong> The system shall provide an intuitive onboarding intake wizard for new coaches to complete their professional dossier.</li>
+      <li><strong>BR-ONB-02:</strong> Ability for the coach to submit personal details: Full Legal Name, Display Name, Professional Bio, Languages Spoken (Dutch, English, Spanish, German), and Headshot Photo.</li>
+      <li><strong>BR-ONB-03:</strong> Ability to specify Primary Sport (Padel, Tennis, Squash) and secondary sports disciplines.</li>
+      <li><strong>BR-ONB-04:</strong> Ability to upload verified coaching certificates (e.g., KNLTB Padel Licentie, ITF Level 2, Dutch Squash Bond) with document expiration dates.</li>
+      <li><strong>BR-ONB-05:</strong> Ability to define coaching philosophy, primary target student audience (Beginner, Intermediate, Advanced, Juniors), and years of active coaching experience.</li>
+    </ul>
+
+    <h3>2. Step 2: Dutch KvK Validation, Financial Terms &amp; Platform Agreement</h3>
+    <ul>
+      <li><strong>BR-ONB-06:</strong> The system shall require freelance coaches to enter their 8-digit Dutch Kamer van Koophandel (KvK) business registration number.</li>
+      <li><strong>BR-ONB-07:</strong> Ability for the system to validate KvK format and company status against the Dutch Chamber of Commerce data gateway.</li>
+      <li><strong>BR-ONB-08:</strong> Ability for the coach to configure direct payout details, including European SEPA IBAN and VAT (BTW) registration identification.</li>
+      <li><strong>BR-ONB-09:</strong> Ability for the coach to review and digitally accept the SWP Standard Coach Proposal &amp; Revenue Agreement (establishing standard 70% Coach compensation / 30% Venue court split or custom terms).</li>
+      <li><strong>BR-ONB-10:</strong> The system shall log digital contract acceptance timestamps, IP address, and PDF counter-signature for legal compliance.</li>
+    </ul>
+
+    <h3>3. Step 3: Weekly Availability Shifts &amp; Court Slot Templates</h3>
+    <ul>
+      <li><strong>BR-ONB-11:</strong> Ability for the coach to establish recurring weekly availability shifts across days of the week (Monday through Sunday).</li>
+      <li><strong>BR-ONB-12:</strong> Ability to define working time windows per day (e.g., Weekday Evenings 17:00–22:00, Saturday Mornings 08:00–14:00).</li>
+      <li><strong>BR-ONB-13:</strong> Ability to specify default lesson duration increments (60 minutes, 90 minutes) and automatic buffer times (e.g., 10 minutes court turnaround).</li>
+      <li><strong>BR-ONB-14:</strong> Ability to set maximum weekly teaching hours to prevent scheduling exhaustion.</li>
+      <li><strong>BR-ONB-15:</strong> Ability to review a consolidated onboarding summary and submit for SWP platform accreditation approval.</li>
+    </ul>
+
+    <!-- Part B: Club Coach Positions & Hiring Gatekeeper -->
+    <div class="part-header">Part B: Club Coach Positions &amp; Hiring Gatekeeper (Feature 1)</div>
+
+    <h3>4. Club Hiring Gatekeeper &amp; Position Administration</h3>
+    <ul>
+      <li><strong>BR-GAT-01:</strong> The SWP Club Venue Admin Portal shall include a dedicated <em>"Coach Positions &amp; Hiring"</em> management module.</li>
+      <li><strong>BR-GAT-02:</strong> Ability for authorized club venue managers to toggle their hiring status between <strong>"Open for Coach Positions"</strong> and <strong>"Closed for Coach Positions"</strong> with one click.</li>
+      <li><strong>BR-GAT-03:</strong> When toggled to <strong>"Open"</strong>, the club manager can specify active coaching vacancies:
+        <ul>
+          <li><em>Job Title &amp; Category:</em> (e.g., Head Padel Coach, Weekend Junior Academy Trainer, Part-time Evening Coach).</li>
+          <li><em>Commitment Type:</em> Full-time, Part-time, Seasonal Cycle Freelance.</li>
+          <li><em>Required Credentials:</em> (e.g., KNLTB B-Licentie, 3+ years tournament experience).</li>
+          <li><em>Compensation Model:</em> Hourly rate (&euro;/hour), percentage split (e.g., 70/30), or court rental fee structure.</li>
+          <li><em>Court Access &amp; Perks:</em> Dedicated indoor courts, ball machine access, free member clubhouse privileges.</li>
+        </ul>
+      </li>
+      <li><strong>BR-GAT-04:</strong> When toggled to <strong>"Closed"</strong>, the venue is immediately flagged as fully staffed. The system shall dynamically suppress the venue from coach exploration directories to prevent unwanted solicitations.</li>
+    </ul>
+
+    <h3>5. Coach Explore Partner Clubs Feed</h3>
+    <ul>
+      <li><strong>BR-GAT-05:</strong> The SWP Coach Web Operations Portal shall provide an <em>"Explore Partner Clubs"</em> directory.</li>
+      <li><strong>BR-GAT-06:</strong> <strong>Strict Gatekeeper Enforcement:</strong> The directory shall display <strong>ONLY</strong> clubs that currently have their status set to <em>"Open for Coach Positions"</em>. Clubs with closed hiring status shall be completely filtered out from coach view.</li>
+      <li><strong>BR-GAT-07:</strong> Ability for coaches to inspect open club dossiers: Venue Name, City/Postcode, Court Inventory (e.g., 8 Indoor Padel Courts, 4 Clay Tennis Courts), Available Time Shifts, and Active Job Requirements.</li>
+      <li><strong>BR-GAT-08:</strong> Ability for accredited coaches to submit a digital <em>"Association Proposal / Application"</em> directly through SWP, attaching their verified credentials, proposed lesson programs, and personal cover note.</li>
+      <li><strong>BR-GAT-09:</strong> Ability to track application status in real-time: Submitted, Under Review, Accepted, or Politely Declined.</li>
+    </ul>
+
+    <h3>6. Application Review &amp; Club-Coach Association</h3>
+    <ul>
+      <li><strong>BR-GAT-10:</strong> Ability for club managers to review incoming coach proposals inside the Venue Portal, inspecting verified certifications, student reviews, and identity checks.</li>
+      <li><strong>BR-GAT-11:</strong> Ability for the club to accept an application with one click, automatically linking the coach to the club's <em>"Associated Coaches"</em> roster.</li>
+      <li><strong>BR-GAT-12:</strong> Ability for the coach's portal to update, granting shift scheduling privileges and court allocation rights on the newly associated club venue.</li>
+    </ul>
+
+    <!-- Part C: Coach & Club Web Operations Portal -->
+    <div class="part-header">Part C: Coach &amp; Club Web Operations Portal</div>
+
+    <h3>7. Seasonal Lesson Cycle Planning &amp; Court Allocation</h3>
+    <ul>
+      <li><strong>BR-OPS-01:</strong> Ability for head coaches and club administrators to configure 8-week seasonal lesson cycles (Spring, Summer, Autumn, Winter) with designated weather reschedule buffer weeks.</li>
+      <li><strong>BR-OPS-02:</strong> Ability to allocate specific venue courts to training cycles across recurring weekly time blocks (e.g., Tuesdays and Thursdays 18:00–22:00 on Padel Courts 3 &amp; 4).</li>
+      <li><strong>BR-OPS-03:</strong> Ability to define student capacity limits per court (standard 4 players per court) and assign designated lead and assistant coaches.</li>
+      <li><strong>BR-OPS-04:</strong> Ability to export the complete seasonal cycle timetable to PDF and CSV formats for club desk displays and noticeboards.</li>
+    </ul>
+
+    <h3>8. Lesson Catalog, Formats &amp; Automated Split Pricing</h3>
+    <ul>
+      <li><strong>BR-OPS-05:</strong> Ability to configure standardized lesson offerings:
+        <ul>
+          <li><em>Private Lessons (1-on-1):</em> Intensive personalized technical coaching.</li>
+          <li><em>Semi-Private (1-on-2):</em> Tactical doubles pair coaching.</li>
+          <li><em>Small Group (1-on-4):</em> Standard 4-player social training group.</li>
+          <li><em>Clinic / Masterclass (8 to 16 players):</em> Multi-court themed workshops (e.g., "Mastering the Bandeja").</li>
+        </ul>
+      </li>
+      <li><strong>BR-OPS-06:</strong> Transparent Revenue Split Engine: The system shall automatically compute line-item revenue splits upon package definition. Example: &euro;60.00/hour private lesson automatically splits into &euro;42.00 Coach Fee (70%) and &euro;18.00 Club Court Rent / <em>Baanhuur</em> (30%).</li>
+      <li><strong>BR-OPS-07:</strong> Ability to bundle multi-session packages (e.g., 4-Week Accelerator Pack, 8-Week Academy Pass) with automatic discount tiering.</li>
+    </ul>
+
+    <h3>9. Dual Calendar Sync &amp; Shift Management</h3>
+    <ul>
+      <li><strong>BR-OPS-08:</strong> The portal shall provide a responsive, drag-and-drop calendar interface supporting Day, Week, and Month views.</li>
+      <li><strong>BR-OPS-09:</strong> 2-Way Calendar Synchronization: The system shall support bi-directional sync with external calendar platforms via secure iCal URL integration (Google Calendar, Apple Calendar, Outlook).</li>
+      <li><strong>BR-OPS-10:</strong> Automated Court Locking: When a lesson is booked or shift scheduled, the system shall automatically hold the corresponding venue court in the central SWP court inventory, preventing double bookings from external recreational bookers.</li>
+      <li><strong>BR-OPS-11:</strong> Buffer Time Enforcers: The calendar shall visually enforce a 10-minute buffer block after each session for equipment reset and student changeover.</li>
+    </ul>
+
+    <h3>10. Court-Side Attendance &amp; Operations Tools</h3>
+    <ul>
+      <li><strong>BR-OPS-12:</strong> The portal shall provide an optimized, fast-loading court-side view accessible via mobile browser or tablet on the court.</li>
+      <li><strong>BR-OPS-13:</strong> Ability to record student attendance with a single tap: Present, Absent, Late, or Excused.</li>
+      <li><strong>BR-OPS-14:</strong> Rain Delay / Court Rescheduling Utility: In the event of adverse weather or facility maintenance, the coach can reschedule a session with 1 tap, automatically sending push notifications and date options to all enrolled students.</li>
+      <li><strong>BR-OPS-15:</strong> Substitute Cover Matcher: If a registered student marks themselves absent, the coach can trigger an automated invitation to waitlisted substitute players of matching skill rating.</li>
+    </ul>
+
+    <h3>11. Coach Public Profile &amp; Media Showcase</h3>
+    <ul>
+      <li><strong>BR-OPS-16:</strong> Ability for coaches to curate their public promotional profile visible across the SWP Player Mobile App.</li>
+      <li><strong>BR-OPS-17:</strong> Video Teaser Integration: Ability to upload or link a high-definition coaching teaser video (e.g., 1:45 min highlight showcasing drill methodology and style).</li>
+      <li><strong>BR-OPS-18:</strong> Action Gallery: Ability to showcase up to 6 high-resolution action photos on court.</li>
+      <li><strong>BR-OPS-19:</strong> Social Proof &amp; Reviews: Display aggregated player ratings (1 to 5 stars), total sessions completed, and verified student feedback.</li>
+    </ul>
+
+    <h3>12. Player Sports Passport &amp; Speelsterkte Rating Integration</h3>
+    <ul>
+      <li><strong>BR-OPS-20:</strong> Ability for accredited coaches to inspect enrolled students' verified SWP Sports Passports, reviewing historical match counts, preferred playing sides (Left/Right), and injury notes.</li>
+      <li><strong>BR-OPS-21:</strong> Official Skill Endorsement: Following training, coaches can submit verified technical shot evaluations (Bandeja, Vibora, Chiquita, Bajada de Pared) and official Dutch Speelsterkte rating recommendations (scale of 1.0 Pro to 9.0 Novice).</li>
+      <li><strong>BR-OPS-22:</strong> <strong>Enforcement of the SWP Golden Rule:</strong> The system shall flag any rating adjustment as "Recommended by Coach [Name]". The player's active level in the database <em>shall not</em> change until the player explicitly taps "Accept" in their mobile app.</li>
+    </ul>
+
+    <!-- Part D: Connected Ecosystem Emailing Suite -->
+    <div class="part-header">Part D: Connected Ecosystem Emailing Suite (Feature 2)</div>
+
+    <h3>13. Club Email Dispatcher &amp; Cohort Audience Targeting</h3>
+    <ul>
+      <li><strong>BR-EML-01:</strong> The SWP Club Venue Admin Portal shall include a native <em>"Email Communications Hub"</em>.</li>
+      <li><strong>BR-EML-02:</strong> Ability for club managers and authorized coaches to compose and dispatch emails directly without external mail tools.</li>
+      <li><strong>BR-EML-03:</strong> Cohort Audience Selector: Ability to target specific recipient groups with precision filters:
+        <ul>
+          <li><em>All Registered Club Players:</em> Broad venue-wide announcements.</li>
+          <li><em>Active Lesson Enrollees:</em> Players currently participating in an ongoing seasonal cycle.</li>
+          <li><em>Specific Training Cohort:</em> Members of an individual 4-player class or day schedule.</li>
+          <li><em>Pending / Unpaid Enrollments:</em> Automated payment reminder broadcasts.</li>
+          <li><em>Skill Level Bracket:</em> Players tagged with specific ratings (e.g., Intermediate 3.5–4.0 for tournament invites).</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3>14. Pre-Built Operational Email Templates</h3>
+    <ul>
+      <li><strong>BR-EML-04:</strong> The system shall provide responsive, branded templates for routine club communications:
+        <ul>
+          <li><em>Weather Reschedule / Court Disruption:</em> Instant alert detailing rain delay, rescheduled court, and time options.</li>
+          <li><em>New Season Cycle Announcement:</em> Invitation to enroll in upcoming 8-week academy cycles.</li>
+          <li><em>Post-Lesson Homework &amp; Video Review:</em> Drill recaps and technique guidelines from the coach.</li>
+          <li><em>Tournament &amp; Social Clinic Invitation:</em> Event details, pricing, and 1-tap registration link.</li>
+        </ul>
+      </li>
+      <li><strong>BR-EML-05:</strong> Rich Content Composer: Support for formatted text, embedded schedule badges, venue directions, and interactive CTA buttons.</li>
+    </ul>
+
+    <h3>15. SWP Platform Super Admin Broadcast</h3>
+    <ul>
+      <li><strong>BR-EML-06:</strong> The SWP Super Admin Portal shall include a platform-level broadcast engine.</li>
+      <li><strong>BR-EML-07:</strong> Ability for platform administrators to dispatch urgent network-wide broadcasts across three selectable audiences: All Partner Clubs, All Registered Coaches, or All Registered Players across the Netherlands.</li>
+      <li><strong>BR-EML-08:</strong> Platform emails shall feature official ShallWe-Play brand styling, system update changelogs, policy amendments, and priority emergency banners.</li>
+    </ul>
+
+    <h3>16. Player In-App Notification &amp; Email Center</h3>
+    <ul>
+      <li><strong>BR-EML-09:</strong> The SWP Player Mobile App shall provide an integrated <em>"Emails &amp; Messages"</em> center.</li>
+      <li><strong>BR-EML-10:</strong> Real-Time Alerts: When an email is dispatched by a club or admin, the player shall immediately receive a native push notification and an in-app unread badge counter.</li>
+      <li><strong>BR-EML-11:</strong> Categorized Inbox Views: Ability for players to filter messages across <em>"Club Announcements"</em>, <em>"Lesson Updates"</em>, and <em>"Platform Alerts"</em>.</li>
+      <li><strong>BR-EML-12:</strong> Rich Email Reader View: Tapping a message opens a full-screen, formatted reader displaying sender club verification badge, sent timestamp, full message body, and contextual action buttons (e.g., "Confirm Rescheduled Slot", "View Lesson Summary", "Renew Cycle").</li>
+    </ul>
+
+    <h3>17. GDPR Compliance, Audit Log &amp; Delivery Tracking</h3>
+    <ul>
+      <li><strong>BR-EML-13:</strong> All broadcast communications shall strictly comply with European Union General Data Protection Regulation (GDPR).</li>
+      <li><strong>BR-EML-14:</strong> Every dispatched email shall include granular unsubscribe options for marketing communications while preserving essential operational transactional alerts (e.g., booking confirmations and safety cancellations).</li>
+      <li><strong>BR-EML-15:</strong> The system shall maintain an immutable audit log recording Sender ID, Recipient ID, Subject, Timestamp, Delivery Status (Sent, Delivered, Opened), and Bounce Rate.</li>
+    </ul>
+
+    <!-- Part E: Player Mobile App End-to-End Booking Flow -->
+    <div class="part-header">Part E: Player Mobile App End-to-End Booking Flow (Steps 1 to 7)</div>
+
+    <h3>18. Step 1: Coaches Directory &amp; Discovery Filter</h3>
+    <ul>
+      <li><strong>BR-MOB-01:</strong> Players navigating to the <em>"Bookings"</em> module in the mobile app can toggle to a dedicated <em>"Coaches"</em> discovery tab.</li>
+      <li><strong>BR-MOB-02:</strong> Ability to view an interactive card listing of available accredited coaches with avatar, verified badge, hourly rate (&euro;), distance in km, and aggregate rating.</li>
+      <li><strong>BR-MOB-03:</strong> Search &amp; Filter Controls: Ability to filter coaches by Sport (Padel, Tennis, Squash), Location Radius (Postcode + Slider), Price Range (&euro;30–&euro;90/hr), and Availability (Today, This Week, Weekend).</li>
+      <li><strong>BR-MOB-04:</strong> Each coach card shall feature a prominent <strong>"View &amp; Book"</strong> call-to-action button leading directly to availability selection.</li>
+    </ul>
+
+    <h3>19. Step 2: Dual Calendar Engine (Slot Cards vs. Weekly Timetable Grid)</h3>
+    <ul>
+      <li><strong>BR-MOB-05:</strong> Upon tapping "View &amp; Book", the app shall present the coach's live booking calendar with an instant 1-tap view switcher between two display modes:
+        <ul>
+          <li><strong>View A &mdash; Date-by-Date Slot Cards View:</strong> Features a horizontal scrolling date selector (e.g., Mon 10 Nov, Tue 11 Nov), time-of-day filter chips (Morning, Afternoon, Evening), and clean slot cards showing Start/End time, lesson duration (60m), assigned court, and pricing.</li>
+          <li><strong>View B &mdash; Weekly Timetable Grid View:</strong> A full interactive weekly calendar matrix (Monday through Sunday, 08:00 to 22:00) with color-coded slots:
+            <ul>
+              <li><em>Available Slots (Vibrant Green):</em> Open for immediate booking.</li>
+              <li><em>Selected Slot (Brand Blue with checkmark):</em> Currently picked by the player.</li>
+              <li><em>Booked / Busy Slots (Muted Gray):</em> Unavailable for booking.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><strong>BR-MOB-06:</strong> Ability for players to switch between Slot Cards and Timetable Grid seamlessly without losing their chosen date or coach context.</li>
+    </ul>
+
+    <h3>20. Step 3: Coach Profile &amp; Accreditation Details</h3>
+    <ul>
+      <li><strong>BR-MOB-07:</strong> Selecting a time slot or tapping the coach dossier opens the full <em>Coach Profile Screen</em>.</li>
+      <li><strong>BR-MOB-08:</strong> Display of verified credentials: KNLTB Certification Badge, Coaching Experience, Languages Spoken, and Associated Venue Clubs.</li>
+      <li><strong>BR-MOB-09:</strong> Multimedia Showcase: Ability to watch the Coach Video Teaser (1:45 min highlight) and swipe through on-court action photos.</li>
+      <li><strong>BR-MOB-10:</strong> Student Testimonials: Read verified feedback from previous players.</li>
+    </ul>
+
+    <h3>21. Step 4: Lesson Offering &amp; Package Selection</h3>
+    <ul>
+      <li><strong>BR-MOB-11:</strong> Ability for the player to select their desired lesson package format:
+        <ul>
+          <li><em>Single 1-on-1 Private Session (60 min):</em> Standard single lesson.</li>
+          <li><em>4-Week Technique Accelerator:</em> Weekly progressive package with 10% bundle savings.</li>
+          <li><em>8-Week Seasonal Academy Pass:</em> Full seasonal cycle training.</li>
+        </ul>
+      </li>
+      <li><strong>BR-MOB-12:</strong> Rental Add-ons: Ability to add premium racket rental (&euro;3.50 per session) and new ball tubes with 1 tap.</li>
+      <li><strong>BR-MOB-13:</strong> Lesson Objective Intake: Ability to select primary technical focus (e.g., Bandeja consistency, Wall positioning, Match play tactics) to brief the coach in advance.</li>
+    </ul>
+
+    <h3>22. Step 5: Booking Summary &amp; 10-Minute Court Lock</h3>
+    <ul>
+      <li><strong>BR-MOB-14:</strong> The booking summary screen shall present an itemized financial and logistical breakdown:
+        <ul>
+          <li>Coach Name, Photo &amp; Accreditation Badge.</li>
+          <li>Confirmed Date, Time Window, Venue Name &amp; Assigned Court Number.</li>
+          <li>Line-item cost breakdown: Lesson Tuition Fee, Court Rental Fee (<em>Baanhuur</em>), Add-ons, VAT (BTW), and Total Payable.</li>
+        </ul>
+      </li>
+      <li><strong>BR-MOB-15:</strong> <strong>10-Minute Court Hold Reservation Lock:</strong> The system shall lock the selected court and coach time slot for exactly 10:00 minutes with a live countdown timer. If payment is not completed before expiry, the lock releases automatically back into public inventory.</li>
+    </ul>
+
+    <h3>23. Step 6: SWP Checkout &amp; Dutch Payment Processing</h3>
+    <ul>
+      <li><strong>BR-MOB-16:</strong> The checkout screen shall support seamless, localized payment methods:
+        <ul>
+          <li><em>iDEAL:</em> Dutch domestic banking gateway supporting Rabobank, ING, ABN AMRO, bunq, and SNS.</li>
+          <li><em>Credit / Debit Cards:</em> Visa, Mastercard, American Express via Stripe.</li>
+          <li><em>Digital Wallets:</em> Apple Pay and Google Pay for 1-tap checkout.</li>
+          <li><em>SWP Wallet &amp; Club Credits:</em> Redeemable gift cards and loyalty tokens.</li>
+        </ul>
+      </li>
+      <li><strong>BR-MOB-17:</strong> Automated Escrow Settlement: Upon successful transaction, the SWP payment engine automatically routes the court fee to the venue's account and the coaching fee to the trainer's connected Stripe balance.</li>
+    </ul>
+
+    <h3>24. Step 7: Booking Confirmation &amp; Upcoming Bookings Sync</h3>
+    <ul>
+      <li><strong>BR-MOB-18:</strong> The confirmation screen shall immediately display a success banner with a unique Booking Reference Number (e.g., #SWP-LSN-8842).</li>
+      <li><strong>BR-MOB-19:</strong> Calendar Export: Ability to download an .ics calendar invite to add the lesson to Apple Calendar or Google Calendar with 1 tap.</li>
+      <li><strong>BR-MOB-20:</strong> Digital Receipt &amp; VAT Invoice: Instant PDF receipt generation sent to the player's registered email address.</li>
+      <li><strong>BR-MOB-21:</strong> Automatic Sync to Upcoming Bookings: The booked lesson shall immediately appear inside the player's <em>"Upcoming Bookings"</em> list with venue directions, weather forecast, and cancellation policies.</li>
+    </ul>
+
+    <!-- Part F: Navigation Architecture & UX Progression -->
+    <div class="part-header">Part F: Unified Navigation Architecture &amp; 18-Screen Story Progression</div>
+
+    <h3>25. Two-Tier Navigation System &amp; Interactive Flow Map</h3>
+    <ul>
+      <li><strong>BR-NAV-01:</strong> The wireframe and web application shall feature a unified <strong>Two-Tier Navigation Architecture</strong>:
+        <ul>
+          <li><em>Tier 1 (Top Primary Domain Switcher):</em> 3 clear domain pills allowing instant switching across:
+            <ol>
+              <li>Coach Onboarding &amp; Accreditation (Steps 1–3)</li>
+              <li>Coach &amp; Club Web Operations Portal (Portal Views &amp; Features 1–2)</li>
+              <li>Player Mobile App Experience (7-Step Booking Flow)</li>
+            </ol>
+          </li>
+          <li><em>Tier 2 (Sticky Master Progression Bar):</em> A persistent, floating walkthrough bar anchored to the bottom of the viewport featuring:
+            <ul>
+              <li>Live Step Counter (e.g., "Step 04 of 18").</li>
+              <li>Active Screen Title &amp; Domain Category Badge.</li>
+              <li>Previous (&larr;) and Next (&rarr;) navigation buttons.</li>
+              <li>Flow Map Modal Button: Opens an interactive 18-screen visual jump menu.</li>
+              <li>Keyboard Navigation: Left/Right arrow keys navigate sequentially across all 18 screens.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+    <!-- Part G: Non-Functional Requirements, Auditability & Compliance -->
+    <div class="part-header">Part G: Non-Functional Requirements, Auditability &amp; Compliance</div>
+
+    <h3>26. Dutch Legal, KvK &amp; GDPR Compliance</h3>
+    <ul>
+      <li><strong>BR-NFR-01:</strong> All personal trainer records, KvK business registries, and player identities must be stored in GDPR-compliant European cloud regions (Frankfurt / Amsterdam).</li>
+      <li><strong>BR-NFR-02:</strong> Medical notes and physical injury remarks in student dossiers require explicit, granular opt-in consent and may be expunged by the player at any time with 1 tap.</li>
+      <li><strong>BR-NFR-03:</strong> Financial transactions, VAT invoices, and revenue splits must maintain 7-year audit records conforming to Dutch Tax Authority (<em>Belastingdienst</em>) guidelines.</li>
+    </ul>
+
+    <h3>27. Performance, Concurrency &amp; Court Locking Latency</h3>
+    <ul>
+      <li><strong>BR-NFR-04:</strong> The court locking mechanism must achieve sub-500ms distributed lock latency across concurrent mobile and web booking sessions, preventing race conditions.</li>
+      <li><strong>BR-NFR-05:</strong> Calendar sync feeds (iCal endpoints) must refresh external changes within a maximum 180-second polling interval.</li>
+      <li><strong>BR-NFR-06:</strong> The mobile booking flow must render initial slot availability in under 1.2 seconds over 4G/5G mobile connections.</li>
+    </ul>
+
+    <!-- Requirements Traceability Matrix -->
+    <h2>Requirements Traceability &amp; Wireframe Cross-Reference</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Module / Domain</th>
+          <th>Screen ID</th>
+          <th>Screen Name</th>
+          <th>Core Functional Capabilities</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Coach Onboarding</strong></td>
+          <td>SCR-01</td>
+          <td>Step 1: Profile &amp; Bio</td>
+          <td>Coach bio, languages, credentials upload, sports disciplines.</td>
+        </tr>
+        <tr>
+          <td><strong>Coach Onboarding</strong></td>
+          <td>SCR-02</td>
+          <td>Step 2: KvK &amp; Proposal</td>
+          <td>Dutch KvK verification, IBAN setup, 70/30 split agreement.</td>
+        </tr>
+        <tr>
+          <td><strong>Coach Onboarding</strong></td>
+          <td>SCR-03</td>
+          <td>Step 3: Availability Shifts</td>
+          <td>Weekly recurring shifts, time windows, court turnaround buffers.</td>
+        </tr>
+        <tr>
+          <td><strong>Coach Web Portal</strong></td>
+          <td>SCR-04</td>
+          <td>Lessons &amp; Split Pricing</td>
+          <td>Catalog setup, automated &euro;42/&euro;18 court split calculations.</td>
+        </tr>
+        <tr>
+          <td><strong>Club Venue Portal</strong></td>
+          <td>SCR-05</td>
+          <td>Club Hiring Gatekeeper (Feat 1)</td>
+          <td>Open/Closed recruitment switch, position specs, applicant queue.</td>
+        </tr>
+        <tr>
+          <td><strong>Coach Web Portal</strong></td>
+          <td>SCR-06</td>
+          <td>Shift Management &amp; Calendar</td>
+          <td>2-way iCal sync, weekly schedule matrix, court buffer locks.</td>
+        </tr>
+        <tr>
+          <td><strong>Coach Web Portal</strong></td>
+          <td>SCR-07</td>
+          <td>Court-Side Attendance &amp; Notes</td>
+          <td>1-tap check-in, drill notes, rain delay rescheduler, substitute cover.</td>
+        </tr>
+        <tr>
+          <td><strong>Coach Web Portal</strong></td>
+          <td>SCR-08</td>
+          <td>Explore Partner Clubs</td>
+          <td>Gatekeeper-filtered hiring clubs, vacancy inspect, proposal submission.</td>
+        </tr>
+        <tr>
+          <td><strong>Coach Web Portal</strong></td>
+          <td>SCR-09</td>
+          <td>My Associated Clubs</td>
+          <td>Linked venues, assigned courts, agreement terms.</td>
+        </tr>
+        <tr>
+          <td><strong>Coach Web Portal</strong></td>
+          <td>SCR-10</td>
+          <td>Coach Public Profile &amp; Teaser</td>
+          <td>Media showcase, 1:45 min teaser video, reviews, student stats.</td>
+        </tr>
+        <tr>
+          <td><strong>Coach Web Portal</strong></td>
+          <td>SCR-11</td>
+          <td>Player Passport &amp; Endorsement</td>
+          <td>Student dossier, Speelsterkte rating (1.0–9.0), Golden Rule check.</td>
+        </tr>
+        <tr>
+          <td><strong>Club &amp; Admin Suite</strong></td>
+          <td>SCR-12</td>
+          <td>Connected Emailing Suite (Feat 2)</td>
+          <td>Club cohort targeting, Super Admin broadcast, templates, audit log.</td>
+        </tr>
+        <tr>
+          <td><strong>Player Mobile App</strong></td>
+          <td>SCR-13</td>
+          <td>Coaches Directory Discovery</td>
+          <td>Search filters, coach cards, pricing, "View &amp; Book" CTA.</td>
+        </tr>
+        <tr>
+          <td><strong>Player Mobile App</strong></td>
+          <td>SCR-14</td>
+          <td>Slot Cards Calendar View</td>
+          <td>Date picker, time-of-day chips, 60m slot cards with pricing.</td>
+        </tr>
+        <tr>
+          <td><strong>Player Mobile App</strong></td>
+          <td>SCR-15</td>
+          <td>Weekly Timetable Grid View</td>
+          <td>Mon–Sun 08:00–22:00 matrix, color-coded available/booked slots.</td>
+        </tr>
+        <tr>
+          <td><strong>Player Mobile App</strong></td>
+          <td>SCR-16</td>
+          <td>Coach Dossier &amp; Packages</td>
+          <td>Profile details, video teaser, package tier selection, racket add-on.</td>
+        </tr>
+        <tr>
+          <td><strong>Player Mobile App</strong></td>
+          <td>SCR-17</td>
+          <td>Booking Summary &amp; Checkout</td>
+          <td>Itemized breakdown, 10-min court lock timer, iDEAL/Cards payment.</td>
+        </tr>
+        <tr>
+          <td><strong>Player Mobile App</strong></td>
+          <td>SCR-18</td>
+          <td>Confirmed Session &amp; Email Hub</td>
+          <td>Booking reference, calendar sync, upcoming list, in-app email center.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Document Control & Sign-Off -->
+    <h2>Document Control &amp; Sign-Off</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Role / Stakeholder</th>
+          <th>Name / Title</th>
+          <th>Status</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Lead Business Analyst</strong></td>
+          <td>Zignuts Technolab BA Team</td>
+          <td><span class="badge badge-green">Approved Baseline</span></td>
+          <td>06/11/2026</td>
+        </tr>
+        <tr>
+          <td><strong>Product Owner / Client</strong></td>
+          <td>ShallWe-Play Product Leadership</td>
+          <td><span class="badge badge-primary">Under Final Review</span></td>
+          <td>Pending</td>
+        </tr>
+        <tr>
+          <td><strong>Technical Architect</strong></td>
+          <td>SWP Core Architecture Team</td>
+          <td><span class="badge badge-green">Architecturally Feasible</span></td>
+          <td>06/11/2026</td>
+        </tr>
+        <tr>
+          <td><strong>Club Venue Representative</strong></td>
+          <td>Partner Venue Operations Director</td>
+          <td><span class="badge badge-green">Operationally Validated</span></td>
+          <td>06/11/2026</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Footer Box -->
+    <div class="footer-box">
+      <div class="footer-left">
+        <strong>ShallWe-Play (SWP) Netherlands Sports Ecosystem</strong><br>
+        Document ID: BRD-SWP-COACH-V2 &bull; Version 2.0<br>
+        Confidential &amp; Proprietary &mdash; Prepared for ShallWe-Play Team &amp; Venue Partners.
+      </div>
+      <div class="footer-right">
+        <strong>Zignuts Technolab Private Limited</strong><br>
+        A-409, Siddhraj Zori, Near Sargasan Cross Road,<br>
+        S. G. Road, Gandhinagar, 382421, Gujarat, India.<br>
+        <span style="color: var(--primary);">hello@zignuts.com</span> &bull; <span style="color: var(--primary);">www.zignuts.com</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeToggleIcon = document.getElementById('themeToggleIcon');
+    const themeToggleText = document.getElementById('themeToggleText');
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      try {
+        localStorage.setItem('swp_coach_brd_theme', theme);
+      } catch (e) {}
+      if (theme === 'dark') {
+        themeToggleIcon.textContent = '☀️';
+        themeToggleText.textContent = 'Light Mode';
+      } else {
+        themeToggleIcon.textContent = '🌙';
+        themeToggleText.textContent = 'Dark Mode';
+      }
+    }
+
+    const initialTheme = localStorage.getItem('swp_coach_brd_theme') || 'dark';
+    applyTheme(initialTheme);
+
+    themeToggleBtn.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+  </script>
+</body>
+</html>
