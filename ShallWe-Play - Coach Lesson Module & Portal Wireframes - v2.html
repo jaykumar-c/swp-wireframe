@@ -6222,198 +6222,579 @@
       <!-- ========================================================================= -->
       <!-- SCREEN B1: COACH PROFILE & DETAIL VIEW (Student views bio, pricing)      -->
       <!-- ========================================================================= -->
-      <div id="player-coach-profile-view" class="hidden flex-col flex-1 bg-[#262626] overflow-y-auto pb-10">
+            <!-- ========================================================================= -->
+      <!-- SCREEN B1: COACH PROFILE & DETAIL VIEW (Student views bio, pricing)      -->
+      <!-- Strictly Grounded in Client Spec: SWP Profile Page Coach Mobile.pdf      -->
+      <!-- ========================================================================= -->
+      <div id="player-coach-profile-view" class="hidden flex-col flex-1 bg-[#121212] overflow-y-auto pb-12 font-montserrat select-none">
         
-        <!-- Header Banner with Back & Share buttons -->
-        <div class="bg-gradient-to-b from-[#0062cc] to-[#007AFF] pt-3 px-4 pb-14 relative">
+        <!-- Header Banner with Back & Options buttons + Triple Ring Logo -->
+        <div class="bg-gradient-to-b from-[#0062cc] to-[#007AFF] pt-3 px-4 pb-14 relative shrink-0">
           <!-- Status Bar -->
           <div class="flex items-center justify-between text-xs text-white font-semibold select-none mb-3">
-            <span class="text-[13px] font-medium tracking-tight">18:20</span>
-            <div class="w-24 h-4 bg-black/60 rounded-full"></div>
+            <span class="text-[13px] font-medium tracking-tight">18:25</span>
+            <div class="w-24 h-4 bg-black/60 rounded-full flex items-center justify-center">
+              <span class="w-2 h-2 rounded-full bg-black/80"></span>
+            </div>
             <div class="flex items-center space-x-1.5 text-[11px]">
-              <span class="text-white/80 font-bold">5G</span>
-              <span class="border border-white rounded px-1 text-[9px] font-extrabold leading-none py-0.5">⚡100%</span>
+              <span class="text-white/90 font-bold">5G</span>
+              <span class="border border-white/80 rounded px-1 text-[9px] font-extrabold leading-none py-0.5">100%</span>
             </div>
           </div>
 
           <!-- Header Nav Row -->
           <div class="flex items-center justify-between">
-            <button onclick="openCoachCalendarView(activeCoachId)" class="w-8 h-8 rounded-xl bg-black/40 hover:bg-black/60 text-white flex items-center justify-center transition border border-white/10 shadow-xs cursor-pointer" title="Back to Availability Calendar">
+            <button type="button" onclick="openCoachCalendarView(activeCoachId)" class="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center transition border border-white/20 shadow-xs cursor-pointer" title="Back to Availability Calendar">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
             </button>
-            <span class="text-xs font-bold text-white uppercase tracking-wider font-montserrat">Coach Profile</span>
-            <button onclick="showToast('Share Coach', 'Coach link copied to clipboard')" class="w-8 h-8 rounded-xl bg-black/40 hover:bg-black/60 text-white flex items-center justify-center transition border border-white/10 shadow-xs cursor-pointer">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+
+            <!-- Center Logo: Authentic ShallWe-Play 3 Interlocking Rings -->
+            <div class="flex items-center justify-center">
+              <svg width="36" height="30" viewBox="0 0 45 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="drop-shadow-sm">
+                <path d="M19.5926 15.0017C19.6217 15.1425 19.6217 15.1425 19.6513 15.2861C19.8131 16.0489 20.0059 16.7819 20.2683 17.5167C20.3484 17.7539 20.3484 17.7539 20.3484 17.9207C20.2808 17.9375 20.2808 17.9375 20.2118 17.9547C18.6508 18.3512 17.2214 18.8739 15.9817 19.9222C15.8737 20.0107 15.8737 20.0107 15.7635 20.101C14.2596 21.3823 13.2607 23.1049 12.7906 25.0094C12.7734 25.0774 12.7562 25.1453 12.7385 25.2153C12.3402 27.1141 12.6092 29.2749 13.4624 31.014C13.4907 31.0724 13.519 31.1308 13.5482 31.1909C13.9211 31.9499 14.3203 32.633 14.89 33.2657C14.9476 33.3338 15.0052 33.4018 15.0645 33.4719C16.7287 35.3952 19.1777 36.5734 21.7137 36.7842C24.3725 36.941 27.0576 36.0026 29.0578 34.2673C31.1452 32.3977 32.176 29.7906 32.3305 27.0474C32.3407 26.8407 32.3492 26.634 32.3567 26.4272C32.4036 26.4255 32.4504 26.4239 32.4986 26.4222C33.4684 26.3863 34.4207 26.3277 35.3798 26.177C35.433 28.5897 35.1802 30.7706 34.0362 32.9321C34.0078 32.9867 33.9793 33.0413 33.95 33.0976C32.5853 35.6902 30.4133 37.6494 27.7381 38.8533C27.6867 38.8766 27.6352 38.8998 27.5821 38.9237C25.1673 39.991 22.337 40.3024 19.7605 39.6873C19.6522 39.6651 19.5438 39.6428 19.4322 39.6199C16.3587 38.9636 13.4545 36.8853 11.7177 34.3085C10.9176 33.0701 10.3282 31.7896 9.90926 30.3781C9.88889 30.3106 9.86852 30.243 9.84753 30.1735C9.54844 29.1154 9.48335 28.0373 9.48939 26.9432C9.48954 26.8851 9.48969 26.827 9.48985 26.7672C9.49387 25.8574 9.53766 24.9763 9.76755 24.092C9.78917 24.0085 9.78917 24.0085 9.81122 23.9232C10.6691 20.7332 12.7271 17.9503 15.6084 16.2921C16.7901 15.6316 18.2056 14.9612 19.5926 15.0017Z" fill="#E85A2C"/>
+                <path d="M31.4671 0.0667466C35.1561 -0.0390557 38.4945 1.21085 41.2082 3.70014C43.1023 5.47968 44.3101 7.88536 44.7849 10.4141C44.8037 10.5088 44.8226 10.6034 44.842 10.7008C45.1222 12.3781 45.0189 14.1055 44.617 15.7516C44.594 15.8466 44.594 15.8466 44.5707 15.9435C44.1318 17.7034 43.2986 19.3859 42.0977 20.7554C42.0372 20.8246 41.9767 20.8939 41.9143 20.9652C41.7264 21.1761 41.5353 21.3834 41.3419 21.5894C41.2834 21.652 41.2248 21.7147 41.1645 21.7793C39.2604 23.7463 36.3775 25.1235 33.6191 25.2723C32.3913 25.2887 31.2039 25.2933 30.0054 25.0087C29.9211 24.9899 29.9211 24.9899 29.8351 24.9707C27.7719 24.4973 25.4207 23.3023 24.1271 21.5894C24.1962 21.5319 24.2652 21.4743 24.3364 21.4151C25.3942 20.5329 25.3942 20.5329 26.3944 19.5878C26.4315 19.6254 26.4685 19.6629 26.5066 19.7015C28.2069 21.3157 30.5837 22.1325 32.9107 22.1021C34.4679 22.0613 35.8798 21.5878 37.2272 20.8388C37.311 20.7925 37.3947 20.7461 37.4811 20.6984C38.7967 19.9178 39.8414 18.7342 40.5862 17.4195C40.6321 17.3388 40.678 17.258 40.7252 17.1749C41.9108 14.9613 42.0853 12.2538 41.3611 9.87062C40.5729 7.44249 38.8672 5.42462 36.5833 4.24732C34.2512 3.09543 31.5236 2.87168 29.0396 3.6694C27.6224 4.14935 26.4453 4.87771 25.3467 5.89278C25.2188 5.9941 25.2188 5.9941 25.0508 5.9941C25.0131 5.92336 24.9753 5.85262 24.9364 5.77974C24.5925 5.15223 24.2167 4.58911 23.7498 4.04432C23.5228 3.77349 23.4553 3.69156 23.4553 3.32539C25.2247 1.44988 28.4516 0.197193 30.9839 0.077782C31.1449 0.0749818 31.306 0.0716461 31.4671 0.0667466Z" fill="#1A7BE6"/>
+                <path d="M21.2629 3.19604C21.4663 3.37423 21.6638 3.55686 21.8599 3.74301C21.9213 3.7988 21.9828 3.8546 22.0462 3.91208C23.7607 5.52184 24.8481 7.83069 25.3868 10.0812C25.4065 10.1628 25.4262 10.2444 25.4465 10.3285C25.6713 11.3527 25.6493 12.3907 25.644 13.4327C25.6436 13.5772 25.6432 13.7217 25.6428 13.8662C25.6419 14.2169 25.6405 14.5675 25.6387 14.9182C25.5717 14.8898 25.5047 14.8613 25.4356 14.832C25.3466 14.7945 25.2575 14.7571 25.1657 14.7185C25.0779 14.6815 24.9901 14.6444 24.8996 14.6062C24.112 14.2984 23.2831 14.1886 22.4477 14.0843C22.4494 14.0337 22.4512 13.9831 22.453 13.931C22.5425 10.9316 21.8232 8.34341 19.792 6.08301C18.0336 4.25802 15.5563 3.27747 13.0355 3.20903C10.191 3.1787 7.73811 4.22336 5.71146 6.1814C3.80112 8.20026 3.14105 10.7942 3.20641 13.4962C3.29942 15.634 4.24663 17.6627 5.65274 19.2549C5.75082 19.3665 5.75082 19.3665 5.85087 19.4803C6.80228 20.4886 8.03318 21.1443 9.26366 21.7568C9.12855 22.3904 8.96259 23.0136 8.7913 23.6385C8.76402 23.7385 8.73674 23.8385 8.70864 23.9416C8.64187 24.1863 8.57495 24.431 8.50788 24.6757C8.03995 24.609 7.67641 24.4653 7.25351 24.2639C7.18342 24.2307 7.11333 24.1974 7.04111 24.1631C4.06444 22.7132 1.7862 20.1013 0.698235 17.0032C0.599968 16.7076 0.508265 16.4105 0.420069 16.1119C0.389512 16.0095 0.389512 16.0095 0.358339 15.9051C0.0766051 14.9045 -0.00456496 13.9002 0.000195415 12.8646C0.000669003 12.7554 0.00114259 12.6463 0.00163053 12.5338C0.0344144 9.91204 0.824714 7.33051 2.4617 5.24416C2.54419 5.13628 2.54419 5.13628 2.62834 5.02622C3.3014 4.16662 4.02236 3.40114 4.89697 2.74224C4.94068 2.70882 4.98438 2.6754 5.02941 2.64097C6.63682 1.41913 8.46232 0.651171 10.4393 0.240325C10.5258 0.221512 10.6123 0.202698 10.7014 0.183315C14.4926 -0.498269 18.3683 0.768092 21.2629 3.19604Z" fill="#72CE72"/>
+              </svg>
+            </div>
+
+            <!-- More Options ':' -->
+            <button type="button" onclick="showToast('Coach Options', 'Viewing profile for Mukund Patil')" class="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center transition border border-white/20 shadow-xs cursor-pointer" title="More Options">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
             </button>
           </div>
         </div>
 
-        <!-- Overhanging Profile Card -->
-        <div class="px-4 -mt-10 space-y-3 relative z-20 text-[#ECEDEE]">
+        <!-- Overhanging Profile Cards Stack (PDF Pages 1, 2, 3) -->
+        <div class="px-4 -mt-10 space-y-3.5 relative z-20 text-[#ECEDEE]">
 
-          <!-- Selected Availability Context Banner (Shows slot chosen from Step 2 Calendar) -->
-          <div class="bg-gradient-to-r from-blue-950/90 via-[#1F1F1F] to-[#1F1F1F] border border-blue-500/50 rounded-2xl p-3 shadow-lg flex items-center justify-between text-xs">
+          <!-- Selected Availability Context Banner (Step 2 -> Step 3 Connection) -->
+          <div id="cpv-selected-slot-card" class="bg-gradient-to-r from-blue-950/95 via-[#1E232E] to-[#1E232E] border border-[#007AFF]/60 rounded-2xl p-3 shadow-xl flex items-center justify-between text-xs">
             <div class="flex items-center space-x-2.5">
-              <div class="w-9 h-9 rounded-xl bg-[#007AFF]/25 text-[#007AFF] flex items-center justify-center text-base shrink-0 border border-blue-400/40">
+              <div class="w-9 h-9 rounded-xl bg-[#007AFF]/25 text-[#007AFF] flex items-center justify-center text-base shrink-0 border border-blue-400/40 shadow-xs">
                 📅
               </div>
               <div>
-                <span class="text-[9px] uppercase tracking-wider text-blue-300 font-bold block">Selected Availability</span>
-                <span id="cpv-slot-banner-time" class="text-xs font-bold text-white block">Thu, 17 Sep • 17:00 - 18:00</span>
-                <span class="text-[9px] text-emerald-400 font-semibold block">✓ Center Court 1 Clay (Auto-Held)</span>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[9px] uppercase tracking-wider text-blue-300 font-extrabold block">Selected Availability</span>
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                </div>
+                <span id="cpv-slot-banner-time" class="text-xs font-bold text-white block mt-0.5">Thu, 17 Sep • 17:00 - 18:00</span>
+                <span class="text-[9.5px] text-emerald-400 font-semibold block">✓ Center Court 1 Clay (Auto-Held 10:00)</span>
               </div>
             </div>
-            <button type="button" onclick="openCoachCalendarView(activeCoachId)" class="px-2.5 py-1.5 rounded-lg bg-[#007AFF]/20 hover:bg-[#007AFF] text-blue-300 hover:text-white border border-blue-400/40 text-[10px] font-bold transition flex items-center gap-1 cursor-pointer" title="Select different time">
+            <button type="button" onclick="openCoachCalendarView(activeCoachId)" class="px-2.5 py-1.5 rounded-lg bg-[#007AFF]/20 hover:bg-[#007AFF] text-blue-300 hover:text-white border border-blue-400/40 text-[10px] font-bold transition flex items-center gap-1 cursor-pointer" title="Pick another time slot">
               <span>Change</span>
               <span>↺</span>
             </button>
           </div>
-          
-          <!-- Hero Coach Summary Card -->
-          <div class="bg-[#1F1F1F] border border-[#3A3A3A] rounded-2xl p-4 shadow-xl space-y-3">
-            <div class="flex items-start justify-between">
-              <div class="flex items-center space-x-3">
-                <div id="cpv-avatar" class="w-14 h-14 rounded-2xl bg-[#007AFF] text-white font-black text-xl flex items-center justify-center shadow-md border-2 border-blue-400">
-                  MP
-                </div>
-                <div>
-                  <div class="flex items-center gap-1.5">
-                    <h3 id="cpv-name" class="text-sm font-bold text-white">Mukund Patil</h3>
-                    <span class="bg-emerald-500/20 text-emerald-400 text-[9px] font-bold px-1.5 py-0.2 rounded border border-emerald-500/40">VERIFIED ✓</span>
-                  </div>
-                  <p id="cpv-title" class="text-[11px] text-[#007AFF] font-semibold mt-0.5">Head Coach • Tennis &amp; Padel</p>
-                  <p id="cpv-club" class="text-[10px] text-[#BAB8B8] mt-0.5 flex items-center gap-1">
-                    <span>🏢 Utrecht Sports Club</span>
-                    <span>•</span>
-                    <span class="text-white">&lt; 1 km away</span>
-                  </p>
-                </div>
+
+          <!-- ========================================================================= -->
+          <!-- TIER 1: PROFILE AND BOOKING (Page 1)                                     -->
+          <!-- ========================================================================= -->
+          <div class="bg-[#1C1C1C] border border-[#2E2E2E] rounded-3xl p-4 shadow-xl space-y-3.5">
+            <!-- Top Row: Photo + Core Details -->
+            <div class="flex items-start space-x-3.5">
+              <!-- Coach Photo with 📍 3 Badge and Verified Pencil/Check Badge -->
+              <div class="relative shrink-0">
+                <img id="cpv-avatar-img" src="images/coach_portrait_clean.jpg" alt="Mukund Patil" onerror="this.onerror=null; this.src='images/pages/coach_mukund_hero.jpg';" class="w-20 h-24 object-cover rounded-2xl border-2 border-white/10 shadow-md">
+                <!-- Location count badge -->
+                <span class="absolute bottom-1 left-1 bg-black/85 backdrop-blur-xs text-white text-[9px] font-black px-1.5 py-0.5 rounded-md border border-white/20 flex items-center gap-0.5 shadow-xs">
+                  <span>📍</span><span id="cpv-clubs-connected-badge">3</span>
+                </span>
+                <!-- Verified Badge -->
+                <span class="absolute -bottom-1 -right-1 w-5 h-5 bg-[#007AFF] text-white rounded-full flex items-center justify-center text-[10px] font-black border-2 border-[#1C1C1C] shadow-xs">
+                  ✓
+                </span>
               </div>
-              <div class="text-right">
-                <span id="cpv-rate" class="text-base font-black text-[#007AFF]">€45.00</span>
-                <span class="text-[10px] text-[#BAB8B8] block">/ hour</span>
+
+              <!-- Coach Identity & Credentials -->
+              <div class="flex-1 min-w-0">
+                <!-- Badges Row -->
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <span class="bg-emerald-500/15 text-emerald-400 border border-emerald-500/40 text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">VERIFIED COACH</span>
+                  <span class="bg-blue-500/15 text-[#007AFF] border border-blue-500/40 text-[9px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">KNLTB CERTIFIED</span>
+                </div>
+
+                <h2 id="cpv-name" class="text-lg font-black text-white font-montserrat tracking-tight mt-1.5 truncate">Mukund Patil</h2>
+                <p id="cpv-title" class="text-[11px] text-[#A1A1AA] font-medium leading-snug mt-0.5">Tennis &amp; Padel Coach | Beginners to High-Performance</p>
+                
+                <!-- Rating & Location -->
+                <div class="flex items-center gap-1.5 text-xs font-semibold text-amber-400 mt-1">
+                  <span class="flex items-center gap-0.5">★ <span id="cpv-rating-val">4.9</span></span>
+                  <span class="text-gray-400 font-normal text-[11px]">(42 reviews) · Utrecht &amp; Amsterdam</span>
+                </div>
               </div>
             </div>
 
-            <!-- 3 Stat Metrics -->
-            <div class="grid grid-cols-3 gap-2 text-center pt-2 border-t border-[#3A3A3A] text-xs">
-              <div class="bg-[#121212] p-2 rounded-xl border border-[#3A3A3A]">
-                <span class="text-[10px] text-[#BAB8B8] block font-semibold uppercase">Rating</span>
-                <span id="cpv-rating" class="text-xs font-bold text-amber-400 flex items-center justify-center gap-1 mt-0.5">★ 4.9 (42)</span>
-              </div>
-              <div class="bg-[#121212] p-2 rounded-xl border border-[#3A3A3A]">
-                <span class="text-[10px] text-[#BAB8B8] block font-semibold uppercase">Experience</span>
-                <span id="cpv-exp" class="text-xs font-bold text-white mt-0.5 block">12+ Yrs</span>
-              </div>
-              <div class="bg-[#121212] p-2 rounded-xl border border-[#3A3A3A]">
-                <span class="text-[10px] text-[#BAB8B8] block font-semibold uppercase">Lessons</span>
-                <span id="cpv-lessons" class="text-xs font-bold text-[#007AFF] mt-0.5 block">840+</span>
-              </div>
+            <!-- Divider -->
+            <div class="border-t border-white/10 pt-3">
+              <!-- Philosophy Quote -->
+              <p id="cpv-quote" class="text-xs font-semibold italic text-white/95 font-montserrat tracking-tight">"Better players. Happier people."</p>
+              <!-- Bio -->
+              <p id="cpv-bio" class="text-[11.5px] text-[#BAB8B8] leading-relaxed mt-1.5">
+                Former national-level competitive player with over 8 years of professional coaching experience across the Netherlands.
+              </p>
+            </div>
+
+            <!-- Sport and Level Pills -->
+            <div class="flex items-center gap-1.5 flex-wrap pt-0.5">
+              <span class="bg-[#262626] border border-[#3E3E3E] text-white/90 text-[10.5px] font-medium px-2.5 py-1 rounded-full">Tennis</span>
+              <span class="bg-[#262626] border border-[#3E3E3E] text-white/90 text-[10.5px] font-medium px-2.5 py-1 rounded-full">Padel</span>
+              <span class="bg-[#262626] border border-[#3E3E3E] text-white/90 text-[10.5px] font-medium px-2.5 py-1 rounded-full">Beginners</span>
+              <span class="bg-[#262626] border border-[#3E3E3E] text-white/90 text-[10.5px] font-medium px-2.5 py-1 rounded-full">Intermediate</span>
+              <span class="bg-[#262626] border border-[#3E3E3E] text-white/90 text-[10.5px] font-medium px-2.5 py-1 rounded-full">Advanced</span>
+              <span class="bg-[#262626] border border-[#3E3E3E] text-white/90 text-[10.5px] font-medium px-2.5 py-1 rounded-full">Game Strategy</span>
             </div>
           </div>
 
-          <!-- Coach Bio & Philosophy -->
-          <div class="bg-[#1F1F1F] border border-[#3A3A3A] rounded-2xl p-4 shadow-sm space-y-1.5">
-            <span class="text-[10px] font-bold text-[#BAB8B8] uppercase tracking-wider block font-montserrat">Coach Bio &amp; Specialization</span>
-            <p id="cpv-bio" class="text-xs text-[#BAB8B8] leading-relaxed">
-              Former national circuit player with 12+ years of high-performance coaching experience. Specializes in tactical baseline control, slice defense, and technical stroke refinement for juniors and competitive adults.
+          <!-- LESSON RATES CARD (Page 1) -->
+          <div class="bg-[#1C1C1C] border border-[#2E2E2E] rounded-3xl p-4 shadow-xl space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] uppercase font-bold text-gray-400 tracking-wider">LESSON RATES</span>
+              <span class="text-[9px] font-bold text-emerald-400 border border-emerald-500/50 bg-emerald-950/40 px-2 py-0.5 rounded-full">GUARANTEED BEST RATE</span>
+            </div>
+
+            <div class="flex items-baseline space-x-1">
+              <span id="cpv-hourly-rate" class="text-3xl font-black text-white font-montserrat tracking-tight">EUR 40</span>
+              <span class="text-xs text-gray-400 font-normal">/ hour</span>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="space-y-2 pt-1">
+              <button type="button" onclick="proceedFromProfileToBookingSummary()" class="w-full bg-[#007AFF] hover:bg-blue-600 text-white font-bold py-3.5 rounded-2xl text-xs transition shadow-lg flex items-center justify-center space-x-1.5 cursor-pointer">
+                <span>Book Lesson</span>
+                <span>-&gt;</span>
+              </button>
+
+              <button type="button" onclick="document.getElementById('cpv-lesson-types-card').scrollIntoView({behavior: 'smooth'})" class="w-full bg-[#242424] hover:bg-[#2C2C2C] border border-[#007AFF]/40 text-blue-300 font-bold py-3 rounded-2xl text-xs transition flex items-center justify-center cursor-pointer">
+                <span>View All Lessons</span>
+              </button>
+            </div>
+
+            <!-- Microcopy -->
+            <p class="text-[10px] text-center text-gray-400 pt-1">
+              Flexible scheduling &nbsp;|&nbsp; Individual &amp; group lessons &nbsp;|&nbsp; Top Dutch clubs
             </p>
           </div>
 
-          <!-- Verified Credentials & Licenses -->
-          <div class="bg-[#1F1F1F] border border-[#3A3A3A] rounded-2xl p-4 shadow-sm space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold text-[#BAB8B8] uppercase tracking-wider block font-montserrat">Verified Credentials</span>
-              <span class="text-[9px] text-emerald-400 font-bold bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-500/40">100% Authentic</span>
+          <!-- STATS 2x2 GRID (Page 1) -->
+          <div class="grid grid-cols-2 gap-2.5">
+            <div class="bg-[#181818] border border-[#2A2A2A] rounded-2xl p-3 flex flex-col justify-between">
+              <span class="text-xl font-black text-white font-montserrat">8+</span>
+              <span class="text-[10px] text-gray-400 font-medium mt-1">Years Experience</span>
             </div>
-            <div id="cpv-certificates" class="space-y-1.5">
-              <!-- Rendered via JS -->
+            <div class="bg-[#181818] border border-[#2A2A2A] rounded-2xl p-3 flex flex-col justify-between">
+              <span class="text-xl font-black text-white font-montserrat">1,200+</span>
+              <span class="text-[10px] text-gray-400 font-medium mt-1">Hours Taught</span>
             </div>
-          </div>
-
-          <!-- Lesson Offerings & Pricing Selection (Player selects lesson/package) -->
-          <div class="bg-[#1F1F1F] border border-[#3A3A3A] rounded-2xl p-4 shadow-sm space-y-2.5">
-            <div class="flex items-center justify-between">
-              <span class="text-[10px] font-bold text-[#BAB8B8] uppercase tracking-wider block font-montserrat">Lesson Offerings &amp; Pricing</span>
-              <span class="text-[9px] bg-emerald-950 text-emerald-400 font-bold px-2 py-0.5 rounded border border-emerald-500/40">Select Offering</span>
+            <div class="bg-[#181818] border border-[#2A2A2A] rounded-2xl p-3 flex flex-col justify-between">
+              <span class="text-xl font-black text-white font-montserrat">3</span>
+              <span class="text-[10px] text-gray-400 font-medium mt-1">Clubs Connected</span>
             </div>
-            
-            <div id="cpv-offerings-container" class="space-y-2 text-xs">
-              <!-- Offering 1: Single Session (Selected by default) -->
-              <div id="cpv-offering-single" onclick="selectProfileLessonOffering('single')" class="p-3 bg-blue-950/40 border-2 border-[#007AFF] rounded-xl flex items-center justify-between cursor-pointer transition shadow-xs">
-                <div class="flex items-start space-x-2.5">
-                  <span id="cpv-radio-single" class="w-4 h-4 rounded-full border-2 border-[#007AFF] bg-[#007AFF] flex items-center justify-center text-[9px] text-white font-bold mt-0.5">✓</span>
-                  <div>
-                    <span class="font-bold text-white block text-xs">1-on-1 Private Coaching</span>
-                    <span class="text-[10px] text-[#BAB8B8]">60 min • Court reservation included</span>
-                  </div>
-                </div>
-                <div class="text-right">
-                  <span class="text-xs font-black text-[#007AFF] block" id="cpv-matrix-single">€45.00</span>
-                  <span class="text-[9px] text-[#BAB8B8]">/ session</span>
-                </div>
-              </div>
-
-              <!-- Offering 2: Duo / Semi-Private -->
-              <div id="cpv-offering-duo" onclick="selectProfileLessonOffering('duo')" class="p-3 bg-[#121212] border border-[#3A3A3A] hover:border-slate-500 rounded-xl flex items-center justify-between cursor-pointer transition">
-                <div class="flex items-start space-x-2.5">
-                  <span id="cpv-radio-duo" class="w-4 h-4 rounded-full border-2 border-[#555] bg-transparent flex items-center justify-center text-[9px] text-white font-bold mt-0.5"></span>
-                  <div>
-                    <span class="font-bold text-white block text-xs">Duo / Semi-Private (2 Players)</span>
-                    <span class="text-[10px] text-[#BAB8B8]">60 min • €27.50 per player</span>
-                  </div>
-                </div>
-                <div class="text-right">
-                  <span class="text-xs font-black text-white block" id="cpv-matrix-duo">€55.00</span>
-                  <span class="text-[9px] text-[#BAB8B8]">/ session</span>
-                </div>
-              </div>
-
-              <!-- Offering 3: 5-Lesson Package -->
-              <div id="cpv-offering-pack5" onclick="selectProfileLessonOffering('pack5')" class="p-3 bg-[#121212] border border-[#3A3A3A] hover:border-purple-500/50 rounded-xl flex items-center justify-between cursor-pointer transition">
-                <div class="flex items-start space-x-2.5">
-                  <span id="cpv-radio-pack5" class="w-4 h-4 rounded-full border-2 border-[#555] bg-transparent flex items-center justify-center text-[9px] text-white font-bold mt-0.5"></span>
-                  <div>
-                    <div class="flex items-center gap-1.5">
-                      <span class="font-bold text-white text-xs">5-Lesson Performance Pack</span>
-                      <span class="text-[9px] bg-purple-900/60 text-purple-300 font-bold px-1.5 rounded">SAVE €25</span>
-                    </div>
-                    <span class="text-[10px] text-[#BAB8B8]">Valid 90 days • Flexible rescheduling</span>
-                  </div>
-                </div>
-                <div class="text-right">
-                  <span class="text-xs font-black text-purple-400 block" id="cpv-matrix-pack5">€200.00</span>
-                  <span class="text-[9px] text-gray-500 line-through block">€225.00</span>
-                </div>
-              </div>
-
-              <!-- Offering 4: 10-Lesson Package -->
-              <div id="cpv-offering-pack10" onclick="selectProfileLessonOffering('pack10')" class="p-3 bg-[#121212] border border-[#3A3A3A] hover:border-amber-500/50 rounded-xl flex items-center justify-between cursor-pointer transition">
-                <div class="flex items-start space-x-2.5">
-                  <span id="cpv-radio-pack10" class="w-4 h-4 rounded-full border-2 border-[#555] bg-transparent flex items-center justify-center text-[9px] text-white font-bold mt-0.5"></span>
-                  <div>
-                    <div class="flex items-center gap-1.5">
-                      <span class="font-bold text-white text-xs">10-Lesson Mastery Pack</span>
-                      <span class="text-[9px] bg-amber-900/60 text-amber-300 font-bold px-1.5 rounded">BEST VALUE -15%</span>
-                    </div>
-                    <span class="text-[10px] text-[#BAB8B8]">Valid 180 days • €38/hr</span>
-                  </div>
-                </div>
-                <div class="text-right">
-                  <span class="text-xs font-black text-amber-400 block" id="cpv-matrix-pack10">€380.00</span>
-                  <span class="text-[9px] text-gray-500 line-through block">€450.00</span>
-                </div>
-              </div>
+            <div class="bg-[#181818] border border-[#2A2A2A] rounded-2xl p-3 flex flex-col justify-between">
+              <span class="text-xl font-black text-white font-montserrat">4.9</span>
+              <span class="text-[10px] text-gray-400 font-medium mt-1">Verified Reviews</span>
             </div>
           </div>
 
-          <!-- Primary CTA Button: Proceed to Booking Summary -->
-          <div class="pt-2">
-            <button type="button" onclick="proceedFromProfileToBookingSummary()" id="cpv-btn-proceed" class="w-full bg-[#007AFF] hover:bg-blue-600 text-white font-bold py-3.5 rounded-xl text-xs transition shadow-lg flex items-center justify-center space-x-2 cursor-pointer">
-              <span>Continue to Booking Summary</span>
-              <span id="cpv-btn-price-chip" class="bg-blue-900/80 px-2 py-0.5 rounded-md text-[11px] font-black border border-blue-400/50">€45.00</span>
-              <svg class="w-4 h-4 ml-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-            </button>
+          <!-- ========================================================================= -->
+          <!-- TIER 2: PROOF AND OFFER (Lessons, locations, reviews)                     -->
+          <!-- ========================================================================= -->
+
+          <!-- LESSON TYPES CARD (Page 1 in PDF) -->
+          <div id="cpv-lesson-types-card" class="bg-[#1C1C1C] border border-[#2E2E2E] rounded-3xl p-4 shadow-xl space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xs font-bold text-white uppercase tracking-wider font-montserrat">Lesson Types</h3>
+              <button type="button" onclick="document.getElementById('cpv-offerings-container').scrollIntoView({behavior: 'smooth'})" class="text-xs font-bold text-[#007AFF] hover:underline cursor-pointer">View All Lessons &gt;</button>
+            </div>
+
+            <!-- Lesson Type 1: Tennis Lessons -->
+            <div onclick="selectProfileLessonOffering('single'); showToast('Selected Lesson', 'Tennis Private 1:1 (€40.00)');" class="bg-[#181818] hover:bg-[#222222] border border-[#2C2C2C] hover:border-[#007AFF]/50 rounded-2xl p-3 flex items-center justify-between cursor-pointer transition">
+              <div class="flex items-center space-x-3">
+                <img src="images/pages/lesson_tennis_thumb.jpg" alt="Tennis" onerror="this.onerror=null; this.src='images/pages/tennis.jpg';" class="w-12 h-12 rounded-xl object-cover border border-white/10 shrink-0">
+                <div>
+                  <h4 class="text-xs font-bold text-white">Tennis Lessons</h4>
+                  <p class="text-[10px] text-[#BAB8B8] mt-0.5">Private 1:1, Duo &amp; Junior clinics</p>
+                </div>
+              </div>
+              <span class="text-xs font-extrabold text-[#007AFF] shrink-0">From EUR 40</span>
+            </div>
+
+            <!-- Lesson Type 2: Padel Lessons -->
+            <div onclick="selectProfileLessonOffering('padel_single'); showToast('Selected Lesson', 'Padel Lessons (€45.00)');" class="bg-[#181818] hover:bg-[#222222] border border-[#2C2C2C] hover:border-[#007AFF]/50 rounded-2xl p-3 flex items-center justify-between cursor-pointer transition">
+              <div class="flex items-center space-x-3">
+                <img src="images/pages/lesson_padel_thumb.jpg" alt="Padel" onerror="this.onerror=null; this.src='images/pages/tennis.jpg';" class="w-12 h-12 rounded-xl object-cover border border-white/10 shrink-0">
+                <div>
+                  <h4 class="text-xs font-bold text-white">Padel Lessons</h4>
+                  <p class="text-[10px] text-[#BAB8B8] mt-0.5">Wall rebound drills &amp; bandeja tactics</p>
+                </div>
+              </div>
+              <span class="text-xs font-extrabold text-[#007AFF] shrink-0">From EUR 45</span>
+            </div>
+
+            <!-- Interactive Offering Packages (Single, Duo, Pack 5, Pack 10) -->
+            <div class="pt-2 border-t border-white/10 space-y-2">
+              <span class="text-[10px] uppercase font-bold text-gray-400 block tracking-wider">Select Coaching Package</span>
+              
+              <div class="space-y-2 text-xs" id="cpv-offerings-container">
+                <!-- 1-on-1 Single Session (Selected by default) -->
+                <div id="cpv-offering-single" onclick="selectProfileLessonOffering('single')" class="p-2.5 bg-blue-950/40 border border-[#007AFF] rounded-xl flex items-center justify-between cursor-pointer transition">
+                  <div class="flex items-start space-x-2.5">
+                    <span id="cpv-radio-single" class="w-4 h-4 rounded-full border-2 border-[#007AFF] bg-[#007AFF] flex items-center justify-center text-[9px] text-white font-bold mt-0.5">✓</span>
+                    <div>
+                      <span class="font-bold text-white block text-xs">1-on-1 Private Coaching</span>
+                      <span class="text-[10px] text-[#BAB8B8]">60 min • Court Auto-Held</span>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <span class="text-xs font-black text-[#007AFF] block" id="cpv-matrix-single">€40.00</span>
+                    <span class="text-[9px] text-[#BAB8B8]">/ hour</span>
+                  </div>
+                </div>
+
+                <!-- Duo Semi-Private -->
+                <div id="cpv-offering-duo" onclick="selectProfileLessonOffering('duo')" class="p-2.5 bg-[#141414] border border-[#2E2E2E] hover:border-slate-500 rounded-xl flex items-center justify-between cursor-pointer transition">
+                  <div class="flex items-start space-x-2.5">
+                    <span id="cpv-radio-duo" class="w-4 h-4 rounded-full border-2 border-[#555] bg-transparent flex items-center justify-center text-[9px] text-white font-bold mt-0.5"></span>
+                    <div>
+                      <span class="font-bold text-white block text-xs">Duo / Semi-Private (2 Players)</span>
+                      <span class="text-[10px] text-[#BAB8B8]">60 min • €27.50 per player</span>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <span class="text-xs font-black text-white block" id="cpv-matrix-duo">€55.00</span>
+                    <span class="text-[9px] text-[#BAB8B8]">/ session</span>
+                  </div>
+                </div>
+
+                <!-- 5-Lesson Pack -->
+                <div id="cpv-offering-pack5" onclick="selectProfileLessonOffering('pack5')" class="p-2.5 bg-[#141414] border border-[#2E2E2E] hover:border-purple-500/50 rounded-xl flex items-center justify-between cursor-pointer transition">
+                  <div class="flex items-start space-x-2.5">
+                    <span id="cpv-radio-pack5" class="w-4 h-4 rounded-full border-2 border-[#555] bg-transparent flex items-center justify-center text-[9px] text-white font-bold mt-0.5"></span>
+                    <div>
+                      <div class="flex items-center gap-1.5">
+                        <span class="font-bold text-white text-xs">5-Lesson Performance Pack</span>
+                        <span class="text-[8.5px] bg-purple-900/60 text-purple-300 font-bold px-1.5 rounded">SAVE €20</span>
+                      </div>
+                      <span class="text-[10px] text-[#BAB8B8]">Valid 90 days • €38/hr</span>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <span class="text-xs font-black text-purple-400 block" id="cpv-matrix-pack5">€190.00</span>
+                    <span class="text-[9px] text-gray-500 line-through block">€200.00</span>
+                  </div>
+                </div>
+
+                <!-- 10-Lesson Pack -->
+                <div id="cpv-offering-pack10" onclick="selectProfileLessonOffering('pack10')" class="p-2.5 bg-[#141414] border border-[#2E2E2E] hover:border-amber-500/50 rounded-xl flex items-center justify-between cursor-pointer transition">
+                  <div class="flex items-start space-x-2.5">
+                    <span id="cpv-radio-pack10" class="w-4 h-4 rounded-full border-2 border-[#555] bg-transparent flex items-center justify-center text-[9px] text-white font-bold mt-0.5"></span>
+                    <div>
+                      <div class="flex items-center gap-1.5">
+                        <span class="font-bold text-white text-xs">10-Lesson Mastery Pack</span>
+                        <span class="text-[8.5px] bg-amber-900/60 text-amber-300 font-bold px-1.5 rounded">BEST VALUE -15%</span>
+                      </div>
+                      <span class="text-[10px] text-[#BAB8B8]">Valid 180 days • €36/hr</span>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <span class="text-xs font-black text-amber-400 block" id="cpv-matrix-pack10">€360.00</span>
+                    <span class="text-[9px] text-gray-500 line-through block">€400.00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LOCATIONS & CLUBS CARD (Page 2 in PDF) -->
+          <div class="bg-[#1C1C1C] border border-[#2E2E2E] rounded-3xl p-4 shadow-xl space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xs font-bold text-white uppercase tracking-wider font-montserrat">Locations &amp; Clubs</h3>
+              <button type="button" onclick="showToast('Clubs Network', 'Mukund coaches at 3 top Dutch facilities')" class="text-xs font-bold text-[#007AFF] hover:underline cursor-pointer">Explore All &gt;</button>
+            </div>
+
+            <!-- Club 1: Utrecht Sports Club -->
+            <div class="bg-[#181818] border border-[#2C2C2C] rounded-2xl p-3 flex items-center justify-between">
+              <div class="flex items-center space-x-3">
+                <img src="images/pages/club_utrecht_thumb.jpg" alt="Utrecht Sports Club" onerror="this.onerror=null; this.src='presentation/assets/club_utrecht.jpg';" class="w-12 h-12 rounded-xl object-cover border border-white/10 shrink-0">
+                <div>
+                  <h4 class="text-xs font-bold text-white">Utrecht Sports Club</h4>
+                  <p class="text-[10px] text-[#BAB8B8] mt-0.5">12 courts - Primary base - Connected</p>
+                </div>
+              </div>
+              <span class="text-gray-400 text-sm font-bold">&gt;</span>
+            </div>
+
+            <!-- Club 2: Amstelpark Tennis Center -->
+            <div class="bg-[#181818] border border-[#2C2C2C] rounded-2xl p-3 flex items-center justify-between">
+              <div class="flex items-center space-x-3">
+                <img src="images/pages/club_amstelpark_thumb.jpg" alt="Amstelpark Tennis Center" onerror="this.onerror=null; this.src='presentation/assets/club_amstelpark.jpg';" class="w-12 h-12 rounded-xl object-cover border border-white/10 shrink-0">
+                <div>
+                  <h4 class="text-xs font-bold text-white">Amstelpark Tennis Center</h4>
+                  <p class="text-[10px] text-[#BAB8B8] mt-0.5">6 clay courts - Partner - Connected</p>
+                </div>
+              </div>
+              <span class="text-gray-400 text-sm font-bold">&gt;</span>
+            </div>
+          </div>
+
+          <!-- REVIEWS CARD (Page 2 in PDF) -->
+          <div class="bg-[#1C1C1C] border border-[#2E2E2E] rounded-3xl p-4 shadow-xl space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-1.5">
+                <h3 class="text-xs font-bold text-white uppercase tracking-wider font-montserrat">Reviews</h3>
+                <span class="text-xs font-bold text-amber-400">4.9 ★</span>
+              </div>
+              <button type="button" onclick="showToast('Verified Reviews', 'All 42 reviews verified by ShallWe-Play')" class="text-xs font-bold text-[#007AFF] hover:underline cursor-pointer">See All 42 &gt;</button>
+            </div>
+
+            <!-- Sophie M. Testimonial Box -->
+            <div class="bg-[#161616] border border-[#2A2A2A] rounded-2xl p-3.5 space-y-2">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                  <span class="w-6 h-6 rounded-full bg-gradient-to-tr from-pink-500 to-rose-400 text-white font-bold text-[10px] flex items-center justify-center">SM</span>
+                  <span class="text-xs font-bold text-white">Sophie M.</span>
+                  <span class="text-[10px] text-gray-500">· 2 weeks ago</span>
+                </div>
+                <span class="text-xs font-bold text-amber-400">5 / 5 ★</span>
+              </div>
+
+              <p class="text-[11.5px] text-gray-300 italic leading-relaxed">
+                "Mukund transformed my backhand in just three sessions. His approach is structured yet fun, and he explains technical concepts in a way that just clicks."
+              </p>
+            </div>
+          </div>
+
+          <!-- ========================================================================= -->
+          <!-- TIER 3: TRUST AND FIT (Qualifications, Specialties, Audiences)           -->
+          <!-- ========================================================================= -->
+
+          <!-- QUALIFICATIONS & CREDENTIALS (Page 2 in PDF) -->
+          <div class="bg-[#1C1C1C] border border-[#2E2E2E] rounded-3xl p-4 shadow-xl space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xs font-bold text-white uppercase tracking-wider font-montserrat">Qualifications &amp; Credentials</h3>
+              <span class="bg-emerald-500/15 text-emerald-400 border border-emerald-500/40 text-[9px] font-bold px-2 py-0.5 rounded-full uppercase">VERIFIED</span>
+            </div>
+
+            <!-- 4 Verified Credentials List -->
+            <div class="space-y-2 text-xs" id="cpv-certificates">
+              <!-- Credential 1 -->
+              <div class="bg-[#181818] border border-[#2C2C2C] rounded-2xl p-3 flex items-center justify-between">
+                <div class="flex items-center space-x-2.5">
+                  <div class="w-7 h-7 rounded-full bg-[#007AFF]/20 text-[#007AFF] font-black text-[10px] flex items-center justify-center border border-[#007AFF]/40 shrink-0">
+                    OK
+                  </div>
+                  <div>
+                    <span class="text-white font-bold block text-xs">KNLTB Tennis Coach License A/B</span>
+                    <span class="text-[10px] text-gray-400">Royal Dutch Lawn Tennis Association</span>
+                  </div>
+                </div>
+                <span class="text-[10px] font-bold text-[#007AFF] bg-blue-950/60 border border-blue-500/30 px-2 py-0.5 rounded-full">OK</span>
+              </div>
+
+              <!-- Credential 2 -->
+              <div class="bg-[#181818] border border-[#2C2C2C] rounded-2xl p-3 flex items-center justify-between">
+                <div class="flex items-center space-x-2.5">
+                  <div class="w-7 h-7 rounded-full bg-[#007AFF]/20 text-[#007AFF] font-black text-[10px] flex items-center justify-center border border-[#007AFF]/40 shrink-0">
+                    OK
+                  </div>
+                  <div>
+                    <span class="text-white font-bold block text-xs">FIP Padel Certified Coach Level 1</span>
+                    <span class="text-[10px] text-gray-400">International Padel Federation</span>
+                  </div>
+                </div>
+                <span class="text-[10px] font-bold text-[#007AFF] bg-blue-950/60 border border-blue-500/30 px-2 py-0.5 rounded-full">OK</span>
+              </div>
+
+              <!-- Credential 3 -->
+              <div class="bg-[#181818] border border-[#2C2C2C] rounded-2xl p-3 flex items-center justify-between">
+                <div class="flex items-center space-x-2.5">
+                  <div class="w-7 h-7 rounded-full bg-[#007AFF]/20 text-[#007AFF] font-black text-[10px] flex items-center justify-center border border-[#007AFF]/40 shrink-0">
+                    OK
+                  </div>
+                  <div>
+                    <span class="text-white font-bold block text-xs">ZIN Master Instructor</span>
+                    <span class="text-[10px] text-gray-400">Zumba Fitness LLC - Valid thru 2027</span>
+                  </div>
+                </div>
+                <span class="text-[10px] font-bold text-[#007AFF] bg-blue-950/60 border border-blue-500/30 px-2 py-0.5 rounded-full">OK</span>
+              </div>
+
+              <!-- Credential 4 -->
+              <div class="bg-[#181818] border border-[#2C2C2C] rounded-2xl p-3 flex items-center justify-between">
+                <div class="flex items-center space-x-2.5">
+                  <div class="w-7 h-7 rounded-full bg-[#007AFF]/20 text-[#007AFF] font-black text-[10px] flex items-center justify-center border border-[#007AFF]/40 shrink-0">
+                    OK
+                  </div>
+                  <div>
+                    <span class="text-white font-bold block text-xs">Sports First Aid &amp; CPR Certified</span>
+                    <span class="text-[10px] text-gray-400">Dutch Red Cross</span>
+                  </div>
+                </div>
+                <span class="text-[10px] font-bold text-[#007AFF] bg-blue-950/60 border border-blue-500/30 px-2 py-0.5 rounded-full">OK</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- COACHING SPECIALTIES 2x2 GRID (Page 2 in PDF) -->
+          <div class="bg-[#1C1C1C] border border-[#2E2E2E] rounded-3xl p-4 shadow-xl space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xs font-bold text-white uppercase tracking-wider font-montserrat">Coaching Specialties</h3>
+              <span class="text-xs text-[#007AFF] font-bold">+ Manage</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2.5">
+              <!-- Specialty 1: TECH -->
+              <div class="bg-[#181818] border border-[#2A2A2A] rounded-2xl p-3 space-y-1">
+                <span class="text-[10px] font-black text-[#007AFF] block tracking-wider">TECH</span>
+                <h4 class="text-xs font-bold text-white">Technical Development</h4>
+                <p class="text-[10px] text-gray-400 leading-tight">Grip, swing path &amp; biomechanics</p>
+              </div>
+
+              <!-- Specialty 2: TACTICS -->
+              <div class="bg-[#181818] border border-[#2A2A2A] rounded-2xl p-3 space-y-1">
+                <span class="text-[10px] font-black text-[#007AFF] block tracking-wider">TACTICS</span>
+                <h4 class="text-xs font-bold text-white">Game Strategy</h4>
+                <p class="text-[10px] text-gray-400 leading-tight">Match play tactics &amp; shot selection</p>
+              </div>
+
+              <!-- Specialty 3: FIT -->
+              <div class="bg-[#181818] border border-[#2A2A2A] rounded-2xl p-3 space-y-1">
+                <span class="text-[10px] font-black text-[#007AFF] block tracking-wider">FIT</span>
+                <h4 class="text-xs font-bold text-white">Fitness &amp; Footwork</h4>
+                <p class="text-[10px] text-gray-400 leading-tight">Court coverage, agility &amp; stamina</p>
+              </div>
+
+              <!-- Specialty 4: MIND -->
+              <div class="bg-[#181818] border border-[#2A2A2A] rounded-2xl p-3 space-y-1">
+                <span class="text-[10px] font-black text-[#007AFF] block tracking-wider">MIND</span>
+                <h4 class="text-xs font-bold text-white">Mental Confidence</h4>
+                <p class="text-[10px] text-gray-400 leading-tight">Composure under pressure &amp; focus</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- WHO I WORK WITH 2x2 GRID (Page 3 in PDF) -->
+          <div class="bg-[#1C1C1C] border border-[#2E2E2E] rounded-3xl p-4 shadow-xl space-y-3">
+            <div class="flex items-center justify-between">
+              <h3 class="text-xs font-bold text-white uppercase tracking-wider font-montserrat">Who I Work With</h3>
+              <span class="text-[10px] text-gray-400">All Ages &amp; Levels</span>
+            </div>
+
+            <div class="grid grid-cols-2 gap-2.5">
+              <!-- Target 1: BEG -->
+              <div class="bg-[#181818] border border-[#2A2A2A] rounded-2xl p-3 space-y-1">
+                <span class="text-[10px] font-black text-emerald-400 block tracking-wider">BEG</span>
+                <h4 class="text-xs font-bold text-white">Adult Beginners</h4>
+                <p class="text-[10px] text-gray-400 leading-tight">Building clean fundamentals</p>
+              </div>
+
+              <!-- Target 2: INT -->
+              <div class="bg-[#181818] border border-[#2A2A2A] rounded-2xl p-3 space-y-1">
+                <span class="text-[10px] font-black text-cyan-400 block tracking-wider">INT</span>
+                <h4 class="text-xs font-bold text-white">Intermediate Players</h4>
+                <p class="text-[10px] text-gray-400 leading-tight">Refining technique &amp; depth</p>
+              </div>
+
+              <!-- Target 3: PRO -->
+              <div class="bg-[#181818] border border-[#2A2A2A] rounded-2xl p-3 space-y-1">
+                <span class="text-[10px] font-black text-purple-400 block tracking-wider">PRO</span>
+                <h4 class="text-xs font-bold text-white">Competitive Players</h4>
+                <p class="text-[10px] text-gray-400 leading-tight">Tournament prep &amp; high pace</p>
+              </div>
+
+              <!-- Target 4: GRP -->
+              <div class="bg-[#181818] border border-[#2A2A2A] rounded-2xl p-3 space-y-1">
+                <span class="text-[10px] font-black text-amber-400 block tracking-wider">GRP</span>
+                <h4 class="text-xs font-bold text-white">Groups &amp; Private</h4>
+                <p class="text-[10px] text-gray-400 leading-tight">Tailored 1:1 and social clinics</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ========================================================================= -->
+          <!-- TIER 4: CONVERSION (Bottom CTA Card & Platform Trust Badges)             -->
+          <!-- ========================================================================= -->
+          <div class="bg-gradient-to-br from-[#0b3a75] via-[#0052cc] to-[#002f6c] border border-blue-400/40 rounded-3xl p-5 shadow-2xl text-center space-y-3.5">
+            <h3 class="text-sm font-black text-white font-montserrat tracking-tight leading-snug">
+              Ready to take your game to the next level?
+            </h3>
+            <p class="text-[11px] text-blue-100 max-w-xs mx-auto leading-relaxed">
+              Book a lesson with Mukund or send a message to discuss your coaching goals.
+            </p>
+
+            <div class="flex items-center gap-2 pt-1">
+              <button type="button" onclick="proceedFromProfileToBookingSummary()" class="flex-1 bg-[#007AFF] hover:bg-blue-600 text-white font-bold py-3 rounded-2xl text-xs transition shadow-lg flex items-center justify-center space-x-1 cursor-pointer">
+                <span>Book Lesson</span>
+                <span>-&gt;</span>
+              </button>
+              <button type="button" onclick="openCoachMessageModal()" class="flex-1 bg-black/40 hover:bg-black/60 border border-white/25 text-white font-semibold py-3 rounded-2xl text-xs transition flex items-center justify-center cursor-pointer">
+                <span>Message Coach</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 4 TRUST BADGES (Page 3 in PDF) -->
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div class="bg-[#181818] border border-[#2C2C2C] rounded-2xl p-2.5 flex items-center space-x-2">
+              <span class="text-[10px] font-black text-[#007AFF] bg-blue-950/80 px-1.5 py-0.5 rounded border border-blue-500/30">OK</span>
+              <span class="text-[10.5px] text-gray-300 font-semibold">Verified Coaches</span>
+            </div>
+            <div class="bg-[#181818] border border-[#2C2C2C] rounded-2xl p-2.5 flex items-center space-x-2">
+              <span class="text-[10px] font-black text-[#007AFF] bg-blue-950/80 px-1.5 py-0.5 rounded border border-blue-500/30">TIME</span>
+              <span class="text-[10.5px] text-gray-300 font-semibold">Flexible Scheduling</span>
+            </div>
+            <div class="bg-[#181818] border border-[#2C2C2C] rounded-2xl p-2.5 flex items-center space-x-2">
+              <span class="text-[10px] font-black text-[#007AFF] bg-blue-950/80 px-1.5 py-0.5 rounded border border-blue-500/30">CLUB</span>
+              <span class="text-[10.5px] text-gray-300 font-semibold">Top Clubs</span>
+            </div>
+            <div class="bg-[#181818] border border-[#2C2C2C] rounded-2xl p-2.5 flex items-center space-x-2">
+              <span class="text-[10px] font-black text-[#007AFF] bg-blue-950/80 px-1.5 py-0.5 rounded border border-blue-500/30">GO</span>
+              <span class="text-[10.5px] text-gray-300 font-semibold">A More Active You</span>
+            </div>
+          </div>
+
+          <!-- Agreed Order - Web and Mobile Box (Page 3 in PDF) -->
+          <div class="bg-[#141414] border border-[#2A2A2A] rounded-3xl p-4 space-y-2.5 mt-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-white font-montserrat">Agreed Order - Web and Mobile</span>
+              <span class="text-[9px] font-black text-emerald-400 bg-emerald-950/60 border border-emerald-500/40 px-2 py-0.5 rounded-full">FINAL</span>
+            </div>
+            <p class="text-[10px] text-gray-400">Same information hierarchy, different layout.</p>
+
+            <div class="space-y-1.5 text-xs pt-1">
+              <div class="bg-[#1C1C1C] border border-white/5 rounded-xl p-2.5 flex items-center space-x-2.5">
+                <span class="w-5 h-5 rounded-full bg-[#007AFF] text-white font-bold text-[10px] flex items-center justify-center shrink-0">1</span>
+                <div>
+                  <span class="font-bold text-white text-[11px] block">Profile and booking</span>
+                  <span class="text-[9.5px] text-gray-400 block">Coach information, rate and primary action first</span>
+                </div>
+              </div>
+
+              <div class="bg-[#1C1C1C] border border-white/5 rounded-xl p-2.5 flex items-center space-x-2.5">
+                <span class="w-5 h-5 rounded-full bg-[#007AFF] text-white font-bold text-[10px] flex items-center justify-center shrink-0">2</span>
+                <div>
+                  <span class="font-bold text-white text-[11px] block">Proof and offer</span>
+                  <span class="text-[9.5px] text-gray-400 block">Stats, lessons, locations and reviews</span>
+                </div>
+              </div>
+
+              <div class="bg-[#1C1C1C] border border-white/5 rounded-xl p-2.5 flex items-center space-x-2.5">
+                <span class="w-5 h-5 rounded-full bg-[#007AFF] text-white font-bold text-[10px] flex items-center justify-center shrink-0">3</span>
+                <div>
+                  <span class="font-bold text-white text-[11px] block">Trust and fit</span>
+                  <span class="text-[9.5px] text-gray-400 block">Qualifications, specialties and audiences</span>
+                </div>
+              </div>
+
+              <div class="bg-[#1C1C1C] border border-white/5 rounded-xl p-2.5 flex items-center space-x-2.5">
+                <span class="w-5 h-5 rounded-full bg-[#007AFF] text-white font-bold text-[10px] flex items-center justify-center shrink-0">4</span>
+                <div>
+                  <span class="font-bold text-white text-[11px] block">Conversion</span>
+                  <span class="text-[9.5px] text-gray-400 block">Final CTA and platform benefits</span>
+                </div>
+              </div>
+            </div>
           </div>
 
         </div>
@@ -11176,26 +11557,31 @@
       {
         id: 'mukund',
         name: 'Mukund Patil',
-        title: 'Head Coach • Tennis & Padel',
+        title: 'Tennis & Padel Coach | Beginners to High-Performance',
+        quote: 'Better players. Happier people.',
         avatar: 'MP',
+        avatarImg: 'images/coach_portrait_clean.jpg',
         avatarColor: 'bg-[#007AFF] text-white',
         club: 'Utrecht Sports Club',
         distance: '< 1 km away',
         rating: '4.9',
         reviewsCount: 42,
-        license: 'KNLTB Level 3 Licensed',
-        sports: ['Tennis', 'Padel'],
-        hourlyRate: 45.00,
+        license: 'KNLTB CERTIFIED',
+        sports: ['Tennis', 'Padel', 'Beginners', 'Intermediate', 'Advanced', 'Game Strategy'],
+        hourlyRate: 40.00,
         currency: '€',
-        bio: 'Former national circuit player with 12+ years of high-performance coaching experience. Specializes in tactical baseline control, slice defense, and technical stroke refinement for juniors and competitive adults.',
-        experienceYears: 12,
-        totalLessons: 840,
+        bio: 'Former national-level competitive player with over 8 years of professional coaching experience across the Netherlands.',
+        experienceYears: 8,
+        totalLessons: 1200,
+        connectedClubsCount: 3,
         courtName: 'Center Court 1 (Clay)',
         certificates: [
-          { id: 'knltb', title: 'KNLTB Tennis Coach License Level 3', org: 'Royal Dutch Tennis Association • ID #NL-89421', icon: '🏆' },
-          { id: 'itf', title: 'ITF Certified High Performance Coach', org: 'International Tennis Federation • Valid thru 2028', icon: '🎖️' }
+          { id: 'knltb', title: 'KNLTB Tennis Coach License A/B', org: 'Royal Dutch Lawn Tennis Association', icon: '🏆', status: 'OK' },
+          { id: 'fip', title: 'FIP Padel Certified Coach Level 1', org: 'International Padel Federation', icon: '🎖️', status: 'OK' },
+          { id: 'zin', title: 'ZIN Master Instructor', org: 'Zumba Fitness LLC - Valid thru 2027', icon: '🎗️', status: 'OK' },
+          { id: 'cpr', title: 'Sports First Aid & CPR Certified', org: 'Dutch Red Cross', icon: '🩺', status: 'OK' }
         ],
-        pricing: { single: 45, duo: 55, pack5: 200, pack10: 380 },
+        pricing: { single: 40.00, duo: 55.00, pack5: 190.00, pack10: 360.00 },
         availability: {
           '2026-09-17': {
             dayLabel: 'Thu, 17 Sep',
@@ -11554,16 +11940,17 @@
 
       // Determine price & offering details
       const priceMap = {
-        'single': { price: coach.pricing.single, title: '1-on-1 Private Coaching Session', optKey: 'single' },
+        'single': { price: coach.pricing.single, title: 'Tennis 1-on-1 Coaching Session', optKey: 'single' },
+        'padel_single': { price: 45.00, title: 'Padel 1-on-1 Coaching Session', optKey: 'single' },
         'duo': { price: coach.pricing.duo, title: 'Duo / Semi-Private (2 Players)', optKey: 'duo' },
         'pack5': { price: coach.pricing.pack5, title: '5-Lesson Performance Pack', optKey: 'pack5' },
-        'pack10': { price: coach.pricing.pack10 || 380.00, title: '10-Lesson Mastery Pack', optKey: 'pack10' }
+        'pack10': { price: coach.pricing.pack10 || 360.00, title: '10-Lesson Mastery Pack', optKey: 'pack10' }
       };
       const activeOffering = priceMap[selectedProfileOffering] || priceMap['single'];
 
       // Populate Booking Summary Screen (#player-detail-view)
       const detailTitle = document.getElementById('detail-view-coach-title') || document.querySelector('#player-detail-view h3');
-      if (detailTitle) detailTitle.textContent = `${coach.sports[0]} 1-on-1 with ${coach.name}`;
+      if (detailTitle) detailTitle.textContent = `${activeOffering.title} with ${coach.name}`;
 
       const detailClub = document.getElementById('detail-view-coach-club');
       if (detailClub) detailClub.textContent = coach.club;
@@ -11601,8 +11988,6 @@
       showToast('Booking Summary: Review details & checkout');
     }
 
-    
-    // =========================================================================
     // ==== FEATURE 1: CLUB HIRING GATEKEEPER CONTROLLER =======================
     // =========================================================================
     const swpClubsExploreDB = {
@@ -12159,16 +12544,33 @@
       const coach = getActiveCoach();
 
       // Populate Coach Profile View
-      document.getElementById('cpv-avatar').textContent = coach.avatar;
-      document.getElementById('cpv-avatar').className = `w-14 h-14 rounded-2xl ${coach.avatarColor} font-black text-xl flex items-center justify-center shadow-md border-2 border-blue-400`;
-      document.getElementById('cpv-name').textContent = coach.name;
-      document.getElementById('cpv-title').textContent = coach.title;
-      document.getElementById('cpv-club').innerHTML = `<span>🏢 ${coach.club}</span><span>•</span><span class="text-white">${coach.distance}</span>`;
-      document.getElementById('cpv-rate').textContent = `€${coach.hourlyRate.toFixed(2)}`;
-      document.getElementById('cpv-rating').innerHTML = `★ ${coach.rating} (${coach.reviewsCount})`;
-      document.getElementById('cpv-exp').textContent = `${coach.experienceYears}+ Yrs`;
-      document.getElementById('cpv-lessons').textContent = `${coach.totalLessons}+`;
-      document.getElementById('cpv-bio').textContent = coach.bio;
+      const nameEl = document.getElementById('cpv-name');
+      if (nameEl) nameEl.textContent = coach.name;
+
+      const titleEl = document.getElementById('cpv-title');
+      if (titleEl) titleEl.textContent = coach.title;
+
+      const quoteEl = document.getElementById('cpv-quote');
+      if (quoteEl && coach.quote) quoteEl.textContent = `"${coach.quote}"`;
+
+      const bioEl = document.getElementById('cpv-bio');
+      if (bioEl) bioEl.textContent = coach.bio;
+
+      const ratingVal = document.getElementById('cpv-rating-val');
+      if (ratingVal) ratingVal.textContent = coach.rating;
+
+      const hourlyRateEl = document.getElementById('cpv-hourly-rate');
+      if (hourlyRateEl) hourlyRateEl.textContent = `EUR ${coach.hourlyRate.toFixed(0)}`;
+
+      const clubsBadge = document.getElementById('cpv-clubs-connected-badge');
+      if (clubsBadge) clubsBadge.textContent = coach.connectedClubsCount || '3';
+
+      // Update avatar image if available
+      const avatarImg = document.getElementById('cpv-avatar-img');
+      if (avatarImg && coach.avatarImg) {
+        avatarImg.src = coach.avatarImg;
+      }
+
       // Update Selected Slot Banner in Profile
       const bannerTime = document.getElementById('cpv-slot-banner-time');
       if (bannerTime) {
@@ -12177,26 +12579,15 @@
         bannerTime.textContent = `${dateFormatted} • ${selectedSlotTime}`;
       }
 
-
-      document.getElementById('cpv-matrix-single').textContent = `€${coach.pricing.single.toFixed(2)}/hr`;
-      document.getElementById('cpv-matrix-duo').textContent = `€${coach.pricing.duo.toFixed(2)}/hr`;
-      document.getElementById('cpv-matrix-pack5').textContent = `€${coach.pricing.pack5.toFixed(2)}`;
-
-      const certsContainer = document.getElementById('cpv-certificates');
-      if (certsContainer) {
-        certsContainer.innerHTML = coach.certificates.map(cert => `
-          <div class="bg-[#121212] border border-[#3A3A3A] rounded-xl p-2.5 flex items-center justify-between text-xs">
-            <div class="flex items-center space-x-2">
-              <span class="text-base">${cert.icon}</span>
-              <div>
-                <span class="text-white font-bold block text-[11px]">${cert.title}</span>
-                <span class="text-[9px] text-[#BAB8B8]">${cert.org}</span>
-              </div>
-            </div>
-            <button onclick="openCertificateModal('${cert.id}')" class="text-[10px] text-[#007AFF] hover:underline font-bold">View ↗</button>
-          </div>
-        `).join('');
-      }
+      // Update matrix prices
+      const mSingle = document.getElementById('cpv-matrix-single');
+      if (mSingle) mSingle.textContent = `€${coach.pricing.single.toFixed(2)}`;
+      const mDuo = document.getElementById('cpv-matrix-duo');
+      if (mDuo) mDuo.textContent = `€${coach.pricing.duo.toFixed(2)}`;
+      const mPack5 = document.getElementById('cpv-matrix-pack5');
+      if (mPack5) mPack5.textContent = `€${coach.pricing.pack5.toFixed(2)}`;
+      const mPack10 = document.getElementById('cpv-matrix-pack10');
+      if (mPack10) mPack10.textContent = `€${(coach.pricing.pack10 || 360).toFixed(2)}`;
 
       hideAllPlayerSubViews();
       updateSimulatorPill('profile');
@@ -16116,6 +16507,37 @@
       openCoachRescheduleModal('BK-PADEL-101');
     }
 
+  
+    function openCoachMessageModal() {
+      const modal = document.getElementById('modal-coach-message');
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      } else {
+        showToast('Message Mukund Patil', 'Connecting to ShallWe-Play In-App Chat...');
+      }
+    }
+
+    function closeCoachMessageModal() {
+      const modal = document.getElementById('modal-coach-message');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    function sendCoachMessage() {
+      const input = document.getElementById('coach-message-input');
+      const text = input ? input.value : '';
+      if (!text.trim()) {
+        showToast('Empty Message', 'Please write a message first.');
+        return;
+      }
+      if (input) input.value = '';
+      closeCoachMessageModal();
+      showToast('Message Sent! 💬', 'Mukund Patil usually replies in under 15 minutes.');
+    }
+
   </script>
 
   <!-- ========================================================================= -->
@@ -16353,6 +16775,69 @@ ShallWe-Play Operations Leadership Team</textarea>
             <span>Delivered via ShallWe-Play Comms Gateway</span>
           </span>
           <span class="text-emerald-400 font-semibold">Marked as Read ✓</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: MESSAGE COACH DIALOG (ShallWe-Play Native Chat)                   -->
+  <!-- ========================================================================= -->
+  <div id="modal-coach-message" class="hidden fixed inset-0 bg-black/80 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+    <div class="bg-[#1F1F1F] text-[#ECEDEE] rounded-3xl max-w-sm sm:max-w-md w-full shadow-2xl overflow-hidden border border-[#3A3A3A] flex flex-col font-montserrat">
+      <!-- Modal Header -->
+      <div class="bg-[#121212] px-5 py-3.5 border-b border-[#3A3A3A] flex items-center justify-between">
+        <div class="flex items-center space-x-2.5">
+          <span class="text-base">💬</span>
+          <div>
+            <h3 class="text-xs font-bold text-white uppercase tracking-wider">Message Mukund Patil</h3>
+            <span class="text-[9.5px] text-emerald-400 font-semibold">● Online · Typically replies in 15 mins</span>
+          </div>
+        </div>
+        <button onclick="closeCoachMessageModal()" class="text-gray-400 hover:text-white font-bold text-base cursor-pointer">✕</button>
+      </div>
+
+      <!-- Modal Content -->
+      <div class="p-5 space-y-3.5 text-xs">
+        <!-- Coach Summary Pill -->
+        <div class="bg-[#141414] border border-[#2E2E2E] rounded-2xl p-2.5 flex items-center space-x-2.5">
+          <img src="images/coach_portrait_clean.jpg" alt="Mukund Patil" class="w-9 h-9 rounded-xl object-cover border border-white/10 shrink-0">
+          <div class="min-w-0">
+            <h4 class="text-xs font-bold text-white truncate">Mukund Patil</h4>
+            <p class="text-[10px] text-[#BAB8B8] truncate">Tennis &amp; Padel Coach · Utrecht Sports Club</p>
+          </div>
+        </div>
+
+        <!-- Quick Prompt Chips -->
+        <div>
+          <span class="text-[10px] uppercase font-bold text-gray-400 block mb-1.5">Quick Inquiries:</span>
+          <div class="flex flex-wrap gap-1.5">
+            <button type="button" onclick="document.getElementById('coach-message-input').value='Hi Mukund, I would like to check availability for adult private tennis coaching this weekend.';" class="bg-[#262626] hover:bg-[#333] text-[10px] text-gray-300 px-2 py-1 rounded-lg border border-white/10 transition cursor-pointer">
+              Private Coaching Availability?
+            </button>
+            <button type="button" onclick="document.getElementById('coach-message-input').value='Hi Mukund, do you offer junior padel group clinics for beginners?';" class="bg-[#262626] hover:bg-[#333] text-[10px] text-gray-300 px-2 py-1 rounded-lg border border-white/10 transition cursor-pointer">
+              Junior Padel Clinics?
+            </button>
+            <button type="button" onclick="document.getElementById('coach-message-input').value='Hi Mukund, are demo racquets provided for padel sessions at Utrecht Sports Club?';" class="bg-[#262626] hover:bg-[#333] text-[10px] text-gray-300 px-2 py-1 rounded-lg border border-white/10 transition cursor-pointer">
+              Racquet Included?
+            </button>
+          </div>
+        </div>
+
+        <!-- Textarea -->
+        <div>
+          <label class="text-[10px] uppercase font-bold text-gray-400 block mb-1">Your Message:</label>
+          <textarea id="coach-message-input" rows="3" placeholder="Ask about lesson schedule, skill levels, group rates, or training focus..." class="w-full bg-[#121212] border border-[#3A3A3A] rounded-xl p-3 text-white placeholder-gray-500 text-xs focus:outline-hidden focus:border-[#007AFF] transition resize-none"></textarea>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="pt-1 flex items-center justify-end space-x-2">
+          <button type="button" onclick="closeCoachMessageModal()" class="px-4 py-2 text-gray-400 hover:text-white font-semibold text-xs cursor-pointer">Cancel</button>
+          <button type="button" onclick="sendCoachMessage()" class="bg-[#007AFF] hover:bg-blue-600 text-white font-bold px-4 py-2 rounded-xl shadow-md flex items-center space-x-1.5 transition cursor-pointer text-xs">
+            <span>Send Message</span>
+            <span>✉️</span>
+          </button>
         </div>
       </div>
     </div>

@@ -3,15 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ShallWe-Play — How the Platform Works</title>
+<title>ShallWe-Play — Why Venues Choose ShallWe-Play</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --blue:#007AFF; --blue-d:#0A4FB5; --blue-l:#E8F2FF;
-  --green:#2E9E4F; --green-l:#E9F7EE;
+  --green:#2E9E4F; --green-d:#1B7A38; --green-l:#E9F7EE;
   --orange:#E85A2C; --orange-l:#FDEEE8;
+  --red:#EF4444; --red-l:#FEF2F2;
   --navy:#061D42; --ink:#0F1B33; --mut:#5B6B85; --line:#E3E9F2; --bg:#F4F6FA;
   --font:'Montserrat','Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
 }
@@ -36,20 +37,20 @@ html,body{height:100%;background:#050B18;overflow:hidden;font-family:var(--font)
 /* ---------- common chrome ---------- */
 .top{position:absolute;left:0;right:0;top:0;height:6px}
 .top.club{background:var(--blue)} .top.player{background:var(--green)} .top.both{background:linear-gradient(90deg,var(--blue),var(--green),var(--orange))}
-.head{position:absolute;left:90px;right:90px;top:50px;display:flex;align-items:flex-start;justify-content:space-between}
-.side{display:inline-flex;align-items:center;gap:10px;padding:9px 18px;border-radius:99px;font-weight:700;font-size:19px;letter-spacing:.06em;text-transform:uppercase}
+.head{position:absolute;left:90px;right:90px;top:44px;display:flex;align-items:flex-start;justify-content:space-between}
+.side{display:inline-flex;align-items:center;gap:10px;padding:8px 18px;border-radius:99px;font-weight:700;font-size:18px;letter-spacing:.06em;text-transform:uppercase}
 .side.club{background:var(--blue-l);color:var(--blue-d)} .side.player{background:var(--green-l);color:#1B7A38} .side.both{background:#EEF1F7;color:var(--navy)}
+.side.problem{background:#FEF2F2;color:#DC2626}
 .side i{width:10px;height:10px;border-radius:50%;background:currentColor}
-h2{font-size:56px;font-weight:800;line-height:1.1;letter-spacing:-.02em;margin-top:20px;max-width:1100px}
-h2 em{font-style:normal;color:var(--blue)} .player h2 em, h2 em.g{color:var(--green)}
-.sub{font-size:24px;line-height:1.5;color:var(--mut);margin-top:16px;max-width:760px;font-weight:500}
+h2{font-size:52px;font-weight:800;line-height:1.1;letter-spacing:-.02em;margin-top:16px;max-width:1150px}
+h2 em{font-style:normal;color:var(--blue)} .player h2 em, h2 em.g{color:var(--green)} h2 em.r{color:#EF4444}
+.sub{font-size:22px;line-height:1.5;color:var(--mut);margin-top:12px;max-width:880px;font-weight:500}
 .brandmark{display:inline-flex;align-items:center;gap:12px;font-family:'Montserrat',sans-serif;font-weight:800;font-size:24px;line-height:1;color:var(--navy);letter-spacing:-.02em;user-select:none;flex:none;margin-top:4px}
 .brandmark img{height:34px;width:auto;display:block;flex:none}
 .brandmark .swp-play{color:var(--blue)}
 .dark .brandmark{color:#fff}
 .dark .brandmark .swp-play{color:#5BA8FF}
-.num{position:absolute;right:90px;bottom:34px;font-size:18px;color:#9AA8C0;font-weight:600}
-
+.num{position:absolute;right:90px;bottom:30px;font-size:17px;color:#9AA8C0;font-weight:700}
 
 .expert-card:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 30px 70px -15px rgba(0,122,255,.45),0 0 0 2px var(--blue)!important}
 
@@ -60,12 +61,12 @@ h2 em{font-style:normal;color:var(--blue)} .player h2 em, h2 em.g{color:var(--gr
 .browser .bar span{margin-left:14px;background:#fff;border-radius:8px;padding:3px 16px;font-size:13px;color:#7A8AA3;font-weight:600}
 .shot{position:relative;aspect-ratio:16/10;overflow:hidden}
 .shot img{width:100%;height:100%;display:block;object-fit:cover;object-position:top;transition:opacity .25s}
-.phone{position:relative;width:300px;aspect-ratio:720/1608;background:#111;border-radius:42px;padding:8px;box-shadow:0 30px 60px -18px rgba(0,0,0,.5),0 0 0 2px #2B2F38;cursor:zoom-in}
-.phone .scr{width:100%;height:100%;border-radius:34px;overflow:hidden;background:#000}
+.phone{position:relative;width:290px;aspect-ratio:720/1608;background:#111;border-radius:40px;padding:8px;box-shadow:0 30px 60px -18px rgba(0,0,0,.5),0 0 0 2px #2B2F38;cursor:zoom-in}
+.phone .scr{width:100%;height:100%;border-radius:32px;overflow:hidden;background:#000}
 .phone img{width:100%;height:100%;display:block;object-fit:fill;transition:opacity .25s}
-.phone::before{content:"";position:absolute;top:18px;left:50%;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:#000;z-index:2;box-shadow:0 0 0 1px #2d2d2d}
+.phone::before{content:"";position:absolute;top:17px;left:50%;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:#000;z-index:2;box-shadow:0 0 0 1px #2d2d2d}
 
-/* annotations — modern non-disturbing translucent glass tags */
+/* annotations */
 body.hide-pins .pin{opacity:0!important;pointer-events:none!important}
 .pin{
   position:absolute;
@@ -75,10 +76,10 @@ body.hide-pins .pin{opacity:0!important;pointer-events:none!important}
   gap:8px;
   padding:4px 12px 4px 5px;
   border-radius:999px;
-  background:rgba(6, 24, 56, 0.72);
+  background:rgba(6, 24, 56, 0.76);
   backdrop-filter:blur(8px);
   -webkit-backdrop-filter:blur(8px);
-  border:1px solid rgba(255, 255, 255, 0.22);
+  border:1px solid rgba(255, 255, 255, 0.25);
   box-shadow:0 4px 16px -2px rgba(6, 29, 66, 0.25), 0 1px 3px rgba(0,0,0,0.1);
   color:#fff;
   pointer-events:auto;
@@ -88,9 +89,9 @@ body.hide-pins .pin{opacity:0!important;pointer-events:none!important}
   user-select:none;
 }
 .pin:hover{
-  background:rgba(6, 24, 56, 0.9);
+  background:rgba(6, 24, 56, 0.94);
   transform:translate(-50%, -50%) scale(1.04);
-  border-color:rgba(255, 255, 255, 0.45);
+  border-color:rgba(255, 255, 255, 0.5);
   box-shadow:0 6px 20px -2px rgba(0, 122, 255, 0.35);
 }
 .pin .n{
@@ -121,8 +122,8 @@ body.hide-pins .pin{opacity:0!important;pointer-events:none!important}
 .tab{display:flex;gap:16px;align-items:center;padding:16px 20px;border:2px solid var(--line);border-radius:16px;background:#fff;cursor:pointer;transition:all .2s}
 .tab:hover{border-color:#BBD6FF}
 .tab .k{width:42px;height:42px;border-radius:12px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:19px;color:var(--mut);flex:none;transition:all .2s}
-.tab strong{display:block;font-size:21px;font-weight:700}
-.tab span{font-size:16px;color:var(--mut);font-weight:500}
+.tab strong{display:block;font-size:20px;font-weight:700}
+.tab span{font-size:15px;color:var(--mut);font-weight:500}
 .tab.on{border-color:var(--c,var(--blue));background:var(--cl,var(--blue-l))}
 .tab.on .k{background:var(--c,var(--blue));color:#fff}
 .player .tab{--c:var(--green);--cl:var(--green-l)}
@@ -131,17 +132,42 @@ body.hide-pins .pin{opacity:0!important;pointer-events:none!important}
 .card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px}
 .chip{display:inline-block;padding:5px 12px;border-radius:8px;font-size:14px;font-weight:700;background:var(--bg);color:var(--mut)}
 
+/* Problem Grid (Slide 2) */
+.prob-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.prob-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:28px 24px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 12px 30px -8px rgba(6,29,66,.07);border-top:6px solid #EF4444}
+.prob-card .badge{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:99px;font-size:12px;font-weight:800;background:#FEF2F2;color:#DC2626;margin-bottom:16px;align-self:flex-start;text-transform:uppercase;letter-spacing:.04em}
+.prob-card h3{font-size:23px;font-weight:800;color:var(--ink);margin-bottom:10px;line-height:1.25}
+.prob-card p{font-size:15px;color:var(--mut);line-height:1.55;margin-bottom:20px;font-weight:500}
+.prob-card .fix{padding:14px 16px;border-radius:12px;background:#F0FDF4;border:1px solid #BBF7D0;font-size:14px;color:#166534;font-weight:600;line-height:1.45}
+.prob-card .fix strong{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:#059669;margin-bottom:3px}
+
+/* Comparison Matrix (Slide 10) */
+.comp-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:20px}
+.comp-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px 22px;display:flex;flex-direction:column}
+.comp-card.hero{border:3px solid var(--blue);background:linear-gradient(180deg,#FFFFFF 0%,#EDF5FF 100%);box-shadow:0 20px 45px -10px rgba(0,122,255,.28);transform:scale(1.02);z-index:2}
+.comp-card h4{font-size:22px;font-weight:800;margin-bottom:4px}
+.comp-card .tagline{font-size:13px;color:var(--mut);font-weight:600;margin-bottom:18px}
+.comp-list{list-style:none;display:flex;flex-direction:column;gap:12px;font-size:15px;font-weight:600;line-height:1.4}
+.comp-list li{display:flex;align-items:flex-start;gap:8px}
+
+/* ROI Cards (Slide 11) */
+.roi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.roi-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:18px;padding:26px;display:flex;flex-direction:column}
+.roi-num{font-size:48px;font-weight:900;color:#5BA8FF;line-height:1;margin-bottom:10px}
+.roi-card strong{font-size:20px;font-weight:700;color:#fff;margin-bottom:8px}
+.roi-card p{font-size:15px;color:#C7D6F0;line-height:1.5;font-weight:500}
+
 /* controls */
-#nav{position:fixed;left:0;right:0;bottom:0;height:52px;background:rgba(6,14,32,.92);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:50;color:#9AA8C0;font-size:13px;font-weight:600;transition:opacity .3s}
+#nav{position:fixed;left:0;right:0;bottom:0;height:52px;background:rgba(6,14,32,.94);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:50;color:#9AA8C0;font-size:13px;font-weight:600;transition:opacity .3s}
 #nav button{font:inherit;background:#16233F;color:#D6DFEF;border:0;border-radius:8px;padding:7px 14px;cursor:pointer}
 #nav button:hover{background:#1F3258}
 #nav .pri{background:var(--blue);color:#fff}
 #prog{position:fixed;top:0;left:0;height:4px;background:linear-gradient(90deg,var(--blue),var(--green),var(--orange));z-index:60;transition:width .3s}
 body.hide-nav #nav{opacity:0;pointer-events:none}
-#drawer{position:fixed;top:0;right:0;bottom:0;width:380px;background:#0A1530;color:#fff;z-index:80;transform:translateX(100%);transition:transform .3s;padding:24px;overflow:auto}
+#drawer{position:fixed;top:0;right:0;bottom:0;width:400px;background:#0A1530;color:#fff;z-index:80;transform:translateX(100%);transition:transform .3s;padding:24px;overflow:auto}
 #drawer.open{transform:none}
-#drawer h4{font-size:15px;margin-bottom:16px;color:#9AA8C0;text-transform:uppercase;letter-spacing:.08em}
-#drawer div.it{padding:11px 14px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;color:#C6D2E8;display:flex;gap:10px}
+#drawer h4{font-size:14px;margin-bottom:16px;color:#9AA8C0;text-transform:uppercase;letter-spacing:.08em}
+#drawer div.it{padding:10px 14px;border-radius:10px;font-size:14.5px;font-weight:600;cursor:pointer;color:#C6D2E8;display:flex;gap:10px}
 #drawer div.it:hover{background:#16233F} #drawer div.it.on{background:var(--blue);color:#fff}
 #lb{position:fixed;inset:0;background:rgba(3,8,20,.9);z-index:100;display:none;align-items:center;justify-content:center;cursor:zoom-out}
 #lb.open{display:flex} #lb img{max-width:94vw;max-height:92vh;border-radius:12px}
@@ -152,44 +178,127 @@ body.hide-nav #nav{opacity:0;pointer-events:none}
 <div id="stage">
 
 <!-- ============ 1. COVER ============ -->
-<section class="slide dark" data-title="Welcome to ShallWe-Play">
+<section class="slide dark" data-title="1 · Turn Empty Courts Into Guaranteed Revenue">
   <img src="assets/club_amstelpark.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.18;mix-blend-mode:luminosity">
   <div class="top both"></div>
   <div class="head">
-    <span class="side both" style="background:rgba(255,255,255,.1);color:#cfe1ff">Platform Demo</span>
+    <span class="side both" style="background:rgba(255,255,255,.1);color:#cfe1ff">Commercial Sports Venue Partnership</span>
     <div class="brandmark"><img src="assets/logo.svg" alt="ShallWe-Play"><span>ShallWe<span class="swp-play">-Play</span></span></div>
   </div>
-  <div style="position:absolute;left:90px;top:300px;width:900px">
-    <div class="a" style="--d:0;font-size:22px;font-weight:700;color:#7DB7FF;letter-spacing:.1em;text-transform:uppercase">The European Sports Ecosystem Platform</div>
-    <h1 class="a" style="--d:1;font-size:84px;font-weight:800;line-height:1.04;letter-spacing:-.03em;margin-top:24px">One platform.<br><span style="color:#5BA8FF">Clubs and players,</span><br>connected.</h1>
-    <p class="a" style="--d:2;font-size:28px;line-height:1.5;color:#C7D6F0;margin-top:34px;font-weight:500">See how clubs run their facilities and how players find and book them — in one booking ecosystem.</p>
+  <div style="position:absolute;left:90px;top:260px;width:940px">
+    <div class="a" style="--d:0;font-size:20px;font-weight:700;color:#7DB7FF;letter-spacing:.1em;text-transform:uppercase">The European Sports Operations Ecosystem</div>
+    <h1 class="a" style="--d:1;font-size:74px;font-weight:900;line-height:1.06;letter-spacing:-.03em;margin-top:20px">Turn Empty Courts<br>Into <span style="color:#5BA8FF">Guaranteed Revenue.</span><br><span style="color:#fff;font-size:62px;font-weight:800">Zero Front-Desk Friction.</span></h1>
+    <p class="a" style="--d:2;font-size:24px;line-height:1.5;color:#C7D6F0;margin-top:28px;font-weight:500;max-width:860px">The intelligent sports operations ecosystem that automates 24/7 bookings, eliminates no-shows, and splits payments before players arrive.</p>
+
+    <!-- Value Pills -->
+    <div class="a" style="--d:3;display:flex;gap:12px;flex-wrap:wrap;margin-top:34px">
+      <div style="background:rgba(0,122,255,.2);border:1px solid rgba(0,122,255,.45);color:#93C5FD;padding:8px 18px;border-radius:99px;font-size:15px;font-weight:700">⚡ 100% Upfront Revenue Capture</div>
+      <div style="background:rgba(46,158,79,.2);border:1px solid rgba(46,158,79,.45);color:#86EFAC;padding:8px 18px;border-radius:99px;font-size:15px;font-weight:700">💳 In-App Group Split-Pay</div>
+      <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#E2E8F0;padding:8px 18px;border-radius:99px;font-size:15px;font-weight:700">🎟️ 15-Sec Turnstile QR Access</div>
+      <div style="background:rgba(232,90,44,.2);border:1px solid rgba(232,90,44,.45);color:#FDBA74;padding:8px 18px;border-radius:99px;font-size:15px;font-weight:700">🏔️ Padel · Tennis · Skiing · Golf</div>
+    </div>
   </div>
+
   <!-- floating mini devices -->
-  <div class="a" style="--d:3;position:absolute;right:70px;top:150px;width:640px;transform:rotate(-3deg)"><div class="browser" style="cursor:default"><div class="bar"><b></b><b></b><b></b><span>Club Portal</span></div><div class="shot"><img src="assets/screenshots/portal_booking_calendar.png" alt=""></div></div></div>
-  <div class="a" style="--d:4;position:absolute;right:120px;top:410px;animation-name:rise,float;animation-duration:.7s,6s;animation-delay:.6s,1.4s;animation-iteration-count:1,infinite"><div class="phone" style="width:290px;cursor:default"><div class="scr"><img src="assets/screenshots/player_home_feed.jpg" alt=""></div></div></div>
-  <div style="position:absolute;left:90px;bottom:70px;font-size:18px;color:#8FA6CC;font-weight:600">Padel · Tennis · Squash · Pickleball · Golf · Skiing &amp; more</div>
-  <div style="position:absolute;right:90px;bottom:70px;font-size:16px;color:#8FA6CC;font-weight:600">Press → to begin</div>
+  <div class="a" style="--d:4;position:absolute;right:70px;top:150px;width:640px;transform:rotate(-3deg)"><div class="browser" style="cursor:default"><div class="bar"><b></b><b></b><b></b><span>Club Command Portal</span></div><div class="shot"><img src="assets/screenshots/portal_booking_calendar.png" alt=""></div></div></div>
+  <div class="a" style="--d:5;position:absolute;right:120px;top:410px;animation-name:rise,float;animation-duration:.7s,6s;animation-delay:.6s,1.4s;animation-iteration-count:1,infinite"><div class="phone" style="width:280px;cursor:default"><div class="scr"><img src="assets/screenshots/player_home_feed.jpg" alt=""></div></div></div>
+  <div style="position:absolute;left:90px;bottom:64px;font-size:17px;color:#8FA6CC;font-weight:600">Built for forward-thinking sports clubs across The Netherlands &amp; Europe</div>
+  <div style="position:absolute;right:90px;bottom:64px;font-size:16px;color:#8FA6CC;font-weight:600">Press → or Space to begin</div>
 </section>
 
-<!-- ============ 2. ECOSYSTEM ============ -->
-<section class="slide" data-title="1 · The platform at a glance">
+<!-- ============ 2. THE PROBLEM (NEW SLIDE) ============ -->
+<section class="slide" data-title="2 · The 4 Hidden Killers of Club Profitability">
   <div class="top both"></div>
   <div class="head">
-    <div><span class="side both"><i></i>Introduction</span><h2 class="a" style="--d:0">One ecosystem, <em>two experiences</em></h2></div>
+    <div><span class="side problem"><i></i>The Status Quo</span><h2 class="a" style="--d:0">The 4 Hidden Killers of <em class="r">Club Profitability</em></h2>
+      <p class="sub a" style="--d:1">Traditional booking methods and generic software drain staff hours, leave court revenue on the table, and frustrate active athletes.</p>
+    </div>
     <div class="brandmark"><img src="assets/logo.svg" alt="ShallWe-Play"><span>ShallWe<span class="swp-play">-Play</span></span></div>
   </div>
+
+  <div class="prob-grid a" style="--d:2;position:absolute;left:90px;right:90px;top:280px">
+    
+    <!-- Problem 1 -->
+    <div class="prob-card">
+      <div>
+        <span class="badge">📉 Revenue Leakage</span>
+        <h3>Unpaid No-Shows &amp; Empty Off-Peak Hours</h3>
+        <p>Players book verbally via WhatsApp or phone and cancel at 18:30 on match day. Daytime morning and afternoon courts sit completely empty with zero yield.</p>
+      </div>
+      <div class="fix">
+        <strong>The ShallWe-Play Fix:</strong>
+        100% upfront payment capture with dynamic yield pricing to automatically monetize off-peak void hours.
+      </div>
+    </div>
+
+    <!-- Problem 2 -->
+    <div class="prob-card">
+      <div>
+        <span class="badge">📞 Staff Overhead</span>
+        <h3>Endless Front-Desk Phone Chokepoints</h3>
+        <p>Front-desk staff spend 3–4 hours daily answering: <em>“Is court 2 free at 7 PM?”</em> or manually writing reservations into messy paper and Excel grids.</p>
+      </div>
+      <div class="fix">
+        <strong>The ShallWe-Play Fix:</strong>
+        24/7 self-service mobile booking engine. Courts book themselves in 45 seconds according to your club's exact rules.
+      </div>
+    </div>
+
+    <!-- Problem 3 -->
+    <div class="prob-card">
+      <div>
+        <span class="badge">💳 Reception Friction</span>
+        <h3>Payment Chaos &amp; Desk Bottlenecks</h3>
+        <p>Four padel players arrive at reception, each wanting to pay €10 via card swipes or Tikkies during 5-minute match changeovers, holding up the queue.</p>
+      </div>
+      <div class="fix">
+        <strong>The ShallWe-Play Fix:</strong>
+        Native in-app split-the-bill powered by Revolut Pay &amp; iDEAL. Every player pays before they ever step into the venue.
+      </div>
+    </div>
+
+    <!-- Problem 4 -->
+    <div class="prob-card">
+      <div>
+        <span class="badge">🧩 Tool Bloat</span>
+        <h3>Fragmented Software &amp; Tax Reconciliations</h3>
+        <p>Paying separate subscriptions for calendar tools, Mailchimp newsletters, and wasting days isolating Dutch 21% BTW for accountants and Belastingdienst.</p>
+      </div>
+      <div class="fix">
+        <strong>The ShallWe-Play Fix:</strong>
+        All-in-one portal with integrated player emailing, automated 21% BTW separation, and direct bank IBAN settlements.
+      </div>
+    </div>
+
+  </div>
+  <div class="num">02</div>
+</section>
+
+<!-- ============ 3. ECOSYSTEM: TWO TOOLS ============ -->
+<section class="slide" data-title="3 · The Solution: Two Unified Experiences">
+  <div class="top both"></div>
+  <div class="head">
+    <div><span class="side both"><i></i>The Solution</span><h2 class="a" style="--d:0">One Connected Platform. <em>Two Purpose-Built Tools.</em></h2>
+      <p class="sub a" style="--d:1">A complete operating engine bridging your facility back-office with an effortless mobile app for players.</p>
+    </div>
+    <div class="brandmark"><img src="assets/logo.svg" alt="ShallWe-Play"><span>ShallWe<span class="swp-play">-Play</span></span></div>
+  </div>
+
   <!-- three-column diagram -->
-  <div style="position:absolute;left:90px;right:90px;top:330px;display:grid;grid-template-columns:1fr 360px 1fr;gap:0;align-items:center">
-    <div class="card a" style="--d:1;border:3px solid var(--blue);background:linear-gradient(180deg,#fff,var(--blue-l));padding:36px">
+  <div style="position:absolute;left:90px;right:90px;top:310px;display:grid;grid-template-columns:1fr 360px 1fr;gap:0;align-items:center">
+    <div class="card a" style="--d:2;border:3px solid var(--blue);background:linear-gradient(180deg,#fff,var(--blue-l));padding:34px">
       <span class="side club"><i></i>Clubs &amp; Facilities</span>
-      <h3 style="font-size:36px;font-weight:800;margin:20px 0 8px">Club Portal</h3>
-      <div style="color:var(--mut);font-size:19px;font-weight:600;margin-bottom:22px">Web · any computer or tablet</div>
-      <ul style="list-style:none;font-size:22px;line-height:1.9;font-weight:600">
-        <li>✓ Set up sports, courts &amp; pricing</li><li>✓ Control opening hours</li><li>✓ Manage bookings &amp; memberships</li><li>✓ Track earnings &amp; payouts</li>
+      <h3 style="font-size:34px;font-weight:800;margin:18px 0 6px">The Club Command Portal</h3>
+      <div style="color:var(--mut);font-size:18px;font-weight:600;margin-bottom:20px">Web · Accessible on any laptop or tablet</div>
+      <ul style="list-style:none;font-size:20px;line-height:1.9;font-weight:600">
+        <li>✓ Real-time multi-court schedule grid &amp; slot locks</li>
+        <li>✓ Dynamic peak &amp; off-peak pricing engine</li>
+        <li>✓ 100% Guaranteed no-show revenue protection</li>
+        <li>✓ Automated Revolut IBAN payouts with 21% BTW isolation</li>
       </ul>
     </div>
     <div style="position:relative;height:360px">
-      <div style="position:absolute;left:0;right:0;top:16px;text-align:center;font-size:16px;font-weight:700;color:var(--blue-d);letter-spacing:.02em">Courts, hours &amp; prices</div>
+      <div style="position:absolute;left:0;right:0;top:16px;text-align:center;font-size:16px;font-weight:700;color:var(--blue-d);letter-spacing:.02em">Courts, peak rates &amp; hours</div>
       <svg viewBox="0 0 360 360" width="360" height="360" style="position:absolute;inset:0;pointer-events:none">
         <defs>
           <marker id="ar" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto"><path d="M0,0 L11,5.5 L0,11z" fill="#007AFF"/></marker>
@@ -201,237 +310,341 @@ body.hide-nav #nav{opacity:0;pointer-events:none}
       <div class="pop" style="--d:3;position:absolute;left:50%;top:170px;margin-left:-60px;margin-top:-60px;width:120px;height:120px;border-radius:50%;background:#ffffff;box-shadow:0 16px 40px -8px rgba(6,29,66,.22),0 0 0 1px var(--line);display:flex;align-items:center;justify-content:center">
         <img src="assets/logo.svg" style="width:64px;height:auto;display:block" alt="ShallWe-Play">
       </div>
-      <div style="position:absolute;left:0;right:0;top:302px;text-align:center;font-size:16px;font-weight:700;color:#1B7A38;letter-spacing:.02em">Bookings &amp; payments</div>
+      <div style="position:absolute;left:0;right:0;top:302px;text-align:center;font-size:16px;font-weight:700;color:#1B7A38;letter-spacing:.02em">100% Upfront split bookings</div>
     </div>
-    <div class="card a" style="--d:2;border:3px solid var(--green);background:linear-gradient(180deg,#fff,var(--green-l));padding:36px">
-      <span class="side player"><i></i>Players</span>
-      <h3 style="font-size:36px;font-weight:800;margin:20px 0 8px">Player App</h3>
-      <div style="color:var(--mut);font-size:19px;font-weight:600;margin-bottom:22px">Mobile · iOS &amp; Android</div>
-      <ul style="list-style:none;font-size:22px;line-height:1.9;font-weight:600">
-        <li>✓ Discover nearby clubs &amp; activities</li><li>✓ See live availability</li><li>✓ Book, pay &amp; split the bill</li><li>✓ Enter with a digital pass</li>
+    <div class="card a" style="--d:2;border:3px solid var(--green);background:linear-gradient(180deg,#fff,var(--green-l));padding:34px">
+      <span class="side player"><i></i>Active Players</span>
+      <h3 style="font-size:34px;font-weight:800;margin:18px 0 6px">The Mobile Player App</h3>
+      <div style="color:var(--mut);font-size:18px;font-weight:600;margin-bottom:20px">Native iOS &amp; Android · High conversion</div>
+      <ul style="list-style:none;font-size:20px;line-height:1.9;font-weight:600">
+        <li>✓ Discover nearby clubs &amp; live open slots in 30s</li>
+        <li>✓ 3-step transparent activity pass selection</li>
+        <li>✓ In-app split payment via Revolut Pay &amp; iDEAL</li>
+        <li>✓ Single combined QR match pass for all 4 players</li>
       </ul>
     </div>
   </div>
-  <div class="a" style="--d:5;position:absolute;left:90px;right:90px;bottom:90px;text-align:center;font-size:26px;font-weight:700;color:var(--navy)">Less hassle. <span style="color:var(--blue)">More play.</span></div>
-</section>
-
-<!-- ============ 3. CLUB: SET UP ============ -->
-<section class="slide club" data-title="2 · Club: Set up sports, courts & pricing">
-  <div class="top club"></div>
-  <div class="head">
-    <div><span class="side club"><i></i>Club Portal</span><h2 class="a" style="--d:0">Set up your sports, courts <em>&amp; pricing</em></h2></div>
-    <div class="brandmark"><img src="assets/logo.svg" alt="ShallWe-Play"><span>ShallWe<span class="swp-play">-Play</span></span></div>
-  </div>
-  <div style="position:absolute;left:90px;top:290px;width:560px">
-    <div class="tabs" id="t-setup"></div>
-    <div class="a" style="--d:4;margin-top:26px;font-size:18px;color:var(--mut);font-weight:600">Settings → Sports Rules · every sport configured separately</div>
-  </div>
-  <div style="position:absolute;left:720px;top:290px;width:1110px">
-    <div class="browser a" style="--d:2" onclick="lb(document.getElementById('i-setup').src)"><div class="bar"><b></b><b></b><b></b><span>Club Portal · Sports Rules</span></div>
-      <div class="shot"><img id="i-setup" src="assets/screenshots/sports_rules_tab1_booking.png" alt="">
-        <div class="pin" id="p-setup"><div class="n">1</div><div class="t"></div></div></div></div>
-  </div>
-  <div class="num">02</div>
-</section>
-
-<!-- ============ 4. CLUB: AVAILABILITY + MEMBERSHIPS ============ -->
-<section class="slide club" data-title="2 · Club: Availability & memberships">
-  <div class="top club"></div>
-  <div class="head">
-    <div><span class="side club"><i></i>Club Portal</span><h2 class="a" style="--d:0">Decide <em>when</em> you open and <em>who</em> plays</h2></div>
-    <div class="brandmark"><img src="assets/logo.svg" alt="ShallWe-Play"><span>ShallWe<span class="swp-play">-Play</span></span></div>
-  </div>
-  <div style="position:absolute;left:90px;right:90px;top:290px;display:grid;grid-template-columns:1fr 1fr;gap:50px">
-    <div class="a" style="--d:1">
-      <div class="browser" onclick="lb('assets/screenshots/portal_availability.png')"><div class="bar"><b></b><b></b><b></b><span>Settings → Availability</span></div>
-        <div class="shot"><img src="assets/screenshots/portal_availability.png" alt="">
-          <div class="pin" style="left:38%;top:20%"><div class="n">1</div><div class="t">Opening hours per day</div></div>
-          <div class="pin" style="left:14%;top:64%"><div class="n">2</div><div class="t">Switch a day on / off</div></div></div></div>
-      <h3 style="font-size:30px;font-weight:800;margin-top:26px">Weekly availability</h3>
-      <p style="font-size:21px;color:var(--mut);line-height:1.5;margin-top:8px;font-weight:500">Set opening and closing times for each day. Players can only book inside the hours you define.</p>
-    </div>
-    <div class="a" style="--d:2">
-      <div class="browser" onclick="lb('assets/screenshots/portal_memberships.png')"><div class="bar"><b></b><b></b><b></b><span>Membership</span></div>
-        <div class="shot"><img src="assets/screenshots/portal_memberships.png" alt="">
-          <div class="pin" style="left:76%;top:11%"><div class="n">1</div><div class="t">Create a package</div></div>
-          <div class="pin" style="left:20%;top:33%"><div class="n">2</div><div class="t">Price, sport &amp; duration</div></div></div></div>
-      <h3 style="font-size:30px;font-weight:800;margin-top:26px">Memberships &amp; packages</h3>
-      <p style="font-size:21px;color:var(--mut);line-height:1.5;margin-top:8px;font-weight:500">Create club packages per sport, choose the duration, and decide whether players can see them.</p>
-    </div>
-  </div>
+  <div class="a" style="--d:4;position:absolute;left:90px;right:90px;bottom:80px;text-align:center;font-size:25px;font-weight:700;color:var(--navy)">Less administrative friction. <span style="color:var(--blue)">More court occupancy.</span></div>
   <div class="num">03</div>
 </section>
 
-<!-- ============ 5. CLUB: RUN ============ -->
-<section class="slide club" data-title="2 · Club: Run your day-to-day">
+<!-- ============ 4. PILLAR 1: ZERO REVENUE LEAKAGE ============ -->
+<section class="slide club" data-title="4 · Pillar 1: Zero Revenue Leakage &amp; Dynamic Yield">
   <div class="top club"></div>
   <div class="head">
-    <div><span class="side club"><i></i>Club Portal</span><h2 class="a" style="--d:0">Run the day <em>from one place</em></h2></div>
+    <div><span class="side club"><i></i>Pillar 1 · Revenue Protection</span><h2 class="a" style="--d:0">Fill Dead Hours. Eliminate No-Shows. <em>Protect Your Margin.</em></h2></div>
     <div class="brandmark"><img src="assets/logo.svg" alt="ShallWe-Play"><span>ShallWe<span class="swp-play">-Play</span></span></div>
   </div>
-  <div style="position:absolute;left:90px;top:290px;width:560px">
-    <div class="tabs" id="t-run"></div>
+  <div style="position:absolute;left:90px;top:280px;width:560px">
+    <div class="tabs" id="t-setup"></div>
+    <div class="a" style="--d:4;margin-top:24px;font-size:17px;color:var(--mut);font-weight:600">Settings → Sports Rules · Granular rule controls per sport</div>
   </div>
-  <div style="position:absolute;left:720px;top:290px;width:1110px">
-    <div class="browser a" style="--d:2" onclick="lb(document.getElementById('i-run').src)"><div class="bar"><b></b><b></b><b></b><span id="u-run">Club Portal</span></div>
-      <div class="shot"><img id="i-run" src="assets/screenshots/portal_booking_calendar.png" alt="">
-        <div class="pin" id="p-run"><div class="n">1</div><div class="t"></div></div></div></div>
+  <div style="position:absolute;left:720px;top:280px;width:1110px">
+    <div class="browser a" style="--d:2" onclick="lb(document.getElementById('i-setup').src)"><div class="bar"><b></b><b></b><b></b><span>Club Portal · Sports Rules Engine</span></div>
+      <div class="shot"><img id="i-setup" src="assets/screenshots/sports_rules_tab1_booking.png" alt="">
+        <div class="pin" id="p-setup"><div class="n">1</div><div class="t"></div></div></div></div>
   </div>
   <div class="num">04</div>
 </section>
 
-<!-- ============ 6. PLAYER: BOOK ============ -->
-<section class="slide player" data-title="3 · Player: Discover, choose & book">
-  <div class="top player"></div>
+<!-- ============ 5. PILLAR 2: AVAILABILITY & RECURRING REVENUE ============ -->
+<section class="slide club" data-title="5 · Pillar 2: Granular Schedule &amp; Recurring Memberships">
+  <div class="top club"></div>
   <div class="head">
-    <div><span class="side player"><i></i>Player App</span><h2 class="a" style="--d:0">From “where can I play?” to <em>booked</em> in minutes</h2></div>
+    <div><span class="side club"><i></i>Pillar 2 · Predictable Cash Flow</span><h2 class="a" style="--d:0">Decide <em>When</em> You Open and Lock In <em>Recurring Revenue</em></h2></div>
     <div class="brandmark"><img src="assets/logo.svg" alt="ShallWe-Play"><span>ShallWe<span class="swp-play">-Play</span></span></div>
   </div>
-  <div style="position:absolute;left:90px;right:60px;top:290px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
-    <div class="a" style="--d:1;display:flex;gap:24px;align-items:flex-start">
-      <div class="phone" style="width:270px;flex:none" onclick="lb('assets/screenshots/player_home_feed.jpg')"><div class="scr"><img src="assets/screenshots/player_home_feed.jpg" alt=""></div></div>
-      <div style="padding-top:30px"><div style="width:48px;height:48px;border-radius:50%;background:var(--green);color:#fff;font-weight:800;font-size:22px;display:flex;align-items:center;justify-content:center">1</div>
-      <div style="font-size:27px;font-weight:800;margin-top:16px;line-height:1.2">Discover</div><p style="font-size:18px;color:var(--mut);line-height:1.5;margin-top:10px;font-weight:500">Browse clubs and activities near you, with starting prices.</p></div>
+  <div style="position:absolute;left:90px;right:90px;top:280px;display:grid;grid-template-columns:1fr 1fr;gap:50px">
+    <div class="a" style="--d:1">
+      <div class="browser" onclick="lb('assets/screenshots/portal_availability.png')"><div class="bar"><b></b><b></b><b></b><span>Settings → Weekly Availability</span></div>
+        <div class="shot"><img src="assets/screenshots/portal_availability.png" alt="">
+          <div class="pin" style="left:38%;top:20%"><div class="n">1</div><div class="t">Custom daily opening hours</div></div>
+          <div class="pin" style="left:14%;top:64%"><div class="n">2</div><div class="t">Block holiday / maintenance days</div></div></div></div>
+      <h3 style="font-size:28px;font-weight:800;margin-top:22px">Weekly Availability &amp; Maintenance Blackouts</h3>
+      <p style="font-size:19px;color:var(--mut);line-height:1.5;margin-top:8px;font-weight:500">Total control over when your facility operates. Set daily hours, schedule recurring court maintenance, and block tournament weekends in seconds.</p>
     </div>
-    <div class="a" style="--d:2;display:flex;gap:24px;align-items:flex-start">
-      <div class="phone" style="width:270px;flex:none" onclick="lb('assets/screenshots/player_booking_pass_selection.jpg')"><div class="scr"><img src="assets/screenshots/player_booking_pass_selection.jpg" alt=""></div></div>
-      <div style="padding-top:30px"><div style="width:48px;height:48px;border-radius:50%;background:var(--green);color:#fff;font-weight:800;font-size:22px;display:flex;align-items:center;justify-content:center">2</div>
-      <div style="font-size:27px;font-weight:800;margin-top:16px;line-height:1.2">Choose a slot</div><p style="font-size:18px;color:var(--mut);line-height:1.5;margin-top:10px;font-weight:500">Pick the pass and an available time — live availability.</p></div>
-    </div>
-    <div class="a" style="--d:3;display:flex;gap:24px;align-items:flex-start">
-      <div class="phone" style="width:270px;flex:none" onclick="lb('assets/screenshots/player_payment_summary_split.jpg')"><div class="scr"><img src="assets/screenshots/player_payment_summary_split.jpg" alt=""></div></div>
-      <div style="padding-top:30px"><div style="width:48px;height:48px;border-radius:50%;background:var(--green);color:#fff;font-weight:800;font-size:22px;display:flex;align-items:center;justify-content:center">3</div>
-      <div style="font-size:27px;font-weight:800;margin-top:16px;line-height:1.2">Pay or split</div><p style="font-size:18px;color:var(--mut);line-height:1.5;margin-top:10px;font-weight:500">Pay for everyone, or split the bill with friends.</p></div>
+    <div class="a" style="--d:2">
+      <div class="browser" onclick="lb('assets/screenshots/portal_memberships.png')"><div class="bar"><b></b><b></b><b></b><span>Membership Packages</span></div>
+        <div class="shot"><img src="assets/screenshots/portal_memberships.png" alt="">
+          <div class="pin" style="left:76%;top:11%"><div class="n">1</div><div class="t">Create recurring pass tier</div></div>
+          <div class="pin" style="left:20%;top:33%"><div class="n">2</div><div class="t">Automated member discount rate</div></div></div></div>
+      <h3 style="font-size:28px;font-weight:800;margin-top:22px">Digital Recurring Membership Passes</h3>
+      <p style="font-size:19px;color:var(--mut);line-height:1.5;margin-top:8px;font-weight:500">1, 3, 6, and 12-month memberships collected 100% upfront. Active members automatically unlock priority peak booking windows and 10–25% discounts.</p>
     </div>
   </div>
   <div class="num">05</div>
 </section>
 
-<!-- ============ 7. PLAYER: ON THE DAY ============ -->
-<section class="slide player" data-title="3 · Player: On the day & beyond">
-  <div class="top player"></div>
+<!-- ============ 6. PILLAR 3: FRONT-DESK COMMAND CENTER ============ -->
+<section class="slide club" data-title="6 · Pillar 3: The Front-Desk Command Center">
+  <div class="top club"></div>
   <div class="head">
-    <div><span class="side player"><i></i>Player App</span><h2 class="a" style="--d:0">Show up, scan, play — <em>and stay connected</em></h2></div>
+    <div><span class="side club"><i></i>Pillar 3 · Reception Command</span><h2 class="a" style="--d:0">Run the Day From One Screen. <em>Zero Double Bookings.</em></h2></div>
     <div class="brandmark"><img src="assets/logo.svg" alt="ShallWe-Play"><span>ShallWe<span class="swp-play">-Play</span></span></div>
   </div>
-  <div style="position:absolute;left:90px;top:300px;width:700px">
-    <div class="tabs" id="t-day"></div>
+  <div style="position:absolute;left:90px;top:280px;width:560px">
+    <div class="tabs" id="t-run"></div>
   </div>
-  <div style="position:absolute;left:1040px;top:290px;display:flex;gap:50px;align-items:flex-start">
-    <div class="phone a" style="--d:1;width:330px" onclick="lb(document.getElementById('i-day').src)"><div class="scr"><img id="i-day" src="assets/screenshots/player_active_session_pass.jpg" alt=""></div></div>
-    <div class="a" style="--d:2;width:360px;padding-top:40px">
-      <div id="c-day-t" style="font-size:30px;font-weight:800;line-height:1.2"></div>
-      <p id="c-day-d" style="font-size:21px;color:var(--mut);line-height:1.55;margin-top:14px;font-weight:500"></p>
-    </div>
+  <div style="position:absolute;left:720px;top:280px;width:1110px">
+    <div class="browser a" style="--d:2" onclick="lb(document.getElementById('i-run').src)"><div class="bar"><b></b><b></b><b></b><span id="u-run">Club Portal</span></div>
+      <div class="shot"><img id="i-run" src="assets/screenshots/portal_booking_calendar.png" alt="">
+        <div class="pin" id="p-run"><div class="n">1</div><div class="t"></div></div></div></div>
   </div>
   <div class="num">06</div>
 </section>
 
-<!-- ============ 8. HOW THEY CONNECT ============ -->
-<section class="slide" data-title="4 · How both sides connect" id="s-connect">
+<!-- ============ 7. PILLAR 4: ZERO QUEUES (PLAYER APP) ============ -->
+<section class="slide player" data-title="7 · Pillar 4: Zero Queues — Discover, Split &amp; Book">
+  <div class="top player"></div>
+  <div class="head">
+    <div><span class="side player"><i></i>Pillar 4 · Player Experience</span><h2 class="a" style="--d:0">From “Where Can I Play?” to <em>Confirmed in 45 Seconds</em></h2></div>
+    <div class="brandmark"><img src="assets/logo.svg" alt="ShallWe-Play"><span>ShallWe<span class="swp-play">-Play</span></span></div>
+  </div>
+  <div style="position:absolute;left:90px;right:60px;top:280px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px">
+    
+    <!-- Phone 1: Discover -->
+    <div class="a" style="--d:1;display:flex;gap:22px;align-items:flex-start">
+      <div class="phone" style="width:260px;flex:none" onclick="lb('assets/screenshots/player_home_feed.jpg')"><div class="scr"><img src="assets/screenshots/player_home_feed.jpg" alt=""></div></div>
+      <div style="padding-top:20px">
+        <div style="width:44px;height:44px;border-radius:50%;background:var(--green);color:#fff;font-weight:800;font-size:20px;display:flex;align-items:center;justify-content:center">1</div>
+        <div style="font-size:25px;font-weight:800;margin-top:14px;line-height:1.2">Local Radar</div>
+        <p style="font-size:16px;color:var(--mut);line-height:1.5;margin-top:8px;font-weight:500">Athletes discover your courts by sport, distance, and live starting rates (e.g. from €9.00).</p>
+      </div>
+    </div>
+
+    <!-- Phone 2: 3-Step Selection -->
+    <div class="a" style="--d:2;display:flex;gap:22px;align-items:flex-start">
+      <div class="phone" style="width:260px;flex:none" onclick="lb('assets/screenshots/player_booking_pass_selection.jpg')"><div class="scr"><img src="assets/screenshots/player_booking_pass_selection.jpg" alt=""></div></div>
+      <div style="padding-top:20px">
+        <div style="width:44px;height:44px;border-radius:50%;background:var(--green);color:#fff;font-weight:800;font-size:20px;display:flex;align-items:center;justify-content:center">2</div>
+        <div style="font-size:25px;font-weight:800;margin-top:14px;line-height:1.2">Pick &amp; Lock</div>
+        <p style="font-size:16px;color:var(--mut);line-height:1.5;margin-top:8px;font-weight:500">Guided pass duration &amp; arrival window selection with 5-minute Redis checkout locking.</p>
+      </div>
+    </div>
+
+    <!-- Phone 3: Split-Pay -->
+    <div class="a" style="--d:3;display:flex;gap:22px;align-items:flex-start">
+      <div class="phone" style="width:260px;flex:none" onclick="lb('assets/screenshots/player_payment_summary_split.jpg')"><div class="scr"><img src="assets/screenshots/player_payment_summary_split.jpg" alt=""></div></div>
+      <div style="padding-top:20px">
+        <div style="width:44px;height:44px;border-radius:50%;background:var(--green);color:#fff;font-weight:800;font-size:20px;display:flex;align-items:center;justify-content:center">3</div>
+        <div style="font-size:25px;font-weight:800;margin-top:14px;line-height:1.2">Split-The-Bill</div>
+        <p style="font-size:16px;color:var(--mut);line-height:1.5;margin-top:8px;font-weight:500">Every player pays their exact share in-app via Revolut Pay/iDEAL. Zero payment lines at reception.</p>
+      </div>
+    </div>
+
+  </div>
+  <div class="num">07</div>
+</section>
+
+<!-- ============ 8. PILLAR 5: 15-SEC VENUE ARRIVAL ============ -->
+<section class="slide player" data-title="8 · Pillar 5: 15-Sec Venue Arrival — Combined Pass &amp; QR Access">
+  <div class="top player"></div>
+  <div class="head">
+    <div><span class="side player"><i></i>Pillar 5 · Smart Venue Access</span><h2 class="a" style="--d:0">Show Up, Scan, Play — <em>With Zero Reception Bottlenecks</em></h2></div>
+    <div class="brandmark"><img src="assets/logo.svg" alt="ShallWe-Play"><span>ShallWe<span class="swp-play">-Play</span></span></div>
+  </div>
+  <div style="position:absolute;left:90px;top:280px;width:680px">
+    <div class="tabs" id="t-day"></div>
+  </div>
+  <div style="position:absolute;left:1020px;top:280px;display:flex;gap:46px;align-items:flex-start">
+    <div class="phone a" style="--d:1;width:310px" onclick="lb(document.getElementById('i-day').src)"><div class="scr"><img id="i-day" src="assets/screenshots/player_active_session_pass.jpg" alt=""></div></div>
+    <div class="a" style="--d:2;width:390px;padding-top:36px">
+      <div id="c-day-t" style="font-size:28px;font-weight:800;line-height:1.2"></div>
+      <p id="c-day-d" style="font-size:19px;color:var(--mut);line-height:1.55;margin-top:14px;font-weight:500"></p>
+    </div>
+  </div>
+  <div class="num">08</div>
+</section>
+
+<!-- ============ 9. THE REVENUE FLYWHEEL ============ -->
+<section class="slide" data-title="9 · The Revenue Flywheel: How SWP Works 24/7" id="s-connect">
   <div class="top both"></div>
   <div class="head">
-    <div><span class="side both"><i></i>The booking loop</span><h2 class="a" style="--d:0">What the club sets up, <em class="g">the player sees</em> — and books</h2></div>
+    <div><span class="side both"><i></i>The Revenue Flywheel</span><h2 class="a" style="--d:0">The Autonomous Booking Loop: <em class="g">How SWP Works While You Sleep</em></h2></div>
     <div class="brandmark"><img src="assets/logo.svg" alt="ShallWe-Play"><span>ShallWe<span class="swp-play">-Play</span></span></div>
   </div>
 
   <!-- lane labels -->
-  <div class="a" style="--d:1;position:absolute;left:90px;top:300px;width:1740px;height:300px;border-radius:24px;background:var(--blue-l);border:2px solid #BBD6FF"></div>
-  <div class="a" style="--d:1;position:absolute;left:90px;top:640px;width:1740px;height:300px;border-radius:24px;background:var(--green-l);border:2px solid #B5E2C3"></div>
-  <div style="position:absolute;left:112px;top:316px;font-size:18px;font-weight:800;letter-spacing:.08em;color:var(--blue-d)">CLUB PORTAL</div>
-  <div style="position:absolute;left:112px;top:656px;font-size:18px;font-weight:800;letter-spacing:.08em;color:#1B7A38">PLAYER APP</div>
+  <div class="a" style="--d:1;position:absolute;left:90px;top:290px;width:1740px;height:290px;border-radius:24px;background:var(--blue-l);border:2px solid #BBD6FF"></div>
+  <div class="a" style="--d:1;position:absolute;left:90px;top:620px;width:1740px;height:290px;border-radius:24px;background:var(--green-l);border:2px solid #B5E2C3"></div>
+  <div style="position:absolute;left:112px;top:306px;font-size:17px;font-weight:800;letter-spacing:.08em;color:var(--blue-d)">CLUB COMMAND PORTAL</div>
+  <div style="position:absolute;left:112px;top:636px;font-size:17px;font-weight:800;letter-spacing:.08em;color:#1B7A38">PLAYER MOBILE APP</div>
 
-  <!-- step cards: 4 steps, zigzag between lanes -->
+  <!-- step cards -->
   <div id="loop"></div>
   <svg id="loop-svg" viewBox="0 0 1920 1080" style="position:absolute;inset:0;pointer-events:none"></svg>
-  <div id="loop-cap" style="position:absolute;left:90px;right:90px;bottom:90px;text-align:center;font-size:23px;font-weight:600;color:var(--mut)">Press <b>Space</b> or click a step to walk through the loop</div>
-  <div class="num">07</div>
+  <div id="loop-cap" style="position:absolute;left:90px;right:90px;bottom:78px;text-align:center;font-size:22px;font-weight:600;color:var(--mut)">Press <b>Space</b> or click a step to walk through the revenue flywheel</div>
+  <div class="num">09</div>
 </section>
 
-<!-- ============ 9. VALUE ============ -->
-<section class="slide" data-title="5 · Value for clubs and players">
+<!-- ============ 10. COMPETITIVE MOAT (NEW SLIDE) ============ -->
+<section class="slide" data-title="10 · Why Venues Choose ShallWe-Play Over Competitors">
   <div class="top both"></div>
   <div class="head">
-    <div><span class="side both"><i></i>Business value</span><h2 class="a" style="--d:0">Why it works for <em>both sides</em></h2></div>
+    <div><span class="side both"><i></i>Market Superiority</span><h2 class="a" style="--d:0">Why Sports Clubs Choose <em>ShallWe-Play Over Competitors</em></h2>
+      <p class="sub a" style="--d:1">Purpose-built for European multi-sport venues — without marketplace commission traps or legacy software bloat.</p>
+    </div>
     <div class="brandmark"><img src="assets/logo.svg" alt="ShallWe-Play"><span>ShallWe<span class="swp-play">-Play</span></span></div>
   </div>
-  <div style="position:absolute;left:90px;right:90px;top:300px;display:grid;grid-template-columns:1fr 1fr;gap:50px">
-    <div class="card a" style="--d:1;border-top:8px solid var(--blue);padding:40px">
-      <span class="side club"><i></i>For clubs</span>
-      <div class="vrow"><b>01</b><div><strong>One system to run everything</strong><span>Bookings, availability, memberships and earnings together.</span></div></div>
-      <div class="vrow"><b>02</b><div><strong>Fewer calls, fewer gaps</strong><span>Players book on their own, 24/7, within your rules.</span></div></div>
-      <div class="vrow"><b>03</b><div><strong>Clear view of performance</strong><span>Occupancy, revenue and earnings history at a glance.</span></div></div>
-      <div class="vrow"><b>04</b><div><strong>Reach new players</strong><span>Your facility is discoverable in the player app.</span></div></div>
+
+  <div class="comp-grid a" style="--d:2;position:absolute;left:90px;right:90px;top:270px">
+    
+    <!-- Hero Column: ShallWe-Play -->
+    <div class="comp-card hero">
+      <div style="display:inline-block;padding:4px 10px;border-radius:6px;background:var(--blue);color:#fff;font-size:11px;font-weight:800;text-transform:uppercase;margin-bottom:8px;align-self:flex-start">The Operating Standard</div>
+      <h4 style="color:var(--blue-d)">ShallWe-Play</h4>
+      <div class="tagline">The Connected Club &amp; Player Platform</div>
+      <ul class="comp-list">
+        <li><span style="color:#10B981">✓</span> <span><strong>100% Upfront Revenue:</strong> Zero unpaid verbal no-shows</span></li>
+        <li><span style="color:#10B981">✓</span> <span><strong>In-App Split Pay:</strong> 4 players pay €10 via Revolut / iDEAL</span></li>
+        <li><span style="color:#10B981">✓</span> <span><strong>True Multi-Sport:</strong> Padel, Tennis, Skiing, Golf &amp; Camps</span></li>
+        <li><span style="color:#10B981">✓</span> <span><strong>Dutch 21% BTW:</strong> Automated fiscal isolation &amp; IBAN payout</span></li>
+        <li><span style="color:#10B981">✓</span> <span><strong>Club Brand First:</strong> We never poach your players</span></li>
+        <li><span style="color:#10B981">✓</span> <span><strong>Coach Hiring Gatekeeper:</strong> Zero unsolicited cold spam</span></li>
+        <li><span style="color:#10B981">✓</span> <span><strong>Connected Comms:</strong> Free club-to-player emails (No Mailchimp)</span></li>
+      </ul>
     </div>
-    <div class="card a" style="--d:2;border-top:8px solid var(--green);padding:40px">
-      <span class="side player"><i></i>For players</span>
-      <div class="vrow g"><b>01</b><div><strong>Find places to play</strong><span>Discover nearby clubs and activities by sport.</span></div></div>
-      <div class="vrow g"><b>02</b><div><strong>See real availability</strong><span>Choose a slot and know it is yours.</span></div></div>
-      <div class="vrow g"><b>03</b><div><strong>Book and pay in-app</strong><span>Pay for everyone or split the bill with friends.</span></div></div>
-      <div class="vrow g"><b>04</b><div><strong>Walk straight in</strong><span>One digital pass admits the whole group.</span></div></div>
+
+    <!-- Column 2: Playtomic / Matchi -->
+    <div class="comp-card">
+      <div style="display:inline-block;padding:4px 10px;border-radius:6px;background:#F1F5F9;color:#64748B;font-size:11px;font-weight:800;text-transform:uppercase;margin-bottom:8px;align-self:flex-start">Marketplace Aggregator</div>
+      <h4>Playtomic / Matchi</h4>
+      <div class="tagline">Single-Sport Racket Apps</div>
+      <ul class="comp-list">
+        <li><span style="color:#EF4444">✕</span> <span>High platform fees passed to players</span></li>
+        <li><span style="color:#EF4444">✕</span> <span>Rackets only (No skiing, golf, or camps)</span></li>
+        <li><span style="color:#EF4444">✕</span> <span>Promotes competing clubs in player feeds</span></li>
+        <li><span style="color:#EF4444">✕</span> <span>No gear DIN / boot sizing or camp intake</span></li>
+        <li><span style="color:#EF4444">✕</span> <span>Clumsy split-pay forcing wallet balances</span></li>
+        <li><span style="color:#EF4444">✕</span> <span>No coach hiring gatekeeper</span></li>
+        <li><span style="color:#EF4444">✕</span> <span>Club communications locked behind paywall</span></li>
+      </ul>
     </div>
+
+    <!-- Column 3: CourtReserve / Legacy -->
+    <div class="comp-card">
+      <div style="display:inline-block;padding:4px 10px;border-radius:6px;background:#F1F5F9;color:#64748B;font-size:11px;font-weight:800;text-transform:uppercase;margin-bottom:8px;align-self:flex-start">US Legacy Software</div>
+      <h4>CourtReserve / SportEasy</h4>
+      <div class="tagline">Traditional Booking Engines</div>
+      <ul class="comp-list">
+        <li><span style="color:#EF4444">✕</span> <span>Complex US desktop UI; poor mobile UX</span></li>
+        <li><span style="color:#EF4444">✕</span> <span>Zero Dutch 21% BTW tax separation</span></li>
+        <li><span style="color:#EF4444">✕</span> <span>No native Revolut Pay or iDEAL integration</span></li>
+        <li><span style="color:#EF4444">✕</span> <span>Cashier must manually divide split fees</span></li>
+        <li><span style="color:#EF4444">✕</span> <span>High fixed monthly enterprise subscriptions</span></li>
+        <li><span style="color:#EF4444">✕</span> <span>No turnstile 1-QR group scan support</span></li>
+        <li><span style="color:#EF4444">✕</span> <span>Requires expensive Mailchimp sync</span></li>
+      </ul>
+    </div>
+
+    <!-- Column 4: Phone & Excel -->
+    <div class="comp-card">
+      <div style="display:inline-block;padding:4px 10px;border-radius:6px;background:#FEF2F2;color:#DC2626;font-size:11px;font-weight:800;text-transform:uppercase;margin-bottom:8px;align-self:flex-start">The Manual Status Quo</div>
+      <h4>Phone, Excel &amp; WhatsApp</h4>
+      <div class="tagline">Manual Venue Operations</div>
+      <ul class="comp-list">
+        <li><span style="color:#EF4444">✕</span> <span>Frequent unpaid no-shows (€18,000+ loss)</span></li>
+        <li><span style="color:#EF4444">✕</span> <span>3+ hours spent answering phone calls daily</span></li>
+        <li><span style="color:#EF4444">✕</span> <span>Cashier lines during match changeovers</span></li>
+        <li><span style="color:#EF4444">✕</span> <span>Double bookings from manual entry errors</span></li>
+        <li><span style="color:#EF4444">✕</span> <span>Zero off-peak dynamic yield filling</span></li>
+        <li><span style="color:#EF4444">✕</span> <span>Hours spent manually preparing tax ledgers</span></li>
+        <li><span style="color:#EF4444">✕</span> <span>Unsolicited coach outreach spamming desk</span></li>
+      </ul>
+    </div>
+
   </div>
-  <style>
-    .vrow{display:flex;gap:22px;align-items:flex-start;margin-top:34px}
-    .vrow b{flex:none;width:52px;height:52px;border-radius:14px;background:var(--blue-l);color:var(--blue-d);display:flex;align-items:center;justify-content:center;font-size:20px}
-    .vrow.g b{background:var(--green-l);color:#1B7A38}
-    .vrow strong{display:block;font-size:30px;font-weight:700}
-    .vrow span{display:block;font-size:22px;color:var(--mut);margin-top:3px;font-weight:500}
-  </style>
-  <div class="num">08</div>
+  <div class="num">10</div>
 </section>
 
-<!-- ============ 10. GET STARTED ============ -->
-<section class="slide dark" data-title="Getting started">
+<!-- ============ 11. FINANCIAL ROI & 48-HR ONBOARDING ============ -->
+<section class="slide dark" data-title="11 · Measurable ROI &amp; 48-Hour Onboarding">
   <div class="top both"></div>
   <div class="head">
-    <span class="side both" style="background:rgba(255,255,255,.1);color:#cfe1ff">Next steps</span>
+    <span class="side both" style="background:rgba(255,255,255,.1);color:#cfe1ff">Business Impact &amp; Next Steps</span>
     <div class="brandmark"><img src="assets/logo.svg" alt="ShallWe-Play"><span>ShallWe<span class="swp-play">-Play</span></span></div>
   </div>
-  <div style="position:absolute;left:90px;top:230px;width:1000px">
-    <h2 class="a" style="--d:0;font-size:76px;color:#fff">Ready to welcome<br><em style="color:#5BA8FF">more players?</em></h2>
-    <p class="a" style="--d:1;font-size:26px;line-height:1.5;color:#C7D6F0;margin-top:26px;font-weight:500;max-width:820px">Your club can be set up with free onboarding. Here is how getting started works.</p>
+
+  <div style="position:absolute;left:90px;top:150px;right:90px">
+    <div class="a" style="--d:0;font-size:20px;font-weight:700;color:#7DB7FF;letter-spacing:.08em;text-transform:uppercase">Quantified Financial Return</div>
+    <h2 class="a" style="--d:1;font-size:58px;color:#fff;margin-top:8px">Measurable ROI for Your Facility. <em style="color:#5BA8FF">Live in 48 Hours.</em></h2>
   </div>
-  <div style="position:absolute;left:90px;right:90px;top:560px;display:grid;grid-template-columns:repeat(4,1fr);gap:26px;position:absolute">
-    <div class="a st" style="--d:2"><b>1</b><strong>Book a demo</strong><span>Talk to our team about your facilities and sports.</span></div>
-    <div class="a st" style="--d:3"><b>2</b><strong>Set up your club</strong><span>Profile, sports, courts, pricing and opening hours.</span></div>
-    <div class="a st" style="--d:4"><b>3</b><strong>Go live</strong><span>Your facility appears to players in the app.</span></div>
-    <div class="a st" style="--d:5"><b>4</b><strong>Welcome players</strong><span>Bookings arrive in your portal automatically.</span></div>
+
+  <!-- 3 ROI Metric Cards -->
+  <div class="roi-grid a" style="--d:2;position:absolute;left:90px;right:90px;top:280px">
+    <div class="roi-card">
+      <div class="roi-num">+€18,400</div>
+      <strong>Annual Court Revenue Recovered</strong>
+      <p>Eliminate unpaid verbal no-shows and automatically fill dead daytime hours (10:00–16:00) with dynamic off-peak rates.</p>
+    </div>
+    <div class="roi-card">
+      <div class="roi-num">14 Hours</div>
+      <strong>Staff Hours Saved Every Week</strong>
+      <p>Zero phone tag and zero cashier payment math. Courts book, split, and confirm themselves 24/7 without desk intervention.</p>
+    </div>
+    <div class="roi-card">
+      <div class="roi-num">€0.00</div>
+      <strong>Third-Party Tool Subscriptions</strong>
+      <p>Replaces separate Mailchimp email tools, SMS gateways, and manual tax reconciliations with native, built-in features.</p>
+    </div>
   </div>
-  <style>
-    .st{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:20px;padding:30px;position:relative}
-    .st b{display:flex;width:46px;height:46px;border-radius:50%;background:var(--blue);align-items:center;justify-content:center;font-size:22px;margin-bottom:18px}
-    .st strong{display:block;font-size:26px;font-weight:700}
-    .st span{display:block;font-size:19px;color:#B9C9E4;line-height:1.45;margin-top:8px;font-weight:500}
-  </style>
-  <div class="a" style="--d:6;position:absolute;left:90px;bottom:90px;display:flex;gap:22px;align-items:center">
-    <div style="background:var(--blue);padding:18px 36px;border-radius:99px;font-size:24px;font-weight:700;animation:pulse 2s infinite;cursor:pointer" onclick="window.location.href='mailto:info@shallwe-play.com'">Book a club demo</div>
-    <div onclick="go(10)" style="background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.25);padding:16px 32px;border-radius:99px;font-size:22px;font-weight:700;color:#fff;cursor:pointer;display:flex;align-items:center;gap:12px;transition:all .2s" onmouseover="this.style.background='rgba(255,255,255,.2)';this.style.borderColor='var(--blue)'" onmouseout="this.style.background='rgba(255,255,255,.1)';this.style.borderColor='rgba(255,255,255,.25)'"><span>👥</span> Meet Our Experts <span>→</span></div>
-    <div style="font-size:22px;font-weight:600;color:#DCE8FF">info@shallwe-play.com &nbsp;·&nbsp; shallwe-play.com</div>
+
+  <!-- 48-Hour Onboarding Steps -->
+  <div class="a" style="--d:3;position:absolute;left:90px;right:90px;top:510px">
+    <div style="font-size:18px;font-weight:700;color:#7DB7FF;text-transform:uppercase;letter-spacing:.06em;margin-bottom:16px">The 48-Hour Zero-Disruption Onboarding Pipeline</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px">
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:22px">
+        <b style="display:flex;width:38px;height:38px;border-radius:50%;background:var(--blue);color:#fff;align-items:center;justify-content:center;font-size:18px;margin-bottom:12px">1</b>
+        <strong style="font-size:20px;font-weight:700;display:block">30-Min Discovery</strong>
+        <span style="font-size:15px;color:#C7D6F0;line-height:1.45;margin-top:6px;display:block">Review your courts, peak schedules, member tiers, and pricing rules.</span>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:22px">
+        <b style="display:flex;width:38px;height:38px;border-radius:50%;background:var(--blue);color:#fff;align-items:center;justify-content:center;font-size:18px;margin-bottom:12px">2</b>
+        <strong style="font-size:20px;font-weight:700;display:block">White-Glove Setup</strong>
+        <span style="font-size:15px;color:#C7D6F0;line-height:1.45;margin-top:6px;display:block">Our team configures your facility sports rules and imports member records.</span>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:22px">
+        <b style="display:flex;width:38px;height:38px;border-radius:50%;background:var(--blue);color:#fff;align-items:center;justify-content:center;font-size:18px;margin-bottom:12px">3</b>
+        <strong style="font-size:20px;font-weight:700;display:block">15-Min Staff Briefing</strong>
+        <span style="font-size:15px;color:#C7D6F0;line-height:1.45;margin-top:6px;display:block">Simple walk-through of the front-desk agenda and QR check-in camera.</span>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:22px">
+        <b style="display:flex;width:38px;height:38px;border-radius:50%;background:var(--green);color:#fff;align-items:center;justify-content:center;font-size:18px;margin-bottom:12px">4</b>
+        <strong style="font-size:20px;font-weight:700;display:block">Go-Live in 48 Hours</strong>
+        <span style="font-size:15px;color:#C7D6F0;line-height:1.45;margin-top:6px;display:block">Your facility appears live to regional players; bookings begin arriving.</span>
+      </div>
+    </div>
   </div>
+
+  <!-- Bottom CTA -->
+  <div class="a" style="--d:4;position:absolute;left:90px;bottom:70px;display:flex;gap:22px;align-items:center">
+    <div style="background:var(--blue);padding:18px 36px;border-radius:99px;font-size:22px;font-weight:700;animation:pulse 2s infinite;cursor:pointer" onclick="window.location.href='mailto:info@shallwe-play.com'">Book a 20-Minute Club Demo</div>
+    <div onclick="go(11)" style="background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.25);padding:16px 32px;border-radius:99px;font-size:20px;font-weight:700;color:#fff;cursor:pointer;display:flex;align-items:center;gap:12px;transition:all .2s" onmouseover="this.style.background='rgba(255,255,255,.2)';this.style.borderColor='var(--blue)'" onmouseout="this.style.background='rgba(255,255,255,.1)';this.style.borderColor='rgba(255,255,255,.25)'"><span>👥</span> Meet Our Leadership Team <span>→</span></div>
+    <div style="font-size:20px;font-weight:600;color:#DCE8FF">info@shallwe-play.com &nbsp;·&nbsp; Amsterdam, The Netherlands</div>
+  </div>
+  <div class="num">11</div>
 </section>
 
-
-<!-- ============ 11. MEET OUR EXPERTS ============ -->
-<section class="slide dark" data-title="Meet Our Experts &amp; Welcome">
+<!-- ============ 12. MEET OUR EXPERTS ============ -->
+<section class="slide dark" data-title="12 · Leadership Team &amp; Strategic Advisory">
   <div class="top both"></div>
   <div class="head">
     <span class="side both" style="background:rgba(255,255,255,.1);color:#cfe1ff"><i></i>Leadership &amp; Advisory</span>
     <div class="brandmark"><img src="assets/logo.svg" alt="ShallWe-Play"><span>ShallWe<span class="swp-play">-Play</span></span></div>
   </div>
 
-  <div style="position:absolute;left:90px;top:150px;right:90px">
-    <div class="a" style="--d:0;font-size:20px;font-weight:700;color:#7DB7FF;letter-spacing:.08em;text-transform:uppercase">ShallWe-Play Team</div>
-    <h2 class="a" style="--d:1;font-size:62px;font-weight:800;color:#fff;margin-top:12px;line-height:1.1">
-      Meet Our <em style="color:#5BA8FF">Experts</em>
+  <div style="position:absolute;left:90px;top:140px;right:90px">
+    <div class="a" style="--d:0;font-size:20px;font-weight:700;color:#7DB7FF;letter-spacing:.08em;text-transform:uppercase">The Team Behind ShallWe-Play</div>
+    <h2 class="a" style="--d:1;font-size:60px;font-weight:800;color:#fff;margin-top:10px;line-height:1.1">
+      Meet Our <em style="color:#5BA8FF">Leadership Team</em>
     </h2>
-    <p class="a" style="--d:2;font-size:24px;line-height:1.5;color:#C7D6F0;margin-top:14px;font-weight:500;max-width:1150px">
-      Thank you for hearing us! We are enthusiastically waiting to welcome you as a partner club on the ShallWe-Play network.
+    <p class="a" style="--d:2;font-size:23px;line-height:1.5;color:#C7D6F0;margin-top:12px;font-weight:500;max-width:1150px">
+      Engineered and advised by European sports industry, product, and legal-tech veterans based in Amsterdam. We are enthusiastically waiting to welcome your venue to the network.
     </p>
   </div>
 
   <!-- 3 Expert Cards -->
-  <div style="position:absolute;left:90px;right:90px;top:340px;display:flex;justify-content:center;gap:36px;align-items:center">
+  <div style="position:absolute;left:90px;right:90px;top:330px;display:flex;justify-content:center;gap:36px;align-items:center">
     
     <!-- Parthesh Dave -->
     <div class="a expert-card" style="--d:3;width:370px;height:490px;border-radius:24px;overflow:hidden;background:#0d1830;box-shadow:0 24px 60px -15px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.15);cursor:zoom-in;transition:all .3s ease" onclick="lb('assets/meet_our_experts_clean.png')">
@@ -451,23 +664,23 @@ body.hide-nav #nav{opacity:0;pointer-events:none}
   </div>
 
   <!-- Bottom CTA & Greeting -->
-  <div class="a" style="--d:6;position:absolute;left:90px;right:90px;bottom:70px;display:flex;justify-content:space-between;align-items:center">
+  <div class="a" style="--d:6;position:absolute;left:90px;right:90px;bottom:64px;display:flex;justify-content:space-between;align-items:center">
     <div style="display:flex;align-items:center;gap:24px">
-      <div style="background:var(--blue);padding:18px 36px;border-radius:99px;font-size:24px;font-weight:700;color:#fff;animation:pulse 2s infinite;cursor:pointer" onclick="window.location.href='mailto:info@shallwe-play.com'">Book a club demo</div>
-      <div style="font-size:22px;font-weight:600;color:#DCE8FF">info@shallwe-play.com &nbsp;·&nbsp; Amsterdam, The Netherlands</div>
+      <div style="background:var(--blue);padding:18px 36px;border-radius:99px;font-size:22px;font-weight:700;color:#fff;animation:pulse 2s infinite;cursor:pointer" onclick="window.location.href='mailto:info@shallwe-play.com'">Book a 20-Minute Club Demo</div>
+      <div style="font-size:21px;font-weight:600;color:#DCE8FF">info@shallwe-play.com &nbsp;·&nbsp; Amsterdam, The Netherlands</div>
     </div>
     <div style="display:flex;align-items:center;gap:16px">
-      <button onclick="go(9)" style="font:inherit;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#cfe1ff;border-radius:8px;padding:9px 18px;font-size:16px;font-weight:600;cursor:pointer;transition:all .2s" onmouseover="this.style.background='rgba(255,255,255,.2)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">← Back to Next Steps</button>
+      <button onclick="go(10)" style="font:inherit;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#cfe1ff;border-radius:8px;padding:9px 18px;font-size:16px;font-weight:600;cursor:pointer;transition:all .2s" onmouseover="this.style.background='rgba(255,255,255,.2)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">← Back to ROI &amp; Onboarding</button>
       <div style="font-size:16px;color:#8FA6CC;font-weight:600">Available across EU sports venues</div>
     </div>
   </div>
-  <div class="num">11</div>
+  <div class="num">12</div>
 </section>
 
 </div><!-- /stage -->
 
 <div id="nav">
-  <span id="ctr">1 / 10</span>
+  <span id="ctr">1 / 12</span>
   <span id="ttl" style="color:#D6DFEF"></span>
   <span style="display:flex;gap:8px;align-items:center">
     <button onclick="toggleDrawer()">☰ Overview (O)</button>
@@ -490,21 +703,22 @@ addEventListener('resize',fit);
 /* ---------- tab groups ---------- */
 const GROUPS={
  setup:{el:'t-setup',img:'i-setup',pin:'p-setup',items:[
-  {k:1,t:'Booking rules',s:'Slot length, advance booking, peak times',img:'sports_rules_tab1_booking.png',pin:['Booking block duration per sport',54,46,'']},
-  {k:2,t:'Pricing & cancellation',s:'Base, peak, weekend and member rates',img:'sports_rules_tab2_pricing.png',pin:['Member vs. non-member rates',38,50,'']},
-  {k:3,t:'Courts & assets',s:'Each court with its sport, rate and slot sizes',img:'sports_rules_tab3_assets.png',pin:['Slots offered: 30 or 60 min',32,72,'']},
-  {k:4,t:'Equipment',s:'Rent or sell gear on top of the booking',img:'sports_rules_tab4_equipment.png',pin:['Quantity & price per item',20,32,'']}]},
+  {k:1,t:'1. Booking Rules',s:'5-minute Redis slot hold during checkout',img:'sports_rules_tab1_booking.png',pin:['5-min Redis slot hold during checkout',54,46,'']},
+  {k:2,t:'2. Pricing & Cancellation',s:'Automated 24h cancellation fee & peak rates',img:'sports_rules_tab2_pricing.png',pin:['Automated 24h cancellation fee',38,50,'']},
+  {k:3,t:'3. Courts & Dynamic Yield',s:'Peak evening rates & discounted off-peak mornings',img:'sports_rules_tab3_assets.png',pin:['Dynamic peak/off-peak pricing',32,72,'']},
+  {k:4,t:'4. Equipment Monetization',s:'Automated racket, ball & ski rental add-on upsells',img:'sports_rules_tab4_equipment.png',pin:['Automated gear rental upsells',20,32,'']}]},
  run:{el:'t-run',img:'i-run',pin:'p-run',url:'u-run',items:[
-  {k:1,t:'Booking calendar',s:'Every court, every day — available, reserved, blocked',img:'portal_booking_calendar.png',url:'Club Portal · Booking',pin:['Pick a day · List or Calendar view',70,13,'']},
-  {k:2,t:'Dashboard',s:'Occupancy, active courts and monthly revenue',img:'portal_dashboard.png',url:'Club Portal · Dashboard',pin:['Live occupancy & revenue',72,38,'']},
-  {k:3,t:'Earnings & payouts',s:'Every booking, payment method and status',img:'portal_finance.png',url:'Club Portal · Finance',pin:['Earning history · export to CSV',45,37,'']}]},
+  {k:1,t:'1. Live Booking Calendar',s:'Real-time multi-court grid — available, reserved, blocked',img:'portal_booking_calendar.png',url:'Club Portal · Booking Calendar',pin:['1-Click Walk-In & QR Check-In',70,13,'']},
+  {k:2,t:'2. Live Command Dashboard',s:'Real-time occupancy pulse & monthly revenue totals',img:'portal_dashboard.png',url:'Club Portal · Dashboard',pin:['Real-time occupancy pulse',72,38,'']},
+  {k:3,t:'3. Earnings & 21% BTW Payouts',s:'Revolut Business IBAN payouts with 21% BTW separation',img:'portal_finance.png',url:'Club Portal · Finance & Tax',pin:['1-Click Belastingdienst CSV Export',45,37,'']}]},
  day:{el:'t-day',img:'i-day',cap:true,items:[
-  {k:1,t:'Entry pass',s:'One QR for the whole group, with live timer',img:'player_active_session_pass.jpg',ct:'One pass admits everyone',cd:'The booking becomes a combined entry pass with a QR code and a live session timer for all attendees.'},
-  {k:2,t:'Scan to check in',s:'Quick QR scan at the venue',img:'player_scan_qr_code.jpg',ct:'Check-in in seconds',cd:'Staff or access points scan the pass, so the club knows who has arrived.'},
-  {k:3,t:'My bookings',s:'Upcoming bookings in one list',img:'player_upcoming_bookings.jpg',ct:'Every booking in one place',cd:'Players see upcoming bookings with date, time and club, and open details with one tap.'},
-  {k:4,t:'Memberships',s:'Club membership right in the app',img:'player_my_membership.jpg',ct:'Memberships in the wallet',cd:'Active memberships show start date, expiry and club rules for the player.'},
-  {k:5,t:'Community',s:'Activity feed and clubs coming soon',img:'player_social_feed_community.jpg',ct:'More than booking',cd:'Players share activity and follow clubs that are joining the platform.'}]}
+  {k:1,t:'1. Combined Entry Pass',s:'One QR code admits all attendees with live timer',img:'player_active_session_pass.jpg',ct:'One pass admits everyone',cd:'The booking generates a single combined entry pass with a high-speed QR code and synchronized live session countdown for all attendees.'},
+  {k:2,t:'2. 1-Second QR Check-In',s:'Rapid turnstile or front-desk check-in scan',img:'player_scan_qr_code.jpg',ct:'1-Second turnstile arrival',cd:'Staff or automated gates scan the pass, instantly verifying attendees and checking them in without front-desk delay.'},
+  {k:3,t:'3. My Bookings Agenda',s:'Centralized player calendar with 1-tap details',img:'player_upcoming_bookings.jpg',ct:'All bookings in one place',cd:'Players view all upcoming reservations with venue address, directions, and 1-tap booking details.'},
+  {k:4,t:'4. Digital Membership Wallet',s:'Active club passes unlock priority booking & discounts',img:'player_my_membership.jpg',ct:'Memberships in your wallet',cd:'Active club memberships automatically unlock member discounts and priority booking windows at checkout.'},
+  {k:5,t:'5. Community & Sports Passport',s:'Athlete progression passport & local club updates',img:'player_social_feed_community.jpg',ct:'More than just booking',cd:'Players track athletic progress, share match highlights, and discover new clubs joining the ShallWe-Play network.'}]}
 };
+
 function buildTabs(){
   for(const [g,G] of Object.entries(GROUPS)){
     const host=document.getElementById(G.el);
@@ -527,30 +741,30 @@ function pick(g,i){
   if(G.cap){document.getElementById('c-day-t').textContent=it.ct;document.getElementById('c-day-d').textContent=it.cd}
 }
 
-/* ---------- connection loop (slide 8) ---------- */
+/* ---------- connection loop (slide 9) ---------- */
 const LOOP=[
- {lane:'c',x:230,t:'Club configures',d:'Sports, courts, prices & opening hours',img:'sports_rules_tab3_assets.png',kind:'b'},
- {lane:'p',x:620,t:'Player discovers',d:'Club and open slots appear in the app',img:'player_home_feed.jpg',kind:'p'},
- {lane:'p',x:1010,t:'Player books & pays',d:'Slot is chosen, paid and confirmed',img:'player_payment_summary_split.jpg',kind:'p'},
- {lane:'c',x:1400,t:'Club sees the booking',d:'It appears on the calendar and in earnings',img:'portal_finance.png',kind:'b'}];
+ {lane:'c',x:230,t:'1. Club sets rules once',d:'Courts, peak rates, off-peak yield & opening hours',img:'sports_rules_tab3_assets.png',kind:'b'},
+ {lane:'p',x:620,t:'2. Players discover & choose',d:'Open slots appear on local player radars 24/7',img:'player_home_feed.jpg',kind:'p'},
+ {lane:'p',x:1010,t:'3. Group splits & pays in-app',d:'100% upfront Revolut Pay capture; zero no-show risk',img:'player_payment_summary_split.jpg',kind:'p'},
+ {lane:'c',x:1400,t:'4. Club receives & bank payouts',d:'Reservation appears on desk grid; net funds sent to IBAN',img:'portal_finance.png',kind:'b'}];
 let loopStep=-1;
 function buildLoop(){
   const host=document.getElementById('loop');
   LOOP.forEach((s,i)=>{
-    const top=s.lane==='c'?350:690;
+    const top=s.lane==='c'?340:670;
     const d=document.createElement('div');d.className='lp';d.id='lp'+i;
     d.style.cssText=`position:absolute;left:${s.x}px;top:${top}px;width:340px;height:230px;background:#fff;border-radius:18px;padding:18px 20px;box-shadow:0 14px 34px -12px rgba(6,29,66,.3);border:3px solid transparent;opacity:.45;transform:scale(.96);transition:all .5s cubic-bezier(.2,.8,.2,1);cursor:pointer`;
     const thumb=s.kind==='p'
       ?`<div style="position:absolute;right:16px;top:16px;width:76px;height:170px;border-radius:12px;overflow:hidden;background:#000;box-shadow:0 0 0 3px #111"><img src="assets/screenshots/${s.img}" style="width:100%;height:100%;object-fit:fill"></div>`
       :`<div style="position:absolute;right:16px;top:16px;width:132px;height:83px;border-radius:8px;overflow:hidden;box-shadow:0 0 0 1px var(--line)"><img src="assets/screenshots/${s.img}" style="width:100%;height:100%;object-fit:cover;object-position:top"></div>`;
     d.innerHTML=`<div style="width:44px;height:44px;border-radius:50%;background:${s.lane==='c'?'var(--blue)':'var(--green)'};color:#fff;font-weight:800;font-size:21px;display:flex;align-items:center;justify-content:center">${i+1}</div>${thumb}
-      <div style="font-size:24px;font-weight:800;margin-top:${s.kind==='p'?36:46}px;width:${s.kind==='p'?220:300}px;line-height:1.15">${s.t}</div>
-      <div style="font-size:16px;color:var(--mut);font-weight:600;margin-top:8px;width:${s.kind==='p'?220:300}px;line-height:1.4">${s.d}</div>`;
+      <div style="font-size:23px;font-weight:800;margin-top:${s.kind==='p'?36:46}px;width:${s.kind==='p'?220:300}px;line-height:1.15">${s.t}</div>
+      <div style="font-size:15px;color:var(--mut);font-weight:600;margin-top:8px;width:${s.kind==='p'?220:300}px;line-height:1.4">${s.d}</div>`;
     d.onclick=()=>setLoop(i);host.appendChild(d);
   });
   // arrows
   const svg=document.getElementById('loop-svg');
-  const pts=LOOP.map(s=>({x:s.x,y:s.lane==='c'?350:690}));
+  const pts=LOOP.map(s=>({x:s.x,y:s.lane==='c'?340:670}));
   let h='<defs><marker id="lm" markerUnits="userSpaceOnUse" markerWidth="22" markerHeight="22" refX="16" refY="11" orient="auto"><path d="M0,0 L22,11 L0,22z" fill="#0F1B33"/></marker></defs>';
   for(let i=0;i<3;i++){
     const a=pts[i],b=pts[i+1],down=b.y>a.y,up=b.y<a.y;
@@ -562,7 +776,13 @@ function buildLoop(){
   svg.innerHTML=h;
 }
 const st=document.createElement('style');st.textContent=`.la{fill:none;stroke:#9FB0CC;stroke-width:5;stroke-dasharray:14 10;marker-end:url(#lm);opacity:.35;transition:all .4s}.la.on{stroke:#0F1B33;opacity:1;animation:dash 1s linear infinite}.lp.on{opacity:1!important;transform:scale(1.03)!important;border-color:var(--orange)!important}.lp.done{opacity:.9!important;transform:scale(1)!important}`;document.head.appendChild(st);
-const CAPS=['Press Space or click a step to walk through the loop','The club defines sports, courts, rates and opening hours in the portal.','Players find the club in the app, filter by sport and see open slots.','The player picks a slot, pays for everyone or splits the bill, and the booking is confirmed.','The booking shows up for the club — in the calendar and in earnings.'];
+const CAPS=[
+  'Press Space or click a step to walk through the revenue flywheel',
+  'Step 1: The club defines court rules, peak/off-peak pricing, and operating hours in the portal.',
+  'Step 2: Local players discover open courts on their mobile radar and select convenient slots 24/7.',
+  'Step 3: Players split the bill in-app via Revolut Pay/iDEAL — funds are 100% captured upfront, eliminating no-shows.',
+  'Step 4: The match syncs to the front-desk calendar, attendees scan in via QR, and net revenue is paid directly to the club\'s IBAN.'
+];
 function setLoop(i){
   loopStep=i;
   LOOP.forEach((_,k)=>{const e=document.getElementById('lp'+k);e.classList.toggle('on',k===i);e.classList.toggle('done',k<i)});
@@ -602,7 +822,7 @@ addEventListener('keydown',e=>{
   else if(/^[fF]$/.test(e.key))fs();else if(/^[oO]$/.test(e.key))toggleDrawer();
   else if(/^[tT]$/.test(e.key))togglePins();
   else if(/^[hH]$/.test(e.key)){document.body.classList.toggle('hide-nav');fit()}
-  else if(/^[1-9]$/.test(e.key)){const m=slides[cur].querySelector('.tabs');if(m){const id=m.id.slice(2);const i=+e.key-1;if(GROUPS[id].items[i])pick(id,i)}}
+  else if(/^[1-9]$/.test(e.key)){const m=slides[cur].querySelector('.tabs');if(m){const id=m.id.slice(2);const i=+e.key-1;if(GROUPS[id]&&GROUPS[id].items[i])pick(id,i)}}
 });
 document.getElementById('dl').innerHTML=slides.map((s,i)=>`<div class="it" onclick="go(${i});toggleDrawer()"><span style="opacity:.5">${i+1}</span>${s.dataset.title}</div>`).join('');
 buildTabs();buildLoop();fit();
