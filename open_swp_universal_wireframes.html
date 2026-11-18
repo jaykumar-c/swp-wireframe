@@ -1,0 +1,2531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ShallWe-Play · "Open as SWP Event"</title>
+<!-- Google Fonts: Montserrat + Lato matching shallwe-play-players -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,600&display=swap" rel="stylesheet">
+<!-- FontAwesome 6 for crisp icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+/* ==========================================================================
+   SHALLWE-PLAY OFFICIAL MOBILE DESIGN SYSTEM TOKENS
+   Grounded in: shallwe-play-players (Colors.ts, Fonts.ts, SwpJoinCard.tsx)
+   ========================================================================== */
+:root {
+  --swp-primary: #007AFF;              /* Official iOS System Blue Tint */
+  --swp-primary-hover: #0062CC;
+  --swp-primary-light: #EFF6FF;
+  --swp-primary-glow: rgba(0, 122, 255, 0.25);
+  --swp-bg-canvas: #F0F0F0;            /* Soft Neutral Screen Canvas */
+  --swp-bg-paper: #FFFFFF;             /* Crisp White Card Surfaces */
+  --swp-text-main: #11181C;            /* Charcoal Near-Black Main Text */
+  --swp-text-muted: #687076;           /* Subtitles & Labels */
+  --swp-border: #E5E5E5;               /* Input Outlines & Dividers */
+  --swp-danger: #E63900;               /* Alerts */
+  --swp-success: #10B981;              /* Verified & Free Badges */
+  
+  /* SwpJoinCard Tokens */
+  --card-price-bar: #3B82F6;
+  --card-text-dark: #111827;
+  --card-text-muted: #6B7280;
+  --card-placeholder-bg: #F3F4F6;
+  --card-placeholder-border: #60A5FA;
+  
+  /* Typography */
+  --font-heading: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-body: 'Lato', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  
+  /* Border Radii */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 9999px;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 4px 14px rgba(0, 0, 0, 0.06);
+  --shadow-fab: 0 8px 20px rgba(0, 122, 255, 0.38);
+  --shadow-device: 0 25px 70px rgba(17, 24, 28, 0.22), 0 0 0 12px #1E293B, 0 0 0 14px #334155;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background: #E5E7EB;
+  color: var(--swp-text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  padding-bottom: 50px;
+}
+
+/* ==========================================================================
+   TOP STICKY APPLICATION BAR
+   ========================================================================== */
+.swp-header {
+  background-color: #FFFFFF;
+  border-bottom: 1px solid var(--swp-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-logo-badge {
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, var(--swp-primary) 0%, #0056B3 100%);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-family: var(--font-heading);
+  font-weight: 900;
+  font-size: 16px;
+  box-shadow: 0 2px 8px rgba(0, 122, 255, 0.35);
+}
+
+.brand-text h1 {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--swp-text-main);
+  letter-spacing: -0.2px;
+}
+
+.brand-text p {
+  font-size: 12px;
+  color: var(--swp-text-muted);
+}
+
+/* Scenario Preset Selector Bar */
+.scenario-bar-wrap {
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--swp-border);
+  padding: 8px 24px;
+}
+
+.scenario-bar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.scenario-label {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--swp-text-muted);
+}
+
+.preset-chip {
+  background: #F8F9FA;
+  border: 1px solid var(--swp-border);
+  color: var(--swp-text-main);
+  font-family: var(--font-heading);
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.preset-chip:hover {
+  border-color: var(--swp-primary);
+  color: var(--swp-primary);
+  background: var(--swp-primary-light);
+}
+.preset-chip.active {
+  background: var(--swp-primary);
+  border-color: var(--swp-primary);
+  color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(0, 122, 255, 0.35);
+}
+
+/* ==========================================================================
+   MAIN CENTERED WRAPPER & STEP NAVIGATOR
+   ========================================================================== */
+.main-wrapper {
+  max-width: 980px;
+  margin: 18px auto 0;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Centered Flow Tabs */
+.flow-tabs-nav {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  background-color: #CBD5E1;
+  padding: 4px;
+  border-radius: var(--radius-lg);
+  margin-bottom: 18px;
+  overflow-x: auto;
+  max-width: 100%;
+}
+.flow-tabs-nav::-webkit-scrollbar { display: none; }
+
+.flow-tab-btn {
+  background: transparent;
+  border: none;
+  padding: 7px 13px;
+  font-size: 11.5px;
+  font-weight: 700;
+  font-family: var(--font-heading);
+  color: #475569;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.flow-tab-btn:hover { color: var(--swp-text-main); }
+.flow-tab-btn.active {
+  background-color: #FFFFFF;
+  color: var(--swp-primary);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* ==========================================================================
+   AUTHENTIC MOBILE DEVICE SHELL
+   ========================================================================== */
+.device-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.iphone-frame {
+  width: 390px;
+  height: 844px;
+  background-color: var(--swp-bg-canvas);
+  border-radius: 48px;
+  box-shadow: var(--shadow-device);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Dynamic Island */
+.dynamic-island {
+  position: absolute;
+  top: 11px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 112px;
+  height: 28px;
+  background: #000000;
+  border-radius: var(--radius-pill);
+  z-index: 95;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+.island-camera { width: 10px; height: 10px; border-radius: 5px; background: #1A1A1A; }
+.island-sensor { width: 8px; height: 8px; border-radius: 4px; background: #111; }
+
+/* Status Bar */
+.mobile-statusbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 28px 6px;
+  font-family: var(--font-heading);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--swp-text-main);
+  background: var(--swp-bg-canvas);
+  z-index: 10;
+}
+
+/* Animated Screen Viewport Container */
+.screen-viewport {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: var(--swp-bg-canvas);
+  position: relative;
+}
+.screen-viewport::-webkit-scrollbar { width: 0; }
+
+.screen-animate-in {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  animation: screenSlideFade 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes screenSlideFade {
+  0% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Wizard Header */
+.swp-wizard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 20px;
+  background-color: var(--swp-bg-canvas);
+  min-height: 48px;
+}
+
+.swp-header-back-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  border: 1px solid var(--swp-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--swp-text-main);
+  font-size: 13px;
+  transition: all 0.15s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.swp-header-back-btn:hover { background-color: #E5E5E5; }
+
+.swp-wizard-title {
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  color: var(--swp-text-main);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.swp-header-step-pill {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--swp-primary);
+  background: var(--swp-primary-light);
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+}
+
+/* Wizard Page Content */
+.swp-wizard-body {
+  flex: 1;
+  padding: 16px 20px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.swp-heading-block {
+  margin-bottom: 16px;
+}
+
+.swp-main-title {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--swp-text-main);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.swp-subtitle {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 19px;
+  color: var(--swp-text-muted);
+}
+
+/* Notched Floating Inputs */
+.swp-input-wrap {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.swp-input-notched-label {
+  position: absolute;
+  top: -9px;
+  left: 12px;
+  padding: 0 4px;
+  background-color: var(--swp-bg-canvas);
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--swp-text-muted);
+  font-weight: 700;
+  z-index: 2;
+}
+
+.swp-input-field {
+  width: 100%;
+  min-height: 50px;
+  border: 1px solid var(--swp-border);
+  border-radius: var(--radius-sm);
+  background-color: #FFFFFF;
+  padding: 12px 14px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--swp-text-main);
+  outline: none;
+  transition: all 0.2s ease;
+}
+.swp-input-field:focus {
+  border-color: var(--swp-primary);
+  box-shadow: 0 0 0 2px var(--swp-primary-glow);
+}
+
+.swp-input-icon-prefix {
+  position: absolute;
+  left: 14px;
+  top: 16px;
+  color: #7A7A7A;
+  font-size: 16px;
+  pointer-events: none;
+}
+.swp-input-field.has-prefix {
+  padding-left: 40px;
+}
+
+/* ==========================================================================
+   OFFICIAL SHALLWEPLAY SWPJOIN CARD
+   Pixel-perfect implementation of: SwpJoinCard.tsx
+   ========================================================================== */
+.swp-join-card {
+  background-color: #FFFFFF;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  border: 1px solid #E5E5E5;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.swp-card-main {
+  flex: 1;
+  min-width: 0;
+  padding: 14px 12px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.swp-card-type-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.swp-card-type-text {
+  font-size: 13px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--card-court-type);
+}
+.swp-card-status-text {
+  font-size: 13px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--swp-success);
+}
+
+.swp-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 8px;
+  min-width: 0;
+}
+.swp-card-datetime {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  flex-shrink: 1;
+}
+.swp-card-date {
+  font-size: 13.5px;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  color: var(--card-text-muted);
+  margin-bottom: 2px;
+  white-space: nowrap;
+}
+.swp-card-time {
+  font-size: 13.5px;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  color: var(--card-text-muted);
+  white-space: nowrap;
+}
+.swp-card-matchinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  min-width: 0;
+  flex-shrink: 1;
+}
+.swp-card-matchtype {
+  font-size: 13.5px;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  color: var(--card-text-muted);
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+.swp-card-matchlevel {
+  font-size: 13.5px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--card-text-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.swp-card-creator {
+  font-size: 13px;
+  font-family: var(--font-body);
+  color: var(--card-text-muted);
+  margin-bottom: 10px;
+}
+
+.swp-card-players {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.swp-card-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 2px solid var(--swp-primary);
+  background: var(--swp-primary);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 14px;
+}
+.swp-card-placeholder {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--card-placeholder-bg);
+  border: 2px dashed var(--card-placeholder-border);
+  color: var(--card-placeholder-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+.swp-card-more-players {
+  font-size: 12px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--card-text-muted);
+  margin-left: 2px;
+}
+
+.swp-card-location {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 6px;
+  min-width: 0;
+}
+.swp-card-club-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+.swp-card-clubname {
+  font-size: 15px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--card-text-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.swp-card-rating {
+  font-size: 13px;
+  color: var(--card-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+}
+.swp-card-courtnum {
+  font-size: 12.5px;
+  color: var(--card-text-muted);
+  font-family: var(--font-body);
+  padding-left: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Button inside mainContent */
+.swp-card-btn {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  margin-top: 12px;
+}
+.swp-card-btn.free {
+  background-color: var(--swp-success);
+  color: #FFFFFF;
+}
+.swp-card-btn.free:hover { background-color: #059669; }
+
+.swp-card-btn.paid {
+  background-color: var(--swp-primary);
+  color: #FFFFFF;
+}
+.swp-card-btn.paid:hover { background-color: var(--swp-primary-hover); }
+
+.swp-card-btn.approval {
+  background-color: #D97706;
+  color: #FFFFFF;
+}
+.swp-card-btn.approval:hover { background-color: #B45309; }
+
+.swp-card-btn.requested {
+  background-color: #F8FAFC;
+  border: 1.5px solid #CBD5E1;
+  color: #475569;
+  cursor: default;
+}
+
+.swp-card-btn.approved {
+  background-color: #ECFDF5;
+  border: 1.5px solid #A7F3D0;
+  color: #047857;
+  cursor: default;
+}
+
+/* Join Policy Selection Cards in Step 6 HOW */
+.swp-join-policy-card {
+  background: #FFFFFF;
+  border: 1.5px solid var(--swp-border);
+  border-radius: 12px;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  flex-direction: column;
+}
+.swp-join-policy-card:hover {
+  border-color: var(--swp-primary);
+}
+.swp-join-policy-card.active {
+  border-color: var(--swp-primary);
+  background: #F8FAFC;
+  box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.12);
+}
+.policy-radio-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 7px;
+  border: 1.5px solid var(--swp-border);
+  display: inline-block;
+  position: relative;
+}
+.policy-radio-dot.checked {
+  border-color: var(--swp-primary);
+  background: var(--swp-primary);
+}
+.policy-radio-dot.checked::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #FFFFFF;
+}
+.policy-title {
+  font-family: var(--font-heading);
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--swp-text-main);
+  margin-bottom: 2px;
+}
+.policy-desc {
+  font-size: 10px;
+  color: var(--swp-text-muted);
+  line-height: 1.3;
+}
+
+/* Right Blue Price Bar from SwpJoinCard.tsx */
+.swp-card-pricebar {
+  width: 64px;
+  background-color: var(--card-price-bar);
+  padding: 14px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  color: #FFFFFF;
+  text-align: center;
+  flex-shrink: 0;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+.swp-card-priceicon {
+  font-size: 24px;
+  color: #FFFFFF;
+}
+.swp-card-priceval {
+  font-family: var(--font-heading);
+  text-align: center;
+  color: #FFFFFF;
+}
+.swp-card-pricelabel {
+  font-size: 9px;
+  letter-spacing: 0.5px;
+  opacity: 0.85;
+  margin-bottom: 3px;
+  font-weight: 700;
+}
+.swp-card-priceamount {
+  font-family: var(--font-heading);
+  font-size: 13.5px;
+  font-weight: 800;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+/* iOS Segmented Control for Card Preview Toggle */
+.ios-segmented-control {
+  display: flex;
+  background: #E2E8F0;
+  padding: 3px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 16px;
+  gap: 4px;
+}
+.segment-btn {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  font-family: var(--font-heading);
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.segment-btn.active {
+  background: #FFFFFF;
+  color: var(--swp-primary);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* ==========================================================================
+   SHALLWEPLAY TIME PICKER (Grounded in CustomTimePicker.tsx & SwpWhenScreen.tsx)
+   ========================================================================== */
+.swp-timerow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.swp-timepicker-col {
+  display: flex;
+  flex-direction: column;
+}
+.swp-timepicker-label {
+  font-family: var(--font-heading);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--swp-text-main);
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.swp-timepicker-input {
+  background: #FFFFFF;
+  border: 1px solid var(--swp-border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: all 0.15s ease;
+}
+.swp-timepicker-input:hover {
+  border-color: var(--swp-primary);
+}
+.swp-timepicker-input:focus-within {
+  border-color: var(--swp-primary);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.15);
+}
+.swp-timepicker-native {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+.swp-timepicker-value {
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--swp-text-main);
+  letter-spacing: 0.5px;
+}
+.swp-time-adjust-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  gap: 4px;
+}
+.swp-time-adjust-btn {
+  flex: 1;
+  padding: 4px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--swp-border);
+  background: #F8F9FA;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--swp-text-muted);
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.1s ease;
+}
+.swp-time-adjust-btn:hover {
+  background: #EFF6FF;
+  color: var(--swp-primary);
+  border-color: var(--swp-primary);
+}
+
+.swp-duration-banner {
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  border-radius: 8px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #166534;
+  margin-bottom: 12px;
+}
+.swp-duration-banner.error {
+  background: #FEF2F2;
+  border-color: #FECACA;
+  color: #DC2626;
+}
+
+.swp-quick-duration-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.swp-quick-duration-btn {
+  flex: 1;
+  padding: 7px 4px;
+  border-radius: 6px;
+  border: 1px solid var(--swp-border);
+  background: #FFFFFF;
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--swp-text-main);
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.15s ease;
+}
+.swp-quick-duration-btn:hover {
+  border-color: var(--swp-primary);
+  color: var(--swp-primary);
+}
+.swp-quick-duration-btn.active {
+  background: #EFF6FF;
+  border-color: var(--swp-primary);
+  color: var(--swp-primary);
+}
+
+/* ==========================================================================
+   PHOTO UPLOAD DROPZONE & GALLERY
+   ========================================================================== */
+.photo-upload-dropzone {
+  border: 2px dashed #3B82F6;
+  border-radius: var(--radius-sm);
+  background: #FFFFFF;
+  padding: 18px 16px;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 14px;
+  transition: background 0.15s;
+}
+.photo-upload-dropzone:hover { background: var(--swp-primary-light); }
+
+.dropzone-camera-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 22px;
+  background: #EFF6FF;
+  color: var(--swp-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  margin: 0 auto 8px;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.gallery-card {
+  height: 90px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  position: relative;
+  background: #1E293B;
+  border: 1px solid var(--swp-border);
+  cursor: pointer;
+}
+
+.gallery-bg-visual {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-size: 22px;
+}
+
+.gallery-badge {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  background: #F59E0B;
+  color: #FFFFFF;
+  font-family: var(--font-heading);
+  font-size: 8.5px;
+  font-weight: 800;
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+.gallery-del-btn {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #FFF;
+  font-size: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+}
+
+.gallery-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 3px 6px;
+  font-size: 9.5px;
+  color: #FFF;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+/* ==========================================================================
+   AUTHENTIC 6-DOT STEPPER & BUTTONS
+   ========================================================================== */
+.swp-stepper-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 14px 0 16px;
+}
+
+.swp-stepper-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background-color: rgba(28, 28, 28, 0.38);
+  transition: all 0.2s ease;
+}
+
+.swp-stepper-dot.active {
+  width: 10px;
+  height: 10px;
+  background-color: var(--swp-primary);
+}
+
+.swp-continue-btn {
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: var(--radius-sm);
+  background-color: var(--swp-primary);
+  border: none;
+  color: #FFFFFF;
+  font-family: var(--font-heading);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.swp-continue-btn:hover { background-color: var(--swp-primary-hover); }
+
+/* Bottom Nav Bar */
+.phone-bottom-nav {
+  height: 70px;
+  background-color: #FFFFFF;
+  border-top: 1px solid var(--swp-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 8px 10px;
+  position: relative;
+  z-index: 30;
+}
+
+.nav-tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  color: var(--swp-text-muted);
+  font-size: 10px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  cursor: pointer;
+  width: 58px;
+}
+.nav-tab-item i { font-size: 18px; }
+.nav-tab-item.active { color: var(--swp-primary); }
+
+.center-fab-wrap {
+  position: relative;
+  width: 66px;
+  height: 66px;
+  margin-top: -22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.center-fab-circle {
+  width: 62px;
+  height: 62px;
+  border-radius: 31px;
+  background-color: var(--swp-primary);
+  border: 4px solid #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-fab);
+}
+
+.center-fab-inner-square {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background-color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--swp-primary);
+  font-size: 17px;
+}
+
+/* Toast */
+.swp-toast {
+  position: absolute;
+  top: 60px;
+  left: 20px;
+  right: 20px;
+  background: #111827;
+  color: #FFFFFF;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  display: none;
+  align-items: center;
+  gap: 8px;
+  z-index: 99;
+}
+</style>
+</head>
+<body>
+
+<!-- TOP STICKY BAR -->
+<header class="swp-header">
+  <div class="header-container">
+    <div class="brand-section">
+      <div class="brand-logo-badge">SWP</div>
+      <div class="brand-text">
+        <h1>ShallWe-Play · Open as SWP Event</h1>
+        <p>Universal Activity Host & Player Join Flow</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- QUICK SCENARIOS TOOLBAR -->
+<div class="scenario-bar-wrap">
+  <div class="scenario-bar-inner">
+    <span class="scenario-label">Scenarios:</span>
+    <button class="preset-chip active" id="chip-jog" onclick="loadScenario('jog')">
+      🌲 Jogging in Woods (Free)
+    </button>
+    <button class="preset-chip" id="chip-kho" onclick="loadScenario('kho')">
+      🤾 Kho-Kho (Custom Sport)
+    </button>
+    <button class="preset-chip" id="chip-padel" onclick="loadScenario('padel')">
+      🎾 Padel Doubles (Paid)
+    </button>
+    <button class="preset-chip" id="chip-tourney" onclick="loadScenario('tourney')">
+      🏆 Tennis Tourney (Paid)
+    </button>
+  </div>
+</div>
+
+<!-- MAIN WORKSPACE -->
+<div class="main-wrapper">
+  
+  <!-- Flow Navigation Stepper Pills -->
+  <nav class="flow-tabs-nav">
+    <button class="flow-tab-btn active" id="tab-home" onclick="navTo('home')">
+      <i class="fa fa-house"></i> Home
+    </button>
+    <button class="flow-tab-btn" id="tab-where" onclick="navTo('where')">
+      1 · WHERE
+    </button>
+    <button class="flow-tab-btn" id="tab-what" onclick="navTo('what')">
+      2 · WHAT
+    </button>
+    <button class="flow-tab-btn" id="tab-photos" onclick="navTo('photos')">
+      3 · PHOTOS
+    </button>
+    <button class="flow-tab-btn" id="tab-when" onclick="navTo('when')">
+      4 · WHEN
+    </button>
+    <button class="flow-tab-btn" id="tab-who" onclick="navTo('who')">
+      5 · WHO
+    </button>
+    <button class="flow-tab-btn" id="tab-how" onclick="navTo('how')">
+      6 · HOW
+    </button>
+    <button class="flow-tab-btn" id="tab-card" onclick="navTo('card')">
+      📱 Player SWP Card
+    </button>
+    <button class="flow-tab-btn" id="tab-manage" onclick="navTo('manage')">
+      📋 Manage
+    </button>
+  </nav>
+
+  <!-- Mobile Frame -->
+  <div class="device-container">
+    <div class="iphone-frame">
+      
+      <!-- Dynamic Island -->
+      <div class="dynamic-island">
+        <div class="island-camera"></div>
+        <div class="island-sensor"></div>
+      </div>
+      
+      <!-- iOS Status Bar -->
+      <div class="mobile-statusbar">
+        <span>9:41</span>
+        <span><i class="fa fa-signal" style="font-size:10px;"></i> <i class="fa fa-wifi" style="font-size:10px;"></i> <i class="fa fa-battery-full" style="font-size:11px;"></i></span>
+      </div>
+      
+      <!-- In-App Toast -->
+      <div class="swp-toast" id="app-toast">
+        <i class="fa fa-circle-check" style="color:#10B981; font-size:15px;"></i>
+        <span id="toast-message">Success!</span>
+      </div>
+
+      <!-- Viewport -->
+      <div class="screen-viewport" id="mobile-viewport">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Bottom Tab Nav -->
+      <nav class="phone-bottom-nav">
+        <div class="nav-tab-item active" id="tab-icon-home" onclick="navTo('home')">
+          <i class="fa fa-house"></i>
+          <span>Home</span>
+        </div>
+        <div class="nav-tab-item" id="tab-icon-bookings" onclick="navTo('card')">
+          <i class="fa fa-calendar-days"></i>
+          <span>Bookings</span>
+        </div>
+        
+        <!-- Center Elevated FAB -->
+        <div class="center-fab-wrap" onclick="navTo('where')">
+          <div class="center-fab-circle">
+            <div class="center-fab-inner-square">
+              <i class="fa fa-plus"></i>
+            </div>
+          </div>
+        </div>
+        
+        <div class="nav-tab-item" id="tab-icon-social" onclick="alert('Social Feed')">
+          <i class="fa fa-users"></i>
+          <span>Social</span>
+        </div>
+        <div class="nav-tab-item" id="tab-icon-profile" onclick="alert('Profile of Mukund Patil')">
+          <i class="fa fa-user"></i>
+          <span>Profile</span>
+        </div>
+      </nav>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+/* ==========================================================================
+   APP STATE
+   ========================================================================== */
+let activeScreen = 'home';
+
+let eventData = {
+  clubName: 'Kralingse Woods',
+  meetingPoint: 'Main Trailhead Gate',
+  postcode: '3062 CG',
+  city: 'Rotterdam',
+  sport: 'Forest Walk & Jogging',
+  playerLevel: 'All Paces Welcome',
+  courtNumber: '5.5 km Outer Lake Loop & Pine Woods',
+  dateDisplay: '18/11/2026',
+  dayNum: '18',
+  dayName: 'Wed',
+  startTime: '09:00',
+  endTime: '10:30',
+  totalPlayers: 8,
+  creatorName: 'Mukund Patil',
+  playersAdded: [
+    { name: 'Mukund Patil (Host)', initial: 'M' },
+    { name: 'Sander van Dijk', initial: 'S' }
+  ],
+  joinPolicy: 'direct',
+  joinRequestStatus: 'none',
+  isFree: true,
+  cost: 0,
+  feePerPlayer: '0.00',
+  pricingModel: 'free',
+  photos: [
+    { id: 1, title: 'Trailhead Gate', isCover: true, icon: 'fa-tree', bg: 'linear-gradient(135deg, #064E3B, #047857)' },
+    { id: 2, title: '5.5km Lake Loop', isCover: false, icon: 'fa-route', bg: 'linear-gradient(135deg, #0284C7, #0369A1)' },
+    { id: 3, title: 'Boardwalk Refill', isCover: false, icon: 'fa-faucet-drip', bg: 'linear-gradient(135deg, #6366F1, #4338CA)' }
+  ]
+};
+
+const POPULAR_SPORTS = [
+  { name: 'Forest Walk & Jogging', icon: 'fa-person-running', count: 8, cost: 0, court: '5.5 km Outer Loop', free: true },
+  { name: 'Kho-Kho',               icon: 'fa-users',          count: 18, cost: 0, court: 'City Park Open Meadow', free: true },
+  { name: 'Padel',                 icon: 'fa-table-tennis-paddle-ball', count: 4, cost: 40, court: 'Court 4 (Indoor Turf)', free: false },
+  { name: 'Tennis',                icon: 'fa-baseball',       count: 2, cost: 24, court: 'Court 1 (Clay)', free: false }
+];
+
+/* ==========================================================================
+   NAVIGATION
+   ========================================================================== */
+function navTo(screen) {
+  activeScreen = screen;
+  
+  document.querySelectorAll('.flow-tab-btn').forEach(btn => btn.classList.remove('active'));
+  document.getElementById('tab-' + screen)?.classList.add('active');
+
+  document.querySelectorAll('.nav-tab-item').forEach(el => el.classList.remove('active'));
+  if (screen === 'home') document.getElementById('tab-icon-home')?.classList.add('active');
+  if (screen === 'card') document.getElementById('tab-icon-bookings')?.classList.add('active');
+
+  renderMobileScreen();
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('app-toast');
+  const txt = document.getElementById('toast-message');
+  txt.textContent = msg;
+  toast.style.display = 'flex';
+  setTimeout(() => { toast.style.display = 'none'; }, 2600);
+}
+
+/* ==========================================================================
+   SCENARIOS
+   ========================================================================== */
+function loadScenario(preset) {
+  document.querySelectorAll('.preset-chip').forEach(c => c.classList.remove('active'));
+  document.getElementById('chip-' + preset)?.classList.add('active');
+
+  if (preset === 'jog') {
+    eventData = {
+      clubName: 'Kralingse Woods',
+      meetingPoint: 'Main Trailhead Gate',
+      postcode: '3062 CG',
+      city: 'Rotterdam',
+      sport: 'Forest Walk & Jogging',
+      playerLevel: 'All Paces Welcome',
+      courtNumber: '5.5 km Outer Lake Loop & Pine Woods',
+      dateDisplay: '18/11/2026',
+      dayNum: '18',
+      dayName: 'Wed',
+      startTime: '09:00',
+      endTime: '10:30',
+      totalPlayers: 8,
+      creatorName: 'Mukund Patil',
+      playersAdded: [
+        { name: 'Mukund Patil (Host)', initial: 'M' },
+        { name: 'Sander van Dijk', initial: 'S' }
+      ],
+      joinPolicy: 'direct',
+      joinRequestStatus: 'none',
+      isFree: true,
+      cost: 0,
+      feePerPlayer: '0.00',
+      pricingModel: 'free',
+      photos: [
+        { id: 1, title: 'Trailhead Gate', isCover: true, icon: 'fa-tree', bg: 'linear-gradient(135deg, #064E3B, #047857)' },
+        { id: 2, title: '5.5km Lake Loop', isCover: false, icon: 'fa-route', bg: 'linear-gradient(135deg, #0284C7, #0369A1)' },
+        { id: 3, title: 'Boardwalk Refill', isCover: false, icon: 'fa-faucet-drip', bg: 'linear-gradient(135deg, #6366F1, #4338CA)' }
+      ]
+    };
+  } else if (preset === 'kho') {
+    eventData = {
+      clubName: 'City Park Grounds',
+      meetingPoint: 'East Pavilion Lawn',
+      postcode: '3012 CL',
+      city: 'Rotterdam',
+      sport: 'Kho-Kho (Custom Sport)',
+      playerLevel: 'Intermediate',
+      courtNumber: 'Open Grass Meadow #2',
+      dateDisplay: '20/11/2026',
+      dayNum: '20',
+      dayName: 'Fri',
+      startTime: '16:00',
+      endTime: '18:00',
+      totalPlayers: 18,
+      creatorName: 'Mukund Patil',
+      playersAdded: [
+        { name: 'Mukund Patil (Host)', initial: 'M' },
+        { name: 'Aniket Sharma', initial: 'A' },
+        { name: 'Rohan Verma', initial: 'R' }
+      ],
+      joinPolicy: 'direct',
+      joinRequestStatus: 'none',
+      isFree: true,
+      cost: 0,
+      feePerPlayer: '0.00',
+      pricingModel: 'free',
+      photos: [
+        { id: 1, title: 'Open Grass Meadow', isCover: true, icon: 'fa-flag', bg: 'linear-gradient(135deg, #0D9488, #115E59)' },
+        { id: 2, title: 'Line Markings', isCover: false, icon: 'fa-square', bg: 'linear-gradient(135deg, #0284C7, #0369A1)' }
+      ]
+    };
+  } else if (preset === 'padel') {
+    eventData = {
+      clubName: 'Club de Padel Rotterdam',
+      meetingPoint: 'Center Court 4',
+      postcode: '3011 AA',
+      city: 'Rotterdam',
+      sport: 'Padel',
+      playerLevel: 'Intermediate',
+      courtNumber: 'Court 4 (Indoor Turf)',
+      dateDisplay: '17/11/2026',
+      dayNum: '17',
+      dayName: 'Tue',
+      startTime: '18:00',
+      endTime: '19:30',
+      totalPlayers: 4,
+      creatorName: 'Mukund Patil',
+      playersAdded: [
+        { name: 'Mukund Patil (Host)', initial: 'M' }
+      ],
+      joinPolicy: 'direct',
+      joinRequestStatus: 'none',
+      isFree: false,
+      cost: 40,
+      feePerPlayer: '10.00',
+      pricingModel: 'split',
+      photos: [
+        { id: 1, title: 'Indoor Court 4', isCover: true, icon: 'fa-table-tennis-paddle-ball', bg: 'linear-gradient(135deg, #1D4ED8, #1E40AF)' }
+      ]
+    };
+  } else if (preset === 'tourney') {
+    eventData = {
+      clubName: 'Royal Lawn Tennis Club',
+      meetingPoint: 'Clubhouse Registration',
+      postcode: '3055 AS',
+      city: 'Rotterdam',
+      sport: 'Tennis',
+      playerLevel: 'Advanced',
+      courtNumber: 'Center Court + Courts 1-4',
+      dateDisplay: '22/11/2026',
+      dayNum: '22',
+      dayName: 'Sun',
+      startTime: '10:00',
+      endTime: '16:00',
+      totalPlayers: 16,
+      creatorName: 'Mukund Patil',
+      playersAdded: [
+        { name: 'Mukund Patil (Host)', initial: 'M' }
+      ],
+      joinPolicy: 'approval',
+      joinRequestStatus: 'none',
+      isFree: false,
+      cost: 25,
+      feePerPlayer: '25.00',
+      pricingModel: 'split',
+      photos: [
+        { id: 1, title: 'Center Court', isCover: true, icon: 'fa-trophy', bg: 'linear-gradient(135deg, #B45309, #78350F)' }
+      ]
+    };
+  }
+
+  renderMobileScreen();
+}
+
+/* ==========================================================================
+   RENDER DISPATCHER
+   ========================================================================== */
+function renderMobileScreen() {
+  const container = document.getElementById('mobile-viewport');
+  let markup = '';
+
+  if (activeScreen === 'home') markup = renderHomeScreen();
+  else if (activeScreen === 'where')  markup = renderWhereScreen();
+  else if (activeScreen === 'what')   markup = renderWhatScreen();
+  else if (activeScreen === 'photos') markup = renderPhotosScreen();
+  else if (activeScreen === 'when')   markup = renderWhenScreen();
+  else if (activeScreen === 'who')    markup = renderWhoScreen();
+  else if (activeScreen === 'how')    markup = renderHowScreen();
+  else if (activeScreen === 'card')   markup = renderPlayerCardScreen();
+  else if (activeScreen === 'manage') markup = renderManageScreen();
+
+  container.innerHTML = `<div class="screen-animate-in">${markup}</div>`;
+}
+
+/* ==========================================================================
+   AUTHENTIC SHALLWEPLAY SWPJOIN CARD (Grounded in SwpJoinCard.tsx)
+   ========================================================================== */
+function renderAuthenticSwpJoinCard(data) {
+  const isFree = (data.cost === 0 || data.pricingModel === 'free');
+  const perPlayer = isFree ? '0.00' : (data.cost / (data.totalPlayers || 4)).toFixed(2);
+  const sportLower = (data.sport || '').toLowerCase();
+  const sportIcon = (sportLower.includes('jog') || sportLower.includes('walk')) ? 'fa-person-running' :
+                    sportLower.includes('kho') ? 'fa-users' :
+                    sportLower.includes('padel') ? 'fa-table-tennis-paddle-ball' : 'fa-baseball';
+  const hasJoined = data.playersAdded.some(p => p.name.includes('Emma'));
+
+  let actionBtnMarkup = '';
+  if (data.joinPolicy === 'approval') {
+    if (data.joinRequestStatus === 'requested') {
+      actionBtnMarkup = `
+        <button class="swp-card-btn requested" disabled>
+          <i class="fa fa-clock"></i> Requested · Pending Approval
+        </button>
+      `;
+    } else if (data.joinRequestStatus === 'approved' || hasJoined) {
+      actionBtnMarkup = `
+        <button class="swp-card-btn approved">
+          <i class="fa fa-circle-check"></i> Spot Confirmed in Squad
+        </button>
+      `;
+    } else {
+      actionBtnMarkup = `
+        <button class="swp-card-btn approval" onclick="simulateJoinRequest(${isFree})">
+          <i class="fa fa-paper-plane"></i> Request to Join${!isFree ? ' · € ' + perPlayer : ''}
+        </button>
+      `;
+    }
+  } else {
+    // Direct Join
+    if (hasJoined) {
+      actionBtnMarkup = `
+        <button class="swp-card-btn approved">
+          <i class="fa fa-circle-check"></i> Spot Confirmed in Squad
+        </button>
+      `;
+    } else if (isFree) {
+      actionBtnMarkup = `
+        <button class="swp-card-btn free" onclick="simulatePlayerJoin(true)">
+          <i class="fa fa-circle-check"></i> Join Event
+        </button>
+      `;
+    } else {
+      actionBtnMarkup = `
+        <button class="swp-card-btn paid" onclick="simulatePlayerJoin(false)">
+          <i class="fa fa-credit-card"></i> Pay & Join · € ${perPlayer}
+        </button>
+      `;
+    }
+  }
+
+  return `
+    <div class="swp-join-card">
+      
+      <!-- Main Content (Left) -->
+      <div class="swp-card-main">
+        
+        <!-- Court Type & Status -->
+        <div class="swp-card-type-row">
+          <div style="display:flex; align-items:center; gap:6px;">
+            <span class="swp-card-type-text">Out house</span>
+            ${data.joinPolicy === 'approval' ? `
+              <span style="font-size:9.5px; font-weight:800; color:#D97706; background:#FEF3C7; padding:1px 6px; border-radius:4px; display:inline-flex; align-items:center; gap:3px;">
+                <i class="fa fa-shield-halved" style="font-size:8.5px;"></i> Approval Req.
+              </span>
+            ` : ''}
+          </div>
+          <span class="swp-card-status-text">Active</span>
+        </div>
+
+        <!-- Date/Time & Sport/Level -->
+        <div class="swp-card-header">
+          <div class="swp-card-datetime">
+            <span class="swp-card-date">${data.dateDisplay}</span>
+            <span class="swp-card-time">${data.startTime} - ${data.endTime}</span>
+          </div>
+          <div class="swp-card-matchinfo">
+            <span class="swp-card-matchtype">${data.sport}</span>
+            <span class="swp-card-matchlevel">${data.playerLevel}</span>
+          </div>
+        </div>
+
+        <!-- Creator Name -->
+        <div class="swp-card-creator">
+          Creator: ${data.creatorName}
+        </div>
+
+        <!-- Player Avatars -->
+        <div class="swp-card-players">
+          ${data.playersAdded.map(p => `
+            <div class="swp-card-avatar" title="${p.name}">${p.initial}</div>
+          `).join('')}
+          ${Array.from({ length: Math.min(Math.max(0, data.totalPlayers - data.playersAdded.length), 3) }).map(() => `
+            <div class="swp-card-placeholder"><i class="fa fa-user-plus"></i></div>
+          `).join('')}
+          ${data.totalPlayers - data.playersAdded.length > 3 ? `
+            <span class="swp-card-more-players">+${data.totalPlayers - data.playersAdded.length - 3}</span>
+          ` : ''}
+        </div>
+
+        <!-- Location & Rating -->
+        <div class="swp-card-location">
+          <div class="swp-card-club-row">
+            <i class="fa fa-location-dot" style="color:var(--swp-primary); font-size:13.5px;"></i>
+            <span class="swp-card-clubname">${data.clubName}</span>
+            <span class="swp-card-rating">· ★ 4.9</span>
+          </div>
+          <div class="swp-card-courtnum">${data.courtNumber}</div>
+        </div>
+
+        <!-- CTA Action Button (Grounded in ShallWe-Play SwpJoinCard) -->
+        ${actionBtnMarkup}
+
+      </div>
+
+      <!-- Right Blue Price Bar (Pixel-perfect SwpJoinCard.tsx) -->
+      <div class="swp-card-pricebar">
+        <i class="fa ${sportIcon} swp-card-priceicon"></i>
+        
+        <div class="swp-card-priceval">
+          <div class="swp-card-pricelabel">PRICE</div>
+          <div class="swp-card-priceamount">${isFree ? 'FREE' : '€' + perPlayer}</div>
+        </div>
+      </div>
+
+    </div>
+  `;
+}
+
+/* SCREEN 0: HOME */
+function renderHomeScreen() {
+  return `
+    <div style="padding:12px 20px; display:flex; justify-content:space-between; align-items:center; background:#FFF; border-bottom:1px solid var(--swp-border);">
+      <div style="font-family:var(--font-heading); font-size:18px; font-weight:900; color:var(--swp-text-main);">ShallWe-Play</div>
+      <div style="width:34px; height:34px; border-radius:17px; background:var(--swp-bg-canvas); display:flex; align-items:center; justify-content:center; color:var(--swp-text-main);">
+        <i class="fa fa-bell"></i>
+      </div>
+    </div>
+
+    <!-- Stories Bar -->
+    <div style="display:flex; gap:14px; padding:14px 20px; overflow-x:auto; background:#FFF; border-bottom:1px solid var(--swp-border);">
+      <div style="display:flex; flex-direction:column; align-items:center; gap:6px; width:58px; flex-shrink:0; cursor:pointer;" onclick="navTo('where')">
+        <div style="width:54px; height:54px; border-radius:27px; border:2px solid var(--swp-primary); padding:2px; position:relative;">
+          <div style="width:100%; height:100%; border-radius:50%; background:#007AFF; color:#FFF; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:15px;">M</div>
+          <div style="position:absolute; bottom:0; right:0; width:18px; height:18px; border-radius:9px; background:#007AFF; border:2px solid #FFF; color:#FFF; font-size:10px; display:flex; align-items:center; justify-content:center;"><i class="fa fa-plus"></i></div>
+        </div>
+        <span style="font-size:11px; font-weight:700;">My Story</span>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:6px; width:58px; flex-shrink:0;">
+        <div style="width:54px; height:54px; border-radius:27px; border:2px solid #10B981; padding:2px;">
+          <div style="width:100%; height:100%; border-radius:50%; background:#10B981; color:#FFF; display:flex; align-items:center; justify-content:center; font-weight:800;">S</div>
+        </div>
+        <span style="font-size:11px; font-weight:600; color:var(--swp-text-muted);">Sander</span>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:6px; width:58px; flex-shrink:0;">
+        <div style="width:54px; height:54px; border-radius:27px; border:2px solid #7C3AED; padding:2px;">
+          <div style="width:100%; height:100%; border-radius:50%; background:#7C3AED; color:#FFF; display:flex; align-items:center; justify-content:center; font-weight:800;">A</div>
+        </div>
+        <span style="font-size:11px; font-weight:600; color:var(--swp-text-muted);">Aniket</span>
+      </div>
+    </div>
+
+    <!-- WHAT'S HAPPENING Banner -->
+    <div style="margin:14px 16px; background:linear-gradient(135deg, #0A2540 0%, #007AFF 100%); border-radius:14px; padding:16px; color:#FFF;">
+      <div style="font-family:var(--font-heading); font-size:11px; font-weight:900; letter-spacing:0.8px; opacity:0.85;">WHAT'S HAPPENING</div>
+      <div style="font-size:13px; margin:4px 0 12px; opacity:0.95;">Latest among your teammates & sports clubs</div>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+        <div style="background:rgba(255,255,255,0.18); border-radius:10px; padding:10px 12px;">
+          <div style="font-family:var(--font-heading); font-size:22px; font-weight:900;">688</div>
+          <div style="font-size:11px; opacity:0.9;">Total Open Bookings</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.18); border-radius:10px; padding:10px 12px;">
+          <div style="font-family:var(--font-heading); font-size:22px; font-weight:900;">1008</div>
+          <div style="font-size:11px; opacity:0.9;">Coming Soon Clubs</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Open SWP Carousel -->
+    <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 20px 8px;">
+      <span style="font-family:var(--font-heading); font-size:14px; font-weight:800; color:var(--swp-text-main);">Join Open Events</span>
+      <span style="font-size:12px; font-weight:700; color:var(--swp-primary); cursor:pointer;" onclick="navTo('card')">Explore Card →</span>
+    </div>
+
+    <div style="padding:0 16px 20px;">
+      ${renderAuthenticSwpJoinCard(eventData)}
+    </div>
+  `;
+}
+
+/* SCREEN 1: WHERE */
+function renderWhereScreen() {
+  return `
+    <div class="swp-wizard-header">
+      <div class="swp-header-back-btn" onclick="navTo('home')">
+        <i class="fa fa-chevron-left"></i>
+      </div>
+      <div class="swp-wizard-title">OPEN SWP</div>
+      <span class="swp-header-step-pill">1 of 6</span>
+    </div>
+
+    <div class="swp-wizard-body">
+      <div class="swp-heading-block">
+        <div class="swp-main-title">WHERE</div>
+        <div class="swp-subtitle">Where is this activity taking place?</div>
+      </div>
+
+      <div class="swp-input-wrap">
+        <span class="swp-input-notched-label">Club Name / Meeting Place</span>
+        <input type="text" class="swp-input-field" value="${eventData.clubName}" placeholder="Enter club name or meeting place" oninput="eventData.clubName = this.value;">
+      </div>
+
+      <div class="swp-input-wrap">
+        <span class="swp-input-notched-label">Postcode / Area</span>
+        <i class="fa fa-location-dot swp-input-icon-prefix"></i>
+        <input type="text" class="swp-input-field has-prefix" value="${eventData.postcode}" placeholder="Enter postcode" oninput="eventData.postcode = this.value;">
+      </div>
+
+      <div style="display:flex; gap:6px; overflow-x:auto; margin-bottom:14px;">
+        <div class="preset-chip" onclick="eventData.clubName='Kralingse Woods'; eventData.postcode='3062 CG'; renderMobileScreen();">🌲 Kralingse Woods</div>
+        <div class="preset-chip" onclick="eventData.clubName='City Park Grounds'; eventData.postcode='3012 CL'; renderMobileScreen();">🤾 City Park</div>
+        <div class="preset-chip" onclick="eventData.clubName='Club de Padel'; eventData.postcode='3011 AA'; renderMobileScreen();">🏟️ Padel Club</div>
+      </div>
+
+      <div style="flex:1;"></div>
+
+      <div class="swp-stepper-container">
+        <div class="swp-stepper-dot active"></div>
+        <div class="swp-stepper-dot"></div>
+        <div class="swp-stepper-dot"></div>
+        <div class="swp-stepper-dot"></div>
+        <div class="swp-stepper-dot"></div>
+        <div class="swp-stepper-dot"></div>
+      </div>
+
+      <button class="swp-continue-btn" onclick="navTo('what')">
+        Continue to Activity <i class="fa fa-arrow-right"></i>
+      </button>
+    </div>
+  `;
+}
+
+/* SCREEN 2: WHAT */
+function renderWhatScreen() {
+  return `
+    <div class="swp-wizard-header">
+      <div class="swp-header-back-btn" onclick="navTo('where')">
+        <i class="fa fa-chevron-left"></i>
+      </div>
+      <div class="swp-wizard-title">OPEN SWP</div>
+      <span class="swp-header-step-pill">2 of 6</span>
+    </div>
+
+    <div class="swp-wizard-body">
+      <div class="swp-heading-block">
+        <div class="swp-main-title">WHAT</div>
+        <div class="swp-subtitle">What sport or activity are you hosting?</div>
+      </div>
+
+      <div class="swp-input-wrap" style="margin-bottom:12px;">
+        <span class="swp-input-notched-label">Sport / Activity</span>
+        <i class="fa fa-magnifying-glass swp-input-icon-prefix"></i>
+        <input type="text" class="swp-input-field has-prefix" value="${eventData.sport}" placeholder="Search or add sport" oninput="eventData.sport = this.value;">
+      </div>
+
+      <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:14px;">
+        ${POPULAR_SPORTS.map(s => `
+          <div style="padding:6px 12px; border-radius:99px; font-size:11.5px; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:5px; border:1px solid ${eventData.sport.includes(s.name) ? 'var(--swp-primary)' : 'var(--swp-border)'}; background:${eventData.sport.includes(s.name) ? 'var(--swp-primary)' : '#FFFFFF'}; color:${eventData.sport.includes(s.name) ? '#FFFFFF' : 'var(--swp-text-main)'};" onclick="pickSport('${s.name}')">
+            <i class="fa ${s.icon}"></i> ${s.name}
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="swp-input-wrap">
+        <span class="swp-input-notched-label">Route Covered / Field Location</span>
+        <input type="text" class="swp-input-field" value="${eventData.courtNumber}" placeholder="e.g. 5.5 km Outer Lake Loop" oninput="eventData.courtNumber = this.value;">
+      </div>
+
+      <div style="flex:1;"></div>
+
+      <div class="swp-stepper-container">
+        <div class="swp-stepper-dot"></div>
+        <div class="swp-stepper-dot active"></div>
+        <div class="swp-stepper-dot"></div>
+        <div class="swp-stepper-dot"></div>
+        <div class="swp-stepper-dot"></div>
+        <div class="swp-stepper-dot"></div>
+      </div>
+
+      <button class="swp-continue-btn" onclick="navTo('photos')">
+        Continue to Photos & Gallery <i class="fa fa-arrow-right"></i>
+      </button>
+    </div>
+  `;
+}
+
+/* SCREEN 3: PHOTOS */
+function renderPhotosScreen() {
+  return `
+    <div class="swp-wizard-header">
+      <div class="swp-header-back-btn" onclick="navTo('what')">
+        <i class="fa fa-chevron-left"></i>
+      </div>
+      <div class="swp-wizard-title">OPEN SWP</div>
+      <span class="swp-header-step-pill">3 of 6</span>
+    </div>
+
+    <div class="swp-wizard-body">
+      <div class="swp-heading-block">
+        <div class="swp-main-title">PHOTOS</div>
+        <div class="swp-subtitle">Upload photos of the route or meeting point</div>
+      </div>
+
+      <div class="photo-upload-dropzone" onclick="simulatePhotoUpload()">
+        <div class="dropzone-camera-icon">
+          <i class="fa fa-camera"></i>
+        </div>
+        <div style="font-family:var(--font-heading); font-size:13.5px; font-weight:800;">Upload Event Photos</div>
+        <div style="font-size:11px; color:var(--swp-text-muted);">PNG, JPG up to 10MB</div>
+      </div>
+
+      <div class="gallery-grid">
+        ${eventData.photos.map(p => `
+          <div class="gallery-card" onclick="setCoverPhoto(${p.id})">
+            <div class="gallery-bg-visual" style="background:${p.bg};">
+              <i class="fa ${p.icon}"></i>
+            </div>
+            ${p.isCover ? '<div class="gallery-badge"><i class="fa fa-star"></i> COVER</div>' : ''}
+            <button class="gallery-del-btn" onclick="event.stopPropagation(); deletePhoto(${p.id});">
+              <i class="fa fa-trash-can"></i>
+            </button>
+            <div class="gallery-caption">${p.title}</div>
+          </div>
+        `).join('')}
+      </div>
+
+      <div style="flex:1;"></div>
+
+      <div class="swp-stepper-container">
+        <div class="swp-stepper-dot"></div>
+        <div class="swp-stepper-dot"></div>
+        <div class="swp-stepper-dot active"></div>
+        <div class="swp-stepper-dot"></div>
+        <div class="swp-stepper-dot"></div>
+        <div class="swp-stepper-dot"></div>
+      </div>
+
+      <button class="swp-continue-btn" onclick="navTo('when')">
+        Continue to Schedule <i class="fa fa-arrow-right"></i>
+      </button>
+    </div>
+  `;
+}
+
+/* SCREEN 4: WHEN (Grounded in SwpWhenScreen.tsx & CustomTimePicker.tsx) */
+function renderWhenScreen() {
+  const days = [
+    { name: 'Tue', num: '17' },
+    { name: 'Wed', num: '18' },
+    { name: 'Thu', num: '19' },
+    { name: 'Fri', num: '20' },
+    { name: 'Sat', num: '21' }
+  ];
+
+  const durationInfo = getDurationInfo();
+
+  return `
+    <div class="swp-wizard-header">
+      <div class="swp-header-back-btn" onclick="navTo('photos')">
+        <i class="fa fa-chevron-left"></i>
+      </div>
+      <div class="swp-wizard-title">OPEN SWP</div>
+      <span class="swp-header-step-pill">4 of 6</span>
+    </div>
+
+    <div class="swp-wizard-body">
+      <div class="swp-heading-block">
+        <div class="swp-main-title">WHEN</div>
+        <div class="swp-subtitle">Choose date and manual start & end schedule</div>
+      </div>
+
+      <!-- Date Selection (CustomDatePicker) -->
+      <div style="margin-bottom:18px;">
+        <div style="font-size:11.5px; font-weight:700; color:var(--swp-text-muted); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.4px;">
+          <i class="fa-regular fa-calendar" style="color:var(--swp-primary); margin-right:4px;"></i> Date
+        </div>
+        <div style="display:flex; gap:8px; overflow-x:auto; padding-bottom:2px;">
+          ${days.map(d => `
+            <div style="padding:10px 14px; border-radius:10px; text-align:center; cursor:pointer; min-width:58px; border:1px solid ${eventData.dayNum === d.num ? 'var(--swp-primary)' : 'var(--swp-border)'}; background:${eventData.dayNum === d.num ? 'var(--swp-primary)' : '#FFF'}; color:${eventData.dayNum === d.num ? '#FFF' : 'var(--swp-text-main)'}; transition:all 0.15s ease;" onclick="eventData.dayNum='${d.num}'; eventData.dayName='${d.name}'; eventData.dateDisplay='${d.num}/11/2026'; renderMobileScreen();">
+              <div style="font-size:10.5px; font-weight:700;">${d.name}</div>
+              <div style="font-size:18px; font-weight:900; font-family:var(--font-heading);">${d.num}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <!-- Manual Time Pickers Row (CustomTimePicker.tsx) -->
+      <div class="swp-timerow">
+        
+        <!-- Start Time Field -->
+        <div class="swp-timepicker-col">
+          <label class="swp-timepicker-label">
+            <span>START TIME</span>
+            <i class="fa fa-pen" style="font-size:10px; color:var(--swp-text-muted);"></i>
+          </label>
+          <div class="swp-timepicker-input">
+            <i class="fa-regular fa-clock" style="color:var(--swp-primary); font-size:16px;"></i>
+            <span class="swp-timepicker-value">${eventData.startTime}</span>
+            <input type="time" class="swp-timepicker-native" value="${eventData.startTime}" onchange="handleTimeChange('start', this.value)">
+          </div>
+          <div class="swp-time-adjust-row">
+            <button class="swp-time-adjust-btn" onclick="adjustTime('start', -15)">-15m</button>
+            <button class="swp-time-adjust-btn" onclick="adjustTime('start', +15)">+15m</button>
+          </div>
+        </div>
+
+        <!-- End Time Field -->
+        <div class="swp-timepicker-col">
+          <label class="swp-timepicker-label">
+            <span>END TIME</span>
+            <i class="fa fa-pen" style="font-size:10px; color:var(--swp-text-muted);"></i>
+          </label>
+          <div class="swp-timepicker-input">
+            <i class="fa-regular fa-clock" style="color:var(--swp-primary); font-size:16px;"></i>
+            <span class="swp-timepicker-value">${eventData.endTime}</span>
+            <input type="time" class="swp-timepicker-native" value="${eventData.endTime}" onchange="handleTimeChange('end', this.value)">
+          </div>
+          <div class="swp-time-adjust-row">
+            <button class="swp-time-adjust-btn" onclick="adjustTime('end', -15)">-15m</button>
+            <button class="swp-time-adjust-btn" onclick="adjustTime('end', +15)">+15m</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Live Duration Banner -->
+      ${durationInfo.valid ? `
+        <div class="swp-duration-banner">
+          <i class="fa-solid fa-stopwatch" style="color:#16A34A; font-size:14px;"></i>
+          <span>Duration: <strong>${durationInfo.text}</strong></span>
+        </div>
+      ` : `
+        <div class="swp-duration-banner error">
+          <i class="fa-solid fa-triangle-exclamation" style="color:#DC2626; font-size:14px;"></i>
+          <span>End time must be after start time</span>
+        </div>
+      `}
+
+      <!-- Quick Duration Helpers -->
+      <div style="margin-bottom:12px;">
+        <div style="font-size:11px; font-weight:700; color:var(--swp-text-muted); margin-bottom:6px;">SET DURATION:</div>
+        <div class="swp-quick-duration-row">
+          <button class="swp-quick-duration-btn ${durationInfo.minutes === 45 ? 'active' : ''}" onclick="applyDuration(45)">45 min</button>
+          <button class="swp-quick-duration-btn ${durationInfo.minutes === 60 ? 'active' : ''}" onclick="applyDuration(60)">1 hour</button>
+          <button class="swp-quick-duration-btn ${durationInfo.minutes === 90 ? 'active' : ''}" onclick="applyDuration(90)">1.5 hrs</button>
+          <button class="swp-quick-duration-btn ${durationInfo.minutes === 120 ? 'active' : ''}" onclick="applyDuration(120)">2 hours</button>
+        </div>
+      </div>
+
+      <div style="flex:1;"></div>
+
+      <div class="swp-stepper-container">
+        <div class="swp-stepper-dot"></div>
+        <div class="swp-stepper-dot"></div>
+        <div class="swp-stepper-dot"></div>
+        <div class="swp-stepper-dot active"></div>
+        <div class="swp-stepper-dot"></div>
+        <div class="swp-stepper-dot"></div>
+      </div>
+
+      <button class="swp-continue-btn" ${durationInfo.valid ? 'onclick="navTo(\'who\')"' : 'disabled style="opacity:0.4; cursor:not-allowed;"'}>
+        Continue to Squad Limit <i class="fa fa-arrow-right"></i>
+      </button>
+    </div>
+  `;
+}
+
+/* SCREEN 5: WHO */
+function renderWhoScreen() {
+  return `
+    <div class="swp-wizard-header">
+      <div class="swp-header-back-btn" onclick="navTo('when')">
+        <i class="fa fa-chevron-left"></i>
+      </div>
+      <div class="swp-wizard-title">OPEN SWP</div>
+      <span class="swp-header-step-pill">5 of 6</span>
+    </div>
+
+    <div class="swp-wizard-body">
+      <div class="swp-heading-block">
+        <div class="swp-main-title">WHO</div>
+        <div class="swp-subtitle">Set player capacity and squad limit</div>
+      </div>
+
+      <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:12px; padding:14px 18px; display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+        <div>
+          <div style="font-family:var(--font-heading); font-size:15px; font-weight:800;">Squad Capacity</div>
+          <div style="font-size:11.5px; color:var(--swp-text-muted);">Maximum participants</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <button style="width:34px; height:34px; border-radius:17px; background:#F1F5F9; border:1px solid var(--swp-border); font-size:15px; font-weight:800; cursor:pointer;" onclick="adjustCapacity(-1)">-</button>
+          <span style="font-family:var(--font-heading); font-size:19px; font-weight:900; color:var(--swp-primary);">${eventData.totalPlayers}</span>
+          <button style="width:34px; height:34px; border-radius:17px; background:#F1F5F9; border:1px solid var(--swp-border); font-size:15px; font-weight:800; cursor:pointer;" onclick="adjustCapacity(1)">+</button>
+        </div>
+      </div>
+
+      <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:12px; padding:14px; margin-bottom:14px;">
+        <div style="font-family:var(--font-heading); font-size:13px; font-weight:800; margin-bottom:8px;">
+          Attendees (${eventData.playersAdded.length}/${eventData.totalPlayers})
+        </div>
+        ${eventData.playersAdded.map(p => `
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid #F1F5F9;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <div style="width:28px; height:28px; border-radius:14px; background:#007AFF; color:#FFF; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:12px;">${p.initial}</div>
+              <span style="font-size:13px; font-weight:700;">${p.name}</span>
+            </div>
+            <span style="font-size:10px; font-weight:800; color:#10B981; background:#ECFDF5; padding:2px 8px; border-radius:99px;">CONFIRMED</span>
+          </div>
+        `).join('')}
+      </div>
+
+      <div style="flex:1;"></div>
+
+      <div class="swp-stepper-container">
+        <div class="swp-stepper-dot"></div>
+        <div class="swp-stepper-dot"></div>
+        <div class="swp-stepper-dot"></div>
+        <div class="swp-stepper-dot"></div>
+        <div class="swp-stepper-dot active"></div>
+        <div class="swp-stepper-dot"></div>
+      </div>
+
+      <button class="swp-continue-btn" onclick="navTo('how')">
+        Continue to Cost <i class="fa fa-arrow-right"></i>
+      </button>
+    </div>
+  `;
+}
+
+/* SCREEN 6: HOW */
+function renderHowScreen() {
+  const isFree = (eventData.pricingModel === 'free');
+  const perPlayer = isFree ? '0.00' : (eventData.cost / eventData.totalPlayers).toFixed(2);
+
+  return `
+    <div class="swp-wizard-header">
+      <div class="swp-header-back-btn" onclick="navTo('who')">
+        <i class="fa fa-chevron-left"></i>
+      </div>
+      <div class="swp-wizard-title">OPEN SWP</div>
+      <span class="swp-header-step-pill">6 of 6</span>
+    </div>
+
+    <div class="swp-wizard-body">
+      <div class="swp-heading-block">
+        <div class="swp-main-title">HOW</div>
+        <div class="swp-subtitle">Pricing and participation access</div>
+      </div>
+
+      <!-- Pricing Model Selection -->
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:12px;">
+        <div style="background:#FFF; border:1.5px solid ${isFree ? 'var(--swp-primary)' : 'var(--swp-border)'}; border-radius:12px; padding:12px; cursor:pointer;" onclick="setPricingModel('free')">
+          <div style="font-family:var(--font-heading); font-size:13.5px; font-weight:800;">✨ 100% Free</div>
+          <div style="font-size:11px; color:var(--swp-text-muted);">Community Outing</div>
+        </div>
+        <div style="background:#FFF; border:1.5px solid ${!isFree ? 'var(--swp-primary)' : 'var(--swp-border)'}; border-radius:12px; padding:12px; cursor:pointer;" onclick="setPricingModel('split')">
+          <div style="font-family:var(--font-heading); font-size:13.5px; font-weight:800;">💳 Split Court Fee</div>
+          <div style="font-size:11px; color:var(--swp-text-muted);">Shared Rental</div>
+        </div>
+      </div>
+
+      ${!isFree ? `
+        <div class="swp-input-wrap" style="margin-bottom:12px;">
+          <span class="swp-input-notched-label">Total Fee (€)</span>
+          <span style="position:absolute; left:16px; top:14px; font-weight:800; font-size:16px;">€</span>
+          <input type="number" class="swp-input-field" style="padding-left:36px; font-weight:800;" value="${eventData.cost}" oninput="eventData.cost = Number(this.value); renderMobileScreen();">
+        </div>
+      ` : ''}
+
+      <!-- Fee Breakdown -->
+      <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:12px; padding:10px 14px; margin-bottom:14px;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:4px; font-size:12.5px;">
+          <span style="color:var(--swp-text-muted);">Total Collection:</span>
+          <span><b>€ ${isFree ? '0.00' : eventData.cost.toFixed(2)}</b></span>
+        </div>
+        <div style="display:flex; justify-content:space-between; font-size:13px; font-weight:800; padding-top:4px; border-top:1px solid #F1F5F9;">
+          <span style="color:var(--swp-primary);">Fee Per Player:</span>
+          <span style="color:${isFree ? '#10B981' : 'var(--swp-primary)'}; font-size:14.5px;">
+            ${isFree ? 'FREE' : '€ ' + perPlayer}
+          </span>
+        </div>
+      </div>
+
+      <!-- Participation Access / Join Policy Selection -->
+      <div style="font-family:var(--font-heading); font-size:11.5px; font-weight:800; color:var(--swp-text-muted); margin:0 0 8px; text-transform:uppercase; letter-spacing:0.5px;">
+        Join Permission
+      </div>
+      <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:16px;">
+        <div class="swp-join-policy-card ${eventData.joinPolicy === 'direct' ? 'active' : ''}" onclick="setJoinPolicy('direct')">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:3px;">
+            <span class="policy-radio-dot ${eventData.joinPolicy === 'direct' ? 'checked' : ''}"></span>
+            <span class="policy-title">⚡ Direct Join</span>
+            <span style="margin-left:auto; font-size:10px; font-weight:800; background:#ECFDF5; color:#047857; padding:2px 7px; border-radius:4px;">Instant</span>
+          </div>
+          <div class="policy-desc" style="padding-left:22px;">Players join immediately without waiting for host approval.</div>
+        </div>
+
+        <div class="swp-join-policy-card ${eventData.joinPolicy === 'approval' ? 'active' : ''}" onclick="setJoinPolicy('approval')">
+          <div style="display:flex; align-items:center; gap:8px; margin-bottom:3px;">
+            <span class="policy-radio-dot ${eventData.joinPolicy === 'approval' ? 'checked' : ''}"></span>
+            <span class="policy-title">🛡️ Approval Required</span>
+            <span style="margin-left:auto; font-size:10px; font-weight:800; background:#FEF3C7; color:#92400E; padding:2px 7px; border-radius:4px;">Host Review</span>
+          </div>
+          <div class="policy-desc" style="padding-left:22px;">Players send a request. You approve or decline before they join the squad.</div>
+        </div>
+      </div>
+
+      <div style="flex:1;"></div>
+
+      <div class="swp-stepper-container">
+        <div class="swp-stepper-dot"></div>
+        <div class="swp-stepper-dot"></div>
+        <div class="swp-stepper-dot"></div>
+        <div class="swp-stepper-dot"></div>
+        <div class="swp-stepper-dot"></div>
+        <div class="swp-stepper-dot active"></div>
+      </div>
+
+      <button class="swp-continue-btn" style="background:#10B981;" onclick="navTo('card')">
+        <i class="fa fa-check"></i> Create SWP Event
+      </button>
+    </div>
+  `;
+}
+
+/* SCREEN 7: PLAYER VIEW (PIXEL-PERFECT SwpJoinCard.tsx) */
+function renderPlayerCardScreen() {
+  const isFree = (eventData.cost === 0 || eventData.pricingModel === 'free');
+  const hasJoined = eventData.playersAdded.some(p => p.name.includes('Emma'));
+
+  return `
+    <div class="swp-wizard-header">
+      <div class="swp-header-back-btn" onclick="navTo('home')">
+        <i class="fa fa-chevron-left"></i>
+      </div>
+      <div class="swp-wizard-title">PLAYER VIEW</div>
+      <div style="font-size:11px; font-weight:700; color:var(--swp-primary); cursor:pointer;" onclick="navTo('manage')">Host Mode →</div>
+    </div>
+
+    <div style="padding:14px 18px 24px; overflow-y:auto; flex:1;">
+      
+      <!-- Pricing Segmented Control -->
+      <div class="ios-segmented-control" style="margin-bottom:8px;">
+        <button class="segment-btn ${isFree ? 'active' : ''}" onclick="setPricingModel('free')">
+          Free Event (0 €)
+        </button>
+        <button class="segment-btn ${!isFree ? 'active' : ''}" onclick="setPricingModel('split')">
+          Paid Event (€10)
+        </button>
+      </div>
+
+      <!-- Join Policy Segmented Control -->
+      <div class="ios-segmented-control" style="margin-bottom:12px;">
+        <button class="segment-btn ${eventData.joinPolicy === 'direct' ? 'active' : ''}" onclick="setJoinPolicy('direct')">
+          ⚡ Direct Join
+        </button>
+        <button class="segment-btn ${eventData.joinPolicy === 'approval' ? 'active' : ''}" onclick="setJoinPolicy('approval')">
+          🛡️ Approval Required
+        </button>
+      </div>
+
+      ${eventData.joinPolicy === 'approval' && eventData.joinRequestStatus === 'requested' ? `
+        <div style="display:flex; justify-content:space-between; align-items:center; background:#FEF3C7; border:1px solid #FDE68A; border-radius:8px; padding:7px 10px; margin-bottom:10px; font-size:11px; color:#92400E;">
+          <span><i class="fa fa-clock"></i> Join request sent to host</span>
+          <span style="font-weight:800; text-decoration:underline; cursor:pointer;" onclick="navTo('manage')">Host Mode →</span>
+        </div>
+      ` : ''}
+
+      ${(eventData.joinRequestStatus === 'approved' || hasJoined) ? `
+        <div style="display:flex; justify-content:space-between; align-items:center; background:#ECFDF5; border:1px solid #A7F3D0; border-radius:8px; padding:7px 10px; margin-bottom:10px; font-size:11px; color:#047857;">
+          <span><i class="fa fa-circle-check"></i> Emma Watson is in squad!</span>
+          <span style="font-weight:800; text-decoration:underline; cursor:pointer;" onclick="resetPlayerJoin()">Reset Test</span>
+        </div>
+      ` : ''}
+
+      <!-- Grounded ShallWe-Play SwpJoinCard -->
+      ${renderAuthenticSwpJoinCard(eventData)}
+
+    </div>
+  `;
+}
+
+/* SCREEN 8: MANAGE */
+function renderManageScreen() {
+  const hasEmma = eventData.playersAdded.some(p => p.name.includes('Emma'));
+
+  return `
+    <div class="swp-wizard-header">
+      <div class="swp-header-back-btn" onclick="navTo('home')">
+        <i class="fa fa-chevron-left"></i>
+      </div>
+      <div class="swp-wizard-title">MANAGE SWP</div>
+      <div style="width:34px;"></div>
+    </div>
+
+    <div style="flex:1; padding:16px 20px 24px; overflow-y:auto;">
+      
+      <!-- Event Summary Card -->
+      <div style="background:#FFFFFF; border-radius:12px; border:1px solid var(--swp-border); padding:16px; margin-bottom:14px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <span style="font-size:11px; font-weight:800; color:#047857; background:#ECFDF5; padding:3px 10px; border-radius:99px;">
+            ${eventData.sport}
+          </span>
+          <span style="font-size:11px; font-weight:800; color:#10B981;">🟢 ACTIVE</span>
+        </div>
+
+        <div style="font-family:var(--font-heading); font-size:18px; font-weight:900; margin-bottom:4px;">
+          ${eventData.clubName}
+        </div>
+        <div style="font-size:12.5px; color:var(--swp-text-muted); margin-bottom:12px;">
+          <i class="fa fa-location-dot" style="color:var(--swp-primary);"></i> ${eventData.courtNumber}
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px; background:#F8F9FA; border-radius:8px; padding:10px 12px; font-size:12px;">
+          <div>
+            <div style="color:var(--swp-text-muted); font-size:10.5px; font-weight:700;">DATE & TIME</div>
+            <div style="font-weight:800; margin-top:2px;">${eventData.dayName} ${eventData.dayNum} Nov · ${eventData.startTime}</div>
+          </div>
+          <div>
+            <div style="color:var(--swp-text-muted); font-size:10.5px; font-weight:700;">JOIN POLICY</div>
+            <div style="font-weight:800; color:${eventData.joinPolicy === 'approval' ? '#D97706' : '#10B981'}; margin-top:2px;">
+              ${eventData.joinPolicy === 'approval' ? '🛡️ Approval Req.' : '⚡ Direct Join'}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Incoming Join Requests (When Approval Required) -->
+      ${eventData.joinPolicy === 'approval' && eventData.joinRequestStatus === 'requested' ? `
+        <div style="background:#FFFFFF; border:1.5px solid #F59E0B; border-radius:12px; padding:14px; margin-bottom:14px; box-shadow:0 2px 8px rgba(245,158,11,0.08);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <span style="font-family:var(--font-heading); font-size:12px; font-weight:800; color:#D97706; text-transform:uppercase;">
+              <i class="fa fa-user-clock"></i> Pending Join Request (1)
+            </span>
+            <span style="font-size:10px; font-weight:700; color:#92400E; background:#FEF3C7; padding:2px 8px; border-radius:99px;">Just now</span>
+          </div>
+
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+            <div style="width:38px; height:38px; border-radius:19px; background:#F59E0B; color:#FFF; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:15px;">E</div>
+            <div>
+              <div style="font-weight:800; font-size:13.5px; color:var(--swp-text-main);">Emma Watson</div>
+              <div style="font-size:11px; color:var(--swp-text-muted);">Intermediate Player · 12 Events Completed</div>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:8px;">
+            <button onclick="approveJoinRequest()" style="flex:1; padding:9px; background:#10B981; color:#FFF; border:none; border-radius:8px; font-family:var(--font-heading); font-size:12px; font-weight:800; cursor:pointer;">
+              <i class="fa fa-check"></i> Approve & Add
+            </button>
+            <button onclick="declineJoinRequest()" style="padding:9px 14px; background:#F1F5F9; color:#64748B; border:none; border-radius:8px; font-family:var(--font-heading); font-size:12px; font-weight:700; cursor:pointer;">
+              Decline
+            </button>
+          </div>
+        </div>
+      ` : ''}
+
+      ${eventData.joinPolicy === 'approval' && eventData.joinRequestStatus === 'none' ? `
+        <div style="background:#F8FAFC; border:1px dashed #CBD5E1; border-radius:12px; padding:12px 14px; margin-bottom:14px; display:flex; align-items:center; gap:10px; color:#64748B; font-size:12px;">
+          <i class="fa fa-shield-halved" style="color:#D97706; font-size:16px;"></i>
+          <span>Approval policy active. No pending join requests right now.</span>
+        </div>
+      ` : ''}
+
+      ${hasEmma ? `
+        <div style="background:#ECFDF5; border:1px solid #A7F3D0; border-radius:12px; padding:12px 14px; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <div style="width:28px; height:28px; border-radius:14px; background:#10B981; color:#FFF; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:12px;">E</div>
+            <div>
+              <div style="font-size:12.5px; font-weight:800; color:#065F46;">Emma Watson (Approved)</div>
+              <div style="font-size:10.5px; color:#047857;">Added to squad · Confirmed spot</div>
+            </div>
+          </div>
+          <button onclick="resetPlayerJoin()" style="font-size:11px; color:#DC2626; background:none; border:none; cursor:pointer; font-weight:700;">Remove</button>
+        </div>
+      ` : ''}
+
+      <!-- Squad List -->
+      <div style="background:#FFFFFF; border-radius:12px; border:1px solid var(--swp-border); padding:14px; margin-bottom:16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+          <span style="font-family:var(--font-heading); font-size:12px; font-weight:800; color:var(--swp-text-muted); text-transform:uppercase;">
+            Confirmed Squad (${eventData.playersAdded.length}/${eventData.totalPlayers})
+          </span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          ${eventData.playersAdded.map((p, idx) => `
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:6px 0; ${idx > 0 ? 'border-top:1px solid #F1F5F9;' : ''}">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <div style="width:30px; height:30px; border-radius:15px; background:var(--swp-primary); color:#FFF; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:12px;">${p.initial}</div>
+                <span style="font-size:13px; font-weight:700; color:var(--swp-text-main);">${p.name}</span>
+              </div>
+              <span style="font-size:10.5px; font-weight:700; color:#10B981; background:#ECFDF5; padding:2px 8px; border-radius:99px;">Confirmed</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <div style="display:flex; gap:10px;">
+        <button style="flex:1; padding:12px; border-radius:8px; background:var(--swp-primary); color:#FFF; border:none; font-family:var(--font-heading); font-weight:700; font-size:13px; cursor:pointer;" onclick="navTo('card')">
+          View Player Card
+        </button>
+        <button style="padding:12px 16px; border-radius:8px; background:#FEE2E2; color:#DC2626; border:1px solid #FCA5A5; font-family:var(--font-heading); font-weight:700; font-size:13px; cursor:pointer;" onclick="if(confirm('Cancel this event?')) navTo('home');">
+          Cancel
+        </button>
+      </div>
+
+    </div>
+  `;
+}
+
+/* ==========================================================================
+   HANDLERS
+   ========================================================================== */
+function pickSport(name) {
+  eventData.sport = name;
+  const match = POPULAR_SPORTS.find(s => s.name === name);
+  if (match) {
+    eventData.courtNumber = match.court;
+    eventData.totalPlayers = match.count;
+    eventData.cost = match.cost;
+    eventData.isFree = match.free;
+    eventData.pricingModel = match.free ? 'free' : 'split';
+  }
+  renderMobileScreen();
+}
+
+function adjustCapacity(delta) {
+  const next = eventData.totalPlayers + delta;
+  if (next >= 2 && next <= 30) {
+    eventData.totalPlayers = next;
+    renderMobileScreen();
+  }
+}
+
+function setPricingModel(model) {
+  eventData.pricingModel = model;
+  if (model === 'free') {
+    eventData.isFree = true;
+    eventData.cost = 0;
+  } else {
+    eventData.isFree = false;
+    if (eventData.cost === 0) eventData.cost = 40;
+  }
+  renderMobileScreen();
+}
+
+function setJoinPolicy(policy) {
+  eventData.joinPolicy = policy;
+  eventData.joinRequestStatus = 'none';
+  showToast(policy === 'approval' ? 'Approval required for new players' : 'Direct join enabled');
+  renderMobileScreen();
+}
+
+function simulateJoinRequest(isFree) {
+  eventData.joinRequestStatus = 'requested';
+  showToast('Join request sent to host!');
+  renderMobileScreen();
+}
+
+function approveJoinRequest() {
+  if (!eventData.playersAdded.some(p => p.name.includes('Emma'))) {
+    eventData.playersAdded.push({
+      name: 'Emma Watson',
+      initial: 'E'
+    });
+  }
+  eventData.joinRequestStatus = 'approved';
+  showToast('Emma Watson approved & added to squad!');
+  renderMobileScreen();
+}
+
+function declineJoinRequest() {
+  eventData.joinRequestStatus = 'none';
+  showToast('Join request declined');
+  renderMobileScreen();
+}
+
+function resetPlayerJoin() {
+  eventData.playersAdded = eventData.playersAdded.filter(p => !p.name.includes('Emma'));
+  eventData.joinRequestStatus = 'none';
+  showToast('Player status reset');
+  renderMobileScreen();
+}
+
+function simulatePlayerJoin(isFree) {
+  if (!eventData.playersAdded.some(p => p.name.includes('Emma'))) {
+    eventData.playersAdded.push({
+      name: 'Emma Watson',
+      initial: 'E'
+    });
+  }
+  if (isFree) {
+    showToast('Joined Event!');
+  } else {
+    showToast('Paid & Joined Event!');
+  }
+  renderMobileScreen();
+}
+
+/* Time Picker Helpers (Grounded in SwpWhenScreen.tsx & CustomTimePicker.tsx) */
+function getDurationInfo() {
+  const [sh, sm] = (eventData.startTime || '09:00').split(':').map(Number);
+  const [eh, em] = (eventData.endTime || '10:30').split(':').map(Number);
+  const startMin = sh * 60 + sm;
+  const endMin = eh * 60 + em;
+  const diff = endMin - startMin;
+  
+  if (diff <= 0) {
+    return { valid: false, text: 'End time must be after start time', minutes: diff };
+  }
+  
+  const hrs = Math.floor(diff / 60);
+  const mins = diff % 60;
+  let text = '';
+  if (hrs > 0 && mins > 0) text = `${hrs} hr ${mins} mins`;
+  else if (hrs > 0) text = `${hrs} hr${hrs > 1 ? 's' : ''}`;
+  else text = `${mins} mins`;
+  
+  return { valid: true, text: text, minutes: diff };
+}
+
+function handleTimeChange(type, val) {
+  if (!val) return;
+  if (type === 'start') {
+    eventData.startTime = val;
+    // Auto-advance end time if end <= start
+    const [sh, sm] = val.split(':').map(Number);
+    const [eh, em] = eventData.endTime.split(':').map(Number);
+    if ((eh * 60 + em) <= (sh * 60 + sm)) {
+      const newEndMin = Math.min(23 * 60 + 59, sh * 60 + sm + 90);
+      const newEh = String(Math.floor(newEndMin / 60)).padStart(2, '0');
+      const newEm = String(newEndMin % 60).padStart(2, '0');
+      eventData.endTime = `${newEh}:${newEm}`;
+    }
+  } else {
+    eventData.endTime = val;
+  }
+  renderMobileScreen();
+}
+
+function adjustTime(type, deltaMinutes) {
+  const current = type === 'start' ? eventData.startTime : eventData.endTime;
+  const [h, m] = current.split(':').map(Number);
+  let totalMin = h * 60 + m + deltaMinutes;
+  if (totalMin < 0) totalMin = 0;
+  if (totalMin > 23 * 60 + 59) totalMin = 23 * 60 + 59;
+  
+  const newH = String(Math.floor(totalMin / 60)).padStart(2, '0');
+  const newM = String(totalMin % 60).padStart(2, '0');
+  handleTimeChange(type, `${newH}:${newM}`);
+}
+
+function applyDuration(minutes) {
+  const [sh, sm] = eventData.startTime.split(':').map(Number);
+  const endMin = Math.min(23 * 60 + 59, sh * 60 + sm + minutes);
+  const newEh = String(Math.floor(endMin / 60)).padStart(2, '0');
+  const newEm = String(endMin % 60).padStart(2, '0');
+  eventData.endTime = `${newEh}:${newEm}`;
+  renderMobileScreen();
+}
+
+function simulatePhotoUpload() {
+  if (eventData.photos.length >= 6) {
+    alert('Maximum 6 photos allowed.');
+    return;
+  }
+  eventData.photos.push({
+    id: Date.now(),
+    title: 'New Event Photo',
+    isCover: false,
+    icon: 'fa-image',
+    bg: 'linear-gradient(135deg, #4F46E5, #3730A3)'
+  });
+  showToast('Photo added');
+  renderMobileScreen();
+}
+
+function setCoverPhoto(id) {
+  eventData.photos.forEach(p => p.isCover = (p.id === id));
+  showToast('Set as cover');
+  renderMobileScreen();
+}
+
+function deletePhoto(id) {
+  eventData.photos = eventData.photos.filter(p => p.id !== id);
+  if (eventData.photos.length > 0 && !eventData.photos.some(p => p.isCover)) {
+    eventData.photos[0].isCover = true;
+  }
+  showToast('Photo removed');
+  renderMobileScreen();
+}
+
+
+// Boot with query parameter support
+window.addEventListener('DOMContentLoaded', () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const screenParam = urlParams.get('screen');
+  if (screenParam) {
+    navTo(screenParam);
+  } else {
+    renderMobileScreen();
+  }
+});
+</script>
+
+</body>
+</html>

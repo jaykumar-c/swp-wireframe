@@ -1,0 +1,3362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShallWe-Play · End-to-End Player Experience & Passport Journey</title>
+  
+  <!-- Google Fonts: Montserrat (Headings), Lato (Body/Forms), Poppins (Badges & Cards) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome 6 Pro/Free Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    /* ==========================================================================
+       DESIGN SYSTEM TOKENS (Strictly grounded in shallwe-play-players & Colors.ts)
+       ========================================================================== */
+    :root {
+      --swp-primary: #007AFF;
+      --swp-primary-hover: #0062CC;
+      --swp-primary-light: #EFF6FF;
+      --swp-primary-border: #DBEAFE;
+      --swp-navy: #061D42;
+      --swp-navy-deep: #0A2540;
+      --swp-bg-canvas: #f0f0f0;
+      --swp-bg-paper: #FFFFFF;
+      --swp-bg-subtle: #F8FAFC;
+      --swp-text-main: #11181C;
+      --swp-text-muted: #64748B;
+      --swp-text-subtle: #94A3B8;
+      --swp-border: #E2E8F0;
+      --swp-border-dark: #CBD5E1;
+      --swp-border-focus: #007AFF;
+      --swp-success: #10B981;
+      --swp-success-bg: #ECFDF5;
+      --swp-warning: #F59E0B;
+      --swp-warning-bg: #FEF3C7;
+      --swp-warning-text: #92400E;
+      --swp-danger: #EF4444;
+      --swp-danger-bg: #FEF2F2;
+      --swp-purple: #8B5CF6;
+      --swp-purple-bg: #F5F3FF;
+      --swp-teal: #0D9488;
+      --swp-teal-bg: #F0FDFA;
+      
+      --font-heading: 'Montserrat', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-body: 'Lato', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-accent: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.08);
+      --shadow-fab: 0 4px 12px rgba(0, 122, 255, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: #E2E8F0;
+      color: var(--swp-text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px 16px 50px;
+    }
+
+    /* ==========================================================================
+       TOP GLOBAL CONTROLS & BREADCRUMB JOURNEY STEPPER
+       ========================================================================== */
+    .top-journey-header {
+      width: 100%;
+      max-width: 1200px;
+      background: var(--swp-navy);
+      color: #FFFFFF;
+      border-radius: 16px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .header-branding {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 12px;
+    }
+
+    .brand-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .swp-logo-badge {
+      background: var(--swp-primary);
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-family: var(--font-heading);
+      font-size: 14px;
+      color: #FFF;
+      box-shadow: var(--shadow-fab);
+    }
+
+    .brand-heading {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .brand-subtitle {
+      font-size: 12px;
+      color: #94A3B8;
+      font-weight: 400;
+    }
+
+    .header-badges {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .badge-live {
+      background: rgba(16, 185, 129, 0.18);
+      color: #10B981;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+
+    .badge-doc {
+      background: rgba(255, 255, 255, 0.12);
+      color: #E2E8F0;
+    }
+
+    /* Horizontal Journey Navigation Stepper */
+    .journey-stepper-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: thin;
+    }
+
+    .journey-step-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #CBD5E1;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 11.5px;
+      font-weight: 700;
+      font-family: var(--font-heading);
+      white-space: nowrap;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .journey-step-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+      color: #FFFFFF;
+    }
+
+    .journey-step-btn.active {
+      background: var(--swp-primary);
+      border-color: var(--swp-primary);
+      color: #FFFFFF;
+      box-shadow: 0 2px 8px rgba(0, 122, 255, 0.4);
+    }
+
+    /* ==========================================================================
+       MAIN WIREFRAME CANVAS: PHONE SHELL + INTERACTIVE CONSOLE
+       ========================================================================== */
+    .canvas-layout {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 28px;
+      width: 100%;
+      max-width: 1200px;
+      padding: 0 16px;
+    }
+
+    .device-container {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .iphone-frame {
+      width: 382px;
+      height: 790px;
+      background: var(--swp-bg-canvas);
+      border-radius: 50px;
+      border: 10px solid #1E293B;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Dynamic Island */
+    .dynamic-island {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 110px;
+      height: 28px;
+      background: #000000;
+      border-radius: 20px;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+    }
+
+    .island-camera {
+      width: 10px;
+      height: 10px;
+      background: #0F172A;
+      border-radius: 50%;
+      border: 1px solid #1E293B;
+    }
+
+    .island-sensor {
+      width: 8px;
+      height: 8px;
+      background: #0F172A;
+      border-radius: 50%;
+    }
+
+    /* iOS Status Bar */
+    .mobile-statusbar {
+      height: 44px;
+      padding: 10px 24px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11.5px;
+      font-weight: 800;
+      font-family: var(--font-heading);
+      color: var(--swp-text-main);
+      z-index: 900;
+      background: transparent;
+      user-select: none;
+    }
+
+    /* Screen Viewport */
+    .screen-viewport {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      overflow-x: hidden;
+      position: relative;
+      background: #F8FAFC;
+    }
+
+    /* Common App Screen Header */
+    .swp-screen-header {
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--swp-border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      min-height: 48px;
+    }
+
+    .swp-back-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--swp-bg-subtle);
+      border: 1px solid var(--swp-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--swp-text-main);
+      cursor: pointer;
+      font-size: 12px;
+    }
+
+    .swp-screen-title {
+      font-family: var(--font-heading);
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: -0.2px;
+      color: var(--swp-text-main);
+      text-transform: uppercase;
+    }
+
+    .swp-step-badge {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--swp-primary);
+      background: var(--swp-primary-light);
+      padding: 3px 8px;
+      border-radius: 99px;
+      font-family: var(--font-heading);
+    }
+
+    /* Common Page Body */
+    .swp-page-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .swp-section-heading {
+      margin-bottom: 16px;
+    }
+
+    .swp-heading-main {
+      font-family: var(--font-heading);
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--swp-text-main);
+      letter-spacing: -0.3px;
+    }
+
+    .swp-heading-sub {
+      font-size: 12px;
+      color: var(--swp-text-muted);
+      margin-top: 3px;
+    }
+
+    /* Notched Floating Label Text Inputs (Ground Truth CustomTextInput.tsx) */
+    .swp-input-box {
+      position: relative;
+      background: #FFFFFF;
+      border: 1.5px solid var(--swp-border);
+      border-radius: 12px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: border-color 0.2s ease;
+    }
+
+    .swp-input-box:focus-within {
+      border-color: var(--swp-primary);
+      box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.12);
+    }
+
+    .swp-input-box.clickable {
+      cursor: pointer;
+    }
+
+    .swp-input-box.error {
+      border-color: var(--swp-danger);
+      background: #FFFDFD;
+    }
+
+    .swp-notched-label {
+      position: absolute;
+      top: -9px;
+      left: 12px;
+      background: #FFFFFF;
+      padding: 0 6px;
+      font-size: 10px;
+      font-weight: 800;
+      font-family: var(--font-heading);
+      color: var(--swp-text-muted);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .swp-input-box:focus-within .swp-notched-label {
+      color: var(--swp-primary);
+    }
+
+    .swp-input-box.error .swp-notched-label {
+      color: var(--swp-danger);
+    }
+
+    .swp-field {
+      width: 100%;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-family: var(--font-body);
+      font-size: 13.5px;
+      color: var(--swp-text-main);
+      font-weight: 600;
+    }
+
+    .swp-field::placeholder {
+      color: var(--swp-text-subtle);
+      font-weight: 400;
+    }
+
+    .swp-field-error-text {
+      font-size: 11px;
+      color: var(--swp-danger);
+      font-weight: 600;
+      margin-top: -10px;
+      margin-bottom: 12px;
+      padding-left: 4px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Stepper Dots Row */
+    .swp-dots-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      margin: 16px 0 12px;
+    }
+
+    .swp-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 3px;
+      background: #CBD5E1;
+      transition: all 0.2s ease;
+    }
+
+    .swp-dot.active {
+      width: 20px;
+      background: var(--swp-primary);
+    }
+
+    /* Primary CTA Buttons */
+    .swp-cta-btn {
+      width: 100%;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--swp-primary);
+      color: #FFFFFF;
+      border: none;
+      font-family: var(--font-heading);
+      font-size: 13.5px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .swp-cta-btn:hover {
+      background: var(--swp-primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .swp-cta-btn:disabled {
+      background: #CBD5E1;
+      box-shadow: none;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* ==========================================================================
+       AUTHENTIC 5-TAB BOTTOM NAVIGATION BAR (Ground truth from BottomTabNavigator.tsx)
+       ========================================================================== */
+    .phone-bottom-nav {
+      height: 64px;
+      background: #FFFFFF;
+      border-top: 1px solid var(--swp-border);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      position: relative;
+      padding-bottom: 4px;
+      z-index: 100;
+    }
+
+    .nav-tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      cursor: pointer;
+      color: var(--swp-text-muted);
+      width: 62px;
+      height: 100%;
+      transition: color 0.15s ease;
+    }
+
+    .nav-tab-item i {
+      font-size: 18px;
+    }
+
+    .nav-tab-item span {
+      font-size: 10px;
+      font-weight: 700;
+      font-family: var(--font-heading);
+    }
+
+    .nav-tab-item.active {
+      color: var(--swp-primary);
+    }
+
+    /* Center Elevated FAB (+) */
+    .center-fab-wrap {
+      position: relative;
+      top: -14px;
+      width: 52px;
+      height: 52px;
+      cursor: pointer;
+    }
+
+    .center-fab-circle {
+      width: 52px;
+      height: 52px;
+      border-radius: 26px;
+      background: var(--swp-primary);
+      box-shadow: 0 6px 16px rgba(0, 122, 255, 0.45);
+      border: 3px solid #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      font-size: 20px;
+      transition: transform 0.2s ease;
+    }
+
+    .center-fab-wrap:hover .center-fab-circle {
+      transform: scale(1.05);
+    }
+
+    /* FAB Popup Menu Modal */
+    .floating-action-modal {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 64px;
+      background: rgba(6, 29, 66, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 850;
+      display: none;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 16px;
+      gap: 10px;
+    }
+
+    .floating-action-item {
+      background: #FFFFFF;
+      border-radius: 14px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      box-shadow: var(--shadow-md);
+      transition: transform 0.15s ease;
+    }
+
+    .floating-action-item:hover {
+      transform: translateX(4px);
+    }
+
+    .action-icon-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    /* ==========================================================================
+       AUTHENTIC SHALLWE-PLAY JOIN CARD (Exact Ground Truth from Mobile App)
+       ========================================================================== */
+    /* Refined Clean Event Card (Zero Clutter, Mobile App Design System) */
+    /* ==========================================================================
+       AUTHENTIC SHALLWE-PLAY JOIN CARD (Exact Ground Truth from SwpJoinCard.tsx)
+       ========================================================================== */
+    .swp-join-card {
+      background: #FFFFFF;
+      border-radius: 14px;
+      border: 1px solid var(--swp-border);
+      box-shadow: 0 3px 12px rgba(15, 23, 42, 0.06);
+      overflow: hidden;
+      display: flex;
+      flex-direction: row;
+      position: relative;
+      margin-bottom: 12px;
+      width: 100%;
+      box-sizing: border-box;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .swp-join-card:hover {
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.10);
+      border-color: #CBD5E1;
+      transform: translateY(-1px);
+    }
+    .swp-card-main {
+      flex: 1;
+      min-width: 0;
+      padding: 13px 12px 13px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .swp-card-type-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .swp-card-type-text {
+      font-family: var(--font-heading);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--swp-primary);
+    }
+    .swp-card-status-text {
+      font-size: 11px;
+      font-weight: 800;
+      color: #10B981;
+    }
+    .swp-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .swp-card-date {
+      font-family: var(--font-heading);
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--swp-text-main);
+      display: block;
+      line-height: 1.25;
+    }
+    .swp-card-time {
+      font-size: 11.5px;
+      color: var(--swp-text-muted);
+      font-weight: 600;
+    }
+    .swp-card-matchinfo {
+      text-align: right;
+    }
+    .swp-card-matchtype {
+      font-size: 12px;
+      color: var(--swp-text-muted);
+      font-weight: 600;
+      display: block;
+    }
+    .swp-card-matchlevel {
+      font-family: var(--font-heading);
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--swp-navy);
+    }
+    .swp-card-eventname {
+      font-family: var(--font-heading);
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--swp-text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 1px;
+    }
+    .swp-card-creator {
+      font-size: 11px;
+      color: var(--swp-text-muted);
+      font-weight: 500;
+    }
+    .swp-card-players-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #F8FAFC;
+      border-radius: 6px;
+      padding: 4px 8px;
+      margin: 2px 0;
+    }
+    .swp-card-location {
+      font-size: 11.5px;
+      color: var(--swp-text-muted);
+      line-height: 1.3;
+    }
+    .swp-card-clubname {
+      font-weight: 700;
+      color: var(--swp-text-main);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .swp-card-manage-btn {
+      width: 100%;
+      height: 34px;
+      border-radius: 8px;
+      font-family: var(--font-heading);
+      font-size: 12px;
+      font-weight: 800;
+      border: 1.5px solid var(--swp-primary);
+      background: #FFFFFF;
+      color: var(--swp-primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 4px;
+      transition: all 0.15s ease;
+    }
+    .swp-card-manage-btn:hover {
+      background: var(--swp-primary-light);
+    }
+    .swp-card-manage-btn.joined {
+      border-color: #10B981;
+      color: #047857;
+      background: #ECFDF5;
+    }
+    .swp-card-manage-btn.pending {
+      border-color: #F59E0B;
+      color: #B45309;
+      background: #FFFBEB;
+    }
+
+    /* Signature Right Blue Bar (Ground Truth from SwpJoinCard.tsx) */
+    .swp-card-pricebar {
+      flex: 0 0 68px;
+      width: 68px;
+      min-width: 68px;
+      background: linear-gradient(180deg, #007AFF 0%, #0056B3 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 6px;
+      color: #FFFFFF;
+      box-sizing: border-box;
+      border-top-right-radius: 13px;
+      border-bottom-right-radius: 13px;
+    }
+    .swp-card-priceicon {
+      font-size: 22px;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+    .swp-card-priceval {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .swp-card-pricelabel {
+      font-size: 9px;
+      font-weight: 800;
+      font-family: var(--font-heading);
+      letter-spacing: 0.6px;
+      margin-bottom: 2px;
+      color: rgba(255, 255, 255, 0.85);
+      text-transform: uppercase;
+    }
+    .swp-card-priceamount {
+      font-size: 13px;
+      font-weight: 900;
+      font-family: var(--font-heading);
+      color: #FFFFFF;
+    }
+
+    /* Dedicated Event Detail Screen Styles */
+    .swp-detail-screen {
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+      background: #F8FAFC;
+      position: relative;
+    }
+    .swp-detail-hero-banner {
+      width: 100%;
+      height: 165px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .swp-detail-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(6, 29, 66, 0.25) 0%, rgba(6, 29, 66, 0.85) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 14px 16px;
+    }
+    .swp-detail-body {
+      padding: 14px 16px 85px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .swp-detail-section-card {
+      background: #FFFFFF;
+      border: 1px solid var(--swp-border);
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    }
+    .swp-detail-section-label {
+      font-family: var(--font-heading);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--swp-text-muted);
+      margin-bottom: 8px;
+    }
+    .swp-roster-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid #F1F5F9;
+    }
+    .swp-roster-item:last-child {
+      border-bottom: none;
+    }
+    .swp-roster-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-size: 12px;
+      font-weight: 800;
+      color: #FFFFFF;
+    }
+    .swp-detail-bottom-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #FFFFFF;
+      border-top: 1px solid var(--swp-border);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: 0 -4px 16px rgba(15, 23, 42, 0.06);
+      z-index: 10;
+    }
+
+    /* ==========================================================================
+       INTERACTIVE TIME PICKER MODAL (Wheel / Spinner Dialog)
+       ========================================================================== */
+    .swp-timepicker-modal {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      display: flex;
+      align-items: flex-end;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .swp-timepicker-sheet {
+      width: 100%;
+      background: #FFFFFF;
+      border-radius: 20px 20px 0 0;
+      padding: 16px 20px 24px;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+      animation: slideUp 0.25s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .swp-tp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--swp-border);
+      padding-bottom: 10px;
+    }
+
+    .swp-tp-btn {
+      background: transparent;
+      border: none;
+      font-family: var(--font-heading);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .swp-tp-btn.cancel {
+      color: var(--swp-text-muted);
+    }
+
+    .swp-tp-btn.confirm {
+      color: var(--swp-primary);
+      font-weight: 800;
+    }
+
+    .swp-tp-title {
+      font-family: var(--font-heading);
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--swp-text-main);
+    }
+
+    .swp-wheel-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      height: 160px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .swp-wheel-highlight {
+      position: absolute;
+      left: 10%;
+      right: 10%;
+      height: 38px;
+      background: rgba(0, 122, 255, 0.08);
+      border-top: 1px solid rgba(0, 122, 255, 0.25);
+      border-bottom: 1px solid rgba(0, 122, 255, 0.25);
+      border-radius: 8px;
+      pointer-events: none;
+    }
+
+    .swp-wheel-column {
+      flex: 1;
+      height: 100%;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scrollbar-width: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 0;
+    }
+
+    .swp-wheel-column::-webkit-scrollbar {
+      display: none;
+    }
+
+    .swp-wheel-item {
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--swp-text-muted);
+      cursor: pointer;
+      scroll-snap-align: center;
+      transition: all 0.15s ease;
+    }
+
+    .swp-wheel-item.selected {
+      color: var(--swp-primary);
+      font-size: 19px;
+      font-weight: 900;
+    }
+
+
+
+    /* Toast Notification inside device */
+    .swp-toast {
+      position: absolute;
+      top: 50px;
+      left: 20px;
+      right: 20px;
+      background: #061D42;
+      color: #FFFFFF;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      display: none;
+      align-items: center;
+      gap: 8px;
+      z-index: 9999;
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* Shimmer Skeleton */
+    .skeleton-box {
+      background: linear-gradient(90deg, #E2E8F0 25%, #F1F5F9 50%, #E2E8F0 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 8px;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       TOP BREADCRUMB JOURNEY STEPPER BAR (Complete 14 Steps)
+       ========================================================================== -->
+  <header class="top-journey-header">
+    <div class="header-branding">
+      <div class="brand-title-wrap">
+        <div class="swp-logo-badge">SWP</div>
+        <div>
+          <div class="brand-heading">ShallWe-Play · End-to-End Player Experience & Passport</div>
+          <div class="brand-subtitle">Interactive Production Prototype · 100% Calibrated to Live Player App v1.6.0.1</div>
+        </div>
+      </div>
+      <div class="header-badges">
+        <span class="pill-badge badge-live"><i class="fa fa-circle"></i> Live App Grounded</span>
+        <span class="pill-badge badge-doc"><i class="fa fa-mobile-screen"></i> Native UI/UX Spec</span>
+      </div>
+    </div>
+
+    <!-- 14 Interactive Steps -->
+    <nav class="journey-stepper-bar">
+      <button class="journey-step-btn active" id="tab-home" onclick="navTo('home')">
+        <i class="fa fa-house"></i> 1 · Home Feed
+      </button>
+      <button class="journey-step-btn" id="tab-book_court" onclick="navTo('book_court')">
+        <i class="fa fa-calendar-check"></i> 2 · Book Court
+      </button>
+      <button class="journey-step-btn" id="tab-swp_what" onclick="navTo('swp_what')">
+        3 · 1. What? (Event Details)
+      </button>
+      <button class="journey-step-btn" id="tab-swp_where" onclick="navTo('swp_where')">
+        4 · 2. Where? (Location)
+      </button>
+      <button class="journey-step-btn" id="tab-swp_photos" onclick="navTo('swp_photos')">
+        5 · 3. Photos (Gallery)
+      </button>
+      <button class="journey-step-btn" id="tab-swp_when" onclick="navTo('swp_when')">
+        6 · 4. When? (Schedule)
+      </button>
+      <button class="journey-step-btn" id="tab-swp_who" onclick="navTo('swp_who')">
+        7 · 5. Who? (Players)
+      </button>
+      <button class="journey-step-btn" id="tab-swp_how" onclick="navTo('swp_how')">
+        8 · 6. How to Join
+      </button>
+      <button class="journey-step-btn" id="tab-event_detail" onclick="navTo('event_detail')">
+        <i class="fa fa-circle-info"></i> 9 · Event Detail View
+      </button>
+      <button class="journey-step-btn" id="tab-manage_swp" onclick="navTo('manage_swp')">
+        <i class="fa fa-clipboard-check"></i> 10 · Manage SWP
+      </button>
+      <button class="journey-step-btn" id="tab-bookings_hub" onclick="navTo('bookings_hub')">
+        <i class="fa fa-calendar-days"></i> 11 · Bookings Hub (4 Tabs)
+      </button>
+      <button class="journey-step-btn" id="tab-social_hub" onclick="navTo('social_hub')">
+        <i class="fa fa-user-group"></i> 12 · Social Hub
+      </button>
+      <button class="journey-step-btn" id="tab-player_passport" onclick="navTo('player_passport')">
+        <i class="fa fa-id-card"></i> 13 · Player Passport
+      </button>
+      <button class="journey-step-btn" id="tab-compare_passport" onclick="navTo('compare_passport')">
+        <i class="fa fa-scale-balanced"></i> 14 · Compare Passports
+      </button>
+    </nav>
+  </header>
+
+  <!-- ==========================================================================
+       MAIN CANVAS: SMARTPHONE FRAME + INTERACTIVE TEST DRAWER
+       ========================================================================== -->
+  <main class="canvas-layout">
+    
+    <!-- iPhone Device Frame -->
+    <div class="device-container">
+      <div class="iphone-frame">
+        
+        <!-- Dynamic Island -->
+        <div class="dynamic-island">
+          <div class="island-camera"></div>
+          <div class="island-sensor"></div>
+        </div>
+
+        <!-- iOS Status Bar -->
+        <div class="mobile-statusbar">
+          <span>9:41</span>
+          <span>
+            <i class="fa fa-signal" style="font-size:10px;"></i>
+            <i class="fa fa-wifi" style="font-size:10px; margin-left:3px;"></i>
+            <i class="fa fa-battery-full" style="font-size:11px; margin-left:3px;"></i>
+          </span>
+        </div>
+
+        <!-- Floating In-App Toast -->
+        <div class="swp-toast" id="app-toast">
+          <i class="fa fa-circle-check" style="color:#10B981; font-size:15px;"></i>
+          <span id="toast-message">Success!</span>
+        </div>
+
+        <!-- Dynamic Screen Viewport -->
+        <div class="screen-viewport" id="mobile-viewport">
+          <!-- Rendered dynamically via JavaScript -->
+        </div>
+
+        <!-- Wheel Time Picker Bottom Sheet Dialog Modal -->
+        <div class="swp-timepicker-modal" id="timepicker-modal" style="display:none;">
+          <div class="swp-timepicker-sheet">
+            <div class="swp-tp-header">
+              <button class="swp-tp-btn cancel" onclick="closeTimePickerModal()">Cancel</button>
+              <div class="swp-tp-title" id="tp-modal-title">Select Start Time</div>
+              <button class="swp-tp-btn confirm" onclick="confirmTimePickerSelection()">Done</button>
+            </div>
+            <div class="swp-wheel-box">
+              <div class="swp-wheel-highlight"></div>
+              
+              <!-- Hours Column -->
+              <div class="swp-wheel-column" id="wheel-col-hours">
+                <div class="swp-wheel-item" onclick="selectWheelItem('hours', '06')">06</div>
+                <div class="swp-wheel-item" onclick="selectWheelItem('hours', '07')">07</div>
+                <div class="swp-wheel-item" onclick="selectWheelItem('hours', '08')">08</div>
+                <div class="swp-wheel-item selected" onclick="selectWheelItem('hours', '09')">09</div>
+                <div class="swp-wheel-item" onclick="selectWheelItem('hours', '10')">10</div>
+                <div class="swp-wheel-item" onclick="selectWheelItem('hours', '11')">11</div>
+                <div class="swp-wheel-item" onclick="selectWheelItem('hours', '12')">12</div>
+                <div class="swp-wheel-item" onclick="selectWheelItem('hours', '01')">01</div>
+                <div class="swp-wheel-item" onclick="selectWheelItem('hours', '02')">02</div>
+                <div class="swp-wheel-item" onclick="selectWheelItem('hours', '03')">03</div>
+                <div class="swp-wheel-item" onclick="selectWheelItem('hours', '04')">04</div>
+                <div class="swp-wheel-item" onclick="selectWheelItem('hours', '05')">05</div>
+              </div>
+
+              <div style="font-size:20px; font-weight:900; color:var(--swp-primary); margin-bottom:4px;">:</div>
+
+              <!-- Minutes Column (15-min Intervals) -->
+              <div class="swp-wheel-column" id="wheel-col-minutes">
+                <div class="swp-wheel-item selected" onclick="selectWheelItem('minutes', '00')">00</div>
+                <div class="swp-wheel-item" onclick="selectWheelItem('minutes', '15')">15</div>
+                <div class="swp-wheel-item" onclick="selectWheelItem('minutes', '30')">30</div>
+                <div class="swp-wheel-item" onclick="selectWheelItem('minutes', '45')">45</div>
+              </div>
+
+              <!-- AM / PM Column -->
+              <div class="swp-wheel-column" id="wheel-col-ampm">
+                <div class="swp-wheel-item selected" onclick="selectWheelItem('ampm', 'AM')">AM</div>
+                <div class="swp-wheel-item" onclick="selectWheelItem('ampm', 'PM')">PM</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floating Action Menu Modal (Triggered by Center FAB) -->
+        <div class="floating-action-modal" id="fab-menu-modal" onclick="closeFabMenu(event)">
+          <div class="floating-action-item" onclick="handleFabAction('scan')">
+            <div class="action-icon-circle" style="background:#4ECDC4;"><i class="fa fa-qrcode"></i></div>
+            <div>
+              <div style="font-family:var(--font-heading); font-size:13.5px; font-weight:800;">Scan QR Code</div>
+              <div style="font-size:11px; color:var(--swp-text-muted);">Quick check-in at club venue</div>
+            </div>
+          </div>
+          <div class="floating-action-item" onclick="handleFabAction('post')">
+            <div class="action-icon-circle" style="background:#FF6B6B;"><i class="fa fa-feather-pointed"></i></div>
+            <div>
+              <div style="font-family:var(--font-heading); font-size:13.5px; font-weight:800;">Create Social Post</div>
+              <div style="font-size:11px; color:var(--swp-text-muted);">Share match highlight or photo</div>
+            </div>
+          </div>
+          <div class="floating-action-item" onclick="handleFabAction('openswp')">
+            <div class="action-icon-circle" style="background:#45B7D1;"><i class="fa fa-calendar-plus"></i></div>
+            <div>
+              <div style="font-family:var(--font-heading); font-size:13.5px; font-weight:800;">Create Event</div>
+              <div style="font-size:11px; color:var(--swp-text-muted);">Host a match, social game, or tournament</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Authentic 5-Tab Bottom Navigator (Ground Truth from BottomTabNavigator.tsx) -->
+        <nav class="phone-bottom-nav">
+          <div class="nav-tab-item active" id="bnav-home" onclick="navTo('home')">
+            <i class="fa fa-house"></i>
+            <span>Home</span>
+          </div>
+          <div class="nav-tab-item" id="bnav-bookings" onclick="navTo('bookings_hub')">
+            <i class="fa fa-calendar-days"></i>
+            <span>Bookings</span>
+          </div>
+          
+          <!-- Center Elevated FAB (+) -->
+          <div class="center-fab-wrap" onclick="toggleFabMenu()">
+            <div class="center-fab-circle">
+              <i class="fa fa-plus"></i>
+            </div>
+          </div>
+
+          <div class="nav-tab-item" id="bnav-social" onclick="navTo('social_hub')">
+            <i class="fa fa-user-group"></i>
+            <span>Social</span>
+          </div>
+          <div class="nav-tab-item" id="bnav-profile" onclick="navTo('player_passport')">
+            <i class="fa fa-user"></i>
+            <span>Profile</span>
+          </div>
+        </nav>
+
+      </div>
+    </div>
+    </main>
+
+  <!-- ==========================================================================
+       CLIENT APPLICATION LOGIC & MOCK STATE
+       ========================================================================== -->
+  <script>
+    /* Global Application State */
+    let currentScreen = 'home';
+    let currentUiState = 'populated'; // 'populated', 'empty', 'loading', 'error'
+    let currentBookingsTab = 'new';   // 'new', 'upcoming', 'comingSoon', 'swpRequest'
+    let isFabOpen = false;
+
+    // Time Picker Modal State
+    let tpTarget = 'start'; // 'start' or 'end'
+    let tpSelectedHours = '09';
+    let tpSelectedMinutes = '00';
+    let tpSelectedAmPm = 'AM';
+
+    // Open SWP Draft Event State
+    const eventData = {
+      // Step 1: WHAT
+      eventName: 'Rotterdam Padel Friday Night',
+      sport: 'Padel',
+      customSport: '',
+      isCustomSport: false,
+      description: 'Casual friendly fixture. Match balls provided. All player levels welcome!',
+
+      // Step 2: WHERE
+      clubName: 'Club de Padel Rotterdam',
+      isOnline: false,
+      onlineLink: 'https://meet.google.com/swp-match',
+      address: 'Oostzeedijk 120, 3062 CG Rotterdam',
+      postcode: '3062 CG Rotterdam',
+      courtNumber: 'Court 4',
+      radius: '15 km',
+
+      // Step 3: PHOTOS
+      photos: [
+        'https://images.unsplash.com/photo-1448375240586-882707db888b?w=150&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=150&auto=format&fit=crop&q=80'
+      ],
+
+      // Step 4: WHEN
+      dateDisplay: '18/11/2026',
+      dayNum: '18',
+      dayName: 'Wed',
+      startTime: '18:00',
+      endTime: '19:30',
+
+      // Step 5: WHO
+      totalPlayers: 8,
+      creatorName: 'Mukund Patil',
+      playersAdded: [
+        { name: 'Mukund Patil', role: 'Host', initial: 'M', email: 'mukund@shallweplay.com', status: 'confirmed' },
+        { name: 'Sander Kok', role: 'Player', initial: 'S', email: 'sander@gmail.com', status: 'confirmed' },
+        { name: 'Emma Watson', role: 'Player', initial: 'E', email: 'emma@gmail.com', status: 'invited' }
+      ],
+
+      // Step 6: HOW
+      joinPolicy: 'direct', // 'direct' | 'approval'
+      joinRequestStatus: 'none',
+
+      // Pricing (disabled for now as requested)
+      pricingModel: 'free',
+      cost: 0
+    };
+
+    // Commercial Court Booking State
+    const bookingState = {
+      clubName: 'Club de Padel Rotterdam',
+      courtName: 'Court 4 (Panoramic Glass)',
+      date: '2026-11-18',
+      startTime: '18:00',
+      endTime: '19:30',
+      durationMinutes: 90,
+      basePrice: 40.00,
+      lightingFee: 3.50,
+      indoorFee: 0.00,
+      currency: '€'
+    };
+
+    // Digital Player Passport State
+    const passportState = {
+      handle: '@alexvanderbilt',
+      name: 'Alex Vanderbilt',
+      homeBase: 'Amsterdam, Netherlands',
+      ratingTier: 'KNLTB Certified 6.2 · Intermediate (5 to 7)',
+      sessionsCount: 24,
+      winRate: 82,
+      fairPlayScore: 4.9,
+      radar: {
+        netPlay: 82,
+        baseline: 78,
+        serve: 85,
+        tacticalIq: 90,
+        consistency: 88
+      },
+      stamps: [
+        { club: 'Kralingse Padel Club', count: 14, icon: 'fa-trophy', color: '#007AFF' },
+        { club: 'Victoria Rotterdam', count: 6, icon: 'fa-medal', color: '#10B981' },
+        { club: 'Padel Dam Amsterdam', count: 4, icon: 'fa-award', color: '#F59E0B' }
+      ],
+      coachNotes: [
+        { coach: 'Mark Jansen', club: 'Kralingse Club', note: 'Solid two-handed backhand drive with strong court discipline. Recommended for intermediate matches.' }
+      ]
+    };
+
+    // Teammate Candidate for Compare / Request Approval
+    const applicantEmma = {
+      handle: '@emma_watson',
+      name: 'Emma Watson',
+      homeBase: 'Rotterdam, Netherlands',
+      ratingTier: 'KNLTB Certified 5.5 · Intermediate',
+      sessionsCount: 19,
+      winRate: 78,
+      fairPlayScore: 4.8,
+      radar: {
+        netPlay: 75,
+        baseline: 84,
+        serve: 79,
+        tacticalIq: 86,
+        consistency: 85
+      }
+    };
+
+    /* ==========================================================================
+       NAVIGATION CONTROLLER
+       ========================================================================== */
+        let previousScreen = 'home';
+    let activeDetailEventId = 'current';
+
+    // Rich Community Events for Event Discovery Tab
+    const communityEvents = [
+      {
+        id: 'comm_1',
+        eventName: 'Sunday Morning Padel League',
+        sport: 'Padel',
+        clubName: 'Padel Dam Amsterdam',
+        courtNumber: 'Court 2 Panoramic',
+        address: 'Tom Schreursweg 10, 1067 MC Amsterdam',
+        dateDisplay: '22/11/2026',
+        dayName: 'Sun',
+        dayNum: '22',
+        startTime: '10:00',
+        endTime: '11:30',
+        creatorName: 'Lars van Dijk',
+        totalPlayers: 4,
+        playersAdded: [
+          { name: 'Lars van Dijk', role: 'Host', initial: 'L', status: 'confirmed' },
+          { name: 'Daan Meijer', role: 'Player', initial: 'D', status: 'confirmed' },
+          { name: 'Bram Bakker', role: 'Player', initial: 'B', status: 'confirmed' }
+        ],
+        joinPolicy: 'direct',
+        joinRequestStatus: 'none',
+        description: 'Weekly Sunday padel round-robin fixture. Fast-paced, high energy, coffee & smoothies after the game in clubhouse!',
+        photos: ['https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=300&auto=format&fit=crop&q=80'],
+        isOnline: false
+      },
+      {
+        id: 'comm_2',
+        eventName: 'Social Tennis Doubles & Drinks',
+        sport: 'Tennis',
+        clubName: 'Victoria Tennis Rotterdam',
+        courtNumber: 'Clay Court 1',
+        address: 'Kralingseweg 226, 3062 CG Rotterdam',
+        dateDisplay: '21/11/2026',
+        dayName: 'Sat',
+        dayNum: '21',
+        startTime: '15:00',
+        endTime: '17:00',
+        creatorName: 'Sophie de Jong',
+        totalPlayers: 8,
+        playersAdded: [
+          { name: 'Sophie de Jong', role: 'Host', initial: 'S', status: 'confirmed' },
+          { name: 'Thijs Visser', role: 'Player', initial: 'T', status: 'confirmed' },
+          { name: 'Anouk Smit', role: 'Player', initial: 'A', status: 'confirmed' },
+          { name: 'Ruben Vos', role: 'Player', initial: 'R', status: 'confirmed' },
+          { name: 'Iris Mulder', role: 'Player', initial: 'I', status: 'confirmed' },
+          { name: 'Lucas Bos', role: 'Player', initial: 'L', status: 'confirmed' }
+        ],
+        joinPolicy: 'approval',
+        joinRequestStatus: 'none',
+        description: 'Friendly mixed doubles session on red clay courts followed by clubhouse social drinks. Balls and rackets provided.',
+        photos: ['https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?w=300&auto=format&fit=crop&q=80'],
+        isOnline: false
+      }
+    ];
+
+    function getEventById(id) {
+      if (!id || id === 'current') return eventData;
+      return communityEvents.find(e => e.id === id) || eventData;
+    }
+
+    function handleRadiusSliderChange(val) {
+      eventData.radius = val + ' km';
+      const badge = document.getElementById('radius-badge');
+      if (badge) badge.textContent = val + ' km';
+      const slider = document.querySelector('.swp-radius-slider');
+      if (slider) {
+        const pct = (val / 50) * 100;
+        slider.style.background = `linear-gradient(to right, var(--swp-primary) 0%, var(--swp-primary) ${pct}%, #E2E8F0 ${pct}%, #E2E8F0 100%)`;
+      }
+    }
+
+    function openEventDetail(id) {
+      activeDetailEventId = id || 'current';
+      if (currentScreen !== 'event_detail') {
+        previousScreen = currentScreen;
+      }
+      navTo('event_detail');
+    }
+
+    function navBack() {
+      navTo(previousScreen || 'home');
+    }
+
+    function openEventsTab() {
+      currentBookingsTab = 'events';
+      navTo('bookings_hub');
+    }
+
+    function leaveEvent() {
+      eventData.playersAdded = eventData.playersAdded.filter(p => !p.name.includes('Emma'));
+      eventData.joinRequestStatus = 'none';
+      showToast('You left the squad.');
+      renderMobileScreen();
+    }
+
+    function cancelEventRequest() {
+      eventData.joinRequestStatus = 'none';
+      showToast('Join request cancelled.');
+      renderMobileScreen();
+    }
+
+    function navTo(screen) {
+      if (currentScreen !== screen && currentScreen !== 'event_detail') {
+        previousScreen = currentScreen;
+      }
+      currentScreen = screen;
+
+      // Update Top Journey Nav Buttons
+      document.querySelectorAll('.journey-step-btn').forEach(btn => btn.classList.remove('active'));
+      let activeTabBtn = document.getElementById('tab-' + screen);
+      if (!activeTabBtn && screen === 'event_detail') {
+        activeTabBtn = document.getElementById('tab-event_detail') || document.getElementById('tab-swp_card');
+      } else if (!activeTabBtn && screen === 'swp_card') {
+        activeTabBtn = document.getElementById('tab-event_detail');
+      }
+      if (activeTabBtn) activeTabBtn.classList.add('active');
+
+      // Update Bottom Phone Nav Items
+      document.querySelectorAll('.nav-tab-item').forEach(el => el.classList.remove('active'));
+      if (screen === 'home') document.getElementById('bnav-home')?.classList.add('active');
+      else if (screen === 'bookings_hub' || screen === 'book_court') document.getElementById('bnav-bookings')?.classList.add('active');
+      else if (screen === 'social_hub') document.getElementById('bnav-social')?.classList.add('active');
+      else if (screen === 'player_passport' || screen === 'compare_passport') document.getElementById('bnav-profile')?.classList.add('active');
+
+      renderMobileScreen();
+    }
+
+    function setUiState(state) {
+      currentUiState = state;
+      document.querySelectorAll('.state-matrix-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('btn-state-' + state)?.classList.add('active');
+      showToast(`Switched to: ${state.toUpperCase()} state`);
+      renderMobileScreen();
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('app-toast');
+      const text = document.getElementById('toast-message');
+      text.textContent = msg;
+      toast.style.display = 'flex';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 2500);
+    }
+
+    function toggleFabMenu() {
+      const modal = document.getElementById('fab-menu-modal');
+      isFabOpen = !isFabOpen;
+      modal.style.display = isFabOpen ? 'flex' : 'none';
+    }
+
+    function closeFabMenu(e) {
+      if (e.target.id === 'fab-menu-modal') {
+        const modal = document.getElementById('fab-menu-modal');
+        isFabOpen = false;
+        modal.style.display = 'none';
+      }
+    }
+
+    function handleFabAction(type) {
+      const modal = document.getElementById('fab-menu-modal');
+      isFabOpen = false;
+      modal.style.display = 'none';
+
+      if (type === 'scan') {
+        showToast('Venue QR scanner activated');
+      } else if (type === 'post') {
+        navTo('social_hub');
+      } else if (type === 'openswp') {
+        navTo('swp_what');
+      }
+    }
+
+    /* Duration Math Helper */
+    function computeDurationText(start, end) {
+      try {
+        const [sh, sm] = start.split(':').map(Number);
+        const [eh, em] = end.split(':').map(Number);
+        let diff = (eh * 60 + em) - (sh * 60 + sm);
+        if (diff < 0) diff += 24 * 60;
+        const hours = Math.floor(diff / 60);
+        const mins = diff % 60;
+        if (hours === 0) return `${mins}m`;
+        if (mins === 0) return `${hours}h`;
+        return `${hours}h ${mins}m`;
+      } catch (e) {
+        return '1h 30m';
+      }
+    }
+
+    /* Adjust Time by Offset in Minutes */
+    function adjustEventTime(which, delta) {
+      const timeStr = which === 'start' ? eventData.startTime : eventData.endTime;
+      const [h, m] = timeStr.split(':').map(Number);
+      let totalMins = h * 60 + m + delta;
+      if (totalMins < 0) totalMins += 24 * 60;
+      totalMins = totalMins % (24 * 60);
+
+      const nh = String(Math.floor(totalMins / 60)).padStart(2, '0');
+      const nm = String(totalMins % 60).padStart(2, '0');
+      if (which === 'start') eventData.startTime = `${nh}:${nm}`;
+      else eventData.endTime = `${nh}:${nm}`;
+
+      renderMobileScreen();
+    }
+
+    /* ==========================================================================
+       TIME PICKER MODAL CONTROLLER
+       ========================================================================== */
+    function openTimePickerModal(target) {
+      tpTarget = target;
+      const modal = document.getElementById('timepicker-modal');
+      const title = document.getElementById('tp-modal-title');
+      title.textContent = target === 'start' ? 'Select Start Time' : 'Select End Time';
+
+      const currentTime = target === 'start' ? eventData.startTime : eventData.endTime;
+      let [h, m] = currentTime.split(':').map(Number);
+      let ampm = 'AM';
+      if (h >= 12) {
+        ampm = 'PM';
+        if (h > 12) h -= 12;
+      }
+      if (h === 0) h = 12;
+
+      tpSelectedHours = String(h).padStart(2, '0');
+      // round to nearest 15 mins: 00, 15, 30, 45
+      const rem = m % 15;
+      const roundedM = rem >= 8 ? Math.min(45, m + (15 - rem)) : m - rem;
+      tpSelectedMinutes = String(roundedM).padStart(2, '0');
+      tpSelectedAmPm = ampm;
+
+      updateWheelUi();
+      modal.style.display = 'flex';
+    }
+
+    function closeTimePickerModal() {
+      const modal = document.getElementById('timepicker-modal');
+      modal.style.display = 'none';
+    }
+
+    function selectWheelItem(col, val) {
+      if (col === 'hours') tpSelectedHours = val;
+      if (col === 'minutes') tpSelectedMinutes = val;
+      if (col === 'ampm') tpSelectedAmPm = val;
+      updateWheelUi();
+    }
+
+    function updateWheelUi() {
+      // Highlight selected hours
+      document.querySelectorAll('#wheel-col-hours .swp-wheel-item').forEach(el => {
+        el.classList.toggle('selected', el.textContent.trim() === tpSelectedHours);
+      });
+      // Highlight selected minutes
+      document.querySelectorAll('#wheel-col-minutes .swp-wheel-item').forEach(el => {
+        el.classList.toggle('selected', el.textContent.trim() === tpSelectedMinutes);
+      });
+      // Highlight selected ampm
+      document.querySelectorAll('#wheel-col-ampm .swp-wheel-item').forEach(el => {
+        el.classList.toggle('selected', el.textContent.trim() === tpSelectedAmPm);
+      });
+    }
+
+    function confirmTimePickerSelection() {
+      let h = Number(tpSelectedHours);
+      if (tpSelectedAmPm === 'PM' && h < 12) h += 12;
+      if (tpSelectedAmPm === 'AM' && h === 12) h = 0;
+
+      const finalTimeStr = `${String(h).padStart(2, '0')}:${tpSelectedMinutes}`;
+
+      if (tpTarget === 'start') {
+        eventData.startTime = finalTimeStr;
+        // ensure end time is after start time
+        const [sh, sm] = finalTimeStr.split(':').map(Number);
+        const [eh, em] = eventData.endTime.split(':').map(Number);
+        if (eh * 60 + em <= sh * 60 + sm) {
+          // adjust end time to start + 90 mins
+          const newEndMins = (sh * 60 + sm + 90) % (24 * 60);
+          eventData.endTime = `${String(Math.floor(newEndMins / 60)).padStart(2, '0')}:${String(newEndMins % 60).padStart(2, '0')}`;
+        }
+      } else {
+        const [sh, sm] = eventData.startTime.split(':').map(Number);
+        const [eh, em] = finalTimeStr.split(':').map(Number);
+        if (eh * 60 + em <= sh * 60 + sm) {
+          showToast('End time must be after start time!');
+          return;
+        }
+        eventData.endTime = finalTimeStr;
+      }
+
+      closeTimePickerModal();
+      showToast(`Time updated: ${eventData.startTime} - ${eventData.endTime}`);
+      renderMobileScreen();
+    }
+
+    /* Event Pricing & Join Policy Toggles */
+    function setEventPricing(model) {
+      eventData.pricingModel = model;
+      if (model === 'free') {
+        eventData.cost = 0;
+      } else {
+        eventData.cost = 40.00;
+      }
+      showToast(`Pricing set to: ${model === 'free' ? 'Free RSVP' : 'Paid (€40 total)'}`);
+      renderMobileScreen();
+    }
+
+    function setEventJoinPolicy(policy) {
+      eventData.joinPolicy = policy;
+      showToast(`Join Policy set to: ${policy === 'direct' ? 'Direct Join' : 'Approval Required'}`);
+      renderMobileScreen();
+    }
+
+    /* Player Join Simulation */
+    function simulatePlayerDirectJoin(isFree) {
+      if (!eventData.playersAdded.some(p => p.name.includes('Emma'))) {
+        eventData.playersAdded.push({ name: 'Emma Watson', role: 'Participant', initial: 'E' });
+      }
+      showToast(isFree ? 'Joined Event! Spot Confirmed.' : 'Paid €10.00 & Joined Squad!');
+      renderMobileScreen();
+    }
+
+    function simulatePlayerRequestJoin(isFree) {
+      eventData.joinRequestStatus = 'requested';
+      showToast('Join request sent to Host Mukund Patil!');
+      renderMobileScreen();
+    }
+
+    function approveHostRequest() {
+      if (!eventData.playersAdded.some(p => p.name.includes('Emma'))) {
+        eventData.playersAdded.push({ name: 'Emma Watson', role: 'Participant', initial: 'E' });
+      }
+      eventData.joinRequestStatus = 'approved';
+      showToast('Emma Watson approved into match squad!');
+      renderMobileScreen();
+    }
+
+    function declineHostRequest() {
+      eventData.joinRequestStatus = 'none';
+      showToast('Request declined.');
+      renderMobileScreen();
+    }
+
+    function setBookingsTab(tab) {
+      currentBookingsTab = tab;
+      renderMobileScreen();
+    }
+
+    /* ==========================================================================
+       SCREEN RENDERERS (All 14 Screens)
+       ========================================================================== */
+    function renderMobileScreen() {
+      const container = document.getElementById('mobile-viewport');
+      let markup = '';
+
+      if (currentUiState === 'loading') {
+        markup = renderLoadingSkeletonScreen();
+      } else if (currentUiState === 'empty') {
+        markup = renderEmptyStateScreen();
+      } else if (currentUiState === 'error') {
+        markup = renderValidationErrorScreen();
+      } else {
+        switch (currentScreen) {
+          case 'home': markup = renderHomeScreen(); break;
+          case 'book_court': markup = renderBookCourtScreen(); break;
+          case 'swp_where': markup = renderSwpWhereScreen(); break;
+          case 'swp_what': markup = renderSwpWhatScreen(); break;
+          case 'swp_photos': markup = renderSwpPhotosScreen(); break;
+          case 'swp_when': markup = renderSwpWhenScreen(); break;
+          case 'swp_who': markup = renderSwpWhoScreen(); break;
+          case 'swp_how': markup = renderSwpHowScreen(); break;
+          case 'swp_card': markup = renderEventDetailScreen(); break;
+          case 'event_detail': markup = renderEventDetailScreen(); break;
+          case 'manage_swp': markup = renderManageSwpScreen(); break;
+          case 'bookings_hub': markup = renderBookingsHubScreen(); break;
+          case 'social_hub': markup = renderSocialHubScreen(); break;
+          case 'player_passport': markup = renderPlayerPassportScreen(); break;
+          case 'compare_passport': markup = renderComparePassportScreen(); break;
+          default: markup = renderHomeScreen();
+        }
+      }
+
+      container.innerHTML = `<div style="animation:fadeIn 0.2s ease;">${markup}</div>`;
+    }
+
+    /* SCREEN 1: HOME SCREEN & FEED */
+    function renderHomeScreen() {
+      return `
+        <div style="padding:12px 16px; display:flex; justify-content:space-between; align-items:center; background:#FFF; border-bottom:1px solid var(--swp-border);">
+          <div style="font-family:var(--font-heading); font-size:18px; font-weight:900; color:var(--swp-navy);">ShallWe-Play</div>
+          <div style="width:34px; height:34px; border-radius:17px; background:var(--swp-bg-canvas); display:flex; align-items:center; justify-content:center; color:var(--swp-text-main); position:relative; cursor:pointer;" onclick="showToast('No new notifications')">
+            <i class="fa fa-bell"></i>
+            <span style="position:absolute; top:7px; right:7px; width:7px; height:7px; background:#EF4444; border-radius:50%;"></span>
+          </div>
+        </div>
+
+        <!-- Stories Bar -->
+        <div style="display:flex; gap:12px; padding:12px 16px; overflow-x:auto; background:#FFF; border-bottom:1px solid var(--swp-border);">
+          <div style="display:flex; flex-direction:column; align-items:center; gap:5px; width:54px; flex-shrink:0; cursor:pointer;" onclick="navTo('swp_what')">
+            <div style="width:50px; height:50px; border-radius:25px; border:2px solid var(--swp-primary); padding:2px; position:relative;">
+              <div style="width:100%; height:100%; border-radius:50%; background:#007AFF; color:#FFF; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:14px;">M</div>
+              <div style="position:absolute; bottom:0; right:0; width:16px; height:16px; border-radius:8px; background:#007AFF; border:2px solid #FFF; color:#FFF; font-size:9px; display:flex; align-items:center; justify-content:center;"><i class="fa fa-plus"></i></div>
+            </div>
+            <span style="font-size:10.5px; font-weight:700;">My Story</span>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:5px; width:54px; flex-shrink:0; cursor:pointer;" onclick="navTo('compare_passport')">
+            <div style="width:50px; height:50px; border-radius:25px; border:2px solid #F59E0B; padding:2px;">
+              <div style="width:100%; height:100%; border-radius:50%; background:#F59E0B; color:#FFF; display:flex; align-items:center; justify-content:center; font-weight:800;">E</div>
+            </div>
+            <span style="font-size:10.5px; font-weight:600; color:var(--swp-text-muted);">Emma</span>
+          </div>
+          <div style="display:flex; flex-direction:column; align-items:center; gap:5px; width:54px; flex-shrink:0;">
+            <div style="width:50px; height:50px; border-radius:25px; border:2px solid #10B981; padding:2px;">
+              <div style="width:100%; height:100%; border-radius:50%; background:#10B981; color:#FFF; display:flex; align-items:center; justify-content:center; font-weight:800;">S</div>
+            </div>
+            <span style="font-size:10.5px; font-weight:600; color:var(--swp-text-muted);">Sander</span>
+          </div>
+        </div>
+
+        <!-- Featured Community Event (Prominently placed immediately below My Story, visible before and after joining) -->
+        <div style="padding:14px 16px 6px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span style="font-family:var(--font-heading); font-size:13.5px; font-weight:800; color:var(--swp-navy);">Featured Event</span>
+              <span style="font-size:9.5px; font-weight:800; background:#ECFDF5; color:#047857; padding:2px 7px; border-radius:99px;">Live</span>
+            </div>
+            <span style="font-size:11px; font-weight:700; color:var(--swp-primary); cursor:pointer;" onclick="openEventsTab()">View All Events →</span>
+          </div>
+          ${renderAuthenticSwpJoinCard(eventData)}
+        </div>
+
+        <!-- Quick Launch Shortcuts -->
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; padding:8px 16px 12px;">
+          <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:12px; padding:12px; cursor:pointer; display:flex; align-items:center; gap:10px;" onclick="navTo('book_court')">
+            <div style="width:36px; height:36px; border-radius:8px; background:var(--swp-primary-light); color:var(--swp-primary); display:flex; align-items:center; justify-content:center; font-size:16px;">
+              <i class="fa fa-calendar-check"></i>
+            </div>
+            <div>
+              <div style="font-family:var(--font-heading); font-size:12px; font-weight:800;">Book Court</div>
+              <div style="font-size:10px; color:var(--swp-text-muted);">Commercial slots</div>
+            </div>
+          </div>
+
+          <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:12px; padding:12px; cursor:pointer; display:flex; align-items:center; gap:10px;" onclick="navTo('swp_what')">
+            <div style="width:36px; height:36px; border-radius:8px; background:#ECFDF5; color:#10B981; display:flex; align-items:center; justify-content:center; font-size:16px;">
+              <i class="fa fa-calendar-plus"></i>
+            </div>
+            <div>
+              <div style="font-family:var(--font-heading); font-size:12px; font-weight:800;">Create Event</div>
+              <div style="font-size:10px; color:var(--swp-text-muted);">Host a match or session</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- WHAT'S HAPPENING Banner -->
+        <div style="margin:0 16px 20px; background:linear-gradient(135deg, #0A2540 0%, #007AFF 100%); border-radius:14px; padding:14px; color:#FFF;">
+          <div style="font-family:var(--font-heading); font-size:10.5px; font-weight:900; letter-spacing:0.8px; opacity:0.85;">WHAT'S HAPPENING</div>
+          <div style="font-size:12px; margin:3px 0 10px; opacity:0.95;">Latest matches in Rotterdam</div>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
+            <div style="background:rgba(255,255,255,0.18); border-radius:8px; padding:8px 10px;">
+              <div style="font-family:var(--font-heading); font-size:20px; font-weight:900;">688</div>
+              <div style="font-size:10px; opacity:0.9;">Open Bookings</div>
+            </div>
+            <div style="background:rgba(255,255,255,0.18); border-radius:8px; padding:8px 10px;">
+              <div style="font-family:var(--font-heading); font-size:20px; font-weight:900;">1008</div>
+              <div style="font-size:10px; opacity:0.9;">Partner Clubs</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    /* SCREEN 2: BOOK COURT */
+    function renderBookCourtScreen() {
+      const total = bookingState.basePrice + bookingState.lightingFee + bookingState.indoorFee;
+
+      return `
+        <div class="swp-screen-header">
+          <div class="swp-back-btn" onclick="navTo('home')"><i class="fa fa-chevron-left"></i></div>
+          <div class="swp-screen-title">BOOK COURT</div>
+          <span class="swp-step-badge">Commercial</span>
+        </div>
+
+        <div class="swp-page-body">
+          <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:14px; padding:14px; margin-bottom:14px;">
+            <div style="font-family:var(--font-heading); font-size:16px; font-weight:900; color:var(--swp-navy);">${bookingState.clubName}</div>
+            <div style="font-size:11.5px; color:var(--swp-text-muted); margin-bottom:10px;">
+              <i class="fa fa-location-dot" style="color:var(--swp-primary);"></i> ${bookingState.courtName} · Rotterdam
+            </div>
+            <div style="display:flex; gap:6px; flex-wrap:wrap;">
+              <span style="background:var(--swp-primary-light); color:var(--swp-primary); font-size:10.5px; font-weight:700; padding:2px 8px; border-radius:4px;">Padel</span>
+              <span style="background:#F1F5F9; color:var(--swp-text-muted); font-size:10.5px; font-weight:700; padding:2px 8px; border-radius:4px;">Indoor</span>
+              <span style="background:#ECFDF5; color:#047857; font-size:10.5px; font-weight:700; padding:2px 8px; border-radius:4px;">Instant Confirmation</span>
+            </div>
+          </div>
+
+          <!-- Schedule Selector -->
+          <div class="swp-input-box">
+            <span class="swp-notched-label">MATCH DATE</span>
+            <input type="text" class="swp-field" value="${bookingState.date}" readonly>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px;">
+            <div class="swp-input-box clickable" style="margin-bottom:0;" onclick="showToast('Court slots are 18:00 - 19:30')">
+              <span class="swp-notched-label">START TIME</span>
+              <div class="swp-field" style="display:flex; align-items:center; gap:6px;">
+                <i class="fa fa-clock" style="color:var(--swp-primary); font-size:12px;"></i>
+                <span>${bookingState.startTime}</span>
+              </div>
+            </div>
+            <div class="swp-input-box clickable" style="margin-bottom:0;" onclick="showToast('Court slots are 18:00 - 19:30')">
+              <span class="swp-notched-label">END TIME</span>
+              <div class="swp-field" style="display:flex; align-items:center; gap:6px;">
+                <i class="fa fa-clock" style="color:var(--swp-primary); font-size:12px;"></i>
+                <span>${bookingState.endTime}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Price Breakdown Table -->
+          <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:12px; padding:12px; margin-bottom:16px;">
+            <div style="font-family:var(--font-heading); font-size:11.5px; font-weight:800; color:var(--swp-navy); margin-bottom:8px;">
+              PRICE BREAKDOWN
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px;">
+              <span style="color:var(--swp-text-muted);">Court Rental (90 min)</span>
+              <span style="font-weight:700;">€ ${bookingState.basePrice.toFixed(2)}</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:6px;">
+              <span style="color:var(--swp-text-muted);">Evening LED Lighting</span>
+              <span style="font-weight:700;">€ ${bookingState.lightingFee.toFixed(2)}</span>
+            </div>
+            <div style="border-top:1px dashed var(--swp-border); padding-top:6px; display:flex; justify-content:space-between; font-size:13.5px; font-weight:900;">
+              <span>Total Payable</span>
+              <span style="color:var(--swp-primary);">€ ${total.toFixed(2)}</span>
+            </div>
+          </div>
+
+          <button class="swp-cta-btn" style="margin-bottom:10px;" onclick="executeCourtBooking(${total})">
+            <i class="fa fa-lock"></i> Pay € ${total.toFixed(2)} & Confirm
+          </button>
+
+          <button style="width:100%; height:44px; border-radius:12px; background:transparent; border:1.5px solid var(--swp-primary); color:var(--swp-primary); font-family:var(--font-heading); font-size:12px; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;" onclick="convertBookingToOpenSwp()">
+            <i class="fa fa-users"></i> Convert into Open SWP Game
+          </button>
+        </div>
+      `;
+    }
+
+        function handleSportSelect(val) {
+      if (val === 'Other') {
+        eventData.isCustomSport = true;
+        eventData.sport = eventData.customSport || 'Custom Sport';
+      } else {
+        eventData.isCustomSport = false;
+        eventData.sport = val;
+      }
+      renderMobileScreen();
+    }
+
+    function handleInlineAddPlayer() {
+      const nameInput = document.getElementById('inline-player-name');
+      const emailInput = document.getElementById('inline-player-email');
+      const name = (nameInput && nameInput.value ? nameInput.value : '').trim();
+      const email = (emailInput && emailInput.value ? emailInput.value : '').trim();
+
+      if (!name && !email) {
+        showToast('Please enter player name or email');
+        return;
+      }
+
+      const displayName = name || (email ? email.split('@')[0] : 'Player');
+      const initial = displayName[0].toUpperCase();
+
+      if (eventData.playersAdded.length >= eventData.totalPlayers) {
+        eventData.totalPlayers = eventData.playersAdded.length + 1;
+      }
+
+      eventData.playersAdded.push({
+        name: displayName,
+        email: email || 'invited@shallweplay.com',
+        role: 'Player',
+        initial: initial,
+        status: 'invited'
+      });
+
+      showToast(`Added ${displayName} to player list & sent invite!`);
+      renderMobileScreen();
+    }
+
+    function handleRemovePlayer(index) {
+      if (index === 0) {
+        showToast('Host cannot be removed from event');
+        return;
+      }
+      const removed = eventData.playersAdded.splice(index, 1);
+      showToast(`Removed ${removed[0].name} from player list`);
+      renderMobileScreen();
+    }
+
+    function handleSendPlayerInvite() {
+      handleInlineAddPlayer();
+    }
+
+    function addSamplePhoto() {
+      const samplePhotos = [
+        'https://images.unsplash.com/photo-1518609878373-06d740f60d8b?w=150&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=150&auto=format&fit=crop&q=80',
+        'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=150&auto=format&fit=crop&q=80'
+      ];
+      const nextPhoto = samplePhotos[eventData.photos.length % samplePhotos.length];
+      eventData.photos.push(nextPhoto);
+      showToast('Photo added to event gallery');
+      renderMobileScreen();
+    }
+
+    function selectDatePreset(preset) {
+      if (preset === 'today') {
+        eventData.dateDisplay = '18/11/2026';
+        eventData.dayNum = '18';
+        eventData.dayName = 'Wed';
+      } else if (preset === 'tomorrow') {
+        eventData.dateDisplay = '19/11/2026';
+        eventData.dayNum = '19';
+        eventData.dayName = 'Thu';
+      }
+      showToast('Date set to ' + eventData.dateDisplay);
+      renderMobileScreen();
+    }
+
+    function publishEventAndGoToCard() {
+      showToast('Event published successfully!');
+      navTo('swp_card');
+    }
+
+    /* SCREEN 3: EVENT DETAILS STEP 1 - WHAT */
+    function renderSwpWhatScreen() {
+      return `
+        <div class="swp-screen-header">
+          <div class="swp-back-btn" onclick="navTo('home')"><i class="fa fa-chevron-left"></i></div>
+          <div class="swp-screen-title">EVENT DETAILS</div>
+          <span class="swp-step-badge">1 of 6</span>
+        </div>
+
+        <div class="swp-page-body">
+          <div class="swp-section-heading">
+            <div class="swp-heading-main">WHAT</div>
+            <div class="swp-heading-sub">Event name, sport, and rules</div>
+          </div>
+
+          <!-- Event Name Text Field -->
+          <div class="swp-input-box">
+            <span class="swp-notched-label">EVENT NAME</span>
+            <input type="text" class="swp-field" placeholder="e.g. Rotterdam Friday Night Padel" value="${eventData.eventName || ''}" oninput="eventData.eventName = this.value;">
+          </div>
+
+          <!-- Sports Selection with Manual Option -->
+          <div class="swp-input-box">
+            <span class="swp-notched-label">SPORT / ACTIVITY</span>
+            <select class="swp-field" style="background:transparent; cursor:pointer;" onchange="handleSportSelect(this.value)">
+              <option value="Padel" ${eventData.sport === 'Padel' ? 'selected' : ''}>Padel</option>
+              <option value="Football" ${eventData.sport === 'Football' ? 'selected' : ''}>Football / Soccer</option>
+              <option value="Tennis" ${eventData.sport === 'Tennis' ? 'selected' : ''}>Tennis</option>
+              <option value="Basketball" ${eventData.sport === 'Basketball' ? 'selected' : ''}>Basketball</option>
+              <option value="Running" ${eventData.sport.includes('Run') || eventData.sport.includes('Walk') ? 'selected' : ''}>Running / Jogging</option>
+              <option value="Badminton" ${eventData.sport === 'Badminton' ? 'selected' : ''}>Badminton</option>
+              <option value="Squash" ${eventData.sport === 'Squash' ? 'selected' : ''}>Squash</option>
+              <option value="Volleyball" ${eventData.sport === 'Volleyball' ? 'selected' : ''}>Volleyball</option>
+              <option value="Yoga" ${eventData.sport === 'Yoga' ? 'selected' : ''}>Yoga / Pilates</option>
+              <option value="Other" ${eventData.isCustomSport ? 'selected' : ''}>Other / Enter Manually...</option>
+            </select>
+          </div>
+
+          <!-- If Sport not available, Manual Text Input -->
+          ${eventData.isCustomSport ? `
+            <div class="swp-input-box" style="margin-top:2px;">
+              <span class="swp-notched-label">MANUAL SPORT ENTRY</span>
+              <input type="text" class="swp-field" placeholder="Type sport name (e.g. Kho-Kho, Spikeball, Pickleball)..." value="${eventData.customSport || ''}" oninput="eventData.customSport = this.value; eventData.sport = this.value;">
+            </div>
+          ` : ''}
+
+          <!-- Description Box -->
+          <div class="swp-input-box" style="margin-bottom:14px;">
+            <span class="swp-notched-label">DESCRIPTION & RULES</span>
+            <textarea class="swp-field" style="height:90px; padding:10px 12px; resize:none; line-height:1.45;" placeholder="Enter event details, match format, rules, equipment needed, or notes for participants..." oninput="eventData.description = this.value;">${eventData.description || ''}</textarea>
+          </div>
+
+          <div style="flex:1;"></div>
+
+          <!-- Stepper Dots -->
+          <div class="swp-dots-row">
+            <div class="swp-dot active"></div>
+            <div class="swp-dot"></div>
+            <div class="swp-dot"></div>
+            <div class="swp-dot"></div>
+            <div class="swp-dot"></div>
+            <div class="swp-dot"></div>
+          </div>
+
+          <button class="swp-cta-btn" onclick="navTo('swp_where')">
+            Continue to WHERE
+          </button>
+        </div>
+      `;
+    }
+
+    /* SCREEN 4: EVENT DETAILS STEP 2 - WHERE */
+    function renderSwpWhereScreen() {
+      const radiusNum = parseInt(eventData.radius) || 15;
+      const radiusPct = (radiusNum / 50) * 100;
+
+      return `
+        <div class="swp-screen-header">
+          <div class="swp-back-btn" onclick="navTo('swp_what')"><i class="fa fa-chevron-left"></i></div>
+          <div class="swp-screen-title">EVENT DETAILS</div>
+          <span class="swp-step-badge">2 of 6</span>
+        </div>
+
+        <div class="swp-page-body">
+          <div class="swp-section-heading">
+            <div class="swp-heading-main">WHERE</div>
+            <div class="swp-heading-sub">Place location, online link & player radius</div>
+          </div>
+
+          <!-- Place Name Text Field (Venue removed, Place used) -->
+          <div class="swp-input-box">
+            <span class="swp-notched-label">PLACE NAME</span>
+            <input type="text" class="swp-field" placeholder="e.g. Club de Padel Rotterdam" value="${eventData.clubName || ''}" oninput="eventData.clubName = this.value;">
+          </div>
+
+          <!-- Online or Offline Toggle (Venue and Virtual removed) -->
+          <div style="margin-bottom:12px;">
+            <div style="font-family:var(--font-heading); font-size:11px; font-weight:800; color:var(--swp-text-muted); text-transform:uppercase; margin-bottom:6px; letter-spacing:0.5px;">
+              Location Mode
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; background:#E2E8F0; padding:3px; border-radius:10px;">
+              <button style="padding:9px; border-radius:8px; border:none; font-family:var(--font-heading); font-size:12px; font-weight:800; cursor:pointer; background:${!eventData.isOnline ? '#FFF' : 'transparent'}; color:${!eventData.isOnline ? 'var(--swp-primary)' : 'var(--swp-text-muted)'}; box-shadow:${!eventData.isOnline ? '0 1px 3px rgba(0,0,0,0.1)' : 'none'};" onclick="eventData.isOnline = false; renderMobileScreen();">
+                Offline
+              </button>
+              <button style="padding:9px; border-radius:8px; border:none; font-family:var(--font-heading); font-size:12px; font-weight:800; cursor:pointer; background:${eventData.isOnline ? '#FFF' : 'transparent'}; color:${eventData.isOnline ? 'var(--swp-primary)' : 'var(--swp-text-muted)'}; box-shadow:${eventData.isOnline ? '0 1px 3px rgba(0,0,0,0.1)' : 'none'};" onclick="eventData.isOnline = true; renderMobileScreen();">
+                Online
+              </button>
+            </div>
+          </div>
+
+          <!-- Conditional Online Link vs Physical Address -->
+          ${eventData.isOnline ? `
+            <div class="swp-input-box">
+              <span class="swp-notched-label">MEETING LINK / URL</span>
+              <input type="url" class="swp-field" placeholder="e.g. https://meet.google.com/xyz or Zoom link" value="${eventData.onlineLink || ''}" oninput="eventData.onlineLink = this.value;">
+            </div>
+            <div style="font-size:11px; color:var(--swp-text-muted); margin-bottom:12px; padding:0 4px;">
+              Meeting link will be private and shared only with confirmed players on your roster.
+            </div>
+          ` : `
+            <div class="swp-input-box">
+              <span class="swp-notched-label">STREET ADDRESS & CITY</span>
+              <input type="text" class="swp-field" placeholder="e.g. Rhijnspoor 259, 2901 LB Capelle" value="${eventData.address || ''}" oninput="eventData.address = this.value; eventData.postcode = this.value;">
+            </div>
+          `}
+
+          <!-- Player Visibility Radius Range Slider -->
+          <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:14px; padding:14px 16px; margin-bottom:14px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+              <span style="font-family:var(--font-heading); font-size:12px; font-weight:800; color:var(--swp-text-main);">Player Discovery Radius</span>
+              <span id="radius-badge" style="font-family:var(--font-heading); font-size:13px; font-weight:900; color:var(--swp-primary); background:var(--swp-primary-light); padding:2px 10px; border-radius:8px; border:1px solid var(--swp-primary-border);">
+                ${eventData.radius || '15 km'}
+              </span>
+            </div>
+
+            <div style="position:relative; padding:6px 0 10px;">
+              <input type="range" class="swp-radius-slider" min="1" max="50" step="1" value="${radiusNum}"
+                oninput="handleRadiusSliderChange(this.value)"
+                style="width:100%; height:6px; -webkit-appearance:none; appearance:none; background:linear-gradient(to right, var(--swp-primary) 0%, var(--swp-primary) ${radiusPct}%, #E2E8F0 ${radiusPct}%, #E2E8F0 100%); border-radius:99px; outline:none; cursor:pointer;"
+              >
+            </div>
+
+            <div style="display:flex; justify-content:space-between; font-size:10px; font-weight:700; color:var(--swp-text-muted);">
+              <span>1 km</span>
+              <span style="color:var(--swp-primary);">15 km (Default)</span>
+              <span>50 km</span>
+            </div>
+
+            <div style="font-size:10.5px; color:var(--swp-text-muted); margin-top:8px; line-height:1.45;">
+              Nearby players within this radius will discover this event in their feed.
+            </div>
+          </div>
+
+          <div style="flex:1;"></div>
+
+          <!-- Stepper Dots -->
+          <div class="swp-dots-row">
+            <div class="swp-dot"></div>
+            <div class="swp-dot active"></div>
+            <div class="swp-dot"></div>
+            <div class="swp-dot"></div>
+            <div class="swp-dot"></div>
+            <div class="swp-dot"></div>
+          </div>
+
+          <button class="swp-cta-btn" onclick="navTo('swp_photos')">
+            Continue to PHOTOS
+          </button>
+        </div>
+      `;
+    }
+
+    /* SCREEN 5: EVENT DETAILS STEP 3 - PHOTOS */
+    function renderSwpPhotosScreen() {
+      return `
+        <div class="swp-screen-header">
+          <div class="swp-back-btn" onclick="navTo('swp_where')"><i class="fa fa-chevron-left"></i></div>
+          <div class="swp-screen-title">EVENT DETAILS</div>
+          <span class="swp-step-badge">3 of 6</span>
+        </div>
+
+        <div class="swp-page-body">
+          <div class="swp-section-heading">
+            <div class="swp-heading-main">PHOTOS</div>
+            <div class="swp-heading-sub">Got photos of the place or past games?</div>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <span style="font-size:11px; font-weight:800; color:var(--swp-text-muted); text-transform:uppercase; letter-spacing:0.5px;">Event Gallery</span>
+            <span style="font-size:10.5px; font-weight:800; color:var(--swp-primary); background:var(--swp-primary-light); padding:2px 8px; border-radius:99px;">${eventData.photos.length} / 5 Uploaded</span>
+          </div>
+
+          <!-- Photo Gallery Grid -->
+          <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:8px; margin-bottom:14px;">
+            ${eventData.photos.map((p, idx) => `
+              <div style="position:relative; aspect-ratio:1; border-radius:10px; overflow:hidden; border:1px solid var(--swp-border); box-shadow:0 1px 3px rgba(0,0,0,0.05);">
+                <img src="${p}" style="width:100%; height:100%; object-fit:cover;" alt="Event photo">
+                <div style="position:absolute; top:4px; right:4px; width:22px; height:22px; border-radius:11px; background:rgba(0,0,0,0.65); color:#FFF; display:flex; align-items:center; justify-content:center; font-size:11px; cursor:pointer;" onclick="eventData.photos.splice(${idx}, 1); renderMobileScreen();">
+                  ✕
+                </div>
+              </div>
+            `).join('')}
+
+            ${eventData.photos.length < 5 ? `
+              <div style="aspect-ratio:1; border-radius:10px; border:2px dashed var(--swp-border-dark); background:#FFF; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; cursor:pointer;" onclick="addSamplePhoto();">
+                <span style="font-size:18px; color:var(--swp-primary); font-weight:800;">+</span>
+                <span style="font-size:10.5px; font-weight:700; color:var(--swp-text-muted);">Add Photo</span>
+              </div>
+            ` : ''}
+          </div>
+
+          <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:10px; padding:12px; font-size:11.5px; color:var(--swp-text-muted); line-height:1.45;">
+            Add photos of the court, facility, training area, or team lineup to help players recognize your event.
+          </div>
+
+          <div style="flex:1;"></div>
+
+          <!-- Stepper Dots -->
+          <div class="swp-dots-row">
+            <div class="swp-dot"></div>
+            <div class="swp-dot"></div>
+            <div class="swp-dot active"></div>
+            <div class="swp-dot"></div>
+            <div class="swp-dot"></div>
+            <div class="swp-dot"></div>
+          </div>
+
+          <button class="swp-cta-btn" onclick="navTo('swp_when')">
+            Continue to WHEN
+          </button>
+        </div>
+      `;
+    }
+
+    /* SCREEN 6: EVENT DETAILS STEP 4 - WHEN */
+    function renderSwpWhenScreen() {
+      return `
+        <div class="swp-screen-header">
+          <div class="swp-back-btn" onclick="navTo('swp_photos')"><i class="fa fa-chevron-left"></i></div>
+          <div class="swp-screen-title">EVENT DETAILS</div>
+          <span class="swp-step-badge">4 of 6</span>
+        </div>
+
+        <div class="swp-page-body">
+          <div class="swp-section-heading">
+            <div class="swp-heading-main">WHEN</div>
+            <div class="swp-heading-sub">Date and time of your event</div>
+          </div>
+
+          <!-- Modern Horizontal Date Picker -->
+          <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:12px; padding:12px; margin-bottom:14px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+              <span style="font-family:var(--font-heading); font-size:12.5px; font-weight:800; color:var(--swp-navy);">November 2026</span>
+              <div style="display:flex; gap:6px;">
+                <button style="padding:2px 8px; border-radius:4px; border:1px solid var(--swp-border); background:#F8FAFC; font-size:10px; font-weight:800; cursor:pointer;" onclick="selectDatePreset('today')">Today</button>
+                <button style="padding:2px 8px; border-radius:4px; border:1px solid var(--swp-border); background:#F8FAFC; font-size:10px; font-weight:800; cursor:pointer;" onclick="selectDatePreset('tomorrow')">Tomorrow</button>
+              </div>
+            </div>
+
+            <!-- Horizontal scrollable date cards -->
+            <div style="display:flex; gap:6px; overflow-x:auto; padding-bottom:4px; scrollbar-width:none;">
+              ${[
+                { day: 'Wed', num: '18', full: '18/11/2026' },
+                { day: 'Thu', num: '19', full: '19/11/2026' },
+                { day: 'Fri', num: '20', full: '20/11/2026' },
+                { day: 'Sat', num: '21', full: '21/11/2026' },
+                { day: 'Sun', num: '22', full: '22/11/2026' },
+                { day: 'Mon', num: '23', full: '23/11/2026' },
+                { day: 'Tue', num: '24', full: '24/11/2026' }
+              ].map(d => {
+                const isSel = (eventData.dateDisplay === d.full);
+                return `
+                  <div style="flex-shrink:0; width:48px; padding:8px 0; border-radius:10px; text-align:center; cursor:pointer; border:1.5px solid ${isSel ? 'var(--swp-primary)' : 'var(--swp-border)'}; background:${isSel ? 'var(--swp-primary)' : '#F8FAFC'}; color:${isSel ? '#FFF' : 'var(--swp-text-main)'}; transition:all 0.15s ease;" onclick="eventData.dateDisplay = '${d.full}'; eventData.dayNum = '${d.num}'; eventData.dayName = '${d.day}'; renderMobileScreen();">
+                    <div style="font-size:10px; font-weight:700; opacity:${isSel ? 0.9 : 0.6}; text-transform:uppercase;">${d.day}</div>
+                    <div style="font-family:var(--font-heading); font-size:15px; font-weight:900; margin-top:2px;">${d.num}</div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+
+          <!-- Start Time and End Time Clean Fields -->
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px;">
+            <div class="swp-input-box">
+              <span class="swp-notched-label">START TIME</span>
+              <input type="time" class="swp-field" style="font-family:var(--font-heading); font-size:14px; font-weight:800;" value="${eventData.startTime}" onchange="eventData.startTime = this.value; renderMobileScreen();">
+            </div>
+
+            <div class="swp-input-box">
+              <span class="swp-notched-label">END TIME</span>
+              <input type="time" class="swp-field" style="font-family:var(--font-heading); font-size:14px; font-weight:800;" value="${eventData.endTime}" onchange="eventData.endTime = this.value; renderMobileScreen();">
+            </div>
+          </div>
+
+
+
+          <div style="flex:1;"></div>
+
+          <!-- Stepper Dots -->
+          <div class="swp-dots-row">
+            <div class="swp-dot"></div>
+            <div class="swp-dot"></div>
+            <div class="swp-dot"></div>
+            <div class="swp-dot active"></div>
+            <div class="swp-dot"></div>
+            <div class="swp-dot"></div>
+          </div>
+
+          <button class="swp-cta-btn" onclick="navTo('swp_who')">
+            Continue to WHO
+          </button>
+        </div>
+      `;
+    }
+
+    /* SCREEN 7: EVENT DETAILS STEP 5 - WHO */
+    function renderSwpWhoScreen() {
+      return `
+        <div class="swp-screen-header">
+          <div class="swp-back-btn" onclick="navTo('swp_when')"><i class="fa fa-chevron-left"></i></div>
+          <div class="swp-screen-title">EVENT DETAILS</div>
+          <span class="swp-step-badge">5 of 6</span>
+        </div>
+
+        <div class="swp-page-body">
+          <div class="swp-section-heading">
+            <div class="swp-heading-main">WHO</div>
+            <div class="swp-heading-sub">Set event capacity and invite players</div>
+          </div>
+
+          <!-- Clean Capacity Stepper -->
+          <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:12px; padding:12px; margin-bottom:12px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div>
+                <div style="font-family:var(--font-heading); font-size:12px; font-weight:800; color:var(--swp-navy);">Max Player Capacity</div>
+                <div style="font-size:10.5px; color:var(--swp-text-muted);">Total players needed for this event</div>
+              </div>
+              <div style="display:flex; align-items:center; gap:10px;">
+                <button style="width:32px; height:32px; border-radius:8px; border:1px solid var(--swp-border); background:#F8FAFC; font-weight:900; font-size:16px; cursor:pointer;" onclick="if(eventData.totalPlayers > 2) { eventData.totalPlayers--; renderMobileScreen(); }">−</button>
+                <span style="font-family:var(--font-heading); font-size:16px; font-weight:900; min-width:24px; text-align:center;">${eventData.totalPlayers}</span>
+                <button style="width:32px; height:32px; border-radius:8px; border:1px solid var(--swp-border); background:#F8FAFC; font-weight:900; font-size:16px; cursor:pointer;" onclick="if(eventData.totalPlayers < 32) { eventData.totalPlayers++; renderMobileScreen(); }">+</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Players Card: User-friendly naming: Players (3 / 8) with Integrated Name & Email Fields -->
+          <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:12px; padding:12px; margin-bottom:14px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+              <span style="font-family:var(--font-heading); font-size:12.5px; font-weight:800; color:var(--swp-navy);">
+                Players (${eventData.playersAdded.length} / ${eventData.totalPlayers})
+              </span>
+              <span style="font-size:10px; font-weight:800; color:${eventData.playersAdded.length >= eventData.totalPlayers ? '#10B981' : 'var(--swp-primary)'}; background:${eventData.playersAdded.length >= eventData.totalPlayers ? '#ECFDF5' : 'var(--swp-primary-light)'}; padding:2px 8px; border-radius:99px;">
+                ${eventData.totalPlayers - eventData.playersAdded.length > 0 ? (eventData.totalPlayers - eventData.playersAdded.length) + ' Spots Open' : 'Squad Full'}
+              </span>
+            </div>
+
+            <!-- Confirmed / Added Players List -->
+            <div style="display:flex; flex-direction:column; gap:4px; margin-bottom:12px;">
+              ${eventData.playersAdded.map((p, idx) => `
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:7px 0; ${idx > 0 ? 'border-top:1px solid #F1F5F9;' : ''}">
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <div style="width:30px; height:30px; border-radius:6px; background:${p.role === 'Host' ? 'var(--swp-navy)' : p.status === 'invited' ? '#F59E0B' : 'var(--swp-primary)'}; color:#FFF; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:11.5px;">
+                      ${p.initial || p.name[0].toUpperCase()}
+                    </div>
+                    <div>
+                      <div style="font-size:12px; font-weight:700;">${p.name}</div>
+                      <div style="font-size:10px; color:var(--swp-text-muted);">${p.email || (p.role === 'Host' ? 'Organizer' : 'Confirmed')}</div>
+                    </div>
+                  </div>
+                  <div style="display:flex; align-items:center; gap:6px;">
+                    <span style="font-size:9.5px; font-weight:800; padding:2px 6px; border-radius:4px; ${p.role === 'Host' ? 'background:#ECFDF5; color:#047857;' : p.status === 'invited' ? 'background:#FEF3C7; color:#92400E;' : 'background:#EFF6FF; color:#1D4ED8;'}">
+                      ${p.role === 'Host' ? 'HOST' : p.status === 'invited' ? 'INVITED' : 'CONFIRMED'}
+                    </span>
+                    ${idx > 0 ? `
+                      <button style="border:none; background:transparent; color:#94A3B8; font-size:13px; cursor:pointer; padding:2px;" title="Remove player" onclick="handleRemovePlayer(${idx})">
+                        <i class="fa fa-circle-xmark"></i>
+                      </button>
+                    ` : ''}
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+
+            <!-- Integrated Add Player by Name & Email (Directly in list for external players not in system) -->
+            <div style="background:#F8FAFC; border:1px dashed var(--swp-border); border-radius:10px; padding:10px;">
+              <div style="font-family:var(--font-heading); font-size:11px; font-weight:800; color:var(--swp-navy); margin-bottom:6px; display:flex; align-items:center; gap:6px;">
+                <i class="fa fa-user-plus" style="color:var(--swp-primary);"></i> Add Player (Not in system)
+              </div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:6px;">
+                <input type="text" id="inline-player-name" class="swp-field" style="height:36px; font-size:11.5px;" placeholder="Player Name">
+                <input type="email" id="inline-player-email" class="swp-field" style="height:36px; font-size:11.5px;" placeholder="Player Email">
+              </div>
+              <button style="width:100%; height:34px; border-radius:6px; border:none; background:var(--swp-primary); color:#FFF; font-family:var(--font-heading); font-size:11px; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;" onclick="handleInlineAddPlayer()">
+                <i class="fa fa-envelope"></i> Add & Send Invite
+              </button>
+            </div>
+          </div>
+
+          <div style="flex:1;"></div>
+
+          <!-- Stepper Dots -->
+          <div class="swp-dots-row">
+            <div class="swp-dot"></div>
+            <div class="swp-dot"></div>
+            <div class="swp-dot"></div>
+            <div class="swp-dot"></div>
+            <div class="swp-dot active"></div>
+            <div class="swp-dot"></div>
+          </div>
+
+          <button class="swp-cta-btn" onclick="navTo('swp_how')">
+            Continue to HOW
+          </button>
+        </div>
+      `;
+    }
+
+    /* SCREEN 8: EVENT DETAILS STEP 6 - HOW TO JOIN */
+    function renderSwpHowScreen() {
+      const isDirect = (eventData.joinPolicy === 'direct');
+
+      return `
+        <div class="swp-screen-header">
+          <div class="swp-back-btn" onclick="navTo('swp_who')"><i class="fa fa-chevron-left"></i></div>
+          <div class="swp-screen-title">EVENT DETAILS</div>
+          <span class="swp-step-badge">6 of 6</span>
+        </div>
+
+        <div class="swp-page-body">
+          <div class="swp-section-heading">
+            <div class="swp-heading-main">HOW TO JOIN</div>
+            <div class="swp-heading-sub">Choose player join permission & access</div>
+          </div>
+
+          <!-- Join Permission Selection (Interactive Selectable Cards with Radio Circles) -->
+          <div style="font-family:var(--font-heading); font-size:11.5px; font-weight:800; color:var(--swp-text-muted); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.5px;">
+            Join Permission Policy
+          </div>
+          
+          <!-- Option 1: Direct Join -->
+          <div class="swp-policy-card ${isDirect ? 'active' : ''}" onclick="setEventJoinPolicy('direct')">
+            <div style="display:flex; align-items:center; justify-content:space-between;">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <div class="swp-policy-radio">
+                  <div class="swp-policy-radio-dot"></div>
+                </div>
+                <div style="display:flex; align-items:center; gap:6px;">
+                  <span style="font-family:var(--font-heading); font-size:13.5px; font-weight:800; color:var(--swp-text-main);">Direct Join</span>
+                  <i class="fa fa-circle-info" style="color:var(--swp-primary); font-size:13px; cursor:pointer;" title="Tap for details" onclick="event.stopPropagation(); showToast('Direct Join: Players join immediately without creator approval until player capacity is filled.')"></i>
+                </div>
+              </div>
+              <span style="font-size:9.5px; font-weight:800; background:#ECFDF5; color:#047857; padding:2px 8px; border-radius:4px; letter-spacing:0.3px;">Instant RSVP</span>
+            </div>
+          </div>
+
+          <!-- Option 2: Approval Required -->
+          <div class="swp-policy-card ${!isDirect ? 'active' : ''}" onclick="setEventJoinPolicy('approval')">
+            <div style="display:flex; align-items:center; justify-content:space-between;">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <div class="swp-policy-radio">
+                  <div class="swp-policy-radio-dot"></div>
+                </div>
+                <div style="display:flex; align-items:center; gap:6px;">
+                  <span style="font-family:var(--font-heading); font-size:13.5px; font-weight:800; color:var(--swp-text-main);">Approval Required</span>
+                  <i class="fa fa-circle-info" style="color:#B45309; font-size:13px; cursor:pointer;" title="Tap for details" onclick="event.stopPropagation(); showToast('Approval Required: Players submit a join request. You inspect their passport and approve them before they are added.')"></i>
+                </div>
+              </div>
+              <span style="font-size:9.5px; font-weight:800; background:#FEF3C7; color:#92400E; padding:2px 8px; border-radius:4px; letter-spacing:0.3px;">Host Review</span>
+            </div>
+          </div>
+
+          <!-- Summary Card of Event To Be Published -->
+          <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:12px; padding:12px; margin-top:8px; margin-bottom:14px;">
+            <div style="font-family:var(--font-heading); font-size:11.5px; font-weight:800; color:var(--swp-navy); margin-bottom:6px;">
+              Event Ready to Publish
+            </div>
+            <div style="font-size:11.5px; line-height:1.55;">
+              <div><b>Event:</b> ${eventData.eventName || 'ShallWe-Play Event'} (${eventData.sport})</div>
+              <div><b>Place:</b> ${eventData.isOnline ? 'Online Meeting' : eventData.clubName}</div>
+              <div><b>When:</b> ${eventData.dayName} ${eventData.dayNum} Nov · ${eventData.startTime} - ${eventData.endTime}</div>
+              <div><b>Players:</b> ${eventData.playersAdded.length} of ${eventData.totalPlayers} spots filled</div>
+              <div><b>Join Policy:</b> <span style="font-weight:800; color:${isDirect ? '#047857' : '#B45309'};">${isDirect ? 'Direct Join (Instant RSVP)' : 'Approval Required (Host Review)'}</span></div>
+            </div>
+          </div>
+
+          <div style="flex:1;"></div>
+
+          <!-- Stepper Dots -->
+          <div class="swp-dots-row">
+            <div class="swp-dot"></div>
+            <div class="swp-dot"></div>
+            <div class="swp-dot"></div>
+            <div class="swp-dot"></div>
+            <div class="swp-dot"></div>
+            <div class="swp-dot active"></div>
+          </div>
+
+          <button class="swp-cta-btn" style="background:#10B981;" onclick="publishEventAndGoToCard()">
+            Publish Event
+          </button>
+        </div>
+      `;
+    }
+
+    /* SCREEN 9: DEDICATED EVENT DETAIL SCREEN (Mobile Application Design System) */
+    function renderEventDetailScreen() {
+      const data = getEventById(activeDetailEventId);
+      const isCurrent = (!data.id || data.id === 'current');
+      const hasJoined = data.playersAdded.some(p => p.name.includes('Emma'));
+      const isApproval = (data.joinPolicy === 'approval');
+      const isRequested = (data.joinRequestStatus === 'requested');
+      const isApproved = (data.joinRequestStatus === 'approved');
+      const spotsRemaining = Math.max(0, data.totalPlayers - data.playersAdded.length);
+
+      const coverImg = (data.photos && data.photos.length > 0)
+        ? data.photos[0]
+        : 'https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=800&auto=format&fit=crop&q=80';
+
+      const dateStr = data.dayName 
+        ? `${data.dayName} ${data.dayNum} Nov 2026` 
+        : (data.dateDisplay || '18/11/2026');
+      const venueStr = data.isOnline 
+        ? 'Online Meeting' 
+        : (data.clubName || 'Club Venue');
+      const addressStr = data.isOnline 
+        ? (data.onlineLink || 'https://meet.google.com/swp-match')
+        : (data.address || 'Oostzeedijk 120, 3062 CG Rotterdam');
+
+      return `
+        <div class="swp-detail-screen">
+          <!-- Top App Bar with Back Button and Quick Actions -->
+          <div class="swp-screen-header" style="background:#FFF; border-bottom:1px solid var(--swp-border);">
+            <div class="swp-back-btn" onclick="navBack()"><i class="fa fa-chevron-left"></i></div>
+            <div class="swp-screen-title">EVENT DETAILS</div>
+            <div style="display:flex; gap:12px; align-items:center;">
+              <i class="fa fa-share-nodes" style="color:var(--swp-text-main); font-size:15px; cursor:pointer;" onclick="showToast('Event link copied to clipboard!')"></i>
+              <i class="fa fa-bookmark" style="color:var(--swp-text-main); font-size:15px; cursor:pointer;" onclick="showToast('Event saved to bookmarks')"></i>
+            </div>
+          </div>
+
+          <div class="swp-page-body" style="padding:0; overflow-y:auto; scrollbar-width:none;">
+            <!-- Hero Banner Image with Sports Pill & Status -->
+            <div class="swp-detail-hero-banner" style="background-image:url('${coverImg}');">
+              <div class="swp-detail-hero-overlay">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <span style="font-size:11px; font-weight:800; background:rgba(255,255,255,0.95); color:var(--swp-primary); padding:3px 10px; border-radius:99px;">
+                    ${data.sport}
+                  </span>
+                  <span style="font-size:10px; font-weight:800; background:rgba(6,29,66,0.85); color:#FFF; padding:3px 9px; border-radius:99px; border:1px solid rgba(255,255,255,0.2);">
+                    ${isApproval ? 'Approval Required' : 'Instant RSVP'}
+                  </span>
+                </div>
+                <div>
+                  <div style="font-family:var(--font-heading); font-size:18px; font-weight:900; color:#FFFFFF; text-shadow:0 2px 4px rgba(0,0,0,0.5);">
+                    ${data.eventName || data.clubName}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Detail Screen Body Content -->
+            <div class="swp-detail-body">
+              
+              <!-- Host Profile Snippet Card -->
+              <div class="swp-detail-section-card" style="display:flex; justify-content:space-between; align-items:center;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <div style="width:40px; height:40px; border-radius:20px; background:var(--swp-primary); color:#FFF; display:flex; align-items:center; justify-content:center; font-family:var(--font-heading); font-size:16px; font-weight:800;">
+                    ${data.creatorName ? data.creatorName[0] : 'M'}
+                  </div>
+                  <div>
+                    <div style="font-family:var(--font-heading); font-size:13.5px; font-weight:800; color:var(--swp-text-main);">
+                      Hosted by ${data.creatorName}
+                    </div>
+                    <div style="font-size:11px; color:var(--swp-text-muted);">
+                      Verified Host · Level 5.0 (98% Synergy)
+                    </div>
+                  </div>
+                </div>
+                <button style="padding:6px 10px; border-radius:6px; background:var(--swp-primary-light); color:var(--swp-primary); border:1px solid var(--swp-primary-border); font-family:var(--font-heading); font-size:10.5px; font-weight:800; cursor:pointer;" onclick="navTo('player_passport')">
+                  Passport →
+                </button>
+              </div>
+
+              <!-- When & Where Schedule Card -->
+              <div class="swp-detail-section-card">
+                <div class="swp-detail-section-label">Schedule & Location</div>
+                
+                <div style="display:flex; align-items:flex-start; gap:10px; margin-bottom:12px;">
+                  <div style="width:34px; height:34px; border-radius:8px; background:#EFF6FF; color:var(--swp-primary); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                    <i class="fa fa-calendar-days" style="font-size:15px;"></i>
+                  </div>
+                  <div>
+                    <div style="font-family:var(--font-heading); font-size:13px; font-weight:800;">${dateStr}</div>
+                    <div style="font-size:11.5px; color:var(--swp-text-muted);">${data.startTime} - ${data.endTime} (90 minutes)</div>
+                  </div>
+                </div>
+
+                <div style="display:flex; align-items:flex-start; gap:10px;">
+                  <div style="width:34px; height:34px; border-radius:8px; background:#FEF2F2; color:#EF4444; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                    <i class="fa fa-location-dot" style="font-size:15px;"></i>
+                  </div>
+                  <div style="flex:1;">
+                    <div style="font-family:var(--font-heading); font-size:13px; font-weight:800;">${venueStr}</div>
+                    <div style="font-size:11px; color:var(--swp-text-muted); line-height:1.4;">${addressStr}</div>
+                    ${data.courtNumber ? `<div style="font-size:10.5px; font-weight:700; color:var(--swp-primary); margin-top:2px;">Court: ${data.courtNumber}</div>` : ''}
+                    <div style="margin-top:6px;">
+                      ${data.isOnline ? `
+                        <button style="padding:4px 10px; border-radius:6px; background:#F1F5F9; border:1px solid #CBD5E1; font-size:10.5px; font-weight:700; cursor:pointer;" onclick="showToast('Meeting link copied!')">
+                          <i class="fa fa-copy"></i> Copy Link
+                        </button>
+                      ` : `
+                        <button style="padding:4px 10px; border-radius:6px; background:#F1F5F9; border:1px solid #CBD5E1; font-size:10.5px; font-weight:700; cursor:pointer;" onclick="showToast('Opening Google Maps...')">
+                          <i class="fa fa-diamond-turn-right"></i> Directions
+                        </button>
+                      `}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Description & Match Details Card -->
+              <div class="swp-detail-section-card">
+                <div class="swp-detail-section-label">About the Event</div>
+                <div style="font-size:12px; color:var(--swp-text-main); line-height:1.55; margin-bottom:10px;">
+                  ${data.description || 'Casual friendly fixture. Match balls provided. All player levels welcome!'}
+                </div>
+                <div style="display:flex; gap:6px; flex-wrap:wrap;">
+                  <span style="font-size:10px; font-weight:700; background:#F1F5F9; color:#475569; padding:3px 8px; border-radius:6px;">Balls provided</span>
+                  <span style="font-size:10px; font-weight:700; background:#F1F5F9; color:#475569; padding:3px 8px; border-radius:6px;">All skill tiers</span>
+                  <span style="font-size:10px; font-weight:700; background:#F1F5F9; color:#475569; padding:3px 8px; border-radius:6px;">Fair-play etiquette</span>
+                </div>
+              </div>
+
+              <!-- Squad Roster List Card -->
+              <div class="swp-detail-section-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                  <div class="swp-detail-section-label" style="margin-bottom:0;">
+                    Players (${data.playersAdded.length} / ${data.totalPlayers})
+                  </div>
+                  <span style="font-size:11px; font-weight:800; color:var(--swp-primary); cursor:pointer;" onclick="showToast('Invite sent to friend via email')">
+                    + Invite Player
+                  </span>
+                </div>
+
+                <div style="display:flex; flex-direction:column;">
+                  ${data.playersAdded.map((p, idx) => `
+                    <div class="swp-roster-item">
+                      <div style="display:flex; align-items:center; gap:10px;">
+                        <div class="swp-roster-avatar" style="background:${idx === 0 ? 'var(--swp-navy)' : (idx === 1 ? 'var(--swp-primary)' : '#10B981')};">
+                          ${p.initial || p.name[0]}
+                        </div>
+                        <div>
+                          <div style="font-family:var(--font-heading); font-size:12.5px; font-weight:800;">${p.name}</div>
+                          <div style="font-size:10.5px; color:var(--swp-text-muted);">${p.role || 'Player'} · ${idx === 0 ? 'Certified 5.5' : 'Active Member'}</div>
+                        </div>
+                      </div>
+                      <span style="font-size:10px; font-weight:800; background:${p.role === 'Host' ? '#EFF6FF' : '#ECFDF5'}; color:${p.role === 'Host' ? 'var(--swp-primary)' : '#047857'}; padding:2px 8px; border-radius:4px;">
+                        ${p.role === 'Host' ? 'Host' : 'Confirmed'}
+                      </span>
+                    </div>
+                  `).join('')}
+
+                  ${Array.from({ length: Math.max(0, data.totalPlayers - data.playersAdded.length) }).map((_, i) => `
+                    <div class="swp-roster-item" style="opacity:0.65;">
+                      <div style="display:flex; align-items:center; gap:10px;">
+                        <div style="width:32px; height:32px; border-radius:16px; border:1.5px dashed var(--swp-border); display:flex; align-items:center; justify-content:center; color:var(--swp-text-muted); font-size:11px;">
+                          <i class="fa fa-user-plus"></i>
+                        </div>
+                        <div style="font-size:12px; color:var(--swp-text-muted); font-weight:600;">Open Spot #${data.playersAdded.length + i + 1}</div>
+                      </div>
+                      <span style="font-size:9.5px; font-weight:700; color:var(--swp-text-muted);">Available</span>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+
+              ${(data.photos && data.photos.length > 0) ? `
+                <!-- Photos Strip -->
+                <div class="swp-detail-section-card">
+                  <div class="swp-detail-section-label">Gallery & Place Preview</div>
+                  <div style="display:flex; gap:8px; overflow-x:auto;">
+                    ${data.photos.map(p => `
+                      <div style="width:72px; height:72px; border-radius:8px; background-image:url('${p}'); background-size:cover; background-position:center; border:1px solid var(--swp-border); flex-shrink:0; cursor:pointer;" onclick="showToast('Photo expanded')"></div>
+                    `).join('')}
+                  </div>
+                </div>
+              ` : ''}
+
+            </div>
+          </div>
+
+          <!-- Sticky Bottom Action Bar -->
+          <div class="swp-detail-bottom-bar">
+            <div>
+              <div style="font-family:var(--font-heading); font-size:14px; font-weight:900; color:var(--swp-navy);">
+                ${spotsRemaining} spots left
+              </div>
+              <div style="font-size:10.5px; color:var(--swp-text-muted); font-weight:700;">
+                ${isApproval ? 'Host Approval' : 'Instant RSVP'}
+              </div>
+            </div>
+
+            <div style="display:flex; gap:8px;">
+              ${isApproval ? (
+                isRequested ? `
+                  <button class="swp-card-btn-action pending" style="height:40px; padding:0 16px; font-size:12px;" onclick="cancelEventRequest()">
+                    <i class="fa fa-hourglass-half"></i> Requested · Withdraw
+                  </button>
+                ` : (isApproved || hasJoined) ? `
+                  <button class="swp-card-btn-action confirmed" style="height:40px; padding:0 16px; font-size:12px;" onclick="leaveEvent()">
+                    <i class="fa fa-circle-check"></i> Spot Confirmed · Leave
+                  </button>
+                ` : `
+                  <button class="swp-card-btn-action request" style="height:40px; padding:0 18px; font-size:12px;" onclick="simulatePlayerRequestJoin(true)">
+                    <i class="fa fa-paper-plane"></i> Request to Join
+                  </button>
+                `
+              ) : (
+                hasJoined ? `
+                  <button class="swp-card-btn-action confirmed" style="height:40px; padding:0 16px; font-size:12px;" onclick="leaveEvent()">
+                    <i class="fa fa-circle-check"></i> Joined · Leave Squad
+                  </button>
+                ` : `
+                  <button class="swp-card-btn-action join" style="height:40px; padding:0 20px; font-size:12px;" onclick="simulatePlayerDirectJoin(true)">
+                    <i class="fa fa-plus"></i> Join Event Now
+                  </button>
+                `
+              )}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderPlayerCardScreen() {
+      return renderEventDetailScreen();
+    }
+
+    /* RENDER AUTHENTIC SWP JOIN CARD (Exact Ground Truth from SwpJoinCard.tsx) */
+    function renderAuthenticSwpJoinCard(data) {
+      if (!data) data = eventData;
+      const isCurrent = (!data.id || data.id === 'current');
+      const targetId = isCurrent ? 'current' : data.id;
+      const hasJoined = data.playersAdded.some(p => p.name.includes('Emma'));
+      const isApproval = (data.joinPolicy === 'approval');
+      const isRequested = (data.joinRequestStatus === 'requested');
+      const isApproved = (data.joinRequestStatus === 'approved');
+      const spotsRemaining = Math.max(0, data.totalPlayers - data.playersAdded.length);
+      const isFree = (data.cost === 0 || data.pricingModel === 'free');
+      const perPlayer = isFree ? 'FREE' : '€ ' + (data.cost ? (data.cost / (data.totalPlayers || 4)).toFixed(2) : '10.00');
+
+      const dateStr = data.dayName 
+        ? `${data.dayName} ${data.dayNum} Nov` 
+        : (data.dateDisplay || '18/11/2026');
+      const venueStr = data.isOnline 
+        ? 'Online Match' 
+        : `${data.clubName} · ★ 4.9`;
+
+      let btnLabel = '';
+      let btnClass = '';
+      if (hasJoined || isApproved) {
+        btnLabel = '<i class="fa fa-circle-check"></i> Spot Confirmed · View Details';
+        btnClass = 'joined';
+      } else if (isRequested) {
+        btnLabel = '<i class="fa fa-hourglass-half"></i> Requested (Pending) · View Details';
+        btnClass = 'pending';
+      } else if (isApproval) {
+        btnLabel = '<i class="fa fa-paper-plane"></i> Request to Join · View Details';
+      } else {
+        btnLabel = '<i class="fa fa-plus"></i> Join Team · View Details';
+      }
+
+      return `
+        <div class="swp-join-card" onclick="openEventDetail('${targetId}')">
+          <!-- Main Content (Exact Layout from SwpJoinCard.tsx) -->
+          <div class="swp-card-main">
+            <!-- Top Row: Court Type & Status -->
+            <div class="swp-card-type-row">
+              <div style="display:flex; align-items:center; gap:6px;">
+                <span class="swp-card-type-text">${data.isOnline ? 'Online' : 'Out house'}</span>
+                ${isApproval ? `
+                  <span style="font-size:9.5px; font-weight:800; color:#92400E; background:#FEF3C7; padding:1px 6px; border-radius:4px;">
+                    Approval Required
+                  </span>
+                ` : ''}
+              </div>
+              <span class="swp-card-status-text">Active</span>
+            </div>
+
+            <!-- Header Row: Date & Time on Left, Sport & Level on Right -->
+            <div class="swp-card-header">
+              <div>
+                <span class="swp-card-date">${dateStr}</span>
+                <span class="swp-card-time">${data.startTime} - ${data.endTime}</span>
+              </div>
+              <div class="swp-card-matchinfo">
+                <span class="swp-card-matchtype">${data.sport}</span>
+                <span class="swp-card-matchlevel">${data.playerLevel || 'All Levels'}</span>
+              </div>
+            </div>
+
+            ${data.eventName ? `<div class="swp-card-eventname">${data.eventName}</div>` : ''}
+            <div class="swp-card-creator">Creator: ${data.creatorName}</div>
+
+            <!-- Middle Section: Players (Clean without cramped small M|E|S boxes) -->
+            <div class="swp-card-players-row">
+              <span style="font-size:11px; font-weight:700; color:var(--swp-text-main);">
+                <i class="fa fa-users" style="color:var(--swp-primary); margin-right:4px;"></i> Players: <b>${data.playersAdded.length} / ${data.totalPlayers}</b>
+              </span>
+              <span style="font-size:10px; font-weight:700; color:var(--swp-text-muted);">
+                ${spotsRemaining > 0 ? spotsRemaining + ' spots left' : 'Full'}
+              </span>
+            </div>
+
+            <!-- Location & Rating -->
+            <div class="swp-card-location">
+              <div class="swp-card-clubname">
+                <i class="fa fa-location-dot" style="color:var(--swp-primary); font-size:12px;"></i> ${venueStr}
+              </div>
+              ${data.courtNumber ? `<div style="font-size:10.5px; color:var(--swp-text-muted);">${data.courtNumber}</div>` : ''}
+            </div>
+
+            <!-- Authentic Outlined View Details Action Button -->
+            <button class="swp-card-manage-btn ${btnClass}">
+              ${btnLabel}
+            </button>
+          </div>
+
+          <!-- Right Blue Price Bar (Signature SwpJoinCard Component) -->
+          <div class="swp-card-pricebar">
+            <div class="swp-card-priceicon">
+              <i class="fa ${data.sport === 'Tennis' ? 'fa-baseball' : 'fa-table-tennis-paddle-ball'}"></i>
+            </div>
+            <div class="swp-card-priceval">
+              <div class="swp-card-pricelabel">PRICE</div>
+              <div class="swp-card-priceamount">${perPlayer}</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    /* SCREEN 10: MANAGE SWP */
+    function renderManageSwpScreen() {
+      const hasEmma = eventData.playersAdded.some(p => p.name.includes('Emma'));
+
+      return `
+        <div class="swp-screen-header">
+          <div class="swp-back-btn" onclick="navTo('home')"><i class="fa fa-chevron-left"></i></div>
+          <div class="swp-screen-title">MANAGE SWP</div>
+          <div style="font-size:11px; font-weight:800; color:var(--swp-primary); cursor:pointer;" onclick="navTo('swp_card')">Player View</div>
+        </div>
+
+        <div class="swp-page-body">
+          <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:12px; padding:14px; margin-bottom:12px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+              <span style="font-size:11px; font-weight:800; color:#047857; background:#ECFDF5; padding:2px 8px; border-radius:99px;">
+                ${eventData.sport}
+              </span>
+              <span style="font-size:11px; font-weight:800; color:#10B981;">ACTIVE</span>
+            </div>
+            <div style="font-family:var(--font-heading); font-size:17px; font-weight:900;">${eventData.clubName}</div>
+            <div style="font-size:11.5px; color:var(--swp-text-muted); margin-bottom:10px;">
+              <i class="fa fa-location-dot" style="color:var(--swp-primary);"></i> ${eventData.courtNumber}
+            </div>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; background:#F8FAFC; padding:8px 12px; border-radius:8px;">
+              <span style="font-size:11.5px; color:var(--swp-text-muted); font-weight:600;">Match Date & Time</span>
+              <span style="font-size:11.5px; font-weight:800;">${eventData.dateDisplay} · ${eventData.startTime}</span>
+            </div>
+          </div>
+
+          <!-- Pending Requests Section (If Approval Policy active) -->
+          <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:12px; padding:12px; margin-bottom:12px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span style="font-family:var(--font-heading); font-size:12px; font-weight:800;">Join Requests</span>
+              <span style="font-size:10px; font-weight:800; background:#EFF6FF; color:var(--swp-primary); padding:2px 6px; border-radius:4px;">
+                ${eventData.joinRequestStatus === 'requested' ? '1 Pending' : '0 Pending'}
+              </span>
+            </div>
+
+            ${eventData.joinRequestStatus === 'requested' ? `
+              <div style="background:#FEF3C7; border:1px solid #FDE68A; border-radius:10px; padding:10px; margin-bottom:8px;">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <div style="width:34px; height:34px; border-radius:17px; background:#F59E0B; color:#FFF; display:flex; align-items:center; justify-content:center; font-weight:800;">E</div>
+                    <div>
+                      <div style="font-size:12px; font-weight:800;">Emma Watson</div>
+                      <div style="font-size:10.5px; color:#92400E;">Level 5.5 · 94% Synergy</div>
+                    </div>
+                  </div>
+                  <span style="font-size:10px; font-weight:800; color:var(--swp-primary); text-decoration:underline; cursor:pointer;" onclick="navTo('compare_passport')">Inspect Passport</span>
+                </div>
+                <div style="display:flex; gap:6px; margin-top:8px;">
+                  <button style="flex:1; padding:6px; border-radius:6px; background:#10B981; color:#FFF; border:none; font-size:11px; font-weight:800; cursor:pointer;" onclick="approveHostRequest()">Approve</button>
+                  <button style="flex:1; padding:6px; border-radius:6px; background:#EF4444; color:#FFF; border:none; font-size:11px; font-weight:800; cursor:pointer;" onclick="declineHostRequest()">Decline</button>
+                </div>
+              </div>
+            ` : `
+              <div style="font-size:11px; color:var(--swp-text-muted); padding:6px 0;">No pending player join requests.</div>
+            `}
+          </div>
+
+          <!-- Confirmed Squad Roster -->
+          <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:12px; padding:12px;">
+            <div style="font-family:var(--font-heading); font-size:12px; font-weight:800; margin-bottom:8px;">
+              Confirmed Squad (${eventData.playersAdded.length} / ${eventData.totalPlayers})
+            </div>
+            ${eventData.playersAdded.map(p => `
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 0; border-bottom:1px solid #F1F5F9;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <div style="width:28px; height:28px; border-radius:6px; background:var(--swp-primary); color:#FFF; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:11px;">${p.initial}</div>
+                  <span style="font-size:12px; font-weight:700;">${p.name}</span>
+                </div>
+                <span style="font-size:10px; font-weight:800; color:var(--swp-text-muted);">${p.role}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    /* SCREEN 11: BOOKINGS HUB (Exact 4 Sub-Tabs from BookingsScreen.tsx) */
+    function renderBookingsHubScreen() {
+      return `
+        <div class="swp-screen-header">
+          <div class="swp-screen-title" style="margin-left:8px;">BOOKINGS</div>
+          <div style="width:32px; height:32px; border-radius:8px; background:var(--swp-bg-subtle); display:flex; align-items:center; justify-content:center; color:var(--swp-text-main);"><i class="fa fa-sliders"></i></div>
+        </div>
+
+        <!-- 4 Sub-Tabs Bar (New, Upcoming, Coming Soon, SWP Request) -->
+        <div style="display:flex; background:#E2E8F0; padding:3px; margin:10px 16px 4px; border-radius:8px; overflow-x:auto;">
+          <button style="flex:1; padding:6px 8px; border-radius:6px; border:none; font-family:var(--font-heading); font-size:11px; font-weight:800; cursor:pointer; background:${currentBookingsTab === 'new' ? '#3B82F6' : 'transparent'}; color:${currentBookingsTab === 'new' ? '#FFF' : '#475569'}; white-space:nowrap;" onclick="setBookingsTab('new')">
+            New
+          </button>
+          <button style="flex:1; padding:6px 8px; border-radius:6px; border:none; font-family:var(--font-heading); font-size:11px; font-weight:800; cursor:pointer; background:${currentBookingsTab === 'upcoming' ? '#3B82F6' : 'transparent'}; color:${currentBookingsTab === 'upcoming' ? '#FFF' : '#475569'}; white-space:nowrap;" onclick="setBookingsTab('upcoming')">
+            Upcoming
+          </button>
+          <button style="flex:1; padding:6px 8px; border-radius:6px; border:none; font-family:var(--font-heading); font-size:11px; font-weight:800; cursor:pointer; background:${currentBookingsTab === 'comingSoon' ? '#3B82F6' : 'transparent'}; color:${currentBookingsTab === 'comingSoon' ? '#FFF' : '#475569'}; white-space:nowrap;" onclick="setBookingsTab('comingSoon')">
+            Coming Soon
+          </button>
+          <button style="flex:1; padding:6px 8px; border-radius:6px; border:none; font-family:var(--font-heading); font-size:11px; font-weight:800; cursor:pointer; background:${(currentBookingsTab === 'events' || currentBookingsTab === 'swpRequest') ? '#3B82F6' : 'transparent'}; color:${(currentBookingsTab === 'events' || currentBookingsTab === 'swpRequest') ? '#FFF' : '#475569'}; white-space:nowrap; position:relative;" onclick="setBookingsTab('events')">
+            Events
+            ${eventData.joinRequestStatus === 'requested' ? '<span style="position:absolute; top:4px; right:4px; width:6px; height:6px; border-radius:50%; background:#EF4444;"></span>' : ''}
+          </button>
+        </div>
+
+        <div class="swp-page-body">
+          ${renderBookingsSubTabContent()}
+        </div>
+      `;
+    }
+
+    function renderBookingsSubTabContent() {
+      if (currentBookingsTab === 'new') {
+        return `
+          <!-- Search Bar -->
+          <div class="swp-input-box" style="margin-bottom:10px;">
+            <i class="fa fa-magnifying-glass" style="color:var(--swp-text-muted);"></i>
+            <input type="text" class="swp-field" placeholder="Search clubs, courts or cities...">
+          </div>
+
+          <!-- Calendar Days Strip -->
+          <div style="display:flex; gap:6px; margin-bottom:14px; overflow-x:auto;">
+            ${['Tue 17', 'Wed 18', 'Thu 19', 'Fri 20', 'Sat 21'].map((d, idx) => `
+              <div style="flex:1; text-align:center; padding:8px 6px; border-radius:8px; border:1px solid ${idx === 1 ? 'var(--swp-primary)' : 'var(--swp-border)'}; background:${idx === 1 ? 'var(--swp-primary)' : '#FFF'}; color:${idx === 1 ? '#FFF' : 'var(--swp-text-main)'}; cursor:pointer;" onclick="showToast('Date selected: ' + '${d}')">
+                <div style="font-size:9.5px; opacity:0.8;">${d.split(' ')[0]}</div>
+                <div style="font-family:var(--font-heading); font-size:13px; font-weight:900;">${d.split(' ')[1]}</div>
+              </div>
+            `).join('')}
+          </div>
+
+          <!-- Available Court Slot Card -->
+          <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:12px; padding:12px; margin-bottom:10px;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px;">
+              <div>
+                <div style="font-family:var(--font-heading); font-size:13.5px; font-weight:800;">Club de Padel Rotterdam</div>
+                <div style="font-size:11px; color:var(--swp-text-muted);"><i class="fa fa-location-dot"></i> Court 4 · Indoor Panoramic</div>
+              </div>
+              <span style="font-size:11px; font-weight:900; color:var(--swp-primary);">€43.50</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+              <span style="font-size:11px; font-weight:700; color:var(--swp-text-muted);"><i class="fa fa-clock"></i> 18:00 - 19:30</span>
+              <button style="padding:6px 12px; border-radius:6px; background:var(--swp-primary); color:#FFF; border:none; font-size:11px; font-weight:800; cursor:pointer;" onclick="navTo('book_court')">Book Now</button>
+            </div>
+          </div>
+        `;
+      } else if (currentBookingsTab === 'upcoming') {
+        return `
+          <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:12px; padding:14px; margin-bottom:10px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+              <span style="font-size:10px; font-weight:800; background:#ECFDF5; color:#047857; padding:2px 8px; border-radius:99px;">CONFIRMED</span>
+              <span style="font-size:11px; font-weight:800; color:var(--swp-primary);"><i class="fa fa-hourglass-start"></i> In 23 hours</span>
+            </div>
+            <div style="font-family:var(--font-heading); font-size:15px; font-weight:900;">Victoria Padel Rotterdam</div>
+            <div style="font-size:11.5px; color:var(--swp-text-muted); margin-bottom:8px;">Court 3 · Tomorrow at 18:00 - 19:30</div>
+            <div style="border-top:1px dashed var(--swp-border); padding-top:8px; display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-size:11px; font-weight:700; color:var(--swp-text-muted);">Pass ID: SWP-88219</span>
+              <button style="padding:4px 10px; border-radius:6px; background:var(--swp-primary-light); color:var(--swp-primary); border:1px solid var(--swp-primary-border); font-size:10.5px; font-weight:800; cursor:pointer;" onclick="showToast('Digital QR Check-in Pass active!')"><i class="fa fa-qrcode"></i> Pass</button>
+            </div>
+          </div>
+        `;
+      } else if (currentBookingsTab === 'comingSoon') {
+        return `
+          <div style="margin-bottom:10px; font-size:12px; color:var(--swp-text-muted);">
+            <b>704 Partner Clubs</b> joining ShallWe-Play soon:
+          </div>
+          <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:12px; padding:12px; margin-bottom:10px;">
+            <div style="font-family:var(--font-heading); font-size:13.5px; font-weight:800;">SnowWorld Landgraaf</div>
+            <div style="font-size:11px; color:var(--swp-text-muted); margin-bottom:6px;">Indoor Alpine Slopes · 9,500 m²</div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-size:11px; font-weight:800; color:#047857;">Est: €49,50 /hr</span>
+              <span style="font-size:10px; font-weight:700; background:#F1F5F9; color:#475569; padding:2px 6px; border-radius:4px;">Ski / Board</span>
+            </div>
+          </div>
+        `;
+      } else {
+        // Events Tab (All Community and Hosted Events)
+        return `
+          <!-- Search Bar in Events Tab -->
+          <div class="swp-input-box" style="margin-bottom:10px;">
+            <i class="fa fa-magnifying-glass" style="color:var(--swp-text-muted);"></i>
+            <input type="text" class="swp-field" placeholder="Search events, sports, or places...">
+          </div>
+
+          <!-- Filter Pills -->
+          <div style="display:flex; gap:6px; margin-bottom:12px; overflow-x:auto;">
+            <span style="font-size:11px; font-weight:800; background:var(--swp-primary); color:#FFF; padding:4px 12px; border-radius:99px; cursor:pointer;">All Events (3)</span>
+            <span style="font-size:11px; font-weight:700; background:#FFF; border:1px solid var(--swp-border); color:var(--swp-text-muted); padding:4px 12px; border-radius:99px; cursor:pointer;" onclick="showToast('Filtered by My Hosted')">My Hosted (1)</span>
+            <span style="font-size:11px; font-weight:700; background:#FFF; border:1px solid var(--swp-border); color:var(--swp-text-muted); padding:4px 12px; border-radius:99px; cursor:pointer;" onclick="showToast('Filtered by Joined')">Joined</span>
+          </div>
+
+          <!-- Pending Join Request Alert for Host (if approval requested) -->
+          ${eventData.joinRequestStatus === 'requested' ? `
+            <div style="background:#FEF3C7; border:1px solid #FDE68A; border-radius:12px; padding:12px; margin-bottom:12px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <div style="width:32px; height:32px; border-radius:16px; background:#F59E0B; color:#FFF; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:12px;">E</div>
+                  <div>
+                    <div style="font-size:12px; font-weight:800; color:#92400E;">Emma Watson requested to join</div>
+                    <div style="font-size:10.5px; color:#B45309;">${eventData.eventName || 'Rotterdam Padel Friday Night'}</div>
+                  </div>
+                </div>
+                <div style="display:flex; gap:6px;">
+                  <button style="padding:4px 10px; border-radius:6px; background:#10B981; color:#FFF; border:none; font-size:11px; font-weight:800; cursor:pointer;" onclick="approveHostRequest()">Accept</button>
+                  <button style="padding:4px 8px; border-radius:6px; background:#EF4444; color:#FFF; border:none; font-size:11px; font-weight:800; cursor:pointer;" onclick="declineHostRequest()">Decline</button>
+                </div>
+              </div>
+            </div>
+          ` : ''}
+
+          <!-- All Events Feed -->
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            ${renderAuthenticSwpJoinCard(eventData)}
+            ${renderAuthenticSwpJoinCard(communityEvents[0])}
+            ${renderAuthenticSwpJoinCard(communityEvents[1])}
+          </div>
+        `;
+      }
+    }
+
+    /* SCREEN 12: SOCIAL HUB */
+    function renderSocialHubScreen() {
+      return `
+        <div class="swp-screen-header">
+          <div class="swp-screen-title" style="margin-left:8px;">SOCIAL FEED</div>
+          <div style="width:32px; height:32px; border-radius:8px; background:var(--swp-primary-light); color:var(--swp-primary); display:flex; align-items:center; justify-content:center; cursor:pointer;" onclick="showToast('New post composer opened')"><i class="fa fa-pen"></i></div>
+        </div>
+
+        <div class="swp-page-body">
+          <!-- Search Bar -->
+          <div class="swp-input-box" style="margin-bottom:10px;">
+            <i class="fa fa-magnifying-glass" style="color:var(--swp-text-muted);"></i>
+            <input type="text" class="swp-field" placeholder="Search athletes, clubs or feeds...">
+          </div>
+
+          <!-- Social Post Card -->
+          <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:14px; padding:14px; margin-bottom:12px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <div style="width:34px; height:34px; border-radius:17px; background:var(--swp-primary); color:#FFF; display:flex; align-items:center; justify-content:center; font-weight:800;">M</div>
+                <div>
+                  <div style="font-size:12.5px; font-weight:800;">Mukund Patil</div>
+                  <div style="font-size:10.5px; color:var(--swp-text-muted);">2 hours ago · Kralingse Woods</div>
+                </div>
+              </div>
+              <i class="fa fa-ellipsis-vertical" style="color:var(--swp-text-muted);"></i>
+            </div>
+
+            <div style="font-size:12px; color:var(--swp-text-main); margin-bottom:8px; line-height:1.4;">
+              Great trail run around the lake today! Hosting a 5W session tomorrow morning, 2 spots remaining for intermediate pace runners.
+            </div>
+
+            <div style="height:140px; border-radius:10px; overflow:hidden; margin-bottom:10px; border:1px solid var(--swp-border);">
+              <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?w=400&auto=format&fit=crop&q=80" style="width:100%; height:100%; object-fit:cover;" alt="Post image">
+            </div>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid #F1F5F9; padding-top:8px;">
+              <div style="display:flex; gap:14px; color:var(--swp-text-muted); font-size:12px;">
+                <span style="cursor:pointer;" onclick="showToast('Liked post!')"><i class="fa fa-heart" style="color:#EF4444;"></i> 14</span>
+                <span style="cursor:pointer;" onclick="showToast('Comments: 4 replies')"><i class="fa fa-comment"></i> 4</span>
+              </div>
+              <button style="padding:4px 10px; border-radius:6px; background:var(--swp-primary); color:#FFF; border:none; font-size:10.5px; font-weight:800; cursor:pointer;" onclick="navTo('swp_card')">Join Match</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    /* SCREEN 13: DIGITAL PLAYER PASSPORT */
+    function renderPlayerPassportScreen() {
+      return `
+        <div class="swp-screen-header">
+          <div class="swp-back-btn" onclick="navTo('home')"><i class="fa fa-chevron-left"></i></div>
+          <div class="swp-screen-title">PLAYER PASSPORT</div>
+          <div style="font-size:11.5px; font-weight:800; color:var(--swp-primary); cursor:pointer;" onclick="navTo('compare_passport')">Compare →</div>
+        </div>
+
+        <div class="swp-page-body">
+          <!-- Official Digital Passport Card -->
+          <div style="background:linear-gradient(135deg, #0A2540 0%, #1E3A8A 100%); border-radius:14px; padding:16px; color:#FFF; margin-bottom:14px; box-shadow:var(--shadow-md); position:relative; overflow:hidden;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <div style="width:46px; height:46px; border-radius:23px; background:var(--swp-primary); border:2px solid #FFF; display:flex; align-items:center; justify-content:center; font-family:var(--font-heading); font-size:18px; font-weight:900;">A</div>
+                <div>
+                  <div style="font-family:var(--font-heading); font-size:16px; font-weight:900;">${passportState.name}</div>
+                  <div style="font-size:11px; opacity:0.8;">${passportState.handle} · Amsterdam</div>
+                </div>
+              </div>
+              <span style="font-size:9.5px; font-weight:800; background:#10B981; color:#FFF; padding:2px 8px; border-radius:99px;">VERIFIED ID</span>
+            </div>
+
+            <!-- KNLTB Rating Badge -->
+            <div style="background:rgba(255,255,255,0.14); border-radius:8px; padding:8px 10px; margin-bottom:12px;">
+              <div style="font-size:10px; opacity:0.85;">Certified Rating</div>
+              <div style="font-family:var(--font-heading); font-size:12.5px; font-weight:800;">${passportState.ratingTier}</div>
+            </div>
+
+            <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:6px; text-align:center;">
+              <div style="background:rgba(0,0,0,0.2); padding:6px; border-radius:6px;">
+                <div style="font-family:var(--font-heading); font-size:15px; font-weight:900;">${passportState.sessionsCount}</div>
+                <div style="font-size:9.5px; opacity:0.8;">Sessions</div>
+              </div>
+              <div style="background:rgba(0,0,0,0.2); padding:6px; border-radius:6px;">
+                <div style="font-family:var(--font-heading); font-size:15px; font-weight:900;">${passportState.winRate}%</div>
+                <div style="font-size:9.5px; opacity:0.8;">Win Rate</div>
+              </div>
+              <div style="background:rgba(0,0,0,0.2); padding:6px; border-radius:6px;">
+                <div style="font-family:var(--font-heading); font-size:15px; font-weight:900;">${passportState.fairPlayScore}</div>
+                <div style="font-size:9.5px; opacity:0.8;">Fair Play</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5-Axis Radar Skill Matrix -->
+          <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:12px; padding:12px; margin-bottom:12px;">
+            <div style="font-family:var(--font-heading); font-size:12px; font-weight:800; margin-bottom:8px;">
+              Skill Matrix (5 Dimensions)
+            </div>
+            ${Object.entries(passportState.radar).map(([key, val]) => `
+              <div style="margin-bottom:6px;">
+                <div style="display:flex; justify-content:space-between; font-size:11px; font-weight:700; margin-bottom:2px;">
+                  <span style="text-transform:capitalize;">${key.replace(/([A-Z])/g, ' $1')}</span>
+                  <span style="color:var(--swp-primary);">${val}%</span>
+                </div>
+                <div style="height:5px; background:#F1F5F9; border-radius:3px; overflow:hidden;">
+                  <div style="width:${val}%; height:100%; background:var(--swp-primary);"></div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+
+          <!-- Coach Notes -->
+          <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:12px; padding:12px;">
+            <div style="font-family:var(--font-heading); font-size:12px; font-weight:800; margin-bottom:6px;">Official Coach Endorsement</div>
+            <div style="font-size:11px; color:var(--swp-text-muted); line-height:1.4; margin-bottom:6px;">
+              "${passportState.coachNotes[0].note}"
+            </div>
+            <div style="font-size:10px; font-weight:700; color:var(--swp-primary);">
+              — Coach ${passportState.coachNotes[0].coach} (${passportState.coachNotes[0].club})
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    /* SCREEN 14: COMPARE PASSPORTS */
+    function renderComparePassportScreen() {
+      return `
+        <div class="swp-screen-header">
+          <div class="swp-back-btn" onclick="navTo('player_passport')"><i class="fa fa-chevron-left"></i></div>
+          <div class="swp-screen-title">SKILL COMPARISON</div>
+          <div style="width:32px;"></div>
+        </div>
+
+        <div class="swp-page-body">
+          <!-- Head to Head Profile Cards -->
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:12px;">
+            <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:10px; padding:10px; text-align:center;">
+              <div style="width:36px; height:36px; border-radius:18px; background:var(--swp-primary); color:#FFF; display:flex; align-items:center; justify-content:center; margin:0 auto 6px; font-weight:900;">A</div>
+              <div style="font-family:var(--font-heading); font-size:12px; font-weight:800;">${passportState.name}</div>
+              <div style="font-size:10px; color:var(--swp-text-muted);">Level 6.2</div>
+            </div>
+
+            <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:10px; padding:10px; text-align:center;">
+              <div style="width:36px; height:36px; border-radius:18px; background:#F59E0B; color:#FFF; display:flex; align-items:center; justify-content:center; margin:0 auto 6px; font-weight:900;">E</div>
+              <div style="font-family:var(--font-heading); font-size:12px; font-weight:800;">${applicantEmma.name}</div>
+              <div style="font-size:10px; color:var(--swp-text-muted);">Level 5.5</div>
+            </div>
+          </div>
+
+          <!-- Compatibility Rating Badge -->
+          <div style="background:#ECFDF5; border:1px solid #A7F3D0; border-radius:10px; padding:10px; margin-bottom:12px; text-align:center;">
+            <div style="font-family:var(--font-heading); font-size:18px; font-weight:900; color:#047857;">94% Match Synergy</div>
+            <div style="font-size:11px; color:#065F46;">Balanced Court Defense & Active Net Play</div>
+          </div>
+
+          <!-- Comparison Metrics -->
+          <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:12px; padding:12px; margin-bottom:14px;">
+            <div style="font-family:var(--font-heading); font-size:12px; font-weight:800; margin-bottom:10px;">Metrics Comparison</div>
+            ${[
+              { label: 'Consistency', a: passportState.radar.consistency, b: applicantEmma.radar.consistency },
+              { label: 'Net Play', a: passportState.radar.netPlay, b: applicantEmma.radar.netPlay },
+              { label: 'Tactical Court IQ', a: passportState.radar.tacticalIq, b: applicantEmma.radar.tacticalIq }
+            ].map(m => `
+              <div style="margin-bottom:8px;">
+                <div style="display:flex; justify-content:space-between; font-size:11px; font-weight:700; margin-bottom:2px;">
+                  <span style="color:var(--swp-primary);">${m.a}%</span>
+                  <span>${m.label}</span>
+                  <span style="color:#F59E0B;">${m.b}%</span>
+                </div>
+                <div style="display:flex; height:6px; background:#F1F5F9; border-radius:3px; overflow:hidden;">
+                  <div style="width:50%; display:flex; justify-content:flex-end;">
+                    <div style="width:${m.a}%; background:var(--swp-primary);"></div>
+                  </div>
+                  <div style="width:50%;">
+                    <div style="width:${m.b}%; background:#F59E0B;"></div>
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+
+          <button class="swp-cta-btn" onclick="approveHostRequest(); navTo('manage_swp');">
+            Approve Emma Watson for Squad <i class="fa fa-check"></i>
+          </button>
+        </div>
+      `;
+    }
+
+    /* 4-STATE OVERLAYS (Gravitas Verification Requirement) */
+    function renderLoadingSkeletonScreen() {
+      return `
+        <div class="swp-page-body">
+          <div class="skeleton-box" style="height:24px; width:60%; margin-bottom:14px;"></div>
+          <div class="skeleton-box" style="height:120px; width:100%; margin-bottom:12px;"></div>
+          <div class="skeleton-box" style="height:48px; width:100%; margin-bottom:12px;"></div>
+          <div class="skeleton-box" style="height:48px; width:100%; margin-bottom:12px;"></div>
+          <div style="flex:1;"></div>
+          <div class="skeleton-box" style="height:48px; width:100%;"></div>
+        </div>
+      `;
+    }
+
+    function renderEmptyStateScreen() {
+      return `
+        <div class="swp-page-body" style="align-items:center; justify-content:center; text-align:center;">
+          <div style="width:64px; height:64px; border-radius:32px; background:var(--swp-primary-light); color:var(--swp-primary); display:flex; align-items:center; justify-content:center; font-size:24px; margin-bottom:14px;">
+            <i class="fa fa-calendar-xmark"></i>
+          </div>
+          <div style="font-family:var(--font-heading); font-size:16px; font-weight:800; margin-bottom:6px;">No Upcoming Bookings</div>
+          <div style="font-size:12px; color:var(--swp-text-muted); max-width:240px; margin-bottom:16px;">
+            You have no active matches scheduled. Discover available courts or join an Open SWP game.
+          </div>
+          <button class="swp-cta-btn" style="max-width:200px;" onclick="setUiState('populated'); navTo('bookings_hub');">
+            Find Court Now
+          </button>
+        </div>
+      `;
+    }
+
+    function renderValidationErrorScreen() {
+      return `
+        <div class="swp-screen-header">
+          <div class="swp-back-btn" onclick="setUiState('populated')"><i class="fa fa-chevron-left"></i></div>
+          <div class="swp-screen-title">VALIDATION ERROR</div>
+          <span style="font-size:10px; font-weight:800; background:#FEE2E2; color:#B91C1C; padding:2px 8px; border-radius:99px;">State D</span>
+        </div>
+        <div class="swp-page-body">
+          <div class="swp-input-box error">
+            <span class="swp-notched-label">MATCH COST (€)</span>
+            <input type="text" class="swp-field" value="-15.00">
+          </div>
+          <div class="swp-field-error-text">
+            <i class="fa fa-circle-exclamation"></i> Total match cost cannot be negative.
+          </div>
+
+          <div class="swp-input-box error">
+            <span class="swp-notched-label">END TIME</span>
+            <input type="text" class="swp-field" value="08:30">
+          </div>
+          <div class="swp-field-error-text">
+            <i class="fa fa-circle-exclamation"></i> End time (08:30) cannot be before start time (09:00).
+          </div>
+
+          <button class="swp-cta-btn" style="background:#EF4444; margin-top:14px;" onclick="setUiState('populated')">
+            Reset to Valid State
+          </button>
+        </div>
+      `;
+    }
+
+    function executeCourtBooking(total) {
+      showToast(`Court booked! Total: €${total.toFixed(2)}`);
+      navTo('bookings_hub');
+    }
+
+    function convertBookingToOpenSwp() {
+      eventData.clubName = bookingState.clubName;
+      eventData.courtNumber = bookingState.courtName;
+      eventData.cost = bookingState.basePrice;
+      eventData.pricingModel = 'split';
+      showToast('Court pre-filled into Open SWP creation!');
+      navTo('swp_where');
+    }
+
+    // Initialize Viewport on Load
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const requestedScreen = urlParams.get('screen');
+      if (requestedScreen) {
+        navTo(requestedScreen);
+      } else {
+        renderMobileScreen();
+      }
+      
+    });
+  </script>
+</body>
+</html>
