@@ -1335,6 +1335,8 @@
 
       // Step 5: WHO
       totalPlayers: 8,
+      totalCost: 40.00, // Total cost of the event (divided offline among players)
+      currency: '€',
       creatorName: 'Mukund Patil',
       playersAdded: [
         { name: 'Mukund Patil', role: 'Host', initial: 'M', email: 'mukund@shallweplay.com', status: 'confirmed' },
@@ -1346,9 +1348,9 @@
       joinPolicy: 'direct', // 'direct' | 'approval'
       joinRequestStatus: 'none',
 
-      // Pricing (disabled for now as requested)
-      pricingModel: 'free',
-      cost: 0
+      // Pricing model (divided offline among players)
+      pricingModel: 'split',
+      cost: 40.00
     };
 
     // Commercial Court Booking State
@@ -2396,6 +2398,46 @@
             </div>
           </div>
 
+          <!-- Total Event Cost & Offline Split Breakdown Card -->
+          <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:12px; padding:12px; margin-bottom:12px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <div>
+                <div style="display:flex; align-items:center; gap:6px;">
+                  <span style="font-family:var(--font-heading); font-size:12px; font-weight:800; color:var(--swp-navy);">Total Event Cost</span>
+                  <span onclick="showToast('Offline Division: The total cost will be divided equally among all players and settled offline directly with the host.')" 
+                        title="Offline split info"
+                        style="display:inline-flex; align-items:center; justify-content:center; width:18px; height:18px; border-radius:9px; background:#EFF6FF; color:var(--swp-primary); font-size:10px; cursor:pointer;">
+                    <i class="fa fa-info"></i>
+                  </span>
+                </div>
+                <div style="font-size:10px; color:var(--swp-text-muted);">Shared venue or court fee</div>
+              </div>
+              <div style="display:flex; align-items:center; gap:4px;">
+                <span style="font-family:var(--font-heading); font-size:14px; font-weight:800; color:var(--swp-navy);">€</span>
+                <input type="number" min="0" step="5" value="${eventData.totalCost !== undefined ? eventData.totalCost : 40}" 
+                       style="width:75px; height:32px; border:1px solid var(--swp-border); border-radius:8px; padding:0 8px; font-family:var(--font-heading); font-size:13.5px; font-weight:800; text-align:right;"
+                       onchange="eventData.totalCost = Math.max(0, parseFloat(this.value) || 0); eventData.cost = eventData.totalCost; renderMobileScreen();">
+              </div>
+            </div>
+
+            <!-- Calculated Per-Player Offline Split Chip -->
+            <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:8px; padding:8px 10px; display:flex; justify-content:space-between; align-items:center;">
+              <div style="display:flex; align-items:center; gap:6px;">
+                <i class="fa fa-calculator" style="color:var(--swp-primary); font-size:11.5px;"></i>
+                <span style="font-size:11px; color:var(--swp-text-main); font-weight:600;">
+                  Per player: <b style="color:var(--swp-navy);">€${(((eventData.totalCost !== undefined ? eventData.totalCost : 40)) / eventData.totalPlayers).toFixed(2)}</b>
+                </span>
+                <span style="font-size:9.5px; color:var(--swp-text-muted);">(${eventData.totalPlayers} spots)</span>
+              </div>
+              <span onclick="showToast('Divided offline: Players pay their share directly to the host offline (cash/direct transfer).')" 
+                    style="display:inline-flex; align-items:center; gap:4px; font-size:9.5px; font-weight:700; color:#047857; background:#ECFDF5; padding:3px 8px; border-radius:4px; cursor:pointer;"
+                    title="Click for offline split explanation">
+                <span>Divided offline</span>
+                <i class="fa fa-circle-info" style="font-size:10px;"></i>
+              </span>
+            </div>
+          </div>
+
           <!-- Players Card: User-friendly naming: Players (3 / 8) with Integrated Name & Email Fields -->
           <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:12px; padding:12px; margin-bottom:14px;">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
@@ -2540,6 +2582,7 @@
               <div><b>Place:</b> ${eventData.isOnline ? 'Online Meeting' : eventData.clubName}</div>
               <div><b>When:</b> ${eventData.dayName} ${eventData.dayNum} Nov · ${eventData.startTime} - ${eventData.endTime}</div>
               <div><b>Players:</b> ${eventData.playersAdded.length} of ${eventData.totalPlayers} spots filled</div>
+              <div><b>Cost:</b> €${(eventData.totalCost !== undefined ? eventData.totalCost : 40).toFixed(2)} total <span style="color:#047857; font-weight:700;">(€${(((eventData.totalCost !== undefined ? eventData.totalCost : 40)) / eventData.totalPlayers).toFixed(2)} / player · Divided offline)</span></div>
               <div><b>Join Policy:</b> <span style="font-weight:800; color:${isDirect ? '#047857' : '#B45309'};">${isDirect ? 'Direct Join (Instant RSVP)' : 'Approval Required (Host Review)'}</span></div>
             </div>
           </div>
@@ -2675,6 +2718,25 @@
                         </button>
                       `}
                     </div>
+                  </div>
+                </div>
+
+                <!-- Cost / Offline Split Breakdown -->
+                <div style="display:flex; align-items:center; gap:10px; margin-top:12px; padding-top:12px; border-top:1px solid #F1F5F9;">
+                  <div style="width:34px; height:34px; border-radius:8px; background:#ECFDF5; color:#047857; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                    <i class="fa fa-money-bill-wave" style="font-size:15px;"></i>
+                  </div>
+                  <div style="flex:1; display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                      <div style="font-family:var(--font-heading); font-size:13px; font-weight:800;">€${(((data.totalCost !== undefined ? data.totalCost : (data.cost || 40))) / data.totalPlayers).toFixed(2)} <span style="font-size:11px; font-weight:600; color:var(--swp-text-muted);">/ player</span></div>
+                      <div style="font-size:10.5px; color:var(--swp-text-muted);">Total €${((data.totalCost !== undefined ? data.totalCost : (data.cost || 40))).toFixed(2)} · Divided offline</div>
+                    </div>
+                    <span onclick="showToast('Divided offline: Players settle their share directly with host offline.')" 
+                          style="font-size:10px; font-weight:800; background:#ECFDF5; color:#047857; padding:3px 9px; border-radius:6px; cursor:pointer; display:flex; align-items:center; gap:4px;"
+                          title="Offline settlement info">
+                      <span>Offline Split</span>
+                      <i class="fa fa-info-circle"></i>
+                    </span>
                   </div>
                 </div>
               </div>
