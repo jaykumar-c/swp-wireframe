@@ -1325,10 +1325,12 @@
             <span>Bookings</span>
           </div>
           
-          <!-- Center Elevated FAB (+) -->
+          <!-- Center Elevated FAB (+) (Ground Truth from Live Mobile App Screenshot) -->
           <div class="center-fab-wrap" onclick="toggleFabMenu()">
-            <div class="center-fab-circle">
-              <i class="fa fa-plus"></i>
+            <div class="center-fab-circle" style="background:#007AFF; border:3.5px solid #FFFFFF; box-shadow:0 4px 16px rgba(0, 122, 255, 0.45); display:flex; align-items:center; justify-content:center;">
+              <div style="width:28px; height:28px; border-radius:8px; background:#FFFFFF; display:flex; align-items:center; justify-content:center; color:#007AFF;">
+                <i class="fa fa-plus" style="font-size:15px; font-weight:900;"></i>
+              </div>
             </div>
           </div>
 
@@ -1337,7 +1339,7 @@
             <span>Social</span>
           </div>
           <div class="nav-tab-item" id="bnav-profile" onclick="navTo('player_passport')">
-            <i class="fa fa-user"></i>
+            <div style="width:24px; height:24px; border-radius:12px; background-image:url('https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=100&auto=format&fit=crop&q=80'); background-size:cover; background-position:center; border:1px solid #CBD5E1;"></div>
             <span>Profile</span>
           </div>
         </nav>
@@ -1922,88 +1924,246 @@
       container.innerHTML = `<div style="animation:fadeIn 0.2s ease;">${markup}</div>`;
     }
 
-    /* SCREEN 1: HOME SCREEN & FEED */
+    /* SCREEN 1: HOME SCREEN & FEED (100% Calibrated to Live Mobile App Ground Truth) */
     function renderHomeScreen() {
       return `
-        <div style="padding:12px 16px; display:flex; justify-content:space-between; align-items:center; background:#FFF; border-bottom:1px solid var(--swp-border);">
-          <div style="font-family:var(--font-heading); font-size:18px; font-weight:900; color:var(--swp-navy);">ShallWe-Play</div>
-          <div style="width:34px; height:34px; border-radius:17px; background:var(--swp-bg-canvas); display:flex; align-items:center; justify-content:center; color:var(--swp-text-main); position:relative; cursor:pointer;" onclick="showToast('No new notifications')">
-            <i class="fa fa-bell"></i>
-            <span style="position:absolute; top:7px; right:7px; width:7px; height:7px; background:#EF4444; border-radius:50%;"></span>
+        <!-- Top Navigation Header (Exact Match to Live App Screenshot) -->
+        <div style="padding:10px 16px; display:flex; justify-content:space-between; align-items:center; background:#FFF; border-bottom:1px solid #F1F5F9;">
+          <!-- Official ShallWe-Play 3-Ring Logo + Brand Title -->
+          <div style="display:flex; align-items:center; gap:8px;">
+            <svg width="26" height="24" viewBox="0 0 32 28" fill="none" style="flex-shrink:0;">
+              <!-- Top Ring: Green -->
+              <circle cx="12" cy="10" r="5.5" stroke="#22C55E" stroke-width="2.2" />
+              <!-- Bottom Left Ring: Orange/Red -->
+              <circle cx="11" cy="18" r="5.5" stroke="#EA4335" stroke-width="2.2" />
+              <!-- Right Ring: Blue -->
+              <circle cx="19" cy="14" r="5.5" stroke="#007AFF" stroke-width="2.2" />
+            </svg>
+            <span style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size:18px; font-weight:700; color:#1E293B; letter-spacing:-0.2px;">ShallWe-Play</span>
+          </div>
+
+          <!-- Header Right Icons: Chat & Bell with Pip -->
+          <div style="display:flex; align-items:center; gap:16px;">
+            <i class="fa-regular fa-comment-dots" style="font-size:20px; color:#007AFF; cursor:pointer;" onclick="showToast('Direct chat opened')"></i>
+            <div style="position:relative; cursor:pointer;" onclick="showToast('No new notifications')">
+              <i class="fa-regular fa-bell" style="font-size:20px; color:#007AFF;"></i>
+              <span style="position:absolute; top:-2px; right:-2px; width:7px; height:7px; border-radius:50%; background:#EF4444; border:1px solid #FFF;"></span>
+            </div>
           </div>
         </div>
 
-        <!-- Stories Bar -->
-        <div style="display:flex; gap:12px; padding:12px 16px; overflow-x:auto; background:#FFF; border-bottom:1px solid var(--swp-border);">
-          <div style="display:flex; flex-direction:column; align-items:center; gap:5px; width:54px; flex-shrink:0; cursor:pointer;" onclick="navTo('swp_what')">
-            <div style="width:50px; height:50px; border-radius:25px; border:2px solid var(--swp-primary); padding:2px; position:relative;">
-              <div style="width:100%; height:100%; border-radius:50%; background:#007AFF; color:#FFF; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:14px;">M</div>
-              <div style="position:absolute; bottom:0; right:0; width:16px; height:16px; border-radius:8px; background:#007AFF; border:2px solid #FFF; color:#FFF; font-size:9px; display:flex; align-items:center; justify-content:center;"><i class="fa fa-plus"></i></div>
+        <!-- Story Section (My Story with (+) Badge & Teammates) -->
+        <div style="display:flex; gap:14px; padding:12px 16px; overflow-x:auto; background:#FFF; border-bottom:1px solid #F1F5F9; scrollbar-width:none;">
+          <!-- My Story -->
+          <div style="display:flex; flex-direction:column; align-items:center; width:58px; flex-shrink:0; cursor:pointer;" onclick="navTo('swp_what')">
+            <div style="width:54px; height:54px; border-radius:27px; position:relative; padding:2px;">
+              <div style="width:100%; height:100%; border-radius:50%; background-image:url('https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=150&auto=format&fit=crop&q=80'); background-size:cover; background-position:center; border:2px solid #E2E8F0;"></div>
+              <div style="position:absolute; bottom:0; right:0; width:20px; height:20px; border-radius:10px; background:#007AFF; border:2px solid #FFF; color:#FFF; font-size:11px; display:flex; align-items:center; justify-content:center; box-shadow:0 1px 4px rgba(0,122,255,0.4);">
+                <i class="fa fa-plus"></i>
+              </div>
             </div>
-            <span style="font-size:10.5px; font-weight:700;">My Story</span>
+            <span style="font-size:11px; font-weight:700; color:#1E293B; margin-top:5px;">My Story</span>
           </div>
-          <div style="display:flex; flex-direction:column; align-items:center; gap:5px; width:54px; flex-shrink:0; cursor:pointer;" onclick="navTo('compare_passport')">
-            <div style="width:50px; height:50px; border-radius:25px; border:2px solid #F59E0B; padding:2px;">
-              <div style="width:100%; height:100%; border-radius:50%; background:#F59E0B; color:#FFF; display:flex; align-items:center; justify-content:center; font-weight:800;">E</div>
+
+          <!-- Other Stories -->
+          <div style="display:flex; flex-direction:column; align-items:center; width:58px; flex-shrink:0; cursor:pointer;" onclick="navTo('compare_passport')">
+            <div style="width:54px; height:54px; border-radius:27px; border:2px solid #007AFF; padding:2px;">
+              <div style="width:100%; height:100%; border-radius:50%; background-image:url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80'); background-size:cover; background-position:center;"></div>
             </div>
-            <span style="font-size:10.5px; font-weight:600; color:var(--swp-text-muted);">Emma</span>
+            <span style="font-size:11px; font-weight:600; color:#64748B; margin-top:5px;">Emma</span>
           </div>
-          <div style="display:flex; flex-direction:column; align-items:center; gap:5px; width:54px; flex-shrink:0;">
-            <div style="width:50px; height:50px; border-radius:25px; border:2px solid #10B981; padding:2px;">
-              <div style="width:100%; height:100%; border-radius:50%; background:#10B981; color:#FFF; display:flex; align-items:center; justify-content:center; font-weight:800;">S</div>
+
+          <div style="display:flex; flex-direction:column; align-items:center; width:58px; flex-shrink:0; cursor:pointer;" onclick="showToast('Viewing Sander\'s story')">
+            <div style="width:54px; height:54px; border-radius:27px; border:2px solid #10B981; padding:2px;">
+              <div style="width:100%; height:100%; border-radius:50%; background-image:url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80'); background-size:cover; background-position:center;"></div>
             </div>
-            <span style="font-size:10.5px; font-weight:600; color:var(--swp-text-muted);">Sander</span>
+            <span style="font-size:11px; font-weight:600; color:#64748B; margin-top:5px;">Sander</span>
+          </div>
+
+          <div style="display:flex; flex-direction:column; align-items:center; width:58px; flex-shrink:0; cursor:pointer;" onclick="showToast('Viewing Lars\'s story')">
+            <div style="width:54px; height:54px; border-radius:27px; border:2px solid #F59E0B; padding:2px;">
+              <div style="width:100%; height:100%; border-radius:50%; background-image:url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80'); background-size:cover; background-position:center;"></div>
+            </div>
+            <span style="font-size:11px; font-weight:600; color:#64748B; margin-top:5px;">Lars</span>
           </div>
         </div>
 
-        <!-- Featured Community Event (Prominently placed immediately below My Story, visible before and after joining) -->
-        <div style="padding:14px 16px 6px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <!-- WHAT'S HAPPENING Banner (Exact Replica of Live App Screenshot) -->
+        <div style="margin:12px 16px 14px; background:#DCEBFA; border-radius:16px; padding:14px 18px; display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <div style="font-family:var(--font-heading); font-size:13.5px; font-weight:900; color:#061D42; letter-spacing:0.3px;">
+              WHAT'S HAPPENING
+            </div>
+            <div style="font-size:11px; color:#475569; margin-top:3px; line-height:1.4; max-width:215px;">
+              Latest among your teammates & sports clubs around you
+            </div>
+          </div>
+          <div style="width:38px; height:38px; border-radius:19px; background:rgba(0,122,255,0.08); display:flex; align-items:center; justify-content:center;">
+            <i class="fa fa-users" style="font-size:20px; color:#0F172A;"></i>
+          </div>
+        </div>
+
+        <!-- Small Metric & Action Cards (Horizontal Slider) -->
+        <div style="display:flex; gap:10px; overflow-x:auto; padding:0 16px 14px; scrollbar-width:none; -webkit-overflow-scrolling:touch;">
+          
+          <!-- Card 1: Active Membership (from live app screenshot) -->
+          <div style="min-width:170px; background:#FFF; border:1px solid #E2E8F0; border-radius:14px; padding:12px 14px; flex-shrink:0; box-shadow:0 1px 3px rgba(0,0,0,0.03); cursor:pointer;" onclick="showToast('Active Membership: 239 days remaining')">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+              <div style="border-left:3px solid #007AFF; padding-left:6px; font-family:var(--font-heading); font-size:24px; font-weight:900; color:#0F172A; line-height:1;">
+                1
+              </div>
+              <span style="font-size:9.5px; font-weight:800; background:#E0F2FE; color:#0284C7; padding:2px 7px; border-radius:99px; display:flex; align-items:center; gap:4px;">
+                <span style="width:5px; height:5px; border-radius:50%; background:#0284C7;"></span> Active
+              </span>
+            </div>
+            <div style="font-family:var(--font-heading); font-size:11px; font-weight:700; color:#334155; margin-top:8px;">
+              Active Membership
+            </div>
+            <div style="font-size:10px; color:#64748B; margin-top:2px;">
+              239 days left
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+              <div style="flex:1; height:3px; background:#E2E8F0; border-radius:2px; margin-right:10px; overflow:hidden;">
+                <div style="width:65%; height:100%; background:#007AFF; border-radius:2px;"></div>
+              </div>
+              <div style="width:20px; height:20px; border-radius:10px; background:#EFF6FF; color:#007AFF; display:flex; align-items:center; justify-content:center; font-size:10px;">
+                <i class="fa fa-arrow-right"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Total Open Bookings (from live app screenshot) -->
+          <div style="min-width:140px; background:#FFF; border:1px solid #E2E8F0; border-radius:14px; padding:12px 14px; flex-shrink:0; box-shadow:0 1px 3px rgba(0,0,0,0.03); cursor:pointer;" onclick="navTo('book_court')">
+            <div style="font-family:var(--font-heading); font-size:26px; font-weight:900; color:#0F172A; line-height:1.1;">
+              751
+            </div>
+            <div style="font-family:var(--font-heading); font-size:11px; font-weight:700; color:#475569; margin-top:8px;">
+              Total Open Bookings
+            </div>
+            <div style="font-size:9.5px; color:var(--swp-primary); font-weight:700; margin-top:6px;">
+              Book court slot →
+            </div>
+          </div>
+
+          <!-- Card 3: Open Events Count Card (Redirecting to events tab) -->
+          <div style="min-width:155px; background:#FFF; border:1.5px solid var(--swp-primary-border); border-radius:14px; padding:12px 14px; flex-shrink:0; box-shadow:0 2px 8px rgba(0, 122, 255, 0.08); cursor:pointer;" onclick="openEventsTab()">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+              <div style="border-left:3px solid #10B981; padding-left:6px; font-family:var(--font-heading); font-size:24px; font-weight:900; color:var(--swp-navy); line-height:1;">
+                12
+              </div>
+              <span style="font-size:9.5px; font-weight:800; background:#ECFDF5; color:#047857; padding:2px 7px; border-radius:99px;">
+                Live RSVP
+              </span>
+            </div>
+            <div style="font-family:var(--font-heading); font-size:11px; font-weight:800; color:var(--swp-navy); margin-top:8px;">
+              Open Events
+            </div>
+            <div style="font-size:9.5px; color:var(--swp-primary); font-weight:700; margin-top:4px;">
+              Go to Events Tab →
+            </div>
+          </div>
+
+          <!-- Card 4: Buy Membership Card -->
+          <div style="min-width:155px; background:linear-gradient(135deg, #0A2540 0%, #1E3A8A 100%); color:#FFF; border-radius:14px; padding:12px 14px; flex-shrink:0; box-shadow:0 2px 8px rgba(10, 37, 64, 0.15); cursor:pointer;" onclick="showToast('Club membership packages opened')">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <i class="fa fa-crown" style="color:#FBBF24; font-size:18px;"></i>
+              <span style="font-size:9px; font-weight:800; background:rgba(255,255,255,0.2); color:#FFF; padding:2px 7px; border-radius:99px;">
+                Upgrade
+              </span>
+            </div>
+            <div style="font-family:var(--font-heading); font-size:11.5px; font-weight:800; margin-top:8px;">
+              Buy Membership
+            </div>
+            <div style="font-size:9.5px; opacity:0.85; margin-top:2px;">
+              Unlimited club perks →
+            </div>
+          </div>
+
+          <!-- Card 5: Followers / Following Card -->
+          <div style="min-width:155px; background:#FFF; border:1px solid #E2E8F0; border-radius:14px; padding:12px 14px; flex-shrink:0; box-shadow:0 1px 3px rgba(0,0,0,0.03); cursor:pointer;" onclick="navTo('social_hub')">
+            <div style="display:flex; align-items:baseline; gap:4px;">
+              <span style="font-family:var(--font-heading); font-size:18px; font-weight:900; color:#0F172A;">148</span>
+              <span style="font-size:10px; color:#64748B;">Followers</span>
+            </div>
+            <div style="display:flex; align-items:baseline; gap:4px; margin-top:2px;">
+              <span style="font-family:var(--font-heading); font-size:14px; font-weight:800; color:#0F172A;">92</span>
+              <span style="font-size:10px; color:#64748B;">Following</span>
+            </div>
+            <div style="font-family:var(--font-heading); font-size:11px; font-weight:700; color:#475569; margin-top:6px;">
+              Teammates & Network
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Open Event Cards (Horizontal Slider to Left Side View) -->
+        <div style="padding:0 0 12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:0 16px 8px;">
             <div style="display:flex; align-items:center; gap:6px;">
-              <span style="font-family:var(--font-heading); font-size:13.5px; font-weight:800; color:var(--swp-navy);">Featured Event</span>
-              <span style="font-size:9.5px; font-weight:800; background:#ECFDF5; color:#047857; padding:2px 7px; border-radius:99px;">Live</span>
+              <span style="font-family:var(--font-heading); font-size:13.5px; font-weight:800; color:var(--swp-navy);">Open Events</span>
+              <span style="font-size:9.5px; font-weight:800; background:#ECFDF5; color:#047857; padding:2px 7px; border-radius:99px;">3 Live</span>
             </div>
             <span style="font-size:11px; font-weight:700; color:var(--swp-primary); cursor:pointer;" onclick="openEventsTab()">View All Events →</span>
           </div>
-          ${renderAuthenticSwpJoinCard(eventData)}
-        </div>
 
-        <!-- Quick Launch Shortcuts -->
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; padding:8px 16px 12px;">
-          <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:12px; padding:12px; cursor:pointer; display:flex; align-items:center; gap:10px;" onclick="navTo('book_court')">
-            <div style="width:36px; height:36px; border-radius:8px; background:var(--swp-primary-light); color:var(--swp-primary); display:flex; align-items:center; justify-content:center; font-size:16px;">
-              <i class="fa fa-calendar-check"></i>
+          <!-- Horizontal Carousel of Event Cards (Swipe Left for More) -->
+          <div style="display:flex; gap:12px; overflow-x:auto; padding:0 16px 8px; scroll-snap-type:x mandatory; scrollbar-width:none; -webkit-overflow-scrolling:touch;">
+            <div style="width:315px; flex-shrink:0; scroll-snap-align:start;">
+              ${renderAuthenticSwpJoinCard(eventData)}
             </div>
-            <div>
-              <div style="font-family:var(--font-heading); font-size:12px; font-weight:800;">Book Court</div>
-              <div style="font-size:10px; color:var(--swp-text-muted);">Commercial slots</div>
+            <div style="width:315px; flex-shrink:0; scroll-snap-align:start;">
+              ${renderAuthenticSwpJoinCard(communityEvents[0])}
+            </div>
+            <div style="width:315px; flex-shrink:0; scroll-snap-align:start;">
+              ${renderAuthenticSwpJoinCard(communityEvents[1])}
             </div>
           </div>
 
-          <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:12px; padding:12px; cursor:pointer; display:flex; align-items:center; gap:10px;" onclick="navTo('swp_what')">
-            <div style="width:36px; height:36px; border-radius:8px; background:#ECFDF5; color:#10B981; display:flex; align-items:center; justify-content:center; font-size:16px;">
-              <i class="fa fa-calendar-plus"></i>
+          <!-- Slider Pagination Cue -->
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:0 16px;">
+            <div style="display:flex; gap:4px;">
+              <div style="width:14px; height:4px; border-radius:2px; background:var(--swp-primary);"></div>
+              <div style="width:4px; height:4px; border-radius:2px; background:#CBD5E1;"></div>
+              <div style="width:4px; height:4px; border-radius:2px; background:#CBD5E1;"></div>
             </div>
-            <div>
-              <div style="font-family:var(--font-heading); font-size:12px; font-weight:800;">Create Event</div>
-              <div style="font-size:10px; color:var(--swp-text-muted);">Host a match or session</div>
-            </div>
+            <span style="font-size:9.5px; color:var(--swp-text-muted); font-weight:600;">
+              Slide left for more events ➔
+            </span>
           </div>
         </div>
 
-        <!-- WHAT'S HAPPENING Banner -->
-        <div style="margin:0 16px 20px; background:linear-gradient(135deg, #0A2540 0%, #007AFF 100%); border-radius:14px; padding:14px; color:#FFF;">
-          <div style="font-family:var(--font-heading); font-size:10.5px; font-weight:900; letter-spacing:0.8px; opacity:0.85;">WHAT'S HAPPENING</div>
-          <div style="font-size:12px; margin:3px 0 10px; opacity:0.95;">Latest matches in Rotterdam</div>
-          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px;">
-            <div style="background:rgba(255,255,255,0.18); border-radius:8px; padding:8px 10px;">
-              <div style="font-family:var(--font-heading); font-size:20px; font-weight:900;">688</div>
-              <div style="font-size:10px; opacity:0.9;">Open Bookings</div>
+        <!-- Mukund Patil Social Post (From Live Mobile App Feed) -->
+        <div style="margin:4px 16px 20px; background:#FFF; border:1px solid var(--swp-border); border-radius:16px; overflow:hidden; box-shadow:0 1px 4px rgba(0,0,0,0.04);">
+          <!-- Post Author Header -->
+          <div style="padding:12px 14px; display:flex; justify-content:space-between; align-items:center;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div style="width:38px; height:38px; border-radius:19px; background-image:url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80'); background-size:cover; background-position:center; border:1.5px solid var(--swp-primary-light);"></div>
+              <div>
+                <div style="font-family:var(--font-heading); font-size:13px; font-weight:800; color:#0F172A;">Mukund Patil</div>
+                <div style="font-size:10px; color:#64748B;">about 1 month ago</div>
+              </div>
             </div>
-            <div style="background:rgba(255,255,255,0.18); border-radius:8px; padding:8px 10px;">
-              <div style="font-family:var(--font-heading); font-size:20px; font-weight:900;">1008</div>
-              <div style="font-size:10px; opacity:0.9;">Partner Clubs</div>
+            <i class="fa fa-ellipsis-vertical" style="color:#64748B; font-size:14px; cursor:pointer;" onclick="showToast('Post options')"></i>
+          </div>
+
+          <!-- Post Media Image with Expand Button -->
+          <div style="height:190px; background-image:url('https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=800&auto=format&fit=crop&q=80'); background-size:cover; background-position:center; position:relative; cursor:pointer;" onclick="showToast('Image expanded')">
+            <div style="position:absolute; top:10px; right:10px; width:28px; height:28px; border-radius:14px; background:rgba(0,0,0,0.55); color:#FFF; display:flex; align-items:center; justify-content:center; font-size:11px;">
+              <i class="fa fa-expand"></i>
             </div>
+          </div>
+
+          <!-- Post Social Engagement Row -->
+          <div style="padding:10px 14px; display:flex; justify-content:space-between; align-items:center; border-top:1px solid #F1F5F9;">
+            <div style="display:flex; gap:14px; align-items:center;">
+              <span style="font-size:11px; font-weight:700; color:#475569; display:flex; align-items:center; gap:4px; cursor:pointer;" onclick="showToast('Liked post!')">
+                <i class="fa-regular fa-heart" style="color:#EF4444; font-size:13px;"></i> 24
+              </span>
+              <span style="font-size:11px; font-weight:700; color:#475569; display:flex; align-items:center; gap:4px; cursor:pointer;" onclick="showToast('Comments opened')">
+                <i class="fa-regular fa-comment" style="font-size:13px;"></i> 6
+              </span>
+            </div>
+            <i class="fa-regular fa-share-from-square" style="color:#64748B; font-size:13px; cursor:pointer;" onclick="showToast('Post shared')"></i>
           </div>
         </div>
       `;
