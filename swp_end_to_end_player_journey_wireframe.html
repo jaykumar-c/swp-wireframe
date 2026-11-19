@@ -1369,6 +1369,7 @@
       sport: 'Padel',
       customSport: '',
       isCustomSport: false,
+      skillLevel: 'No skill required',
       description: 'Casual friendly fixture. Match balls provided. All player levels welcome!',
 
       // Step 2: WHERE
@@ -2217,6 +2218,17 @@
             </div>
           ` : ''}
 
+          <!-- Skill Level Dropdown (Optional with 'No skill required' option) -->
+          <div class="swp-input-box">
+            <span class="swp-notched-label">SKILL LEVEL (OPTIONAL)</span>
+            <select class="swp-field" style="background:transparent; cursor:pointer;" onchange="eventData.skillLevel = this.value; renderMobileScreen();">
+              <option value="No skill required" ${(eventData.skillLevel === 'No skill required' || !eventData.skillLevel) ? 'selected' : ''}>No skill required (Open to all)</option>
+              <option value="Beginner (1.0 - 2.5)" ${eventData.skillLevel === 'Beginner (1.0 - 2.5)' ? 'selected' : ''}>Beginner (1.0 - 2.5)</option>
+              <option value="Intermediate (3.0 - 4.5)" ${eventData.skillLevel === 'Intermediate (3.0 - 4.5)' ? 'selected' : ''}>Intermediate (3.0 - 4.5)</option>
+              <option value="Advanced (5.0+)" ${eventData.skillLevel === 'Advanced (5.0+)' ? 'selected' : ''}>Advanced (5.0+)</option>
+            </select>
+          </div>
+
           <!-- Description Box -->
           <div class="swp-input-box" style="margin-bottom:14px;">
             <span class="swp-notched-label">DESCRIPTION & RULES</span>
@@ -2696,7 +2708,7 @@
               Event Ready to Publish
             </div>
             <div style="font-size:11.5px; line-height:1.55;">
-              <div><b>Event:</b> ${eventData.eventName || 'ShallWe-Play Event'} (${eventData.sport})</div>
+              <div><b>Event:</b> ${eventData.eventName || 'ShallWe-Play Event'} (${eventData.sport} · ${eventData.skillLevel || 'No skill required'})</div>
               <div><b>Place:</b> ${eventData.isOnline ? 'Online Meeting' : eventData.clubName}</div>
               <div><b>When:</b> ${eventData.dayName} ${eventData.dayNum} Nov · ${eventData.startTime} - ${eventData.endTime}</div>
               <div><b>Players:</b> ${eventData.playersAdded.length} of ${eventData.totalPlayers} spots filled</div>
@@ -2766,7 +2778,7 @@
               <div class="swp-detail-hero-overlay">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
                   <span style="font-size:11px; font-weight:800; background:rgba(255,255,255,0.95); color:var(--swp-primary); padding:3px 10px; border-radius:99px;">
-                    ${data.sport}
+                    ${data.sport} · ${data.skillLevel || 'All Levels'}
                   </span>
                   <span style="font-size:10px; font-weight:800; background:rgba(6,29,66,0.85); color:#FFF; padding:3px 9px; border-radius:99px; border:1px solid rgba(255,255,255,0.2);">
                     ${isApproval ? 'Approval Required' : 'Instant RSVP'}
@@ -3071,7 +3083,7 @@
               </div>
               <div class="swp-card-matchinfo">
                 <span class="swp-card-matchtype">${data.sport}</span>
-                <span class="swp-card-matchlevel">${data.playerLevel || 'All Levels'}</span>
+                <span class="swp-card-matchlevel">${data.skillLevel || data.playerLevel || 'All Levels'}</span>
               </div>
             </div>
 
