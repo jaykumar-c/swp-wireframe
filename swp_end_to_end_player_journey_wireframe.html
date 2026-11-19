@@ -1230,8 +1230,8 @@
         </div>
 
         <!-- Creator Cancel Event Bottom Sheet Dialog Modal -->
-        <div class="swp-timepicker-modal" id="creator-cancel-modal" style="display:none;" onclick="if(event.target === this) closeCreatorCancelModal();">
-          <div class="swp-timepicker-sheet" style="max-height:88%; overflow-y:auto; scrollbar-width:none;">
+        <div class="swp-timepicker-modal" id="creator-cancel-modal" style="display:none; background:rgba(0,0,0,0.6);" onclick="if(event.target === this) closeCreatorCancelModal();">
+          <div class="swp-timepicker-sheet" style="background:#FFFFFF; max-height:88%; overflow-y:auto; scrollbar-width:none;">
             <div class="swp-tp-header" style="border-bottom:1px solid #E2E8F0; padding-bottom:12px; margin-bottom:14px;">
               <button class="swp-tp-btn cancel" onclick="closeCreatorCancelModal()">Close</button>
               <div class="swp-tp-title" style="color:var(--swp-navy); font-size:14px; font-weight:800;">Cancel Event Options</div>
@@ -1251,7 +1251,7 @@
                 <div style="flex:1;">
                   <div style="font-family:var(--font-heading); font-size:13px; font-weight:800; color:#991B1B;">Cancel Complete Event</div>
                   <div style="font-size:10.5px; color:#B91C1C; margin-top:2px; line-height:1.4;">
-                    Cancels the entire match for all confirmed players. Roster is dissolved, notifications are sent, and the court/venue booking is released.
+                    Closes the event for all confirmed participants. Roster is dissolved, notifications are sent, and the court booking is released.
                   </div>
                 </div>
               </div>
@@ -1260,30 +1260,35 @@
               </button>
             </div>
 
-            <!-- Option 2: Cancel Individual Player / Remove Spot Card -->
-            <div style="background:#EFF6FF; border:1.5px solid #93C5FD; border-radius:12px; padding:12px; cursor:pointer;" onclick="openIndividualCancelList()">
+            <!-- Option 2: Cancel Host Spot Only (Auto-Promote Next Participant) -->
+            <div style="background:#EFF6FF; border:1.5px solid #93C5FD; border-radius:12px; padding:12px; margin-bottom:12px; cursor:pointer;" onclick="confirmCancelHostSpotOnly()">
               <div style="display:flex; align-items:flex-start; gap:10px;">
                 <div style="width:36px; height:36px; border-radius:8px; background:#DBEAFE; color:var(--swp-primary); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
                   <i class="fa fa-user-minus" style="font-size:16px;"></i>
                 </div>
                 <div style="flex:1;">
-                  <div style="font-family:var(--font-heading); font-size:13px; font-weight:800; color:var(--swp-navy);">Cancel Individual Player</div>
+                  <div style="font-family:var(--font-heading); font-size:13px; font-weight:800; color:var(--swp-navy);">Cancel Individual Spot Only</div>
                   <div style="font-size:10.5px; color:#1E40AF; margin-top:2px; line-height:1.4;">
-                    Keep the event active. Remove a specific confirmed player or invite from the roster to free up their spot for others.
+                    Allows the host to step down while leaving the event active for remaining participants. Host rights are automatically transferred to the next confirmed participant (Sander Kok).
                   </div>
                 </div>
               </div>
-              <button style="width:100%; height:32px; border-radius:6px; border:none; background:var(--swp-primary); color:#FFF; font-family:var(--font-heading); font-size:11px; font-weight:800; cursor:pointer; margin-top:10px;" onclick="event.stopPropagation(); openIndividualCancelList();">
-                Manage & Remove Individual Player
+              <button style="width:100%; height:32px; border-radius:6px; border:none; background:var(--swp-primary); color:#FFF; font-family:var(--font-heading); font-size:11px; font-weight:800; cursor:pointer; margin-top:10px;" onclick="event.stopPropagation(); confirmCancelHostSpotOnly();">
+                Cancel My Spot & Transfer Host
               </button>
             </div>
 
-            <!-- Individual Player Removal Sub-List (Toggleable) -->
-            <div id="creator-individual-removal-box" style="display:none; margin-top:12px; background:#F8FAFC; border:1px solid #CBD5E1; border-radius:10px; padding:10px;">
-              <div style="font-family:var(--font-heading); font-size:11px; font-weight:800; color:var(--swp-navy); margin-bottom:8px;">
-                Select player to remove:
+            <!-- Option 3: Remove Specific Participant Sub-List (Toggleable) -->
+            <div style="background:#F8FAFC; border:1px solid #CBD5E1; border-radius:10px; padding:10px;">
+              <div style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="toggleIndividualRemovalList()">
+                <div style="font-family:var(--font-heading); font-size:11px; font-weight:800; color:var(--swp-navy);">
+                  <i class="fa fa-users-slash" style="color:var(--swp-text-muted); margin-right:4px;"></i> Remove a Specific Participant
+                </div>
+                <i class="fa fa-chevron-down" id="removal-chevron" style="font-size:10px; color:var(--swp-text-muted);"></i>
               </div>
-              <div id="creator-individual-removal-items"></div>
+              <div id="creator-individual-removal-box" style="display:none; margin-top:10px;">
+                <div id="creator-individual-removal-items"></div>
+              </div>
             </div>
 
           </div>
@@ -1302,14 +1307,14 @@
             <div class="action-icon-circle" style="background:#FF6B6B;"><i class="fa fa-feather-pointed"></i></div>
             <div>
               <div style="font-family:var(--font-heading); font-size:13.5px; font-weight:800;">Create Social Post</div>
-              <div style="font-size:11px; color:var(--swp-text-muted);">Share match highlight or photo</div>
+              <div style="font-size:11px; color:var(--swp-text-muted);">Share event highlight or photo</div>
             </div>
           </div>
           <div class="floating-action-item" onclick="handleFabAction('openswp')">
             <div class="action-icon-circle" style="background:#45B7D1;"><i class="fa fa-calendar-plus"></i></div>
             <div>
               <div style="font-family:var(--font-heading); font-size:13.5px; font-weight:800;">Create Event</div>
-              <div style="font-size:11px; color:var(--swp-text-muted);">Host a match, social game, or tournament</div>
+              <div style="font-size:11px; color:var(--swp-text-muted);">Host an event, social game, or tournament</div>
             </div>
           </div>
         </div>
@@ -1372,12 +1377,12 @@
       customSport: '',
       isCustomSport: false,
       skillLevel: 'No skill required',
-      description: 'Casual friendly fixture. Match balls provided. All player levels welcome!',
+      description: 'Casual friendly fixture. Event equipment provided. All player levels welcome!',
 
       // Step 2: WHERE
       clubName: 'Club de Padel Rotterdam',
       isOnline: false,
-      onlineLink: 'https://meet.google.com/swp-match',
+      onlineLink: 'https://meet.google.com/swp-event',
       address: 'Oostzeedijk 120, 3062 CG Rotterdam',
       postcode: '3062 CG Rotterdam',
       courtNumber: 'Court 4',
@@ -1452,7 +1457,7 @@
         { club: 'Padel Dam Amsterdam', count: 4, icon: 'fa-award', color: '#F59E0B' }
       ],
       coachNotes: [
-        { coach: 'Mark Jansen', club: 'Kralingse Club', note: 'Solid two-handed backhand drive with strong court discipline. Recommended for intermediate matches.' }
+        { coach: 'Mark Jansen', club: 'Kralingse Club', note: 'Solid two-handed backhand drive with strong court discipline. Recommended for intermediate events.' }
       ]
     };
 
@@ -1573,7 +1578,7 @@
     function leaveEvent() {
       eventData.playersAdded = eventData.playersAdded.filter(p => !p.name.includes('Emma'));
       eventData.joinRequestStatus = 'none';
-      showToast('Left squad successfully (withdrawn before 30m cutoff). Spot reopened.');
+      showToast('Left squad successfully (withdrawn before 24h cutoff). Spot reopened.');
       renderMobileScreen();
     }
 
@@ -1601,20 +1606,50 @@
     function confirmCancelCompleteEvent() {
       closeCreatorCancelModal();
       eventData.status = 'CANCELLED';
-      showToast('Complete event cancelled! All players notified via push & email.');
+      showToast('Complete event cancelled! All participants notified via push & email.');
       setTimeout(() => {
         navTo('home');
       }, 1200);
     }
 
-    function openIndividualCancelList() {
-      const box = document.getElementById('creator-individual-removal-box');
-      const container = document.getElementById('creator-individual-removal-items');
-      if (!box || !container) return;
+    function confirmCancelHostSpotOnly() {
+      closeCreatorCancelModal();
+      const hostIndex = eventData.playersAdded.findIndex(p => p.role === 'Host');
+      const hostName = hostIndex !== -1 ? eventData.playersAdded[hostIndex].name : 'Mukund Patil';
+      
+      eventData.playersAdded = eventData.playersAdded.filter(p => p.role !== 'Host');
+      const nextHost = eventData.playersAdded.find(p => p.status === 'CONFIRMED' || p.name.includes('Sander'));
+      if (nextHost) {
+        nextHost.role = 'Host';
+        nextHost.status = 'HOST';
+        eventData.creatorName = nextHost.name;
+        showToast(`Spot cancelled for ${hostName}; Host rights transferred to ${nextHost.name}!`);
+      } else {
+        showToast(`Spot cancelled for ${hostName}. Event remains active.`);
+      }
+      renderMobileScreen();
+    }
 
+    function toggleIndividualRemovalList() {
+      const box = document.getElementById('creator-individual-removal-box');
+      const chevron = document.getElementById('removal-chevron');
+      if (!box) return;
+      if (box.style.display === 'none' || box.style.display === '') {
+        box.style.display = 'block';
+        if (chevron) chevron.className = 'fa fa-chevron-up';
+        populateIndividualRemovalList();
+      } else {
+        box.style.display = 'none';
+        if (chevron) chevron.className = 'fa fa-chevron-down';
+      }
+    }
+
+    function populateIndividualRemovalList() {
+      const container = document.getElementById('creator-individual-removal-items');
+      if (!container) return;
       const nonHostPlayers = eventData.playersAdded.filter(p => p.role !== 'Host');
       if (nonHostPlayers.length === 0) {
-        container.innerHTML = '<div style="font-size:11px; color:#64748B; padding:6px 0;">No other players on the roster to remove.</div>';
+        container.innerHTML = '<div style="font-size:11px; color:#64748B; padding:6px 0;">No other participants on the roster to remove.</div>';
       } else {
         container.innerHTML = nonHostPlayers.map(p => `
           <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid #E2E8F0;">
@@ -1622,7 +1657,7 @@
               <div style="width:28px; height:28px; border-radius:14px; background:var(--swp-primary); color:#FFF; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:800;">${p.initial || p.name[0]}</div>
               <div>
                 <div style="font-size:12px; font-weight:700;">${p.name}</div>
-                <div style="font-size:10px; color:var(--swp-text-muted);">${p.email || 'Confirmed Player'}</div>
+                <div style="font-size:10px; color:var(--swp-text-muted);">${p.email || 'Confirmed Participant'}</div>
               </div>
             </div>
             <button style="padding:4px 10px; border-radius:6px; background:#FEE2E2; border:1px solid #FCA5A5; color:#DC2626; font-size:10.5px; font-weight:800; cursor:pointer;" onclick="creatorRemovePlayer('${p.name}')">
@@ -1631,13 +1666,12 @@
           </div>
         `).join('');
       }
-      box.style.display = 'block';
     }
 
     function creatorRemovePlayer(playerName) {
       eventData.playersAdded = eventData.playersAdded.filter(p => p.name !== playerName);
       showToast(`Removed ${playerName}. Spot is now open.`);
-      openIndividualCancelList();
+      populateIndividualRemovalList();
       renderMobileScreen();
     }
 
@@ -1872,7 +1906,7 @@
         eventData.playersAdded.push({ name: 'Emma Watson', role: 'Participant', initial: 'E' });
       }
       eventData.joinRequestStatus = 'approved';
-      showToast('Emma Watson approved into match squad!');
+      showToast('Emma Watson approved into event squad!');
       renderMobileScreen();
     }
 
@@ -2056,7 +2090,7 @@
               Open Events
             </div>
             <div style="font-size:10px; color:#64748B; margin-top:2px;">
-              12 matches open to join
+              12 events open to join
             </div>
             <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
               <span style="font-size:9.5px; color:#007AFF; font-weight:700;">View events</span>
@@ -2201,7 +2235,7 @@
 
           <!-- Schedule Selector -->
           <div class="swp-input-box">
-            <span class="swp-notched-label">MATCH DATE</span>
+            <span class="swp-notched-label">EVENT DATE</span>
             <input type="text" class="swp-field" value="${bookingState.date}" readonly>
           </div>
 
@@ -2398,7 +2432,7 @@
           <!-- Description Box -->
           <div class="swp-input-box" style="margin-bottom:14px;">
             <span class="swp-notched-label">DESCRIPTION & RULES</span>
-            <textarea class="swp-field" style="height:90px; padding:10px 12px; resize:none; line-height:1.45;" placeholder="Enter event details, match format, rules, equipment needed, or notes for participants..." oninput="eventData.description = this.value;">${eventData.description || ''}</textarea>
+            <textarea class="swp-field" style="height:90px; padding:10px 12px; resize:none; line-height:1.45;" placeholder="Enter event details, event format, rules, equipment needed, or notes for participants..." oninput="eventData.description = this.value;">${eventData.description || ''}</textarea>
           </div>
 
           <div style="flex:1;"></div>
@@ -2923,7 +2957,7 @@
         ? 'Online Meeting' 
         : (data.clubName || 'Club Venue');
       const addressStr = data.isOnline 
-        ? (data.onlineLink || 'https://meet.google.com/swp-match')
+        ? (data.onlineLink || 'https://meet.google.com/swp-event')
         : (data.address || 'Oostzeedijk 120, 3062 CG Rotterdam');
 
       return `
@@ -2981,18 +3015,18 @@
                 </button>
               </div>
 
-              <!-- Leave Policy Info Chip (30 Minutes Before Match Start) -->
+              <!-- Leave Policy Info Chip (24 Hours Before Event Start) -->
               <div style="background:#F0FDF4; border:1px solid #BBF7D0; border-radius:10px; padding:10px 12px; margin-bottom:12px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
                 <div style="display:flex; align-items:center; gap:8px;">
                   <div style="width:28px; height:28px; border-radius:14px; background:#DCFCE7; color:#16A34A; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:12px;">
                     <i class="fa fa-clock-rotate-left"></i>
                   </div>
                   <div>
-                    <div style="font-family:var(--font-heading); font-size:11.5px; font-weight:800; color:#15803D;">Free leave up to 30 mins before start</div>
-                    <div style="font-size:10px; color:#166534;">Players can withdraw freely until 17:30 (30m prior)</div>
+                    <div style="font-family:var(--font-heading); font-size:11.5px; font-weight:800; color:#15803D;">Free leave up to 24 hrs before start</div>
+                    <div style="font-size:10px; color:#166534;">Participants can withdraw freely until 24 hrs prior to start</div>
                   </div>
                 </div>
-                <span onclick="showToast('Leave Policy: Players can freely withdraw or leave this event up to 30 minutes before the 18:00 start time without penalty.')" 
+                <span onclick="showToast('Cancellation Policy: Participants can freely withdraw from this event up to 24 hours before event start without penalty.')" 
                       title="Tap for leave policy details"
                       style="display:inline-flex; align-items:center; gap:4px; font-size:10px; font-weight:800; background:#DCFCE7; color:#15803D; padding:3px 8px; border-radius:6px; cursor:pointer;">
                   <span>Policy</span>
@@ -3008,12 +3042,13 @@
                   </div>
                   <div>
                     <div style="font-size:11.5px; font-weight:800; color:#92400E;">Creator Controls</div>
-                    <div style="font-size:10px; color:#B45309;">Cancel match or remove player</div>
+                    <div style="font-size:10px; color:#B45309;">Cancel event or transfer host</div>
                   </div>
                 </div>
                 <button style="padding:6px 12px; border-radius:6px; background:#EF4444; color:#FFF; border:none; font-family:var(--font-heading); font-size:10.5px; font-weight:800; cursor:pointer; display:flex; align-items:center; gap:5px;" onclick="openCreatorCancelModal()">
                   <i class="fa fa-ban"></i> Cancel Event
                 </button>
+              </div>
               </div>
 
               <!-- When & Where Schedule Card -->
@@ -3072,11 +3107,11 @@
                 </div>
               </div>
 
-              <!-- Description & Match Details Card -->
+              <!-- Description & Event Details Card -->
               <div class="swp-detail-section-card">
                 <div class="swp-detail-section-label">About the Event</div>
                 <div style="font-size:12px; color:var(--swp-text-main); line-height:1.55; margin-bottom:10px;">
-                  ${data.description || 'Casual friendly fixture. Match balls provided. All player levels welcome!'}
+                  ${data.description || 'Casual friendly fixture. Event equipment provided. All player levels welcome!'}
                 </div>
                 <div style="display:flex; gap:6px; flex-wrap:wrap;">
                   <span style="font-size:10px; font-weight:700; background:#F1F5F9; color:#475569; padding:3px 8px; border-radius:6px;">Balls provided</span>
@@ -3150,7 +3185,7 @@
                 ${spotsRemaining} spots left
               </div>
               <div style="font-size:9.5px; color:#15803D; font-weight:700; display:flex; align-items:center; gap:4px;">
-                <i class="fa fa-clock-rotate-left"></i> Leave up to 30m prior
+                <i class="fa fa-clock-rotate-left"></i> Cancel up to 24h prior
               </div>
             </div>
 
@@ -3207,7 +3242,7 @@
         ? `${data.dayName} ${data.dayNum} Nov` 
         : (data.dateDisplay || '18/11/2026');
       const venueStr = data.isOnline 
-        ? 'Online Match' 
+        ? 'Online Event' 
         : `${data.clubName} · ★ 4.9`;
 
       let btnLabel = '';
@@ -3272,7 +3307,7 @@
                 <i class="fa fa-location-dot" style="color:var(--swp-primary); font-size:12px;"></i> ${venueStr}
               </div>
               <span style="font-size:9.5px; font-weight:700; color:#15803D; background:#DCFCE7; padding:2px 6px; border-radius:4px; display:inline-flex; align-items:center; gap:3px;">
-                <i class="fa fa-clock-rotate-left"></i> Leave up to 30m prior
+                <i class="fa fa-clock-rotate-left"></i> Cancel up to 24h prior
               </span>
             </div>
 
@@ -3321,7 +3356,7 @@
             </div>
 
             <div style="display:flex; justify-content:space-between; align-items:center; background:#F8FAFC; padding:8px 12px; border-radius:8px;">
-              <span style="font-size:11.5px; color:var(--swp-text-muted); font-weight:600;">Match Date & Time</span>
+              <span style="font-size:11.5px; color:var(--swp-text-muted); font-weight:600;">Event Date & Time</span>
               <span style="font-size:11.5px; font-weight:800;">${eventData.dateDisplay} · ${eventData.startTime}</span>
             </div>
           </div>
@@ -3397,16 +3432,16 @@
           <div style="width:32px; height:32px; border-radius:8px; background:var(--swp-bg-subtle); display:flex; align-items:center; justify-content:center; color:var(--swp-text-main);"><i class="fa fa-sliders"></i></div>
         </div>
 
-        <!-- 4 Sub-Tabs Bar: New, Upcoming, Events, SWP Request (Coming Soon removed per stakeholder decision) -->
+        <!-- 4 Sub-Tabs Bar: New, Events, Upcoming, SWP Request (Client Approved Order) -->
         <div style="display:flex; background:#E2E8F0; padding:3px; margin:10px 16px 4px; border-radius:8px;">
           <button style="flex:1; padding:6px 4px; border-radius:6px; border:none; font-family:var(--font-heading); font-size:11px; font-weight:800; cursor:pointer; background:${currentBookingsTab === 'new' ? '#3B82F6' : 'transparent'}; color:${currentBookingsTab === 'new' ? '#FFF' : '#475569'}; white-space:nowrap;" onclick="setBookingsTab('new')">
             New
           </button>
-          <button style="flex:1; padding:6px 4px; border-radius:6px; border:none; font-family:var(--font-heading); font-size:11px; font-weight:800; cursor:pointer; background:${currentBookingsTab === 'upcoming' ? '#3B82F6' : 'transparent'}; color:${currentBookingsTab === 'upcoming' ? '#FFF' : '#475569'}; white-space:nowrap;" onclick="setBookingsTab('upcoming')">
-            Upcoming
-          </button>
           <button style="flex:1; padding:6px 4px; border-radius:6px; border:none; font-family:var(--font-heading); font-size:11px; font-weight:800; cursor:pointer; background:${currentBookingsTab === 'events' ? '#3B82F6' : 'transparent'}; color:${currentBookingsTab === 'events' ? '#FFF' : '#475569'}; white-space:nowrap;" onclick="setBookingsTab('events')">
             Events
+          </button>
+          <button style="flex:1; padding:6px 4px; border-radius:6px; border:none; font-family:var(--font-heading); font-size:11px; font-weight:800; cursor:pointer; background:${currentBookingsTab === 'upcoming' ? '#3B82F6' : 'transparent'}; color:${currentBookingsTab === 'upcoming' ? '#FFF' : '#475569'}; white-space:nowrap;" onclick="setBookingsTab('upcoming')">
+            Upcoming
           </button>
           <button style="flex:1; padding:6px 4px; border-radius:6px; border:none; font-family:var(--font-heading); font-size:11px; font-weight:800; cursor:pointer; background:${currentBookingsTab === 'swpRequest' ? '#3B82F6' : 'transparent'}; color:${currentBookingsTab === 'swpRequest' ? '#FFF' : '#475569'}; white-space:nowrap; position:relative;" onclick="setBookingsTab('swpRequest')">
             SWP Request
@@ -3471,10 +3506,10 @@
         `;
       } else if (currentBookingsTab === 'swpRequest') {
         return `
-          <!-- SWP Request Tab: Matchmaking & Join Requests -->
+          <!-- SWP Request Tab: Event Join Requests -->
           <div style="margin-bottom:12px;">
             <div style="font-family:var(--font-heading); font-size:13.5px; font-weight:800; color:var(--swp-navy);">
-              SWP Match Requests
+              SWP Event Requests
             </div>
             <div style="font-size:11px; color:var(--swp-text-muted);">
               Manage incoming join requests and track requests sent to other hosts
@@ -3504,7 +3539,7 @@
                 <i class="fa fa-inbox"></i>
               </div>
               <div style="font-size:12px; font-weight:800; color:var(--swp-navy);">No Pending Host Requests</div>
-              <div style="font-size:10.5px; color:var(--swp-text-muted); margin-top:2px;">Player applications to join your matches will appear here.</div>
+              <div style="font-size:10.5px; color:var(--swp-text-muted); margin-top:2px;">Player applications to join your events will appear here.</div>
             </div>
           `}
 
@@ -3607,7 +3642,7 @@
                 <span style="cursor:pointer;" onclick="showToast('Liked post!')"><i class="fa fa-heart" style="color:#EF4444;"></i> 14</span>
                 <span style="cursor:pointer;" onclick="showToast('Comments: 4 replies')"><i class="fa fa-comment"></i> 4</span>
               </div>
-              <button style="padding:4px 10px; border-radius:6px; background:var(--swp-primary); color:#FFF; border:none; font-size:10.5px; font-weight:800; cursor:pointer;" onclick="navTo('swp_card')">Join Match</button>
+              <button style="padding:4px 10px; border-radius:6px; background:var(--swp-primary); color:#FFF; border:none; font-size:10.5px; font-weight:800; cursor:pointer;" onclick="navTo('swp_card')">Join Event</button>
             </div>
           </div>
         </div>
@@ -3718,7 +3753,7 @@
 
           <!-- Compatibility Rating Badge -->
           <div style="background:#ECFDF5; border:1px solid #A7F3D0; border-radius:10px; padding:10px; margin-bottom:12px; text-align:center;">
-            <div style="font-family:var(--font-heading); font-size:18px; font-weight:900; color:#047857;">94% Match Synergy</div>
+            <div style="font-family:var(--font-heading); font-size:18px; font-weight:900; color:#047857;">94% Partner Synergy</div>
             <div style="font-size:11px; color:#065F46;">Balanced Court Defense & Active Net Play</div>
           </div>
 
@@ -3777,7 +3812,7 @@
           </div>
           <div style="font-family:var(--font-heading); font-size:16px; font-weight:800; margin-bottom:6px;">No Upcoming Bookings</div>
           <div style="font-size:12px; color:var(--swp-text-muted); max-width:240px; margin-bottom:16px;">
-            You have no active matches scheduled. Discover available courts or join an Open SWP game.
+            You have no active events scheduled. Discover available courts or join an Open SWP game.
           </div>
           <button class="swp-cta-btn" style="max-width:200px;" onclick="setUiState('populated'); navTo('bookings_hub');">
             Find Court Now
@@ -3795,11 +3830,11 @@
         </div>
         <div class="swp-page-body">
           <div class="swp-input-box error">
-            <span class="swp-notched-label">MATCH COST (€)</span>
+            <span class="swp-notched-label">TOTAL EVENT COST (€)</span>
             <input type="text" class="swp-field" value="-15.00">
           </div>
           <div class="swp-field-error-text">
-            <i class="fa fa-circle-exclamation"></i> Total match cost cannot be negative.
+            <i class="fa fa-circle-exclamation"></i> Total event cost cannot be negative.
           </div>
 
           <div class="swp-input-box error">
@@ -3842,6 +3877,10 @@
       const requestedTab = urlParams.get('tab');
       if (requestedTab) {
         currentBookingsTab = requestedTab;
+      }
+      const requestedModal = urlParams.get('modal');
+      if (requestedModal === 'cancel') {
+        setTimeout(openCreatorCancelModal, 100);
       }
       const requestedScreen = urlParams.get('screen');
       if (requestedScreen) {
