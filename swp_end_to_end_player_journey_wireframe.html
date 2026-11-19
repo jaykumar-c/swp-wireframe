@@ -1046,6 +1046,38 @@
       0% { background-position: 200% 0; }
       100% { background-position: -200% 0; }
     }
+    /* Selectable Policy Option Cards & Range Slider */
+    .swp-policy-card {
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .swp-policy-card:hover {
+      transform: translateY(-1px);
+    }
+    .swp-radius-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--swp-primary);
+      border: 3px solid #FFFFFF;
+      box-shadow: 0 2px 6px rgba(0, 122, 255, 0.45);
+      cursor: pointer;
+      transition: transform 0.12s ease;
+    }
+    .swp-radius-slider::-webkit-slider-thumb:active {
+      transform: scale(1.18);
+    }
+    .swp-radius-slider::-moz-range-thumb {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--swp-primary);
+      border: 3px solid #FFFFFF;
+      box-shadow: 0 2px 6px rgba(0, 122, 255, 0.45);
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -2454,44 +2486,52 @@
           </div>
 
           <!-- Join Permission Selection (Interactive Selectable Cards with Radio Circles) -->
-          <div style="font-family:var(--font-heading); font-size:11.5px; font-weight:800; color:var(--swp-text-muted); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.5px;">
+          <div style="font-family:var(--font-heading); font-size:11.5px; font-weight:800; color:var(--swp-text-muted); margin-bottom:10px; text-transform:uppercase; letter-spacing:0.5px;">
             Join Permission Policy
           </div>
           
-          <!-- Option 1: Direct Join -->
-          <div class="swp-policy-card ${isDirect ? 'active' : ''}" onclick="setEventJoinPolicy('direct')">
-            <div style="display:flex; align-items:center; justify-content:space-between;">
-              <div style="display:flex; align-items:center; gap:10px;">
-                <div class="swp-policy-radio">
-                  <div class="swp-policy-radio-dot"></div>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px;">
-                  <span style="font-family:var(--font-heading); font-size:13.5px; font-weight:800; color:var(--swp-text-main);">Direct Join</span>
-                  <i class="fa fa-circle-info" style="color:var(--swp-primary); font-size:13px; cursor:pointer;" title="Tap for details" onclick="event.stopPropagation(); showToast('Direct Join: Players join immediately without creator approval until player capacity is filled.')"></i>
-                </div>
+          <!-- Option 1: Direct Join Selection Card -->
+          <div class="swp-policy-card ${isDirect ? 'active' : ''}" onclick="setEventJoinPolicy('direct')"
+               style="background:${isDirect ? '#EFF6FF' : '#FFFFFF'}; border:${isDirect ? '2px solid var(--swp-primary)' : '1.5px solid var(--swp-border)'}; border-radius:14px; padding:15px 16px; margin-bottom:12px; cursor:pointer; transition:all 0.18s ease; box-shadow:${isDirect ? '0 4px 14px rgba(0, 122, 255, 0.12)' : '0 1px 3px rgba(0,0,0,0.04)'}; display:flex; align-items:center; justify-content:space-between;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <!-- Radio Circle -->
+              <div style="width:22px; height:22px; border-radius:11px; border:2px solid ${isDirect ? 'var(--swp-primary)' : '#CBD5E1'}; background:#FFF; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                ${isDirect ? '<div style="width:11px; height:11px; border-radius:50%; background:var(--swp-primary);"></div>' : ''}
               </div>
-              <span style="font-size:9.5px; font-weight:800; background:#ECFDF5; color:#047857; padding:2px 8px; border-radius:4px; letter-spacing:0.3px;">Instant RSVP</span>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span style="font-family:var(--font-heading); font-size:14.5px; font-weight:800; color:${isDirect ? 'var(--swp-primary)' : 'var(--swp-navy)'};">Direct Join</span>
+                <span onclick="event.stopPropagation(); showToast('Direct Join: Players join immediately without creator approval until roster capacity is filled.')" 
+                      title="Tap for explanation"
+                      style="display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:10px; background:${isDirect ? 'rgba(0, 122, 255, 0.12)' : '#F1F5F9'}; color:${isDirect ? 'var(--swp-primary)' : '#64748B'}; font-size:12px; font-weight:700; cursor:pointer; transition:all 0.15s ease;">
+                  <i class="fa fa-info"></i>
+                </span>
+              </div>
             </div>
+            <span style="font-size:10.5px; font-weight:800; background:#ECFDF5; color:#047857; padding:4px 10px; border-radius:6px; letter-spacing:0.3px;">Instant RSVP</span>
           </div>
 
-          <!-- Option 2: Approval Required -->
-          <div class="swp-policy-card ${!isDirect ? 'active' : ''}" onclick="setEventJoinPolicy('approval')">
-            <div style="display:flex; align-items:center; justify-content:space-between;">
-              <div style="display:flex; align-items:center; gap:10px;">
-                <div class="swp-policy-radio">
-                  <div class="swp-policy-radio-dot"></div>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px;">
-                  <span style="font-family:var(--font-heading); font-size:13.5px; font-weight:800; color:var(--swp-text-main);">Approval Required</span>
-                  <i class="fa fa-circle-info" style="color:#B45309; font-size:13px; cursor:pointer;" title="Tap for details" onclick="event.stopPropagation(); showToast('Approval Required: Players submit a join request. You inspect their passport and approve them before they are added.')"></i>
-                </div>
+          <!-- Option 2: Approval Required Selection Card -->
+          <div class="swp-policy-card ${!isDirect ? 'active' : ''}" onclick="setEventJoinPolicy('approval')"
+               style="background:${!isDirect ? '#FFFBEB' : '#FFFFFF'}; border:${!isDirect ? '2px solid #D97706' : '1.5px solid var(--swp-border)'}; border-radius:14px; padding:15px 16px; margin-bottom:14px; cursor:pointer; transition:all 0.18s ease; box-shadow:${!isDirect ? '0 4px 14px rgba(217, 119, 6, 0.14)' : '0 1px 3px rgba(0,0,0,0.04)'}; display:flex; align-items:center; justify-content:space-between;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <!-- Radio Circle -->
+              <div style="width:22px; height:22px; border-radius:11px; border:2px solid ${!isDirect ? '#D97706' : '#CBD5E1'}; background:#FFF; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                ${!isDirect ? '<div style="width:11px; height:11px; border-radius:50%; background:#D97706;"></div>' : ''}
               </div>
-              <span style="font-size:9.5px; font-weight:800; background:#FEF3C7; color:#92400E; padding:2px 8px; border-radius:4px; letter-spacing:0.3px;">Host Review</span>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span style="font-family:var(--font-heading); font-size:14.5px; font-weight:800; color:${!isDirect ? '#92400E' : 'var(--swp-navy)'};">Approval Required</span>
+                <span onclick="event.stopPropagation(); showToast('Approval Required: Players submit a join request. You inspect their passport and approve them before they are added to the roster.')" 
+                      title="Tap for explanation"
+                      style="display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:10px; background:${!isDirect ? 'rgba(217, 119, 6, 0.12)' : '#F1F5F9'}; color:${!isDirect ? '#D97706' : '#64748B'}; font-size:12px; font-weight:700; cursor:pointer; transition:all 0.15s ease;">
+                  <i class="fa fa-info"></i>
+                </span>
+              </div>
             </div>
+            <span style="font-size:10.5px; font-weight:800; background:#FEF3C7; color:#92400E; padding:4px 10px; border-radius:6px; letter-spacing:0.3px;">Host Review</span>
           </div>
 
           <!-- Summary Card of Event To Be Published -->
-          <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:12px; padding:12px; margin-top:8px; margin-bottom:14px;">
+          <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:12px; padding:12px; margin-top:4px; margin-bottom:14px;">
             <div style="font-family:var(--font-heading); font-size:11.5px; font-weight:800; color:var(--swp-navy); margin-bottom:6px;">
               Event Ready to Publish
             </div>
@@ -3349,13 +3389,16 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
+      const requestedPolicy = urlParams.get('policy');
+      if (requestedPolicy) {
+        eventData.joinPolicy = requestedPolicy;
+      }
       const requestedScreen = urlParams.get('screen');
       if (requestedScreen) {
         navTo(requestedScreen);
       } else {
         renderMobileScreen();
       }
-      
     });
   </script>
 </body>
