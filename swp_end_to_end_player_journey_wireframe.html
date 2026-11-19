@@ -1353,7 +1353,7 @@
     /* Global Application State */
     let currentScreen = 'home';
     let currentUiState = 'populated'; // 'populated', 'empty', 'loading', 'error'
-    let currentBookingsTab = 'new';   // 'new', 'upcoming', 'comingSoon', 'swpRequest'
+    let currentBookingsTab = 'events';   // 'new', 'upcoming', 'events', 'swpRequest'
     let isFabOpen = false;
 
     // Time Picker Modal State
@@ -3219,20 +3219,20 @@
           <div style="width:32px; height:32px; border-radius:8px; background:var(--swp-bg-subtle); display:flex; align-items:center; justify-content:center; color:var(--swp-text-main);"><i class="fa fa-sliders"></i></div>
         </div>
 
-        <!-- 4 Sub-Tabs Bar (New, Upcoming, Coming Soon, SWP Request) -->
-        <div style="display:flex; background:#E2E8F0; padding:3px; margin:10px 16px 4px; border-radius:8px; overflow-x:auto;">
-          <button style="flex:1; padding:6px 8px; border-radius:6px; border:none; font-family:var(--font-heading); font-size:11px; font-weight:800; cursor:pointer; background:${currentBookingsTab === 'new' ? '#3B82F6' : 'transparent'}; color:${currentBookingsTab === 'new' ? '#FFF' : '#475569'}; white-space:nowrap;" onclick="setBookingsTab('new')">
+        <!-- 4 Sub-Tabs Bar: New, Upcoming, Events, SWP Request (Coming Soon removed per stakeholder decision) -->
+        <div style="display:flex; background:#E2E8F0; padding:3px; margin:10px 16px 4px; border-radius:8px;">
+          <button style="flex:1; padding:6px 4px; border-radius:6px; border:none; font-family:var(--font-heading); font-size:11px; font-weight:800; cursor:pointer; background:${currentBookingsTab === 'new' ? '#3B82F6' : 'transparent'}; color:${currentBookingsTab === 'new' ? '#FFF' : '#475569'}; white-space:nowrap;" onclick="setBookingsTab('new')">
             New
           </button>
-          <button style="flex:1; padding:6px 8px; border-radius:6px; border:none; font-family:var(--font-heading); font-size:11px; font-weight:800; cursor:pointer; background:${currentBookingsTab === 'upcoming' ? '#3B82F6' : 'transparent'}; color:${currentBookingsTab === 'upcoming' ? '#FFF' : '#475569'}; white-space:nowrap;" onclick="setBookingsTab('upcoming')">
+          <button style="flex:1; padding:6px 4px; border-radius:6px; border:none; font-family:var(--font-heading); font-size:11px; font-weight:800; cursor:pointer; background:${currentBookingsTab === 'upcoming' ? '#3B82F6' : 'transparent'}; color:${currentBookingsTab === 'upcoming' ? '#FFF' : '#475569'}; white-space:nowrap;" onclick="setBookingsTab('upcoming')">
             Upcoming
           </button>
-          <button style="flex:1; padding:6px 8px; border-radius:6px; border:none; font-family:var(--font-heading); font-size:11px; font-weight:800; cursor:pointer; background:${currentBookingsTab === 'comingSoon' ? '#3B82F6' : 'transparent'}; color:${currentBookingsTab === 'comingSoon' ? '#FFF' : '#475569'}; white-space:nowrap;" onclick="setBookingsTab('comingSoon')">
-            Coming Soon
-          </button>
-          <button style="flex:1; padding:6px 8px; border-radius:6px; border:none; font-family:var(--font-heading); font-size:11px; font-weight:800; cursor:pointer; background:${(currentBookingsTab === 'events' || currentBookingsTab === 'swpRequest') ? '#3B82F6' : 'transparent'}; color:${(currentBookingsTab === 'events' || currentBookingsTab === 'swpRequest') ? '#FFF' : '#475569'}; white-space:nowrap; position:relative;" onclick="setBookingsTab('events')">
+          <button style="flex:1; padding:6px 4px; border-radius:6px; border:none; font-family:var(--font-heading); font-size:11px; font-weight:800; cursor:pointer; background:${currentBookingsTab === 'events' ? '#3B82F6' : 'transparent'}; color:${currentBookingsTab === 'events' ? '#FFF' : '#475569'}; white-space:nowrap;" onclick="setBookingsTab('events')">
             Events
-            ${eventData.joinRequestStatus === 'requested' ? '<span style="position:absolute; top:4px; right:4px; width:6px; height:6px; border-radius:50%; background:#EF4444;"></span>' : ''}
+          </button>
+          <button style="flex:1; padding:6px 4px; border-radius:6px; border:none; font-family:var(--font-heading); font-size:11px; font-weight:800; cursor:pointer; background:${currentBookingsTab === 'swpRequest' ? '#3B82F6' : 'transparent'}; color:${currentBookingsTab === 'swpRequest' ? '#FFF' : '#475569'}; white-space:nowrap; position:relative;" onclick="setBookingsTab('swpRequest')">
+            SWP Request
+            ${eventData.joinRequestStatus === 'requested' ? '<span style="position:absolute; top:3px; right:3px; width:6px; height:6px; border-radius:50%; background:#EF4444;"></span>' : ''}
           </button>
         </div>
 
@@ -3291,17 +3291,55 @@
             </div>
           </div>
         `;
-      } else if (currentBookingsTab === 'comingSoon') {
+      } else if (currentBookingsTab === 'swpRequest') {
         return `
-          <div style="margin-bottom:10px; font-size:12px; color:var(--swp-text-muted);">
-            <b>704 Partner Clubs</b> joining ShallWe-Play soon:
+          <!-- SWP Request Tab: Matchmaking & Join Requests -->
+          <div style="margin-bottom:12px;">
+            <div style="font-family:var(--font-heading); font-size:13.5px; font-weight:800; color:var(--swp-navy);">
+              SWP Match Requests
+            </div>
+            <div style="font-size:11px; color:var(--swp-text-muted);">
+              Manage incoming join requests and track requests sent to other hosts
+            </div>
+          </div>
+
+          <!-- Pending Join Request Alert for Host (if approval requested) -->
+          ${eventData.joinRequestStatus === 'requested' ? `
+            <div style="background:#FEF3C7; border:1px solid #FDE68A; border-radius:12px; padding:12px; margin-bottom:12px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <div style="width:34px; height:34px; border-radius:17px; background:#F59E0B; color:#FFF; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:12px;">E</div>
+                  <div>
+                    <div style="font-size:12px; font-weight:800; color:#92400E;">Emma Watson requested to join</div>
+                    <div style="font-size:10.5px; color:#B45309;">${eventData.eventName || 'Rotterdam Padel Friday Night'}</div>
+                  </div>
+                </div>
+                <div style="display:flex; gap:6px;">
+                  <button style="padding:4px 10px; border-radius:6px; background:#10B981; color:#FFF; border:none; font-size:11px; font-weight:800; cursor:pointer;" onclick="approveHostRequest()">Accept</button>
+                  <button style="padding:4px 8px; border-radius:6px; background:#EF4444; color:#FFF; border:none; font-size:11px; font-weight:800; cursor:pointer;" onclick="declineHostRequest()">Decline</button>
+                </div>
+              </div>
+            </div>
+          ` : `
+            <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:12px; padding:14px; text-align:center; margin-bottom:12px;">
+              <div style="width:36px; height:36px; border-radius:18px; background:#F1F5F9; color:var(--swp-text-muted); display:inline-flex; align-items:center; justify-content:center; margin-bottom:6px;">
+                <i class="fa fa-inbox"></i>
+              </div>
+              <div style="font-size:12px; font-weight:800; color:var(--swp-navy);">No Pending Host Requests</div>
+              <div style="font-size:10.5px; color:var(--swp-text-muted); margin-top:2px;">Player applications to join your matches will appear here.</div>
+            </div>
+          `}
+
+          <div style="font-family:var(--font-heading); font-size:11px; font-weight:800; color:var(--swp-text-muted); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.5px;">
+            Sent Requests (Outgoing)
           </div>
           <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:12px; padding:12px; margin-bottom:10px;">
-            <div style="font-family:var(--font-heading); font-size:13.5px; font-weight:800;">SnowWorld Landgraaf</div>
-            <div style="font-size:11px; color:var(--swp-text-muted); margin-bottom:6px;">Indoor Alpine Slopes · 9,500 m²</div>
             <div style="display:flex; justify-content:space-between; align-items:center;">
-              <span style="font-size:11px; font-weight:800; color:#047857;">Est: €49,50 /hr</span>
-              <span style="font-size:10px; font-weight:700; background:#F1F5F9; color:#475569; padding:2px 6px; border-radius:4px;">Ski / Board</span>
+              <div>
+                <div style="font-family:var(--font-heading); font-size:13px; font-weight:800;">Sunday Morning Padel League</div>
+                <div style="font-size:10.5px; color:var(--swp-text-muted);">Host: Lars van Dijk · Padel Dam Amsterdam</div>
+              </div>
+              <span style="font-size:9.5px; font-weight:800; background:#EFF6FF; color:var(--swp-primary); padding:3px 8px; border-radius:6px;">PENDING</span>
             </div>
           </div>
         `;
@@ -3622,6 +3660,10 @@
       const requestedPolicy = urlParams.get('policy');
       if (requestedPolicy) {
         eventData.joinPolicy = requestedPolicy;
+      }
+      const requestedTab = urlParams.get('tab');
+      if (requestedTab) {
+        currentBookingsTab = requestedTab;
       }
       const requestedScreen = urlParams.get('screen');
       if (requestedScreen) {
