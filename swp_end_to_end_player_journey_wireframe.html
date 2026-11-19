@@ -2003,11 +2003,71 @@
           </div>
         </div>
 
-        <!-- Small Metric & Action Cards (Horizontal Slider) -->
+        <!-- Open Event Cards (Horizontal Slider to Left Side View - Positioned Directly After WHAT'S HAPPENING) -->
+        <div style="padding:0 0 14px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:0 16px 8px;">
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span style="font-family:var(--font-heading); font-size:13.5px; font-weight:800; color:var(--swp-navy);">Open Events</span>
+              <span style="font-size:9.5px; font-weight:800; background:#ECFDF5; color:#047857; padding:2px 7px; border-radius:99px;">3 Live</span>
+            </div>
+            <span style="font-size:11px; font-weight:700; color:var(--swp-primary); cursor:pointer;" onclick="openEventsTab()">View All Events →</span>
+          </div>
+
+          <!-- Horizontal Carousel of Event Cards (Swipe Left for More) -->
+          <div style="display:flex; gap:12px; overflow-x:auto; padding:0 16px 8px; scroll-snap-type:x mandatory; scrollbar-width:none; -webkit-overflow-scrolling:touch;">
+            <div style="width:315px; flex-shrink:0; scroll-snap-align:start;">
+              ${renderAuthenticSwpJoinCard(eventData)}
+            </div>
+            <div style="width:315px; flex-shrink:0; scroll-snap-align:start;">
+              ${renderAuthenticSwpJoinCard(communityEvents[0])}
+            </div>
+            <div style="width:315px; flex-shrink:0; scroll-snap-align:start;">
+              ${renderAuthenticSwpJoinCard(communityEvents[1])}
+            </div>
+          </div>
+
+          <!-- Slider Pagination Cue -->
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:0 16px;">
+            <div style="display:flex; gap:4px;">
+              <div style="width:14px; height:4px; border-radius:2px; background:var(--swp-primary);"></div>
+              <div style="width:4px; height:4px; border-radius:2px; background:#CBD5E1;"></div>
+              <div style="width:4px; height:4px; border-radius:2px; background:#CBD5E1;"></div>
+            </div>
+            <span style="font-size:9.5px; color:var(--swp-text-muted); font-weight:600;">
+              Slide left for more events ➔
+            </span>
+          </div>
+        </div>
+
+        <!-- Small Metric & Action Cards (Horizontal Slider - Positioned After Open Events) -->
         <div style="display:flex; gap:10px; overflow-x:auto; padding:0 16px 14px; scrollbar-width:none; -webkit-overflow-scrolling:touch;">
           
-          <!-- Card 1: Active Membership (from live app screenshot) -->
-          <div style="min-width:170px; background:#FFF; border:1px solid #E2E8F0; border-radius:14px; padding:12px 14px; flex-shrink:0; box-shadow:0 1px 3px rgba(0,0,0,0.03); cursor:pointer;" onclick="showToast('Active Membership: 239 days remaining')">
+          <!-- Card 1: Open Events Count Card (Before Open Memberships with count of open events) -->
+          <div style="min-width:160px; background:#FFF; border:1px solid #E2E8F0; border-radius:14px; padding:12px 14px; flex-shrink:0; box-shadow:0 1px 3px rgba(0,0,0,0.03); cursor:pointer;" onclick="openEventsTab()">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+              <div style="border-left:3px solid #10B981; padding-left:6px; font-family:var(--font-heading); font-size:24px; font-weight:900; color:#0F172A; line-height:1;">
+                12
+              </div>
+              <span style="font-size:9.5px; font-weight:800; background:#ECFDF5; color:#047857; padding:2px 7px; border-radius:99px; display:flex; align-items:center; gap:4px;">
+                <span style="width:5px; height:5px; border-radius:50%; background:#10B981;"></span> Live RSVP
+              </span>
+            </div>
+            <div style="font-family:var(--font-heading); font-size:11px; font-weight:700; color:#334155; margin-top:8px;">
+              Open Events
+            </div>
+            <div style="font-size:10px; color:#64748B; margin-top:2px;">
+              12 matches open to join
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+              <span style="font-size:9.5px; color:#007AFF; font-weight:700;">View events</span>
+              <div style="width:20px; height:20px; border-radius:10px; background:#EFF6FF; color:#007AFF; display:flex; align-items:center; justify-content:center; font-size:10px;">
+                <i class="fa fa-arrow-right"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Open Memberships (Renamed from Active Membership) -->
+          <div style="min-width:170px; background:#FFF; border:1px solid #E2E8F0; border-radius:14px; padding:12px 14px; flex-shrink:0; box-shadow:0 1px 3px rgba(0,0,0,0.03); cursor:pointer;" onclick="showToast('Open Memberships: 239 days remaining')">
             <div style="display:flex; justify-content:space-between; align-items:flex-start;">
               <div style="border-left:3px solid #007AFF; padding-left:6px; font-family:var(--font-heading); font-size:24px; font-weight:900; color:#0F172A; line-height:1;">
                 1
@@ -2017,7 +2077,7 @@
               </span>
             </div>
             <div style="font-family:var(--font-heading); font-size:11px; font-weight:700; color:#334155; margin-top:8px;">
-              Active Membership
+              Open Memberships
             </div>
             <div style="font-size:10px; color:#64748B; margin-top:2px;">
               239 days left
@@ -2032,7 +2092,7 @@
             </div>
           </div>
 
-          <!-- Card 2: Total Open Bookings (from live app screenshot) -->
+          <!-- Card 3: Total Open Bookings (from live app screenshot) -->
           <div style="min-width:140px; background:#FFF; border:1px solid #E2E8F0; border-radius:14px; padding:12px 14px; flex-shrink:0; box-shadow:0 1px 3px rgba(0,0,0,0.03); cursor:pointer;" onclick="navTo('book_court')">
             <div style="font-family:var(--font-heading); font-size:26px; font-weight:900; color:#0F172A; line-height:1.1;">
               751
@@ -2042,24 +2102,6 @@
             </div>
             <div style="font-size:9.5px; color:var(--swp-primary); font-weight:700; margin-top:6px;">
               Book court slot →
-            </div>
-          </div>
-
-          <!-- Card 3: Open Events Count Card (Redirecting to events tab) -->
-          <div style="min-width:155px; background:#FFF; border:1.5px solid var(--swp-primary-border); border-radius:14px; padding:12px 14px; flex-shrink:0; box-shadow:0 2px 8px rgba(0, 122, 255, 0.08); cursor:pointer;" onclick="openEventsTab()">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-              <div style="border-left:3px solid #10B981; padding-left:6px; font-family:var(--font-heading); font-size:24px; font-weight:900; color:var(--swp-navy); line-height:1;">
-                12
-              </div>
-              <span style="font-size:9.5px; font-weight:800; background:#ECFDF5; color:#047857; padding:2px 7px; border-radius:99px;">
-                Live RSVP
-              </span>
-            </div>
-            <div style="font-family:var(--font-heading); font-size:11px; font-weight:800; color:var(--swp-navy); margin-top:8px;">
-              Open Events
-            </div>
-            <div style="font-size:9.5px; color:var(--swp-primary); font-weight:700; margin-top:4px;">
-              Go to Events Tab →
             </div>
           </div>
 
@@ -2094,42 +2136,6 @@
             </div>
           </div>
 
-        </div>
-
-        <!-- Open Event Cards (Horizontal Slider to Left Side View) -->
-        <div style="padding:0 0 12px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; padding:0 16px 8px;">
-            <div style="display:flex; align-items:center; gap:6px;">
-              <span style="font-family:var(--font-heading); font-size:13.5px; font-weight:800; color:var(--swp-navy);">Open Events</span>
-              <span style="font-size:9.5px; font-weight:800; background:#ECFDF5; color:#047857; padding:2px 7px; border-radius:99px;">3 Live</span>
-            </div>
-            <span style="font-size:11px; font-weight:700; color:var(--swp-primary); cursor:pointer;" onclick="openEventsTab()">View All Events →</span>
-          </div>
-
-          <!-- Horizontal Carousel of Event Cards (Swipe Left for More) -->
-          <div style="display:flex; gap:12px; overflow-x:auto; padding:0 16px 8px; scroll-snap-type:x mandatory; scrollbar-width:none; -webkit-overflow-scrolling:touch;">
-            <div style="width:315px; flex-shrink:0; scroll-snap-align:start;">
-              ${renderAuthenticSwpJoinCard(eventData)}
-            </div>
-            <div style="width:315px; flex-shrink:0; scroll-snap-align:start;">
-              ${renderAuthenticSwpJoinCard(communityEvents[0])}
-            </div>
-            <div style="width:315px; flex-shrink:0; scroll-snap-align:start;">
-              ${renderAuthenticSwpJoinCard(communityEvents[1])}
-            </div>
-          </div>
-
-          <!-- Slider Pagination Cue -->
-          <div style="display:flex; justify-content:space-between; align-items:center; padding:0 16px;">
-            <div style="display:flex; gap:4px;">
-              <div style="width:14px; height:4px; border-radius:2px; background:var(--swp-primary);"></div>
-              <div style="width:4px; height:4px; border-radius:2px; background:#CBD5E1;"></div>
-              <div style="width:4px; height:4px; border-radius:2px; background:#CBD5E1;"></div>
-            </div>
-            <span style="font-size:9.5px; color:var(--swp-text-muted); font-weight:600;">
-              Slide left for more events ➔
-            </span>
-          </div>
         </div>
 
         <!-- Mukund Patil Social Post (From Live Mobile App Feed) -->
