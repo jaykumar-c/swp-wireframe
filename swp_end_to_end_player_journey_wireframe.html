@@ -1229,6 +1229,66 @@
           </div>
         </div>
 
+        <!-- Creator Cancel Event Bottom Sheet Dialog Modal -->
+        <div class="swp-timepicker-modal" id="creator-cancel-modal" style="display:none;" onclick="if(event.target === this) closeCreatorCancelModal();">
+          <div class="swp-timepicker-sheet" style="max-height:88%; overflow-y:auto; scrollbar-width:none;">
+            <div class="swp-tp-header" style="border-bottom:1px solid #E2E8F0; padding-bottom:12px; margin-bottom:14px;">
+              <button class="swp-tp-btn cancel" onclick="closeCreatorCancelModal()">Close</button>
+              <div class="swp-tp-title" style="color:var(--swp-navy); font-size:14px; font-weight:800;">Cancel Event Options</div>
+              <div style="width:40px;"></div>
+            </div>
+
+            <div style="font-size:11.5px; color:var(--swp-text-muted); margin-bottom:14px; line-height:1.45;">
+              As the event creator, choose whether to cancel the entire event or remove specific individual players.
+            </div>
+
+            <!-- Option 1: Cancel Complete Event Card -->
+            <div style="background:#FEF2F2; border:1.5px solid #FCA5A5; border-radius:12px; padding:12px; margin-bottom:12px; cursor:pointer;" onclick="confirmCancelCompleteEvent()">
+              <div style="display:flex; align-items:flex-start; gap:10px;">
+                <div style="width:36px; height:36px; border-radius:8px; background:#FEE2E2; color:#DC2626; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                  <i class="fa fa-calendar-xmark" style="font-size:16px;"></i>
+                </div>
+                <div style="flex:1;">
+                  <div style="font-family:var(--font-heading); font-size:13px; font-weight:800; color:#991B1B;">Cancel Complete Event</div>
+                  <div style="font-size:10.5px; color:#B91C1C; margin-top:2px; line-height:1.4;">
+                    Cancels the entire match for all confirmed players. Roster is dissolved, notifications are sent, and the court/venue booking is released.
+                  </div>
+                </div>
+              </div>
+              <button style="width:100%; height:32px; border-radius:6px; border:none; background:#DC2626; color:#FFF; font-family:var(--font-heading); font-size:11px; font-weight:800; cursor:pointer; margin-top:10px;" onclick="event.stopPropagation(); confirmCancelCompleteEvent();">
+                Cancel Entire Event
+              </button>
+            </div>
+
+            <!-- Option 2: Cancel Individual Player / Remove Spot Card -->
+            <div style="background:#EFF6FF; border:1.5px solid #93C5FD; border-radius:12px; padding:12px; cursor:pointer;" onclick="openIndividualCancelList()">
+              <div style="display:flex; align-items:flex-start; gap:10px;">
+                <div style="width:36px; height:36px; border-radius:8px; background:#DBEAFE; color:var(--swp-primary); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                  <i class="fa fa-user-minus" style="font-size:16px;"></i>
+                </div>
+                <div style="flex:1;">
+                  <div style="font-family:var(--font-heading); font-size:13px; font-weight:800; color:var(--swp-navy);">Cancel Individual Player</div>
+                  <div style="font-size:10.5px; color:#1E40AF; margin-top:2px; line-height:1.4;">
+                    Keep the event active. Remove a specific confirmed player or invite from the roster to free up their spot for others.
+                  </div>
+                </div>
+              </div>
+              <button style="width:100%; height:32px; border-radius:6px; border:none; background:var(--swp-primary); color:#FFF; font-family:var(--font-heading); font-size:11px; font-weight:800; cursor:pointer; margin-top:10px;" onclick="event.stopPropagation(); openIndividualCancelList();">
+                Manage & Remove Individual Player
+              </button>
+            </div>
+
+            <!-- Individual Player Removal Sub-List (Toggleable) -->
+            <div id="creator-individual-removal-box" style="display:none; margin-top:12px; background:#F8FAFC; border:1px solid #CBD5E1; border-radius:10px; padding:10px;">
+              <div style="font-family:var(--font-heading); font-size:11px; font-weight:800; color:var(--swp-navy); margin-bottom:8px;">
+                Select player to remove:
+              </div>
+              <div id="creator-individual-removal-items"></div>
+            </div>
+
+          </div>
+        </div>
+
         <!-- Floating Action Menu Modal (Triggered by Center FAB) -->
         <div class="floating-action-modal" id="fab-menu-modal" onclick="closeFabMenu(event)">
           <div class="floating-action-item" onclick="handleFabAction('scan')">
@@ -1510,13 +1570,71 @@
     function leaveEvent() {
       eventData.playersAdded = eventData.playersAdded.filter(p => !p.name.includes('Emma'));
       eventData.joinRequestStatus = 'none';
-      showToast('You left the squad.');
+      showToast('Left squad successfully (withdrawn before 30m cutoff). Spot reopened.');
       renderMobileScreen();
     }
 
     function cancelEventRequest() {
       eventData.joinRequestStatus = 'none';
       showToast('Join request cancelled.');
+      renderMobileScreen();
+    }
+
+    /* Creator Event Cancellation Handlers */
+    function openCreatorCancelModal() {
+      const modal = document.getElementById('creator-cancel-modal');
+      if (modal) {
+        modal.style.display = 'flex';
+        const box = document.getElementById('creator-individual-removal-box');
+        if (box) box.style.display = 'none';
+      }
+    }
+
+    function closeCreatorCancelModal() {
+      const modal = document.getElementById('creator-cancel-modal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function confirmCancelCompleteEvent() {
+      closeCreatorCancelModal();
+      eventData.status = 'CANCELLED';
+      showToast('Complete event cancelled! All players notified via push & email.');
+      setTimeout(() => {
+        navTo('home');
+      }, 1200);
+    }
+
+    function openIndividualCancelList() {
+      const box = document.getElementById('creator-individual-removal-box');
+      const container = document.getElementById('creator-individual-removal-items');
+      if (!box || !container) return;
+
+      const nonHostPlayers = eventData.playersAdded.filter(p => p.role !== 'Host');
+      if (nonHostPlayers.length === 0) {
+        container.innerHTML = '<div style="font-size:11px; color:#64748B; padding:6px 0;">No other players on the roster to remove.</div>';
+      } else {
+        container.innerHTML = nonHostPlayers.map(p => `
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid #E2E8F0;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <div style="width:28px; height:28px; border-radius:14px; background:var(--swp-primary); color:#FFF; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:800;">${p.initial || p.name[0]}</div>
+              <div>
+                <div style="font-size:12px; font-weight:700;">${p.name}</div>
+                <div style="font-size:10px; color:var(--swp-text-muted);">${p.email || 'Confirmed Player'}</div>
+              </div>
+            </div>
+            <button style="padding:4px 10px; border-radius:6px; background:#FEE2E2; border:1px solid #FCA5A5; color:#DC2626; font-size:10.5px; font-weight:800; cursor:pointer;" onclick="creatorRemovePlayer('${p.name}')">
+              Remove
+            </button>
+          </div>
+        `).join('');
+      }
+      box.style.display = 'block';
+    }
+
+    function creatorRemovePlayer(playerName) {
+      eventData.playersAdded = eventData.playersAdded.filter(p => p.name !== playerName);
+      showToast(`Removed ${playerName}. Spot is now open.`);
+      openIndividualCancelList();
       renderMobileScreen();
     }
 
@@ -2685,6 +2803,41 @@
                 </button>
               </div>
 
+              <!-- Leave Policy Info Chip (30 Minutes Before Match Start) -->
+              <div style="background:#F0FDF4; border:1px solid #BBF7D0; border-radius:10px; padding:10px 12px; margin-bottom:12px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <div style="width:28px; height:28px; border-radius:14px; background:#DCFCE7; color:#16A34A; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:12px;">
+                    <i class="fa fa-clock-rotate-left"></i>
+                  </div>
+                  <div>
+                    <div style="font-family:var(--font-heading); font-size:11.5px; font-weight:800; color:#15803D;">Free leave up to 30 mins before start</div>
+                    <div style="font-size:10px; color:#166534;">Players can withdraw freely until 17:30 (30m prior)</div>
+                  </div>
+                </div>
+                <span onclick="showToast('Leave Policy: Players can freely withdraw or leave this event up to 30 minutes before the 18:00 start time without penalty.')" 
+                      title="Tap for leave policy details"
+                      style="display:inline-flex; align-items:center; gap:4px; font-size:10px; font-weight:800; background:#DCFCE7; color:#15803D; padding:3px 8px; border-radius:6px; cursor:pointer;">
+                  <span>Policy</span>
+                  <i class="fa fa-circle-info"></i>
+                </span>
+              </div>
+
+              <!-- Creator Controls Banner (Cancel Complete Event vs Individual Player) -->
+              <div style="background:#FFFBEB; border:1px solid #FDE68A; border-radius:10px; padding:10px 12px; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;">
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <div style="width:28px; height:28px; border-radius:14px; background:#FEF3C7; color:#D97706; display:flex; align-items:center; justify-content:center; font-size:12px;">
+                    <i class="fa fa-crown"></i>
+                  </div>
+                  <div>
+                    <div style="font-size:11.5px; font-weight:800; color:#92400E;">Creator Controls</div>
+                    <div style="font-size:10px; color:#B45309;">Cancel match or remove player</div>
+                  </div>
+                </div>
+                <button style="padding:6px 12px; border-radius:6px; background:#EF4444; color:#FFF; border:none; font-family:var(--font-heading); font-size:10.5px; font-weight:800; cursor:pointer; display:flex; align-items:center; gap:5px;" onclick="openCreatorCancelModal()">
+                  <i class="fa fa-ban"></i> Cancel Event
+                </button>
+              </div>
+
               <!-- When & Where Schedule Card -->
               <div class="swp-detail-section-card">
                 <div class="swp-detail-section-label">Schedule & Location</div>
@@ -2818,8 +2971,8 @@
               <div style="font-family:var(--font-heading); font-size:14px; font-weight:900; color:var(--swp-navy);">
                 ${spotsRemaining} spots left
               </div>
-              <div style="font-size:10.5px; color:var(--swp-text-muted); font-weight:700;">
-                ${isApproval ? 'Host Approval' : 'Instant RSVP'}
+              <div style="font-size:9.5px; color:#15803D; font-weight:700; display:flex; align-items:center; gap:4px;">
+                <i class="fa fa-clock-rotate-left"></i> Leave up to 30m prior
               </div>
             </div>
 
@@ -2936,11 +3089,13 @@
             </div>
 
             <!-- Location & Rating -->
-            <div class="swp-card-location">
+            <div class="swp-card-location" style="display:flex; justify-content:space-between; align-items:center;">
               <div class="swp-card-clubname">
                 <i class="fa fa-location-dot" style="color:var(--swp-primary); font-size:12px;"></i> ${venueStr}
               </div>
-              ${data.courtNumber ? `<div style="font-size:10.5px; color:var(--swp-text-muted);">${data.courtNumber}</div>` : ''}
+              <span style="font-size:9.5px; font-weight:700; color:#15803D; background:#DCFCE7; padding:2px 6px; border-radius:4px; display:inline-flex; align-items:center; gap:3px;">
+                <i class="fa fa-clock-rotate-left"></i> Leave up to 30m prior
+              </span>
             </div>
 
             <!-- Authentic Outlined View Details Action Button -->
@@ -3038,6 +3193,19 @@
                 <span style="font-size:10px; font-weight:800; color:var(--swp-text-muted);">${p.role}</span>
               </div>
             `).join('')}
+          </div>
+
+          <!-- Creator Cancellation Trigger -->
+          <div style="background:#FFF; border:1px solid var(--swp-border); border-radius:12px; padding:12px; margin-top:12px;">
+            <div style="font-family:var(--font-heading); font-size:12px; font-weight:800; color:#991B1B; margin-bottom:4px;">
+              Cancel Event Options
+            </div>
+            <div style="font-size:10.5px; color:var(--swp-text-muted); margin-bottom:10px; line-height:1.4;">
+              Need to call off the fixture or remove an attendee? Choose to cancel the complete event or remove specific individual players.
+            </div>
+            <button style="width:100%; height:36px; border-radius:8px; background:#FEF2F2; border:1px solid #FCA5A5; color:#DC2626; font-family:var(--font-heading); font-size:11.5px; font-weight:800; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;" onclick="openCreatorCancelModal()">
+              <i class="fa fa-triangle-exclamation"></i> Cancel Event Options
+            </button>
           </div>
         </div>
       `;
@@ -3460,6 +3628,10 @@
         navTo(requestedScreen);
       } else {
         renderMobileScreen();
+      }
+      const openModal = urlParams.get('modal');
+      if (openModal === 'creator_cancel') {
+        setTimeout(openCreatorCancelModal, 350);
       }
     });
   </script>
