@@ -1078,6 +1078,313 @@
       box-shadow: 0 2px 6px rgba(0, 122, 255, 0.45);
       cursor: pointer;
     }
+
+    /* ==========================================================================
+       COMMUNICATION MODULE (CHAT) SPECIFICATION STYLES (Google Doc Tab 3)
+       ========================================================================== */
+    .swp-chat-filter-strip {
+      display: flex;
+      gap: 6px;
+      padding: 10px 14px;
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--swp-border);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .swp-chat-filter-btn {
+      padding: 5px 12px;
+      border-radius: 99px;
+      border: 1px solid var(--swp-border);
+      background: #F8FAFC;
+      color: #64748B;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .swp-chat-filter-btn.active {
+      background: #007AFF;
+      color: #FFFFFF;
+      border-color: #007AFF;
+    }
+    .swp-chat-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      background: #FFFFFF;
+      border-bottom: 1px solid #F1F5F9;
+      cursor: pointer;
+      transition: background 0.12s ease;
+    }
+    .swp-chat-item:hover {
+      background: #F8FAFC;
+    }
+    .swp-chat-avatar-wrap {
+      position: relative;
+      flex-shrink: 0;
+    }
+    .swp-chat-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-size: cover;
+      background-position: center;
+      color: #FFF;
+      font-size: 16px;
+      font-weight: 800;
+    }
+    .swp-chat-online-dot {
+      position: absolute;
+      bottom: 1px;
+      right: 1px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #10B981;
+      border: 2px solid #FFFFFF;
+    }
+    .swp-chat-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .swp-chat-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 3px;
+    }
+    .swp-chat-title {
+      font-family: var(--font-heading);
+      font-size: 13px;
+      font-weight: 800;
+      color: #0F172A;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .swp-chat-time {
+      font-size: 10px;
+      color: #94A3B8;
+      font-weight: 600;
+      white-space: nowrap;
+      margin-left: 6px;
+    }
+    .swp-chat-sub-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .swp-chat-preview {
+      font-size: 11px;
+      color: #64748B;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 220px;
+    }
+    .swp-chat-badge {
+      background: #007AFF;
+      color: #FFFFFF;
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 99px;
+      flex-shrink: 0;
+    }
+
+    /* Message Bubbles */
+    .swp-chat-feed-box {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px 14px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: #F8FAFC;
+    }
+    .swp-msg-row {
+      display: flex;
+      gap: 8px;
+      max-width: 82%;
+    }
+    .swp-msg-row.incoming {
+      align-self: flex-start;
+    }
+    .swp-msg-row.outgoing {
+      align-self: flex-end;
+      flex-direction: row-reverse;
+    }
+    .swp-msg-bubble {
+      padding: 9px 12px;
+      border-radius: 14px;
+      font-size: 12px;
+      line-height: 1.45;
+      position: relative;
+    }
+    .swp-msg-bubble.incoming {
+      background: #FFFFFF;
+      color: #1E293B;
+      border: 1px solid #E2E8F0;
+      border-bottom-left-radius: 3px;
+    }
+    .swp-msg-bubble.outgoing {
+      background: #007AFF;
+      color: #FFFFFF;
+      border-bottom-right-radius: 3px;
+      box-shadow: 0 2px 6px rgba(0, 122, 255, 0.25);
+    }
+    .swp-msg-system {
+      align-self: center;
+      background: #E2E8F0;
+      color: #475569;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 99px;
+      text-align: center;
+      margin: 4px 0;
+      max-width: 90%;
+    }
+    .swp-msg-meta {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 4px;
+      font-size: 9.5px;
+      margin-top: 3px;
+      opacity: 0.8;
+    }
+
+    /* Sticky Event Context Bar */
+    .swp-chat-activity-bar {
+      background: #EFF6FF;
+      border-bottom: 1px solid #BFDBFE;
+      padding: 8px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    /* Chat Input Bar */
+    .swp-chat-bottom-input {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #FFFFFF;
+      border-top: 1px solid #E2E8F0;
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 50;
+    }
+    .swp-chat-input-field {
+      flex: 1;
+      height: 38px;
+      border-radius: 19px;
+      background: #F1F5F9;
+      border: 1px solid #CBD5E1;
+      padding: 0 14px;
+      font-size: 12px;
+      font-family: inherit;
+      outline: none;
+    }
+    .swp-chat-input-field:focus {
+      border-color: #007AFF;
+      background: #FFFFFF;
+    }
+    .swp-chat-send-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 18px;
+      background: #007AFF;
+      color: #FFFFFF;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 13px;
+      box-shadow: 0 2px 6px rgba(0, 122, 255, 0.35);
+      flex-shrink: 0;
+      transition: transform 0.1s ease;
+    }
+    .swp-chat-send-btn:active {
+      transform: scale(0.92);
+    }
+
+    .swp-chat-quick-chip {
+      padding: 5px 11px;
+      border-radius: 99px;
+      background: #F1F5F9;
+      border: 1px solid #CBD5E1;
+      color: #334155;
+      font-size: 10px;
+      font-weight: 700;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      flex-shrink: 0;
+    }
+    .swp-chat-quick-chip:hover {
+      background: #E2E8F0;
+      border-color: #94A3B8;
+      color: #0F172A;
+    }
+    .swp-chat-status-pill {
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 99px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .swp-chat-status-pill.active {
+      background: #DCFCE7;
+      color: #15803D;
+    }
+    .swp-chat-status-pill.concluded {
+      background: #F1F5F9;
+      color: #64748B;
+    }
+    .swp-chat-readonly-banner {
+      background: #F8FAFC;
+      border-top: 1px solid #E2E8F0;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .swp-chat-msg-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2px;
+    }
+    .swp-chat-unread-badge {
+      background: #007AFF;
+      color: #FFFFFF;
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 99px;
+      flex-shrink: 0;
+      margin-left: 6px;
+    }
+    .state-matrix-btn.active {
+      background: #007AFF !important;
+      color: #FFFFFF !important;
+    }
+
   </style>
 </head>
 <body>
@@ -1097,6 +1404,13 @@
       <div class="header-badges">
         <span class="pill-badge badge-live"><i class="fa fa-circle"></i> Live App Grounded</span>
         <span class="pill-badge badge-doc"><i class="fa fa-mobile-screen"></i> Native UI/UX Spec</span>
+        <div style="display:flex; gap:3px; align-items:center; background:#F1F5F9; padding:2px 5px; border-radius:8px; border:1px solid #CBD5E1;">
+          <span style="font-size:9.5px; font-weight:800; color:#64748B; margin-right:2px;">State:</span>
+          <button class="state-matrix-btn active" id="btn-state-populated" onclick="setUiState('populated')" style="padding:2px 6px; border-radius:4px; border:none; font-size:9.5px; font-weight:800; cursor:pointer; background:#007AFF; color:#FFF;">Populated</button>
+          <button class="state-matrix-btn" id="btn-state-empty" onclick="setUiState('empty')" style="padding:2px 6px; border-radius:4px; border:none; font-size:9.5px; font-weight:800; cursor:pointer; background:transparent; color:#64748B;">Empty</button>
+          <button class="state-matrix-btn" id="btn-state-loading" onclick="setUiState('loading')" style="padding:2px 6px; border-radius:4px; border:none; font-size:9.5px; font-weight:800; cursor:pointer; background:transparent; color:#64748B;">Skeleton</button>
+          <button class="state-matrix-btn" id="btn-state-error" onclick="setUiState('error')" style="padding:2px 6px; border-radius:4px; border:none; font-size:9.5px; font-weight:800; cursor:pointer; background:transparent; color:#64748B;">Error</button>
+        </div>
       </div>
     </div>
 
@@ -1143,6 +1457,15 @@
       </button>
       <button class="journey-step-btn" id="tab-compare_passport" onclick="navTo('compare_passport')">
         <i class="fa fa-scale-balanced"></i> 14 · Compare Passports
+      </button>
+      <button class="journey-step-btn" id="tab-chat_inbox" onclick="navTo('chat_inbox')">
+        <i class="fa-regular fa-comment-dots"></i> 15 · Chat Inbox
+      </button>
+      <button class="journey-step-btn" id="tab-chat_event_group" onclick="navTo('chat_event_group')">
+        <i class="fa fa-users-line"></i> 16 · Event Squad Chat
+      </button>
+      <button class="journey-step-btn" id="tab-chat_direct" onclick="navTo('chat_direct')">
+        <i class="fa-regular fa-comments"></i> 17 · Direct 1:1 Chat
       </button>
     </nav>
   </header>
@@ -1294,6 +1617,122 @@
           </div>
         </div>
 
+        <!-- Chat Member Roster Modal (Activity Group Chat - Google Doc Tab 3) -->
+        <div class="swp-timepicker-modal" id="chat-roster-modal" style="display:none; background:rgba(0,0,0,0.6);" onclick="if(event.target === this) closeChatRosterModal();">
+          <div class="swp-timepicker-sheet" style="background:#FFFFFF; max-height:85%; overflow-y:auto; scrollbar-width:none;">
+            <div class="swp-tp-header" style="border-bottom:1px solid #E2E8F0; padding-bottom:12px; margin-bottom:14px;">
+              <button class="swp-tp-btn cancel" onclick="closeChatRosterModal()">Close</button>
+              <div class="swp-tp-title" style="color:var(--swp-navy); font-size:14px; font-weight:800;">Squad Members (4)</div>
+              <div style="width:40px;"></div>
+            </div>
+
+            <div style="font-size:11.5px; color:var(--swp-text-muted); margin-bottom:12px;">
+              Participants in Rotterdam Padel Friday Night squad chat:
+            </div>
+
+            <div id="chat-roster-list" style="display:flex; flex-direction:column; gap:8px;">
+              <!-- Member 1: Mukund Patil (Host) -->
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 12px; background:#F8FAFC; border:1px solid #E2E8F0; border-radius:10px;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <div style="width:36px; height:36px; border-radius:18px; background:#007AFF; color:#FFF; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px;">M</div>
+                  <div>
+                    <div style="font-size:12.5px; font-weight:800; color:#0F172A;">Mukund Patil <span style="font-size:9.5px; font-weight:800; background:#DCFCE7; color:#15803D; padding:2px 6px; border-radius:4px; margin-left:4px;">HOST</span></div>
+                    <div style="font-size:10.5px; color:#64748B;">Level 5.0 · Event Creator</div>
+                  </div>
+                </div>
+                <span style="font-size:10.5px; font-weight:700; color:#94A3B8;">You</span>
+              </div>
+
+              <!-- Member 2: Sander Kok -->
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 12px; background:#F8FAFC; border:1px solid #E2E8F0; border-radius:10px;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <div style="width:36px; height:36px; border-radius:18px; background:#3B82F6; color:#FFF; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:13px;">S</div>
+                  <div>
+                    <div style="font-size:12.5px; font-weight:800; color:#0F172A;">Sander Kok <span style="font-size:9.5px; font-weight:800; background:#EFF6FF; color:#007AFF; padding:2px 6px; border-radius:4px; margin-left:4px;">CONFIRMED</span></div>
+                    <div style="font-size:10.5px; color:#64748B;">Level 4.8 · Joined via Direct RSVP</div>
+                  </div>
+                </div>
+                <button style="padding:4px 8px; border-radius:6px; background:#EFF6FF; color:#007AFF; border:1px solid #BFDBFE; font-size:10px; font-weight:800; cursor:pointer;" onclick="closeChatRosterModal(); navTo('chat_direct');">Message</button>
+              </div>
+
+              <!-- Member 3: Emma Watson -->
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 12px; background:#F8FAFC; border:1px solid #E2E8F0; border-radius:10px;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <div style="width:36px; height:36px; border-radius:18px; background-image:url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80'); background-size:cover; background-position:center; border:1px solid #CBD5E1;"></div>
+                  <div>
+                    <div style="font-size:12.5px; font-weight:800; color:#0F172A;">Emma Watson <span style="font-size:9.5px; font-weight:800; background:#EFF6FF; color:#007AFF; padding:2px 6px; border-radius:4px; margin-left:4px;">CONFIRMED</span></div>
+                    <div style="font-size:10.5px; color:#64748B;">Level 5.5 · 94% Synergy</div>
+                  </div>
+                </div>
+                <button style="padding:4px 8px; border-radius:6px; background:#EFF6FF; color:#007AFF; border:1px solid #BFDBFE; font-size:10px; font-weight:800; cursor:pointer;" onclick="closeChatRosterModal(); navTo('chat_direct');">Message</button>
+              </div>
+
+              <!-- Open Spot 4 -->
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 12px; background:#FFF; border:1.5px dashed #CBD5E1; border-radius:10px; opacity:0.85;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <div style="width:36px; height:36px; border-radius:18px; background:#F1F5F9; color:#94A3B8; display:flex; align-items:center; justify-content:center; font-size:14px;"><i class="fa fa-user-plus"></i></div>
+                  <div>
+                    <div style="font-size:12px; font-weight:700; color:#64748B;">Spot #4 (Available)</div>
+                    <div style="font-size:10px; color:#94A3B8;">Awaiting 1 more player</div>
+                  </div>
+                </div>
+                <span style="font-size:10px; font-weight:800; color:#007AFF; cursor:pointer;" onclick="showToast('Invite link copied!')">Invite +</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chat Safety Modal (Block / Report / Moderation per Doc Section 3.1) -->
+        <div class="swp-timepicker-modal" id="chat-safety-modal" style="display:none; background:rgba(0,0,0,0.6);" onclick="if(event.target === this) closeChatSafetyModal();">
+          <div class="swp-timepicker-sheet" style="background:#FFFFFF; max-height:85%; overflow-y:auto; scrollbar-width:none;">
+            <div class="swp-tp-header" style="border-bottom:1px solid #E2E8F0; padding-bottom:12px; margin-bottom:14px;">
+              <button class="swp-tp-btn cancel" onclick="closeChatSafetyModal()">Cancel</button>
+              <div class="swp-tp-title" style="color:var(--swp-navy); font-size:14px; font-weight:800;">Safety & Moderation</div>
+              <div style="width:40px;"></div>
+            </div>
+
+            <div style="font-size:12px; color:#475569; margin-bottom:14px; line-height:1.45;">
+              ShallWe-Play enforces community safety. You can mute notifications, report inappropriate communication, or block a participant.
+            </div>
+
+            <!-- Action 1: Mute Notifications -->
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:12px; background:#F8FAFC; border:1px solid #E2E8F0; border-radius:10px; margin-bottom:10px; cursor:pointer;" onclick="showToast('Chat notifications muted for 8 hours'); closeChatSafetyModal();">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <i class="fa fa-bell-slash" style="color:#64748B; font-size:16px;"></i>
+                <div>
+                  <div style="font-size:12px; font-weight:800; color:#0F172A;">Mute Notifications</div>
+                  <div style="font-size:10px; color:#64748B;">Silence alerts for this conversation</div>
+                </div>
+              </div>
+              <i class="fa fa-chevron-right" style="color:#CBD5E1; font-size:11px;"></i>
+            </div>
+
+            <!-- Action 2: Report User / Conversation -->
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:12px; background:#FFFBEB; border:1px solid #FDE68A; border-radius:10px; margin-bottom:10px; cursor:pointer;" onclick="submitReportPrompt()">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <i class="fa fa-flag" style="color:#D97706; font-size:16px;"></i>
+                <div>
+                  <div style="font-size:12px; font-weight:800; color:#92400E;">Report Conversation</div>
+                  <div style="font-size:10px; color:#B45309;">Report spam, offensive conduct, or abuse to SWP Moderation</div>
+                </div>
+              </div>
+              <i class="fa fa-chevron-right" style="color:#F59E0B; font-size:11px;"></i>
+            </div>
+
+            <!-- Action 3: Block User -->
+            <div style="display:flex; justify-content:space-between; align-items:center; padding:12px; background:#FEF2F2; border:1px solid #FCA5A5; border-radius:10px; cursor:pointer;" onclick="confirmBlockUserPrompt()">
+              <div style="display:flex; align-items:center; gap:10px;">
+                <i class="fa fa-ban" style="color:#DC2626; font-size:16px;"></i>
+                <div>
+                  <div style="font-size:12px; font-weight:800; color:#991B1B;">Block User</div>
+                  <div style="font-size:10px; color:#B91C1C;">Prevent them from messaging you or viewing your passport</div>
+                </div>
+              </div>
+              <i class="fa fa-chevron-right" style="color:#EF4444; font-size:11px;"></i>
+            </div>
+          </div>
+        </div>
+
         <!-- Floating Action Menu Modal (Triggered by Center FAB) -->
         <div class="floating-action-modal" id="fab-menu-modal" onclick="closeFabMenu(event)">
           <div class="floating-action-item" onclick="handleFabAction('scan')">
@@ -1362,6 +1801,162 @@
     let currentUiState = 'populated'; // 'populated', 'empty', 'loading', 'error'
     let currentBookingsTab = 'events';   // 'new', 'upcoming', 'events', 'swpRequest'
     let isFabOpen = false;
+
+    /* COMMUNICATION MODULE: CHAT STATE (Google Doc Tab 3) */
+    let currentChatTab = 'all'; // 'all', 'activity', 'direct', 'unread'
+    let isEventChatConcluded = false; // lifecycle toggle: active vs read-only
+
+    // Chat Inbox Conversation List
+    const chatConversations = [
+      {
+        id: 'event_rotterdam_padel',
+        type: 'activity',
+        title: 'Rotterdam Padel Friday Night',
+        subtitle: 'Emma Watson: I\'m bringing 3 fresh balls! See you at 17:50 🎾',
+        time: '10:42 AM',
+        unreadCount: 2,
+        sport: 'Padel',
+        tag: 'Event · Wed 18 Nov',
+        avatarBg: '#007AFF',
+        avatarIcon: 'fa-table-tennis-paddle-ball',
+        screen: 'chat_event_group',
+        status: 'active'
+      },
+      {
+        id: 'direct_emma',
+        type: 'direct',
+        title: 'Emma Watson',
+        role: 'Teammate · Level 5.5',
+        subtitle: 'Are you free for a singles session this Sunday?',
+        time: 'Yesterday',
+        unreadCount: 1,
+        avatarImg: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80',
+        screen: 'chat_direct',
+        isOnline: true
+      },
+      {
+        id: 'direct_coach_mark',
+        type: 'direct',
+        title: 'Coach Mark Jansen',
+        role: 'Kralingse Club Coach',
+        subtitle: 'Great backhand drive during drills! Recommended intermediate tier.',
+        time: '16 Nov',
+        unreadCount: 0,
+        avatarImg: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=80',
+        screen: 'chat_direct',
+        isOnline: false,
+        badge: 'COACH'
+      },
+      {
+        id: 'club_rotterdam',
+        type: 'club',
+        title: 'Club de Padel Rotterdam',
+        role: 'Official Club Support',
+        subtitle: 'Court 4 indoor lighting has been confirmed for your booking.',
+        time: '14 Nov',
+        unreadCount: 0,
+        avatarIcon: 'fa-building-columns',
+        avatarBg: '#061D42',
+        screen: 'chat_direct',
+        isOnline: true,
+        badge: 'CLUB'
+      },
+      {
+        id: 'event_sunday_league',
+        type: 'activity',
+        title: 'Sunday Morning Padel League',
+        subtitle: 'Lars: GG everyone! Thanks for the great session.',
+        time: '12 Nov',
+        unreadCount: 0,
+        sport: 'Padel',
+        tag: 'Concluded · Read-Only',
+        avatarBg: '#64748B',
+        avatarIcon: 'fa-lock',
+        screen: 'chat_event_group',
+        status: 'concluded',
+        isReadOnly: true
+      }
+    ];
+
+    // Event Squad Chat Message Feed (Rotterdam Padel Friday Night)
+    let eventChatMessages = [
+      {
+        id: 1,
+        senderType: 'system',
+        text: '📅 Event created by Mukund Patil (Host). Court 4 reserved at Club de Padel Rotterdam.',
+        time: 'Yesterday'
+      },
+      {
+        id: 2,
+        senderType: 'system',
+        text: '👤 Sander Kok confirmed their spot via Direct RSVP.',
+        time: 'Yesterday'
+      },
+      {
+        id: 3,
+        senderType: 'system',
+        text: '👤 Emma Watson joined the event squad.',
+        time: '09:30 AM'
+      },
+      {
+        id: 4,
+        senderType: 'incoming',
+        senderName: 'Sander Kok',
+        senderInitial: 'S',
+        senderRole: 'Confirmed Participant',
+        senderAvatarBg: '#3B82F6',
+        text: 'Hey squad! Are we meeting directly at Court 4 or grabbing coffee at the club lounge first?',
+        time: '10:15 AM'
+      },
+      {
+        id: 5,
+        senderType: 'outgoing',
+        senderName: 'Mukund Patil',
+        senderRole: 'Host',
+        text: 'Directly at Court 4! I\'ve already checked in via QR pass on the app.',
+        time: '10:28 AM',
+        status: 'read'
+      },
+      {
+        id: 6,
+        senderType: 'incoming',
+        senderName: 'Emma Watson',
+        senderInitial: 'E',
+        senderRole: 'Confirmed Participant',
+        senderAvatarBg: '#F59E0B',
+        senderAvatarImg: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80',
+        text: 'Awesome! I\'m bringing 3 fresh balls! See you all at 17:50 🎾',
+        time: '10:42 AM'
+      }
+    ];
+
+    // Direct 1:1 Messages with Emma Watson
+    let directEmmaMessages = [
+      {
+        id: 1,
+        senderType: 'incoming',
+        senderName: 'Emma Watson',
+        senderAvatarImg: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80',
+        text: 'Hi Mukund! Loved playing in the mixed doubles last week. Your net coverage is super sharp! 🔥',
+        time: 'Yesterday 18:20'
+      },
+      {
+        id: 2,
+        senderType: 'outgoing',
+        senderName: 'Mukund Patil',
+        text: 'Thanks Emma! Your backhand drives made setting up the points so much easier.',
+        time: 'Yesterday 18:35',
+        status: 'read'
+      },
+      {
+        id: 3,
+        senderType: 'incoming',
+        senderName: 'Emma Watson',
+        senderAvatarImg: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80',
+        text: 'Are you free for a singles session this Sunday around 10:00 AM at Padel Dam Amsterdam?',
+        time: 'Yesterday 19:04'
+      }
+    ];
 
     // Time Picker Modal State
     let tpTarget = 'start'; // 'start' or 'end'
@@ -1695,7 +2290,7 @@
       document.querySelectorAll('.nav-tab-item').forEach(el => el.classList.remove('active'));
       if (screen === 'home') document.getElementById('bnav-home')?.classList.add('active');
       else if (screen === 'bookings_hub' || screen === 'book_court') document.getElementById('bnav-bookings')?.classList.add('active');
-      else if (screen === 'social_hub') document.getElementById('bnav-social')?.classList.add('active');
+      else if (screen === 'social_hub' || screen === 'chat_inbox' || screen === 'chat_event_group' || screen === 'chat_direct') document.getElementById('bnav-social')?.classList.add('active');
       else if (screen === 'player_passport' || screen === 'compare_passport') document.getElementById('bnav-profile')?.classList.add('active');
 
       renderMobileScreen();
@@ -1951,6 +2546,9 @@
           case 'social_hub': markup = renderSocialHubScreen(); break;
           case 'player_passport': markup = renderPlayerPassportScreen(); break;
           case 'compare_passport': markup = renderComparePassportScreen(); break;
+          case 'chat_inbox': markup = renderChatInboxScreen(); break;
+          case 'chat_event_group': markup = renderChatEventGroupScreen(); break;
+          case 'chat_direct': markup = renderChatDirectScreen(); break;
           default: markup = renderHomeScreen();
         }
       }
@@ -1976,9 +2574,12 @@
             <span style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; font-size:18px; font-weight:700; color:#1E293B; letter-spacing:-0.2px;">ShallWe-Play</span>
           </div>
 
-          <!-- Header Right Icons: Chat & Bell with Pip -->
+          <!-- Header Right Icons: Chat & Bell with Pip (Click opens Chat Inbox) -->
           <div style="display:flex; align-items:center; gap:16px;">
-            <i class="fa-regular fa-comment-dots" style="font-size:20px; color:#007AFF; cursor:pointer;" onclick="showToast('Direct chat opened')"></i>
+            <div style="position:relative; cursor:pointer;" onclick="navTo('chat_inbox')" title="Open Chat Inbox">
+              <i class="fa-regular fa-comment-dots" style="font-size:20px; color:#007AFF;"></i>
+              <span style="position:absolute; top:-2px; right:-3px; width:8px; height:8px; border-radius:50%; background:#EF4444; border:1.5px solid #FFF;"></span>
+            </div>
             <div style="position:relative; cursor:pointer;" onclick="showToast('No new notifications')">
               <i class="fa-regular fa-bell" style="font-size:20px; color:#007AFF;"></i>
               <span style="position:absolute; top:-2px; right:-2px; width:7px; height:7px; border-radius:50%; background:#EF4444; border:1px solid #FFF;"></span>
@@ -3015,6 +3616,28 @@
                 </button>
               </div>
 
+              <!-- Squad Activity Chat Shortcut (Google Doc Tab 3 Specification) -->
+              <div style="background: linear-gradient(135deg, #061D42 0%, #007AFF 100%); border-radius:12px; padding:12px 14px; margin-bottom:12px; color:#FFFFFF; display:flex; justify-content:space-between; align-items:center; cursor:pointer; box-shadow: 0 4px 12px rgba(0,122,255,0.25);" onclick="navTo('chat_event_group')">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <div style="width:38px; height:38px; border-radius:19px; background:rgba(255,255,255,0.2); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center; font-size:16px;">
+                    <i class="fa-regular fa-comment-dots"></i>
+                  </div>
+                  <div>
+                    <div style="font-family:var(--font-heading); font-size:13px; font-weight:800; display:flex; align-items:center; gap:6px;">
+                      Squad Activity Chat
+                      <span style="font-size:9.5px; font-weight:800; background:#22C55E; color:#FFFFFF; padding:1px 6px; border-radius:99px;">ACTIVE</span>
+                    </div>
+                    <div style="font-size:10.5px; color:rgba(255,255,255,0.85); margin-top:1px;">
+                      3 joined · 2 new messages from Sander & Emma
+                    </div>
+                  </div>
+                </div>
+                <div style="display:flex; align-items:center; gap:6px; font-size:11px; font-weight:800; color:#FFFFFF; background:rgba(255,255,255,0.2); padding:5px 10px; border-radius:6px;">
+                  <span>Open Chat</span>
+                  <i class="fa fa-chevron-right" style="font-size:9px;"></i>
+                </div>
+              </div>
+
               <!-- Leave Policy Info Chip (24 Hours Before Event Start) -->
               <div style="background:#F0FDF4; border:1px solid #BBF7D0; border-radius:10px; padding:10px 12px; margin-bottom:12px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
                 <div style="display:flex; align-items:center; gap:8px;">
@@ -3722,6 +4345,16 @@
               — Coach ${passportState.coachNotes[0].coach} (${passportState.coachNotes[0].club})
             </div>
           </div>
+
+          <!-- Quick Message Teammate & Compare Action (Google Doc Tab 3) -->
+          <div style="display:flex; gap:10px; margin-top:12px;">
+            <button class="swp-cta-btn" style="background:#EFF6FF; color:#007AFF; border:1px solid #BFDBFE; flex:1;" onclick="navTo('chat_direct')">
+              <i class="fa-regular fa-comment-dots"></i> Message Teammate
+            </button>
+            <button class="swp-cta-btn" style="flex:1;" onclick="navTo('compare_passport')">
+              <i class="fa fa-scale-balanced"></i> Compare
+            </button>
+          </div>
         </div>
       `;
     }
@@ -3790,8 +4423,564 @@
       `;
     }
 
+
+    /* ==========================================================================
+       COMMUNICATION MODULE: CHAT CONTROLLERS & ACTIONS (Google Doc Tab 3)
+       ========================================================================== */
+    function setChatTab(tab) {
+      currentChatTab = tab;
+      renderMobileScreen();
+    }
+
+    function toggleEventChatLifecycle() {
+      isEventChatConcluded = !isEventChatConcluded;
+      const targetConvo = chatConversations.find(c => c.id === 'event_rotterdam_padel');
+      if (targetConvo) {
+        if (isEventChatConcluded) {
+          targetConvo.status = 'concluded';
+          targetConvo.tag = 'Concluded · Read-Only';
+          targetConvo.avatarBg = '#64748B';
+          showToast('Event marked Concluded. Squad Chat is now READ-ONLY.');
+        } else {
+          targetConvo.status = 'active';
+          targetConvo.tag = 'Event · Wed 18 Nov';
+          targetConvo.avatarBg = '#007AFF';
+          showToast('Event marked Active. Squad Chat is now ACTIVE & open for messages.');
+        }
+      }
+      renderMobileScreen();
+    }
+
+    function sendEventChatMessage() {
+      if (isEventChatConcluded) {
+        showToast('This event has concluded. Chat is read-only.');
+        return;
+      }
+      const input = document.getElementById('event-chat-input');
+      if (!input || !input.value.trim()) return;
+      const text = input.value.trim();
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      
+      eventChatMessages.push({
+        id: Date.now(),
+        senderType: 'outgoing',
+        senderName: 'Mukund Patil',
+        senderRole: 'Host',
+        text: text,
+        time: timeStr,
+        status: 'sent'
+      });
+
+      const convo = chatConversations.find(c => c.id === 'event_rotterdam_padel');
+      if (convo) {
+        convo.subtitle = `Mukund Patil: ${text}`;
+        convo.time = 'Just now';
+      }
+
+      input.value = '';
+      renderMobileScreen();
+
+      setTimeout(() => {
+        const feed = document.getElementById('chat-messages-feed');
+        if (feed) feed.scrollTop = feed.scrollHeight;
+      }, 50);
+    }
+
+    function sendDirectMessage() {
+      const input = document.getElementById('direct-chat-input');
+      if (!input || !input.value.trim()) return;
+      const text = input.value.trim();
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      
+      directEmmaMessages.push({
+        id: Date.now(),
+        senderType: 'outgoing',
+        senderName: 'Mukund Patil',
+        text: text,
+        time: timeStr,
+        status: 'sent'
+      });
+
+      const convo = chatConversations.find(c => c.id === 'direct_emma');
+      if (convo) {
+        convo.subtitle = `Mukund: ${text}`;
+        convo.time = 'Just now';
+      }
+
+      input.value = '';
+      renderMobileScreen();
+
+      setTimeout(() => {
+        const feed = document.getElementById('direct-messages-feed');
+        if (feed) feed.scrollTop = feed.scrollHeight;
+      }, 50);
+    }
+
+    function appendQuickReply(text, target) {
+      if (target === 'event') {
+        const input = document.getElementById('event-chat-input');
+        if (input) {
+          input.value = text;
+          sendEventChatMessage();
+        }
+      } else if (target === 'direct') {
+        const input = document.getElementById('direct-chat-input');
+        if (input) {
+          input.value = text;
+          sendDirectMessage();
+        }
+      }
+    }
+
+    function openChatRosterModal() {
+      const modal = document.getElementById('chat-roster-modal');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function closeChatRosterModal() {
+      const modal = document.getElementById('chat-roster-modal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function openChatSafetyModal() {
+      const modal = document.getElementById('chat-safety-modal');
+      if (modal) modal.style.display = 'flex';
+    }
+
+    function closeChatSafetyModal() {
+      const modal = document.getElementById('chat-safety-modal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function submitReportPrompt() {
+      closeChatSafetyModal();
+      showToast('Report submitted to SWP Moderation. Ticket #REP-8041 created.');
+    }
+
+    function confirmBlockUserPrompt() {
+      closeChatSafetyModal();
+      showToast('User has been blocked. They cannot message you or view your passport.');
+    }
+
+    /* SCREEN 15: CHAT INBOX SCREEN (Google Doc Tab 3 Specification) */
+    function renderChatInboxScreen() {
+      let filtered = chatConversations.slice();
+      if (currentChatTab === 'activity') {
+        filtered = filtered.filter(c => c.type === 'activity');
+      } else if (currentChatTab === 'direct') {
+        filtered = filtered.filter(c => c.type === 'direct' || c.type === 'club');
+      } else if (currentChatTab === 'unread') {
+        filtered = filtered.filter(c => c.unreadCount > 0);
+      }
+
+      const totalUnread = chatConversations.reduce((acc, c) => acc + (c.unreadCount || 0), 0);
+
+      return `
+        <!-- Top App Bar -->
+        <div class="swp-screen-header" style="background:#FFF; border-bottom:1px solid var(--swp-border); padding:10px 16px;">
+          <div class="swp-back-btn" onclick="navTo('home')"><i class="fa fa-chevron-left"></i></div>
+          <div class="swp-screen-title" style="letter-spacing:0.3px;">MESSAGES</div>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <div style="position:relative; cursor:pointer;" onclick="showToast('Starting new chat...')">
+              <i class="fa-regular fa-pen-to-square" style="font-size:18px; color:var(--swp-primary);"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="swp-page-body" style="padding:0; overflow-y:auto; scrollbar-width:none; background:#F8FAFC;">
+          <!-- Search Bar -->
+          <div style="padding:10px 14px 6px; background:#FFF;">
+            <div style="position:relative; display:flex; align-items:center;">
+              <i class="fa fa-magnifying-glass" style="position:absolute; left:12px; color:#94A3B8; font-size:13px;"></i>
+              <input type="text" placeholder="Search chats, squad events, or teammates..." 
+                style="width:100%; padding:9px 12px 9px 34px; background:#F1F5F9; border:1px solid transparent; border-radius:10px; font-size:12px; font-family:var(--font-heading); color:#0F172A; outline:none;">
+            </div>
+          </div>
+
+          <!-- Category Filter Tabs Strip -->
+          <div class="swp-chat-filter-strip">
+            <button class="swp-chat-filter-btn ${currentChatTab === 'all' ? 'active' : ''}" onclick="setChatTab('all')">
+              All (${chatConversations.length})
+            </button>
+            <button class="swp-chat-filter-btn ${currentChatTab === 'activity' ? 'active' : ''}" onclick="setChatTab('activity')">
+              <i class="fa fa-users-line" style="margin-right:3px;"></i> Events & Squads (2)
+            </button>
+            <button class="swp-chat-filter-btn ${currentChatTab === 'direct' ? 'active' : ''}" onclick="setChatTab('direct')">
+              <i class="fa-regular fa-user" style="margin-right:3px;"></i> Direct 1:1 (3)
+            </button>
+            <button class="swp-chat-filter-btn ${currentChatTab === 'unread' ? 'active' : ''}" onclick="setChatTab('unread')">
+              Unread (${totalUnread})
+            </button>
+          </div>
+
+          <!-- Pinned Squad Card (Quick Jump to Active Rotterdam Padel Squad) -->
+          <div style="margin:10px 14px 6px; padding:12px; background:linear-gradient(135deg, #0A2540 0%, #007AFF 100%); border-radius:12px; color:#FFF; display:flex; justify-content:space-between; align-items:center; cursor:pointer; box-shadow:0 3px 10px rgba(0,122,255,0.2);" onclick="navTo('chat_event_group')">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div style="width:38px; height:38px; border-radius:19px; background:rgba(255,255,255,0.2); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center; font-size:16px;">
+                <i class="fa fa-table-tennis-paddle-ball"></i>
+              </div>
+              <div>
+                <div style="font-family:var(--font-heading); font-size:12.5px; font-weight:800; display:flex; align-items:center; gap:6px;">
+                  Rotterdam Padel Friday Night
+                  <span style="font-size:9px; font-weight:800; background:#22C55E; color:#FFF; padding:1px 6px; border-radius:99px;">UPCOMING</span>
+                </div>
+                <div style="font-size:10.5px; color:rgba(255,255,255,0.85); margin-top:2px;">
+                  Wed 18 Nov · 18:00 · Court 4 · 3 players active
+                </div>
+              </div>
+            </div>
+            <i class="fa fa-chevron-right" style="font-size:12px; opacity:0.8;"></i>
+          </div>
+
+          <!-- Section Label -->
+          <div style="padding:10px 14px 4px; display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-family:var(--font-heading); font-size:11px; font-weight:800; color:#64748B; text-transform:uppercase; letter-spacing:0.5px;">
+              Conversations (${filtered.length})
+            </span>
+            <span style="font-size:10.5px; color:var(--swp-primary); font-weight:700; cursor:pointer;" onclick="showToast('All messages marked as read')">
+              Mark all read
+            </span>
+          </div>
+
+          <!-- Conversation Items Feed -->
+          <div style="background:#FFF; border-top:1px solid #F1F5F9; border-bottom:1px solid #F1F5F9;">
+            ${filtered.length === 0 ? `
+              <div style="padding:40px 20px; text-align:center;">
+                <i class="fa-regular fa-comment-dots" style="font-size:32px; color:#CBD5E1; margin-bottom:10px;"></i>
+                <div style="font-family:var(--font-heading); font-size:13px; font-weight:800; color:#64748B;">No conversations in this filter</div>
+                <div style="font-size:11px; color:#94A3B8; margin-top:4px;">Switch filters or start a new chat with a teammate.</div>
+              </div>
+            ` : filtered.map(convo => `
+              <div class="swp-chat-item" onclick="navTo('${convo.screen}')">
+                <div class="swp-chat-avatar-wrap">
+                  ${convo.avatarImg ? `
+                    <div class="swp-chat-avatar" style="background-image:url('${convo.avatarImg}'); border:1px solid #E2E8F0;"></div>
+                  ` : `
+                    <div class="swp-chat-avatar" style="background:${convo.avatarBg || '#007AFF'};">
+                      <i class="fa ${convo.avatarIcon || 'fa-user'}"></i>
+                    </div>
+                  `}
+                  ${convo.isOnline ? `<span class="swp-chat-online-dot"></span>` : ''}
+                </div>
+
+                <div class="swp-chat-info">
+                  <div class="swp-chat-top-row">
+                    <div style="display:flex; align-items:center; gap:6px; min-width:0;">
+                      <span class="swp-chat-title">${convo.title}</span>
+                      ${convo.badge ? `
+                        <span style="font-size:9px; font-weight:800; background:#EFF6FF; color:#007AFF; padding:1px 5px; border-radius:4px; flex-shrink:0;">
+                          ${convo.badge}
+                        </span>
+                      ` : ''}
+                      ${convo.type === 'activity' ? `
+                        <span style="font-size:9px; font-weight:800; background:${convo.status === 'concluded' ? '#F1F5F9' : '#ECFDF5'}; color:${convo.status === 'concluded' ? '#64748B' : '#059669'}; padding:1px 5px; border-radius:4px; flex-shrink:0;">
+                          ${convo.status === 'concluded' ? 'CONCLUDED' : 'EVENT'}
+                        </span>
+                      ` : ''}
+                    </div>
+                    <span class="swp-chat-time">${convo.time}</span>
+                  </div>
+
+                  <div class="swp-chat-msg-row">
+                    <span class="swp-chat-preview" style="${convo.unreadCount > 0 ? 'font-weight:700; color:#0F172A;' : ''}">
+                      ${convo.subtitle}
+                    </span>
+                    ${convo.unreadCount > 0 ? `
+                      <span class="swp-chat-unread-badge">${convo.unreadCount}</span>
+                    ` : ''}
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+
+          <!-- Bottom Security & Safety Policy Notice -->
+          <div style="padding:14px 16px; text-align:center;">
+            <div style="display:inline-flex; align-items:center; gap:6px; font-size:10.5px; color:#94A3B8;">
+              <i class="fa fa-shield-halved" style="color:#007AFF;"></i>
+              <span>SWP SafeComm: Chats monitored for respectful community sports play.</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    /* SCREEN 16: EVENT SQUAD CHAT SCREEN (Activity-Linked Group Chat) */
+    function renderChatEventGroupScreen() {
+      const activeEvent = getEventById(activeDetailEventId);
+      return `
+        <!-- Top App Bar -->
+        <div class="swp-screen-header" style="background:#FFF; border-bottom:1px solid var(--swp-border); padding:10px 16px;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div class="swp-back-btn" onclick="navTo('chat_inbox')"><i class="fa fa-chevron-left"></i></div>
+            <div style="cursor:pointer;" onclick="openChatRosterModal()">
+              <div style="font-family:var(--font-heading); font-size:13px; font-weight:800; color:#0F172A; line-height:1.2;">
+                Rotterdam Padel Friday Night
+              </div>
+              <div style="font-size:10px; color:#64748B; display:flex; align-items:center; gap:4px; margin-top:2px;">
+                <span style="color:#10B981;">●</span> 3 Squad Members · Court 4 · Tap for roster
+              </div>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <i class="fa fa-users-line" style="font-size:16px; color:#007AFF; cursor:pointer;" onclick="openChatRosterModal()" title="View squad members"></i>
+            <i class="fa fa-ellipsis-vertical" style="font-size:16px; color:#64748B; cursor:pointer;" onclick="openChatSafetyModal()" title="Safety & options"></i>
+          </div>
+        </div>
+
+        <!-- Sticky Event Context Bar & Lifecycle State Banner -->
+        <div class="swp-chat-activity-bar">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <div style="display:flex; align-items:center; gap:6px;">
+              <span class="swp-chat-status-pill ${isEventChatConcluded ? 'concluded' : 'active'}">
+                ${isEventChatConcluded ? '<i class="fa fa-lock"></i> Concluded · Read-Only' : '<i class="fa fa-circle-play"></i> Active Event Squad'}
+              </span>
+              <span style="font-size:10.5px; font-weight:700; color:#475569;">
+                Wed 18 Nov · 18:00 - 19:30
+              </span>
+            </div>
+            <span style="font-size:10.5px; font-weight:800; color:var(--swp-primary); cursor:pointer;" onclick="navTo('event_detail')">
+              Details →
+            </span>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; background:#FFF; padding:6px 10px; border-radius:8px; border:1px solid #E2E8F0;">
+            <div style="font-size:10px; color:#64748B;">
+              <i class="fa fa-location-dot" style="color:#007AFF; margin-right:3px;"></i>
+              Club de Padel Rotterdam · Court 4 (Indoor)
+            </div>
+            <!-- Interactive Lifecycle Switch for Wireframe Testing -->
+            <button onclick="toggleEventChatLifecycle()" 
+              style="padding:3px 8px; border-radius:6px; background:#EFF6FF; border:1px solid #BFDBFE; color:#007AFF; font-size:9.5px; font-weight:800; cursor:pointer;"
+              title="Click to toggle lifecycle between Active and Concluded Read-Only">
+              Toggle Lifecycle ⟷
+            </button>
+          </div>
+        </div>
+
+        <!-- Scrollable Messages Feed -->
+        <div class="swp-chat-messages-container" id="chat-messages-feed" style="flex:1; overflow-y:auto; padding:12px 14px 70px; background:#F8FAFC; display:flex; flex-direction:column; gap:10px; scrollbar-width:none; max-height:430px;">
+          <!-- Date Divider -->
+          <div style="display:flex; justify-content:center; margin:4px 0 8px;">
+            <span style="font-size:10px; font-weight:700; color:#94A3B8; background:#E2E8F0; padding:2px 10px; border-radius:99px;">
+              Wed 18 Nov 2026
+            </span>
+          </div>
+
+          ${eventChatMessages.map(msg => {
+            if (msg.senderType === 'system') {
+              return `
+                <div class="swp-msg-system">
+                  <i class="fa fa-shield-halved" style="color:#007AFF;"></i>
+                  <span>${msg.text}</span>
+                  <span style="font-size:9px; opacity:0.75; margin-left:4px;">${msg.time}</span>
+                </div>
+              `;
+            } else if (msg.senderType === 'incoming') {
+              return `
+                <div class="swp-msg-row incoming">
+                  <div style="width:28px; height:28px; border-radius:14px; background:${msg.senderAvatarBg || '#007AFF'}; color:#FFF; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:800; flex-shrink:0; background-size:cover; background-position:center; ${msg.senderAvatarImg ? `background-image:url('${msg.senderAvatarImg}');` : ''}">
+                    ${msg.senderAvatarImg ? '' : msg.senderInitial}
+                  </div>
+                  <div>
+                    <div style="font-size:10px; font-weight:700; color:#64748B; margin-bottom:2px; margin-left:4px;">
+                      ${msg.senderName} <span style="font-size:9px; color:#94A3B8;">· ${msg.senderRole}</span>
+                    </div>
+                    <div class="swp-msg-bubble incoming">
+                      ${msg.text}
+                      <span class="swp-msg-time" style="color:#94A3B8;">${msg.time}</span>
+                    </div>
+                  </div>
+                </div>
+              `;
+            } else {
+              // Outgoing (Mukund Patil - Host)
+              return `
+                <div class="swp-msg-row outgoing">
+                  <div class="swp-msg-bubble outgoing">
+                    ${msg.text}
+                    <div style="display:flex; justify-content:flex-end; align-items:center; gap:3px; margin-top:2px;">
+                      <span class="swp-msg-time" style="color:rgba(255,255,255,0.85);">${msg.time}</span>
+                      <i class="fa fa-check-double" style="font-size:9px; color:rgba(255,255,255,0.9);"></i>
+                    </div>
+                  </div>
+                </div>
+              `;
+            }
+          }).join('')}
+        </div>
+
+        <!-- Quick Reaction Strip (Google Doc Tab 3) -->
+        ${!isEventChatConcluded ? `
+          <div style="padding:6px 14px; background:#FFF; border-top:1px solid #F1F5F9; display:flex; gap:6px; overflow-x:auto; scrollbar-width:none;">
+            <button class="swp-chat-quick-chip" onclick="appendQuickReply('🎾 I\'m bringing match balls!', 'event')">🎾 Fresh balls ready</button>
+            <button class="swp-chat-quick-chip" onclick="appendQuickReply('👍 See you at Court 4!', 'event')">👍 See you at court</button>
+            <button class="swp-chat-quick-chip" onclick="appendQuickReply('⏰ Running 5m late, warm up without me!', 'event')">⏰ 5 mins late</button>
+            <button class="swp-chat-quick-chip" onclick="appendQuickReply('🔥 Let\'s smash this match!', 'event')">🔥 Ready to play</button>
+          </div>
+        ` : ''}
+
+        <!-- Bottom Message Input Bar / Concluded Banner -->
+        ${isEventChatConcluded ? `
+          <div class="swp-chat-readonly-banner">
+            <i class="fa fa-lock" style="font-size:14px; color:#64748B; flex-shrink:0;"></i>
+            <div>
+              <div style="font-size:11.5px; font-weight:800; color:#334155;">This event has concluded</div>
+              <div style="font-size:10px; color:#64748B; line-height:1.3; margin-top:1px;">
+                Chat history is preserved for reference. Messaging is now locked per SWP activity lifecycle rules.
+              </div>
+            </div>
+          </div>
+        ` : `
+          <div class="swp-chat-bottom-input">
+            <button style="background:none; border:none; color:#64748B; font-size:16px; cursor:pointer; padding:4px;" onclick="showToast('Media attachment: Photo/Video')">
+              <i class="fa fa-circle-plus"></i>
+            </button>
+            <input type="text" id="event-chat-input" class="swp-chat-input-field" placeholder="Message Rotterdam Padel squad..." onkeypress="if(event.key === 'Enter') sendEventChatMessage();">
+            <button style="background:none; border:none; color:#64748B; font-size:16px; cursor:pointer; padding:4px;" onclick="appendQuickReply('🎾 ', 'event')">
+              <i class="fa-regular fa-face-smile"></i>
+            </button>
+            <button class="swp-chat-send-btn" onclick="sendEventChatMessage()" title="Send Message">
+              <i class="fa fa-paper-plane"></i>
+            </button>
+          </div>
+        `}
+      `;
+    }
+
+    /* SCREEN 17: DIRECT 1:1 CHAT SCREEN (Emma Watson) */
+    function renderChatDirectScreen() {
+      return `
+        <!-- Top App Bar -->
+        <div class="swp-screen-header" style="background:#FFF; border-bottom:1px solid var(--swp-border); padding:10px 16px;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div class="swp-back-btn" onclick="navTo('chat_inbox')"><i class="fa fa-chevron-left"></i></div>
+            <div class="swp-chat-avatar-wrap" style="cursor:pointer;" onclick="navTo('compare_passport')">
+              <div class="swp-chat-avatar" style="width:36px; height:36px; border-radius:18px; background-image:url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80'); border:1px solid #E2E8F0;"></div>
+              <span class="swp-chat-online-dot"></span>
+            </div>
+            <div>
+              <div style="font-family:var(--font-heading); font-size:13px; font-weight:800; color:#0F172A; line-height:1.2;">
+                Emma Watson
+              </div>
+              <div style="font-size:10px; color:#10B981; display:flex; align-items:center; gap:4px; margin-top:2px;">
+                <span>●</span> Online · Level 5.5 Player
+              </div>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:12px;">
+            <i class="fa fa-scale-balanced" style="font-size:16px; color:#007AFF; cursor:pointer;" onclick="navTo('compare_passport')" title="Compare Player Passports"></i>
+            <i class="fa fa-ellipsis-vertical" style="font-size:16px; color:#64748B; cursor:pointer;" onclick="openChatSafetyModal()" title="Safety & options"></i>
+          </div>
+        </div>
+
+        <!-- Teammate Synergy & Passport Banner -->
+        <div style="padding:8px 14px; background:#EFF6FF; border-bottom:1px solid #DBEAFE; display:flex; justify-content:space-between; align-items:center;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <div style="width:26px; height:26px; border-radius:13px; background:#BFDBFE; color:#007AFF; display:flex; align-items:center; justify-content:center; font-size:12px;">
+              <i class="fa fa-handshake"></i>
+            </div>
+            <div>
+              <div style="font-size:11px; font-weight:800; color:#1E3A8A;">94% Teammate Synergy</div>
+              <div style="font-size:9.5px; color:#3B82F6;">Balanced Net Play & Court Coverage</div>
+            </div>
+          </div>
+          <button style="padding:4px 9px; border-radius:6px; background:#007AFF; color:#FFF; border:none; font-size:10px; font-weight:800; cursor:pointer;" onclick="navTo('compare_passport')">
+            Compare Passports →
+          </button>
+        </div>
+
+        <!-- Scrollable Messages Feed -->
+        <div class="swp-chat-messages-container" id="direct-messages-feed" style="flex:1; overflow-y:auto; padding:12px 14px 70px; background:#F8FAFC; display:flex; flex-direction:column; gap:10px; scrollbar-width:none; max-height:430px;">
+          <!-- Date Divider -->
+          <div style="display:flex; justify-content:center; margin:4px 0 8px;">
+            <span style="font-size:10px; font-weight:700; color:#94A3B8; background:#E2E8F0; padding:2px 10px; border-radius:99px;">
+              Yesterday
+            </span>
+          </div>
+
+          ${directEmmaMessages.map(msg => {
+            if (msg.senderType === 'incoming') {
+              return `
+                <div class="swp-msg-row incoming">
+                  <div style="width:28px; height:28px; border-radius:14px; background-image:url('${msg.senderAvatarImg}'); background-size:cover; background-position:center; border:1px solid #CBD5E1; flex-shrink:0;"></div>
+                  <div>
+                    <div class="swp-msg-bubble incoming">
+                      ${msg.text}
+                      <span class="swp-msg-time" style="color:#94A3B8;">${msg.time}</span>
+                    </div>
+                  </div>
+                </div>
+              `;
+            } else {
+              return `
+                <div class="swp-msg-row outgoing">
+                  <div class="swp-msg-bubble outgoing">
+                    ${msg.text}
+                    <div style="display:flex; justify-content:flex-end; align-items:center; gap:3px; margin-top:2px;">
+                      <span class="swp-msg-time" style="color:rgba(255,255,255,0.85);">${msg.time}</span>
+                      <i class="fa fa-check-double" style="font-size:9px; color:rgba(255,255,255,0.9);"></i>
+                    </div>
+                  </div>
+                </div>
+              `;
+            }
+          }).join('')}
+        </div>
+
+        <!-- Quick Action Suggestion Strip -->
+        <div style="padding:6px 14px; background:#FFF; border-top:1px solid #F1F5F9; display:flex; gap:6px; overflow-x:auto; scrollbar-width:none;">
+          <button class="swp-chat-quick-chip" onclick="appendQuickReply('🎾 Sunday 10:00 AM at Padel Dam works perfectly for me!', 'direct')">🎾 Sunday 10am works!</button>
+          <button class="swp-chat-quick-chip" onclick="appendQuickReply('👍 Let me book Court 2 right now.', 'direct')">👍 I\'ll book the court</button>
+          <button class="swp-chat-quick-chip" onclick="appendQuickReply('⏰ Can we do 11:30 AM instead?', 'direct')">⏰ Can we do 11:30?</button>
+        </div>
+
+        <!-- Bottom Message Input Bar -->
+        <div class="swp-chat-bottom-input">
+          <button style="background:none; border:none; color:#64748B; font-size:16px; cursor:pointer; padding:4px;" onclick="showToast('Media attachment: Photo/Video')">
+            <i class="fa fa-circle-plus"></i>
+          </button>
+          <input type="text" id="direct-chat-input" class="swp-chat-input-field" placeholder="Message Emma..." onkeypress="if(event.key === 'Enter') sendDirectMessage();">
+          <button style="background:none; border:none; color:#64748B; font-size:16px; cursor:pointer; padding:4px;" onclick="appendQuickReply('🎾 ', 'direct')">
+            <i class="fa-regular fa-face-smile"></i>
+          </button>
+          <button class="swp-chat-send-btn" onclick="sendDirectMessage()" title="Send Message">
+            <i class="fa fa-paper-plane"></i>
+          </button>
+        </div>
+      `;
+    }
+
+
     /* 4-STATE OVERLAYS (Gravitas Verification Requirement) */
     function renderLoadingSkeletonScreen() {
+      if (currentScreen === 'chat_inbox' || currentScreen === 'chat_event_group' || currentScreen === 'chat_direct') {
+        return `
+          <div class="swp-screen-header">
+            <div class="skeleton-box" style="height:18px; width:90px;"></div>
+            <div class="skeleton-box" style="height:18px; width:20px;"></div>
+          </div>
+          <div class="swp-page-body" style="padding:14px;">
+            <div class="skeleton-box" style="height:36px; width:100%; border-radius:10px; margin-bottom:12px;"></div>
+            <div style="display:flex; gap:8px; margin-bottom:16px;">
+              <div class="skeleton-box" style="height:24px; width:60px; border-radius:99px;"></div>
+              <div class="skeleton-box" style="height:24px; width:110px; border-radius:99px;"></div>
+              <div class="skeleton-box" style="height:24px; width:90px; border-radius:99px;"></div>
+            </div>
+            ${[1, 2, 3, 4].map(() => `
+              <div style="display:flex; gap:12px; align-items:center; margin-bottom:14px;">
+                <div class="skeleton-box" style="width:44px; height:44px; border-radius:22px; flex-shrink:0;"></div>
+                <div style="flex:1;">
+                  <div class="skeleton-box" style="height:13px; width:55%; margin-bottom:6px;"></div>
+                  <div class="skeleton-box" style="height:10px; width:85%;"></div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
       return `
         <div class="swp-page-body">
           <div class="skeleton-box" style="height:24px; width:60%; margin-bottom:14px;"></div>
@@ -3805,6 +4994,27 @@
     }
 
     function renderEmptyStateScreen() {
+      if (currentScreen === 'chat_inbox' || currentScreen === 'chat_event_group' || currentScreen === 'chat_direct') {
+        return `
+          <div class="swp-screen-header">
+            <div class="swp-back-btn" onclick="setUiState('populated')"><i class="fa fa-chevron-left"></i></div>
+            <div class="swp-screen-title">MESSAGES</div>
+            <span style="font-size:10px; font-weight:800; background:#EFF6FF; color:#007AFF; padding:2px 8px; border-radius:99px;">State B (Empty)</span>
+          </div>
+          <div class="swp-page-body" style="align-items:center; justify-content:center; text-align:center; padding:30px 20px;">
+            <div style="width:64px; height:64px; border-radius:32px; background:var(--swp-primary-light); color:var(--swp-primary); display:flex; align-items:center; justify-content:center; font-size:24px; margin-bottom:14px;">
+              <i class="fa-regular fa-comments"></i>
+            </div>
+            <div style="font-family:var(--font-heading); font-size:15px; font-weight:800; color:var(--swp-navy); margin-bottom:6px;">No Active Conversations</div>
+            <div style="font-size:11.5px; color:var(--swp-text-muted); max-width:240px; line-height:1.45; margin-bottom:18px;">
+              You have no active event squad chats or direct messages. Join an Open SWP event or connect with teammates.
+            </div>
+            <button class="swp-cta-btn" style="max-width:200px;" onclick="setUiState('populated'); navTo('bookings_hub');">
+              Explore Open Events
+            </button>
+          </div>
+        `;
+      }
       return `
         <div class="swp-page-body" style="align-items:center; justify-content:center; text-align:center;">
           <div style="width:64px; height:64px; border-radius:32px; background:var(--swp-primary-light); color:var(--swp-primary); display:flex; align-items:center; justify-content:center; font-size:24px; margin-bottom:14px;">
@@ -3822,6 +5032,37 @@
     }
 
     function renderValidationErrorScreen() {
+      if (currentScreen === 'chat_inbox' || currentScreen === 'chat_event_group' || currentScreen === 'chat_direct') {
+        return `
+          <div class="swp-screen-header">
+            <div class="swp-back-btn" onclick="setUiState('populated')"><i class="fa fa-chevron-left"></i></div>
+            <div class="swp-screen-title">DELIVERY ERROR</div>
+            <span style="font-size:10px; font-weight:800; background:#FEE2E2; color:#B91C1C; padding:2px 8px; border-radius:99px;">State D (Error)</span>
+          </div>
+          <div class="swp-page-body" style="padding:16px;">
+            <div style="background:#FEF2F2; border:1px solid #FCA5A5; border-radius:12px; padding:14px; margin-bottom:14px; text-align:center;">
+              <div style="width:44px; height:44px; border-radius:22px; background:#FEE2E2; color:#DC2626; display:flex; align-items:center; justify-content:center; font-size:18px; margin:0 auto 10px;">
+                <i class="fa fa-triangle-exclamation"></i>
+              </div>
+              <div style="font-family:var(--font-heading); font-size:13.5px; font-weight:800; color:#991B1B; margin-bottom:4px;">Message Delivery Failure</div>
+              <div style="font-size:11.5px; color:#B91C1C; line-height:1.45;">
+                Unable to deliver message to Rotterdam Padel squad. Connection timed out (Error 504 Gateway Timeout).
+              </div>
+            </div>
+
+            <div style="background:#FFF; border:1px solid #FCA5A5; border-radius:10px; padding:10px 12px; display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+              <span style="font-size:11.5px; color:#64748B;">"Hey squad! Anyone need a lift to Court 4?"</span>
+              <button style="padding:4px 8px; border-radius:6px; background:#EF4444; color:#FFF; border:none; font-size:10px; font-weight:800; cursor:pointer;" onclick="setUiState('populated'); showToast('Message retried successfully!');">
+                Retry
+              </button>
+            </div>
+
+            <button class="swp-cta-btn" style="background:#EF4444; margin-top:14px;" onclick="setUiState('populated')">
+              Reset to Active State
+            </button>
+          </div>
+        `;
+      }
       return `
         <div class="swp-screen-header">
           <div class="swp-back-btn" onclick="setUiState('populated')"><i class="fa fa-chevron-left"></i></div>
@@ -3879,8 +5120,24 @@
         currentBookingsTab = requestedTab;
       }
       const requestedModal = urlParams.get('modal');
-      if (requestedModal === 'cancel') {
-        setTimeout(openCreatorCancelModal, 100);
+      const openModal = urlParams.get('modal');
+      const requestedChatTab = urlParams.get('chatTab');
+      if (requestedChatTab) {
+        currentChatTab = requestedChatTab;
+      }
+      const requestedLifecycle = urlParams.get('lifecycle');
+      if (requestedLifecycle === 'concluded') {
+        isEventChatConcluded = true;
+        const targetConvo = chatConversations.find(c => c.id === 'event_rotterdam_padel');
+        if (targetConvo) {
+          targetConvo.status = 'concluded';
+          targetConvo.tag = 'Concluded · Read-Only';
+          targetConvo.avatarBg = '#64748B';
+        }
+      }
+      const requestedState = urlParams.get('state');
+      if (requestedState) {
+        currentUiState = requestedState;
       }
       const requestedScreen = urlParams.get('screen');
       if (requestedScreen) {
@@ -3888,9 +5145,14 @@
       } else {
         renderMobileScreen();
       }
-      const openModal = urlParams.get('modal');
-      if (openModal === 'creator_cancel') {
-        setTimeout(openCreatorCancelModal, 350);
+      if (requestedModal === 'cancel' || openModal === 'creator_cancel') {
+        setTimeout(openCreatorCancelModal, 250);
+      }
+      if (openModal === 'chat_roster' || requestedModal === 'chat_roster') {
+        setTimeout(openChatRosterModal, 250);
+      }
+      if (openModal === 'chat_safety' || requestedModal === 'chat_safety') {
+        setTimeout(openChatSafetyModal, 250);
       }
     });
   </script>
