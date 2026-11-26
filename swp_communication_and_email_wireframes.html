@@ -1,0 +1,1532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SWP Module Wireframes</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#007AFF;--ink:#1C1C1C;--muted:rgba(50,71,92,.6);--line:#E5E7EB;--bg:#F5F5F9}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);font-family:Montserrat,system-ui,sans-serif;color:var(--ink)}
+.bar{height:60px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:20px;padding:0 20px;position:sticky;top:0;z-index:10}
+.brand{display:flex;align-items:center;gap:8px;font-weight:700;font-size:16px;white-space:nowrap}
+.tabs{display:flex;gap:4px;height:100%;overflow-x:auto}
+.tab{display:flex;align-items:center;gap:10px;padding:0 16px;border:none;background:none;font:600 14px Montserrat;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+.tab small{font-size:11px;font-weight:600;padding:2px 7px;border-radius:6px;background:#EEF2F7;color:var(--muted)}
+.tab:hover{color:var(--ink)}
+.tab.on{color:var(--primary);border-bottom-color:var(--primary)}
+.tab.on small{background:rgba(0,122,255,.1);color:var(--primary)}
+.meta{margin-left:auto;font-size:12px;color:var(--muted);text-align:right;white-space:nowrap}
+iframe{display:none;width:100%;height:calc(100vh - 60px);border:0;background:#fff}
+iframe.on{display:block}
+@media (max-width:760px){.meta{display:none}.brand span{display:none}}
+</style>
+</head>
+<body>
+<div class="bar">
+  <div class="brand"><svg width="26" height="26" viewBox="0 0 34 34"><circle cx="11" cy="12" r="8" fill="none" stroke="#16A34A" stroke-width="3"/><circle cx="22" cy="12" r="8" fill="none" stroke="#007AFF" stroke-width="3"/><circle cx="16" cy="22" r="8" fill="none" stroke="#E63900" stroke-width="3"/></svg><span>ShallWe-Play</span></div>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" data-t="chat" onclick="show('chat')">Communication Module <small>Player App · 18 screens</small></button>
+    <button class="tab" role="tab" data-t="email" onclick="show('email')">Email Templates <small>Admin Portal · 12 steps</small></button>
+  </div>
+  <div class="meta">Business Analysis · Mukund Patil<br>26 Nov 2026</div>
+</div>
+<iframe id="f-chat" title="Communication Module wireframes" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+&lt;title&gt;SWP Chat Wireframes&lt;/title&gt;
+&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
+&lt;link href=&quot;https://fonts.googleapis.com/css2?family=Lato:wght@400;700&amp;family=Montserrat:wght@500;600;700;800&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;script type=&quot;module&quot; src=&quot;https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js&quot;&gt;&lt;/script&gt;
+&lt;style&gt;
+/* ===== Tokens: copied from shallwe-play-players/src/constants/Colors.ts (light) + BookingsScreen.tsx tabs ===== */
+:root{
+  --primary:#007AFF; --tab-active:#3B82F6; --tab-wrap:#E1EAEA; --seg-text:#1F2937;
+  --text:#11181C; --text2:#777777; --icon:#687076; --bg:#f0f0f0; --card:#FFFFFF;
+  --border:#E5E5E5; --danger:#E63900; --error:#FF3B30; --success:#22C55E; --disabled:#BDBDBD;
+  --primary-soft:rgba(0,122,255,.08); --danger-soft:rgba(230,57,0,.08); --success-soft:rgba(34,197,94,.10);
+  --warn-bg:#FEF3C7; --warn-text:#92400E;
+  /* page chrome (not part of the app) */
+  --page:#F5F5F9; --ink:#1C1C1C; --muted:#64748B; --line:#E2E8F0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--page);font-family:&#x27;Lato&#x27;,system-ui,sans-serif;color:var(--ink)}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,textarea{font:inherit}
+
+/* ===== Page layout ===== */
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 24px;background:#fff;border-bottom:1px solid var(--line)}
+.top h1{font:700 18px Montserrat}
+.top p{font-size:13px;color:var(--muted);margin-top:2px}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.dot{width:10px;height:10px;border-radius:3px;display:inline-block}
+.layout{display:grid;grid-template-columns:250px 1fr 360px;gap:20px;max-width:1440px;margin:0 auto;padding:20px 24px}
+.nav{background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px;align-self:start;position:sticky;top:20px;max-height:calc(100vh - 40px);overflow:auto}
+.nav h4{font:600 11px Montserrat;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin:14px 8px 6px}
+.nav h4:first-child{margin-top:4px}
+.nav button{display:flex;gap:8px;width:100%;text-align:left;padding:8px;border-radius:6px;font-size:14px;color:var(--ink)}
+.nav button .n{font:600 12px Montserrat;color:var(--muted);min-width:20px}
+.nav button:hover{background:#F1F5F9}
+.nav button.on{background:var(--primary-soft);color:var(--primary);font-weight:700}
+.nav button.on .n{color:var(--primary)}
+.stage{display:flex;flex-direction:column;align-items:center;gap:12px}
+.switch{display:flex;gap:4px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:4px}
+.switch button{padding:7px 14px;border-radius:6px;font:600 13px Montserrat;color:var(--muted)}
+.switch button.on{background:var(--primary);color:#fff}
+.switch button.na{opacity:.45}
+.variants{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;min-height:30px}
+.variants button{padding:5px 12px;border-radius:99px;border:1px solid var(--line);background:#fff;font-size:13px;color:var(--muted)}
+.variants button.on{border-color:var(--primary);color:var(--primary);font-weight:700}
+.notes{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px;align-self:start;position:sticky;top:20px;max-height:calc(100vh - 40px);overflow:auto}
+.notes h2{font:700 18px Montserrat;margin-bottom:4px}
+.notes .flow{font:600 11px Montserrat;text-transform:uppercase;letter-spacing:.6px;color:var(--primary)}
+.notes h5{font:600 11px Montserrat;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin:16px 0 6px}
+.notes p,.notes li{font-size:14px;line-height:1.5;color:#334155}
+.notes ul{padding-left:18px;display:flex;flex-direction:column;gap:4px}
+.pend{background:var(--warn-bg);border-radius:6px;padding:8px 10px;margin-bottom:6px;font-size:13px;line-height:1.45;color:var(--warn-text)}
+.pend b{display:block;font:700 12px Montserrat;margin-bottom:2px}
+.chg li{color:#334155}
+.src{font-size:12px!important;color:var(--muted)!important;font-family:ui-monospace,Menlo,monospace}
+.statebox{font-size:13px;background:#F8FAFC;border:1px solid var(--line);border-radius:6px;padding:8px 10px;color:#334155}
+
+@media (max-width:1100px){.layout{grid-template-columns:1fr}.nav,.notes{position:static;max-height:none}}
+
+/* ===== Phone shell ===== */
+.ph{width:375px;height:780px;border-radius:44px;border:10px solid #11181C;background:var(--bg);overflow:hidden;position:relative;display:flex;flex-direction:column;box-shadow:0 20px 50px rgba(17,24,28,.18)}
+.sbar{height:34px;flex-shrink:0;display:flex;justify-content:space-between;align-items:center;padding:0 22px;font:700 14px Lato;color:var(--text)}
+.sbar .r{display:flex;gap:4px;font-size:15px}
+.scr{flex:1;display:flex;flex-direction:column;min-height:0;position:relative;font-family:&#x27;Lato&#x27;,sans-serif;color:var(--text)}
+.body{flex:1;overflow-y:auto;scrollbar-width:none}
+.body::-webkit-scrollbar{display:none}
+.homebar{height:20px;flex-shrink:0;display:flex;justify-content:center;align-items:center}
+.homebar i{width:120px;height:4px;border-radius:2px;background:#11181C;opacity:.85}
+
+/* ===== App components (matched to live RN styles) ===== */
+.hdr{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;flex-shrink:0;min-height:56px}
+.hdr .t{font:800 20px/25px Montserrat;letter-spacing:.5px;text-transform:uppercase;text-align:center;flex:1}
+.back{width:36px;height:36px;border-radius:18px;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;color:var(--text)}
+.hbtn{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--primary);flex-shrink:0;position:relative}
+.hbtn.grey{color:var(--icon)}
+.sp36{width:36px;flex-shrink:0}
+.chdr{display:flex;align-items:center;gap:10px;padding:8px 12px 8px 16px;background:#fff;border-bottom:1px solid var(--border);flex-shrink:0;min-height:60px}
+.chdr .who{flex:1;min-width:0}
+.chdr .nm{font:700 16px/20px Montserrat;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:6px}
+.chdr .sub{font-size:13px;color:var(--text2);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.av{border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font:600 16px Lato;flex-shrink:0}
+.search{display:flex;align-items:center;gap:8px;margin:0 16px 12px;border:1.5px solid var(--primary);border-radius:12px;padding:10px 12px;background:transparent}
+.search ion-icon{font-size:20px;color:var(--primary)}
+.search input{flex:1;border:none;outline:none;background:transparent;font-size:15px;color:var(--text)}
+.search input::placeholder{color:#9CA3AF}
+.tabs{display:flex;margin:0 16px 12px;background:var(--tab-wrap);border-radius:8px;padding:8px}
+.tabs button{flex:1;padding:10px 0;background:#fff;font:500 12px Lato;color:var(--seg-text);border-radius:0}
+.tabs button:first-child{border-radius:6px 0 0 6px}
+.tabs button:last-child{border-radius:0 6px 6px 0}
+.tabs button.on{background:var(--tab-active);color:#fff}
+.sec{font:600 12px Montserrat;text-transform:uppercase;letter-spacing:.5px;color:var(--text2);padding:4px 20px 8px}
+.row{display:flex;align-items:center;gap:12px;padding:12px;background:#fff;border-radius:12px;margin:0 16px 8px}
+.row .info{flex:1;min-width:0}
+.row .l1{display:flex;align-items:center;gap:6px;justify-content:space-between}
+.row .nm{font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .tm{font-size:12px;color:var(--text2);flex-shrink:0}
+.row .l2{display:flex;align-items:center;gap:8px;justify-content:space-between;margin-top:3px}
+.row .pv{font-size:14px;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .pv.b{color:var(--text);font-weight:700}
+.row.dim .nm,.row.dim .pv{color:var(--text2)}
+.badge{min-width:20px;height:20px;border-radius:10px;padding:0 6px;background:var(--primary);color:#fff;font:700 12px Lato;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+.tag{display:inline-flex;align-items:center;gap:3px;height:20px;padding:0 7px;border-radius:6px;font:700 11px Lato;flex-shrink:0;background:var(--primary-soft);color:var(--primary)}
+.tag.grey{background:#EBEBEB;color:var(--text2)}
+.tag.green{background:var(--success-soft);color:#15803D}
+.tag.warn{background:var(--warn-bg);color:var(--warn-text)}
+.tag.red{background:var(--danger-soft);color:var(--danger)}
+.feed{flex:1;overflow-y:auto;scrollbar-width:none;padding:12px 16px;display:flex;flex-direction:column;gap:8px}
+.feed::-webkit-scrollbar{display:none}
+.dd{align-self:center;font:700 12px Lato;color:var(--text2);padding:6px 0}
+.sys{align-self:center;max-width:88%;text-align:center;font-size:13px;line-height:1.4;color:var(--text2);background:#E7E7E7;border-radius:10px;padding:6px 12px}
+.msg{display:flex;gap:8px;max-width:80%;align-items:flex-end}
+.msg.in{align-self:flex-start}
+.msg.out{align-self:flex-end;flex-direction:row-reverse}
+.msg .col{display:flex;flex-direction:column;min-width:0}
+.msg.out .col{align-items:flex-end}
+.snd{font:700 12px Lato;color:var(--icon);margin:0 0 3px 4px}
+.snd .tag{height:17px;font-size:10px;margin-left:4px;padding:0 5px}
+.bub{padding:9px 12px;border-radius:16px;font-size:15px;line-height:21px;word-wrap:break-word}
+.in .bub{background:#fff;border:1px solid var(--border);border-bottom-left-radius:4px}
+.out .bub{background:var(--primary);color:#fff;border-bottom-right-radius:4px}
+.mt{font-size:12px;color:var(--text2);margin:3px 4px 0}
+.mt.err{color:var(--error);display:flex;align-items:center;gap:4px;font-weight:700}
+.out .bub.failed{background:#8FBFFF}
+.photo{width:200px;height:140px;border-radius:12px;background:linear-gradient(135deg,#C9D6E3,#9FB3C8);display:flex;align-items:center;justify-content:center;color:#fff;font-size:32px;position:relative;overflow:hidden}
+.photo .vid{position:absolute;bottom:8px;left:8px;font:700 12px Lato;background:rgba(0,0,0,.5);border-radius:6px;padding:2px 6px;display:flex;align-items:center;gap:3px}
+.shared{width:240px;background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.shared .h{background:var(--primary-soft);padding:8px 12px;font:700 12px Montserrat;color:var(--primary);display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:.4px}
+.shared .c{padding:10px 12px;display:flex;flex-direction:column;gap:4px}
+.shared .c b{font-size:15px}
+.shared .c span{font-size:13px;color:var(--text2);display:flex;align-items:center;gap:6px}
+.shared .c .btn{margin-top:6px;height:38px;font-size:14px}
+.comp{display:flex;align-items:center;gap:8px;padding:8px 12px;background:#fff;border-top:1px solid var(--border);flex-shrink:0}
+.comp .att{font-size:24px;color:var(--icon);display:flex}
+.comp .in{flex:1;height:40px;border-radius:20px;background:var(--bg);border:1px solid transparent;padding:0 14px;font-size:15px;outline:none;color:var(--text)}
+.comp .in:focus{border-color:var(--primary);background:#fff}
+.comp .send{width:40px;height:40px;border-radius:20px;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.comp .send.off{background:var(--disabled)}
+.lock{display:flex;gap:10px;align-items:flex-start;padding:12px 16px;background:#fff;border-top:1px solid var(--border);flex-shrink:0}
+.lock ion-icon{font-size:20px;color:var(--icon);flex-shrink:0;margin-top:1px}
+.lock b{font-size:14px;display:block}
+.lock span{font-size:13px;color:var(--text2);line-height:1.4}
+.ctx{display:flex;align-items:center;gap:12px;background:#fff;border-bottom:1px solid var(--border);padding:10px 16px;flex-shrink:0}
+.ctx .ti{width:40px;height:40px;border-radius:8px;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.ctx .i{flex:1;min-width:0}
+.ctx b{font-size:14px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ctx span{font-size:13px;color:var(--text2)}
+.ctx a{font:700 14px Lato;color:var(--primary);text-decoration:none;flex-shrink:0}
+.ban{display:flex;gap:8px;align-items:flex-start;padding:8px 16px;font-size:13px;line-height:1.4;flex-shrink:0}
+.ban ion-icon{font-size:17px;flex-shrink:0;margin-top:1px}
+.ban.info{background:#EAF3FF;color:var(--text)}
+.ban.info ion-icon{color:var(--primary)}
+.ban.warn{background:var(--warn-bg);color:var(--warn-text)}
+.ban.err{background:var(--danger-soft);color:var(--danger)}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:48px;border-radius:8px;font:600 16px Montserrat}
+.btn.p{background:var(--primary);color:#fff}
+.btn.p.off{background:var(--disabled)}
+.btn.n{background:#fff;border:1px solid var(--border);color:var(--text)}
+.btn.d{background:var(--danger);color:#fff}
+.btn.sm{height:40px;font-size:14px}
+.btnrow{display:flex;gap:10px}
+.foot{padding:12px 16px 8px;flex-shrink:0;background:var(--bg)}
+.center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px 32px;gap:10px}
+.center .bigic{width:88px;height:88px;border-radius:44px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:40px;color:var(--icon);box-shadow:0 2px 12px rgba(0,0,0,.06);margin-bottom:8px}
+.center .bigic.red{color:var(--error)}
+.center h3{font:700 18px Montserrat}
+.center p{font-size:15px;line-height:22px;color:var(--text2)}
+.center .btn{margin-top:10px;width:auto;padding:0 24px}
+.sk{background:#E2E2E2;border-radius:6px;animation:pulse 1.2s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.5}}
+.ov{position:absolute;inset:0;background:rgba(17,24,28,.45);display:flex;z-index:20}
+.ov.bottom{align-items:flex-end}
+.ov.mid{align-items:center;justify-content:center;padding:24px}
+.sheet{width:100%;background:#fff;border-radius:16px 16px 0 0;padding:8px 0 16px}
+.sheet .hd{width:36px;height:4px;border-radius:2px;background:var(--border);margin:0 auto 8px}
+.sheet .st{font:700 16px Montserrat;padding:6px 20px 10px}
+.sheet .it{display:flex;align-items:center;gap:14px;padding:0 20px;height:52px;font-size:16px;width:100%;text-align:left}
+.sheet .it ion-icon{font-size:22px;color:var(--icon)}
+.sheet .it.red,.sheet .it.red ion-icon{color:var(--danger)}
+.modal{width:100%;background:#fff;border-radius:12px;padding:20px}
+.modal h3{font:700 18px Montserrat;margin-bottom:8px}
+.modal p{font-size:15px;line-height:22px;color:var(--text2);margin-bottom:18px}
+.notch{position:relative;border:1px solid var(--border);border-radius:8px;min-height:56px;padding:16px;margin:12px 0 4px;background:transparent}
+.notch.foc{border-color:var(--primary)}
+.notch.bad{border-color:var(--error)}
+.notch label{position:absolute;top:-10px;left:12px;padding:0 4px;background:var(--bg);font-size:14px;color:var(--text2)}
+.notch.foc label{color:var(--primary)}
+.notch.bad label{color:var(--error)}
+.notch .v{font-size:16px}
+.ferr{font-size:12px;color:var(--error);margin:4px 4px 0}
+.fhelp{font-size:12px;color:var(--text2);margin:4px 4px 0;display:flex;justify-content:space-between}
+.radio{display:flex;align-items:center;gap:12px;background:#fff;border-radius:12px;padding:14px 12px;margin-bottom:8px;font-size:15px}
+.radio i{width:20px;height:20px;border-radius:10px;border:2px solid var(--disabled);flex-shrink:0}
+.radio.on i{border:6px solid var(--primary)}
+.chk{width:22px;height:22px;border-radius:6px;border:2px solid var(--disabled);flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px}
+.chk.on{background:var(--primary);border-color:var(--primary)}
+.chips{display:flex;gap:8px;padding:0 16px 12px;overflow-x:auto;scrollbar-width:none}
+.chip{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:12px;width:56px;flex-shrink:0;position:relative}
+.chip .x{position:absolute;top:-2px;right:4px;width:18px;height:18px;border-radius:9px;background:var(--icon);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;border:2px solid var(--bg)}
+.toast{position:absolute;left:16px;right:16px;bottom:84px;background:#11181C;color:#fff;border-radius:10px;padding:12px 14px;font-size:14px;z-index:30;display:flex;gap:8px;align-items:center}
+.push{margin:8px 10px;background:rgba(255,255,255,.96);border-radius:16px;padding:12px 14px;box-shadow:0 6px 20px rgba(0,0,0,.18);display:flex;gap:10px}
+.push .app{width:22px;height:22px;border-radius:6px;background:var(--primary);display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;flex-shrink:0}
+.push .h{display:flex;justify-content:space-between;font-size:12px;color:var(--text2);margin-bottom:2px}
+.push b{font-size:15px;display:block}
+.push p{font-size:14px;color:var(--text);margin-top:1px}
+.prof-cover{height:110px;background:linear-gradient(135deg,#9FB3C8,#5E7A96)}
+.prof{padding:0 16px;margin-top:-36px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px}
+.prof .av{border:4px solid var(--bg)}
+.prof h3{font:700 20px Montserrat;margin-top:6px}
+.prof p{font-size:14px;color:var(--text2)}
+.stat3{display:flex;justify-content:center;gap:24px;margin:12px 0}
+.stat3 div{text-align:center;font-size:13px;color:var(--text2)}
+.stat3 b{display:block;font:700 16px Montserrat;color:var(--text)}
+.email{margin:12px;background:#fff;border-radius:12px;overflow:hidden;border:1px solid var(--border)}
+.email .eh{padding:12px 14px;border-bottom:1px solid var(--border);font-size:13px;color:var(--text2);line-height:1.6}
+.email .eh b{color:var(--text)}
+.email .eb{padding:16px 14px;font-size:15px;line-height:22px}
+.email .quote{border-left:3px solid var(--primary);padding:6px 10px;background:#F8F9FA;margin:10px 0 14px;color:var(--text2);font-size:14px}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;header class=&quot;top&quot;&gt;
+  &lt;div&gt;
+    &lt;h1&gt;Communication Module · Player App Wireframes&lt;/h1&gt;
+    &lt;p&gt;Release 1 scope only · Matched to live &lt;code&gt;shallwe-play-players&lt;/code&gt; tokens (light theme) · v2 · 26 Nov 2026&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;legend&quot;&gt;
+    &lt;span&gt;&lt;i class=&quot;dot&quot; style=&quot;background:#007AFF&quot;&gt;&lt;/i&gt;Primary #007AFF&lt;/span&gt;
+    &lt;span&gt;&lt;i class=&quot;dot&quot; style=&quot;background:#f0f0f0;border:1px solid #ccc&quot;&gt;&lt;/i&gt;Canvas #f0f0f0&lt;/span&gt;
+    &lt;span&gt;&lt;i class=&quot;dot&quot; style=&quot;background:#777&quot;&gt;&lt;/i&gt;Secondary #777&lt;/span&gt;
+    &lt;span&gt;&lt;i class=&quot;dot&quot; style=&quot;background:#E63900&quot;&gt;&lt;/i&gt;Danger #E63900&lt;/span&gt;
+    &lt;span&gt;&lt;i class=&quot;dot&quot; style=&quot;background:#FEF3C7;border:1px solid #F59E0B&quot;&gt;&lt;/i&gt;Pending client decision&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/header&gt;
+
+&lt;div class=&quot;layout&quot;&gt;
+  &lt;nav class=&quot;nav&quot; id=&quot;nav&quot;&gt;&lt;/nav&gt;
+  &lt;section class=&quot;stage&quot;&gt;
+    &lt;div class=&quot;switch&quot; id=&quot;switch&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;variants&quot; id=&quot;variants&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;ph&quot;&gt;
+      &lt;div class=&quot;sbar&quot;&gt;&lt;span&gt;9:41&lt;/span&gt;&lt;span class=&quot;r&quot;&gt;&lt;ion-icon name=&quot;cellular&quot;&gt;&lt;/ion-icon&gt;&lt;ion-icon name=&quot;wifi&quot;&gt;&lt;/ion-icon&gt;&lt;ion-icon name=&quot;battery-full&quot;&gt;&lt;/ion-icon&gt;&lt;/span&gt;&lt;/div&gt;
+      &lt;div class=&quot;scr&quot; id=&quot;scr&quot;&gt;&lt;/div&gt;
+      &lt;div class=&quot;homebar&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+  &lt;aside class=&quot;notes&quot; id=&quot;notes&quot;&gt;&lt;/aside&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+/* ---------------- helpers ---------------- */
+const ic = (n, s=&#x27;&#x27;, st=&#x27;&#x27;) =&gt; `&lt;ion-icon name=&quot;${n}&quot; ${s?`style=&quot;font-size:${s}px;${st}&quot;`:(st?`style=&quot;${st}&quot;`:&#x27;&#x27;)}&gt;&lt;/ion-icon&gt;`;
+const AVC = {E:&#x27;#E67E22&#x27;,S:&#x27;#3B82F6&#x27;,L:&#x27;#8B5CF6&#x27;,M:&#x27;#0D9488&#x27;,A:&#x27;#007AFF&#x27;,C:&#x27;#061D42&#x27;,T:&#x27;#DB2777&#x27;,J:&#x27;#16A34A&#x27;,R:&#x27;#64748B&#x27;};
+const av = (t, size=44, bg, icon) =&gt; `&lt;div class=&quot;av&quot; style=&quot;width:${size}px;height:${size}px;background:${bg||AVC[t[0]]||&#x27;#007AFF&#x27;};font-size:${Math.round(size*.36)}px&quot;&gt;${icon?ic(icon, Math.round(size*.46)):t}&lt;/div&gt;`;
+const back = (to) =&gt; `&lt;button class=&quot;back&quot; onclick=&quot;go(&#x27;${to||&#x27;&#x27;}&#x27;)&quot;&gt;${ic(&#x27;chevron-back&#x27;,16)}&lt;/button&gt;`;
+const hdr = (title, left, right) =&gt; `&lt;div class=&quot;hdr&quot;&gt;${left||&#x27;&lt;div class=&quot;sp36&quot;&gt;&lt;/div&gt;&#x27;}&lt;div class=&quot;t&quot;&gt;${title}&lt;/div&gt;${right||&#x27;&lt;div class=&quot;sp36&quot;&gt;&lt;/div&gt;&#x27;}&lt;/div&gt;`;
+const chdr = (avatar, name, sub, right, backTo=&#x27;inbox&#x27;) =&gt; `&lt;div class=&quot;chdr&quot;&gt;${back(backTo)}${avatar}&lt;div class=&quot;who&quot;&gt;&lt;div class=&quot;nm&quot;&gt;${name}&lt;/div&gt;&lt;div class=&quot;sub&quot;&gt;${sub}&lt;/div&gt;&lt;/div&gt;${right||&#x27;&#x27;}&lt;/div&gt;`;
+const more = (fn) =&gt; `&lt;button class=&quot;hbtn grey&quot; onclick=&quot;${fn||&quot;go(&#x27;chat_options&#x27;)&quot;}&quot;&gt;${ic(&#x27;ellipsis-vertical&#x27;,22)}&lt;/button&gt;`;
+const search = (ph) =&gt; `&lt;div class=&quot;search&quot;&gt;${ic(&#x27;search&#x27;)}&lt;input placeholder=&quot;${ph}&quot;&gt;&lt;/div&gt;`;
+const tabs = (list, on) =&gt; `&lt;div class=&quot;tabs&quot;&gt;${list.map(t=&gt;`&lt;button class=&quot;${t===on?&#x27;on&#x27;:&#x27;&#x27;}&quot;&gt;${t}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+const dd = (t) =&gt; `&lt;div class=&quot;dd&quot;&gt;${t}&lt;/div&gt;`;
+const sys = (t) =&gt; `&lt;div class=&quot;sys&quot;&gt;${t}&lt;/div&gt;`;
+const mIn = (text, time, sender, role) =&gt; `&lt;div class=&quot;msg in&quot;&gt;${sender?av(sender[0],28):&#x27;&#x27;}&lt;div class=&quot;col&quot;&gt;${sender?`&lt;div class=&quot;snd&quot;&gt;${sender}${role?`&lt;span class=&quot;tag ${role===&#x27;Coach&#x27;||role===&#x27;Club Staff&#x27;||role===&#x27;SWP Support&#x27;?&#x27;&#x27;:&#x27;grey&#x27;}&quot;&gt;${role}&lt;/span&gt;`:&#x27;&#x27;}&lt;/div&gt;`:&#x27;&#x27;}&lt;div class=&quot;bub&quot;&gt;${text}&lt;/div&gt;&lt;div class=&quot;mt&quot;&gt;${time}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`;
+const mOut = (text, time, failed) =&gt; `&lt;div class=&quot;msg out&quot;&gt;&lt;div class=&quot;col&quot;&gt;&lt;div class=&quot;bub ${failed?&#x27;failed&#x27;:&#x27;&#x27;}&quot;&gt;${text}&lt;/div&gt;${failed?`&lt;div class=&quot;mt err&quot;&gt;${ic(&#x27;alert-circle&#x27;,14)} Not sent · Tap to retry&lt;/div&gt;`:`&lt;div class=&quot;mt&quot;&gt;${time}&lt;/div&gt;`}&lt;/div&gt;&lt;/div&gt;`;
+const photoMsg = (dir, time, video) =&gt; `&lt;div class=&quot;msg ${dir}&quot;&gt;&lt;div class=&quot;col&quot;&gt;&lt;div class=&quot;photo&quot;&gt;${ic(video?&#x27;play-circle&#x27;:&#x27;image-outline&#x27;,36)}${video?`&lt;span class=&quot;vid&quot;&gt;${ic(&#x27;videocam&#x27;,12)} 0:14&lt;/span&gt;`:&#x27;&#x27;}&lt;/div&gt;&lt;div class=&quot;mt&quot;&gt;${time}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`;
+const comp = (ph, typed) =&gt; `&lt;div class=&quot;comp&quot;&gt;&lt;button class=&quot;att&quot; onclick=&quot;go(&#x27;media_preview&#x27;)&quot;&gt;${ic(&#x27;image-outline&#x27;)}&lt;/button&gt;&lt;input class=&quot;in&quot; placeholder=&quot;${ph}&quot; value=&quot;${typed||&#x27;&#x27;}&quot;&gt;&lt;button class=&quot;send ${typed?&#x27;&#x27;:&#x27;off&#x27;}&quot;&gt;${ic(&#x27;send&#x27;,18)}&lt;/button&gt;&lt;/div&gt;`;
+const lock = (title, text, icon=&#x27;lock-closed-outline&#x27;) =&gt; `&lt;div class=&quot;lock&quot;&gt;${ic(icon)}&lt;div&gt;&lt;b&gt;${title}&lt;/b&gt;&lt;span&gt;${text}&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;`;
+const ctx = (icon, title, sub, link=&#x27;View&#x27;) =&gt; `&lt;div class=&quot;ctx&quot;&gt;&lt;div class=&quot;ti&quot;&gt;${ic(icon)}&lt;/div&gt;&lt;div class=&quot;i&quot;&gt;&lt;b&gt;${title}&lt;/b&gt;&lt;span&gt;${sub}&lt;/span&gt;&lt;/div&gt;&lt;a href=&quot;#&quot; onclick=&quot;return false&quot;&gt;${link}&lt;/a&gt;&lt;/div&gt;`;
+const ban = (kind, icon, html) =&gt; `&lt;div class=&quot;ban ${kind}&quot;&gt;${ic(icon)}&lt;div&gt;${html}&lt;/div&gt;&lt;/div&gt;`;
+const center = (icon, title, text, btn, red) =&gt; `&lt;div class=&quot;center&quot;&gt;&lt;div class=&quot;bigic ${red?&#x27;red&#x27;:&#x27;&#x27;}&quot;&gt;${ic(icon)}&lt;/div&gt;&lt;h3&gt;${title}&lt;/h3&gt;&lt;p&gt;${text}&lt;/p&gt;${btn||&#x27;&#x27;}&lt;/div&gt;`;
+const errBlock = (title, text) =&gt; center(&#x27;cloud-offline-outline&#x27;, title, text, `&lt;button class=&quot;btn p sm&quot;&gt;${ic(&#x27;refresh&#x27;,18)} Try Again&lt;/button&gt;`, true);
+const skRows = (n=6) =&gt; Array.from({length:n}).map(()=&gt;`&lt;div class=&quot;row&quot;&gt;&lt;div class=&quot;sk&quot; style=&quot;width:44px;height:44px;border-radius:22px&quot;&gt;&lt;/div&gt;&lt;div class=&quot;info&quot;&gt;&lt;div class=&quot;sk&quot; style=&quot;width:55%;height:14px;margin-bottom:8px&quot;&gt;&lt;/div&gt;&lt;div class=&quot;sk&quot; style=&quot;width:85%;height:12px&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`).join(&#x27;&#x27;);
+const skFeed = () =&gt; `&lt;div class=&quot;feed&quot;&gt;${[[&#x27;in&#x27;,62],[&#x27;in&#x27;,40],[&#x27;out&#x27;,55],[&#x27;in&#x27;,70],[&#x27;out&#x27;,38]].map(([d,w])=&gt;`&lt;div class=&quot;msg ${d}&quot;&gt;&lt;div class=&quot;sk&quot; style=&quot;width:${w*2.4}px;height:38px;border-radius:16px&quot;&gt;&lt;/div&gt;&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+const naNote = (why) =&gt; `&lt;div class=&quot;center&quot;&gt;&lt;div class=&quot;bigic&quot;&gt;${ic(&#x27;information-circle-outline&#x27;)}&lt;/div&gt;&lt;h3&gt;Not Applicable&lt;/h3&gt;&lt;p&gt;${why}&lt;/p&gt;&lt;/div&gt;`;
+
+/* ---------------- shared data ---------------- */
+const CONVOS = [
+  {nm:&#x27;Padel · Court 4&#x27;, av:av(&#x27;&#x27;,44,&#x27;#007AFF&#x27;,&#x27;tennisball&#x27;), tag:&#x27;&lt;span class=&quot;tag&quot;&gt;Booking&lt;/span&gt;&#x27;, pv:&#x27;Sander: I\&#x27;ll bring new balls&#x27;, tm:&#x27;10:42&#x27;, un:2, to:&#x27;booking_chat&#x27;},
+  {nm:&#x27;Emma de Vries&#x27;, av:av(&#x27;E&#x27;), pv:&#x27;Are you free for padel on Sunday?&#x27;, tm:&#x27;Yesterday&#x27;, un:1, to:&#x27;direct_chat&#x27;},
+  {nm:&#x27;Club de Padel Rotterdam&#x27;, av:av(&#x27;&#x27;,44,&#x27;#061D42&#x27;,&#x27;business&#x27;), tag:&#x27;&lt;span class=&quot;tag&quot;&gt;Club&lt;/span&gt;&#x27;, pv:&#x27;You: Is Court 4 lit on Friday evening?&#x27;, tm:&#x27;Tue&#x27;, un:0, to:&#x27;club_chat&#x27;},
+  {nm:&#x27;Mark Jansen&#x27;, av:av(&#x27;M&#x27;), tag:&#x27;&lt;span class=&quot;tag&quot;&gt;Coach&lt;/span&gt;&#x27;, pv:&#x27;See you Monday at 10:00&#x27;, tm:&#x27;Mon&#x27;, un:0, to:&#x27;lesson_chat&#x27;},
+  {nm:&#x27;Sunday Padel Crew&#x27;, av:av(&#x27;&#x27;,44,&#x27;#8B5CF6&#x27;,&#x27;people&#x27;), tag:&#x27;&lt;span class=&quot;tag grey&quot;&gt;Group&lt;/span&gt;&#x27;, pv:&#x27;Lotte: Same time next week?&#x27;, tm:&#x27;Sun&#x27;, un:0, to:&#x27;group_chat&#x27;},
+  {nm:&#x27;SWP Support&#x27;, av:av(&#x27;&#x27;,44,&#x27;#007AFF&#x27;,&#x27;help-buoy&#x27;), pv:&#x27;Your refund question is resolved&#x27;, tm:&#x27;20 Nov&#x27;, un:0, to:&#x27;support&#x27;},
+  {nm:&#x27;Friday Night Padel&#x27;, av:av(&#x27;&#x27;,44,&#x27;#9CA3AF&#x27;,&#x27;lock-closed&#x27;), tag:&#x27;&lt;span class=&quot;tag grey&quot;&gt;Closed&lt;/span&gt;&#x27;, pv:&#x27;Chat closed · messages are saved&#x27;, tm:&#x27;14 Nov&#x27;, un:0, dim:1, to:&#x27;event_chat&#x27;},
+];
+const convRow = c =&gt; `&lt;div class=&quot;row ${c.dim?&#x27;dim&#x27;:&#x27;&#x27;}&quot; onclick=&quot;go(&#x27;${c.to}&#x27;)&quot; style=&quot;cursor:pointer&quot;&gt;${c.av}&lt;div class=&quot;info&quot;&gt;&lt;div class=&quot;l1&quot;&gt;&lt;div style=&quot;display:flex;gap:6px;align-items:center;min-width:0&quot;&gt;&lt;span class=&quot;nm&quot;&gt;${c.nm}&lt;/span&gt;${c.tag||&#x27;&#x27;}&lt;/div&gt;&lt;span class=&quot;tm&quot;&gt;${c.tm}&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;l2&quot;&gt;&lt;span class=&quot;pv ${c.un?&#x27;b&#x27;:&#x27;&#x27;}&quot;&gt;${c.pv}&lt;/span&gt;${c.un?`&lt;span class=&quot;badge&quot;&gt;${c.un}&lt;/span&gt;`:&#x27;&#x27;}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`;
+
+/* ---------------- screens ---------------- */
+const S = {};
+
+S.home_entry = {
+  flow:&#x27;Entry &amp; Inbox&#x27;, title:&#x27;Home · Chat Entry&#x27;,
+  states:{loading:&#x27;N/A&#x27;, error:&#x27;N/A&#x27;, empty:&#x27;No Unread&#x27;},
+  render(st){
+    const dot = st===&#x27;empty&#x27; ? &#x27;&#x27; : `&lt;span style=&quot;position:absolute;top:4px;right:3px;min-width:18px;height:18px;border-radius:9px;background:#FF3B30;color:#fff;font:700 11px Lato;display:flex;align-items:center;justify-content:center;padding:0 4px;border:2px solid var(--bg)&quot;&gt;3&lt;/span&gt;`;
+    if (st===&#x27;loading&#x27;) return naNote(&#x27;The icon is static. The unread count loads quietly in the background and never blocks the Home screen.&#x27;);
+    if (st===&#x27;error&#x27;) return naNote(&#x27;If the unread count fails to load, the icon shows with no badge. Tapping it still opens Messages.&#x27;);
+    return `&lt;div class=&quot;hdr&quot; style=&quot;padding:10px 16px&quot;&gt;
+        &lt;div style=&quot;display:flex;align-items:center;gap:8px&quot;&gt;&lt;svg width=&quot;34&quot; height=&quot;34&quot; viewBox=&quot;0 0 34 34&quot;&gt;&lt;circle cx=&quot;11&quot; cy=&quot;12&quot; r=&quot;8&quot; fill=&quot;none&quot; stroke=&quot;#16A34A&quot; stroke-width=&quot;3&quot;/&gt;&lt;circle cx=&quot;22&quot; cy=&quot;12&quot; r=&quot;8&quot; fill=&quot;none&quot; stroke=&quot;#007AFF&quot; stroke-width=&quot;3&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;22&quot; r=&quot;8&quot; fill=&quot;none&quot; stroke=&quot;#E63900&quot; stroke-width=&quot;3&quot;/&gt;&lt;/svg&gt;&lt;span style=&quot;font:400 23px Lato&quot;&gt;ShallWe-Play&lt;/span&gt;&lt;/div&gt;
+        &lt;div style=&quot;display:flex;gap:4px&quot;&gt;&lt;button class=&quot;hbtn&quot; onclick=&quot;go(&#x27;inbox&#x27;)&quot; style=&quot;outline:2px dashed #F59E0B;outline-offset:2px;border-radius:8px&quot;&gt;${ic(&#x27;chatbubbles-outline&#x27;,26)}${dot}&lt;/button&gt;&lt;button class=&quot;hbtn&quot;&gt;${ic(&#x27;notifications-outline&#x27;,26)}&lt;/button&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;body&quot; style=&quot;opacity:.45;pointer-events:none&quot;&gt;
+        &lt;div style=&quot;padding:8px 20px&quot;&gt;&lt;div style=&quot;width:72px;height:72px;border-radius:36px;background:#007AFF;color:#fff;display:flex;align-items:center;justify-content:center;font:700 26px Lato&quot;&gt;A&lt;/div&gt;&lt;div style=&quot;font:700 14px Lato;margin:6px 0 0 6px&quot;&gt;My Story&lt;/div&gt;&lt;/div&gt;
+        &lt;div style=&quot;margin:14px 16px;background:#fff;border-radius:12px;padding:16px&quot;&gt;&lt;div style=&quot;font:600 18px Montserrat&quot;&gt;WHAT&#x27;S HAPPENING&lt;/div&gt;&lt;div style=&quot;font-size:15px;color:#777;margin-top:4px&quot;&gt;Latest among your teammates &amp; sports clubs around you&lt;/div&gt;&lt;/div&gt;
+        &lt;div style=&quot;display:flex;gap:10px;margin:0 16px&quot;&gt;&lt;div style=&quot;flex:1;background:#fff;border-radius:12px;padding:16px&quot;&gt;&lt;b style=&quot;font:800 28px Montserrat&quot;&gt;1036&lt;/b&gt;&lt;div style=&quot;font-size:14px&quot;&gt;Total Open Bookings&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;flex:1;background:#fff;border-radius:12px;padding:16px&quot;&gt;&lt;b style=&quot;font:800 28px Montserrat&quot;&gt;1008&lt;/b&gt;&lt;div style=&quot;font-size:14px&quot;&gt;Coming Soon Clubs&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+        &lt;div style=&quot;margin:14px 16px;background:#fff;border-radius:12px;height:220px&quot;&gt;&lt;/div&gt;
+      &lt;/div&gt;`;
+  },
+  notes:{
+    purpose:&#x27;Main entry to Messages. It already exists in the live app (HomeScreen.tsx → &lt;code&gt;ChatScreen&lt;/code&gt;), but today it opens a &quot;Coming Soon&quot; placeholder.&#x27;,
+    rules:[&#x27;Keep the existing Ionicons &lt;code&gt;chatbubbles-outline&lt;/code&gt; 26px icon in &lt;code&gt;#007AFF&lt;/code&gt;, to the left of the bell.&#x27;,&#x27;&lt;b&gt;New:&lt;/b&gt; a red count badge with the total number of unread conversations, not messages. Hide it at 0. Show 9+ above 9.&#x27;,&#x27;Tap → Messages inbox (replaces the Coming Soon screen).&#x27;],
+    pending:[],
+    changed:[&#x27;The old wireframe sent users to chat from a journey tab. Now it starts from the real Home header icon.&#x27;],
+    src:[&#x27;HomeScreen.tsx L556-566&#x27;,&#x27;screens/Chat/index.tsx (Coming Soon)&#x27;]
+  }
+};
+
+S.inbox = {
+  flow:&#x27;Entry &amp; Inbox&#x27;, title:&#x27;Messages Inbox&#x27;,
+  variants:[&#x27;All&#x27;,&#x27;Activities&#x27;,&#x27;Direct&#x27;,&#x27;Groups&#x27;],
+  render(st, v=&#x27;All&#x27;){
+    const h = hdr(&#x27;Messages&#x27;, back(&#x27;home_entry&#x27;), `&lt;button class=&quot;hbtn&quot; onclick=&quot;go(&#x27;new_chat&#x27;)&quot;&gt;${ic(&#x27;create-outline&#x27;,24)}&lt;/button&gt;`);
+    if (st===&#x27;loading&#x27;) return h + `&lt;div class=&quot;body&quot;&gt;&lt;div class=&quot;search&quot; style=&quot;border-color:var(--border)&quot;&gt;&lt;div class=&quot;sk&quot; style=&quot;height:18px;flex:1&quot;&gt;&lt;/div&gt;&lt;/div&gt;${tabs(this.variants,&#x27;All&#x27;)}${skRows(7)}&lt;/div&gt;`;
+    if (st===&#x27;error&#x27;) return h + errBlock(&#x27;Couldn\&#x27;t Load Messages&#x27;,&#x27;Check your internet connection and try again.&#x27;);
+    if (st===&#x27;empty&#x27;) return h + center(&#x27;chatbubbles-outline&#x27;,&#x27;No Messages Yet&#x27;,&#x27;Chats with players, clubs and coaches show here. Booking and event chats are added for you automatically.&#x27;, `&lt;button class=&quot;btn p sm&quot; onclick=&quot;go(&#x27;new_chat&#x27;)&quot;&gt;${ic(&#x27;create-outline&#x27;,18)} Start a Chat&lt;/button&gt;`);
+    const map = {All:()=&gt;true, Activities:c=&gt;[&#x27;booking_chat&#x27;,&#x27;event_chat&#x27;,&#x27;lesson_chat&#x27;].includes(c.to), Direct:c=&gt;[&#x27;direct_chat&#x27;,&#x27;club_chat&#x27;,&#x27;support&#x27;].includes(c.to), Groups:c=&gt;c.to===&#x27;group_chat&#x27;};
+    const list = CONVOS.filter(map[v]);
+    return h + `&lt;div class=&quot;body&quot;&gt;${search(&#x27;Search messages&#x27;)}${tabs(this.variants, v)}${list.map(convRow).join(&#x27;&#x27;)}&lt;div style=&quot;height:12px&quot;&gt;&lt;/div&gt;&lt;/div&gt;`;
+  },
+  notes:{
+    purpose:&#x27;One list of every conversation, newest first.&#x27;,
+    rules:[&#x27;Each row shows: avatar, name, type tag (Booking / Club / Coach / Group / Closed), last message, time and unread count. These are the 4 must-have inbox fields in §3.1.&#x27;,&#x27;Unread rows show the preview in bold. The badge counts unread messages in that chat.&#x27;,&#x27;Tabs reuse the live Bookings segmented control (wrapper &lt;code&gt;#E1EAEA&lt;/code&gt;, active &lt;code&gt;#3B82F6&lt;/code&gt;, 12px text).&#x27;,&#x27;&lt;b&gt;Activities&lt;/b&gt; = booking, event and lesson chats. &lt;b&gt;Direct&lt;/b&gt; = player, club and support chats. &lt;b&gt;Groups&lt;/b&gt; = player-made groups.&#x27;,&#x27;Closed activity chats stay in the list, greyed out with a &lt;b&gt;Closed&lt;/b&gt; tag. Messages are never deleted (§6, retention).&#x27;,&#x27;The ✎ icon opens New Message.&#x27;],
+    pending:[&#x27;&lt;b&gt;After the activity&lt;/b&gt; Should closed chats stay in the inbox (shown here) or be hidden after X days?&#x27;],
+    changed:[&#x27;Removed: gradient pinned card, online dots, &quot;SafeComm&quot; footer and &quot;Mark all read&quot;. None of these are in release 1.&#x27;,&#x27;Text is now 14–15px (was 10–12px). Colors moved from Tailwind slate to the app tokens.&#x27;],
+    src:[&#x27;BookingsScreen.tsx tab styles&#x27;,&#x27;BlockedUsersScreen.tsx row + search styles&#x27;,&#x27;Colors.ts&#x27;]
+  }
+};
+
+S.new_chat = {
+  flow:&#x27;Entry &amp; Inbox&#x27;, title:&#x27;New Message&#x27;,
+  states:{error:&#x27;Not Allowed&#x27;},
+  render(st){
+    const h = hdr(&#x27;New Message&#x27;, back(&#x27;inbox&#x27;));
+    if (st===&#x27;loading&#x27;) return h + `&lt;div class=&quot;body&quot;&gt;${search(&#x27;Search players, clubs or coaches&#x27;)}${skRows(6)}&lt;/div&gt;`;
+    if (st===&#x27;empty&#x27;) return h + `&lt;div class=&quot;body&quot; style=&quot;display:flex;flex-direction:column&quot;&gt;&lt;div class=&quot;search&quot;&gt;&lt;ion-icon name=&quot;search&quot;&gt;&lt;/ion-icon&gt;&lt;input value=&quot;@jorisxyz&quot;&gt;&lt;/div&gt;${center(&#x27;person-outline&#x27;,&#x27;No Results&#x27;,&#x27;No player, club or coach matches &quot;@jorisxyz&quot;. Check the spelling and try again.&#x27;)}&lt;/div&gt;`;
+    const people = `
+      &lt;div class=&quot;row&quot; onclick=&quot;go(&#x27;group_create&#x27;)&quot; style=&quot;cursor:pointer&quot;&gt;${av(&#x27;&#x27;,44,&#x27;#007AFF&#x27;,&#x27;people&#x27;)}&lt;div class=&quot;info&quot;&gt;&lt;span class=&quot;nm&quot; style=&quot;color:var(--primary)&quot;&gt;New Group&lt;/span&gt;&lt;/div&gt;${ic(&#x27;chevron-forward&#x27;,18,&#x27;color:#687076&#x27;)}&lt;/div&gt;
+      &lt;div class=&quot;sec&quot; style=&quot;padding-top:8px&quot;&gt;Suggested&lt;/div&gt;
+      &lt;div class=&quot;row&quot; onclick=&quot;go(&#x27;direct_chat&#x27;)&quot;&gt;${av(&#x27;E&#x27;)}&lt;div class=&quot;info&quot;&gt;&lt;div class=&quot;nm&quot;&gt;Emma de Vries&lt;/div&gt;&lt;div class=&quot;pv&quot;&gt;@emmadv · Padel&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;row&quot;&gt;${av(&#x27;S&#x27;)}&lt;div class=&quot;info&quot;&gt;&lt;div class=&quot;nm&quot;&gt;Sander Kok&lt;/div&gt;&lt;div class=&quot;pv&quot;&gt;@sanderk · Padel, Tennis&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div class=&quot;row&quot;&gt;${av(&#x27;M&#x27;)}&lt;div class=&quot;info&quot;&gt;&lt;div class=&quot;l1&quot;&gt;&lt;span class=&quot;nm&quot;&gt;Mark Jansen&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;Coach&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;pv&quot;&gt;Kralingse Tennis Club&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`;
+    const club = st===&#x27;error&#x27;
+      ? `&lt;div class=&quot;row&quot; style=&quot;flex-wrap:wrap;opacity:1&quot;&gt;${av(&#x27;&#x27;,44,&#x27;#061D42&#x27;,&#x27;business&#x27;)}&lt;div class=&quot;info&quot;&gt;&lt;div class=&quot;l1&quot;&gt;&lt;span class=&quot;nm&quot;&gt;LTC Amstelpark&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;Club&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;pv&quot;&gt;Amsterdam · Tennis&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;width:100%;font-size:13px;color:var(--error);display:flex;gap:6px;align-items:flex-start;padding-top:8px;border-top:1px solid var(--border)&quot;&gt;${ic(&#x27;alert-circle&#x27;,16)}&lt;span&gt;You can&#x27;t message this club. Only members and players with a booking can message LTC Amstelpark.&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;`
+      : `&lt;div class=&quot;row&quot;&gt;${av(&#x27;&#x27;,44,&#x27;#061D42&#x27;,&#x27;business&#x27;)}&lt;div class=&quot;info&quot;&gt;&lt;div class=&quot;l1&quot;&gt;&lt;span class=&quot;nm&quot;&gt;LTC Amstelpark&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;Club&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;pv&quot;&gt;Amsterdam · Tennis&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`;
+    return h + `&lt;div class=&quot;body&quot;&gt;${search(&#x27;Search players, clubs or coaches&#x27;)}${people}${club}&lt;/div&gt;`;
+  },
+  notes:{
+    purpose:&#x27;Start a 1:1 chat or a group. If a chat with that person already exists, open it instead of making a new one (flows 9.1 and 9.4).&#x27;,
+    rules:[&#x27;Search by name or @username, the same as the live UserSearchScreen.&#x27;,&#x27;Blocked users never appear here.&#x27;,&#x27;&lt;b&gt;Not Allowed&lt;/b&gt; state: shown inline on the row, not as a popup, so the user stays on this screen.&#x27;],
+    pending:[&#x27;&lt;b&gt;Player → player&lt;/b&gt; Can anyone message anyone, or must they follow each other or send a message request first? (§6, open)&#x27;,&#x27;&lt;b&gt;Player → club&lt;/b&gt; Any user, or only members and players with a booking? The error text here assumes members + bookers. (§6, open)&#x27;],
+    changed:[&#x27;New screen. The old wireframe only had a &quot;Starting new chat…&quot; toast.&#x27;],
+    src:[&#x27;screens/Social/UserSearchScreen.tsx&#x27;]
+  }
+};
+
+S.direct_chat = {
+  flow:&#x27;1:1 Chat&#x27;, title:&#x27;Direct Chat (Player ↔ Player)&#x27;,
+  states:{empty:&#x27;New Chat&#x27;, error:&#x27;Send Failed&#x27;},
+  render(st){
+    const h = chdr(av(&#x27;E&#x27;,38), &#x27;Emma de Vries&#x27;, &#x27;@emmadv · Padel&#x27;, more());
+    if (st===&#x27;loading&#x27;) return h + skFeed() + comp(&#x27;Message&#x27;);
+    if (st===&#x27;empty&#x27;) return h + `&lt;div class=&quot;feed&quot; style=&quot;justify-content:center;align-items:center;text-align:center;gap:6px&quot;&gt;${av(&#x27;E&#x27;,72)}&lt;div style=&quot;font:700 18px Montserrat;margin-top:6px&quot;&gt;Emma de Vries&lt;/div&gt;&lt;div style=&quot;font-size:14px;color:var(--text2)&quot;&gt;@emmadv · Padel · Intermediate&lt;/div&gt;&lt;button class=&quot;btn n sm&quot; style=&quot;width:auto;padding:0 16px;margin-top:8px&quot;&gt;View Profile&lt;/button&gt;&lt;div style=&quot;font-size:13px;color:var(--text2);margin-top:14px;max-width:250px&quot;&gt;Say hi to Emma. Only you and Emma can see this chat.&lt;/div&gt;&lt;/div&gt;` + comp(&#x27;Message&#x27;);
+    const tail = st===&#x27;error&#x27; ? mOut(&#x27;Booked! See you there 👍&#x27;,&#x27;&#x27;,true) : mOut(&#x27;Booked! See you there 👍&#x27;,&#x27;10:05&#x27;);
+    return h + `&lt;div class=&quot;feed&quot;&gt;
+      ${dd(&#x27;Yesterday&#x27;)}
+      ${mIn(&#x27;Hey! Are you free for padel on Sunday morning?&#x27;,&#x27;18:20&#x27;)}
+      ${mOut(&#x27;Yes, 10:00 works for me&#x27;,&#x27;18:24&#x27;)}
+      &lt;div class=&quot;msg in&quot;&gt;&lt;div class=&quot;col&quot;&gt;&lt;div class=&quot;shared&quot;&gt;&lt;div class=&quot;h&quot;&gt;${ic(&#x27;tennisball&#x27;,14)} Open SWP&lt;/div&gt;&lt;div class=&quot;c&quot;&gt;&lt;b&gt;Padel · Sunday Morning&lt;/b&gt;&lt;span&gt;${ic(&#x27;calendar-outline&#x27;,14)} Sun 29 Nov · 10:00–11:30&lt;/span&gt;&lt;span&gt;${ic(&#x27;location-outline&#x27;,14)} Padel Dam, Amsterdam&lt;/span&gt;&lt;span&gt;${ic(&#x27;people-outline&#x27;,14)} 2 / 4 players · €10.00 p.p.&lt;/span&gt;&lt;button class=&quot;btn p&quot;&gt;View &amp; Join&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;mt&quot;&gt;18:26&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+      ${dd(&#x27;Today&#x27;)}
+      ${photoMsg(&#x27;in&#x27;,&#x27;09:58&#x27;)}
+      ${tail}
+    &lt;/div&gt;` + comp(&#x27;Message&#x27;);
+  },
+  notes:{
+    purpose:&#x27;Private chat between 2 players. Covers text, photo/video and shared SWP links.&#x27;,
+    rules:[&#x27;Header: back, avatar, name and @username. Tap the avatar or name → their profile. ⋮ → Chat Options.&#x27;,&#x27;&lt;b&gt;Shared SWP card&lt;/b&gt; is the &quot;PD&quot; must-have: share an SWP or event link and invite the other person to join. &lt;b&gt;View &amp; Join&lt;/b&gt; opens the event detail. Joining follows the normal join or approval rules (§7).&#x27;,&#x27;Message time shows under each bubble. Date dividers: Today, Yesterday, then &quot;Mon 23 Nov&quot;.&#x27;,&#x27;Send is grey (&lt;code&gt;#BDBDBD&lt;/code&gt;) until there\&#x27;s text, the same disabled color as the live ContinueButton.&#x27;,&#x27;&lt;b&gt;Send Failed&lt;/b&gt;: the bubble fades and &quot;Not sent · Tap to retry&quot; shows in red. The message is kept, never lost.&#x27;],
+    pending:[],
+    changed:[&#x27;Removed: 94% Teammate Synergy banner, Compare Passports, online status, read-receipt ticks and quick-reply chips. Read receipts are a later-release item (§3.2).&#x27;,&#x27;Swapped the celebrity name for neutral sample data.&#x27;],
+    src:[&#x27;Doc §3.1 One-to-one chat + PD note&#x27;]
+  }
+};
+
+S.chat_options = {
+  flow:&#x27;1:1 Chat&#x27;, title:&#x27;Chat Options &amp; Message Actions&#x27;,
+  variants:[&#x27;Chat Options (⋮)&#x27;,&#x27;Message Actions (long-press)&#x27;],
+  states:{loading:&#x27;N/A&#x27;, empty:&#x27;N/A&#x27;, error:&#x27;N/A&#x27;},
+  render(st, v=&#x27;Chat Options (⋮)&#x27;){
+    if (st!==&#x27;populated&#x27;) return naNote(&#x27;These are action sheets. They have no data to load and no empty or error state.&#x27;);
+    const bg = S.direct_chat.render(&#x27;populated&#x27;);
+    const sheet = v.startsWith(&#x27;Chat&#x27;)
+      ? `&lt;div class=&quot;sheet&quot;&gt;&lt;div class=&quot;hd&quot;&gt;&lt;/div&gt;&lt;div class=&quot;st&quot;&gt;Emma de Vries&lt;/div&gt;
+          &lt;button class=&quot;it&quot;&gt;${ic(&#x27;person-circle-outline&#x27;)}View Profile&lt;/button&gt;
+          &lt;button class=&quot;it&quot; onclick=&quot;go(&#x27;report&#x27;)&quot;&gt;${ic(&#x27;flag-outline&#x27;)}Report&lt;/button&gt;
+          &lt;button class=&quot;it red&quot; onclick=&quot;go(&#x27;block&#x27;)&quot;&gt;${ic(&#x27;ban-outline&#x27;)}Block Emma&lt;/button&gt;&lt;/div&gt;`
+      : `&lt;div class=&quot;sheet&quot;&gt;&lt;div class=&quot;hd&quot;&gt;&lt;/div&gt;&lt;div style=&quot;margin:4px 20px 12px;padding:10px 12px;background:var(--bg);border-radius:12px;font-size:15px&quot;&gt;&quot;Hey! Are you free for padel on Sunday morning?&quot;&lt;/div&gt;
+          &lt;button class=&quot;it&quot;&gt;${ic(&#x27;copy-outline&#x27;)}Copy Text&lt;/button&gt;
+          &lt;button class=&quot;it red&quot; onclick=&quot;go(&#x27;report&#x27;)&quot;&gt;${ic(&#x27;flag-outline&#x27;)}Report Message&lt;/button&gt;&lt;/div&gt;`;
+    return bg + `&lt;div class=&quot;ov bottom&quot;&gt;${sheet}&lt;/div&gt;`;
+  },
+  notes:{
+    purpose:&#x27;Safety actions from §3.1 &quot;Block and report&quot;.&#x27;,
+    rules:[&#x27;⋮ menu: View Profile, Report (the whole chat), Block.&#x27;,&#x27;Long-press a message: Copy Text, Report Message. You can only report other people\&#x27;s messages, not your own.&#x27;,&#x27;Mute, Reply, Edit and Delete are &lt;b&gt;left out on purpose&lt;/b&gt;. They\&#x27;re in the later-release list (§3.2).&#x27;,&#x27;Group and activity chats use the same sheet, plus &quot;View Members&quot; and, for groups, &quot;Leave Group&quot;.&#x27;],
+    pending:[],
+    changed:[&#x27;The old Safety modal had Mute (a later-release item) and long paragraphs. It\&#x27;s now a standard bottom sheet with 3 actions.&#x27;],
+    src:[&#x27;Doc §3.1, §3.2&#x27;]
+  }
+};
+
+S.report = {
+  flow:&#x27;1:1 Chat&#x27;, title:&#x27;Report&#x27;,
+  states:{empty:&#x27;Sent&#x27;, error:&#x27;Validation&#x27;},
+  render(st){
+    const h = hdr(&#x27;Report&#x27;, `&lt;button class=&quot;back&quot; onclick=&quot;go(&#x27;direct_chat&#x27;)&quot;&gt;${ic(&#x27;close&#x27;,18)}&lt;/button&gt;`);
+    if (st===&#x27;empty&#x27;) return h + center(&#x27;checkmark-circle-outline&#x27;,&#x27;Report Sent&#x27;,&#x27;Thanks for telling us. Our team will review it. Emma won\&#x27;t know who reported her.&#x27;, `&lt;div style=&quot;display:flex;flex-direction:column;gap:10px;width:100%;margin-top:8px&quot;&gt;&lt;button class=&quot;btn d sm&quot; onclick=&quot;go(&#x27;block&#x27;)&quot;&gt;Block Emma de Vries&lt;/button&gt;&lt;button class=&quot;btn n sm&quot; onclick=&quot;go(&#x27;direct_chat&#x27;)&quot;&gt;Done&lt;/button&gt;&lt;/div&gt;`);
+    const reasons = [&#x27;Spam&#x27;,&#x27;Harassment or bullying&#x27;,&#x27;Inappropriate photo or video&#x27;,&#x27;Scam or fake profile&#x27;,&#x27;Other&#x27;];
+    const sel = st===&#x27;error&#x27; ? &#x27;Other&#x27; : st===&#x27;loading&#x27; ? &#x27;Harassment or bullying&#x27; : &#x27;&#x27;;
+    return h + `&lt;div class=&quot;body&quot; style=&quot;padding:0 16px&quot;&gt;
+        &lt;div style=&quot;font-size:15px;color:var(--text2);margin:2px 4px 10px&quot;&gt;Why are you reporting this message?&lt;/div&gt;
+        &lt;div style=&quot;padding:10px 12px;background:#fff;border-left:3px solid var(--primary);border-radius:8px;font-size:14px;color:var(--text2);margin-bottom:14px&quot;&gt;Emma de Vries · &quot;Hey! Are you free for padel on Sunday morning?&quot;&lt;/div&gt;
+        ${reasons.map(r=&gt;`&lt;div class=&quot;radio ${r===sel?&#x27;on&#x27;:&#x27;&#x27;}&quot;&gt;&lt;i&gt;&lt;/i&gt;${r}&lt;/div&gt;`).join(&#x27;&#x27;)}
+        ${sel===&#x27;Other&#x27;?`&lt;div class=&quot;notch bad&quot; style=&quot;min-height:88px&quot;&gt;&lt;label&gt;Tell us what happened&lt;/label&gt;&lt;div class=&quot;v&quot; style=&quot;color:#9CA3AF&quot;&gt;&amp;nbsp;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ferr&quot;&gt;Add a short description (at least 10 characters).&lt;/div&gt;`:&#x27;&#x27;}
+        ${st===&#x27;populated&#x27;?`&lt;div class=&quot;ferr&quot; style=&quot;visibility:hidden&quot;&gt;.&lt;/div&gt;`:&#x27;&#x27;}
+      &lt;/div&gt;
+      &lt;div class=&quot;foot&quot;&gt;${st===&#x27;loading&#x27;?`&lt;button class=&quot;btn p off&quot;&gt;${ic(&#x27;sync&#x27;,18)} Submitting…&lt;/button&gt;`:st===&#x27;error&#x27;?`&lt;button class=&quot;btn p off&quot;&gt;Submit Report&lt;/button&gt;`:`&lt;button class=&quot;btn p off&quot;&gt;Submit Report&lt;/button&gt;&lt;div class=&quot;fhelp&quot; style=&quot;justify-content:center;margin-top:6px&quot;&gt;Select a reason to continue&lt;/div&gt;`}&lt;/div&gt;`;
+  },
+  notes:{
+    purpose:&#x27;Report a message or a whole chat to SWP moderation.&#x27;,
+    rules:[&#x27;Exactly one reason is required. Submit stays disabled until one is picked.&#x27;,&#x27;&quot;Other&quot; needs a description of 10–500 characters.&#x27;,&#x27;The reported message is sent with the report, so moderators see the context.&#x27;,&#x27;After sending, offer Block as a next step. Don\&#x27;t block automatically.&#x27;],
+    pending:[&#x27;&lt;b&gt;Minors / guardians&lt;/b&gt; The doc says &quot;please suggest&quot;. Proposal: add a reason &quot;Someone under 16 may be at risk&quot; that goes to priority review. Needs client sign-off.&#x27;,&#x27;Who reviews reports, and within what time? There\&#x27;s no admin moderation screen yet.&#x27;],
+    changed:[&#x27;New screen. The old wireframe only showed a toast.&#x27;],
+    src:[&#x27;Doc §3.1 Block and report, §6 Privacy and safety&#x27;]
+  }
+};
+
+S.block = {
+  flow:&#x27;1:1 Chat&#x27;, title:&#x27;Block User&#x27;,
+  variants:[&#x27;Confirm&#x27;,&#x27;After Blocking&#x27;],
+  states:{loading:&#x27;N/A&#x27;, empty:&#x27;N/A&#x27;, error:&#x27;N/A&#x27;},
+  render(st, v=&#x27;Confirm&#x27;){
+    if (st!==&#x27;populated&#x27;) return naNote(&#x27;Block is one confirm step. It reuses the existing block API and Blocked Users list in More.&#x27;);
+    if (v===&#x27;Confirm&#x27;) return S.direct_chat.render(&#x27;populated&#x27;) + `&lt;div class=&quot;ov mid&quot;&gt;&lt;div class=&quot;modal&quot;&gt;&lt;h3&gt;Block Emma de Vries?&lt;/h3&gt;&lt;p&gt;Emma won&#x27;t be able to message you or see your profile. You can unblock her any time in More › Blocked Users.&lt;/p&gt;&lt;div class=&quot;btnrow&quot;&gt;&lt;button class=&quot;btn n sm&quot; onclick=&quot;go(&#x27;direct_chat&#x27;)&quot;&gt;Cancel&lt;/button&gt;&lt;button class=&quot;btn d sm&quot; onclick=&quot;setVar(&#x27;After Blocking&#x27;)&quot;&gt;Block&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`;
+    return chdr(av(&#x27;E&#x27;,38), &#x27;Emma de Vries&#x27;, &#x27;@emmadv · Padel&#x27;, more()) + `&lt;div class=&quot;feed&quot;&gt;${dd(&#x27;Today&#x27;)}${photoMsg(&#x27;in&#x27;,&#x27;09:58&#x27;)}${mOut(&#x27;Booked! See you there 👍&#x27;,&#x27;10:05&#x27;)}${sys(&#x27;You blocked Emma de Vries&#x27;)}&lt;/div&gt;` + lock(&#x27;You blocked Emma de Vries&#x27;,&#x27;You can\&#x27;t send or receive messages in this chat. &lt;a href=&quot;#&quot; style=&quot;color:var(--primary);font-weight:700&quot; onclick=&quot;return false&quot;&gt;Unblock&lt;/a&gt;&#x27;,&#x27;ban-outline&#x27;);
+  },
+  notes:{
+    purpose:&#x27;Stop someone from contacting you.&#x27;,
+    rules:[&#x27;The live app already has blocking (Social) and &lt;b&gt;More › Blocked Users&lt;/b&gt; with Unblock. Chat should use the same block list, not a separate one.&#x27;,&#x27;After blocking: chat history stays. The composer is swapped for a notice. The blocked person isn\&#x27;t told.&#x27;,&#x27;The blocked person sees &quot;You can\&#x27;t reply to this conversation.&quot; with no reason given.&#x27;,&#x27;Modal buttons follow the house rule: one Neutral Cancel + one action (here, destructive).&#x27;],
+    pending:[],
+    changed:[&#x27;Copy is shorter and plain. The modal is centered like other live confirm dialogs.&#x27;],
+    src:[&#x27;screens/More/BlockedUsersScreen.tsx&#x27;]
+  }
+};
+
+S.club_profile = {
+  flow:&#x27;Club &amp; Coach&#x27;, title:&#x27;Club / Coach Profile · Message Button&#x27;,
+  variants:[&#x27;Club&#x27;,&#x27;Coach&#x27;],
+  states:{empty:&#x27;N/A&#x27;, error:&#x27;Not Allowed&#x27;},
+  render(st, v=&#x27;Club&#x27;){
+    const isClub = v===&#x27;Club&#x27;;
+    if (st===&#x27;empty&#x27;) return naNote(&#x27;A profile always has content. The empty state belongs to the profile module, not to chat.&#x27;);
+    const h = `&lt;div style=&quot;position:absolute;top:10px;left:16px;z-index:2&quot;&gt;${back(&#x27;inbox&#x27;)}&lt;/div&gt;`;
+    if (st===&#x27;loading&#x27;) return h + `&lt;div class=&quot;body&quot;&gt;&lt;div class=&quot;prof-cover sk&quot; style=&quot;border-radius:0&quot;&gt;&lt;/div&gt;&lt;div class=&quot;prof&quot;&gt;&lt;div class=&quot;sk&quot; style=&quot;width:84px;height:84px;border-radius:42px;border:4px solid var(--bg)&quot;&gt;&lt;/div&gt;&lt;div class=&quot;sk&quot; style=&quot;width:180px;height:20px;margin-top:10px&quot;&gt;&lt;/div&gt;&lt;div class=&quot;sk&quot; style=&quot;width:130px;height:14px;margin-top:6px&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`;
+    const name = isClub?&#x27;Club de Padel Rotterdam&#x27;:&#x27;Mark Jansen&#x27;;
+    const sub = isClub?&#x27;Padel · Rotterdam · 6 courts&#x27;:&#x27;Tennis Coach · Kralingse Tennis Club&#x27;;
+    const primary = isClub?&#x27;Book a Court&#x27;:&#x27;Book a Lesson&#x27;;
+    const msgBtn = st===&#x27;error&#x27;
+      ? `&lt;button class=&quot;btn n&quot; style=&quot;flex:1;color:var(--disabled)&quot;&gt;${ic(&#x27;chatbubble-outline&#x27;,18)} Message&lt;/button&gt;`
+      : `&lt;button class=&quot;btn n&quot; style=&quot;flex:1;outline:2px dashed #F59E0B;outline-offset:2px&quot; onclick=&quot;go(&#x27;club_chat&#x27;)&quot;&gt;${ic(&#x27;chatbubble-outline&#x27;,18)} Message&lt;/button&gt;`;
+    return h + `&lt;div class=&quot;body&quot;&gt;&lt;div class=&quot;prof-cover&quot;&gt;&lt;/div&gt;&lt;div class=&quot;prof&quot;&gt;${isClub?av(&#x27;&#x27;,84,&#x27;#061D42&#x27;,&#x27;business&#x27;):av(&#x27;M&#x27;,84)}&lt;h3&gt;${name}&lt;/h3&gt;&lt;p&gt;${sub}&lt;/p&gt;
+      &lt;div class=&quot;stat3&quot;&gt;${isClub?&#x27;&lt;div&gt;&lt;b&gt;4.6&lt;/b&gt;Rating&lt;/div&gt;&lt;div&gt;&lt;b&gt;312&lt;/b&gt;Members&lt;/div&gt;&lt;div&gt;&lt;b&gt;6&lt;/b&gt;Courts&lt;/div&gt;&#x27;:&#x27;&lt;div&gt;&lt;b&gt;4.9&lt;/b&gt;Rating&lt;/div&gt;&lt;div&gt;&lt;b&gt;140&lt;/b&gt;Lessons&lt;/div&gt;&lt;div&gt;&lt;b&gt;8 yrs&lt;/b&gt;Coaching&lt;/div&gt;&#x27;}&lt;/div&gt;
+      &lt;div class=&quot;btnrow&quot; style=&quot;width:100%&quot;&gt;&lt;button class=&quot;btn p&quot; style=&quot;flex:1&quot;&gt;${primary}&lt;/button&gt;${msgBtn}&lt;/div&gt;
+      ${st===&#x27;error&#x27;?`&lt;div style=&quot;font-size:13px;color:var(--text2);margin-top:8px;display:flex;gap:6px;text-align:left&quot;&gt;${ic(&#x27;information-circle-outline&#x27;,16)}&lt;span&gt;${isClub?&#x27;Only members and players with a booking can message this club.&#x27;:&#x27;This coach has turned off messages from new players.&#x27;}&lt;/span&gt;&lt;/div&gt;`:&#x27;&#x27;}
+      &lt;/div&gt;
+      &lt;div style=&quot;margin:16px;background:#fff;border-radius:12px;padding:16px;text-align:left&quot;&gt;&lt;div style=&quot;font:700 16px Montserrat;margin-bottom:6px&quot;&gt;About&lt;/div&gt;&lt;div style=&quot;font-size:15px;line-height:22px;color:var(--text2)&quot;&gt;${isClub?&#x27;Indoor and outdoor padel courts with lighting, a café and free parking.&#x27;:&#x27;KNLTB-certified coach. Private and group lessons for all levels.&#x27;}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`;
+  },
+  notes:{
+    purpose:&#x27;Entry point for flow 9.1, &quot;Chat with a Club or Coach&quot;.&#x27;,
+    rules:[&#x27;&lt;b&gt;Message&lt;/b&gt; is a neutral button next to the main booking CTA. Booking always stays the primary action (§7: chat doesn\&#x27;t replace booking or payment).&#x27;,&#x27;Tap → opens the existing chat, or makes a new one.&#x27;,&#x27;&lt;b&gt;Coach:&lt;/b&gt; players can message before booking. This was confirmed in §6 (&quot;Yes&quot;).&#x27;,&#x27;&lt;b&gt;Not Allowed&lt;/b&gt;: the button is disabled with a one-line reason under it. It isn\&#x27;t hidden, so users understand the rule.&#x27;],
+    pending:[&#x27;&lt;b&gt;Club profile layout&lt;/b&gt; The doc asks Jaykumar to refine the club profile shown to players. This screen only marks where the Message button goes.&#x27;,&#x27;&lt;b&gt;Club / coach settings&lt;/b&gt; &quot;Messaging access can be controlled by club/coach settings&quot;: needs a setting in the club portal and coach portal.&#x27;],
+    changed:[&#x27;New screen.&#x27;],
+    src:[&#x27;Doc §9.1, §6 Messaging a coach&#x27;]
+  }
+};
+
+S.club_chat = {
+  flow:&#x27;Club &amp; Coach&#x27;, title:&#x27;Club Chat&#x27;,
+  variants:[&#x27;Player Starts&#x27;,&#x27;Club Starts&#x27;],
+  states:{empty:&#x27;New Chat&#x27;, error:&#x27;Send Failed&#x27;},
+  render(st, v=&#x27;Player Starts&#x27;){
+    const h = chdr(av(&#x27;&#x27;,38,&#x27;#061D42&#x27;,&#x27;business&#x27;), &#x27;Club de Padel Rotterdam &lt;span class=&quot;tag&quot;&gt;Club&lt;/span&gt;&#x27;, &#x27;Club staff reply here&#x27;, more());
+    const note = ban(&#x27;info&#x27;,&#x27;mail-outline&#x27;,&#x27;You\&#x27;ll also get an email when the club replies.&#x27;);
+    if (st===&#x27;loading&#x27;) return h + skFeed() + comp(&#x27;Message the club&#x27;);
+    if (st===&#x27;empty&#x27;) return h + note + `&lt;div class=&quot;feed&quot; style=&quot;justify-content:center;align-items:center;text-align:center;gap:6px&quot;&gt;${av(&#x27;&#x27;,72,&#x27;#061D42&#x27;,&#x27;business&#x27;)}&lt;div style=&quot;font:700 18px Montserrat;margin-top:6px&quot;&gt;Club de Padel Rotterdam&lt;/div&gt;&lt;div style=&quot;font-size:14px;color:var(--text2);max-width:260px&quot;&gt;Ask about courts, lessons, events or your membership. For changes to a booking, use My Bookings.&lt;/div&gt;&lt;/div&gt;` + comp(&#x27;Message the club&#x27;);
+    const body = v===&#x27;Club Starts&#x27;
+      ? `${dd(&#x27;Today&#x27;)}${sys(&#x27;Club de Padel Rotterdam started this chat&#x27;)}${mIn(&#x27;Hi Alex, Court 4 is closed for maintenance on Friday. We moved your booking to Court 2, same time. Reply here if that doesn\&#x27;t work.&#x27;,&#x27;09:12&#x27;,&#x27;Sophie&#x27;,&#x27;Club Staff&#x27;)}${st===&#x27;error&#x27;?mOut(&#x27;Court 2 is fine, thanks!&#x27;,&#x27;&#x27;,true):mOut(&#x27;Court 2 is fine, thanks!&#x27;,&#x27;09:30&#x27;)}`
+      : `${dd(&#x27;Tue 24 Nov&#x27;)}${mOut(&#x27;Hi! Is Court 4 lit on Friday evening? We have a booking at 19:00.&#x27;,&#x27;14:02&#x27;)}${mIn(&#x27;Hi Alex, yes. All indoor courts have lights until 23:00.&#x27;,&#x27;14:40&#x27;,&#x27;Sophie&#x27;,&#x27;Club Staff&#x27;)}${st===&#x27;error&#x27;?mOut(&#x27;Great, thanks!&#x27;,&#x27;&#x27;,true):mOut(&#x27;Great, thanks!&#x27;,&#x27;14:41&#x27;)}`;
+    return h + note + `&lt;div class=&quot;feed&quot;&gt;${body}&lt;/div&gt;` + comp(&#x27;Message the club&#x27;);
+  },
+  notes:{
+    purpose:&#x27;Flows 9.1 and 9.4: chat between a player and a club, started by either side.&#x27;,
+    rules:[&#x27;The player sees one chat per club, whichever staff member replies. Each staff reply shows their first name + a &lt;b&gt;Club Staff&lt;/b&gt; tag.&#x27;,&#x27;&lt;b&gt;Club Starts&lt;/b&gt;: the club can start a chat from a player\&#x27;s booking. A system line makes clear who started it.&#x27;,&#x27;§7: when a chat between a club and a player starts, the player gets an &lt;b&gt;email&lt;/b&gt; as well as a push.&#x27;,&#x27;Chat can\&#x27;t change bookings or payments. The empty state points to My Bookings.&#x27;],
+    pending:[&#x27;&lt;b&gt;Club inbox&lt;/b&gt; Do club messages go to a shared inbox or to individual staff? Which role can reply? (§6, open). This blocks the club portal side.&#x27;,&#x27;&lt;b&gt;Email trigger&lt;/b&gt; Email on the first message of a new chat only, or on every club reply? This wireframe assumes every club reply, max 1 email per chat per hour.&#x27;],
+    changed:[&#x27;New screen. The old wireframe sent club chats through the generic direct-chat screen.&#x27;],
+    src:[&#x27;Doc §9.1, §9.4, §7 email rule&#x27;]
+  }
+};
+
+const LIFE = [&#x27;Active&#x27;,&#x27;Closing Soon&#x27;,&#x27;Closed&#x27;,&#x27;Cancelled&#x27;];
+function activityChat(st, v, o){
+  const h = chdr(av(&#x27;&#x27;,38,o.color||&#x27;#007AFF&#x27;,o.icon), o.name, o.sub, `&lt;button class=&quot;hbtn&quot; onclick=&quot;go(&#x27;members&#x27;)&quot;&gt;${ic(&#x27;people-outline&#x27;,24)}&lt;/button&gt;`+more(), &#x27;inbox&#x27;);
+  const c = ctx(o.ctxIcon, o.ctxTitle, o.ctxSub);
+  if (st===&#x27;loading&#x27;) return h + c + skFeed() + comp(&#x27;Message&#x27;);
+  if (st===&#x27;error&#x27; &amp;&amp; o.errorGate) return h + c + o.errorGate;
+  let banner=&#x27;&#x27;, footer=comp(&#x27;Message&#x27;), extra=&#x27;&#x27;;
+  if (v===&#x27;Active&#x27;) banner = ban(&#x27;info&#x27;,&#x27;time-outline&#x27;, o.activeBanner);
+  if (v===&#x27;Closing Soon&#x27;) banner = ban(&#x27;warn&#x27;,&#x27;alarm-outline&#x27;,&#x27;This chat closes in &lt;b&gt;45 min&lt;/b&gt;. Messages will stay saved.&#x27;);
+  if (v===&#x27;Closed&#x27;) footer = lock(&#x27;This chat is closed&#x27;, `Closed on ${o.closedAt}. You can still read old messages.`);
+  if (v===&#x27;Cancelled&#x27;){ extra = sys(o.cancelLine); banner = ban(&#x27;warn&#x27;,&#x27;alert-circle-outline&#x27;, o.cancelBanner); }
+  if (st===&#x27;empty&#x27;) return h + c + banner + `&lt;div class=&quot;feed&quot;&gt;${o.createdLines}&lt;div style=&quot;margin:auto;text-align:center;color:var(--text2);font-size:14px;padding:20px&quot;&gt;${ic(&#x27;chatbubbles-outline&#x27;,36,&#x27;color:#BDBDBD&#x27;)}&lt;div style=&quot;margin-top:6px&quot;&gt;No messages yet. Say hi to your group.&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;` + footer;
+  let msgs = o.msgs;
+  if (st===&#x27;error&#x27;) msgs = msgs.replace(&#x27;%LAST%&#x27;, mOut(o.lastOut,&#x27;&#x27;,true)); else msgs = msgs.replace(&#x27;%LAST%&#x27;, mOut(o.lastOut,o.lastTime));
+  return h + c + banner + `&lt;div class=&quot;feed&quot;&gt;${o.createdLines}${msgs}${extra}&lt;/div&gt;` + footer;
+}
+
+S.booking_chat = {
+  flow:&#x27;Activity Chats&#x27;, title:&#x27;Booking Chat (Court / Facility)&#x27;,
+  variants:LIFE, states:{empty:&#x27;Just Created&#x27;, error:&#x27;Send Failed&#x27;},
+  render(st, v=&#x27;Active&#x27;){
+    return activityChat(st, v, {
+      icon:&#x27;tennisball&#x27;, name:&#x27;Padel · Court 4&#x27;, sub:&#x27;4 players · Tap for members&#x27;,
+      ctxIcon:&#x27;calendar-outline&#x27;, ctxTitle:&#x27;Club de Padel Rotterdam · Court 4&#x27;, ctxSub:&#x27;Fri 27 Nov · 18:00–19:30&#x27;,
+      activeBanner:&#x27;This chat closes &lt;b&gt;8 hrs after the booking ends&lt;/b&gt; (Sat 28 Nov, 03:30). Messages stay saved.&#x27;,
+      closedAt:&#x27;Sat 28 Nov, 03:30&#x27;,
+      cancelLine:&#x27;Sander Kok cancelled the booking · 15:10&#x27;, cancelBanner:&#x27;Booking cancelled. This chat closes &lt;b&gt;8 hrs after cancellation&lt;/b&gt; (Fri 27 Nov, 23:10).&#x27;,
+      createdLines: dd(&#x27;Wed 25 Nov&#x27;) + sys(&#x27;Chat created for your booking on Fri 27 Nov&#x27;) + sys(&#x27;Sander Kok added Emma, Lotte and you&#x27;),
+      msgs: dd(&#x27;Today&#x27;) + mIn(&#x27;I\&#x27;ll bring new balls 🎾&#x27;,&#x27;10:30&#x27;,&#x27;Sander Kok&#x27;,&#x27;Booker&#x27;) + mIn(&#x27;Parking at the back is free after 18:00&#x27;,&#x27;10:42&#x27;,&#x27;Lotte Bakker&#x27;) + &#x27;%LAST%&#x27;,
+      lastOut:&#x27;Great, see you at 17:50&#x27;, lastTime:&#x27;10:45&#x27;
+    });
+  },
+  notes:{
+    purpose:&#x27;Chat that\&#x27;s created automatically for every confirmed booking (§6: &quot;Every booking&quot;).&#x27;,
+    rules:[&#x27;Created when the booking is confirmed. Members = the players on the booking.&#x27;,&#x27;The booking card at the top links to the booking. Chat never changes booking or payment (§7).&#x27;,&#x27;&lt;b&gt;Lifecycle (§6):&lt;/b&gt; access ends 8 hrs after the activity. Users must be told, so the banner always shows the exact close time.&#x27;,&#x27;&lt;b&gt;Closing Soon&lt;/b&gt;: amber banner 1 hr before close.&#x27;,&#x27;&lt;b&gt;Closed&lt;/b&gt;: read-only. The composer is replaced, the history stays (§7: closing ≠ deleting).&#x27;,&#x27;&lt;b&gt;Cancelled&lt;/b&gt;: a system line says who cancelled. The same 8-hr rule starts from the cancel time.&#x27;],
+    pending:[&#x27;&lt;b&gt;8 hrs from what?&lt;/b&gt; This wireframe assumes 8 hrs after the booking &lt;b&gt;end&lt;/b&gt; time. Confirm.&#x27;,&#x27;&lt;b&gt;Cancelled bookings&lt;/b&gt; No rule in the doc. This wireframe assumes 8 hrs after cancellation.&#x27;,&#x27;&lt;b&gt;Solo bookings&lt;/b&gt; A booking with only 1 player gets no chat. Confirm.&#x27;,&#x27;Can a player leave a booking chat without leaving the booking?&#x27;],
+    changed:[&#x27;The old wireframe only had event chats. Booking chat is new.&#x27;,&#x27;The &quot;Toggle Lifecycle&quot; test button is gone from the phone. The lifecycle now uses the chips above the phone.&#x27;],
+    src:[&#x27;Doc §4 table row 1, §5, §6 Temporary chat&#x27;]
+  }
+};
+
+S.event_chat = {
+  flow:&#x27;Activity Chats&#x27;, title:&#x27;Event / Open SWP Chat&#x27;,
+  variants:[&#x27;Active&#x27;,&#x27;Closing Soon&#x27;,&#x27;Closed&#x27;], states:{empty:&#x27;Just Created&#x27;, error:&#x27;Not a Participant&#x27;},
+  render(st, v=&#x27;Active&#x27;){
+    return activityChat(st, v, {
+      icon:&#x27;trophy&#x27;, color:&#x27;#0D9488&#x27;, name:&#x27;Friday Night Padel&#x27;, sub:&#x27;Event · 6 participants&#x27;,
+      ctxIcon:&#x27;trophy-outline&#x27;, ctxTitle:&#x27;Friday Night Padel · Hosted by Sander&#x27;, ctxSub:&#x27;Fri 27 Nov · 20:00–22:00 · 6 / 8 joined&#x27;,
+      activeBanner:&#x27;This chat closes &lt;b&gt;8 hrs after the event ends&lt;/b&gt; (Sat 28 Nov, 06:00).&#x27;,
+      closedAt:&#x27;Sat 28 Nov, 06:00&#x27;,
+      createdLines: dd(&#x27;Mon 23 Nov&#x27;) + sys(&#x27;Chat created for Friday Night Padel&#x27;),
+      msgs: sys(&#x27;Emma de Vries joined the event&#x27;) + sys(&#x27;Joris left the event and was removed from the chat&#x27;) + dd(&#x27;Today&#x27;) + mIn(&#x27;Mixed doubles, rotating every 20 min. Sound good?&#x27;,&#x27;11:02&#x27;,&#x27;Sander Kok&#x27;,&#x27;Host&#x27;) + &#x27;%LAST%&#x27;,
+      lastOut:&#x27;Sounds good 👍&#x27;, lastTime:&#x27;11:05&#x27;,
+      errorGate: center(&#x27;lock-closed-outline&#x27;,&#x27;Join to Chat&#x27;,&#x27;Only people taking part in Friday Night Padel can read and send messages here.&#x27;, `&lt;button class=&quot;btn p sm&quot;&gt;Join Event&lt;/button&gt;`)
+    });
+  },
+  notes:{
+    purpose:&#x27;Flow 9.3 + §4 rows &quot;Match / SWP Card / Event&quot; and &quot;Club event or tournament&quot;.&#x27;,
+    rules:[&#x27;Chat membership follows the participant list: join the event → added to the chat, leave the event → removed. A system line shows both.&#x27;,&#x27;The host gets a &lt;b&gt;Host&lt;/b&gt; tag. Club organisers get a &lt;b&gt;Club Staff&lt;/b&gt; tag.&#x27;,&#x27;&lt;b&gt;Not a Participant&lt;/b&gt;: someone opening the chat from a shared link sees a gate with Join Event. They can\&#x27;t see any messages.&#x27;,&#x27;Same 8-hr close rule as booking chat.&#x27;],
+    pending:[&#x27;&lt;b&gt;Approval-mode events&lt;/b&gt; Do pending (not yet approved) players get chat access? This wireframe assumes no, only confirmed participants.&#x27;],
+    changed:[&#x27;Cut: &quot;Squad Synergy&quot;, the long 3-line context bar and quick-reply chips. The context bar is now 1 row with a link to the event.&#x27;],
+    src:[&#x27;Doc §4, §9.3&#x27;]
+  }
+};
+
+S.lesson_chat = {
+  flow:&#x27;Activity Chats&#x27;, title:&#x27;Coach Lesson Chat&#x27;,
+  variants:[&#x27;Active&#x27;,&#x27;Closed&#x27;], states:{empty:&#x27;Just Created&#x27;, error:&#x27;Send Failed&#x27;},
+  render(st, v=&#x27;Active&#x27;){
+    return activityChat(st, v, {
+      icon:&#x27;school&#x27;, color:&#x27;#16A34A&#x27;, name:&#x27;Mark Jansen &lt;span class=&quot;tag&quot;&gt;Coach&lt;/span&gt;&#x27;, sub:&#x27;Private lesson&#x27;,
+      ctxIcon:&#x27;school-outline&#x27;, ctxTitle:&#x27;Private Tennis Lesson · Mark Jansen&#x27;, ctxSub:&#x27;Mon 30 Nov · 10:00–11:00 · Kralingse TC&#x27;,
+      activeBanner:&#x27;Use this chat for lesson details. To change the time or pay, use the lesson booking.&#x27;,
+      closedAt:&#x27;Mon 30 Nov, 19:00&#x27;,
+      createdLines: dd(&#x27;Thu 26 Nov&#x27;) + sys(&#x27;Chat created for your lesson on Mon 30 Nov&#x27;),
+      msgs: mIn(&#x27;Hi Alex! Anything you want to focus on? Backhand, serve…?&#x27;,&#x27;12:10&#x27;,&#x27;Mark Jansen&#x27;,&#x27;Coach&#x27;) + &#x27;%LAST%&#x27;,
+      lastOut:&#x27;Mostly my backhand, please&#x27;, lastTime:&#x27;12:31&#x27;
+    });
+  },
+  notes:{
+    purpose:&#x27;§4 row &quot;Coach lesson&quot;: the coach and the booked player(s).&#x27;,
+    rules:[&#x27;Created when a lesson is booked.&#x27;,&#x27;The info banner repeats the rule: chat doesn\&#x27;t replace lesson booking or payment.&#x27;,&#x27;Group lessons use the same screen with more members.&#x27;,&#x27;This is separate from any 1:1 chat the player had with the coach before booking (§6: players can message a coach before booking).&#x27;],
+    pending:[&#x27;Should the lesson chat merge into the existing 1:1 coach chat instead of being a second chat? Recommended: keep them separate in release 1 so the 8-hr close rule stays simple.&#x27;],
+    changed:[&#x27;New screen.&#x27;],
+    src:[&#x27;Doc §4 Coach lesson&#x27;]
+  }
+};
+
+S.members = {
+  flow:&#x27;Activity Chats&#x27;, title:&#x27;Chat Members&#x27;,
+  variants:[&#x27;Activity Chat&#x27;,&#x27;Group (Admin View)&#x27;],
+  states:{empty:&#x27;N/A&#x27;, error:&#x27;N/A&#x27;},
+  render(st, v=&#x27;Activity Chat&#x27;){
+    const isG = v.startsWith(&#x27;Group&#x27;);
+    const h = hdr(&#x27;Members&#x27;, back(isG?&#x27;group_chat&#x27;:&#x27;booking_chat&#x27;), isG?`&lt;button class=&quot;hbtn&quot;&gt;${ic(&#x27;person-add-outline&#x27;,24)}&lt;/button&gt;`:&#x27;&#x27;);
+    if (st===&#x27;loading&#x27;) return h + `&lt;div class=&quot;body&quot;&gt;${skRows(5)}&lt;/div&gt;`;
+    if (st!==&#x27;populated&#x27;) return naNote(&#x27;A chat always has at least 2 members, so there\&#x27;s no empty state. If loading fails, it uses the standard error and Try Again.&#x27;);
+    const m = (n, sub, tag, me) =&gt; `&lt;div class=&quot;row&quot;&gt;${av(n[0])}&lt;div class=&quot;info&quot;&gt;&lt;div class=&quot;l1&quot;&gt;&lt;span class=&quot;nm&quot;&gt;${n}${me?&#x27; (You)&#x27;:&#x27;&#x27;}&lt;/span&gt;${tag?`&lt;span class=&quot;tag ${tag===&#x27;Admin&#x27;||tag===&#x27;Host&#x27;?&#x27;&#x27;:&#x27;grey&#x27;}&quot;&gt;${tag}&lt;/span&gt;`:&#x27;&#x27;}&lt;/div&gt;&lt;div class=&quot;pv&quot;&gt;${sub}&lt;/div&gt;&lt;/div&gt;${me?&#x27;&#x27;:(isG?`&lt;button class=&quot;hbtn grey&quot;&gt;${ic(&#x27;ellipsis-vertical&#x27;,20)}&lt;/button&gt;`:`&lt;button class=&quot;hbtn&quot;&gt;${ic(&#x27;chatbubble-outline&#x27;,20)}&lt;/button&gt;`)}&lt;/div&gt;`;
+    const list = isG
+      ? m(&#x27;Alex van der Bilt&#x27;,&#x27;@alexvanderbilt&#x27;,&#x27;Admin&#x27;,1)+m(&#x27;Lotte Bakker&#x27;,&#x27;@lotteb&#x27;)+m(&#x27;Sander Kok&#x27;,&#x27;@sanderk&#x27;)+m(&#x27;Emma de Vries&#x27;,&#x27;@emmadv&#x27;)+m(&#x27;Joris Visser&#x27;,&#x27;@jorisv&#x27;)
+      : m(&#x27;Sander Kok&#x27;,&#x27;Booked the court&#x27;,&#x27;Booker&#x27;)+m(&#x27;Alex van der Bilt&#x27;,&#x27;Player&#x27;,&#x27;&#x27;,1)+m(&#x27;Emma de Vries&#x27;,&#x27;Player&#x27;)+m(&#x27;Lotte Bakker&#x27;,&#x27;Player&#x27;);
+    return h + `&lt;div class=&quot;body&quot;&gt;&lt;div class=&quot;sec&quot;&gt;${isG?&#x27;5 members&#x27;:&#x27;4 players on this booking&#x27;}&lt;/div&gt;${list}
+      ${isG?`&lt;div style=&quot;padding:8px 16px&quot;&gt;&lt;button class=&quot;btn n&quot; style=&quot;color:var(--danger)&quot;&gt;${ic(&#x27;exit-outline&#x27;,18)} Leave Group&lt;/button&gt;&lt;/div&gt;`:`&lt;div style=&quot;font-size:13px;color:var(--text2);padding:8px 20px;line-height:1.4&quot;&gt;Members follow the booking. To add or remove players, edit the booking.&lt;/div&gt;`}&lt;/div&gt;`;
+  },
+  notes:{
+    purpose:&#x27;See who is in a chat. Admins can manage group members.&#x27;,
+    rules:[&#x27;&lt;b&gt;Activity chats:&lt;/b&gt; nobody manages members here. Members follow the booking, event or lesson, so there\&#x27;s no Add or Remove. Tap 💬 → 1:1 chat with that person.&#x27;,&#x27;&lt;b&gt;Groups:&lt;/b&gt; admin sees ＋ (add) and ⋮ per member (Remove, Make Admin). Everyone sees Leave Group (§3.1 basic group chat).&#x27;,&#x27;Group permissions: only the group admin can add or remove members (§6, answered).&#x27;],
+    pending:[&#x27;If the last admin leaves, who becomes admin? Proposal: the longest-standing member.&#x27;],
+    changed:[&#x27;The old &quot;Squad Members&quot; popup had an &quot;Invite +&quot; spot slot that mixed event management into chat. That\&#x27;s removed.&#x27;],
+    src:[&#x27;Doc §3.1, §6 Group permissions&#x27;]
+  }
+};
+
+S.group_create = {
+  flow:&#x27;Groups&#x27;, title:&#x27;Create Group&#x27;,
+  variants:[&#x27;1 · Select Players&#x27;,&#x27;2 · Group Name&#x27;],
+  states:{empty:&#x27;No Players&#x27;, error:&#x27;Validation&#x27;},
+  render(st, v=&#x27;1 · Select Players&#x27;){
+    const step1 = v.startsWith(&#x27;1&#x27;);
+    const h = hdr(&#x27;New Group&#x27;, back(&#x27;new_chat&#x27;));
+    if (st===&#x27;loading&#x27;) return h + `&lt;div class=&quot;body&quot;&gt;${search(&#x27;Search players&#x27;)}${skRows(6)}&lt;/div&gt;`;
+    if (st===&#x27;empty&#x27;) return h + center(&#x27;people-outline&#x27;,&#x27;No Players to Add&#x27;,&#x27;You can add players you follow. Find players in Social and follow them first.&#x27;, `&lt;button class=&quot;btn p sm&quot;&gt;Find Players&lt;/button&gt;`);
+    if (step1){
+      const picked = st===&#x27;error&#x27; ? [&#x27;Lotte&#x27;] : [&#x27;Lotte&#x27;,&#x27;Sander&#x27;,&#x27;Emma&#x27;];
+      const ppl = [[&#x27;Lotte Bakker&#x27;,&#x27;@lotteb&#x27;],[&#x27;Sander Kok&#x27;,&#x27;@sanderk&#x27;],[&#x27;Emma de Vries&#x27;,&#x27;@emmadv&#x27;],[&#x27;Joris Visser&#x27;,&#x27;@jorisv&#x27;],[&#x27;Tess Mulder&#x27;,&#x27;@tessm&#x27;]];
+      return h + `&lt;div class=&quot;body&quot;&gt;${search(&#x27;Search players&#x27;)}
+        &lt;div class=&quot;chips&quot;&gt;${picked.map(p=&gt;`&lt;div class=&quot;chip&quot;&gt;${av(p[0],48)}&lt;span class=&quot;x&quot;&gt;${ic(&#x27;close&#x27;,12)}&lt;/span&gt;${p}&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+        ${ppl.map(([n,u])=&gt;{const on=picked.includes(n.split(&#x27; &#x27;)[0]);return `&lt;div class=&quot;row&quot;&gt;${av(n[0])}&lt;div class=&quot;info&quot;&gt;&lt;div class=&quot;nm&quot;&gt;${n}&lt;/div&gt;&lt;div class=&quot;pv&quot;&gt;${u}&lt;/div&gt;&lt;/div&gt;&lt;span class=&quot;chk ${on?&#x27;on&#x27;:&#x27;&#x27;}&quot;&gt;${on?ic(&#x27;checkmark&#x27;,15):&#x27;&#x27;}&lt;/span&gt;&lt;/div&gt;`}).join(&#x27;&#x27;)}
+      &lt;/div&gt;&lt;div class=&quot;foot&quot;&gt;${st===&#x27;error&#x27;?`&lt;div class=&quot;ferr&quot; style=&quot;text-align:center;margin-bottom:8px&quot;&gt;Select at least 2 players to make a group.&lt;/div&gt;&lt;button class=&quot;btn p off&quot;&gt;Next&lt;/button&gt;`:`&lt;button class=&quot;btn p&quot; onclick=&quot;setVar(&#x27;2 · Group Name&#x27;)&quot;&gt;Next (3)&lt;/button&gt;`}&lt;/div&gt;`;
+    }
+    const bad = st===&#x27;error&#x27;;
+    return h + `&lt;div class=&quot;body&quot; style=&quot;padding:8px 20px&quot;&gt;
+        &lt;div style=&quot;display:flex;justify-content:center;margin:8px 0 16px&quot;&gt;&lt;div style=&quot;display:flex&quot;&gt;${[&#x27;L&#x27;,&#x27;S&#x27;,&#x27;E&#x27;].map((x,i)=&gt;`&lt;div style=&quot;margin-left:${i?-12:0}px;border:2px solid var(--bg);border-radius:50%&quot;&gt;${av(x,48)}&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;div style=&quot;margin-left:-12px;width:52px;height:52px;border-radius:26px;background:#fff;border:2px solid var(--bg);display:flex;align-items:center;justify-content:center;font:700 14px Lato&quot;&gt;You&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+        &lt;div class=&quot;notch ${bad?&#x27;bad&#x27;:&#x27;foc&#x27;}&quot;&gt;&lt;label&gt;Group Name (optional)&lt;/label&gt;&lt;div class=&quot;v&quot;&gt;${bad?&#x27;Sunday morning padel crew from Kralingse Club&#x27;:&#x27;Sunday Padel Crew&#x27;}&lt;/div&gt;&lt;/div&gt;
+        ${bad?`&lt;div class=&quot;fhelp&quot;&gt;&lt;span style=&quot;color:var(--error)&quot;&gt;Group name can be up to 40 characters.&lt;/span&gt;&lt;span style=&quot;color:var(--error)&quot;&gt;46/40&lt;/span&gt;&lt;/div&gt;`:`&lt;div class=&quot;fhelp&quot;&gt;&lt;span&gt;If empty, member names are used&lt;/span&gt;&lt;span&gt;17/40&lt;/span&gt;&lt;/div&gt;`}
+        &lt;div style=&quot;font-size:14px;color:var(--text2);margin-top:18px;line-height:1.5&quot;&gt;${ic(&#x27;shield-checkmark-outline&#x27;,16,&#x27;color:#007AFF;vertical-align:-3px&#x27;)} You&#x27;ll be the group admin. Only admins can add or remove members.&lt;/div&gt;
+      &lt;/div&gt;&lt;div class=&quot;foot&quot;&gt;&lt;button class=&quot;btn p ${bad?&#x27;off&#x27;:&#x27;&#x27;}&quot; onclick=&quot;go(&#x27;group_chat&#x27;)&quot;&gt;Create Group&lt;/button&gt;&lt;/div&gt;`;
+  },
+  notes:{
+    purpose:&#x27;Flow 9.5: players make their own ongoing group or community.&#x27;,
+    rules:[&#x27;Step 1: pick players. You need at least 2 others, so 3 people including you. &quot;Next (n)&quot; shows the count.&#x27;,&#x27;Step 2: name is optional, 1–40 characters. If it\&#x27;s empty, the name is the first 3 member names, like &quot;Lotte, Sander, Emma&quot;.&#x27;,&#x27;The creator becomes admin (§6).&#x27;,&#x27;Uses the live notched input: 56px high, 8px radius, label cut into the top border.&#x27;,&#x27;Group photo, renaming and multiple admins are &lt;b&gt;later&lt;/b&gt; (§3.2 Group controls), so they\&#x27;re not shown.&#x27;],
+    pending:[&#x27;&lt;b&gt;Max group size?&lt;/b&gt; Not in the doc. Suggest 50 for release 1.&#x27;,&#x27;Can players add people they don\&#x27;t follow? This wireframe assumes followers only, which links to the player → player decision.&#x27;],
+    changed:[&#x27;New screens.&#x27;],
+    src:[&#x27;Doc §9.5, §3.1 Basic group chat&#x27;,&#x27;CustomTextInput.tsx (notched)&#x27;]
+  }
+};
+
+S.group_chat = {
+  flow:&#x27;Groups&#x27;, title:&#x27;Group Chat&#x27;,
+  states:{empty:&#x27;Just Created&#x27;, error:&#x27;Send Failed&#x27;},
+  render(st){
+    const h = chdr(av(&#x27;&#x27;,38,&#x27;#8B5CF6&#x27;,&#x27;people&#x27;), &#x27;Sunday Padel Crew&#x27;, &#x27;5 members · Tap for info&#x27;, `&lt;button class=&quot;hbtn&quot; onclick=&quot;go(&#x27;members&#x27;);setTimeout(()=&gt;setVar(&#x27;Group (Admin View)&#x27;),0)&quot;&gt;${ic(&#x27;people-outline&#x27;,24)}&lt;/button&gt;`+more());
+    if (st===&#x27;loading&#x27;) return h + skFeed() + comp(&#x27;Message&#x27;);
+    const created = dd(&#x27;Sun 22 Nov&#x27;) + sys(&#x27;You created the group &quot;Sunday Padel Crew&quot;&#x27;) + sys(&#x27;You added Lotte, Sander, Emma and Joris&#x27;);
+    if (st===&#x27;empty&#x27;) return h + `&lt;div class=&quot;feed&quot;&gt;${created}&lt;div style=&quot;margin:auto;text-align:center;color:var(--text2);font-size:14px&quot;&gt;${ic(&#x27;hand-left-outline&#x27;,36,&#x27;color:#BDBDBD&#x27;)}&lt;div style=&quot;margin-top:6px&quot;&gt;Group created. Say hi 👋&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;` + comp(&#x27;Message&#x27;);
+    return h + `&lt;div class=&quot;feed&quot;&gt;${created}${mIn(&#x27;Great game today!&#x27;,&#x27;12:40&#x27;,&#x27;Lotte Bakker&#x27;)}${photoMsg(&#x27;in&#x27;,&#x27;12:41&#x27;,true)}${dd(&#x27;Today&#x27;)}${mIn(&#x27;Same time next week?&#x27;,&#x27;09:15&#x27;,&#x27;Lotte Bakker&#x27;)}${mIn(&#x27;I\&#x27;m in&#x27;,&#x27;09:20&#x27;,&#x27;Sander Kok&#x27;)}${st===&#x27;error&#x27;?mOut(&#x27;Me too, I\&#x27;ll book the court&#x27;,&#x27;&#x27;,true):mOut(&#x27;Me too, I\&#x27;ll book the court&#x27;,&#x27;09:22&#x27;)}&lt;/div&gt;` + comp(&#x27;Message&#x27;);
+  },
+  notes:{
+    purpose:&#x27;Ongoing chat for a player-made group. It never closes, unlike activity chats.&#x27;,
+    rules:[&#x27;Shows the sender\&#x27;s name above each incoming message (not shown in 1:1).&#x27;,&#x27;Photos and videos supported (§3.1).&#x27;,&#x27;Tap the header or 👥 → Members (admin view).&#x27;,&#x27;⋮ → View Members, Report Group, Leave Group.&#x27;],
+    pending:[],
+    changed:[&#x27;New screen.&#x27;],
+    src:[&#x27;Doc §4 Team or club group, §9.5&#x27;]
+  }
+};
+
+S.support = {
+  flow:&#x27;Support&#x27;, title:&#x27;Chat with SWP Support&#x27;,
+  variants:[&#x27;Choose Topic&#x27;,&#x27;Open Chat&#x27;,&#x27;Resolved&#x27;],
+  states:{empty:&#x27;No Past Chats&#x27;, error:&#x27;Start Failed&#x27;},
+  render(st, v=&#x27;Choose Topic&#x27;){
+    if (v===&#x27;Choose Topic&#x27;){
+      const h = hdr(&#x27;Help &amp; Support&#x27;, back(&#x27;inbox&#x27;));
+      if (st===&#x27;loading&#x27;) return h + `&lt;div class=&quot;body&quot;&gt;${skRows(5)}&lt;/div&gt;`;
+      if (st===&#x27;error&#x27;) return h + errBlock(&#x27;Couldn\&#x27;t Start Chat&#x27;,&#x27;Something went wrong. Try again, or email support@shallweplay.nl.&#x27;);
+      const topics = [[&#x27;card-outline&#x27;,&#x27;Bookings &amp; payments&#x27;],[&#x27;cash-outline&#x27;,&#x27;Refunds&#x27;],[&#x27;person-outline&#x27;,&#x27;My account&#x27;],[&#x27;business-outline&#x27;,&#x27;Problem with a club&#x27;],[&#x27;help-circle-outline&#x27;,&#x27;Something else&#x27;]];
+      return h + `&lt;div class=&quot;body&quot;&gt;&lt;div style=&quot;font-size:15px;color:var(--text2);padding:0 20px 12px&quot;&gt;What do you need help with?&lt;/div&gt;
+        ${topics.map(([i,t])=&gt;`&lt;div class=&quot;row&quot; style=&quot;cursor:pointer&quot; onclick=&quot;setVar(&#x27;Open Chat&#x27;)&quot;&gt;&lt;div class=&quot;av&quot; style=&quot;width:40px;height:40px;border-radius:8px;background:var(--primary-soft);color:var(--primary)&quot;&gt;${ic(i,20)}&lt;/div&gt;&lt;div class=&quot;info&quot;&gt;&lt;div class=&quot;nm&quot; style=&quot;font-weight:400&quot;&gt;${t}&lt;/div&gt;&lt;/div&gt;${ic(&#x27;chevron-forward&#x27;,18,&#x27;color:#687076&#x27;)}&lt;/div&gt;`).join(&#x27;&#x27;)}
+        ${st===&#x27;empty&#x27;?&#x27;&#x27;:`&lt;div class=&quot;sec&quot; style=&quot;padding-top:14px&quot;&gt;Your conversations&lt;/div&gt;&lt;div class=&quot;row&quot; onclick=&quot;setVar(&#x27;Resolved&#x27;)&quot; style=&quot;cursor:pointer&quot;&gt;${av(&#x27;&#x27;,44,&#x27;#007AFF&#x27;,&#x27;help-buoy&#x27;)}&lt;div class=&quot;info&quot;&gt;&lt;div class=&quot;l1&quot;&gt;&lt;span class=&quot;nm&quot;&gt;Refunds&lt;/span&gt;&lt;span class=&quot;tag green&quot;&gt;Resolved&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;pv&quot;&gt;Your refund question is resolved&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`}
+      &lt;/div&gt;`;
+    }
+    const h = chdr(av(&#x27;&#x27;,38,&#x27;#007AFF&#x27;,&#x27;help-buoy&#x27;), &#x27;SWP Support&#x27;, v===&#x27;Resolved&#x27;?&#x27;Refunds · Resolved&#x27;:&#x27;Refunds · Open&#x27;, more(), &#x27;support&#x27;);
+    if (st===&#x27;loading&#x27;) return h + skFeed() + comp(&#x27;Describe your question&#x27;);
+    const msgs = `${dd(&#x27;Fri 20 Nov&#x27;)}${sys(&#x27;You started a chat about Refunds&#x27;)}${mOut(&#x27;I cancelled my booking 2 days ago but haven\&#x27;t got my refund yet.&#x27;,&#x27;10:02&#x27;)}${mIn(&#x27;Hi Alex, thanks for waiting. Your refund of €24.00 was sent today. It can take 3–5 working days to show.&#x27;,&#x27;11:15&#x27;,&#x27;Lisa&#x27;,&#x27;SWP Support&#x27;)}${st===&#x27;error&#x27;?mOut(&#x27;Thanks!&#x27;,&#x27;&#x27;,true):mOut(&#x27;Thanks!&#x27;,&#x27;11:20&#x27;)}`;
+    if (v===&#x27;Resolved&#x27;) return h + `&lt;div class=&quot;feed&quot;&gt;${msgs}${sys(&#x27;Lisa marked this conversation as resolved&#x27;)}&lt;/div&gt;` + lock(&#x27;This conversation is resolved&#x27;,&#x27;Send a message to reopen it, or start a new topic.&#x27;,&#x27;checkmark-circle-outline&#x27;);
+    if (st===&#x27;empty&#x27;) return h + `&lt;div class=&quot;feed&quot;&gt;${sys(&#x27;You started a chat about Refunds&#x27;)}&lt;div style=&quot;margin:auto;text-align:center;color:var(--text2);font-size:14px;max-width:250px&quot;&gt;Tell us what happened. Our team usually replies within 1 working day.&lt;/div&gt;&lt;/div&gt;` + comp(&#x27;Describe your question&#x27;);
+    return h + `&lt;div class=&quot;feed&quot;&gt;${msgs}&lt;/div&gt;` + comp(&#x27;Message&#x27;);
+  },
+  notes:{
+    purpose:&#x27;Flow 9.2: a player contacts SWP staff from Help / Support.&#x27;,
+    rules:[&#x27;Entry: More › Help &amp; Support (and the inbox, once a chat exists).&#x27;,&#x27;Picking a topic sends it with the first message, so staff can route it.&#x27;,&#x27;Only authorised SWP staff see these chats. They reply as &quot;first name + SWP Support&quot;.&#x27;,&#x27;Player gets a push when staff reply.&#x27;,&#x27;&lt;b&gt;Resolved&lt;/b&gt;: staff close it. The player can reopen it by sending a message.&#x27;],
+    pending:[&#x27;&lt;b&gt;Closure rules&lt;/b&gt; &quot;to be defined&quot; in the doc. Assumed: staff mark it resolved, and the player can reopen within 7 days.&#x27;,&#x27;Reply-time promise (&quot;usually within 1 working day&quot;): confirm, or remove the text.&#x27;,&#x27;Needs a staff-side inbox in the admin portal, which isn\&#x27;t designed yet.&#x27;],
+    changed:[&#x27;New screens.&#x27;],
+    src:[&#x27;Doc §9.2&#x27;]
+  }
+};
+
+S.media_preview = {
+  flow:&#x27;Media &amp; Alerts&#x27;, title:&#x27;Send Photo / Video&#x27;,
+  states:{empty:&#x27;N/A&#x27;, loading:&#x27;Uploading&#x27;, error:&#x27;Invalid File&#x27;},
+  render(st){
+    if (st===&#x27;empty&#x27;) return naNote(&#x27;Tapping the image icon opens the phone\&#x27;s own gallery. SWP shows no empty screen.&#x27;);
+    if (st===&#x27;loading&#x27;) return chdr(av(&#x27;E&#x27;,38),&#x27;Emma de Vries&#x27;,&#x27;@emmadv · Padel&#x27;,more()) + `&lt;div class=&quot;feed&quot;&gt;${dd(&#x27;Today&#x27;)}${mIn(&#x27;Send me the photo from Sunday!&#x27;,&#x27;10:10&#x27;)}&lt;div class=&quot;msg out&quot;&gt;&lt;div class=&quot;col&quot;&gt;&lt;div class=&quot;photo&quot; style=&quot;background:linear-gradient(135deg,#9FB3C8,#5E7A96)&quot;&gt;&lt;div style=&quot;position:absolute;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;font:700 14px Lato&quot;&gt;${ic(&#x27;sync&#x27;,28)} Uploading 60%&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;mt&quot;&gt;Sending…&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;` + comp(&#x27;Message&#x27;);
+    const err = st===&#x27;error&#x27;;
+    return `&lt;div style=&quot;flex:1;display:flex;flex-direction:column;background:#11181C;color:#fff&quot;&gt;
+      &lt;div class=&quot;hdr&quot;&gt;&lt;button class=&quot;back&quot; style=&quot;background:rgba(255,255,255,.12);color:#fff&quot; onclick=&quot;go(&#x27;direct_chat&#x27;)&quot;&gt;${ic(&#x27;close&#x27;,18)}&lt;/button&gt;&lt;div class=&quot;t&quot; style=&quot;font-size:16px;color:#fff&quot;&gt;To: Emma de Vries&lt;/div&gt;&lt;div class=&quot;sp36&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;div style=&quot;flex:1;margin:0 16px;border-radius:12px;background:linear-gradient(135deg,#9FB3C8,#5E7A96);display:flex;align-items:center;justify-content:center&quot;&gt;${ic(&#x27;image-outline&#x27;,64,&#x27;color:rgba(255,255,255,.8)&#x27;)}&lt;/div&gt;
+      ${err?`&lt;div class=&quot;ban err&quot; style=&quot;margin:10px 16px 0;border-radius:8px;background:rgba(255,59,48,.15);color:#FFB4AE&quot;&gt;${ic(&#x27;alert-circle&#x27;)}&lt;div&gt;&lt;b&gt;match_recording.avi&lt;/b&gt; can&#x27;t be sent. Use JPG, PNG, WEBP, MP4 or MOV.&lt;/div&gt;&lt;/div&gt;`:&#x27;&#x27;}
+      &lt;div style=&quot;display:flex;gap:8px;padding:12px 16px&quot;&gt;${[1,2,3].map(i=&gt;`&lt;div style=&quot;width:52px;height:52px;border-radius:8px;background:#5E7A96;${i===1?&#x27;outline:2px solid #007AFF;outline-offset:1px&#x27;:&#x27;&#x27;}&quot;&gt;&lt;/div&gt;`).join(&#x27;&#x27;)}${err?`&lt;div style=&quot;width:52px;height:52px;border-radius:8px;background:#3a3a3a;outline:2px solid #FF3B30;display:flex;align-items:center;justify-content:center;color:#FF3B30&quot;&gt;${ic(&#x27;alert&#x27;,22)}&lt;/div&gt;`:&#x27;&#x27;}&lt;div style=&quot;width:52px;height:52px;border-radius:8px;border:1.5px dashed #687076;display:flex;align-items:center;justify-content:center;color:#BBB&quot;&gt;${ic(&#x27;add&#x27;,22)}&lt;/div&gt;&lt;/div&gt;
+      &lt;div style=&quot;display:flex;gap:8px;align-items:center;padding:8px 12px 12px&quot;&gt;&lt;input class=&quot;in&quot; placeholder=&quot;Add a caption…&quot; style=&quot;flex:1;height:40px;border-radius:20px;background:#262626;border:none;padding:0 14px;color:#fff;font-size:15px;outline:none&quot;&gt;&lt;button style=&quot;width:40px;height:40px;border-radius:20px;background:${err?&#x27;#BDBDBD&#x27;:&#x27;#007AFF&#x27;};color:#fff;display:flex;align-items:center;justify-content:center&quot;&gt;${ic(&#x27;send&#x27;,18)}&lt;/button&gt;&lt;/div&gt;
+    &lt;/div&gt;`;
+  },
+  notes:{
+    purpose:&#x27;§3.1 &quot;Photos and videos&quot; is in release 1 (§6: &quot;Include photo vid&quot;).&#x27;,
+    rules:[&#x27;Image icon in the composer → phone gallery → this preview.&#x27;,&#x27;Up to &lt;b&gt;10 files&lt;/b&gt; per send. Types: JPG, PNG, WEBP, MP4, MOV. These match the live Social post limits in &lt;code&gt;shallwe-social/config/constants.js&lt;/code&gt;.&#x27;,&#x27;Optional caption, sent as one message with the media.&#x27;,&#x27;&lt;b&gt;Uploading&lt;/b&gt;: the bubble shows % progress. The user can keep chatting.&#x27;,&#x27;&lt;b&gt;Invalid File&lt;/b&gt;: the bad file is outlined in red, a reason shows, and Send is disabled until it\&#x27;s removed.&#x27;],
+    pending:[&#x27;&lt;b&gt;Max file size / video length for chat?&lt;/b&gt; Social allows up to 1 GB, which is too big for chat. Suggest images ≤ 10 MB and video ≤ 60 sec / 100 MB.&#x27;,&#x27;Who can see media after a chat closes? Assumed: same as messages, kept and viewable.&#x27;],
+    changed:[&#x27;The old wireframe showed only a &quot;Media attachment&quot; toast. Now there\&#x27;s a full preview, plus upload and error states.&#x27;],
+    src:[&#x27;shallwe-social/config/constants.js FILE_CONSTANTS&#x27;,&#x27;Doc §3.1, §6 First release media&#x27;]
+  }
+};
+
+S.notifications = {
+  flow:&#x27;Media &amp; Alerts&#x27;, title:&#x27;New Message Notifications&#x27;,
+  variants:[&#x27;Push&#x27;,&#x27;Email (Club → Player)&#x27;],
+  states:{empty:&#x27;N/A&#x27;, loading:&#x27;N/A&#x27;, error:&#x27;Push Off&#x27;},
+  render(st, v=&#x27;Push&#x27;){
+    if (st===&#x27;empty&#x27;||st===&#x27;loading&#x27;) return naNote(&#x27;Notifications are events, not screens with data. Only &quot;Push Off&quot; needs a design.&#x27;);
+    if (st===&#x27;error&#x27;) return S.inbox.render(&#x27;populated&#x27;,&#x27;All&#x27;).replace(&#x27;&lt;div class=&quot;body&quot;&gt;&#x27;, `&lt;div class=&quot;body&quot;&gt;${ban(&#x27;warn&#x27;,&#x27;notifications-off-outline&#x27;,&#x27;Notifications are off. Turn them on to know when someone replies. &lt;a href=&quot;#&quot; onclick=&quot;return false&quot; style=&quot;color:var(--warn-text);font-weight:700&quot;&gt;Turn On&lt;/a&gt;&#x27;)}&lt;div style=&quot;height:10px&quot;&gt;&lt;/div&gt;`);
+    if (v===&#x27;Push&#x27;) return `&lt;div style=&quot;flex:1;background:linear-gradient(180deg,#5E7A96,#2B3E52);padding-top:30px&quot;&gt;
+        &lt;div style=&quot;text-align:center;color:#fff;font:300 64px Lato&quot;&gt;9:41&lt;/div&gt;&lt;div style=&quot;text-align:center;color:#fff;font-size:15px;margin-bottom:24px&quot;&gt;Thursday 26 November&lt;/div&gt;
+        &lt;div class=&quot;push&quot;&gt;&lt;div class=&quot;app&quot;&gt;${ic(&#x27;chatbubbles&#x27;,13)}&lt;/div&gt;&lt;div style=&quot;flex:1&quot;&gt;&lt;div class=&quot;h&quot;&gt;&lt;span&gt;SHALLWE-PLAY&lt;/span&gt;&lt;span&gt;now&lt;/span&gt;&lt;/div&gt;&lt;b&gt;Emma de Vries&lt;/b&gt;&lt;p&gt;Are you free for padel on Sunday?&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+        &lt;div class=&quot;push&quot;&gt;&lt;div class=&quot;app&quot;&gt;${ic(&#x27;chatbubbles&#x27;,13)}&lt;/div&gt;&lt;div style=&quot;flex:1&quot;&gt;&lt;div class=&quot;h&quot;&gt;&lt;span&gt;SHALLWE-PLAY&lt;/span&gt;&lt;span&gt;2m ago&lt;/span&gt;&lt;/div&gt;&lt;b&gt;Padel · Court 4&lt;/b&gt;&lt;p&gt;Sander Kok: I&#x27;ll bring new balls 🎾&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+        &lt;div class=&quot;push&quot;&gt;&lt;div class=&quot;app&quot;&gt;${ic(&#x27;chatbubbles&#x27;,13)}&lt;/div&gt;&lt;div style=&quot;flex:1&quot;&gt;&lt;div class=&quot;h&quot;&gt;&lt;span&gt;SHALLWE-PLAY&lt;/span&gt;&lt;span&gt;1h ago&lt;/span&gt;&lt;/div&gt;&lt;b&gt;Club de Padel Rotterdam&lt;/b&gt;&lt;p&gt;Sophie: Court 4 is closed for maintenance on Friday…&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;/div&gt;`;
+    return `&lt;div style=&quot;flex:1;overflow:auto;background:#E9EDF2&quot;&gt;
+      &lt;div class=&quot;email&quot;&gt;&lt;div class=&quot;eh&quot;&gt;&lt;b&gt;From:&lt;/b&gt; ShallWe-Play &amp;lt;no-reply@shallweplay.nl&amp;gt;&lt;br&gt;&lt;b&gt;Subject:&lt;/b&gt; Club de Padel Rotterdam sent you a message&lt;/div&gt;
+      &lt;div class=&quot;eb&quot;&gt;&lt;div style=&quot;display:flex;align-items:center;gap:8px;margin-bottom:12px&quot;&gt;&lt;svg width=&quot;26&quot; height=&quot;26&quot; viewBox=&quot;0 0 34 34&quot;&gt;&lt;circle cx=&quot;11&quot; cy=&quot;12&quot; r=&quot;8&quot; fill=&quot;none&quot; stroke=&quot;#16A34A&quot; stroke-width=&quot;3&quot;/&gt;&lt;circle cx=&quot;22&quot; cy=&quot;12&quot; r=&quot;8&quot; fill=&quot;none&quot; stroke=&quot;#007AFF&quot; stroke-width=&quot;3&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;22&quot; r=&quot;8&quot; fill=&quot;none&quot; stroke=&quot;#E63900&quot; stroke-width=&quot;3&quot;/&gt;&lt;/svg&gt;&lt;b style=&quot;font:700 16px Montserrat&quot;&gt;ShallWe-Play&lt;/b&gt;&lt;/div&gt;
+      Hi Alex,&lt;br&gt;&lt;br&gt;&lt;b&gt;Club de Padel Rotterdam&lt;/b&gt; sent you a message:
+      &lt;div class=&quot;quote&quot;&gt;Hi Alex, Court 4 is closed for maintenance on Friday. We moved your booking to Court 2, same time…&lt;/div&gt;
+      &lt;button class=&quot;btn p&quot;&gt;Open Chat&lt;/button&gt;
+      &lt;div style=&quot;font-size:12px;color:var(--text2);margin-top:14px;line-height:1.5&quot;&gt;You got this email because a club sent you a message on ShallWe-Play. Manage email settings in the app under More › Notifications.&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;/div&gt;`;
+  },
+  notes:{
+    purpose:&#x27;§3.1 Notifications + the §7 email rule for club ↔ player chats.&#x27;,
+    rules:[&#x27;&lt;b&gt;Push&lt;/b&gt;: title = person, group or activity name. Body = &quot;Sender: message&quot; (sender only shown in groups). Photo → &quot;📷 Photo&quot;, video → &quot;🎥 Video&quot;.&#x27;,&#x27;Tapping a push opens that chat directly.&#x27;,&#x27;No push for your own messages or for chats with blocked users.&#x27;,&#x27;&lt;b&gt;Email&lt;/b&gt;: only for club ↔ player chats (§7). The button deep-links to the chat. It shows a short preview, never attachments.&#x27;,&#x27;&lt;b&gt;Push Off&lt;/b&gt;: a dismissible banner at the top of the inbox.&#x27;],
+    pending:[&#x27;Should chat messages also show in the in-app Notifications centre (More › Notifications), or only as push + the chat badge? Recommended: push + badge only, so the centre doesn\&#x27;t fill up with chat.&#x27;,&#x27;&lt;b&gt;Email frequency&lt;/b&gt; See Club Chat. Assumed max 1 email per chat per hour.&#x27;],
+    changed:[&#x27;New screen.&#x27;],
+    src:[&#x27;Doc §3.1 Notifications, §7 last bullet&#x27;,&#x27;screens/More/Notification/Listing.tsx&#x27;]
+  }
+};
+
+/* ---------------- nav / state ---------------- */
+const ORDER = [&#x27;home_entry&#x27;,&#x27;inbox&#x27;,&#x27;new_chat&#x27;,&#x27;direct_chat&#x27;,&#x27;chat_options&#x27;,&#x27;report&#x27;,&#x27;block&#x27;,&#x27;club_profile&#x27;,&#x27;club_chat&#x27;,&#x27;booking_chat&#x27;,&#x27;event_chat&#x27;,&#x27;lesson_chat&#x27;,&#x27;members&#x27;,&#x27;group_create&#x27;,&#x27;group_chat&#x27;,&#x27;support&#x27;,&#x27;media_preview&#x27;,&#x27;notifications&#x27;];
+let cur = &#x27;inbox&#x27;, state = &#x27;populated&#x27;, vars = {};
+const STATES = [[&#x27;populated&#x27;,&#x27;Populated&#x27;],[&#x27;empty&#x27;,&#x27;Empty&#x27;],[&#x27;loading&#x27;,&#x27;Loading&#x27;],[&#x27;error&#x27;,&#x27;Error&#x27;]];
+
+function go(id){ if(!id||!S[id]) return; cur=id; state=&#x27;populated&#x27;; draw(); }
+function setState(s){ state=s; draw(); }
+function setVar(v){ vars[cur]=v; draw(); }
+
+function draw(){
+  const sc = S[cur];
+  // nav
+  let html=&#x27;&#x27;, lastFlow=&#x27;&#x27;;
+  ORDER.forEach((id,i)=&gt;{ const s=S[id]; if(s.flow!==lastFlow){ html+=`&lt;h4&gt;${s.flow}&lt;/h4&gt;`; lastFlow=s.flow; } html+=`&lt;button class=&quot;${id===cur?&#x27;on&#x27;:&#x27;&#x27;}&quot; onclick=&quot;go(&#x27;${id}&#x27;)&quot;&gt;&lt;span class=&quot;n&quot;&gt;${String(i+1).padStart(2,&#x27;0&#x27;)}&lt;/span&gt;${s.title}&lt;/button&gt;`; });
+  document.getElementById(&#x27;nav&#x27;).innerHTML = html;
+  // state switch
+  document.getElementById(&#x27;switch&#x27;).innerHTML = STATES.map(([k,l])=&gt;{ const o=(sc.states||{})[k]; const na=o===&#x27;N/A&#x27;; return `&lt;button class=&quot;${state===k?&#x27;on&#x27;:&#x27;&#x27;} ${na?&#x27;na&#x27;:&#x27;&#x27;}&quot; onclick=&quot;setState(&#x27;${k}&#x27;)&quot; title=&quot;${na?&#x27;Not applicable for this screen&#x27;:&#x27;&#x27;}&quot;&gt;${na?l:(o||l)}&lt;/button&gt;`; }).join(&#x27;&#x27;);
+  // variants
+  const v = vars[cur] || (sc.variants?sc.variants[0]:undefined);
+  document.getElementById(&#x27;variants&#x27;).innerHTML = sc.variants ? sc.variants.map(x=&gt;`&lt;button class=&quot;${x===v?&#x27;on&#x27;:&#x27;&#x27;}&quot; onclick=&quot;setVar(&#x27;${x.replace(/&#x27;/g,&quot;\\&#x27;&quot;)}&#x27;)&quot;&gt;${x}&lt;/button&gt;`).join(&#x27;&#x27;) : &#x27;&#x27;;
+  // screen
+  document.getElementById(&#x27;scr&#x27;).innerHTML = sc.render(state, v);
+  // notes
+  const n = sc.notes;
+  const stInfo = STATES.map(([k,l])=&gt;{const o=(sc.states||{})[k]; return `${l}${o&amp;&amp;o!==l?` → &lt;b&gt;${o}&lt;/b&gt;`:&#x27;&#x27;}`}).join(&#x27; · &#x27;);
+  document.getElementById(&#x27;notes&#x27;).innerHTML = `
+    &lt;div class=&quot;flow&quot;&gt;${sc.flow} · Screen ${String(ORDER.indexOf(cur)+1).padStart(2,&#x27;0&#x27;)}&lt;/div&gt;&lt;h2&gt;${sc.title}&lt;/h2&gt;
+    &lt;p&gt;${n.purpose}&lt;/p&gt;
+    &lt;h5&gt;4-State Matrix&lt;/h5&gt;&lt;div class=&quot;statebox&quot;&gt;${stInfo}&lt;/div&gt;
+    &lt;h5&gt;Rules&lt;/h5&gt;&lt;ul&gt;${n.rules.map(r=&gt;`&lt;li&gt;${r}&lt;/li&gt;`).join(&#x27;&#x27;)}&lt;/ul&gt;
+    ${n.pending.length?`&lt;h5&gt;Pending Client Decisions&lt;/h5&gt;${n.pending.map(p=&gt;`&lt;div class=&quot;pend&quot;&gt;${p}&lt;/div&gt;`).join(&#x27;&#x27;)}`:&#x27;&#x27;}
+    &lt;h5&gt;Changed vs v1 Wireframe&lt;/h5&gt;&lt;ul class=&quot;chg&quot;&gt;${n.changed.map(r=&gt;`&lt;li&gt;${r}&lt;/li&gt;`).join(&#x27;&#x27;)}&lt;/ul&gt;
+    &lt;h5&gt;Source&lt;/h5&gt;&lt;ul&gt;${n.src.map(r=&gt;`&lt;li class=&quot;src&quot;&gt;${r}&lt;/li&gt;`).join(&#x27;&#x27;)}&lt;/ul&gt;`;
+}
+draw();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe>
+<iframe id="f-email" title="Email Templates wireframes" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+&lt;title&gt;SWP Email Templates&lt;/title&gt;
+&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
+&lt;link href=&quot;https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;script type=&quot;module&quot; src=&quot;https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js&quot;&gt;&lt;/script&gt;
+&lt;style&gt;
+/* Tokens captured from test.admin.shallwe-play.com (computed styles) + wireframe-rules.md */
+:root{
+  --primary:#007AFF; --primary-soft:rgba(0,122,255,.08); --primary-line:#CFE4FF;
+  --canvas:#F5F5F9; --card:#FFFFFF; --ink:#1C1C1C; --text:rgba(50,71,92,.87); --muted:rgba(50,71,92,.6);
+  --line:#E5E7EB; --outline:rgba(50,71,92,.22); --neutral-line:#D0D5DD;
+  --ok:#228B22; --ok-bg:rgba(34,139,34,.08); --warn:#B7791F; --warn-bg:rgba(255,193,7,.12);
+  --err:#E63900; --err-bg:rgba(230,57,0,.08); --destroy:#FF3E1D; --grey-bg:rgba(50,71,92,.08);
+  --shadow:0 2px 10px rgba(50,71,92,.1);
+  --pend:#92400E; --pend-bg:#FEF3C7;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Montserrat,system-ui,sans-serif;background:#E9ECF1;color:var(--ink)}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,textarea,select{font:inherit}
+code{font-family:ui-monospace,Menlo,monospace;font-size:.92em;background:#EEF2F7;padding:1px 4px;border-radius:4px}
+
+/* ===== Page chrome (not part of the product) ===== */
+.ptop{background:#fff;border-bottom:1px solid var(--line);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.ptop h1{font-size:18px;font-weight:700}
+.ptop p{font-size:13px;color:var(--muted);margin-top:2px}
+.ptop .meta{font-size:12px;color:var(--muted);text-align:right;line-height:1.6}
+.flowbar{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line);padding:10px 24px;display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:thin}
+.fstep{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:8px;white-space:nowrap;font-size:13px;color:var(--muted);flex-shrink:0}
+.fstep .num{width:24px;height:24px;border-radius:12px;background:#EEF2F7;color:var(--text);font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center}
+.fstep:hover{background:#F5F7FA}
+.fstep.on{background:var(--primary-soft);color:var(--primary);font-weight:700}
+.fstep.on .num{background:var(--primary);color:#fff}
+.fstep.done .num{background:#DCEBFF;color:var(--primary)}
+.fsep{color:#C3CAD4;flex-shrink:0;font-size:14px}
+.fgrp{font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:#fff;background:#32475C;border-radius:4px;padding:3px 6px;flex-shrink:0;margin-left:6px}
+.ctl{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 24px 10px;flex-wrap:wrap;max-width:1340px;margin:0 auto}
+.ctl h2{font-size:18px;font-weight:700}
+.ctl h2 span{color:var(--primary)}
+.ctl .r{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.seg{display:flex;background:#fff;border:1px solid var(--line);border-radius:8px;padding:3px;gap:2px}
+.seg button{padding:6px 12px;border-radius:6px;font-size:13px;font-weight:600;color:var(--muted)}
+.seg button.on{background:var(--primary);color:#fff}
+.seg button.na{opacity:.4}
+.nav2 button{padding:7px 12px;border-radius:6px;border:1px solid var(--neutral-line);background:#fff;font-size:13px;font-weight:600;display:flex;gap:4px;align-items:center}
+.nav2{display:flex;gap:6px}
+.nav2 button:disabled{opacity:.4;cursor:default}
+.stagewrap{max-width:1340px;margin:0 auto;padding:0 24px}
+.stage{overflow:hidden;border-radius:12px;box-shadow:0 10px 40px rgba(17,24,28,.15);background:#fff}
+.browser{height:38px;background:#F1F3F6;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;padding:0 14px}
+.browser .dots{display:flex;gap:6px}.browser .dots i{width:11px;height:11px;border-radius:6px;background:#D5DAE1;display:block}
+.browser .url{flex:1;max-width:560px;height:24px;border-radius:6px;background:#fff;border:1px solid var(--line);font-size:12px;color:var(--muted);display:flex;align-items:center;padding:0 10px;gap:6px}
+.fit{width:1280px;transform-origin:top left}
+.notes{max-width:1340px;margin:18px auto 40px;padding:0 24px;display:grid;grid-template-columns:1.1fr 1.3fr 1fr;gap:16px}
+.ncard{background:#fff;border:1px solid var(--line);border-radius:8px;padding:16px}
+.ncard h5{font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.ncard p,.ncard li{font-size:13.5px;line-height:1.55;color:#334155}
+.ncard ul{padding-left:18px;display:flex;flex-direction:column;gap:4px}
+.ncard .pend{background:var(--pend-bg);color:var(--pend);border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.45;margin-bottom:6px}
+.ncard .dev{background:#EEF2F7;border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.45;margin-bottom:6px;color:#334155}
+.ncard .stt{font-size:13px;line-height:1.6}
+.ncard .stt b{color:var(--ink)}
+@media (max-width:1000px){.notes{grid-template-columns:1fr}}
+
+/* ===== Admin portal shell ===== */
+.app{display:flex;min-height:820px;background:var(--canvas);position:relative;font-family:Montserrat,sans-serif;color:var(--text)}
+.side{width:232px;flex-shrink:0;background:#fff;padding:14px 10px;border-right:1px solid #EEF0F3}
+.logo{display:flex;align-items:center;gap:8px;padding:4px 10px 18px;font-weight:700;font-size:19px;color:var(--ink)}
+.mi{display:flex;align-items:center;gap:10px;height:40px;padding:0 12px;border-radius:6px;font-size:14px;color:var(--text)}
+.mi ion-icon{font-size:18px;color:var(--muted)}
+.mi .chev{margin-left:auto;font-size:14px}
+.mi.open{background:var(--primary-soft);color:var(--primary);font-weight:600}
+.mi.open ion-icon{color:var(--primary)}
+.sub{display:flex;align-items:center;gap:10px;height:34px;padding:0 12px 0 22px;font-size:13px;color:var(--muted)}
+.sub ion-icon{font-size:15px}
+.sub.on{color:var(--ink);font-weight:700}
+.sub.on ion-icon{color:var(--primary)}
+.newtag{font-size:9px;font-weight:700;color:#fff;background:var(--primary);border-radius:4px;padding:1px 5px;margin-left:auto}
+.main{flex:1;min-width:0;padding:14px 20px 28px}
+.topbar{height:52px;background:#fff;border-radius:8px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:flex-end;padding:0 16px;gap:14px;margin-bottom:22px}
+.me{width:34px;height:34px;border-radius:17px;background:#32475C;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.ph{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px}
+.ph h3{font-size:24px;font-weight:700;color:var(--ink)}
+.ph p{font-size:14px;color:var(--muted);margin-top:4px}
+.crumb{background:#fff;border-radius:8px;box-shadow:var(--shadow);height:48px;display:flex;align-items:center;gap:8px;padding:0 16px;font-size:14px;color:var(--muted);margin-bottom:16px}
+.crumb b{color:var(--primary);font-weight:600}
+.card{background:#fff;border-radius:8px;box-shadow:var(--shadow)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:18px}
+.kpi{padding:16px 18px;display:flex;gap:14px;align-items:center}
+.kpi .ki{width:40px;height:40px;border-radius:8px;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:20px}
+.kpi .kl{font-size:14px;font-weight:600;color:var(--ink)}
+.kpi .kv{font-size:22px;font-weight:700;color:var(--ink);margin-top:2px}
+.filters{display:flex;gap:12px;padding:16px;align-items:center;flex-wrap:wrap}
+.srch{display:flex;align-items:center;gap:8px;height:40px;width:260px;border:1px solid var(--outline);border-radius:6px;padding:0 12px;font-size:14px;color:var(--muted)}
+.sel{position:relative;height:40px;min-width:170px;border:1px solid var(--outline);border-radius:6px;padding:0 12px;display:flex;align-items:center;justify-content:space-between;font-size:14px;color:var(--text)}
+.sel label{position:absolute;top:-8px;left:9px;background:#fff;padding:0 4px;font-size:11px;color:var(--muted)}
+table{width:100%;border-collapse:collapse}
+th{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--text);text-align:left;padding:12px 16px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff}
+td{font-size:14px;color:var(--muted);padding:12px 16px;border-bottom:1px solid #F0F2F5;vertical-align:middle}
+td .tn{color:var(--ink);font-weight:600;display:flex;align-items:center;gap:6px}
+td .tk{font-size:12px;color:var(--muted);font-family:ui-monospace,Menlo,monospace;margin-top:2px}
+tr.hl td{background:#F7FBFF}
+.pill{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 10px;border-radius:6px;font-size:13px;font-weight:500;white-space:nowrap}
+.pill.ok{background:var(--ok-bg);color:var(--ok)}
+.pill.draft{background:var(--warn-bg);color:var(--warn)}
+.pill.off{background:var(--grey-bg);color:var(--muted)}
+.pill.new{background:var(--primary-soft);color:var(--primary)}
+.pill.err{background:var(--err-bg);color:var(--err)}
+.lang{display:inline-flex;gap:4px}
+.lang span{font-size:11px;font-weight:700;border-radius:4px;padding:2px 5px;background:var(--ok-bg);color:var(--ok)}
+.lang span.miss{background:var(--err-bg);color:var(--err)}
+.pager{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;font-size:13px;color:var(--muted)}
+.pager .pg{display:flex;gap:4px}
+.pager .pg span{width:28px;height:28px;border-radius:6px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+.pager .pg span.on{background:var(--primary);color:#fff;border-color:var(--primary)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:40px;padding:0 18px;border-radius:6px;font-size:14px;font-weight:600;white-space:nowrap}
+.btn.p{background:var(--primary);color:#fff;box-shadow:0 2px 4px rgba(0,122,255,.4)}
+.btn.p.off{background:#BDBDBD;box-shadow:none}
+.btn.n{background:#fff;border:1px solid var(--neutral-line);color:var(--ink)}
+.btn.d{background:var(--destroy);color:#fff}
+.btn.t{color:var(--primary);padding:0 8px}
+.btn.sm{height:32px;padding:0 12px;font-size:13px}
+.act{width:32px;height:32px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;color:var(--muted);font-size:18px}
+.sk{background:#E8EBEF;border-radius:6px;animation:pl 1.2s infinite}
+@keyframes pl{50%{opacity:.5}}
+.empty{padding:56px 20px;text-align:center}
+.empty .ei{width:72px;height:72px;border-radius:36px;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 12px}
+.empty .ei.red{background:var(--err-bg);color:var(--err)}
+.empty h4{font-size:18px;font-weight:600;color:var(--ink)}
+.empty p{font-size:14px;color:var(--muted);margin:6px auto 16px;max-width:420px;line-height:1.5}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.ch{height:50px;background:#EBF5FF;border-radius:8px 8px 0 0;display:flex;align-items:center;justify-content:space-between;padding:0 16px;font-size:15px;font-weight:600;color:var(--ink)}
+.cb{padding:16px}
+.kv{display:grid;grid-template-columns:150px 1fr;gap:10px 14px;font-size:14px}
+.kv dt{color:var(--muted)}
+.kv dd{color:var(--ink)}
+.notch{position:relative;border:1px solid var(--outline);border-radius:4px;min-height:52px;padding:14px 12px 10px;font-size:14px;color:var(--ink);margin-top:10px}
+.notch label{position:absolute;top:-9px;left:9px;background:#fff;padding:0 4px;font-size:12px;color:var(--muted)}
+.notch.foc{border-color:var(--primary);box-shadow:0 1px 3px rgba(0,122,255,.4)}
+.notch.foc label{color:var(--primary)}
+.notch.bad{border-color:var(--err)}
+.notch.bad label{color:var(--err)}
+.ph-t{color:rgba(28,28,28,.38)}
+.hint{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin:4px 2px 0}
+.hint.bad{color:var(--err)}
+.tabsx{display:flex;gap:2px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.tabsx button{padding:10px 16px;font-size:14px;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px;display:flex;gap:6px;align-items:center}
+.tabsx button.on{color:var(--primary);border-color:var(--primary)}
+.tabsx .dot{width:7px;height:7px;border-radius:4px;background:var(--err)}
+.toolbar{display:flex;flex-wrap:wrap;gap:4px;align-items:center;border:1px solid var(--line);border-bottom:none;border-radius:4px 4px 0 0;padding:6px;background:#FAFBFC}
+.toolbar .tb{min-width:28px;height:28px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#334155;background:#fff;border:1px solid var(--line);padding:0 6px;font-size:13px;font-weight:700}
+.toolbar .sp{width:1px;height:20px;background:var(--line);margin:0 4px}
+.toolbar .var{margin-left:auto;background:var(--primary-soft);color:var(--primary);border-color:var(--primary-line)}
+.editor{border:1px solid var(--line);border-radius:0 0 4px 4px;min-height:300px;padding:14px 16px;font-size:14px;line-height:1.7;color:var(--ink)}
+.editor.bad{border-color:var(--err)}
+.editor ul{padding-left:20px}
+.v{display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:4px;background:var(--primary-soft);color:var(--primary);font-size:12.5px;font-weight:600;font-family:ui-monospace,Menlo,monospace;border:1px solid var(--primary-line)}
+.v.bad{background:var(--err-bg);color:var(--err);border-color:#F6B8A6;text-decoration:wavy underline}
+.lockbar{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);background:#F7F8FA;border:1px dashed #CBD2DB;border-radius:4px;padding:8px 10px;margin:8px 0}
+.prevwrap{background:#EEF1F5;border-radius:8px;padding:16px;min-height:560px}
+.prevbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.mail{background:#fff;border-radius:6px;overflow:hidden;margin:0 auto;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.mail .mh{padding:18px;text-align:center;border-bottom:1px solid #F0F2F5;position:relative}
+.mail .mb{padding:20px 22px;font-size:14px;line-height:1.65;color:#2B3440}
+.mail .mb h2{font-size:20px;color:var(--ink);margin-bottom:10px;line-height:1.3}
+.mail .mf{padding:14px 18px;background:#F7F8FA;font-size:11.5px;color:var(--muted);text-align:center;line-height:1.6;position:relative}
+.lockico{position:absolute;top:6px;right:8px;font-size:12px;color:#9AA5B1}
+.feat{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-bottom:1px solid #F2F4F7}
+.feat:last-child{border-bottom:none}
+.feat .fi{width:34px;height:34px;border-radius:8px;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.feat b{display:block;color:var(--ink);font-size:14px}
+.feat span{font-size:13px;color:var(--muted)}
+.mcta{display:inline-block;background:var(--primary);color:#fff;border-radius:6px;padding:11px 22px;font-weight:700;font-size:14px;margin:12px 0 4px}
+.ov{position:absolute;inset:0;background:rgba(28,28,28,.45);z-index:20;display:flex}
+.ov.c{align-items:center;justify-content:center}
+.ov.r{justify-content:flex-end}
+.modal{width:460px;background:#fff;border-radius:8px;box-shadow:0 10px 40px rgba(0,0,0,.2)}
+.modal .mhd{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line);font-size:18px;font-weight:600;color:var(--ink)}
+.modal .mbd{padding:18px 20px;font-size:14px;line-height:1.6;color:var(--text)}
+.modal .mft{display:flex;justify-content:flex-end;gap:10px;padding:14px 20px;border-top:1px solid var(--line)}
+.drawer{width:440px;height:100%;background:#fff;box-shadow:-8px 0 30px rgba(0,0,0,.15);display:flex;flex-direction:column}
+.drawer .mhd{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--line);font-size:18px;font-weight:600;color:var(--ink)}
+.ver{display:flex;gap:12px;padding:14px 20px;border-bottom:1px solid #F0F2F5}
+.ver .vd{width:10px;height:10px;border-radius:5px;background:#C3CAD4;margin-top:6px;flex-shrink:0}
+.ver.cur .vd{background:var(--ok)}
+.ver.drf .vd{background:var(--warn)}
+.ver b{color:var(--ink);font-size:14px}
+.ver .vm{font-size:13px;color:var(--muted);margin-top:2px}
+.ver .va{margin-left:auto;display:flex;gap:4px;align-self:center}
+.popover{position:absolute;width:340px;background:#fff;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.18);border:1px solid var(--line);z-index:15}
+.popover .pt{padding:12px 14px;border-bottom:1px solid var(--line)}
+.vrow{display:flex;justify-content:space-between;gap:10px;padding:9px 14px;font-size:13px;border-bottom:1px solid #F4F5F7;cursor:pointer}
+.vrow:hover{background:#F7FBFF}
+.vrow .vdsc{color:var(--muted);font-size:12px;margin-top:2px}
+.vrow .vsam{color:var(--muted);font-size:12px;white-space:nowrap}
+.toast{position:absolute;top:80px;right:24px;z-index:30;background:#fff;border-left:4px solid var(--ok);border-radius:6px;box-shadow:0 6px 20px rgba(0,0,0,.15);padding:12px 16px;font-size:14px;color:var(--ink);display:flex;gap:8px;align-items:center}
+.sw{width:27px;height:16px;border-radius:16px;background:#D5DAE1;position:relative;display:inline-block;vertical-align:middle;flex-shrink:0}
+.sw::after{content:&#x27;&#x27;;position:absolute;top:4px;left:3px;width:8px;height:8px;border-radius:4px;background:#374151}
+.sw.on{background:var(--primary)}
+.sw.on::after{left:16px;background:#fff}
+.rule{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid #F0F2F5;font-size:14px;color:var(--ink)}
+.rule .rl{flex:1}
+.rule .rl small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+.numin{width:110px;height:40px;border:1px solid var(--outline);border-radius:4px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;font-size:14px;color:var(--ink)}
+.numin.bad{border-color:var(--err)}
+.summary{background:#EBF5FF;border-radius:8px;padding:12px 14px;font-size:14px;line-height:1.6;color:var(--ink);display:flex;gap:10px}
+.perm td{text-align:center}
+.perm td:first-child{text-align:left;color:var(--ink)}
+.cbx{width:18px;height:18px;border-radius:4px;background:var(--primary);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:13px}
+.cbx.off{background:#fff;border:2px solid #C3CAD4}
+.flowmap{display:flex;flex-direction:column;gap:22px}
+.lane h4{font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.lanerow{display:flex;align-items:stretch;gap:8px;flex-wrap:wrap}
+.box{background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 12px;width:150px;font-size:13px;color:var(--ink);box-shadow:var(--shadow);cursor:pointer}
+.box:hover{border-color:var(--primary)}
+.box b{display:block;font-size:11px;color:var(--primary);margin-bottom:3px}
+.box.sys{background:#F7F8FA;border-style:dashed;cursor:default}
+.box.dec{background:#FFF9E6;border-color:#F3D27A;cursor:default}
+.arr{align-self:center;color:#9AA5B1;font-size:18px}
+.fcards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
+.fc{background:#fff;border-radius:8px;box-shadow:var(--shadow);padding:14px}
+.fc .fh{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.fc b{font-size:14px;color:var(--ink)}
+.fc p{font-size:13px;color:var(--muted);line-height:1.5}
+.mailclient{display:grid;grid-template-columns:260px 1fr;min-height:820px;background:#fff;font-family:Montserrat,sans-serif}
+.mlist{border-right:1px solid var(--line);background:#FAFBFC}
+.mitem{padding:12px 14px;border-bottom:1px solid var(--line);font-size:13px}
+.mitem.on{background:#EBF5FF}
+.mitem b{display:block;color:var(--ink)}
+.mitem span{color:var(--muted)}
+.mread{background:#EEF1F5;padding:24px;overflow:auto}
+.nrow{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #F2F4F7;text-align:left}
+.nrow .ni{width:32px;height:32px;border-radius:16px;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.nrow b{display:block;font-size:13.5px;color:var(--ink)}
+.nrow span{font-size:12.5px;color:var(--muted)}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div class=&quot;ptop&quot;&gt;
+  &lt;div&gt;
+    &lt;h1&gt;Email Template Management · Admin Portal Wireframes&lt;/h1&gt;
+    &lt;p&gt;Super-admin portal (&lt;code&gt;shallwe-play-admin&lt;/code&gt;) · Scope: admins edit content only inside a locked SWP header and footer&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;meta&quot;&gt;v1 · 26 Nov 2026&lt;br&gt;Matched to live test.admin.shallwe-play.com styles&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;flowbar&quot; id=&quot;flowbar&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;ctl&quot;&gt;
+  &lt;h2 id=&quot;stitle&quot;&gt;&lt;/h2&gt;
+  &lt;div class=&quot;r&quot;&gt;
+    &lt;div class=&quot;seg&quot; id=&quot;vars&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;seg&quot; id=&quot;states&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;nav2&quot;&gt;&lt;button id=&quot;prev&quot; onclick=&quot;step(-1)&quot;&gt;&lt;ion-icon name=&quot;chevron-back&quot;&gt;&lt;/ion-icon&gt;Back&lt;/button&gt;&lt;button id=&quot;next&quot; onclick=&quot;step(1)&quot;&gt;Next&lt;ion-icon name=&quot;chevron-forward&quot;&gt;&lt;/ion-icon&gt;&lt;/button&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;stagewrap&quot;&gt;&lt;div class=&quot;stage&quot; id=&quot;stage&quot;&gt;
+  &lt;div class=&quot;browser&quot;&gt;&lt;div class=&quot;dots&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;url&quot;&gt;&lt;ion-icon name=&quot;lock-closed&quot;&gt;&lt;/ion-icon&gt;&lt;span id=&quot;url&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;div id=&quot;fitwrap&quot; style=&quot;overflow:hidden&quot;&gt;&lt;div class=&quot;fit&quot; id=&quot;fit&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;notes&quot; id=&quot;notes&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+/* ============ helpers ============ */
+const ic=(n,s,st=&#x27;&#x27;)=&gt;`&lt;ion-icon name=&quot;${n}&quot; style=&quot;${s?`font-size:${s}px;`:&#x27;&#x27;}${st}&quot;&gt;&lt;/ion-icon&gt;`;
+const V=(n,bad)=&gt;`&lt;span class=&quot;v ${bad?&#x27;bad&#x27;:&#x27;&#x27;}&quot;&gt;{{${n}}}&lt;/span&gt;`;
+const pill=(t,k=&#x27;ok&#x27;)=&gt;`&lt;span class=&quot;pill ${k}&quot;&gt;${t}&lt;/span&gt;`;
+const sk=(w,h=14,mt=0)=&gt;`&lt;div class=&quot;sk&quot; style=&quot;width:${w};height:${h}px;margin-top:${mt}px&quot;&gt;&lt;/div&gt;`;
+const emptyBox=(icon,title,text,btn,red)=&gt;`&lt;div class=&quot;empty&quot;&gt;&lt;div class=&quot;ei ${red?&#x27;red&#x27;:&#x27;&#x27;}&quot;&gt;${ic(icon)}&lt;/div&gt;&lt;h4&gt;${title}&lt;/h4&gt;&lt;p&gt;${text}&lt;/p&gt;${btn||&#x27;&#x27;}&lt;/div&gt;`;
+const errBox=(t=&#x27;Couldn\u2019t Load Email Templates&#x27;)=&gt;emptyBox(&#x27;cloud-offline-outline&#x27;,t,&#x27;Something went wrong on our side. Try again, and if it keeps happening, contact the tech team.&#x27;,`&lt;button class=&quot;btn n&quot;&gt;${ic(&#x27;refresh&#x27;,16)} Try Again&lt;/button&gt;`,true);
+const SWPLOGO=`&lt;svg width=&quot;28&quot; height=&quot;28&quot; viewBox=&quot;0 0 34 34&quot;&gt;&lt;circle cx=&quot;11&quot; cy=&quot;12&quot; r=&quot;8&quot; fill=&quot;none&quot; stroke=&quot;#16A34A&quot; stroke-width=&quot;3&quot;/&gt;&lt;circle cx=&quot;22&quot; cy=&quot;12&quot; r=&quot;8&quot; fill=&quot;none&quot; stroke=&quot;#007AFF&quot; stroke-width=&quot;3&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;22&quot; r=&quot;8&quot; fill=&quot;none&quot; stroke=&quot;#E63900&quot; stroke-width=&quot;3&quot;/&gt;&lt;/svg&gt;`;
+
+function shell(content, opts={}){
+  const sys = opts.menu || &#x27;Email Templates&#x27;;
+  const subs=[[&#x27;options-outline&#x27;,&#x27;Master Settings&#x27;],[&#x27;phone-portrait-outline&#x27;,&#x27;App Version&#x27;],[&#x27;mail-outline&#x27;,&#x27;Email Templates&#x27;,1],[&#x27;lock-closed-outline&#x27;,&#x27;Roles and Permissions&#x27;],[&#x27;cloud-download-outline&#x27;,&#x27;Export Data Request&#x27;],[&#x27;person-remove-outline&#x27;,&#x27;Delete Users Requests&#x27;]];
+  return `&lt;div class=&quot;app&quot;&gt;&lt;aside class=&quot;side&quot;&gt;
+    &lt;div class=&quot;logo&quot;&gt;${SWPLOGO} ShallWe-Play&lt;/div&gt;
+    &lt;div class=&quot;mi&quot;&gt;${ic(&#x27;home-outline&#x27;)}Dashboard&lt;/div&gt;
+    &lt;div class=&quot;mi&quot;&gt;${ic(&#x27;cash-outline&#x27;)}Financial&lt;ion-icon class=&quot;chev&quot; name=&quot;chevron-forward&quot;&gt;&lt;/ion-icon&gt;&lt;/div&gt;
+    &lt;div class=&quot;mi&quot;&gt;${ic(&#x27;person-outline&#x27;)}User Management&lt;ion-icon class=&quot;chev&quot; name=&quot;chevron-forward&quot;&gt;&lt;/ion-icon&gt;&lt;/div&gt;
+    &lt;div class=&quot;mi&quot;&gt;${ic(&#x27;megaphone-outline&#x27;)}Marketing&lt;ion-icon class=&quot;chev&quot; name=&quot;chevron-forward&quot;&gt;&lt;/ion-icon&gt;&lt;/div&gt;
+    &lt;div class=&quot;mi&quot;&gt;${ic(&#x27;shield-checkmark-outline&#x27;)}Compliance &amp;amp; Sec…&lt;ion-icon class=&quot;chev&quot; name=&quot;chevron-forward&quot;&gt;&lt;/ion-icon&gt;&lt;/div&gt;
+    &lt;div class=&quot;mi&quot;&gt;${ic(&#x27;share-social-outline&#x27;)}Social&lt;ion-icon class=&quot;chev&quot; name=&quot;chevron-forward&quot;&gt;&lt;/ion-icon&gt;&lt;/div&gt;
+    &lt;div class=&quot;mi open&quot;&gt;${ic(&#x27;settings-outline&#x27;)}System&lt;ion-icon class=&quot;chev&quot; name=&quot;chevron-down&quot;&gt;&lt;/ion-icon&gt;&lt;/div&gt;
+    ${subs.map(([i,t,n])=&gt;`&lt;div class=&quot;sub ${t===sys?&#x27;on&#x27;:&#x27;&#x27;}&quot; ${n?&#x27;style=&quot;outline:2px dashed #F59E0B;outline-offset:-2px;border-radius:6px&quot;&#x27;:&#x27;&#x27;}&gt;${ic(i)}${t}${n?&#x27;&lt;span class=&quot;newtag&quot;&gt;NEW&lt;/span&gt;&#x27;:&#x27;&#x27;}&lt;/div&gt;`).join(&#x27;&#x27;)}
+  &lt;/aside&gt;&lt;div class=&quot;main&quot;&gt;&lt;div class=&quot;topbar&quot;&gt;&lt;span style=&quot;font-size:13px;color:var(--muted)&quot;&gt;Finance Admin&lt;/span&gt;&lt;div class=&quot;me&quot;&gt;FA&lt;/div&gt;&lt;/div&gt;${content}&lt;/div&gt;${opts.overlay||&#x27;&#x27;}&lt;/div&gt;`;
+}
+
+/* ============ data (template keys are real, from notification-service) ============ */
+const TPL=[
+ {n:&#x27;Welcome — Player&#x27;,k:&#x27;user-welcome-player&#x27;,cat:&#x27;Account&#x27;,to:&#x27;Player&#x27;,trg:&#x27;Player finishes sign-up&#x27;,st:[&#x27;New&#x27;,&#x27;new&#x27;],nl:1,ed:&#x27;—&#x27;,hl:1},
+ {n:&#x27;Notifications Waiting&#x27;,k:&#x27;notifications-waiting&#x27;,cat:&#x27;Engagement&#x27;,to:&#x27;Player&#x27;,trg:&#x27;More than 5 unread notifications&#x27;,st:[&#x27;New&#x27;,&#x27;new&#x27;],nl:1,ed:&#x27;—&#x27;,hl:1},
+ {n:&#x27;Welcome — Club / Coach / Owner&#x27;,k:&#x27;user-welcome&#x27;,cat:&#x27;Account&#x27;,to:&#x27;Club, Coach, Business Owner&#x27;,trg:&#x27;Partner finishes sign-up&#x27;,st:[&#x27;Active&#x27;,&#x27;ok&#x27;],nl:1,ed:&#x27;System default&#x27;},
+ {n:&#x27;Verification Code (OTP)&#x27;,k:&#x27;user-requested-otp&#x27;,cat:&#x27;Account&#x27;,to:&#x27;All users&#x27;,trg:&#x27;User requests a login code&#x27;,st:[&#x27;Active&#x27;,&#x27;ok&#x27;],nl:1,ed:&#x27;System default&#x27;,lock:1},
+ {n:&#x27;Forgot Password&#x27;,k:&#x27;user-forgot-password&#x27;,cat:&#x27;Account&#x27;,to:&#x27;All users&#x27;,trg:&#x27;User taps Forgot Password&#x27;,st:[&#x27;Active&#x27;,&#x27;ok&#x27;],nl:1,ed:&#x27;System default&#x27;,lock:1},
+ {n:&#x27;Booking Confirmation&#x27;,k:&#x27;booking-confirmation&#x27;,cat:&#x27;Bookings&#x27;,to:&#x27;Player&#x27;,trg:&#x27;Booking payment succeeds&#x27;,st:[&#x27;Active&#x27;,&#x27;ok&#x27;],nl:1,ed:&#x27;12 Nov 2026 · Finance Admin&#x27;},
+ {n:&#x27;Booking Cancelled&#x27;,k:&#x27;booking-cancelled&#x27;,cat:&#x27;Bookings&#x27;,to:&#x27;Player&#x27;,trg:&#x27;Booking is cancelled&#x27;,st:[&#x27;Draft changes&#x27;,&#x27;draft&#x27;],nl:0,ed:&#x27;25 Nov 2026 · Finance Admin&#x27;},
+ {n:&#x27;New Booking Alert&#x27;,k:&#x27;new-booking-alert&#x27;,cat:&#x27;Bookings&#x27;,to:&#x27;Club&#x27;,trg:&#x27;Player books a club asset&#x27;,st:[&#x27;Active&#x27;,&#x27;ok&#x27;],nl:1,ed:&#x27;System default&#x27;},
+ {n:&#x27;Refund Processed&#x27;,k:&#x27;refund-processed&#x27;,cat:&#x27;Payments&#x27;,to:&#x27;Player&#x27;,trg:&#x27;Revolut refund webhook: success&#x27;,st:[&#x27;Active&#x27;,&#x27;ok&#x27;],nl:1,ed:&#x27;System default&#x27;},
+ {n:&#x27;KYC Pending Reminder&#x27;,k:&#x27;club-kyc-pending-alert&#x27;,cat:&#x27;Club Finance&#x27;,to:&#x27;Club&#x27;,trg:&#x27;Payout due, KYC not complete&#x27;,st:[&#x27;Active&#x27;,&#x27;ok&#x27;],nl:1,ed:&#x27;System default&#x27;},
+];
+
+/* ============ screens ============ */
+const S={};
+
+S.overview={grp:&#x27;Overview&#x27;,t:&#x27;Features &amp; Flow Map&#x27;,url:&#x27;—&#x27;,states:{empty:&#x27;N/A&#x27;,loading:&#x27;N/A&#x27;,error:&#x27;N/A&#x27;},
+ render(st){
+  if(st!==&#x27;populated&#x27;) return `&lt;div style=&quot;padding:60px;text-align:center;color:var(--muted)&quot;&gt;This is a planning page, not a product screen. It has no states.&lt;/div&gt;`;
+  const F=[
+   [&#x27;F1&#x27;,&#x27;Email Templates list&#x27;,&#x27;See all 53 emails, who gets them, when they\u2019re sent, and their status.&#x27;,&#x27;New&#x27;],
+   [&#x27;F2&#x27;,&#x27;Content editor&#x27;,&#x27;Edit subject, preheader and body in EN and NL. Insert variables. Live preview.&#x27;,&#x27;New&#x27;],
+   [&#x27;F3&#x27;,&#x27;Test, publish &amp; history&#x27;,&#x27;Send a test to yourself. Publish with a confirm step. Restore older versions.&#x27;,&#x27;New&#x27;],
+   [&#x27;F4&#x27;,&#x27;Player Welcome email&#x27;,&#x27;A separate welcome for players that lists what they can do on SWP.&#x27;,&#x27;New template&#x27;],
+   [&#x27;F5&#x27;,&#x27;Notifications Waiting email&#x27;,&#x27;Email a player when they have more than 5 unread notifications.&#x27;,&#x27;New template + job&#x27;],
+   [&#x27;F6&#x27;,&#x27;Sending rules&#x27;,&#x27;Admin sets the threshold, check time and how often the digest can repeat.&#x27;,&#x27;New&#x27;],
+   [&#x27;F7&#x27;,&#x27;Permission&#x27;,&#x27;New &quot;Email Templates&quot; row in Roles and Permissions: View / Edit / Publish.&#x27;,&#x27;Change&#x27;],
+   [&#x27;F8&#x27;,&#x27;Locked layout&#x27;,&#x27;SWP header, footer and legal links stay fixed. Admins can\u2019t break the layout.&#x27;,&#x27;Rule&#x27;],
+  ];
+  const box=(n,t,go,cls=&#x27;&#x27;)=&gt;`&lt;div class=&quot;box ${cls}&quot; ${go?`onclick=&quot;goTo(&#x27;${go}&#x27;)&quot;`:&#x27;&#x27;}&gt;&lt;b&gt;${n}&lt;/b&gt;${t}&lt;/div&gt;`;
+  const A=`&lt;div class=&quot;arr&quot;&gt;→&lt;/div&gt;`;
+  return `&lt;div style=&quot;background:var(--canvas);padding:28px;min-height:820px&quot;&gt;
+   &lt;div class=&quot;ph&quot;&gt;&lt;div&gt;&lt;h3&gt;What We\u2019re Building&lt;/h3&gt;&lt;p&gt;8 features · 11 screens · Release 1&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+   &lt;div class=&quot;fcards&quot;&gt;${F.map(([id,t,d,tag])=&gt;`&lt;div class=&quot;fc&quot;&gt;&lt;div class=&quot;fh&quot;&gt;&lt;b&gt;${id} · ${t}&lt;/b&gt;${pill(tag,tag===&#x27;Change&#x27;||tag===&#x27;Rule&#x27;?&#x27;off&#x27;:&#x27;new&#x27;)}&lt;/div&gt;&lt;p&gt;${d}&lt;/p&gt;&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+   &lt;div class=&quot;card&quot; style=&quot;padding:20px&quot;&gt;&lt;div class=&quot;flowmap&quot;&gt;
+    &lt;div class=&quot;lane&quot;&gt;&lt;h4&gt;Flow A · Admin edits a template&lt;/h4&gt;&lt;div class=&quot;lanerow&quot;&gt;
+     ${box(&#x27;Step 1&#x27;,&#x27;System › Email Templates&#x27;,&#x27;list&#x27;)}${A}${box(&#x27;Step 2&#x27;,&#x27;Open a template&#x27;,&#x27;detail&#x27;)}${A}${box(&#x27;Step 3&#x27;,&#x27;Edit content (EN / NL)&#x27;,&#x27;edit&#x27;)}${A}${box(&#x27;Step 4&#x27;,&#x27;Insert variable&#x27;,&#x27;variables&#x27;)}${A}${box(&#x27;Step 5&#x27;,&#x27;Send test email&#x27;,&#x27;test&#x27;)}${A}${box(&#x27;Step 6&#x27;,&#x27;Publish&#x27;,&#x27;publish&#x27;)}${A}${box(&#x27;Step 7&#x27;,&#x27;Version history / restore&#x27;,&#x27;history&#x27;)}
+    &lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;lane&quot;&gt;&lt;h4&gt;Flow B · Admin sets the digest rule&lt;/h4&gt;&lt;div class=&quot;lanerow&quot;&gt;
+     ${box(&#x27;Step 2&#x27;,&#x27;Open &quot;Notifications Waiting&quot;&#x27;,&#x27;detail&#x27;)}${A}${box(&#x27;Step 8&#x27;,&#x27;Sending rules&#x27;,&#x27;rules&#x27;)}${A}${box(&#x27;Step 3&#x27;,&#x27;Edit its content&#x27;,&#x27;edit&#x27;)}${A}${box(&#x27;Step 6&#x27;,&#x27;Publish&#x27;,&#x27;publish&#x27;)}
+    &lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;lane&quot;&gt;&lt;h4&gt;Flow C · Super admin gives access&lt;/h4&gt;&lt;div class=&quot;lanerow&quot;&gt;
+     ${box(&#x27;Step 9&#x27;,&#x27;Roles and Permissions › Email Templates row&#x27;,&#x27;perms&#x27;)}
+    &lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;lane&quot;&gt;&lt;h4&gt;Flow D · System sends the digest (no screen)&lt;/h4&gt;&lt;div class=&quot;lanerow&quot;&gt;
+     ${box(&#x27;Job&#x27;,&#x27;Runs daily at 09:00 (Amsterdam)&#x27;,&#x27;&#x27;, &#x27;sys&#x27;)}${A}${box(&#x27;Check&#x27;,&#x27;Unread notifications &amp;gt; 5?&#x27;,&#x27;&#x27;, &#x27;dec&#x27;)}${A}${box(&#x27;Check&#x27;,&#x27;No digest sent in last 7 days?&#x27;,&#x27;&#x27;, &#x27;dec&#x27;)}${A}${box(&#x27;Check&#x27;,&#x27;Player hasn’t turned this email off?&#x27;,&#x27;&#x27;, &#x27;dec&#x27;)}${A}${box(&#x27;Send&#x27;,&#x27;&quot;Notifications Waiting&quot; email&#x27;,&#x27;mail_digest&#x27;)}${A}${box(&#x27;Log&#x27;,&#x27;Save sent time for cooldown&#x27;,&#x27;&#x27;, &#x27;sys&#x27;)}
+    &lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;lane&quot;&gt;&lt;h4&gt;Flow E · What the player receives&lt;/h4&gt;&lt;div class=&quot;lanerow&quot;&gt;
+     ${box(&#x27;Step 10&#x27;,&#x27;Welcome — Player email&#x27;,&#x27;mail_welcome&#x27;)}${box(&#x27;Step 11&#x27;,&#x27;Notifications Waiting email&#x27;,&#x27;mail_digest&#x27;)}
+    &lt;/div&gt;&lt;/div&gt;
+   &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`;
+ },
+ notes:{
+  what:`One page that shows every feature in scope and how the screens connect. Click any box to jump to that screen.`,
+  rules:[`&lt;b&gt;Content only:&lt;/b&gt; admins change text, not layout. The SWP header, footer, logo, colors and legal links are locked (F8).`,`Every email exists in &lt;b&gt;English and Dutch&lt;/b&gt;, like today. A template can\u2019t be published if either language is missing.`,`The editor reuses the &lt;b&gt;Terms &amp;amp; Policies&lt;/b&gt; editor (react-draft-wysiwyg) and its side-by-side preview, so it looks familiar to admins and is cheaper to build.`],
+  pending:[`&lt;b&gt;Content only vs layout:&lt;/b&gt; assumed content only. Confirm with the client.`,`&lt;b&gt;Menu placement:&lt;/b&gt; System › Email Templates (shown) or Marketing?`],
+  dev:[`Today all 53 templates are &lt;code&gt;.hbs&lt;/code&gt; files in &lt;code&gt;notification-service/assets/templates/{en,du,admin}&lt;/code&gt;, and subjects are hard-coded in &lt;code&gt;mailSubject.js&lt;/code&gt;. Both need to move to the database, with the files kept as the &quot;system default&quot; version.`]
+ }};
+
+S.list={grp:&#x27;Flow A&#x27;,t:&#x27;Email Templates List&#x27;,url:&#x27;test.admin.shallwe-play.com/email-templates/&#x27;,
+ variants:[&#x27;All&#x27;,&#x27;Filtered: Player&#x27;,&#x27;Search: no results&#x27;],
+ render(st,v=&#x27;All&#x27;){
+  const head=`&lt;div class=&quot;ph&quot;&gt;&lt;div&gt;&lt;h3&gt;Email Templates&lt;/h3&gt;&lt;p&gt;Manage the emails ShallWe-Play sends to players, clubs, coaches and admins&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;`;
+  const kpis=st===&#x27;loading&#x27;?`&lt;div class=&quot;kpis&quot;&gt;${[1,2,3,4].map(()=&gt;`&lt;div class=&quot;card kpi&quot;&gt;&lt;div class=&quot;sk&quot; style=&quot;width:40px;height:40px&quot;&gt;&lt;/div&gt;&lt;div style=&quot;flex:1&quot;&gt;${sk(&#x27;60%&#x27;)}${sk(&#x27;30%&#x27;,20,6)}&lt;/div&gt;&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`:
+   `&lt;div class=&quot;kpis&quot;&gt;${[[&#x27;mail-outline&#x27;,&#x27;Total Templates&#x27;,&#x27;53&#x27;],[&#x27;create-outline&#x27;,&#x27;Edited by Admin&#x27;,&#x27;4&#x27;],[&#x27;document-text-outline&#x27;,&#x27;Unpublished Drafts&#x27;,&#x27;1&#x27;],[&#x27;language-outline&#x27;,&#x27;Missing Dutch&#x27;,&#x27;1&#x27;]].map(([i,l,n])=&gt;`&lt;div class=&quot;card kpi&quot;&gt;&lt;div class=&quot;ki&quot;&gt;${ic(i)}&lt;/div&gt;&lt;div&gt;&lt;div class=&quot;kl&quot;&gt;${l}&lt;/div&gt;&lt;div class=&quot;kv&quot;&gt;${n}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+  const filt=(q)=&gt;`&lt;div class=&quot;filters&quot;&gt;&lt;div class=&quot;srch&quot;&gt;${ic(&#x27;search&#x27;,16)}&lt;span ${q?&#x27;style=&quot;color:var(--ink)&quot;&#x27;:&#x27;&#x27;}&gt;${q||&#x27;Search by name or key&#x27;}&lt;/span&gt;&lt;/div&gt;
+   &lt;div class=&quot;sel&quot;&gt;&lt;label&gt;Category&lt;/label&gt;All Categories ${ic(&#x27;chevron-down&#x27;,14)}&lt;/div&gt;
+   &lt;div class=&quot;sel&quot;&gt;&lt;label&gt;Recipient&lt;/label&gt;${v===&#x27;Filtered: Player&#x27;?&#x27;Player&#x27;:&#x27;All Recipients&#x27;} ${ic(&#x27;chevron-down&#x27;,14)}&lt;/div&gt;
+   &lt;div class=&quot;sel&quot;&gt;&lt;label&gt;Status&lt;/label&gt;All Status ${ic(&#x27;chevron-down&#x27;,14)}&lt;/div&gt;&lt;/div&gt;`;
+  if(st===&#x27;error&#x27;) return shell(head+kpis+`&lt;div class=&quot;card&quot;&gt;${filt()}${errBox()}&lt;/div&gt;`);
+  if(st===&#x27;loading&#x27;) return shell(head+kpis+`&lt;div class=&quot;card&quot;&gt;${filt()}&lt;table&gt;&lt;tr&gt;&lt;th&gt;Template&lt;/th&gt;&lt;th&gt;Category&lt;/th&gt;&lt;th&gt;Recipient&lt;/th&gt;&lt;th&gt;Sent When&lt;/th&gt;&lt;th&gt;Languages&lt;/th&gt;&lt;th&gt;Status&lt;/th&gt;&lt;th&gt;Last Edited&lt;/th&gt;&lt;th&gt;Actions&lt;/th&gt;&lt;/tr&gt;${[1,2,3,4,5,6].map(()=&gt;`&lt;tr&gt;${[70,40,40,80,30,35,50,20].map(w=&gt;`&lt;td&gt;${sk(w+&#x27;%&#x27;)}&lt;/td&gt;`).join(&#x27;&#x27;)}&lt;/tr&gt;`).join(&#x27;&#x27;)}&lt;/table&gt;&lt;/div&gt;`);
+  if(st===&#x27;empty&#x27;||v===&#x27;Search: no results&#x27;) return shell(head+kpis+`&lt;div class=&quot;card&quot;&gt;${filt(&#x27;refnd&#x27;)}${emptyBox(&#x27;search-outline&#x27;,&#x27;No Templates Found&#x27;,&#x27;No template matches \u201crefnd\u201d. Check the spelling or clear the filters.&#x27;,`&lt;button class=&quot;btn n&quot;&gt;Clear Filters&lt;/button&gt;`)}&lt;/div&gt;`);
+  let rows=TPL; if(v===&#x27;Filtered: Player&#x27;) rows=TPL.filter(r=&gt;r.to===&#x27;Player&#x27;);
+  return shell(head+kpis+`&lt;div class=&quot;card&quot;&gt;${filt()}&lt;table&gt;
+   &lt;tr&gt;&lt;th&gt;Template&lt;/th&gt;&lt;th&gt;Category&lt;/th&gt;&lt;th&gt;Recipient&lt;/th&gt;&lt;th&gt;Sent When&lt;/th&gt;&lt;th&gt;Languages&lt;/th&gt;&lt;th&gt;Status&lt;/th&gt;&lt;th&gt;Last Edited&lt;/th&gt;&lt;th&gt;Actions&lt;/th&gt;&lt;/tr&gt;
+   ${rows.map(r=&gt;`&lt;tr class=&quot;${r.hl?&#x27;hl&#x27;:&#x27;&#x27;}&quot; style=&quot;cursor:pointer&quot; onclick=&quot;goTo(&#x27;detail&#x27;)&quot;&gt;&lt;td&gt;&lt;div class=&quot;tn&quot;&gt;${r.n}${r.lock?ic(&#x27;lock-closed&#x27;,13,&#x27;color:#9AA5B1&#x27;):&#x27;&#x27;}&lt;/div&gt;&lt;div class=&quot;tk&quot;&gt;${r.k}&lt;/div&gt;&lt;/td&gt;&lt;td&gt;${r.cat}&lt;/td&gt;&lt;td&gt;${r.to}&lt;/td&gt;&lt;td style=&quot;max-width:200px&quot;&gt;${r.trg}&lt;/td&gt;&lt;td&gt;&lt;span class=&quot;lang&quot;&gt;&lt;span&gt;EN&lt;/span&gt;&lt;span class=&quot;${r.nl?&#x27;&#x27;:&#x27;miss&#x27;}&quot;&gt;NL&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;&lt;td&gt;${pill(...r.st)}&lt;/td&gt;&lt;td style=&quot;font-size:13px&quot;&gt;${r.ed}&lt;/td&gt;&lt;td&gt;&lt;span class=&quot;act&quot;&gt;${ic(&#x27;eye-outline&#x27;)}&lt;/span&gt;&lt;span class=&quot;act&quot; style=&quot;color:var(--primary)&quot;&gt;${ic(&#x27;create-outline&#x27;)}&lt;/span&gt;&lt;/td&gt;&lt;/tr&gt;`).join(&#x27;&#x27;)}
+   &lt;/table&gt;&lt;div class=&quot;pager&quot;&gt;&lt;span&gt;Rows per page &lt;b&gt;10&lt;/b&gt; · Showing 1 to ${rows.length} of ${v===&#x27;Filtered: Player&#x27;?rows.length:55} entries&lt;/span&gt;&lt;div class=&quot;pg&quot;&gt;&lt;span&gt;${ic(&#x27;chevron-back&#x27;)}&lt;/span&gt;&lt;span class=&quot;on&quot;&gt;1&lt;/span&gt;&lt;span&gt;2&lt;/span&gt;&lt;span&gt;…&lt;/span&gt;&lt;span&gt;6&lt;/span&gt;&lt;span&gt;${ic(&#x27;chevron-forward&#x27;)}&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`);
+ },
+ notes:{
+  what:`Entry point. Every email SWP sends, in one table. Click a row to open it.`,
+  rules:[`Columns: Template (name + system key), Category, Recipient, Sent When (plain-English trigger), Languages, Status, Last Edited, Actions.`,`&lt;b&gt;Status:&lt;/b&gt; Active (green) · Draft changes (amber: a newer version is saved but not live) · Inactive (grey) · New (blue, never published).`,`&lt;b&gt;NL&lt;/b&gt; shows red when the Dutch version is missing.`,`🔒 = security email (OTP, Forgot Password, Invite Admin). Admins can edit the text but can\u2019t switch it off.`,`Filters: Category, Recipient, Status. Search matches name and key. Same controls as Terms &amp;amp; Policies.`,`No &quot;Add Template&quot; button. Templates are tied to code triggers, so only developers add new ones.`],
+  pending:[`Should admin-only system emails (error alerts, payout failed) be hidden from this list? Recommended: show them, read-only.`],
+  dev:[`Category and &quot;Sent When&quot; don\u2019t exist in code today. Add them as template metadata.`,`Clean up 3 unused templates (&lt;code&gt;rating-review&lt;/code&gt;, &lt;code&gt;payout-transaction&lt;/code&gt;, &lt;code&gt;invitation-accepted&lt;/code&gt;) and 2 subjects with no template (&lt;code&gt;CLUB_BOOKING_CONFIRM&lt;/code&gt;, &lt;code&gt;CLUB_BOOKING_FAILED&lt;/code&gt;) before go-live.`]
+ }};
+
+S.detail={grp:&#x27;Flow A&#x27;,t:&#x27;Template Details&#x27;,url:&#x27;test.admin.shallwe-play.com/email-templates/user-welcome-player/&#x27;,
+ variants:[&#x27;Welcome — Player&#x27;,&#x27;Notifications Waiting&#x27;],
+ states:{empty:&#x27;N/A&#x27;},
+ render(st,v=&#x27;Welcome — Player&#x27;){
+  const dg=v===&#x27;Notifications Waiting&#x27;;
+  const crumb=`&lt;div class=&quot;crumb&quot;&gt;${ic(&#x27;chevron-back&#x27;,16)} Email Templates / &lt;b&gt;${v}&lt;/b&gt;&lt;/div&gt;`;
+  if(st===&#x27;empty&#x27;) return shell(crumb+`&lt;div class=&quot;card&quot;&gt;${emptyBox(&#x27;information-circle-outline&#x27;,&#x27;Not Applicable&#x27;,&#x27;A template always has a default version, so this page is never empty.&#x27;)}&lt;/div&gt;`);
+  if(st===&#x27;loading&#x27;) return shell(crumb+`&lt;div class=&quot;grid2&quot;&gt;&lt;div class=&quot;card cb&quot;&gt;${sk(&#x27;40%&#x27;,18)}${[1,2,3,4,5].map(()=&gt;sk(&#x27;90%&#x27;,14,14)).join(&#x27;&#x27;)}&lt;/div&gt;&lt;div class=&quot;card cb&quot;&gt;${sk(&#x27;100%&#x27;,360)}&lt;/div&gt;&lt;/div&gt;`);
+  if(st===&#x27;error&#x27;) return shell(crumb+`&lt;div class=&quot;card&quot;&gt;${emptyBox(&#x27;alert-circle-outline&#x27;,&#x27;Template Not Found&#x27;,&#x27;This template may have been removed or the link is wrong.&#x27;,`&lt;button class=&quot;btn n&quot;&gt;Back to Email Templates&lt;/button&gt;`,true)}&lt;/div&gt;`);
+  const info=dg
+   ? [[&#x27;System key&#x27;,&#x27;&lt;code&gt;notifications-waiting&lt;/code&gt;&#x27;],[&#x27;Recipient&#x27;,&#x27;Player&#x27;],[&#x27;Sent when&#x27;,&#x27;Unread notifications &amp;gt; 5, checked daily&#x27;],[&#x27;Category&#x27;,&#x27;Engagement&#x27;],[&#x27;Languages&#x27;,&#x27;&lt;span class=&quot;lang&quot;&gt;&lt;span&gt;EN&lt;/span&gt;&lt;span&gt;NL&lt;/span&gt;&lt;/span&gt;&#x27;],[&#x27;Status&#x27;,pill(&#x27;New&#x27;,&#x27;new&#x27;)],[&#x27;Live version&#x27;,&#x27;None yet&#x27;],[&#x27;Can be turned off&#x27;,&#x27;Yes&#x27;]]
+   : [[&#x27;System key&#x27;,&#x27;&lt;code&gt;user-welcome-player&lt;/code&gt;&#x27;],[&#x27;Recipient&#x27;,&#x27;Player&#x27;],[&#x27;Sent when&#x27;,&#x27;Player finishes sign-up (PlayerService)&#x27;],[&#x27;Category&#x27;,&#x27;Account&#x27;],[&#x27;Languages&#x27;,&#x27;&lt;span class=&quot;lang&quot;&gt;&lt;span&gt;EN&lt;/span&gt;&lt;span&gt;NL&lt;/span&gt;&lt;/span&gt;&#x27;],[&#x27;Status&#x27;,pill(&#x27;New&#x27;,&#x27;new&#x27;)],[&#x27;Live version&#x27;,&#x27;None yet (players get the shared welcome today)&#x27;],[&#x27;Can be turned off&#x27;,&#x27;No · every new player gets it&#x27;]];
+  return shell(crumb+`&lt;div class=&quot;grid2&quot; style=&quot;grid-template-columns:1fr 1.15fr&quot;&gt;
+   &lt;div style=&quot;display:flex;flex-direction:column;gap:16px&quot;&gt;
+    &lt;div class=&quot;card&quot;&gt;&lt;div class=&quot;ch&quot;&gt;Template Information&lt;span class=&quot;act&quot;&gt;${ic(&#x27;ellipsis-vertical&#x27;)}&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;cb&quot;&gt;&lt;dl class=&quot;kv&quot;&gt;${info.map(([a,b])=&gt;`&lt;dt&gt;${a}&lt;/dt&gt;&lt;dd&gt;${b}&lt;/dd&gt;`).join(&#x27;&#x27;)}&lt;/dl&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;card&quot;&gt;&lt;div class=&quot;ch&quot;&gt;Available Variables&lt;/div&gt;&lt;div class=&quot;cb&quot; style=&quot;display:flex;flex-wrap:wrap;gap:6px&quot;&gt;${(dg?[&#x27;firstName&#x27;,&#x27;unreadCount&#x27;,&#x27;notificationList&#x27;,&#x27;notificationsLink&#x27;]:[&#x27;firstName&#x27;,&#x27;appLink&#x27;,&#x27;supportEmail&#x27;]).map(x=&gt;V(x)).join(&#x27;&#x27;)}&lt;/div&gt;&lt;/div&gt;
+    ${dg?`&lt;div class=&quot;card&quot;&gt;&lt;div class=&quot;ch&quot;&gt;Sending Rules&lt;button class=&quot;btn t sm&quot; onclick=&quot;goTo(&#x27;rules&#x27;)&quot;&gt;Edit Rules&lt;/button&gt;&lt;/div&gt;&lt;div class=&quot;cb&quot; style=&quot;font-size:14px;line-height:1.7;color:var(--ink)&quot;&gt;More than &lt;b&gt;5&lt;/b&gt; unread · checked &lt;b&gt;daily at 09:00&lt;/b&gt; · max once every &lt;b&gt;7 days&lt;/b&gt;&lt;/div&gt;&lt;/div&gt;`:&#x27;&#x27;}
+    &lt;div style=&quot;display:flex;gap:10px&quot;&gt;&lt;button class=&quot;btn p&quot; onclick=&quot;goTo(&#x27;edit&#x27;)&quot;&gt;${ic(&#x27;create-outline&#x27;,16)} Edit Content&lt;/button&gt;&lt;button class=&quot;btn n&quot; onclick=&quot;goTo(&#x27;history&#x27;)&quot;&gt;${ic(&#x27;time-outline&#x27;,16)} Version History&lt;/button&gt;&lt;/div&gt;
+   &lt;/div&gt;
+   &lt;div class=&quot;card&quot;&gt;&lt;div class=&quot;ch&quot;&gt;Current Preview&lt;span style=&quot;font-size:13px;font-weight:500;color:var(--muted)&quot;&gt;English · sample data&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;cb&quot;&gt;${dg?mailDigest(&#x27;sm&#x27;):mailWelcome(&#x27;sm&#x27;)}&lt;/div&gt;&lt;/div&gt;
+  &lt;/div&gt;`);
+ },
+ notes:{
+  what:`Read-only overview of one template: what it\u2019s for, when it\u2019s sent, and what it looks like now.`,
+  rules:[`Left: facts and variables. Right: live preview with sample data.`,`Card headers use the ice-blue 50px strip from the wireframe rules.`,`&quot;Edit Content&quot; goes to the editor. &quot;Version History&quot; opens the drawer.`,`For Notifications Waiting, a &quot;Sending Rules&quot; card links to the rules screen (Flow B).`],
+  pending:[],
+  dev:[`Today one &lt;code&gt;user-welcome&lt;/code&gt; template goes to players, clubs, coaches and business owners. Only the &lt;code&gt;welcomeMessage&lt;/code&gt; line changes, and that line is English-only. Split it into &lt;b&gt;user-welcome-player&lt;/b&gt; + the existing partner template.`,`The welcome payload has no name today. Add &lt;code&gt;firstName&lt;/code&gt;.`]
+ }};
+
+function mailWelcome(size, lang=&#x27;EN&#x27;){
+  const w=size===&#x27;sm&#x27;?&#x27;100%&#x27;:size===&#x27;mobile&#x27;?&#x27;360px&#x27;:&#x27;560px&#x27;;
+  const nl=lang===&#x27;NL&#x27;;
+  const feats=nl?[[&#x27;tennisball-outline&#x27;,&#x27;Boek een baan&#x27;,&#x27;Vind clubs bij jou in de buurt en boek in een paar tikken.&#x27;],[&#x27;people-outline&#x27;,&#x27;Speel een Open SWP&#x27;,&#x27;Maak een potje aan of doe mee met spelers op jouw niveau.&#x27;],[&#x27;card-outline&#x27;,&#x27;Word lid van een club&#x27;,&#x27;Koop lidmaatschappen direct in de app.&#x27;],[&#x27;qr-code-outline&#x27;,&#x27;Inchecken met QR&#x27;,&#x27;Scan de code op de baan om in te checken.&#x27;],[&#x27;images-outline&#x27;,&#x27;Volg spelers&#x27;,&#x27;Deel foto\u2019s en video\u2019s van je wedstrijden.&#x27;]]
+   :[[&#x27;tennisball-outline&#x27;,&#x27;Book a court&#x27;,&#x27;Find clubs near you and book in a few taps.&#x27;],[&#x27;people-outline&#x27;,&#x27;Play an Open SWP&#x27;,&#x27;Create a game or join players at your level.&#x27;],[&#x27;card-outline&#x27;,&#x27;Join a club&#x27;,&#x27;Buy club memberships right in the app.&#x27;],[&#x27;qr-code-outline&#x27;,&#x27;Check in with QR&#x27;,&#x27;Scan the code at the court to check in.&#x27;],[&#x27;images-outline&#x27;,&#x27;Follow players&#x27;,&#x27;Share photos and videos from your games.&#x27;]];
+  return `&lt;div class=&quot;mail&quot; style=&quot;max-width:${w}&quot;&gt;&lt;div class=&quot;mh&quot;&gt;${SWPLOGO}&lt;div style=&quot;font-weight:700;font-size:15px;color:var(--ink);margin-top:2px&quot;&gt;ShallWe-Play&lt;/div&gt;&lt;span class=&quot;lockico&quot;&gt;${ic(&#x27;lock-closed&#x27;)}&lt;/span&gt;&lt;/div&gt;
+   &lt;div class=&quot;mb&quot;&gt;&lt;h2&gt;${nl?&#x27;Welkom bij ShallWe-Play, Alex!&#x27;:&#x27;Welcome to ShallWe-Play, Alex!&#x27;}&lt;/h2&gt;
+   &lt;p&gt;${nl?&#x27;Je account is klaar. Dit kun je nu doen:&#x27;:&#x27;Your account is ready. Here\u2019s what you can do:&#x27;}&lt;/p&gt;
+   &lt;div style=&quot;margin:8px 0&quot;&gt;${feats.map(([i,b,s])=&gt;`&lt;div class=&quot;feat&quot;&gt;&lt;div class=&quot;fi&quot;&gt;${ic(i)}&lt;/div&gt;&lt;div&gt;&lt;b&gt;${b}&lt;/b&gt;&lt;span&gt;${s}&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+   &lt;div style=&quot;text-align:center&quot;&gt;&lt;span class=&quot;mcta&quot;&gt;${nl?&#x27;Open de app&#x27;:&#x27;Open the App&#x27;}&lt;/span&gt;&lt;/div&gt;
+   &lt;p style=&quot;font-size:13px;color:var(--muted);margin-top:8px&quot;&gt;${nl?&#x27;Vragen? Mail ons op&#x27;:&#x27;Questions? Email us at&#x27;} support@shallweplay.nl&lt;/p&gt;&lt;/div&gt;
+   &lt;div class=&quot;mf&quot;&gt;&lt;span class=&quot;lockico&quot;&gt;${ic(&#x27;lock-closed&#x27;)}&lt;/span&gt;© 2026 ShallWe-Play · Privacy Policy · Terms &amp;amp; Conditions&lt;/div&gt;&lt;/div&gt;`;
+}
+function mailDigest(size){
+  const w=size===&#x27;sm&#x27;?&#x27;100%&#x27;:size===&#x27;mobile&#x27;?&#x27;360px&#x27;:&#x27;560px&#x27;;
+  return `&lt;div class=&quot;mail&quot; style=&quot;max-width:${w}&quot;&gt;&lt;div class=&quot;mh&quot;&gt;${SWPLOGO}&lt;div style=&quot;font-weight:700;font-size:15px;color:var(--ink);margin-top:2px&quot;&gt;ShallWe-Play&lt;/div&gt;&lt;span class=&quot;lockico&quot;&gt;${ic(&#x27;lock-closed&#x27;)}&lt;/span&gt;&lt;/div&gt;
+   &lt;div class=&quot;mb&quot;&gt;&lt;h2&gt;You have 7 notifications waiting&lt;/h2&gt;&lt;p&gt;Hi Alex, here\u2019s what you missed on ShallWe-Play:&lt;/p&gt;
+   &lt;div style=&quot;margin:8px 0&quot;&gt;
+    &lt;div class=&quot;nrow&quot;&gt;&lt;div class=&quot;ni&quot;&gt;${ic(&#x27;people-outline&#x27;)}&lt;/div&gt;&lt;div&gt;&lt;b&gt;Sander Kok wants to join your SWP&lt;/b&gt;&lt;span&gt;Friday Night Padel · 2 days ago&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;nrow&quot;&gt;&lt;div class=&quot;ni&quot;&gt;${ic(&#x27;calendar-outline&#x27;)}&lt;/div&gt;&lt;div&gt;&lt;b&gt;Booking confirmed&lt;/b&gt;&lt;span&gt;Court 4 · Fri 27 Nov, 18:00 · 3 days ago&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;nrow&quot;&gt;&lt;div class=&quot;ni&quot;&gt;${ic(&#x27;heart-outline&#x27;)}&lt;/div&gt;&lt;div&gt;&lt;b&gt;Emma de Vries liked your post&lt;/b&gt;&lt;span&gt;4 days ago&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;div style=&quot;font-size:13px;color:var(--muted);padding-top:8px&quot;&gt;+ 4 more&lt;/div&gt;&lt;/div&gt;
+   &lt;div style=&quot;text-align:center&quot;&gt;&lt;span class=&quot;mcta&quot;&gt;View Notifications&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+   &lt;div class=&quot;mf&quot;&gt;&lt;span class=&quot;lockico&quot;&gt;${ic(&#x27;lock-closed&#x27;)}&lt;/span&gt;You get this email because you have unread notifications.&lt;br&gt;&lt;u&gt;Turn off these emails&lt;/u&gt; · © 2026 ShallWe-Play · Privacy Policy&lt;/div&gt;&lt;/div&gt;`;
+}
+
+S.edit={grp:&#x27;Flow A&#x27;,t:&#x27;Edit Content&#x27;,url:&#x27;test.admin.shallwe-play.com/email-templates/user-welcome-player/edit/&#x27;,
+ variants:[&#x27;English&#x27;,&#x27;Dutch&#x27;,&#x27;Mobile Preview&#x27;],
+ states:{empty:&#x27;Empty Body&#x27;,error:&#x27;Validation&#x27;},
+ render(st,v=&#x27;English&#x27;){
+  const nl=v===&#x27;Dutch&#x27;, mob=v===&#x27;Mobile Preview&#x27;;
+  const crumb=`&lt;div class=&quot;crumb&quot;&gt;${ic(&#x27;chevron-back&#x27;,16)} Email Templates / Welcome — Player / &lt;b&gt;Edit Content&lt;/b&gt;&lt;/div&gt;`;
+  if(st===&#x27;loading&#x27;) return shell(crumb+`&lt;div class=&quot;card&quot; style=&quot;padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:24px&quot;&gt;${&#x27;&lt;div&gt;&#x27;+sk(&#x27;40%&#x27;,20)+sk(&#x27;100%&#x27;,52,18)+sk(&#x27;100%&#x27;,52,14)+sk(&#x27;100%&#x27;,320,14)+&#x27;&lt;/div&gt;&#x27;}${&#x27;&lt;div&gt;&#x27;+sk(&#x27;100%&#x27;,520)+&#x27;&lt;/div&gt;&#x27;}&lt;/div&gt;`);
+  const bad=st===&#x27;error&#x27;, emp=st===&#x27;empty&#x27;;
+  const subj = emp? &#x27;&#x27; : nl? &#x27;Welkom bij ShallWe-Play, &#x27;+V(&#x27;firstName&#x27;)+&#x27;!&#x27; : bad? &#x27;&#x27; : &#x27;Welcome to ShallWe-Play, &#x27;+V(&#x27;firstName&#x27;)+&#x27;!&#x27;;
+  const body = emp ? `&lt;span class=&quot;ph-t&quot;&gt;Write the email here. Use Insert Variable to add personal details like the player\u2019s name.&lt;/span&gt;` :
+   `&lt;b&gt;${nl?&#x27;Welkom bij ShallWe-Play&#x27;:&#x27;Welcome to ShallWe-Play&#x27;}, ${bad?V(&#x27;fristName&#x27;,1):V(&#x27;firstName&#x27;)}!&lt;/b&gt;&lt;br&gt;${nl?&#x27;Je account is klaar. Dit kun je nu doen:&#x27;:&#x27;Your account is ready. Here\u2019s what you can do:&#x27;}
+   &lt;ul&gt;&lt;li&gt;&lt;b&gt;${nl?&#x27;Boek een baan&#x27;:&#x27;Book a court&#x27;}&lt;/b&gt; – ${nl?&#x27;vind clubs bij jou in de buurt.&#x27;:&#x27;find clubs near you and book in a few taps.&#x27;}&lt;/li&gt;&lt;li&gt;&lt;b&gt;${nl?&#x27;Speel een Open SWP&#x27;:&#x27;Play an Open SWP&#x27;}&lt;/b&gt; – ${nl?&#x27;maak een potje aan of doe mee.&#x27;:&#x27;create a game or join players at your level.&#x27;}&lt;/li&gt;&lt;li&gt;&lt;b&gt;${nl?&#x27;Word lid van een club&#x27;:&#x27;Join a club&#x27;}&lt;/b&gt; – ${nl?&#x27;koop lidmaatschappen in de app.&#x27;:&#x27;buy club memberships right in the app.&#x27;}&lt;/li&gt;&lt;li&gt;&lt;b&gt;${nl?&#x27;Inchecken met QR&#x27;:&#x27;Check in with QR&#x27;}&lt;/b&gt; – ${nl?&#x27;scan de code op de baan.&#x27;:&#x27;scan the code at the court.&#x27;}&lt;/li&gt;&lt;li&gt;&lt;b&gt;${nl?&#x27;Volg spelers&#x27;:&#x27;Follow players&#x27;}&lt;/b&gt; – ${nl?&#x27;deel foto\u2019s en video\u2019s.&#x27;:&#x27;share photos and videos from your games.&#x27;}&lt;/li&gt;&lt;/ul&gt;
+   [${nl?&#x27;Knop&#x27;:&#x27;Button&#x27;}: ${nl?&#x27;Open de app&#x27;:&#x27;Open the App&#x27;} → ${V(&#x27;appLink&#x27;)}]&lt;br&gt;${nl?&#x27;Vragen? Mail ons op&#x27;:&#x27;Questions? Email us at&#x27;} ${V(&#x27;supportEmail&#x27;)}`;
+  const left=`&lt;div&gt;
+   &lt;div class=&quot;tabsx&quot;&gt;&lt;button class=&quot;${!nl?&#x27;on&#x27;:&#x27;&#x27;}&quot;&gt;English&lt;/button&gt;&lt;button class=&quot;${nl?&#x27;on&#x27;:&#x27;&#x27;}&quot;&gt;Dutch${bad?&#x27;&lt;span class=&quot;dot&quot;&gt;&lt;/span&gt;&#x27;:&#x27;&#x27;}&lt;/button&gt;&lt;/div&gt;
+   &lt;div class=&quot;notch ${bad?&#x27;bad&#x27;:&#x27;foc&#x27;}&quot;&gt;&lt;label&gt;Subject *&lt;/label&gt;${subj||&#x27;&lt;span class=&quot;ph-t&quot;&gt;Enter subject line&lt;/span&gt;&#x27;}&lt;/div&gt;
+   &lt;div class=&quot;hint ${bad?&#x27;bad&#x27;:&#x27;&#x27;}&quot;&gt;&lt;span&gt;${bad?&#x27;Subject is required.&#x27;:&#x27;Shown in the inbox. Keep it under 60 characters.&#x27;}&lt;/span&gt;&lt;span&gt;${bad?&#x27;0&#x27;:&#x27;34&#x27;}/100&lt;/span&gt;&lt;/div&gt;
+   &lt;div class=&quot;notch&quot;&gt;&lt;label&gt;Preheader (optional)&lt;/label&gt;${nl?&#x27;Boek banen, speel mee en word lid van clubs.&#x27;:&#x27;Book courts, join games and find clubs near you.&#x27;}&lt;/div&gt;
+   &lt;div class=&quot;hint&quot;&gt;&lt;span&gt;The grey preview text after the subject in most inboxes.&lt;/span&gt;&lt;span&gt;48/120&lt;/span&gt;&lt;/div&gt;
+   &lt;div style=&quot;font-size:13px;color:var(--muted);margin:14px 0 6px&quot;&gt;Content *&lt;/div&gt;
+   &lt;div class=&quot;lockbar&quot;&gt;${ic(&#x27;lock-closed&#x27;,14)} SWP header (logo) · locked&lt;/div&gt;
+   &lt;div class=&quot;toolbar&quot;&gt;&lt;span class=&quot;tb&quot;&gt;B&lt;/span&gt;&lt;span class=&quot;tb&quot;&gt;&lt;i&gt;I&lt;/i&gt;&lt;/span&gt;&lt;span class=&quot;tb&quot;&gt;&lt;u&gt;U&lt;/u&gt;&lt;/span&gt;&lt;span class=&quot;tb&quot;&gt;&lt;s&gt;S&lt;/s&gt;&lt;/span&gt;&lt;span class=&quot;sp&quot;&gt;&lt;/span&gt;&lt;span class=&quot;tb&quot; style=&quot;font-weight:500&quot;&gt;Normal ▾&lt;/span&gt;&lt;span class=&quot;tb&quot; style=&quot;font-weight:500&quot;&gt;14 ▾&lt;/span&gt;&lt;span class=&quot;sp&quot;&gt;&lt;/span&gt;&lt;span class=&quot;tb&quot;&gt;${ic(&#x27;list&#x27;)}&lt;/span&gt;&lt;span class=&quot;tb&quot;&gt;${ic(&#x27;link&#x27;)}&lt;/span&gt;&lt;span class=&quot;tb&quot;&gt;${ic(&#x27;arrow-undo&#x27;)}&lt;/span&gt;&lt;span class=&quot;tb&quot;&gt;${ic(&#x27;arrow-redo&#x27;)}&lt;/span&gt;&lt;span class=&quot;tb var&quot; onclick=&quot;goTo(&#x27;variables&#x27;)&quot; style=&quot;cursor:pointer&quot;&gt;${ic(&#x27;code-slash&#x27;,14)}&amp;nbsp;Insert Variable&lt;/span&gt;&lt;/div&gt;
+   &lt;div class=&quot;editor ${bad||emp?&#x27;bad&#x27;:&#x27;&#x27;}&quot;&gt;${body}&lt;/div&gt;
+   ${bad?`&lt;div class=&quot;hint bad&quot;&gt;&lt;span&gt;${ic(&#x27;alert-circle&#x27;,13)} &lt;b&gt;{{fristName}}&lt;/b&gt; isn\u2019t a variable for this email. Did you mean {{firstName}}?&lt;/span&gt;&lt;/div&gt;`:emp?`&lt;div class=&quot;hint bad&quot;&gt;&lt;span&gt;Content is required.&lt;/span&gt;&lt;/div&gt;`:&#x27;&#x27;}
+   &lt;div class=&quot;lockbar&quot;&gt;${ic(&#x27;lock-closed&#x27;,14)} SWP footer (privacy, terms, copyright) · locked&lt;/div&gt;
+   ${bad?`&lt;div style=&quot;margin-top:10px;background:var(--err-bg);color:var(--err);border-radius:6px;padding:10px 12px;font-size:13px;display:flex;gap:8px&quot;&gt;${ic(&#x27;alert-circle&#x27;,16)}&lt;span&gt;Fix 3 issues before publishing: English subject is empty · unknown variable in English body · Dutch subject is missing.&lt;/span&gt;&lt;/div&gt;`:&#x27;&#x27;}
+  &lt;/div&gt;`;
+  const right=`&lt;div&gt;&lt;div class=&quot;prevbar&quot;&gt;&lt;span style=&quot;font-size:16px;font-weight:600;color:var(--ink)&quot;&gt;Preview&lt;/span&gt;&lt;div style=&quot;display:flex;gap:8px;align-items:center&quot;&gt;&lt;div class=&quot;seg&quot; style=&quot;padding:2px&quot;&gt;&lt;button class=&quot;${mob?&#x27;&#x27;:&#x27;on&#x27;}&quot; style=&quot;padding:4px 10px&quot;&gt;${ic(&#x27;desktop-outline&#x27;,15)}&lt;/button&gt;&lt;button class=&quot;${mob?&#x27;on&#x27;:&#x27;&#x27;}&quot; style=&quot;padding:4px 10px&quot;&gt;${ic(&#x27;phone-portrait-outline&#x27;,15)}&lt;/button&gt;&lt;/div&gt;&lt;button class=&quot;btn n sm&quot; onclick=&quot;goTo(&#x27;test&#x27;)&quot;&gt;${ic(&#x27;paper-plane-outline&#x27;,14)} Send Test&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;
+   &lt;div class=&quot;prevwrap&quot;&gt;${emp?`&lt;div style=&quot;text-align:center;color:var(--muted);padding-top:200px;font-size:14px&quot;&gt;Start typing to see the preview…&lt;/div&gt;`:`&lt;div style=&quot;font-size:12px;color:var(--muted);margin-bottom:8px&quot;&gt;Subject: &lt;b style=&quot;color:var(--ink)&quot;&gt;${bad?&#x27;(empty)&#x27;:nl?&#x27;Welkom bij ShallWe-Play, Alex!&#x27;:&#x27;Welcome to ShallWe-Play, Alex!&#x27;}&lt;/b&gt; · sample data: Alex&lt;/div&gt;`+mailWelcome(mob?&#x27;mobile&#x27;:&#x27;sm&#x27;, nl?&#x27;NL&#x27;:&#x27;EN&#x27;)}&lt;/div&gt;&lt;/div&gt;`;
+  return shell(crumb+`&lt;div class=&quot;card&quot; style=&quot;padding:20px&quot;&gt;&lt;div style=&quot;display:grid;grid-template-columns:1fr 1fr;gap:24px&quot;&gt;${left}${right}&lt;/div&gt;
+   &lt;div style=&quot;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);margin-top:18px;padding-top:14px&quot;&gt;&lt;span style=&quot;font-size:13px;color:var(--muted)&quot;&gt;${ic(&#x27;time-outline&#x27;,14)} Draft saved automatically at 14:32&lt;/span&gt;&lt;div style=&quot;display:flex;gap:10px&quot;&gt;&lt;button class=&quot;btn n&quot;&gt;Cancel&lt;/button&gt;&lt;button class=&quot;btn n&quot;&gt;Save Draft&lt;/button&gt;&lt;button class=&quot;btn p ${bad||emp?&#x27;off&#x27;:&#x27;&#x27;}&quot; onclick=&quot;goTo(&#x27;publish&#x27;)&quot;&gt;Publish&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`);
+ },
+ notes:{
+  what:`The main editor. It follows the live Terms &amp;amp; Policies &quot;Add&quot; page: form on the left, live preview on the right.`,
+  rules:[`Tabs for &lt;b&gt;English / Dutch&lt;/b&gt;. A red dot means that language has an error or is missing.`,`&lt;b&gt;Subject&lt;/b&gt; is required, max 100 characters (hint suggests under 60). &lt;b&gt;Preheader&lt;/b&gt; is optional, max 120.`,`&lt;b&gt;Content&lt;/b&gt; uses the same draft-js toolbar as T&amp;amp;C, plus &lt;b&gt;Insert Variable&lt;/b&gt;. Variables show as blue chips, so admins can\u2019t half-delete them.`,`Header and footer are shown as locked bars. They can\u2019t be edited (F8).`,`Preview: desktop/mobile toggle, sample data, subject line shown on top.`,`&lt;b&gt;Validation&lt;/b&gt;: empty subject · unknown variable (with a &quot;did you mean&quot;) · missing language · required variable removed (for example &lt;code&gt;{{otp}}&lt;/code&gt; in the OTP email). Publish stays disabled until every issue is fixed.`,`Auto-save to draft. Leaving with unsaved changes shows &quot;Discard changes?&quot;.`],
+  pending:[`Can admins add images to the body? Recommended: not in release 1. The editor would need an upload step.`,`Should the Publish step need a second admin to approve it?`],
+  dev:[`Variable names are mixed today (&lt;code&gt;bookingDate&lt;/code&gt; vs &lt;code&gt;booking_date&lt;/code&gt;, &lt;code&gt;refund_amount&lt;/code&gt;). Pick one style before exposing them to admins.`,`Sanitize editor HTML before saving, so pasted content can\u2019t break the email layout.`]
+ }};
+
+S.variables={grp:&#x27;Flow A&#x27;,t:&#x27;Insert Variable&#x27;,url:&#x27;test.admin.shallwe-play.com/email-templates/user-welcome-player/edit/&#x27;,
+ states:{loading:&#x27;N/A&#x27;,error:&#x27;N/A&#x27;},
+ render(st){
+  const base=S.edit.render(&#x27;populated&#x27;,&#x27;English&#x27;);
+  if(st===&#x27;loading&#x27;||st===&#x27;error&#x27;) return base;
+  const list=st===&#x27;empty&#x27;?`&lt;div style=&quot;padding:24px 14px;text-align:center;font-size:13px;color:var(--muted)&quot;&gt;No variable matches \u201cbooking\u201d.&lt;br&gt;This email only has the variables below the search.&lt;/div&gt;`
+   :[[&#x27;firstName&#x27;,&#x27;Player\u2019s first name&#x27;,&#x27;Alex&#x27;],[&#x27;appLink&#x27;,&#x27;Link that opens the app&#x27;,&#x27;shallweplay.app/open&#x27;],[&#x27;supportEmail&#x27;,&#x27;SWP support address&#x27;,&#x27;support@shallweplay.nl&#x27;]].map(([n,d,s])=&gt;`&lt;div class=&quot;vrow&quot;&gt;&lt;div&gt;${V(n)}&lt;div class=&quot;vdsc&quot;&gt;${d}&lt;/div&gt;&lt;/div&gt;&lt;span class=&quot;vsam&quot;&gt;e.g. ${s}&lt;/span&gt;&lt;/div&gt;`).join(&#x27;&#x27;);
+  const pop=`&lt;div class=&quot;popover&quot; style=&quot;top:476px;left:300px&quot;&gt;&lt;div class=&quot;pt&quot;&gt;&lt;div class=&quot;srch&quot; style=&quot;width:100%;height:36px&quot;&gt;${ic(&#x27;search&#x27;,15)}&lt;span ${st===&#x27;empty&#x27;?&#x27;style=&quot;color:var(--ink)&quot;&#x27;:&#x27;&#x27;}&gt;${st===&#x27;empty&#x27;?&#x27;booking&#x27;:&#x27;Search variables&#x27;}&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;${list}&lt;div style=&quot;padding:10px 14px;font-size:12px;color:var(--muted)&quot;&gt;Only variables this email supports are listed.&lt;/div&gt;&lt;/div&gt;`;
+  return base.replace(/&lt;\/div&gt;$/, pop+&#x27;&lt;/div&gt;&#x27;);
+ },
+ notes:{
+  what:`Popover from the toolbar. Lists only the variables this email supports, each with a description and sample value.`,
+  rules:[`Click a variable to insert it at the cursor as a chip.`,`Search filters by name and description.`,`System values like &lt;code&gt;EMAIL_TEMPLATE_BASE_URL&lt;/code&gt; and policy links are never listed. They live in the locked header and footer.`],
+  pending:[],
+  dev:[`Each template needs a variable list with description + sample value. The sample value feeds the preview and the test email.`]
+ }};
+
+S.test={grp:&#x27;Flow A&#x27;,t:&#x27;Send Test Email&#x27;,url:&#x27;test.admin.shallwe-play.com/email-templates/user-welcome-player/edit/&#x27;,
+ states:{empty:&#x27;N/A&#x27;,loading:&#x27;Sending&#x27;,error:&#x27;Validation&#x27;},
+ render(st){
+  const base=S.edit.render(&#x27;populated&#x27;,&#x27;English&#x27;);
+  if(st===&#x27;empty&#x27;) return base;
+  const bad=st===&#x27;error&#x27;;
+  const m=`&lt;div class=&quot;ov c&quot;&gt;&lt;div class=&quot;modal&quot;&gt;&lt;div class=&quot;mhd&quot;&gt;Send Test Email&lt;span class=&quot;act&quot;&gt;${ic(&#x27;close&#x27;)}&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;mbd&quot;&gt;
+   &lt;div class=&quot;notch ${bad?&#x27;bad&#x27;:&#x27;foc&#x27;}&quot; style=&quot;margin-top:6px&quot;&gt;&lt;label&gt;Send to *&lt;/label&gt;${bad?&#x27;finance@shallwe-play&#x27;:&#x27;finance@shallwe-play.com&#x27;}&lt;/div&gt;
+   ${bad?`&lt;div class=&quot;hint bad&quot;&gt;&lt;span&gt;Enter a valid email address.&lt;/span&gt;&lt;/div&gt;`:`&lt;div class=&quot;hint&quot;&gt;&lt;span&gt;Defaults to your own address.&lt;/span&gt;&lt;/div&gt;`}
+   &lt;div class=&quot;sel&quot; style=&quot;margin-top:16px;width:100%&quot;&gt;&lt;label&gt;Language&lt;/label&gt;English ${ic(&#x27;chevron-down&#x27;,14)}&lt;/div&gt;
+   &lt;div style=&quot;font-size:13px;color:var(--muted);margin-top:14px;display:flex;gap:6px&quot;&gt;${ic(&#x27;information-circle-outline&#x27;,16)}&lt;span&gt;The test uses sample data (Alex) and your unsaved changes. The subject starts with [TEST].&lt;/span&gt;&lt;/div&gt;
+   &lt;/div&gt;&lt;div class=&quot;mft&quot;&gt;&lt;button class=&quot;btn n&quot;&gt;Cancel&lt;/button&gt;&lt;button class=&quot;btn p ${st===&#x27;loading&#x27;?&#x27;off&#x27;:&#x27;&#x27;}&quot;&gt;${st===&#x27;loading&#x27;?ic(&#x27;sync&#x27;,16)+&#x27; Sending…&#x27;:&#x27;Send Test&#x27;}&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`;
+  return base.replace(/&lt;\/div&gt;$/, m+&#x27;&lt;/div&gt;&#x27;);
+ },
+ notes:{
+  what:`Lets an admin check the real email in their own inbox before publishing.`,
+  rules:[`Pre-filled with the signed-in admin\u2019s email. It can be changed to any one address.`,`Pick the language. The test uses sample data and the current unsaved text.`,`Subject gets a [TEST] prefix so it\u2019s never confused with a live email.`,`Success: green toast &quot;Test email sent to …&quot;. Failure: red toast with Try Again.`,`Modal follows the house rule: one Neutral Cancel + one Primary action.`],
+  pending:[`Limit test sends (for example 10 per hour per admin) to stop misuse?`],
+  dev:[`Reuse &lt;code&gt;prepareTemplate.js&lt;/code&gt; with the sample values. Don\u2019t log test sends as real user emails.`]
+ }};
+
+S.publish={grp:&#x27;Flow A&#x27;,t:&#x27;Publish&#x27;,url:&#x27;test.admin.shallwe-play.com/email-templates/user-welcome-player/edit/&#x27;,
+ variants:[&#x27;Confirm&#x27;,&#x27;Published&#x27;],
+ states:{empty:&#x27;N/A&#x27;,loading:&#x27;Publishing&#x27;,error:&#x27;Failed&#x27;},
+ render(st,v=&#x27;Confirm&#x27;){
+  if(v===&#x27;Published&#x27;&amp;&amp;st===&#x27;populated&#x27;) return S.detail.render(&#x27;populated&#x27;,&#x27;Welcome — Player&#x27;).replace(pill(&#x27;New&#x27;,&#x27;new&#x27;),pill(&#x27;Active&#x27;,&#x27;ok&#x27;)).replace(&#x27;None yet (players get the shared welcome today)&#x27;,&#x27;v1 · published 26 Nov 2026, 14:40&#x27;).replace(/&lt;\/div&gt;$/, `&lt;div class=&quot;toast&quot;&gt;${ic(&#x27;checkmark-circle&#x27;,20,&#x27;color:#228B22&#x27;)} Welcome — Player is live. New players get this version from now.&lt;/div&gt;&lt;/div&gt;`);
+  const base=S.edit.render(&#x27;populated&#x27;,&#x27;English&#x27;);
+  if(st===&#x27;empty&#x27;) return base;
+  const m=`&lt;div class=&quot;ov c&quot;&gt;&lt;div class=&quot;modal&quot;&gt;&lt;div class=&quot;mhd&quot;&gt;Publish Changes?&lt;span class=&quot;act&quot;&gt;${ic(&#x27;close&#x27;)}&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;mbd&quot;&gt;
+   &lt;p style=&quot;margin-bottom:10px&quot;&gt;&lt;b style=&quot;color:var(--ink)&quot;&gt;Welcome — Player&lt;/b&gt; will be sent with this content from now on, in English and Dutch.&lt;/p&gt;
+   &lt;ul style=&quot;padding-left:18px;font-size:13.5px;color:var(--muted);line-height:1.7&quot;&gt;&lt;li&gt;Emails already sent don\u2019t change.&lt;/li&gt;&lt;li&gt;The previous version is kept in Version History.&lt;/li&gt;&lt;/ul&gt;
+   ${st===&#x27;error&#x27;?`&lt;div style=&quot;margin-top:12px;background:var(--err-bg);color:var(--err);border-radius:6px;padding:10px 12px;font-size:13px&quot;&gt;Couldn\u2019t publish. Your draft is saved. Try again.&lt;/div&gt;`:&#x27;&#x27;}
+   &lt;/div&gt;&lt;div class=&quot;mft&quot;&gt;&lt;button class=&quot;btn n&quot;&gt;Cancel&lt;/button&gt;&lt;button class=&quot;btn p ${st===&#x27;loading&#x27;?&#x27;off&#x27;:&#x27;&#x27;}&quot;&gt;${st===&#x27;loading&#x27;?ic(&#x27;sync&#x27;,16)+&#x27; Publishing…&#x27;:st===&#x27;error&#x27;?&#x27;Try Again&#x27;:&#x27;Publish&#x27;}&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`;
+  return base.replace(/&lt;\/div&gt;$/, m+&#x27;&lt;/div&gt;&#x27;);
+ },
+ notes:{
+  what:`Confirm step before changes go live, then a success toast on the details page.`,
+  rules:[`Publish is only possible when both languages pass validation.`,`After publishing: status becomes Active, Live version shows the version number, date and admin.`,`Sent emails are never changed (no retro-updates).`,`Error: the draft is kept, so nothing is lost.`],
+  pending:[`Should publishing a security email (OTP, password reset) need super-admin approval?`],
+  dev:[`Store each publish as a new version row: template key, language, subject, preheader, body, published by, published at.`]
+ }};
+
+S.history={grp:&#x27;Flow A&#x27;,t:&#x27;Version History&#x27;,url:&#x27;test.admin.shallwe-play.com/email-templates/booking-cancelled/&#x27;,
+ variants:[&#x27;History&#x27;,&#x27;Restore Confirm&#x27;],
+ states:{empty:&#x27;Only Default&#x27;},
+ render(st,v=&#x27;History&#x27;){
+  const base=S.detail.render(&#x27;populated&#x27;,&#x27;Welcome — Player&#x27;).replace(/Welcome — Player/g,&#x27;Booking Cancelled&#x27;).replace(&#x27;user-welcome-player&#x27;,&#x27;booking-cancelled&#x27;);
+  let list;
+  if(st===&#x27;loading&#x27;) list=[1,2,3].map(()=&gt;`&lt;div class=&quot;ver&quot;&gt;&lt;div class=&quot;vd&quot;&gt;&lt;/div&gt;&lt;div style=&quot;flex:1&quot;&gt;${sk(&#x27;50%&#x27;)}${sk(&#x27;70%&#x27;,12,6)}&lt;/div&gt;&lt;/div&gt;`).join(&#x27;&#x27;);
+  else if(st===&#x27;error&#x27;) list=errBox(&#x27;Couldn\u2019t Load History&#x27;);
+  else if(st===&#x27;empty&#x27;) list=`&lt;div class=&quot;ver cur&quot;&gt;&lt;div class=&quot;vd&quot;&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;System default&lt;/b&gt; ${pill(&#x27;Live&#x27;,&#x27;ok&#x27;)}&lt;div class=&quot;vm&quot;&gt;Original version from the developers&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;padding:20px;font-size:13px;color:var(--muted)&quot;&gt;No admin edits yet. When someone publishes a change, it shows here.&lt;/div&gt;`;
+  else list=`
+   &lt;div class=&quot;ver drf&quot;&gt;&lt;div class=&quot;vd&quot;&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;Draft&lt;/b&gt; ${pill(&#x27;Not live&#x27;,&#x27;draft&#x27;)}&lt;div class=&quot;vm&quot;&gt;25 Nov 2026, 16:05 · Finance Admin&lt;/div&gt;&lt;div class=&quot;vm&quot;&gt;Changed: Dutch subject, body&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;va&quot;&gt;&lt;button class=&quot;btn t sm&quot;&gt;Open&lt;/button&gt;&lt;button class=&quot;btn t sm&quot; style=&quot;color:var(--destroy)&quot;&gt;Discard&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;
+   &lt;div class=&quot;ver cur&quot;&gt;&lt;div class=&quot;vd&quot;&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;v3&lt;/b&gt; ${pill(&#x27;Live&#x27;,&#x27;ok&#x27;)}&lt;div class=&quot;vm&quot;&gt;12 Nov 2026, 10:20 · Finance Admin&lt;/div&gt;&lt;div class=&quot;vm&quot;&gt;Changed: refund wording&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;va&quot;&gt;&lt;button class=&quot;btn t sm&quot;&gt;View&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;
+   &lt;div class=&quot;ver&quot;&gt;&lt;div class=&quot;vd&quot;&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;v2&lt;/b&gt;&lt;div class=&quot;vm&quot;&gt;3 Oct 2026, 09:14 · Super Admin&lt;/div&gt;&lt;div class=&quot;vm&quot;&gt;Changed: subject&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;va&quot;&gt;&lt;button class=&quot;btn t sm&quot;&gt;View&lt;/button&gt;&lt;button class=&quot;btn t sm&quot;&gt;Restore&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;
+   &lt;div class=&quot;ver&quot;&gt;&lt;div class=&quot;vd&quot;&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;v1 · System default&lt;/b&gt;&lt;div class=&quot;vm&quot;&gt;Original from the developers&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;va&quot;&gt;&lt;button class=&quot;btn t sm&quot;&gt;View&lt;/button&gt;&lt;button class=&quot;btn t sm&quot;&gt;Restore&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;`;
+  const drawer=`&lt;div class=&quot;ov r&quot;&gt;&lt;div class=&quot;drawer&quot;&gt;&lt;div class=&quot;mhd&quot;&gt;Version History&lt;span class=&quot;act&quot;&gt;${ic(&#x27;close&#x27;)}&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;overflow:auto;flex:1&quot;&gt;${list}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`;
+  const modal=`&lt;div class=&quot;ov c&quot;&gt;&lt;div class=&quot;modal&quot;&gt;&lt;div class=&quot;mhd&quot;&gt;Restore v2?&lt;span class=&quot;act&quot;&gt;${ic(&#x27;close&#x27;)}&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;mbd&quot;&gt;v2 will be copied into a new draft. Nothing goes live until you publish it. Your current draft will be replaced.&lt;/div&gt;&lt;div class=&quot;mft&quot;&gt;&lt;button class=&quot;btn n&quot;&gt;Cancel&lt;/button&gt;&lt;button class=&quot;btn p&quot;&gt;Restore to Draft&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`;
+  return base.replace(/&lt;\/div&gt;$/, (v===&#x27;Restore Confirm&#x27;&amp;&amp;st===&#x27;populated&#x27;?modal:drawer)+&#x27;&lt;/div&gt;&#x27;);
+ },
+ notes:{
+  what:`Right-side drawer with every saved version. Admins can view or restore older text.`,
+  rules:[`Newest first: Draft (amber) → Live (green) → older versions → v1 System default.`,`Each row: version, date and time, admin, what changed.`,`&lt;b&gt;Restore&lt;/b&gt; copies the old version into a new draft. It never goes live directly. The admin still publishes.`,`System default is always available, so an admin can undo every change.`],
+  pending:[`How long do we keep old versions? Recommended: forever (they\u2019re small).`],
+  dev:[`&quot;What changed&quot; can be generated by comparing fields (subject / preheader / body / language).`]
+ }};
+
+S.rules={grp:&#x27;Flow B&#x27;,t:&#x27;Notifications Waiting · Sending Rules&#x27;,url:&#x27;test.admin.shallwe-play.com/email-templates/notifications-waiting/rules/&#x27;,
+ states:{empty:&#x27;N/A&#x27;,error:&#x27;Validation&#x27;},
+ render(st){
+  const crumb=`&lt;div class=&quot;crumb&quot;&gt;${ic(&#x27;chevron-back&#x27;,16)} Email Templates / Notifications Waiting / &lt;b&gt;Sending Rules&lt;/b&gt;&lt;/div&gt;`;
+  if(st===&#x27;empty&#x27;) return shell(crumb+`&lt;div class=&quot;card&quot;&gt;${emptyBox(&#x27;information-circle-outline&#x27;,&#x27;Not Applicable&#x27;,&#x27;Rules always have default values.&#x27;)}&lt;/div&gt;`);
+  if(st===&#x27;loading&#x27;) return shell(crumb+`&lt;div class=&quot;card cb&quot;&gt;${[1,2,3,4,5].map(()=&gt;sk(&#x27;100%&#x27;,40,14)).join(&#x27;&#x27;)}&lt;/div&gt;`);
+  const bad=st===&#x27;error&#x27;;
+  const r=(l,s,ctrl)=&gt;`&lt;div class=&quot;rule&quot;&gt;&lt;div class=&quot;rl&quot;&gt;${l}&lt;small&gt;${s}&lt;/small&gt;&lt;/div&gt;${ctrl}&lt;/div&gt;`;
+  return shell(crumb+`&lt;div class=&quot;grid2&quot; style=&quot;grid-template-columns:1.2fr 1fr&quot;&gt;
+   &lt;div class=&quot;card&quot;&gt;&lt;div class=&quot;ch&quot;&gt;Sending Rules&lt;/div&gt;&lt;div class=&quot;cb&quot; style=&quot;padding-top:4px&quot;&gt;
+    ${r(&#x27;Send this email&#x27;,&#x27;When off, no player gets it. Saved rules are kept.&#x27;,&#x27;&lt;span class=&quot;sw on&quot;&gt;&lt;/span&gt;&#x27;)}
+    ${r(&#x27;Send when unread notifications are more than&#x27;,&#x27;Counts only unread notifications from the last 14 days.&#x27;,`&lt;div class=&quot;numin ${bad?&#x27;bad&#x27;:&#x27;&#x27;}&quot;&gt;${bad?&#x27;0&#x27;:&#x27;5&#x27;}&lt;span style=&quot;display:flex;flex-direction:column;font-size:11px&quot;&gt;${ic(&#x27;chevron-up&#x27;)}${ic(&#x27;chevron-down&#x27;)}&lt;/span&gt;&lt;/div&gt;`)}
+    ${bad?`&lt;div class=&quot;hint bad&quot; style=&quot;justify-content:flex-end&quot;&gt;&lt;span&gt;Enter a number from 1 to 50.&lt;/span&gt;&lt;/div&gt;`:&#x27;&#x27;}
+    ${r(&#x27;Check every day at&#x27;,&#x27;Time in Europe/Amsterdam.&#x27;,&#x27;&lt;div class=&quot;sel&quot; style=&quot;min-width:120px&quot;&gt;09:00 &#x27;+ic(&#x27;chevron-down&#x27;,14)+&#x27;&lt;/div&gt;&#x27;)}
+    ${r(&#x27;Don\u2019t send again within&#x27;,&#x27;Stops repeat emails if the player still hasn\u2019t opened the app.&#x27;,`&lt;div class=&quot;sel ${bad?&#x27;&#x27;:&#x27;&#x27;}&quot; style=&quot;min-width:120px&quot;&gt;7 days ${ic(&#x27;chevron-down&#x27;,14)}&lt;/div&gt;`)}
+    ${r(&#x27;Show in the email&#x27;,&#x27;Latest unread notifications listed in the email.&#x27;,&#x27;&lt;div class=&quot;sel&quot; style=&quot;min-width:120px&quot;&gt;3 items &#x27;+ic(&#x27;chevron-down&#x27;,14)+&#x27;&lt;/div&gt;&#x27;)}
+    &lt;div style=&quot;display:flex;justify-content:flex-end;gap:10px;margin-top:16px&quot;&gt;&lt;button class=&quot;btn n&quot;&gt;Cancel&lt;/button&gt;&lt;button class=&quot;btn p ${bad?&#x27;off&#x27;:&#x27;&#x27;}&quot;&gt;Save Rules&lt;/button&gt;&lt;/div&gt;
+   &lt;/div&gt;&lt;/div&gt;
+   &lt;div style=&quot;display:flex;flex-direction:column;gap:16px&quot;&gt;
+    &lt;div class=&quot;card&quot;&gt;&lt;div class=&quot;ch&quot;&gt;Summary&lt;/div&gt;&lt;div class=&quot;cb&quot;&gt;&lt;div class=&quot;summary&quot;&gt;${ic(&#x27;information-circle&#x27;,20,&#x27;color:#007AFF;flex-shrink:0&#x27;)}&lt;span&gt;${bad?&#x27;Fix the highlighted field to see the summary.&#x27;:&#x27;Every day at &lt;b&gt;09:00&lt;/b&gt;, players with &lt;b&gt;6 or more&lt;/b&gt; unread notifications get this email. A player gets it &lt;b&gt;at most once every 7 days&lt;/b&gt;.&#x27;}&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;card&quot;&gt;&lt;div class=&quot;ch&quot;&gt;Last 7 Days&lt;/div&gt;&lt;div class=&quot;cb&quot;&gt;&lt;dl class=&quot;kv&quot;&gt;&lt;dt&gt;Emails sent&lt;/dt&gt;&lt;dd&gt;214&lt;/dd&gt;&lt;dt&gt;Opened the app after&lt;/dt&gt;&lt;dd&gt;38%&lt;/dd&gt;&lt;dt&gt;Turned off&lt;/dt&gt;&lt;dd&gt;3 players&lt;/dd&gt;&lt;/dl&gt;&lt;div style=&quot;font-size:12px;color:var(--muted);margin-top:10px&quot;&gt;Sample numbers. Shown after the first run.&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+   &lt;/div&gt;&lt;/div&gt;`);
+ },
+ notes:{
+  what:`Settings for the new &quot;more than 5 notifications&quot; email (F5, F6).`,
+  rules:[`Defaults: on · more than &lt;b&gt;5&lt;/b&gt; unread · daily at &lt;b&gt;09:00&lt;/b&gt; · max once every &lt;b&gt;7 days&lt;/b&gt; · show 3 items.`,`Threshold must be 1–50. Save is disabled while a field is invalid.`,`The summary rewrites the rules as a sentence, so admins can check they\u2019re right.`,`Only unread notifications from the last 14 days count. Old ones don\u2019t trigger emails forever.`],
+  pending:[`&quot;More than 5&quot; = 6 or more? (Assumed yes.)`,`Can players turn this email off? Recommended yes: a link in the email + a toggle in the app\u2019s notification settings.`,`Should the 7-day cooldown reset once the player opens the app?`],
+  dev:[`&lt;code&gt;UserNotification.is_read&lt;/code&gt; already exists, so the unread count is easy.`,`New: a daily scheduled job (none exists in notification-service today) + a &quot;last digest sent at&quot; field per player for the cooldown.`]
+ }};
+
+S.perms={grp:&#x27;Flow C&#x27;,t:&#x27;Roles and Permissions&#x27;,url:&#x27;test.admin.shallwe-play.com/role-permissions/edit/…&#x27;,
+ states:{empty:&#x27;N/A&#x27;,loading:&#x27;N/A&#x27;,error:&#x27;N/A&#x27;},
+ render(st){
+  if(st!==&#x27;populated&#x27;) return shell(`&lt;div class=&quot;card&quot;&gt;${emptyBox(&#x27;information-circle-outline&#x27;,&#x27;Not Applicable&#x27;,&#x27;This screen already exists in the admin portal. Only one new row is added, so its states don\u2019t change.&#x27;)}&lt;/div&gt;`,{menu:&#x27;Roles and Permissions&#x27;});
+  const cols=[&#x27;All&#x27;,&#x27;View&#x27;,&#x27;Add&#x27;,&#x27;Edit&#x27;,&#x27;Delete&#x27;,&#x27;Export&#x27;,&#x27;Approve&#x27;,&#x27;Reject&#x27;];
+  const row=(n,on,hl)=&gt;`&lt;tr ${hl?&#x27;class=&quot;hl&quot; style=&quot;outline:2px dashed #F59E0B;outline-offset:-2px&quot;&#x27;:&#x27;&#x27;}&gt;&lt;td&gt;&lt;b style=&quot;color:${hl?&#x27;var(--primary)&#x27;:&#x27;var(--ink)&#x27;};font-weight:600&quot;&gt;${n}&lt;/b&gt;${hl?&#x27; &lt;span class=&quot;pill new&quot; style=&quot;height:20px;font-size:11px&quot;&gt;New&lt;/span&gt;&#x27;:&#x27;&#x27;}&lt;/td&gt;${cols.map((c,i)=&gt;`&lt;td&gt;${on[i]===1?&#x27;&lt;span class=&quot;cbx&quot;&gt;&#x27;+ic(&#x27;checkmark&#x27;)+&#x27;&lt;/span&gt;&#x27;:on[i]===0?&#x27;&lt;span class=&quot;cbx off&quot;&gt;&lt;/span&gt;&#x27;:&#x27;&#x27;}&lt;/td&gt;`).join(&#x27;&#x27;)}&lt;/tr&gt;`;
+  return shell(`&lt;div class=&quot;card&quot; style=&quot;padding:20px&quot;&gt;&lt;div style=&quot;display:flex;justify-content:space-between;align-items:center;margin-bottom:16px&quot;&gt;&lt;div style=&quot;display:flex;gap:10px;align-items:center;font-size:20px;font-weight:700;color:var(--ink)&quot;&gt;${ic(&#x27;arrow-back&#x27;,18,&#x27;color:#007AFF&#x27;)} Edit Role&lt;/div&gt;&lt;div style=&quot;display:flex;gap:10px&quot;&gt;&lt;button class=&quot;btn n&quot;&gt;Clear&lt;/button&gt;&lt;button class=&quot;btn p&quot;&gt;Save&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;
+   &lt;div class=&quot;notch&quot; style=&quot;width:300px;margin-bottom:18px&quot;&gt;&lt;label&gt;Role Name&lt;/label&gt;Content Manager&lt;/div&gt;
+   &lt;table class=&quot;perm&quot;&gt;&lt;tr&gt;&lt;th&gt;Module Type&lt;/th&gt;${cols.map(c=&gt;`&lt;th style=&quot;text-align:center&quot;&gt;${c}&lt;/th&gt;`).join(&#x27;&#x27;)}&lt;/tr&gt;
+   ${row(&#x27;Master Settings&#x27;,[0,1,&#x27;&#x27;,0,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;])}${row(&#x27;App Version&#x27;,[0,1,&#x27;&#x27;,0,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;])}
+   ${row(&#x27;Email Templates&#x27;,[0,1,&#x27;&#x27;,1,&#x27;&#x27;,&#x27;&#x27;,0,&#x27;&#x27;],1)}
+   ${row(&#x27;Roles and Permissions&#x27;,[0,0,0,0,0,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;])}&lt;/table&gt;
+   &lt;div style=&quot;font-size:13px;color:var(--muted);margin-top:14px;line-height:1.6&quot;&gt;&lt;b style=&quot;color:var(--ink)&quot;&gt;View&lt;/b&gt; = see list, details, history · &lt;b style=&quot;color:var(--ink)&quot;&gt;Edit&lt;/b&gt; = change content, send tests, save drafts, edit sending rules · &lt;b style=&quot;color:var(--ink)&quot;&gt;Approve&lt;/b&gt; = publish and restore&lt;/div&gt;&lt;/div&gt;`,{menu:&#x27;Roles and Permissions&#x27;});
+ },
+ notes:{
+  what:`Adds one row to the existing role editor, so a super admin decides who can change emails.`,
+  rules:[`Uses existing columns only: &lt;b&gt;View&lt;/b&gt;, &lt;b&gt;Edit&lt;/b&gt;, &lt;b&gt;Approve&lt;/b&gt; (= Publish). No Add or Delete, because templates come from code.`,`Example: a &quot;Content Manager&quot; can edit and test but not publish.`,`Without View, the menu item is hidden.`],
+  pending:[],
+  dev:[`Add the module to the admin ACL (&lt;code&gt;src/pages/acl&lt;/code&gt;) and the role-permission seed.`]
+ }};
+
+function client(active, reader){
+  return `&lt;div class=&quot;mailclient&quot;&gt;&lt;div class=&quot;mlist&quot;&gt;&lt;div style=&quot;padding:14px;font-weight:700;color:var(--ink);font-size:15px;border-bottom:1px solid var(--line)&quot;&gt;Inbox&lt;/div&gt;
+   &lt;div class=&quot;mitem ${active===&#x27;w&#x27;?&#x27;on&#x27;:&#x27;&#x27;}&quot;&gt;&lt;b&gt;ShallWe-Play&lt;/b&gt;&lt;span&gt;Welcome to ShallWe-Play, Alex!&lt;/span&gt;&lt;/div&gt;
+   &lt;div class=&quot;mitem ${active===&#x27;d&#x27;?&#x27;on&#x27;:&#x27;&#x27;}&quot;&gt;&lt;b&gt;ShallWe-Play&lt;/b&gt;&lt;span&gt;You have 7 notifications waiting&lt;/span&gt;&lt;/div&gt;
+   &lt;div class=&quot;mitem&quot;&gt;&lt;b&gt;ShallWe-Play&lt;/b&gt;&lt;span&gt;Booking Confirmation&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;mread&quot;&gt;${reader}&lt;/div&gt;&lt;/div&gt;`;
+}
+S.mail_welcome={grp:&#x27;Flow E&#x27;,t:&#x27;Player Receives: Welcome Email&#x27;,url:&#x27;Player\u2019s inbox (example)&#x27;,
+ variants:[&#x27;Desktop&#x27;,&#x27;Mobile&#x27;,&#x27;Dutch&#x27;],
+ states:{empty:&#x27;N/A&#x27;,loading:&#x27;N/A&#x27;,error:&#x27;Fallback&#x27;},
+ render(st,v=&#x27;Desktop&#x27;){
+  if(st===&#x27;empty&#x27;||st===&#x27;loading&#x27;) return client(&#x27;w&#x27;,`&lt;div style=&quot;padding:80px;text-align:center;color:var(--muted)&quot;&gt;Not applicable. This is a received email.&lt;/div&gt;`);
+  if(st===&#x27;error&#x27;) return client(&#x27;w&#x27;,`&lt;div style=&quot;font-size:13px;color:var(--muted);margin-bottom:10px;text-align:center&quot;&gt;If the database template fails to load, the system sends the built-in default so the player still gets an email.&lt;/div&gt;`+mailWelcome(&#x27;desktop&#x27;));
+  return client(&#x27;w&#x27;,`&lt;div style=&quot;font-size:13px;color:var(--muted);margin:0 auto 10px;max-width:560px&quot;&gt;&lt;b style=&quot;color:var(--ink)&quot;&gt;${v===&#x27;Dutch&#x27;?&#x27;Welkom bij ShallWe-Play, Alex!&#x27;:&#x27;Welcome to ShallWe-Play, Alex!&#x27;}&lt;/b&gt;&lt;br&gt;From: ShallWe-Play &amp;lt;no-reply@shallweplay.nl&amp;gt;&lt;/div&gt;`+mailWelcome(v===&#x27;Mobile&#x27;?&#x27;mobile&#x27;:&#x27;desktop&#x27;, v===&#x27;Dutch&#x27;?&#x27;NL&#x27;:&#x27;EN&#x27;));
+ },
+ notes:{
+  what:`What a new player gets after sign-up (F4). It replaces the shared, club-focused welcome text.`,
+  rules:[`Greets the player by first name.`,`Lists 5 things they can do today: book a court, play an Open SWP, join a club, check in with QR, follow players.`,`One CTA: Open the App.`,`Sent in the player\u2019s app language (EN or NL).`],
+  pending:[`Add &quot;Chat with players and clubs&quot; to the list once the Communication Module launches?`,`Which link does &quot;Open the App&quot; use: an app store link, or a smart link that opens the app if it\u2019s installed?`],
+  dev:[`If the stored template fails, fall back to the &lt;code&gt;.hbs&lt;/code&gt; default so sign-up emails never stop.`]
+ }};
+S.mail_digest={grp:&#x27;Flow E&#x27;,t:&#x27;Player Receives: Notifications Waiting&#x27;,url:&#x27;Player\u2019s inbox (example)&#x27;,
+ variants:[&#x27;Desktop&#x27;,&#x27;Mobile&#x27;],
+ states:{empty:&#x27;N/A&#x27;,loading:&#x27;N/A&#x27;,error:&#x27;N/A&#x27;},
+ render(st,v=&#x27;Desktop&#x27;){
+  if(st!==&#x27;populated&#x27;) return client(&#x27;d&#x27;,`&lt;div style=&quot;padding:80px;text-align:center;color:var(--muted)&quot;&gt;Not applicable. This is a received email.&lt;/div&gt;`);
+  return client(&#x27;d&#x27;,`&lt;div style=&quot;font-size:13px;color:var(--muted);margin:0 auto 10px;max-width:560px&quot;&gt;&lt;b style=&quot;color:var(--ink)&quot;&gt;You have 7 notifications waiting&lt;/b&gt;&lt;br&gt;From: ShallWe-Play &amp;lt;no-reply@shallweplay.nl&amp;gt;&lt;/div&gt;`+mailDigest(v===&#x27;Mobile&#x27;?&#x27;mobile&#x27;:&#x27;desktop&#x27;));
+ },
+ notes:{
+  what:`The email a player gets when they have more than 5 unread notifications (F5).`,
+  rules:[`Subject shows the real count.`,`Lists the latest 3 unread notifications (title + time), then &quot;+ N more&quot;.`,`CTA &quot;View Notifications&quot; opens the app\u2019s notification list.`,`Footer explains why they got it, with a link to turn these emails off.`],
+  pending:[`Should the list show notification titles at all? Some may include private details (payments, names). Alternative: show the count only.`],
+  dev:[`Notification titles come from &lt;code&gt;UserNotification.title&lt;/code&gt; / &lt;code&gt;message&lt;/code&gt;.`]
+ }};
+
+/* ============ flow + state engine ============ */
+const ORDER=[&#x27;overview&#x27;,&#x27;list&#x27;,&#x27;detail&#x27;,&#x27;edit&#x27;,&#x27;variables&#x27;,&#x27;test&#x27;,&#x27;publish&#x27;,&#x27;history&#x27;,&#x27;rules&#x27;,&#x27;perms&#x27;,&#x27;mail_welcome&#x27;,&#x27;mail_digest&#x27;];
+const STATES=[[&#x27;populated&#x27;,&#x27;Populated&#x27;],[&#x27;empty&#x27;,&#x27;Empty&#x27;],[&#x27;loading&#x27;,&#x27;Loading&#x27;],[&#x27;error&#x27;,&#x27;Error&#x27;]];
+let cur=&#x27;overview&#x27;, state=&#x27;populated&#x27;, vars={};
+function goTo(id){ if(!S[id])return; cur=id; state=&#x27;populated&#x27;; draw(); window.scrollTo({top:0,behavior:&#x27;smooth&#x27;}); }
+function step(d){ const i=ORDER.indexOf(cur)+d; if(i&gt;=0&amp;&amp;i&lt;ORDER.length) goTo(ORDER[i]); }
+function setState(s){ state=s; draw(); }
+function setVar(v){ vars[cur]=v; draw(); }
+function fit(){ const w=document.getElementById(&#x27;fitwrap&#x27;).clientWidth; const z=Math.min(1,w/1280); const f=document.getElementById(&#x27;fit&#x27;); f.style.transform=`scale(${z})`; document.getElementById(&#x27;fitwrap&#x27;).style.height=(f.scrollHeight*z)+&#x27;px&#x27;; }
+function draw(){
+  const sc=S[cur], idx=ORDER.indexOf(cur);
+  let fb=&#x27;&#x27;, lg=&#x27;&#x27;;
+  ORDER.forEach((id,i)=&gt;{ const s=S[id]; if(s.grp!==lg){ fb+=`&lt;span class=&quot;fgrp&quot;&gt;${s.grp}&lt;/span&gt;`; lg=s.grp; } else fb+=`&lt;span class=&quot;fsep&quot;&gt;›&lt;/span&gt;`; fb+=`&lt;button class=&quot;fstep ${id===cur?&#x27;on&#x27;:&#x27;&#x27;} ${i&lt;idx?&#x27;done&#x27;:&#x27;&#x27;}&quot; onclick=&quot;goTo(&#x27;${id}&#x27;)&quot;&gt;&lt;span class=&quot;num&quot;&gt;${i}&lt;/span&gt;${s.t}&lt;/button&gt;`; });
+  document.getElementById(&#x27;flowbar&#x27;).innerHTML=fb;
+  document.getElementById(&#x27;stitle&#x27;).innerHTML=`&lt;span&gt;Step ${idx}&lt;/span&gt; · ${sc.t}`;
+  document.getElementById(&#x27;states&#x27;).innerHTML=STATES.map(([k,l])=&gt;{const o=(sc.states||{})[k];const na=o===&#x27;N/A&#x27;;return `&lt;button class=&quot;${state===k?&#x27;on&#x27;:&#x27;&#x27;} ${na?&#x27;na&#x27;:&#x27;&#x27;}&quot; onclick=&quot;setState(&#x27;${k}&#x27;)&quot;&gt;${na?l:(o||l)}&lt;/button&gt;`}).join(&#x27;&#x27;);
+  const v=vars[cur]||(sc.variants?sc.variants[0]:undefined);
+  document.getElementById(&#x27;vars&#x27;).style.display=sc.variants?&#x27;flex&#x27;:&#x27;none&#x27;;
+  document.getElementById(&#x27;vars&#x27;).innerHTML=sc.variants?sc.variants.map(x=&gt;`&lt;button class=&quot;${x===v?&#x27;on&#x27;:&#x27;&#x27;}&quot; onclick=&quot;setVar(&#x27;${x.replace(/&#x27;/g,&quot;\\&#x27;&quot;)}&#x27;)&quot;&gt;${x}&lt;/button&gt;`).join(&#x27;&#x27;):&#x27;&#x27;;
+  document.getElementById(&#x27;prev&#x27;).disabled=idx===0; document.getElementById(&#x27;next&#x27;).disabled=idx===ORDER.length-1;
+  document.getElementById(&#x27;url&#x27;).textContent=sc.url;
+  document.getElementById(&#x27;fit&#x27;).innerHTML=sc.render(state,v);
+  const n=sc.notes;
+  const stt=STATES.map(([k,l])=&gt;{const o=(sc.states||{})[k];return o?`${l} → &lt;b&gt;${o}&lt;/b&gt;`:`${l} ✓`}).join(&#x27; · &#x27;);
+  document.getElementById(&#x27;notes&#x27;).innerHTML=`
+   &lt;div class=&quot;ncard&quot;&gt;&lt;h5&gt;What happens here&lt;/h5&gt;&lt;p&gt;${n.what}&lt;/p&gt;&lt;h5 style=&quot;margin-top:14px&quot;&gt;4-State Matrix&lt;/h5&gt;&lt;p class=&quot;stt&quot;&gt;${stt}&lt;/p&gt;
+    ${idx&lt;ORDER.length-1?`&lt;h5 style=&quot;margin-top:14px&quot;&gt;Next in flow&lt;/h5&gt;&lt;p&gt;&lt;a href=&quot;#&quot; onclick=&quot;step(1);return false&quot; style=&quot;color:var(--primary);font-weight:600&quot;&gt;Step ${idx+1} · ${S[ORDER[idx+1]].t} →&lt;/a&gt;&lt;/p&gt;`:&#x27;&#x27;}&lt;/div&gt;
+   &lt;div class=&quot;ncard&quot;&gt;&lt;h5&gt;Rules&lt;/h5&gt;&lt;ul&gt;${n.rules.map(r=&gt;`&lt;li&gt;${r}&lt;/li&gt;`).join(&#x27;&#x27;)}&lt;/ul&gt;&lt;/div&gt;
+   &lt;div class=&quot;ncard&quot;&gt;${n.pending.length?`&lt;h5&gt;Pending Client Decisions&lt;/h5&gt;${n.pending.map(p=&gt;`&lt;div class=&quot;pend&quot;&gt;${p}&lt;/div&gt;`).join(&#x27;&#x27;)}`:&#x27;&#x27;}&lt;h5 ${n.pending.length?&#x27;style=&quot;margin-top:12px&quot;&#x27;:&#x27;&#x27;}&gt;Dev Notes (from code)&lt;/h5&gt;${n.dev.map(d=&gt;`&lt;div class=&quot;dev&quot;&gt;${d}&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+  requestAnimationFrame(fit);
+}
+window.addEventListener(&#x27;resize&#x27;,fit);
+draw();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe>
+<script>
+function show(t){
+  document.querySelectorAll('.tab').forEach(b=>{const on=b.dataset.t===t;b.classList.toggle('on',on);b.setAttribute('aria-selected',on)});
+  document.querySelectorAll('iframe').forEach(f=>f.classList.toggle('on',f.id==='f-'+t));
+  try{history.replaceState(null,'','#'+t)}catch(e){}
+}
+show(location.hash==='#email'?'email':'chat');
+</script>
+</body>
+</html>

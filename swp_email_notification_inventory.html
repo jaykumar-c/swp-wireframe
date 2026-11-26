@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Email and Notification Inventory</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Layout: one working table per tab, with filters above it and a decision column the team fills in during the meeting. */
+:root{
+  --bg:#F5F6F8; --surface:#FFFFFF; --ink:#17202B; --muted:#5B6776; --line:#E2E6EB; --chip:#EDF0F4;
+  --accent:#007AFF; --accent-soft:#E6F1FF;
+  --teal:#0B7A75; --teal-soft:#DDF3F1;
+  --ok:#18794E; --ok-soft:#E1F4EA;
+  --warn:#935400; --warn-soft:#FFF0D2;
+  --plan:#5B3FD6; --plan-soft:#EDE9FE;
+  --bad:#B42318; --bad-soft:#FDE8E6;
+  --font-head:'Montserrat',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-body:'Lato',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1319; --surface:#161D25; --ink:#E8EDF2; --muted:#9AA7B5; --line:#26313C; --chip:#212B36;
+    --accent:#4DA3FF; --accent-soft:#12304F;
+    --teal:#4CC9C0; --teal-soft:#0F3431;
+    --ok:#4CC38A; --ok-soft:#11301F;
+    --warn:#F0B45A; --warn-soft:#3A2A0C;
+    --plan:#A594FF; --plan-soft:#271F4D;
+    --bad:#FF8A80; --bad-soft:#3C1714;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1319; --surface:#161D25; --ink:#E8EDF2; --muted:#9AA7B5; --line:#26313C; --chip:#212B36;
+  --accent:#4DA3FF; --accent-soft:#12304F;
+  --teal:#4CC9C0; --teal-soft:#0F3431;
+  --ok:#4CC38A; --ok-soft:#11301F;
+  --warn:#F0B45A; --warn-soft:#3A2A0C;
+  --plan:#A594FF; --plan-soft:#271F4D;
+  --bad:#FF8A80; --bad-soft:#3C1714;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:14px;line-height:1.5;
+  padding-block:28px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1240px;margin:0 auto}
+h1,h2,h3{font-family:var(--font-head);text-wrap:balance}
+.eyebrow{font:600 11px/1 var(--font-head);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:clamp(22px,4vw,30px);line-height:1.2;margin:8px 0 6px}
+.lead{max-width:68ch;color:var(--muted);font-size:15px}
+.stats{display:flex;flex-wrap:wrap;gap:8px 28px;margin-top:18px}
+.stat b{font:700 22px/1 var(--font-head);font-variant-numeric:tabular-nums;color:var(--ink)}
+.stat span{display:block;font-size:12px;color:var(--muted);margin-top:4px}
+.stat.warn b{color:var(--warn)}
+.tabs{display:flex;gap:4px;margin:26px 0 0;border-bottom:1px solid var(--line);overflow-x:auto}
+.tab{font:600 14px var(--font-head);color:var(--muted);background:none;border:0;border-bottom:3px solid transparent;padding:12px 16px;cursor:pointer;white-space:nowrap;margin-bottom:-1px}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{color:var(--accent);border-bottom-color:var(--accent)}
+.tab .n{font-weight:600;font-size:12px;margin-left:6px;padding:2px 7px;border-radius:99px;background:var(--chip);color:var(--muted)}
+.tab[aria-selected="true"] .n{background:var(--accent-soft);color:var(--accent)}
+.filters{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;padding:16px 0}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:600 13px var(--font-body);border:1px solid var(--line);background:var(--surface);color:var(--muted);border-radius:99px;padding:6px 12px;cursor:pointer}
+.chip:hover{color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.chip .c{font-weight:400;opacity:.8;margin-left:4px;font-variant-numeric:tabular-nums}
+select,input[type=search],input[type=text]{font:400 14px var(--font-body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:8px 10px;min-height:36px}
+select:focus-visible,input:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+input[type=search]{min-width:220px;flex:1 1 220px;max-width:320px}
+.count{margin-left:auto;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.tablewrap{background:var(--surface);border:1px solid var(--line);border-radius:8px;overflow-x:auto}
+table{width:100%;min-width:980px;border-collapse:collapse}
+th{font:600 11px var(--font-head);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);background:var(--surface);white-space:nowrap}
+td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+tr.off td{background:color-mix(in srgb,var(--warn-soft) 45%,transparent)}
+.nm{font:600 14px/1.35 var(--font-head);color:var(--ink)}
+.sub{color:var(--muted);font-size:13px;margin-top:3px;max-width:46ch}
+.key{font:12px ui-monospace,Menlo,Consolas,monospace;color:var(--muted);margin-top:3px;word-break:break-all}
+code.v{font:12px ui-monospace,Menlo,Consolas,monospace;background:var(--chip);border-radius:4px;padding:1px 4px;color:var(--muted)}
+.when{max-width:34ch;color:var(--ink)}
+.tag{display:inline-block;font:700 11px/1 var(--font-body);padding:4px 8px;border-radius:5px;margin:0 4px 4px 0;white-space:nowrap}
+.a-Player{background:var(--accent-soft);color:var(--accent)}
+.a-Club{background:var(--teal-soft);color:var(--teal)}
+.a-Coach{background:var(--plan-soft);color:var(--plan)}
+.a-SWP{background:var(--chip);color:var(--muted)}
+.a-Anyone{background:transparent;color:var(--muted);border:1px dashed var(--line)}
+.st{display:inline-block;font:700 12px/1 var(--font-body);padding:5px 9px;border-radius:5px;white-space:nowrap}
+.st.active{background:var(--ok-soft);color:var(--ok)}
+.st.off{background:var(--warn-soft);color:var(--warn)}
+.st.planned{background:var(--plan-soft);color:var(--plan)}
+.pr{display:inline-block;font:700 12px/1 var(--font-body);padding:5px 9px;border-radius:5px;white-space:nowrap}
+.pr.High{background:var(--bad-soft);color:var(--bad)}
+.pr.Medium{background:var(--warn-soft);color:var(--warn)}
+.pr.Low{background:var(--chip);color:var(--muted)}
+.kind{font-size:13px;color:var(--ink);white-space:nowrap}
+.msg{background:var(--accent-soft);border-radius:6px;padding:8px 10px;max-width:34ch;font-size:13px}
+.msg b{display:block;font:600 13px var(--font-head);color:var(--ink);margin-bottom:2px}
+.ev{font:12px ui-monospace,Menlo,Consolas,monospace;color:var(--muted);max-width:36ch;word-break:break-word}
+.why{max-width:28ch}
+.today{margin-top:4px;font-size:13px;color:var(--muted);max-width:42ch}
+.intro{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:6px;padding:12px 14px;margin-top:16px;max-width:88ch;color:var(--muted);font-size:13.5px}
+.intro b{color:var(--ink)}
+.also{font-size:13px;color:var(--muted);max-width:22ch}
+.also b{color:var(--ink);font-weight:700}
+.dec{min-width:116px}
+.dec.Keep{border-color:var(--ok);color:var(--ok)}
+.dec.Change{border-color:var(--accent);color:var(--accent)}
+.dec.Drop{border-color:var(--bad);color:var(--bad)}
+.dec.Discuss{border-color:var(--warn);color:var(--warn)}
+.note{width:100%;min-width:150px}
+.empty{padding:44px 16px;text-align:center;color:var(--muted)}
+.bar{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:16px}
+.sum{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.sum b{color:var(--ink)}
+.btn{font:600 13px var(--font-head);border-radius:6px;padding:9px 14px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.btn.p{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn:hover{filter:brightness(.97)}
+.spacer{flex:1}
+#fallback{display:none;width:100%;margin-top:12px}
+#fallback textarea{width:100%;min-height:160px;font:12px ui-monospace,Menlo,Consolas,monospace;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:10px}
+.toast{font-size:13px;color:var(--ok);font-weight:700}
+/* Gaps tab */
+.gaps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:16px;margin-top:20px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:18px}
+.card h3{font-size:15px;margin:0 0 4px}
+.card p.d{color:var(--muted);font-size:13px;margin-bottom:10px}
+.card ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+.card li small{color:var(--muted)}
+.foot{margin-top:28px;font-size:12px;color:var(--muted);max-width:78ch}
+@media (prefers-reduced-motion:no-preference){.tab,.chip,.btn{transition:color .15s,background .15s,border-color .15s}}
+</style>
+
+<div class="wrap">
+  <div class="eyebrow">ShallWe-Play · Business Analysis · for client review</div>
+  <h1>Email and Notification Inventory</h1>
+  <p class="lead">Everything the system sends today, read from the code, and the emails and notifications it should send but doesn't. Mark each item Keep, Change, Drop or Discuss. Your marks stay in this browser.</p>
+  <div class="stats" id="stats"></div>
+
+  <div class="tabs" role="tablist" id="tabs">
+    <button class="tab" role="tab" id="tab-emails" data-tab="emails">Emails <span class="n" id="n-emails"></span></button>
+    <button class="tab" role="tab" id="tab-notifs" data-tab="notifs">Notifications <span class="n" id="n-notifs"></span></button>
+    <button class="tab" role="tab" id="tab-mmail" data-tab="mmail">Missing emails <span class="n" id="n-mmail"></span></button>
+    <button class="tab" role="tab" id="tab-mnotif" data-tab="mnotif">Missing notifications <span class="n" id="n-mnotif"></span></button>
+    <button class="tab" role="tab" id="tab-gaps" data-tab="gaps">Cleanup</button>
+  </div>
+
+  <section id="list">
+    <div class="filters">
+      <div class="chips" id="aud" role="group" aria-label="Audience"></div>
+      <select id="cat" aria-label="Category"></select>
+      <select id="status" aria-label="Status">
+        <option value="">Any status</option><option value="active">Active</option><option value="off">Not triggered</option><option value="planned">Planned</option>
+      </select>
+      <select id="prio" aria-label="Priority" hidden>
+        <option value="">Any priority</option><option>High</option><option>Medium</option><option>Low</option>
+      </select>
+      <select id="decf" aria-label="Decision">
+        <option value="">Any decision</option><option value="none">Undecided</option><option>Keep</option><option>Change</option><option>Drop</option><option>Discuss</option>
+      </select>
+      <input type="search" id="q" placeholder="Search name or text" aria-label="Search">
+      <span class="count" id="count"></span>
+    </div>
+    <div class="intro" id="intro" hidden></div>
+    <div class="tablewrap"><table id="tbl"></table></div>
+    <div class="bar">
+      <span class="sum" id="sum"></span>
+      <span class="spacer"></span>
+      <span class="toast" id="toast" role="status"></span>
+      <button class="btn" id="reset" type="button">Clear decisions on this tab</button>
+      <button class="btn p" id="copy" type="button">Copy decisions</button>
+    </div>
+    <div id="fallback"><textarea id="fbtext" readonly aria-label="Decisions text"></textarea></div>
+  </section>
+
+  <section id="gaps" hidden></section>
+
+  <p class="foot">Source: notification-service (email templates, subjects and push messages) and the services that call it. "Not triggered" means the template or message exists but no code sends it. The Missing tabs list only gaps that were found by reading the code of each service, with the file named in the last column. They are not a wish list. Audience and "sent when" are written from the message text and the calling code, so please correct anything that looks wrong. Every notification is a phone push and an in-app entry (the bell). Everything is sent in English and Dutch.</p>
+</div>
+
+<script>
+const DATA = {"emails": [{"id": "user-welcome", "title": "Welcome", "aud": ["Player", "Club", "Coach"], "cat": "Account", "when": "A user finishes sign-up. Players, clubs and coaches all get the same template today.", "notif": "Welcome to Shallwe-Play", "status": "active"}, {"id": "user-requested-otp", "title": "Verification Code (OTP)", "aud": ["Anyone"], "cat": "Account", "when": "A user asks for a login code.", "notif": null, "status": "active"}, {"id": "user-forgot-password", "title": "Forgot Password", "aud": ["Anyone"], "cat": "Account", "when": "A user taps Forgot Password in the app or club portal.", "notif": null, "status": "active"}, {"id": "primary-email-changed", "title": "Primary Email Changed", "aud": ["Anyone"], "cat": "Account", "when": "A user changes their primary email address.", "notif": null, "status": "active"}, {"id": "user-approval-rejected", "title": "Account Approval Rejected", "aud": ["Club"], "cat": "Account", "when": "An admin rejects a club's approval request.", "notif": null, "status": "active"}, {"id": "terms-condition-updated", "title": "Terms Updated", "aud": ["Player", "Club"], "cat": "Account", "when": "An admin publishes a new terms or policy document (only when the policy email switch is on).", "notif": null, "status": "active"}, {"id": "account-deletion-accepted", "title": "Account Deletion Accepted", "aud": ["Player", "Club"], "cat": "Account", "when": "An admin approves an account deletion request.", "notif": null, "status": "active"}, {"id": "account-deletion-rejected", "title": "Account Deletion Rejected", "aud": ["Player", "Club"], "cat": "Account", "when": "An admin rejects an account deletion request.", "notif": null, "status": "active"}, {"id": "data-request-accepted", "title": "Data Request Accepted", "aud": ["Player", "Club"], "cat": "Account", "when": "An admin accepts a data export request.", "notif": null, "status": "active"}, {"id": "data-request-rejected", "title": "Data Request Rejected", "aud": ["Player", "Club"], "cat": "Account", "when": "An admin rejects a data export request.", "notif": null, "status": "active"}, {"id": "booking-confirmation", "title": "Booking Confirmation", "aud": ["Player"], "cat": "Bookings", "when": "A booking is confirmed after payment.", "notif": "Booking Confirmed", "status": "active"}, {"id": "booking-cancelled", "title": "Booking Cancelled", "aud": ["Player"], "cat": "Bookings", "when": "A booking is cancelled.", "notif": "Booking Cancelled", "status": "active"}, {"id": "new-booking-alert", "title": "New Booking Alert", "aud": ["Club"], "cat": "Bookings", "when": "A player books one of the club's assets and pays.", "notif": "New Booking", "status": "active"}, {"id": "booking-cancellation-alert", "title": "Booking Cancellation Alert", "aud": ["Club"], "cat": "Bookings", "when": "Meant to tell the club when a player cancels. Nothing sends it today.", "notif": "Booking Cancelled By Player", "status": "off"}, {"id": "invitation-accepted", "title": "Invitation Accepted (booking)", "aud": ["Player"], "cat": "Bookings", "when": "Template exists with booking details. Nothing sends it today.", "notif": null, "status": "off"}, {"id": "refund-processed", "title": "Refund Processed", "aud": ["Player"], "cat": "Payments", "when": "The payment provider confirms a refund.", "notif": "Refund Processed", "status": "active"}, {"id": "refund-failed", "title": "Refund Failed", "aud": ["Player"], "cat": "Payments", "when": "A refund fails. The system also retries failed refunds on a schedule.", "notif": null, "status": "active"}, {"id": "player-invitation", "title": "Membership Invitation", "aud": ["Player"], "cat": "Memberships", "when": "A club invites a player to a membership plan.", "notif": null, "status": "active"}, {"id": "player-accepted-invitation", "title": "Player Accepted Invitation", "aud": ["Club"], "cat": "Memberships", "when": "A player accepts the club's membership invitation.", "notif": null, "status": "active"}, {"id": "membership-deactivated", "title": "Membership Deactivated", "aud": ["Player"], "cat": "Memberships", "when": "A club deletes its account, so memberships end.", "notif": "Membership has been deactivated. Due to Club deletion initiated!", "status": "active"}, {"id": "player-invitation-to-play", "title": "Invitation to Play", "aud": ["Player"], "cat": "Open SWP", "when": "A player invites a friend to play.", "notif": null, "status": "active"}, {"id": "rating-review", "title": "Rating and Review", "aud": ["Player"], "cat": "Reviews", "when": "Template exists. Nothing sends it today.", "notif": null, "status": "off"}, {"id": "future-club-interest", "title": "Players Interested in Your Club", "aud": ["Club"], "cat": "Engagement", "when": "Players show interest in a club that isn't live yet. Sent to that club.", "notif": null, "status": "active"}, {"id": "user-subscription-created", "title": "Subscription Created", "aud": ["Club"], "cat": "Subscription", "when": "A club buys a SWP plan.", "notif": "Subscription Purchased", "status": "active"}, {"id": "user-subscription-updated", "title": "Subscription Upgraded", "aud": ["Club"], "cat": "Subscription", "when": "A club upgrades its plan.", "notif": "Subscription Updated", "status": "active"}, {"id": "user-subscription-downgraded", "title": "Subscription Downgraded", "aud": ["Club"], "cat": "Subscription", "when": "A club downgrades its plan.", "notif": "Subscription Downgraded", "status": "active"}, {"id": "user-subscription-cancelled", "title": "Subscription Cancelled", "aud": ["Club"], "cat": "Subscription", "when": "A club cancels its plan.", "notif": "Subscription Cancelled", "status": "active"}, {"id": "kyc-pending", "title": "KYC Pending", "aud": ["Club"], "cat": "Club finance", "when": "The payment provider says KYC is still pending.", "notif": null, "status": "active"}, {"id": "kyc-success", "title": "KYC Success", "aud": ["Club"], "cat": "Club finance", "when": "KYC passes.", "notif": "KYC verified", "status": "active"}, {"id": "kyc-failed", "title": "KYC Failed", "aud": ["Club"], "cat": "Club finance", "when": "KYC fails.", "notif": null, "status": "active"}, {"id": "club-kyc-pending-alert", "title": "Complete KYC to Get Paid", "aud": ["Club"], "cat": "Club finance", "when": "A payout is due but the club hasn't finished KYC.", "notif": null, "status": "active"}, {"id": "club-payout-success", "title": "Payout Success", "aud": ["Club"], "cat": "Club finance", "when": "A payout reaches the club's bank.", "notif": null, "status": "active"}, {"id": "club-payout-failed", "title": "Payout Failed", "aud": ["Club"], "cat": "Club finance", "when": "A payout to the club fails.", "notif": null, "status": "active"}, {"id": "payout-transaction", "title": "Payout Statement", "aud": ["Club"], "cat": "Club finance", "when": "Template exists. Nothing sends it today.", "notif": null, "status": "off"}, {"id": "club-pricing-request-submitted", "title": "Pricing Request Submitted", "aud": ["Club"], "cat": "Pricing", "when": "A club submits its pricing request.", "notif": null, "status": "active"}, {"id": "club-pricing-reassigned", "title": "New Pricing Proposal Assigned", "aud": ["Club"], "cat": "Pricing", "when": "An account manager assigns a new pricing proposal.", "notif": "Account Manager has assigned you a new Pricing.", "status": "active"}, {"id": "invite-user", "title": "Staff Invitation", "aud": ["Club"], "cat": "Club team", "when": "A club invites a staff member (sub user).", "notif": null, "status": "active"}, {"id": "coach-club-email-invite", "title": "Coach Invitation (existing coach)", "aud": ["Coach"], "cat": "Coaches", "when": "A club invites a coach who already has a SWP account.", "notif": null, "status": "active"}, {"id": "coach-club-platform-invite", "title": "Coach Invitation (new coach)", "aud": ["Coach"], "cat": "Coaches", "when": "A club invites a coach who isn't on SWP yet.", "notif": null, "status": "active"}, {"id": "coach-join-request-accepted", "title": "Join Request Accepted", "aud": ["Coach"], "cat": "Coaches", "when": "A club accepts a coach's request to join.", "notif": null, "status": "active"}, {"id": "coach-join-request-rejected", "title": "Join Request Rejected", "aud": ["Coach"], "cat": "Coaches", "when": "A club rejects a coach's request to join.", "notif": null, "status": "active"}, {"id": "coach-join-request-received", "title": "Coach Wants to Join", "aud": ["Club"], "cat": "Coaches", "when": "A coach asks to join a club.", "notif": null, "status": "active"}, {"id": "coach-invitation-accepted", "title": "Coach Accepted Invitation", "aud": ["Club"], "cat": "Coaches", "when": "A coach accepts the club's invitation.", "notif": null, "status": "active"}, {"id": "coach-invitation-declined", "title": "Coach Declined Invitation", "aud": ["Club"], "cat": "Coaches", "when": "A coach declines the club's invitation.", "notif": null, "status": "active"}, {"id": "master-lead-user-confirmation", "title": "Pricing Estimate (prospect)", "aud": ["Club"], "cat": "Leads", "when": "A prospect club finishes the pricing calculator. Confirmation goes to the prospect.", "notif": null, "status": "active"}, {"id": "master-lead-finance-notification", "title": "Pricing Estimate (finance)", "aud": ["SWP Team"], "cat": "Leads", "when": "Same event. The finance team gets the details.", "notif": null, "status": "active"}, {"id": "contact-us-user", "title": "Contact Us (copy to sender)", "aud": ["Anyone"], "cat": "Contact", "when": "Someone submits the Contact Us form. They get a copy.", "notif": null, "status": "active"}, {"id": "contact-us-team", "title": "Contact Us (to SWP)", "aud": ["SWP Team"], "cat": "Contact", "when": "Same event. The SWP team gets the message.", "notif": null, "status": "active"}, {"id": "onboarding-completed", "title": "Onboarding Completed", "aud": ["SWP Team"], "cat": "Onboarding", "when": "A club, coach or business owner finishes onboarding. Goes to an internal email list.", "notif": null, "status": "active"}, {"id": "admin-forgot-password", "title": "Admin Forgot Password", "aud": ["SWP Team"], "cat": "Admin", "when": "An admin asks to reset their password.", "notif": null, "status": "active"}, {"id": "invite-admin", "title": "Admin Invitation", "aud": ["SWP Team"], "cat": "Admin", "when": "A super admin invites a new admin.", "notif": null, "status": "active"}, {"id": "payout-failed-admin", "title": "Payout Failed (admin)", "aud": ["SWP Team"], "cat": "Admin", "when": "A payout fails. The SWP team gets the error.", "notif": null, "status": "active"}, {"id": "error-notification", "title": "System Error Alert", "aud": ["SWP Team"], "cat": "Admin", "when": "A backend error happens. Goes to the tech team.", "notif": null, "status": "active"}, {"id": "user-welcome-player", "title": "Welcome: Player", "aud": ["Player"], "cat": "Account", "when": "A player finishes sign-up. Lists what players can do on SWP. Replaces the shared welcome for players.", "notif": null, "status": "planned"}, {"id": "notifications-waiting", "title": "Notifications Waiting", "aud": ["Player"], "cat": "Engagement", "when": "A player has more than 5 unread notifications. Checked daily, at most once every 7 days.", "notif": null, "status": "planned"}, {"id": "chat-club-message", "title": "New Message from a Club", "aud": ["Player"], "cat": "Chat", "when": "A club or SWP staff sends a player a chat message. Needed for the Communication Module.", "notif": null, "status": "planned"}], "notifs": [{"id": "new_booking", "title": "Booking Confirmed", "body": "Your booking at {{clubName}} is confirmed! Court {{courtName}} is reserved for you from {{bookingStartTime}} to {{bookingEndTime}}.", "aud": ["Player"], "cat": "Bookings", "when": "A booking payment succeeds.", "email": "Booking Confirmation", "status": "active"}, {"id": "new_booking_event_not_full", "title": "Booking Confirmed", "body": "Your booking at {{clubName}} is confirmed! Court {{courtName}} is reserved for you from {{bookingStartTime}} to {{bookingEndTime}}.", "aud": ["Player"], "cat": "Bookings", "when": "A booking is confirmed for an event that still has open spots. The text is identical to the one above.", "email": null, "status": "active"}, {"id": "new_booking_club", "title": "New Booking", "body": "New booking received – €{{amount}} from {{name}}.", "aud": ["Club"], "cat": "Bookings", "when": "A player books one of the club's assets.", "email": "New Booking Alert", "status": "active"}, {"id": "booking_cancelled_club", "title": "Booking Cancelled By Player", "body": "{{playerName}} has cancelled their booking for the {{courtName}} on {{date}} at {{time}} due to {{reason}}.", "aud": ["Club"], "cat": "Bookings", "when": "A player cancels their booking.", "email": "Booking Cancellation Alert", "status": "active"}, {"id": "booking_cancelled_player", "title": "Booking Cancelled By Club", "body": "Your booking for {{courtName}} is cancelled by club.", "aud": ["Player"], "cat": "Bookings", "when": "The club cancels a booking.", "email": "Booking Cancelled", "status": "active"}, {"id": "free_booking_cancelled_player", "title": "Free Booking Cancelled By Club", "body": "Your free booking for {{courtName}} is cancelled by club.", "aud": ["Player"], "cat": "Bookings", "when": "The club cancels a free booking.", "email": null, "status": "active"}, {"id": "booking_cancelled", "title": "Booking Cancelled", "body": "your booking is cancelled successfully.", "aud": ["Player"], "cat": "Bookings", "when": "A player cancels their own booking (confirmation to them).", "email": "Booking Cancelled", "status": "active"}, {"id": "booking_cancelled_by_the_member", "title": "Booking Cancelled By {{playerName}}", "body": "{{playerName}} has cancelled their booking, Due to {{cancelReason}}", "aud": ["Player"], "cat": "Bookings", "when": "A member leaves a shared booking. The other members are told.", "email": null, "status": "active"}, {"id": "club_kyc_completed", "title": "KYC verified", "body": "KYC verified successfully. Your club profile is now active.", "aud": ["Club"], "cat": "Club finance", "when": "KYC passes and the club profile goes active.", "email": "KYC Success", "status": "active"}, {"id": "user_subscription_created", "title": "Subscription Purchased", "body": "Your subscription has been activated successfully.", "aud": ["Club"], "cat": "Subscription", "when": "A club buys a plan.", "email": "Subscription Created", "status": "active"}, {"id": "user_subscription_updated", "title": "Subscription Updated", "body": "Your subscription has been updated successfully.", "aud": ["Club"], "cat": "Subscription", "when": "A club upgrades its plan.", "email": "Subscription Upgraded", "status": "active"}, {"id": "user_subscription_downgraded", "title": "Subscription Downgraded", "body": "Your subscription is scheduled to downgrade at the end of your billing cycle.", "aud": ["Club"], "cat": "Subscription", "when": "A club downgrades its plan. Takes effect at the end of the billing cycle.", "email": "Subscription Downgraded", "status": "active"}, {"id": "user_subscription_cancelled", "title": "Subscription Cancelled", "body": "Your subscription has been cancelled successfully.", "aud": ["Club"], "cat": "Subscription", "when": "A club cancels its plan.", "email": "Subscription Cancelled", "status": "active"}, {"id": "user_upcoming_subscription_cancelled", "title": "Upcoming Subscription Cancelled", "body": "Your upcoming subscription has been cancelled successfully.", "aud": ["Club"], "cat": "Subscription", "when": "A club cancels a plan that hasn't started yet.", "email": null, "status": "active"}, {"id": "payment_failed", "title": "Payment Failed", "body": "Your recent payment attempt has failed. Please update your payment information to avoid interruption of service.", "aud": ["Player"], "cat": "Payments", "when": "A payment attempt fails.", "email": null, "status": "active"}, {"id": "payment_done_booking_failed_refund", "title": "Refund Processed", "body": "Your payment was successful, but the booking failed. A refund has been processed to your account soon.", "aud": ["Player"], "cat": "Payments", "when": "Payment went through but the booking failed. The money is refunded.", "email": null, "status": "active"}, {"id": "payment_failed_club", "title": "Payment Failed", "body": "Your recent payment attempt has failed. Please update your payment information to avoid interruption of service.", "aud": ["Club"], "cat": "Subscription", "when": "A club's subscription payment fails.", "email": null, "status": "active"}, {"id": "new_subscription_created", "title": "New Subscription Activated", "body": "Your new subscription has been activated successfully.", "aud": ["Club"], "cat": "Subscription", "when": "A new subscription starts (payment provider webhook). Similar text to the one above.", "email": null, "status": "active"}, {"id": "welcome_club", "title": "Welcome to Shallwe-Play", "body": "You can now manage your sports club, set up courts, create events, and connect with players in your community.", "aud": ["Club"], "cat": "Account", "when": "A club finishes sign-up.", "email": "Welcome", "status": "active"}, {"id": "welcome_coach", "title": "Welcome to Shallwe-Play", "body": "You can create your coaching profile, offer training sessions, connect with players, and share your expertise in sports.", "aud": ["Coach"], "cat": "Account", "when": "A coach finishes sign-up.", "email": "Welcome", "status": "active"}, {"id": "welcome_business_owner", "title": "Welcome to Shallwe-Play", "body": "You can start building your sports business, manage multiple clubs, track analytics, and grow your sports community.", "aud": ["Club"], "cat": "Account", "when": "A business owner finishes sign-up.", "email": "Welcome", "status": "active"}, {"id": "join_swp_request_accepted", "title": "Join SWP Request Accepted", "body": "Your request to join the {{sportName}} booking on {{date}} at {{time}} has been accepted and confirmed. Please pay €{{splitAmount}} to {{eventCreatorName}}.", "aud": ["Player"], "cat": "Open SWP", "when": "The host accepts a request to join.", "email": null, "status": "active"}, {"id": "join_free_swp_request_accepted", "title": "Join SWP Request Accepted", "body": "Your request to join the {{sportName}} booking on {{date}} at {{time}} has been accepted and confirmed.", "aud": ["Player"], "cat": "Open SWP", "when": "The host accepts a request to join a free SWP.", "email": null, "status": "active"}, {"id": "outer_house_swp_request_accepted", "title": "Join SWP Request Accepted", "body": "Your request to join the {{sportName}} booking on {{date}} at {{time}} has been accepted and confirmed.", "aud": ["Player"], "cat": "Open SWP", "when": "The host accepts a request to join an outside-club SWP.", "email": null, "status": "active"}, {"id": "join_swp_request_rejected", "title": "Join SWP Request Rejected", "body": "Your request to join {{sportName}} booking on {{date}} at {{time}} was rejected. Reason: {{rejectionReason}}", "aud": ["Player"], "cat": "Open SWP", "when": "The host declines, or a pending invite is auto-rejected.", "email": null, "status": "active"}, {"id": "join_swp_request_recieved", "title": "Join SWP Request Received", "body": "{{playerName}} requested to join your booking for {{sportName}} on {{date}} at {{time}}", "aud": ["Player"], "cat": "Open SWP", "when": "Someone asks to join a player's SWP (sent to the host).", "email": null, "status": "active"}, {"id": "membership_payment_success", "title": "Membership Activated", "body": "Your {{package_name}} membership has been activated", "aud": ["Player"], "cat": "Memberships", "when": "A membership payment succeeds.", "email": null, "status": "active"}, {"id": "player_free_membership_activated", "title": "Membership Activated", "body": "Your {{package_name}} membership has been activated", "aud": ["Player"], "cat": "Memberships", "when": "A free membership is activated.", "email": null, "status": "active"}, {"id": "club_membership_payment_success", "title": "Membership Purchased by Player", "body": "{{playerName}} has completed the payment for Your {{package_name}} membership package.", "aud": ["Club"], "cat": "Memberships", "when": "A player pays for one of the club's memberships.", "email": null, "status": "active"}, {"id": "club_free_membership_activated", "title": "Free Membership Activated", "body": "{{playerName}} has activated the free {{package_name}} membership.", "aud": ["Club"], "cat": "Memberships", "when": "A player activates a free membership.", "email": null, "status": "active"}, {"id": "player_credits_debited_for_membership", "title": "Membership Activated & Credits Debited", "body": "Your {{package_name}} membership has been activated, you have used {{credits}} credits.", "aud": ["Player"], "cat": "Credits", "when": "A membership is paid with credits.", "email": null, "status": "active"}, {"id": "player_credits_debited_for_booking", "title": "Booking Confirmed & Credits Debited", "body": "Your booking for {{courtName}} confirmed, you have used {{credits}} credits & you paid €{{amount}} for this booking.", "aud": ["Player"], "cat": "Credits", "when": "A booking is paid (partly) with credits.", "email": null, "status": "active"}, {"id": "membership_payment_failed", "title": "Membership Payment Failed", "body": "Your {{package_name}} membership Payment Failed", "aud": ["Player"], "cat": "Memberships", "when": "A membership payment fails.", "email": null, "status": "active"}, {"id": "club_court_address_changed", "title": "Court address has been updated", "body": "{{courtName}} has updated its address. Check your booking location between {{startDate}} and {{endDate}} on {{bookingDate}}.", "aud": ["Player"], "cat": "Bookings", "when": "A club changes a court's address. Players with upcoming bookings are told.", "email": null, "status": "active"}, {"id": "player_credits_approved", "title": "Credits Approved", "body": "Your booking cancellation credits is approved, You will receive your credits soon.", "aud": ["Player"], "cat": "Credits", "when": "Meant for when credits for a cancellation are approved. Nothing sends it today.", "email": null, "status": "off"}, {"id": "player_credits_transferred", "title": "Credits Transferred", "body": "You have received {{credits}} credits for your booking cancellation. Please check your available credits balance.", "aud": ["Player"], "cat": "Credits", "when": "Credits are added after a booking cancellation.", "email": null, "status": "active"}, {"id": "player_refund_processed", "title": "Refund Processed", "body": "Your refund has been processed! You have received {{creditAmount}}.", "aud": ["Player"], "cat": "Payments", "when": "A refund is processed.", "email": "Refund Processed", "status": "active"}, {"id": "send_payment_link_to_player", "title": "Confirm Your Booking by Completing Payment", "body": "To confirm your booking, please click here to complete your payment. The link will expires in {{expireIn}}.", "aud": ["Player"], "cat": "Payments", "when": "A payment link is sent to complete a booking.", "email": null, "status": "active"}, {"id": "send_payment_link_to_player_for_additional_charges", "title": "Confirm Your Booking by Completing Additional Payment", "body": "To confirm your booking, please click here to complete your additional payment. The link will expires in {{expireIn}}.", "aud": ["Player"], "cat": "Payments", "when": "A payment link is sent for extra charges on a booking.", "email": null, "status": "active"}, {"id": "send_payment_link_to_player_membership", "title": "Confirm Your membership by Completing Payment", "body": "To confirm your membership, please click here to complete your payment. The link will expires in {{expireIn}}.", "aud": ["Player"], "cat": "Payments", "when": "A payment link is sent to complete a membership.", "email": null, "status": "active"}, {"id": "club_deletion_approved", "title": "Club Account Deleted", "body": "{{clubName}} is no longer part of ShallWe Play! Please contact the club for your refund.", "aud": ["Player"], "cat": "Account", "when": "A club account is deleted. Its players are told.", "email": null, "status": "active"}, {"id": "swp_event_completed", "title": "Your event has been completed", "body": "Your game on Court {{courtName}} is complete. Please tap here to quickly rate the court and club facilities so we can keep improving your experience!", "aud": ["Player"], "cat": "Open SWP", "when": "A game is finished. Asks the player to rate the court.", "email": null, "status": "active"}, {"id": "swp_submit_score", "title": "Submit Score", "body": "Your game on Court {{courtName}} is completed. Please tap here to submit your score!", "aud": ["Player"], "cat": "Open SWP", "when": "A game is finished. Asks the player to submit the score.", "email": null, "status": "active"}, {"id": "club_swp_event_completed", "title": "Event has been completed", "body": "A {{playerName}} has completed their event for {{courtName}}.", "aud": ["Club"], "cat": "Open SWP", "when": "Meant to tell the club a game finished. Nothing sends it today.", "email": null, "status": "off"}, {"id": "membership_deactivated_due_to_club_deletion", "title": "Membership has been deactivated. Due to Club deletion initiated!", "body": "Your membership {{membershipPackageName}} of {{clubName}} has been deactivated due to the club deletion initiated. Please contact the club for your refund.", "aud": ["Player"], "cat": "Memberships", "when": "A club is deleted, so its memberships end.", "email": "Membership Deactivated", "status": "active"}, {"id": "free_club_booking_club", "title": "Free Booking Confirmed", "body": "A free booking has been confirmed by {{name}}.", "aud": ["Club"], "cat": "Bookings", "when": "A free booking is confirmed.", "email": null, "status": "active"}, {"id": "event_members_updated_club", "title": "Booking Members Updated", "body": "The members for booking on {{bookingDate}} at {{startTime}} (Court {{courtName}}) have been updated.", "aud": ["Club"], "cat": "Bookings", "when": "The players on a booking change (re-booking or extra payment).", "email": null, "status": "active"}, {"id": "equipment_transaction_to_club", "title": "Equipment {{transactionType}}", "body": "{{playerName}} has {{transactionType}} {{equipmentSummary}} for {{totalAmount}}.", "aud": ["Club"], "cat": "Equipment", "when": "A player buys or rents equipment from the club.", "email": null, "status": "active"}, {"id": "equipment_transaction_to_player", "title": "{{transactionType}} Confirmed", "body": "You have successfully {{transactionType}} {{equipmentSummary}} from {{clubName}}. Total: {{totalAmount}}.", "aud": ["Player"], "cat": "Equipment", "when": "A player buys or rents equipment (confirmation).", "email": null, "status": "active"}, {"id": "club_pricing_reassigned", "title": "Account Manager has assigned you a new Pricing.", "body": "Tap here to see the details and Perform the action.", "aud": ["Club"], "cat": "Pricing", "when": "An account manager assigns a new pricing proposal.", "email": "New Pricing Proposal Assigned", "status": "active"}, {"id": "future_club_available_for_booking", "title": "{{clubName}} is now available for booking in ShallWe-Play!", "body": "Tap here to Book the {{courtName}} and enjoy your game.", "aud": ["Player"], "cat": "Discovery", "when": "A coming-soon club goes live. Players who showed interest are told.", "email": null, "status": "active"}, {"id": "new_post_from_following", "title": "New Post from {{username}}", "body": "{{username}} just shared a new post. Check it out!", "aud": ["Player"], "cat": "Social", "when": "Someone you follow posts.", "email": null, "status": "active"}, {"id": "post_liked", "title": "New Like ❤️", "body": "{{username}} liked your post.", "aud": ["Player"], "cat": "Social", "when": "Someone likes your post.", "email": null, "status": "active"}, {"id": "new_comment", "title": "New Comment 💬", "body": "{{username}} commented on your post: \"{{comment_preview}}\"", "aud": ["Player"], "cat": "Social", "when": "Someone comments on your post.", "email": null, "status": "active"}, {"id": "comment_reply", "title": "New Reply 🔁", "body": "{{username}} replied to your comment: \"{{reply_preview}}\"", "aud": ["Player"], "cat": "Social", "when": "Someone replies to your comment.", "email": null, "status": "active"}, {"id": "comment_liked", "title": "Comment Liked ❤️", "body": "{{username}} liked your comment.", "aud": ["Player"], "cat": "Social", "when": "Someone likes your comment.", "email": null, "status": "active"}, {"id": "new_follower", "title": "New Follower 👤", "body": "{{username}} started following you.", "aud": ["Player"], "cat": "Social", "when": "Someone follows you.", "email": null, "status": "active"}, {"id": "story_posted", "title": "New Story 📸", "body": "{{username}} added a new story.", "aud": ["Player"], "cat": "Social", "when": "Someone you follow adds a story.", "email": null, "status": "active"}, {"id": "story_reaction", "title": "Story Reaction ❤️", "body": "{{username}} reacted to your story.", "aud": ["Player"], "cat": "Social", "when": "Someone reacts to your story.", "email": null, "status": "active"}, {"id": "new_comment_on_story", "title": "New Comment 💬", "body": "{{username}} commented on your story: \"{{comment_preview}}\"", "aud": ["Player"], "cat": "Social", "when": "Someone comments on your story.", "email": null, "status": "active"}, {"id": "mentioned_in_post", "title": "You were mentioned in a post", "body": "{{username}} mentioned you in their post.", "aud": ["Player"], "cat": "Social", "when": "Someone mentions you in a post.", "email": null, "status": "active"}, {"id": "new_post_with_mentioned", "title": "New Post from {{username}} 🏷️", "body": "{{username}} shared a new post and mentioned you. Check it out!", "aud": ["Player"], "cat": "Social", "when": "Someone you follow posts and mentions you.", "email": null, "status": "active"}, {"id": "chat_new_message", "title": "New message from {{senderName}}", "body": "{{messagePreview}}", "aud": ["Player"], "cat": "Chat", "when": "Someone sends a chat message. Photos show as 'Photo', videos as 'Video'. Needed for the Communication Module.", "email": null, "status": "planned"}, {"id": "chat_added_to_group", "title": "You were added to {{chatName}}", "body": "{{adminName}} added you to the group.", "aud": ["Player"], "cat": "Chat", "when": "A player is added to a group chat, or a booking or event chat is created for them.", "email": null, "status": "planned"}], "missingEmails": [{"id": "me-club-approved", "title": "Club account approved", "aud": ["Club"], "cat": "Silent change", "prio": "High", "when": "An admin approves a club. Only a rejection sends an email. An approval sends nothing.", "body": "Your club is approved|Your club {{clubName}} is approved on ShallWe-Play. Here is what to do next.", "why": "The club doesn't know it can go live.", "ev": "user-service › AdminController.updateApprovalStatus (email only inside the REJECTED branch)"}, {"id": "me-password-changed", "title": "Club password changed or reset", "aud": ["Club"], "cat": "Silent change", "prio": "High", "when": "After a club changes or resets its password, no email confirms it. The only password email is the reset link.", "body": "Your password was changed|Your ShallWe-Play password was changed. If this wasn't you, contact support.", "why": "Security: a club can't spot someone else changing its password. (Players have no password flow in the code.)", "ev": "user-service › AuthController.changePasswordForClub and resetPasswordForClub (the only email in the file is the forgot-password link)"}, {"id": "me-unpaid-booking", "title": "Unpaid booking cancelled by the system", "aud": ["Player"], "cat": "Silent change", "prio": "High", "when": "The 'Booking Cancelled' email goes out only when a player or the club cancels. The scheduled job that cancels unpaid bookings sends nothing.", "body": "Booking cancelled|Your booking at {{clubName}} on {{date}} was cancelled because payment wasn't completed in time.", "why": "The player loses a booking and gets no written record of why.", "ev": "booking-service › cronHelpers/cancelSwpCourtBooking.js (no message call)"}, {"id": "me-membership-receipt", "title": "Membership payment confirmed", "aud": ["Player"], "cat": "One channel only", "prio": "High", "when": "The player gets a notification only. Bookings have a confirmation email, memberships have none.", "body": "Membership confirmed|Your {{package_name}} membership at {{clubName}} is active until {{expiryDate}}. Amount paid: €{{amount}}.", "why": "It involves money, and a player needs a record to keep.", "ev": "payment-service › MembershipPaymentSuccessHandler.js (notification only); no membership email among the 53 templates"}, {"id": "me-payment-failed", "title": "Payment failed", "aud": ["Player", "Club"], "cat": "One channel only", "prio": "Medium", "when": "Players (bookings, memberships) and clubs (subscription) get a notification only.", "body": "Payment failed|Your payment of €{{amount}} didn't go through. Update your payment details to avoid losing your booking or plan.", "why": "A missed push means a lost booking or a suspended plan.", "ev": "user-service and payment-service › paymentFailure.js, RevolutPayPaymentFailed.js, MembershipPaymentFailed.js"}, {"id": "me-membership-expired", "title": "Membership expired", "aud": ["Player"], "cat": "Silent change", "prio": "Medium", "when": "No email when a membership expires, and none before.", "body": "Your membership has expired|Your {{package_name}} membership at {{clubName}} has expired. (Optional: a reminder before.)", "why": "Players lose member prices without warning.", "ev": "booking-service › cronHelpers/playerMembershipExpired.js (no message call)"}, {"id": "me-membership-club-change", "title": "Club changes a player's membership", "aud": ["Player"], "cat": "Silent change", "prio": "Medium", "when": "A club can change dates, deactivate, or delete a player's membership. No email goes to the player.", "body": "Your membership was updated|{{clubName}} updated your {{package_name}} membership.", "why": "Access and prices change without a written record.", "ev": "booking-service › MembershipController.updateMembership, manageMembershipStatus, deleteMembership"}, {"id": "me-data-request", "title": "Data request received", "aud": ["Player", "Club"], "cat": "Silent change", "prio": "Medium", "when": "An email goes out when an admin accepts or rejects. Nothing is sent when the request is made.", "body": "We received your data request|We received your request. We'll email you when it's reviewed.", "why": "Users don't know if their request went through.", "ev": "user-service › user/DataRequestController.createPlayerDataRequest (0 message calls in the controller)"}, {"id": "me-deletion-request", "title": "Account deletion request received", "aud": ["Player", "Club"], "cat": "Silent change", "prio": "Medium", "when": "An email goes out when an admin accepts or rejects. Nothing confirms the request when it is made. A club's request only emails the club's members.", "body": "We received your deletion request|We received your request to delete your account. We'll email you when it's reviewed.", "why": "Deleting an account is serious, so the user should get a written record.", "ev": "user-service › DeleteAccountController.createPlayerAccountDeleteRequest and createClubAccountDeleteRequest"}, {"id": "me-booking-equipment", "title": "Equipment is missing from the booking confirmation", "aud": ["Player"], "cat": "Content gap", "prio": "Medium", "when": "Equipment rented or bought with a booking triggers a notification, but the confirmation email has no equipment section.", "body": "Add the equipment list and its cost to the existing 'Booking Confirmation' email.", "why": "The player pays for equipment without a written receipt.", "ev": "booking-service › sendBookingNotificationHelper.js; notification-service › booking-confirmation.hbs has no equipment text"}, {"id": "me-club-cancel-alert", "title": "Player cancels: email the club", "aud": ["Club"], "cat": "Built, never sent", "prio": "Medium", "when": "The template and subject 'Booking Cancellation Alert' exist. Nothing sends them. The club gets a notification only.", "body": "Existing template. Switch it on.", "why": "The club's owner may not see a push, and an email is a record.", "ev": "notification-service › booking-cancellation-alert.hbs and mailSubject.js (no sender in any service)"}, {"id": "me-payout-statement", "title": "Payout statement", "aud": ["Club"], "cat": "Built, never sent", "prio": "Low", "when": "The template exists. Nothing sends it. Clubs already see statements in the club portal.", "body": "Existing template. Decide: send it, or remove it.", "why": "Needs a client decision.", "ev": "notification-service › payout-transaction.hbs (no sender in any service)"}, {"id": "me-rating-request", "title": "Rate your game", "aud": ["Player"], "cat": "Built, never sent", "prio": "Low", "when": "A rating email template exists. Nothing sends it. Players are asked to rate through a notification after a game.", "body": "Existing template. Decide: send it, or remove it.", "why": "Needs a client decision.", "ev": "notification-service › rating-review.hbs (no sender in any service)"}, {"id": "me-invitation-accepted", "title": "Booking invitation accepted", "aud": ["Player"], "cat": "Built, never sent", "prio": "Low", "when": "A template with booking details exists. Nothing sends it, and it's unclear what it was meant for.", "body": "Confirm what it was for, then switch it on or remove it.", "why": "A dead template adds confusion.", "ev": "notification-service › invitation-accepted.hbs (no sender in any service)"}], "missingNotifs": [{"id": "mn-unpaid-booking", "title": "Unpaid booking cancelled by the system", "aud": ["Player"], "cat": "Silent change", "prio": "High", "when": "If a booking isn't paid inside the payment window, a scheduled job cancels it and all its members. Nobody is told.", "body": "Booking cancelled|Your booking at {{clubName}} on {{date}} was cancelled because payment wasn't completed in time.", "why": "Players can turn up for a court they no longer hold, and other members never learn why the slot is gone.", "ev": "booking-service › cronHelpers/cancelSwpCourtBooking.js (sets status to cancelled by system; no message call)"}, {"id": "mn-pending-removed", "title": "Player removed because the payment link expired", "aud": ["Player"], "cat": "Silent change", "prio": "High", "when": "A player added to a booking who doesn't pay in time is removed from it. Neither that player nor the host is told.", "body": "Removed from booking|You were removed from the {{sportName}} booking on {{date}} because the payment link expired.", "why": "The host thinks the spot is filled and the player thinks they have a spot.", "ev": "booking-service › cronHelpers/cancelExpiredPendingMembers.js (member marked expired and deleted; no message call)"}, {"id": "mn-swp-edited", "title": "Host changes an Open SWP", "aud": ["Player"], "cat": "Silent change", "prio": "High", "when": "The host can change the club, address, sport, court number and cost of an Open SWP. Players who already joined are not told.", "body": "Game details changed|{{hostName}} changed the details of {{sportName}} on {{date}}. Check the new details.", "why": "Players can go to the wrong place or pay a different amount than they agreed to.", "ev": "booking-service › OpenSWPController.updateOpenSwp (0 message calls in the controller)"}, {"id": "mn-swp-deleted", "title": "Host deletes an Open SWP", "aud": ["Player"], "cat": "Silent change", "prio": "High", "when": "The event and all its members are marked deleted. Members and people with a pending request are not told.", "body": "Game cancelled|{{hostName}} cancelled {{sportName}} on {{date}}.", "why": "Players can travel to a game that no longer exists.", "ev": "booking-service › OpenSWPController.deleteEvent (0 message calls in the controller)"}, {"id": "mn-membership-expired", "title": "Membership expired", "aud": ["Player"], "cat": "Silent change", "prio": "High", "when": "Memberships are marked expired by a job that runs every night at 00:05. No message is sent when it expires, and none before.", "body": "Membership expired|Your {{package_name}} membership at {{clubName}} has expired. (Optional: a reminder a few days before.)", "why": "Players lose member prices or access without any warning.", "ev": "booking-service › cronHelpers/playerMembershipExpired.js (status set to expired; no message call)"}, {"id": "mn-membership-club-change", "title": "Club changes a player's membership", "aud": ["Player"], "cat": "Silent change", "prio": "High", "when": "A club can change the start and expiry dates, deactivate, or delete a player's membership. The player is not told. The only membership messages are the payment link and the invitation.", "body": "Membership updated|{{clubName}} updated your {{package_name}} membership. (Variants for new dates, deactivated, removed.)", "why": "A player's access and prices change without notice.", "ev": "booking-service › MembershipController.updateMembership, manageMembershipStatus, deleteMembership"}, {"id": "mn-membership-unpaid", "title": "Unpaid membership cancelled by the system", "aud": ["Player"], "cat": "Silent change", "prio": "Medium", "when": "A membership purchase that isn't paid inside the payment window is cancelled by a job. The player is not told.", "body": "Membership not activated|Your {{package_name}} membership wasn't activated because payment wasn't completed in time.", "why": "The player may believe they are a member.", "ev": "booking-service › cronHelpers/cancelMembershipBySystem.js (status set to cancelled by system; no message call)"}, {"id": "mn-refund-failed", "title": "Refund failed", "aud": ["Player"], "cat": "One channel only", "prio": "High", "when": "The player gets an email. There is no notification message for a failed refund at all.", "body": "Refund failed|We couldn't refund €{{refund_amount}} to you. We'll retry.", "why": "It involves the player's money, and email is easy to miss.", "ev": "payment-service › RefundWebhookHandler.js and cronHelpers/retryFailedRefunds.js send email only; no refund-failed entry in pushMessages.js"}, {"id": "mn-kyc", "title": "KYC failed or still pending", "aud": ["Club"], "cat": "One channel only", "prio": "Medium", "when": "The club gets an email. A notification exists only for 'KYC verified'.", "body": "KYC needs attention|Your KYC check didn't pass. Open the portal to fix it so you can receive payouts.", "why": "Payouts are blocked until KYC is complete.", "ev": "payment-service and user-service › accountUpdated.js (email for failed and pending, notification only for completed)"}, {"id": "mn-payout", "title": "Payout sent or payout failed", "aud": ["Club"], "cat": "One channel only", "prio": "Medium", "when": "The club gets an email. There are no payout notifications.", "body": "Payout sent|€{{amount}} was sent to your bank account. (A second message for a failed payout.)", "why": "It involves the club's money.", "ev": "payment-service › WebhookController.js (payout success and failed send email only)"}, {"id": "mn-new-rating", "title": "A player rates a court or club", "aud": ["Club"], "cat": "Silent change", "prio": "Medium", "when": "Players can rate a game and the court. The club gets no message.", "body": "New rating|A player rated {{courtName}}.", "why": "Clubs hear about complaints late.", "ev": "booking-service › RatingController.addRatingByPlayer (0 message calls in the controller)"}, {"id": "mn-score", "title": "Score submitted for a game", "aud": ["Player"], "cat": "Silent change", "prio": "Low", "when": "Only the host can submit the score. The other players are not told when it is saved.", "body": "Score added|{{hostName}} submitted the score for {{sportName}} on {{date}}.", "why": "Players only see the score if they go and look.", "ev": "booking-service › EventScoreController.submitEventScore (0 message calls in the controller)"}, {"id": "mn-credits-approved", "title": "Credits approved", "aud": ["Player"], "cat": "Built, never sent", "prio": "Low", "when": "The message exists ('Your booking cancellation credits is approved'). No code sends it. Credits already arrive with a separate 'Credits Transferred' message.", "body": "Existing text. Confirm if there is still an approval step. If not, remove the message.", "why": "A dead message adds confusion for the team and for translators.", "ev": "notification-service › pushMessages.js (PLAYER_CREDITS_APPROVED; no caller in any service)"}, {"id": "mn-club-game-finished", "title": "Game finished: tell the club", "aud": ["Club"], "cat": "Built, never sent", "prio": "Low", "when": "The message exists ('A player has completed their event for Court X'). No code sends it.", "body": "Existing text. Switch it on, or remove it.", "why": "Needs a client decision on whether clubs want this.", "ev": "notification-service › pushMessages.js (CLUB_SWP_EVENT_COMPLETED; no caller in any service)"}]};
+const AUDS = ['Player','Club','Coach','SWP Team','Anyone'];
+const audClass = a => a==='SWP Team' ? 'a-SWP' : 'a-'+a;
+const STATUS_LABEL = {active:'Active', off:'Not triggered', planned:'Planned'};
+const LS = 'swp-inventory-decisions-v1';
+
+let decisions = {};
+try { decisions = JSON.parse(localStorage.getItem(LS) || '{}') || {}; } catch(e) { decisions = {}; }
+function save(){ try { localStorage.setItem(LS, JSON.stringify(decisions)); } catch(e) {} }
+
+const S = { tab:'emails', aud:'', cat:'', status:'', prio:'', decf:'', q:'' };
+const TABS = {
+  emails: {k:'e', label:'Email', data:()=>DATA.emails, missing:false},
+  notifs: {k:'n', label:'Notification', data:()=>DATA.notifs, missing:false},
+  mmail:  {k:'me', label:'Missing email', data:()=>DATA.missingEmails, missing:true},
+  mnotif: {k:'mn', label:'Missing notification', data:()=>DATA.missingNotifs, missing:true},
+};
+const HASH = {emails:'emails', notifs:'notifications', mmail:'missing-emails', mnotif:'missing-notifications', gaps:'cleanup'};
+const FROM_HASH = Object.fromEntries(Object.entries(HASH).map(([k,v])=>[v,k]));
+const esc = s => String(s==null?'':s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const vars = s => esc(s).replace(/\{\{(\w+)\}\}/g, '<code class="v">{{$1}}</code>');
+const $ = id => document.getElementById(id);
+
+function items(){ return TABS[S.tab].data(); }
+const kind = () => TABS[S.tab].k;
+const dkey = it => kind()+':'+it.id;
+
+function stats(){
+  const e = DATA.emails, n = DATA.notifs, me = DATA.missingEmails, mn = DATA.missingNotifs;
+  const live = a => a.filter(x=>x.status==='active').length;
+  const plan = a => a.filter(x=>x.status==='planned').length;
+  const high = a => a.filter(x=>x.prio==='High').length;
+  $('stats').innerHTML =
+    `<div class="stat"><b>${live(e)}</b><span>emails sent today<br>+${plan(e)} planned</span></div>`+
+    `<div class="stat"><b>${live(n)}</b><span>notifications sent today<br>+${plan(n)} planned</span></div>`+
+    `<div class="stat warn"><b>${me.length}</b><span>missing emails<br>${high(me)} high priority</span></div>`+
+    `<div class="stat warn"><b>${mn.length}</b><span>missing notifications<br>${high(mn)} high priority</span></div>`+
+    `<div class="stat"><b>${Object.keys(decisions).filter(k=>decisions[k].d).length}</b><span>decisions marked so far</span></div>`;
+  $('n-emails').textContent = e.length; $('n-notifs').textContent = n.length;
+  $('n-mmail').textContent = me.length; $('n-mnotif').textContent = mn.length;
+}
+
+function matches(it){
+  if (S.aud && !it.aud.includes(S.aud)) return false;
+  if (S.cat && it.cat !== S.cat) return false;
+  if (!TABS[S.tab].missing && S.status && it.status !== S.status) return false;
+  if (TABS[S.tab].missing && S.prio && it.prio !== S.prio) return false;
+  const d = (decisions[dkey(it)]||{}).d || '';
+  if (S.decf === 'none' && d) return false;
+  if (S.decf && S.decf !== 'none' && d !== S.decf) return false;
+  if (S.q){
+    const h = (it.title+' '+(it.body||'')+' '+it.when+' '+it.cat+' '+it.id+' '+(it.why||'')+' '+(it.ev||'')).toLowerCase();
+    if (!h.includes(S.q.toLowerCase())) return false;
+  }
+  return true;
+}
+
+function drawFilters(){
+  const all = items();
+  $('aud').innerHTML = [''].concat(AUDS).map(a=>{
+    const c = a ? all.filter(x=>x.aud.includes(a)).length : all.length;
+    return `<button class="chip" type="button" data-aud="${a}" aria-pressed="${S.aud===a}">${a||'All audiences'}<span class="c">${c}</span></button>`;
+  }).join('');
+  const cats = [...new Set(all.map(x=>x.cat))].sort();
+  if (S.cat && !cats.includes(S.cat)) S.cat = '';
+  const miss = TABS[S.tab].missing;
+  $('cat').innerHTML = `<option value="">${miss?'All types':'All categories'}</option>` + cats.map(c=>`<option ${c===S.cat?'selected':''}>${esc(c)}</option>`).join('');
+  $('cat').setAttribute('aria-label', miss?'Type':'Category');
+  $('status').hidden = miss; $('prio').hidden = !miss; $('prio').value = S.prio;
+  const intro = $('intro');
+  intro.hidden = !miss;
+  if (miss) intro.innerHTML = S.tab==='mmail'
+    ? '<b>Emails that should go out but don\'t.</b> Every row was checked in the code. <b>Silent change</b>: the system changes something for the user and tells nobody. <b>One channel only</b>: a notification is sent but no email. <b>Content gap</b>: an email is sent but leaves something out. <b>Built, never sent</b>: the template exists but nothing sends it. High means money, access or a booking is affected.'
+    : '<b>Notifications that should go out but don\'t.</b> Every row was checked in the code. <b>Silent change</b>: the system changes something for the user and tells nobody. <b>One channel only</b>: an email is sent but no notification. <b>Built, never sent</b>: the message exists but nothing sends it. High means money, access or a booking is affected.';
+}
+
+function decCells(it){
+  const k = dkey(it), d = decisions[k] || {};
+  const opts = ['','Keep','Change','Drop','Discuss'].map(o=>`<option value="${o}" ${o===(d.d||'')?'selected':''}>${o||'Decide…'}</option>`).join('');
+  return `<td><select class="dec ${d.d||''}" id="dec-${esc(k)}" data-k="${esc(k)}" aria-label="Decision for ${esc(it.title)}">${opts}</select></td>
+    <td><input type="text" class="note" id="note-${esc(k)}" data-k="${esc(k)}" value="${esc(d.n||'')}" placeholder="Note" aria-label="Note for ${esc(it.title)}"></td>`;
+}
+function missingRow(it){
+  const parts = String(it.body).split('|');
+  const msg = parts.length>1 ? `<div class="msg"><b>${vars(parts[0])}</b>${vars(parts.slice(1).join('|'))}</div>` : `<div class="msg">${vars(it.body)}</div>`;
+  return `<tr>
+    <td><div class="nm">${esc(it.title)}</div><div class="today">${esc(it.when)}</div></td>
+    <td>${it.aud.map(a=>`<span class="tag ${audClass(a)}">${esc(a)}</span>`).join('')}</td>
+    <td>${msg}</td>
+    <td class="why">${esc(it.why)}</td>
+    <td><span class="kind">${esc(it.cat)}</span></td>
+    <td><span class="pr ${it.prio}">${it.prio}</span></td>
+    <td class="ev">${esc(it.ev)}</td>
+    ${decCells(it)}
+  </tr>`;
+}
+function row(it){
+  if (TABS[S.tab].missing) return missingRow(it);
+  const k = dkey(it), d = decisions[k] || {};
+  const isE = S.tab==='emails';
+  const name = isE
+    ? `<div class="nm">${esc(it.title)}</div><div class="key">${esc(it.id)}</div>`
+    : `<div class="nm">${vars(it.title)}</div><div class="sub">${vars(it.body)}</div>`;
+  const also = isE
+    ? (it.notif ? `<div class="also">Also a notification:<br><b>${vars(it.notif)}</b></div>` : '<div class="also">Email only</div>')
+    : (it.email ? `<div class="also">Also an email:<br><b>${esc(it.email)}</b></div>` : '<div class="also">Notification only</div>');
+  const opts = ['','Keep','Change','Drop','Discuss'].map(o=>`<option value="${o}" ${o===(d.d||'')?'selected':''}>${o||'Decide…'}</option>`).join('');
+  return `<tr class="${it.status==='off'?'off':''}">
+    <td>${name}</td>
+    <td>${it.aud.map(a=>`<span class="tag ${audClass(a)}">${esc(a)}</span>`).join('')}</td>
+    <td>${esc(it.cat)}</td>
+    <td class="when">${esc(it.when)}</td>
+    <td>${also}</td>
+    <td><span class="st ${it.status}">${STATUS_LABEL[it.status]}</span></td>
+    <td><select class="dec ${d.d||''}" id="dec-${esc(k)}" data-k="${esc(k)}" aria-label="Decision for ${esc(it.title)}">${opts}</select></td>
+    <td><input type="text" class="note" id="note-${esc(k)}" data-k="${esc(k)}" value="${esc(d.n||'')}" placeholder="Note" aria-label="Note for ${esc(it.title)}"></td>
+  </tr>`;
+}
+
+function drawTable(){
+  const isE = S.tab==='emails', miss = TABS[S.tab].missing;
+  const list = items().filter(matches);
+  const head = miss
+    ? `<thead><tr><th>${S.tab==='mmail'?'Missing email':'Missing notification'}</th><th>Who</th><th>Suggested message</th><th>Why it matters</th><th>Type</th><th>Priority</th><th>Where in the code</th><th>Decision</th><th>Note</th></tr></thead>`
+    : `<thead><tr><th>${isE?'Email':'Notification'}</th><th>Audience</th><th>Category</th><th>Sent when</th><th>${isE?'Notification':'Email'}</th><th>Status</th><th>Decision</th><th>Note</th></tr></thead>`;
+  $('tbl').innerHTML = head + '<tbody>' + (list.length ? list.map(row).join('') : `<tr><td colspan="${miss?9:8}" class="empty">Nothing matches these filters. Clear a filter or the search to see more.</td></tr>`) + '</tbody>';
+  $('tbl').style.minWidth = miss ? '1320px' : '';
+  $('count').textContent = `${list.length} of ${items().length} shown`;
+  drawSummary();
+}
+
+function drawSummary(){
+  const c = {Keep:0,Change:0,Drop:0,Discuss:0}; let total = 0;
+  items().forEach(it=>{ const d=(decisions[dkey(it)]||{}).d; if(d){c[d]++; total++;} });
+  $('sum').innerHTML = `<b>${total}</b> of ${items().length} marked · Keep <b>${c.Keep}</b> · Change <b>${c.Change}</b> · Drop <b>${c.Drop}</b> · Discuss <b>${c.Discuss}</b>`;
+  stats();
+}
+
+function drawGaps(){
+  const e = DATA.emails, n = DATA.notifs;
+  const offE = e.filter(x=>x.status==='off'), offN = n.filter(x=>x.status==='off');
+  const pairs = n.filter(x=>x.email && x.status==='active');
+  $('gaps').innerHTML = `<div class="gaps">
+    <div class="card"><h3>Built but never sent</h3><p class="d">These exist in the code, but nothing triggers them. Decide whether to switch them on or remove them.</p><ul>
+      ${offE.map(x=>`<li>Email: <b>${esc(x.title)}</b><br><small>${esc(x.when)}</small></li>`).join('')}
+      ${offN.map(x=>`<li>Notification: <b>${esc(x.title)}</b><br><small>${esc(x.when)}</small></li>`).join('')}
+      <li>Email subjects <b>Club booking confirmed</b> and <b>Club booking failed</b><br><small>Subjects exist, but there is no template and nothing sends them.</small></li>
+    </ul></div>
+
+    <div class="card"><h3>Sent as both email and notification</h3><p class="d">The same event reaches the user twice. Decide if both are needed.</p><ul>
+      ${pairs.map(x=>`<li><b>${vars(x.title)}</b> <small>(${x.aud.join(', ')})</small><br><small>Email: ${esc(x.email)}</small></li>`).join('')}
+    </ul></div>
+
+    <div class="card"><h3>Near-identical messages</h3><p class="d">Two entries with almost the same text. Merge or keep separate.</p><ul>
+      <li><b>Booking Confirmed</b> and <b>Booking Confirmed (event not full)</b><br><small>Exactly the same wording for players.</small></li>
+      <li><b>Subscription Purchased</b> and <b>New Subscription Activated</b><br><small>Same meaning for clubs, sent from two different places.</small></li>
+      <li><b>Join SWP Request Accepted</b>, three versions<br><small>Paid, free and outside-club SWPs use the same wording.</small></li>
+    </ul></div>
+
+    <div class="card"><h3>Welcome messages</h3><p class="d">What new users get today.</p><ul>
+      <li>Players get a welcome email but no welcome notification. Clubs, coaches and business owners get both.</li>
+      <li>One welcome email is shared by every role and is written for clubs. The player sentence comes from one fixed English line.</li>
+    </ul></div>
+
+    <div class="card"><h3>New in this release</h3><p class="d">Planned items, already listed in the tables as Planned.</p><ul>
+      <li>Email: <b>Welcome: Player</b>, with a list of what players can do.</li>
+      <li>Email: <b>Notifications Waiting</b>, when a player has more than 5 unread.</li>
+      <li>Email: <b>New message from a club</b>, for club to player chat.</li>
+      <li>Notification: <b>New chat message</b> and <b>Added to a group chat</b>.</li>
+      <li>Admin portal: edit email templates. Notification text stays in code.</li>
+    </ul></div>
+  </div>`;
+}
+
+function setTab(t){
+  if (!TABS[t] && t!=='gaps') t = 'emails';
+  if (t!==S.tab){ S.aud=''; S.cat=''; S.status=''; S.prio=''; S.decf=''; S.q=''; $('q').value=''; $('status').value=''; $('decf').value=''; }
+  S.tab = t;
+  document.querySelectorAll('.tab').forEach(b=>b.setAttribute('aria-selected', b.dataset.tab===t));
+  const g = t==='gaps';
+  $('list').hidden = g; $('gaps').hidden = !g;
+  try { history.replaceState(null,'','#'+HASH[t]); } catch(e){}
+  if (g) drawGaps(); else { drawFilters(); drawTable(); }
+  stats();
+}
+
+$('tabs').addEventListener('click', e=>{ const b=e.target.closest('.tab'); if(b) setTab(b.dataset.tab); });
+$('aud').addEventListener('click', e=>{ const b=e.target.closest('.chip'); if(!b) return; S.aud=b.dataset.aud; drawFilters(); drawTable(); });
+$('cat').addEventListener('change', e=>{ S.cat=e.target.value; drawTable(); });
+$('status').addEventListener('change', e=>{ S.status=e.target.value; drawTable(); });
+$('prio').addEventListener('change', e=>{ S.prio=e.target.value; drawTable(); });
+$('decf').addEventListener('change', e=>{ S.decf=e.target.value; drawTable(); });
+$('q').addEventListener('input', e=>{ S.q=e.target.value.trim(); drawTable(); });
+
+$('tbl').addEventListener('change', e=>{
+  const s = e.target.closest('select.dec'); if(!s) return;
+  const k = s.dataset.k; decisions[k] = decisions[k] || {}; decisions[k].d = s.value;
+  if (!decisions[k].d && !decisions[k].n) delete decisions[k];
+  save(); s.className = 'dec '+s.value; drawSummary();
+  if (S.decf) drawTable();
+});
+$('tbl').addEventListener('input', e=>{
+  const i = e.target.closest('input.note'); if(!i) return;
+  const k = i.dataset.k; decisions[k] = decisions[k] || {}; decisions[k].n = i.value;
+  if (!decisions[k].d && !decisions[k].n) delete decisions[k];
+  save();
+});
+
+function report(){
+  const out = [];
+  [['Emails',DATA.emails,'e'],['Notifications',DATA.notifs,'n'],['Missing emails',DATA.missingEmails,'me'],['Missing notifications',DATA.missingNotifs,'mn']].forEach(([label,arr,p])=>{
+    const lines = [];
+    arr.forEach(it=>{ const d = decisions[p+':'+it.id]; if(d && (d.d||d.n)) lines.push(`- ${it.title.replace(/\{\{\w+\}\}/g,'…')} (${it.aud.join('/')}${it.prio?', '+it.prio:''}): ${d.d||'No decision'}${d.n?' | '+d.n:''}`); });
+    if (lines.length) out.push(label+'\n'+lines.join('\n'));
+  });
+  return out.length ? out.join('\n\n') : 'No decisions marked yet.';
+}
+function flash(msg){ $('toast').textContent = msg; setTimeout(()=>{ $('toast').textContent=''; }, 2500); }
+$('copy').addEventListener('click', async ()=>{
+  const text = report();
+  try { await navigator.clipboard.writeText(text); $('fallback').style.display='none'; flash('Copied'); }
+  catch(e){ $('fallback').style.display='block'; const t=$('fbtext'); t.value=text; t.focus(); t.select(); flash('Select and copy the text below'); }
+});
+$('reset').addEventListener('click', ()=>{
+  const p = kind()+':'; Object.keys(decisions).forEach(k=>{ if(k.startsWith(p)) delete decisions[k]; });
+  save(); drawTable(); flash('Cleared');
+});
+
+const fromHash = () => FROM_HASH[(location.hash||'').replace('#','')] || 'emails';
+setTab(fromHash());
+window.addEventListener('hashchange', ()=>{ const t = fromHash(); if (t!==S.tab) setTab(t); });
+</script>
+
+</html>

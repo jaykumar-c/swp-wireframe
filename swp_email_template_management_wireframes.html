@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SWP Email Templates</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<style>
+/* Tokens captured from test.admin.shallwe-play.com (computed styles) + wireframe-rules.md */
+:root{
+  --primary:#007AFF; --primary-soft:rgba(0,122,255,.08); --primary-line:#CFE4FF;
+  --canvas:#F5F5F9; --card:#FFFFFF; --ink:#1C1C1C; --text:rgba(50,71,92,.87); --muted:rgba(50,71,92,.6);
+  --line:#E5E7EB; --outline:rgba(50,71,92,.22); --neutral-line:#D0D5DD;
+  --ok:#228B22; --ok-bg:rgba(34,139,34,.08); --warn:#B7791F; --warn-bg:rgba(255,193,7,.12);
+  --err:#E63900; --err-bg:rgba(230,57,0,.08); --destroy:#FF3E1D; --grey-bg:rgba(50,71,92,.08);
+  --shadow:0 2px 10px rgba(50,71,92,.1);
+  --pend:#92400E; --pend-bg:#FEF3C7;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Montserrat,system-ui,sans-serif;background:#E9ECF1;color:var(--ink)}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,textarea,select{font:inherit}
+code{font-family:ui-monospace,Menlo,monospace;font-size:.92em;background:#EEF2F7;padding:1px 4px;border-radius:4px}
+
+/* ===== Page chrome (not part of the product) ===== */
+.ptop{background:#fff;border-bottom:1px solid var(--line);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.ptop h1{font-size:18px;font-weight:700}
+.ptop p{font-size:13px;color:var(--muted);margin-top:2px}
+.ptop .meta{font-size:12px;color:var(--muted);text-align:right;line-height:1.6}
+.flowbar{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line);padding:10px 24px;display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:thin}
+.fstep{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:8px;white-space:nowrap;font-size:13px;color:var(--muted);flex-shrink:0}
+.fstep .num{width:24px;height:24px;border-radius:12px;background:#EEF2F7;color:var(--text);font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center}
+.fstep:hover{background:#F5F7FA}
+.fstep.on{background:var(--primary-soft);color:var(--primary);font-weight:700}
+.fstep.on .num{background:var(--primary);color:#fff}
+.fstep.done .num{background:#DCEBFF;color:var(--primary)}
+.fsep{color:#C3CAD4;flex-shrink:0;font-size:14px}
+.fgrp{font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:#fff;background:#32475C;border-radius:4px;padding:3px 6px;flex-shrink:0;margin-left:6px}
+.ctl{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 24px 10px;flex-wrap:wrap;max-width:1340px;margin:0 auto}
+.ctl h2{font-size:18px;font-weight:700}
+.ctl h2 span{color:var(--primary)}
+.ctl .r{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.seg{display:flex;background:#fff;border:1px solid var(--line);border-radius:8px;padding:3px;gap:2px}
+.seg button{padding:6px 12px;border-radius:6px;font-size:13px;font-weight:600;color:var(--muted)}
+.seg button.on{background:var(--primary);color:#fff}
+.seg button.na{opacity:.4}
+.nav2 button{padding:7px 12px;border-radius:6px;border:1px solid var(--neutral-line);background:#fff;font-size:13px;font-weight:600;display:flex;gap:4px;align-items:center}
+.nav2{display:flex;gap:6px}
+.nav2 button:disabled{opacity:.4;cursor:default}
+.stagewrap{max-width:1340px;margin:0 auto;padding:0 24px}
+.stage{overflow:hidden;border-radius:12px;box-shadow:0 10px 40px rgba(17,24,28,.15);background:#fff}
+.browser{height:38px;background:#F1F3F6;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;padding:0 14px}
+.browser .dots{display:flex;gap:6px}.browser .dots i{width:11px;height:11px;border-radius:6px;background:#D5DAE1;display:block}
+.browser .url{flex:1;max-width:560px;height:24px;border-radius:6px;background:#fff;border:1px solid var(--line);font-size:12px;color:var(--muted);display:flex;align-items:center;padding:0 10px;gap:6px}
+.fit{width:1280px;transform-origin:top left}
+.notes{max-width:1340px;margin:18px auto 40px;padding:0 24px;display:grid;grid-template-columns:1.1fr 1.3fr 1fr;gap:16px}
+.ncard{background:#fff;border:1px solid var(--line);border-radius:8px;padding:16px}
+.ncard h5{font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.ncard p,.ncard li{font-size:13.5px;line-height:1.55;color:#334155}
+.ncard ul{padding-left:18px;display:flex;flex-direction:column;gap:4px}
+.ncard .pend{background:var(--pend-bg);color:var(--pend);border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.45;margin-bottom:6px}
+.ncard .dev{background:#EEF2F7;border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.45;margin-bottom:6px;color:#334155}
+.ncard .stt{font-size:13px;line-height:1.6}
+.ncard .stt b{color:var(--ink)}
+@media (max-width:1000px){.notes{grid-template-columns:1fr}}
+
+/* ===== Admin portal shell ===== */
+.app{display:flex;min-height:820px;background:var(--canvas);position:relative;font-family:Montserrat,sans-serif;color:var(--text)}
+.side{width:232px;flex-shrink:0;background:#fff;padding:14px 10px;border-right:1px solid #EEF0F3}
+.logo{display:flex;align-items:center;gap:8px;padding:4px 10px 18px;font-weight:700;font-size:19px;color:var(--ink)}
+.mi{display:flex;align-items:center;gap:10px;height:40px;padding:0 12px;border-radius:6px;font-size:14px;color:var(--text)}
+.mi ion-icon{font-size:18px;color:var(--muted)}
+.mi .chev{margin-left:auto;font-size:14px}
+.mi.open{background:var(--primary-soft);color:var(--primary);font-weight:600}
+.mi.open ion-icon{color:var(--primary)}
+.sub{display:flex;align-items:center;gap:10px;height:34px;padding:0 12px 0 22px;font-size:13px;color:var(--muted)}
+.sub ion-icon{font-size:15px}
+.sub.on{color:var(--ink);font-weight:700}
+.sub.on ion-icon{color:var(--primary)}
+.newtag{font-size:9px;font-weight:700;color:#fff;background:var(--primary);border-radius:4px;padding:1px 5px;margin-left:auto}
+.main{flex:1;min-width:0;padding:14px 20px 28px}
+.topbar{height:52px;background:#fff;border-radius:8px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:flex-end;padding:0 16px;gap:14px;margin-bottom:22px}
+.me{width:34px;height:34px;border-radius:17px;background:#32475C;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.ph{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px}
+.ph h3{font-size:24px;font-weight:700;color:var(--ink)}
+.ph p{font-size:14px;color:var(--muted);margin-top:4px}
+.crumb{background:#fff;border-radius:8px;box-shadow:var(--shadow);height:48px;display:flex;align-items:center;gap:8px;padding:0 16px;font-size:14px;color:var(--muted);margin-bottom:16px}
+.crumb b{color:var(--primary);font-weight:600}
+.card{background:#fff;border-radius:8px;box-shadow:var(--shadow)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:18px}
+.kpi{padding:16px 18px;display:flex;gap:14px;align-items:center}
+.kpi .ki{width:40px;height:40px;border-radius:8px;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:20px}
+.kpi .kl{font-size:14px;font-weight:600;color:var(--ink)}
+.kpi .kv{font-size:22px;font-weight:700;color:var(--ink);margin-top:2px}
+.filters{display:flex;gap:12px;padding:16px;align-items:center;flex-wrap:wrap}
+.srch{display:flex;align-items:center;gap:8px;height:40px;width:260px;border:1px solid var(--outline);border-radius:6px;padding:0 12px;font-size:14px;color:var(--muted)}
+.sel{position:relative;height:40px;min-width:170px;border:1px solid var(--outline);border-radius:6px;padding:0 12px;display:flex;align-items:center;justify-content:space-between;font-size:14px;color:var(--text)}
+.sel label{position:absolute;top:-8px;left:9px;background:#fff;padding:0 4px;font-size:11px;color:var(--muted)}
+table{width:100%;border-collapse:collapse}
+th{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--text);text-align:left;padding:12px 16px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff}
+td{font-size:14px;color:var(--muted);padding:12px 16px;border-bottom:1px solid #F0F2F5;vertical-align:middle}
+td .tn{color:var(--ink);font-weight:600;display:flex;align-items:center;gap:6px}
+td .tk{font-size:12px;color:var(--muted);font-family:ui-monospace,Menlo,monospace;margin-top:2px}
+tr.hl td{background:#F7FBFF}
+.pill{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 10px;border-radius:6px;font-size:13px;font-weight:500;white-space:nowrap}
+.pill.ok{background:var(--ok-bg);color:var(--ok)}
+.pill.draft{background:var(--warn-bg);color:var(--warn)}
+.pill.off{background:var(--grey-bg);color:var(--muted)}
+.pill.new{background:var(--primary-soft);color:var(--primary)}
+.pill.err{background:var(--err-bg);color:var(--err)}
+.lang{display:inline-flex;gap:4px}
+.lang span{font-size:11px;font-weight:700;border-radius:4px;padding:2px 5px;background:var(--ok-bg);color:var(--ok)}
+.lang span.miss{background:var(--err-bg);color:var(--err)}
+.pager{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;font-size:13px;color:var(--muted)}
+.pager .pg{display:flex;gap:4px}
+.pager .pg span{width:28px;height:28px;border-radius:6px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+.pager .pg span.on{background:var(--primary);color:#fff;border-color:var(--primary)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:40px;padding:0 18px;border-radius:6px;font-size:14px;font-weight:600;white-space:nowrap}
+.btn.p{background:var(--primary);color:#fff;box-shadow:0 2px 4px rgba(0,122,255,.4)}
+.btn.p.off{background:#BDBDBD;box-shadow:none}
+.btn.n{background:#fff;border:1px solid var(--neutral-line);color:var(--ink)}
+.btn.d{background:var(--destroy);color:#fff}
+.btn.t{color:var(--primary);padding:0 8px}
+.btn.sm{height:32px;padding:0 12px;font-size:13px}
+.act{width:32px;height:32px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;color:var(--muted);font-size:18px}
+.sk{background:#E8EBEF;border-radius:6px;animation:pl 1.2s infinite}
+@keyframes pl{50%{opacity:.5}}
+.empty{padding:56px 20px;text-align:center}
+.empty .ei{width:72px;height:72px;border-radius:36px;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 12px}
+.empty .ei.red{background:var(--err-bg);color:var(--err)}
+.empty h4{font-size:18px;font-weight:600;color:var(--ink)}
+.empty p{font-size:14px;color:var(--muted);margin:6px auto 16px;max-width:420px;line-height:1.5}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.ch{height:50px;background:#EBF5FF;border-radius:8px 8px 0 0;display:flex;align-items:center;justify-content:space-between;padding:0 16px;font-size:15px;font-weight:600;color:var(--ink)}
+.cb{padding:16px}
+.kv{display:grid;grid-template-columns:150px 1fr;gap:10px 14px;font-size:14px}
+.kv dt{color:var(--muted)}
+.kv dd{color:var(--ink)}
+.notch{position:relative;border:1px solid var(--outline);border-radius:4px;min-height:52px;padding:14px 12px 10px;font-size:14px;color:var(--ink);margin-top:10px}
+.notch label{position:absolute;top:-9px;left:9px;background:#fff;padding:0 4px;font-size:12px;color:var(--muted)}
+.notch.foc{border-color:var(--primary);box-shadow:0 1px 3px rgba(0,122,255,.4)}
+.notch.foc label{color:var(--primary)}
+.notch.bad{border-color:var(--err)}
+.notch.bad label{color:var(--err)}
+.ph-t{color:rgba(28,28,28,.38)}
+.hint{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin:4px 2px 0}
+.hint.bad{color:var(--err)}
+.tabsx{display:flex;gap:2px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.tabsx button{padding:10px 16px;font-size:14px;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px;display:flex;gap:6px;align-items:center}
+.tabsx button.on{color:var(--primary);border-color:var(--primary)}
+.tabsx .dot{width:7px;height:7px;border-radius:4px;background:var(--err)}
+.toolbar{display:flex;flex-wrap:wrap;gap:4px;align-items:center;border:1px solid var(--line);border-bottom:none;border-radius:4px 4px 0 0;padding:6px;background:#FAFBFC}
+.toolbar .tb{min-width:28px;height:28px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#334155;background:#fff;border:1px solid var(--line);padding:0 6px;font-size:13px;font-weight:700}
+.toolbar .sp{width:1px;height:20px;background:var(--line);margin:0 4px}
+.toolbar .var{margin-left:auto;background:var(--primary-soft);color:var(--primary);border-color:var(--primary-line)}
+.editor{border:1px solid var(--line);border-radius:0 0 4px 4px;min-height:300px;padding:14px 16px;font-size:14px;line-height:1.7;color:var(--ink)}
+.editor.bad{border-color:var(--err)}
+.editor ul{padding-left:20px}
+.v{display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:4px;background:var(--primary-soft);color:var(--primary);font-size:12.5px;font-weight:600;font-family:ui-monospace,Menlo,monospace;border:1px solid var(--primary-line)}
+.v.bad{background:var(--err-bg);color:var(--err);border-color:#F6B8A6;text-decoration:wavy underline}
+.lockbar{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);background:#F7F8FA;border:1px dashed #CBD2DB;border-radius:4px;padding:8px 10px;margin:8px 0}
+.prevwrap{background:#EEF1F5;border-radius:8px;padding:16px;min-height:560px}
+.prevbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.mail{background:#fff;border-radius:6px;overflow:hidden;margin:0 auto;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.mail .mh{padding:18px;text-align:center;border-bottom:1px solid #F0F2F5;position:relative}
+.mail .mb{padding:20px 22px;font-size:14px;line-height:1.65;color:#2B3440}
+.mail .mb h2{font-size:20px;color:var(--ink);margin-bottom:10px;line-height:1.3}
+.mail .mf{padding:14px 18px;background:#F7F8FA;font-size:11.5px;color:var(--muted);text-align:center;line-height:1.6;position:relative}
+.lockico{position:absolute;top:6px;right:8px;font-size:12px;color:#9AA5B1}
+.feat{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-bottom:1px solid #F2F4F7}
+.feat:last-child{border-bottom:none}
+.feat .fi{width:34px;height:34px;border-radius:8px;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.feat b{display:block;color:var(--ink);font-size:14px}
+.feat span{font-size:13px;color:var(--muted)}
+.mcta{display:inline-block;background:var(--primary);color:#fff;border-radius:6px;padding:11px 22px;font-weight:700;font-size:14px;margin:12px 0 4px}
+.ov{position:absolute;inset:0;background:rgba(28,28,28,.45);z-index:20;display:flex}
+.ov.c{align-items:center;justify-content:center}
+.ov.r{justify-content:flex-end}
+.modal{width:460px;background:#fff;border-radius:8px;box-shadow:0 10px 40px rgba(0,0,0,.2)}
+.modal .mhd{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line);font-size:18px;font-weight:600;color:var(--ink)}
+.modal .mbd{padding:18px 20px;font-size:14px;line-height:1.6;color:var(--text)}
+.modal .mft{display:flex;justify-content:flex-end;gap:10px;padding:14px 20px;border-top:1px solid var(--line)}
+.drawer{width:440px;height:100%;background:#fff;box-shadow:-8px 0 30px rgba(0,0,0,.15);display:flex;flex-direction:column}
+.drawer .mhd{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--line);font-size:18px;font-weight:600;color:var(--ink)}
+.ver{display:flex;gap:12px;padding:14px 20px;border-bottom:1px solid #F0F2F5}
+.ver .vd{width:10px;height:10px;border-radius:5px;background:#C3CAD4;margin-top:6px;flex-shrink:0}
+.ver.cur .vd{background:var(--ok)}
+.ver.drf .vd{background:var(--warn)}
+.ver b{color:var(--ink);font-size:14px}
+.ver .vm{font-size:13px;color:var(--muted);margin-top:2px}
+.ver .va{margin-left:auto;display:flex;gap:4px;align-self:center}
+.popover{position:absolute;width:340px;background:#fff;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.18);border:1px solid var(--line);z-index:15}
+.popover .pt{padding:12px 14px;border-bottom:1px solid var(--line)}
+.vrow{display:flex;justify-content:space-between;gap:10px;padding:9px 14px;font-size:13px;border-bottom:1px solid #F4F5F7;cursor:pointer}
+.vrow:hover{background:#F7FBFF}
+.vrow .vdsc{color:var(--muted);font-size:12px;margin-top:2px}
+.vrow .vsam{color:var(--muted);font-size:12px;white-space:nowrap}
+.toast{position:absolute;top:80px;right:24px;z-index:30;background:#fff;border-left:4px solid var(--ok);border-radius:6px;box-shadow:0 6px 20px rgba(0,0,0,.15);padding:12px 16px;font-size:14px;color:var(--ink);display:flex;gap:8px;align-items:center}
+.sw{width:27px;height:16px;border-radius:16px;background:#D5DAE1;position:relative;display:inline-block;vertical-align:middle;flex-shrink:0}
+.sw::after{content:'';position:absolute;top:4px;left:3px;width:8px;height:8px;border-radius:4px;background:#374151}
+.sw.on{background:var(--primary)}
+.sw.on::after{left:16px;background:#fff}
+.rule{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid #F0F2F5;font-size:14px;color:var(--ink)}
+.rule .rl{flex:1}
+.rule .rl small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+.numin{width:110px;height:40px;border:1px solid var(--outline);border-radius:4px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;font-size:14px;color:var(--ink)}
+.numin.bad{border-color:var(--err)}
+.summary{background:#EBF5FF;border-radius:8px;padding:12px 14px;font-size:14px;line-height:1.6;color:var(--ink);display:flex;gap:10px}
+.perm td{text-align:center}
+.perm td:first-child{text-align:left;color:var(--ink)}
+.cbx{width:18px;height:18px;border-radius:4px;background:var(--primary);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:13px}
+.cbx.off{background:#fff;border:2px solid #C3CAD4}
+.flowmap{display:flex;flex-direction:column;gap:22px}
+.lane h4{font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.lanerow{display:flex;align-items:stretch;gap:8px;flex-wrap:wrap}
+.box{background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 12px;width:150px;font-size:13px;color:var(--ink);box-shadow:var(--shadow);cursor:pointer}
+.box:hover{border-color:var(--primary)}
+.box b{display:block;font-size:11px;color:var(--primary);margin-bottom:3px}
+.box.sys{background:#F7F8FA;border-style:dashed;cursor:default}
+.box.dec{background:#FFF9E6;border-color:#F3D27A;cursor:default}
+.arr{align-self:center;color:#9AA5B1;font-size:18px}
+.fcards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
+.fc{background:#fff;border-radius:8px;box-shadow:var(--shadow);padding:14px}
+.fc .fh{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.fc b{font-size:14px;color:var(--ink)}
+.fc p{font-size:13px;color:var(--muted);line-height:1.5}
+.mailclient{display:grid;grid-template-columns:260px 1fr;min-height:820px;background:#fff;font-family:Montserrat,sans-serif}
+.mlist{border-right:1px solid var(--line);background:#FAFBFC}
+.mitem{padding:12px 14px;border-bottom:1px solid var(--line);font-size:13px}
+.mitem.on{background:#EBF5FF}
+.mitem b{display:block;color:var(--ink)}
+.mitem span{color:var(--muted)}
+.mread{background:#EEF1F5;padding:24px;overflow:auto}
+.nrow{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #F2F4F7;text-align:left}
+.nrow .ni{width:32px;height:32px;border-radius:16px;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.nrow b{display:block;font-size:13.5px;color:var(--ink)}
+.nrow span{font-size:12.5px;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<div class="ptop">
+  <div>
+    <h1>Email Template Management · Admin Portal Wireframes</h1>
+    <p>Super-admin portal (<code>shallwe-play-admin</code>) · Scope: admins edit content only inside a locked SWP header and footer</p>
+  </div>
+  <div class="meta">v1 · 26 Nov 2026<br>Matched to live test.admin.shallwe-play.com styles</div>
+</div>
+<div class="flowbar" id="flowbar"></div>
+<div class="ctl">
+  <h2 id="stitle"></h2>
+  <div class="r">
+    <div class="seg" id="vars"></div>
+    <div class="seg" id="states"></div>
+    <div class="nav2"><button id="prev" onclick="step(-1)"><ion-icon name="chevron-back"></ion-icon>Back</button><button id="next" onclick="step(1)">Next<ion-icon name="chevron-forward"></ion-icon></button></div>
+  </div>
+</div>
+<div class="stagewrap"><div class="stage" id="stage">
+  <div class="browser"><div class="dots"><i></i><i></i><i></i></div><div class="url"><ion-icon name="lock-closed"></ion-icon><span id="url"></span></div></div>
+  <div id="fitwrap" style="overflow:hidden"><div class="fit" id="fit"></div></div>
+</div></div>
+<div class="notes" id="notes"></div>
+
+<script>
+/* ============ helpers ============ */
+const ic=(n,s,st='')=>`<ion-icon name="${n}" style="${s?`font-size:${s}px;`:''}${st}"></ion-icon>`;
+const V=(n,bad)=>`<span class="v ${bad?'bad':''}">{{${n}}}</span>`;
+const pill=(t,k='ok')=>`<span class="pill ${k}">${t}</span>`;
+const sk=(w,h=14,mt=0)=>`<div class="sk" style="width:${w};height:${h}px;margin-top:${mt}px"></div>`;
+const emptyBox=(icon,title,text,btn,red)=>`<div class="empty"><div class="ei ${red?'red':''}">${ic(icon)}</div><h4>${title}</h4><p>${text}</p>${btn||''}</div>`;
+const errBox=(t='Couldn\u2019t Load Email Templates')=>emptyBox('cloud-offline-outline',t,'Something went wrong on our side. Try again, and if it keeps happening, contact the tech team.',`<button class="btn n">${ic('refresh',16)} Try Again</button>`,true);
+const SWPLOGO=`<svg width="28" height="28" viewBox="0 0 34 34"><circle cx="11" cy="12" r="8" fill="none" stroke="#16A34A" stroke-width="3"/><circle cx="22" cy="12" r="8" fill="none" stroke="#007AFF" stroke-width="3"/><circle cx="16" cy="22" r="8" fill="none" stroke="#E63900" stroke-width="3"/></svg>`;
+
+function shell(content, opts={}){
+  const sys = opts.menu || 'Email Templates';
+  const subs=[['options-outline','Master Settings'],['phone-portrait-outline','App Version'],['mail-outline','Email Templates',1],['lock-closed-outline','Roles and Permissions'],['cloud-download-outline','Export Data Request'],['person-remove-outline','Delete Users Requests']];
+  return `<div class="app"><aside class="side">
+    <div class="logo">${SWPLOGO} ShallWe-Play</div>
+    <div class="mi">${ic('home-outline')}Dashboard</div>
+    <div class="mi">${ic('cash-outline')}Financial<ion-icon class="chev" name="chevron-forward"></ion-icon></div>
+    <div class="mi">${ic('person-outline')}User Management<ion-icon class="chev" name="chevron-forward"></ion-icon></div>
+    <div class="mi">${ic('megaphone-outline')}Marketing<ion-icon class="chev" name="chevron-forward"></ion-icon></div>
+    <div class="mi">${ic('shield-checkmark-outline')}Compliance &amp; Sec…<ion-icon class="chev" name="chevron-forward"></ion-icon></div>
+    <div class="mi">${ic('share-social-outline')}Social<ion-icon class="chev" name="chevron-forward"></ion-icon></div>
+    <div class="mi open">${ic('settings-outline')}System<ion-icon class="chev" name="chevron-down"></ion-icon></div>
+    ${subs.map(([i,t,n])=>`<div class="sub ${t===sys?'on':''}" ${n?'style="outline:2px dashed #F59E0B;outline-offset:-2px;border-radius:6px"':''}>${ic(i)}${t}${n?'<span class="newtag">NEW</span>':''}</div>`).join('')}
+  </aside><div class="main"><div class="topbar"><span style="font-size:13px;color:var(--muted)">Finance Admin</span><div class="me">FA</div></div>${content}</div>${opts.overlay||''}</div>`;
+}
+
+/* ============ data (template keys are real, from notification-service) ============ */
+const TPL=[
+ {n:'Welcome — Player',k:'user-welcome-player',cat:'Account',to:'Player',trg:'Player finishes sign-up',st:['New','new'],nl:1,ed:'—',hl:1},
+ {n:'Notifications Waiting',k:'notifications-waiting',cat:'Engagement',to:'Player',trg:'More than 5 unread notifications',st:['New','new'],nl:1,ed:'—',hl:1},
+ {n:'Welcome — Club / Coach / Owner',k:'user-welcome',cat:'Account',to:'Club, Coach, Business Owner',trg:'Partner finishes sign-up',st:['Active','ok'],nl:1,ed:'System default'},
+ {n:'Verification Code (OTP)',k:'user-requested-otp',cat:'Account',to:'All users',trg:'User requests a login code',st:['Active','ok'],nl:1,ed:'System default',lock:1},
+ {n:'Forgot Password',k:'user-forgot-password',cat:'Account',to:'All users',trg:'User taps Forgot Password',st:['Active','ok'],nl:1,ed:'System default',lock:1},
+ {n:'Booking Confirmation',k:'booking-confirmation',cat:'Bookings',to:'Player',trg:'Booking payment succeeds',st:['Active','ok'],nl:1,ed:'12 Nov 2026 · Finance Admin'},
+ {n:'Booking Cancelled',k:'booking-cancelled',cat:'Bookings',to:'Player',trg:'Booking is cancelled',st:['Draft changes','draft'],nl:0,ed:'25 Nov 2026 · Finance Admin'},
+ {n:'New Booking Alert',k:'new-booking-alert',cat:'Bookings',to:'Club',trg:'Player books a club asset',st:['Active','ok'],nl:1,ed:'System default'},
+ {n:'Refund Processed',k:'refund-processed',cat:'Payments',to:'Player',trg:'Revolut refund webhook: success',st:['Active','ok'],nl:1,ed:'System default'},
+ {n:'KYC Pending Reminder',k:'club-kyc-pending-alert',cat:'Club Finance',to:'Club',trg:'Payout due, KYC not complete',st:['Active','ok'],nl:1,ed:'System default'},
+];
+
+/* ============ screens ============ */
+const S={};
+
+S.overview={grp:'Overview',t:'Features & Flow Map',url:'—',states:{empty:'N/A',loading:'N/A',error:'N/A'},
+ render(st){
+  if(st!=='populated') return `<div style="padding:60px;text-align:center;color:var(--muted)">This is a planning page, not a product screen. It has no states.</div>`;
+  const F=[
+   ['F1','Email Templates list','See all 53 emails, who gets them, when they\u2019re sent, and their status.','New'],
+   ['F2','Content editor','Edit subject, preheader and body in EN and NL. Insert variables. Live preview.','New'],
+   ['F3','Test, publish & history','Send a test to yourself. Publish with a confirm step. Restore older versions.','New'],
+   ['F4','Player Welcome email','A separate welcome for players that lists what they can do on SWP.','New template'],
+   ['F5','Notifications Waiting email','Email a player when they have more than 5 unread notifications.','New template + job'],
+   ['F6','Sending rules','Admin sets the threshold, check time and how often the digest can repeat.','New'],
+   ['F7','Permission','New "Email Templates" row in Roles and Permissions: View / Edit / Publish.','Change'],
+   ['F8','Locked layout','SWP header, footer and legal links stay fixed. Admins can\u2019t break the layout.','Rule'],
+  ];
+  const box=(n,t,go,cls='')=>`<div class="box ${cls}" ${go?`onclick="goTo('${go}')"`:''}><b>${n}</b>${t}</div>`;
+  const A=`<div class="arr">→</div>`;
+  return `<div style="background:var(--canvas);padding:28px;min-height:820px">
+   <div class="ph"><div><h3>What We\u2019re Building</h3><p>8 features · 11 screens · Release 1</p></div></div>
+   <div class="fcards">${F.map(([id,t,d,tag])=>`<div class="fc"><div class="fh"><b>${id} · ${t}</b>${pill(tag,tag==='Change'||tag==='Rule'?'off':'new')}</div><p>${d}</p></div>`).join('')}</div>
+   <div class="card" style="padding:20px"><div class="flowmap">
+    <div class="lane"><h4>Flow A · Admin edits a template</h4><div class="lanerow">
+     ${box('Step 1','System › Email Templates','list')}${A}${box('Step 2','Open a template','detail')}${A}${box('Step 3','Edit content (EN / NL)','edit')}${A}${box('Step 4','Insert variable','variables')}${A}${box('Step 5','Send test email','test')}${A}${box('Step 6','Publish','publish')}${A}${box('Step 7','Version history / restore','history')}
+    </div></div>
+    <div class="lane"><h4>Flow B · Admin sets the digest rule</h4><div class="lanerow">
+     ${box('Step 2','Open "Notifications Waiting"','detail')}${A}${box('Step 8','Sending rules','rules')}${A}${box('Step 3','Edit its content','edit')}${A}${box('Step 6','Publish','publish')}
+    </div></div>
+    <div class="lane"><h4>Flow C · Super admin gives access</h4><div class="lanerow">
+     ${box('Step 9','Roles and Permissions › Email Templates row','perms')}
+    </div></div>
+    <div class="lane"><h4>Flow D · System sends the digest (no screen)</h4><div class="lanerow">
+     ${box('Job','Runs daily at 09:00 (Amsterdam)','', 'sys')}${A}${box('Check','Unread notifications &gt; 5?','', 'dec')}${A}${box('Check','No digest sent in last 7 days?','', 'dec')}${A}${box('Check','Player hasn’t turned this email off?','', 'dec')}${A}${box('Send','"Notifications Waiting" email','mail_digest')}${A}${box('Log','Save sent time for cooldown','', 'sys')}
+    </div></div>
+    <div class="lane"><h4>Flow E · What the player receives</h4><div class="lanerow">
+     ${box('Step 10','Welcome — Player email','mail_welcome')}${box('Step 11','Notifications Waiting email','mail_digest')}
+    </div></div>
+   </div></div></div>`;
+ },
+ notes:{
+  what:`One page that shows every feature in scope and how the screens connect. Click any box to jump to that screen.`,
+  rules:[`<b>Content only:</b> admins change text, not layout. The SWP header, footer, logo, colors and legal links are locked (F8).`,`Every email exists in <b>English and Dutch</b>, like today. A template can\u2019t be published if either language is missing.`,`The editor reuses the <b>Terms &amp; Policies</b> editor (react-draft-wysiwyg) and its side-by-side preview, so it looks familiar to admins and is cheaper to build.`],
+  pending:[`<b>Content only vs layout:</b> assumed content only. Confirm with the client.`,`<b>Menu placement:</b> System › Email Templates (shown) or Marketing?`],
+  dev:[`Today all 53 templates are <code>.hbs</code> files in <code>notification-service/assets/templates/{en,du,admin}</code>, and subjects are hard-coded in <code>mailSubject.js</code>. Both need to move to the database, with the files kept as the "system default" version.`]
+ }};
+
+S.list={grp:'Flow A',t:'Email Templates List',url:'test.admin.shallwe-play.com/email-templates/',
+ variants:['All','Filtered: Player','Search: no results'],
+ render(st,v='All'){
+  const head=`<div class="ph"><div><h3>Email Templates</h3><p>Manage the emails ShallWe-Play sends to players, clubs, coaches and admins</p></div></div>`;
+  const kpis=st==='loading'?`<div class="kpis">${[1,2,3,4].map(()=>`<div class="card kpi"><div class="sk" style="width:40px;height:40px"></div><div style="flex:1">${sk('60%')}${sk('30%',20,6)}</div></div>`).join('')}</div>`:
+   `<div class="kpis">${[['mail-outline','Total Templates','53'],['create-outline','Edited by Admin','4'],['document-text-outline','Unpublished Drafts','1'],['language-outline','Missing Dutch','1']].map(([i,l,n])=>`<div class="card kpi"><div class="ki">${ic(i)}</div><div><div class="kl">${l}</div><div class="kv">${n}</div></div></div>`).join('')}</div>`;
+  const filt=(q)=>`<div class="filters"><div class="srch">${ic('search',16)}<span ${q?'style="color:var(--ink)"':''}>${q||'Search by name or key'}</span></div>
+   <div class="sel"><label>Category</label>All Categories ${ic('chevron-down',14)}</div>
+   <div class="sel"><label>Recipient</label>${v==='Filtered: Player'?'Player':'All Recipients'} ${ic('chevron-down',14)}</div>
+   <div class="sel"><label>Status</label>All Status ${ic('chevron-down',14)}</div></div>`;
+  if(st==='error') return shell(head+kpis+`<div class="card">${filt()}${errBox()}</div>`);
+  if(st==='loading') return shell(head+kpis+`<div class="card">${filt()}<table><tr><th>Template</th><th>Category</th><th>Recipient</th><th>Sent When</th><th>Languages</th><th>Status</th><th>Last Edited</th><th>Actions</th></tr>${[1,2,3,4,5,6].map(()=>`<tr>${[70,40,40,80,30,35,50,20].map(w=>`<td>${sk(w+'%')}</td>`).join('')}</tr>`).join('')}</table></div>`);
+  if(st==='empty'||v==='Search: no results') return shell(head+kpis+`<div class="card">${filt('refnd')}${emptyBox('search-outline','No Templates Found','No template matches \u201crefnd\u201d. Check the spelling or clear the filters.',`<button class="btn n">Clear Filters</button>`)}</div>`);
+  let rows=TPL; if(v==='Filtered: Player') rows=TPL.filter(r=>r.to==='Player');
+  return shell(head+kpis+`<div class="card">${filt()}<table>
+   <tr><th>Template</th><th>Category</th><th>Recipient</th><th>Sent When</th><th>Languages</th><th>Status</th><th>Last Edited</th><th>Actions</th></tr>
+   ${rows.map(r=>`<tr class="${r.hl?'hl':''}" style="cursor:pointer" onclick="goTo('detail')"><td><div class="tn">${r.n}${r.lock?ic('lock-closed',13,'color:#9AA5B1'):''}</div><div class="tk">${r.k}</div></td><td>${r.cat}</td><td>${r.to}</td><td style="max-width:200px">${r.trg}</td><td><span class="lang"><span>EN</span><span class="${r.nl?'':'miss'}">NL</span></span></td><td>${pill(...r.st)}</td><td style="font-size:13px">${r.ed}</td><td><span class="act">${ic('eye-outline')}</span><span class="act" style="color:var(--primary)">${ic('create-outline')}</span></td></tr>`).join('')}
+   </table><div class="pager"><span>Rows per page <b>10</b> · Showing 1 to ${rows.length} of ${v==='Filtered: Player'?rows.length:55} entries</span><div class="pg"><span>${ic('chevron-back')}</span><span class="on">1</span><span>2</span><span>…</span><span>6</span><span>${ic('chevron-forward')}</span></div></div></div>`);
+ },
+ notes:{
+  what:`Entry point. Every email SWP sends, in one table. Click a row to open it.`,
+  rules:[`Columns: Template (name + system key), Category, Recipient, Sent When (plain-English trigger), Languages, Status, Last Edited, Actions.`,`<b>Status:</b> Active (green) · Draft changes (amber: a newer version is saved but not live) · Inactive (grey) · New (blue, never published).`,`<b>NL</b> shows red when the Dutch version is missing.`,`🔒 = security email (OTP, Forgot Password, Invite Admin). Admins can edit the text but can\u2019t switch it off.`,`Filters: Category, Recipient, Status. Search matches name and key. Same controls as Terms &amp; Policies.`,`No "Add Template" button. Templates are tied to code triggers, so only developers add new ones.`],
+  pending:[`Should admin-only system emails (error alerts, payout failed) be hidden from this list? Recommended: show them, read-only.`],
+  dev:[`Category and "Sent When" don\u2019t exist in code today. Add them as template metadata.`,`Clean up 3 unused templates (<code>rating-review</code>, <code>payout-transaction</code>, <code>invitation-accepted</code>) and 2 subjects with no template (<code>CLUB_BOOKING_CONFIRM</code>, <code>CLUB_BOOKING_FAILED</code>) before go-live.`]
+ }};
+
+S.detail={grp:'Flow A',t:'Template Details',url:'test.admin.shallwe-play.com/email-templates/user-welcome-player/',
+ variants:['Welcome — Player','Notifications Waiting'],
+ states:{empty:'N/A'},
+ render(st,v='Welcome — Player'){
+  const dg=v==='Notifications Waiting';
+  const crumb=`<div class="crumb">${ic('chevron-back',16)} Email Templates / <b>${v}</b></div>`;
+  if(st==='empty') return shell(crumb+`<div class="card">${emptyBox('information-circle-outline','Not Applicable','A template always has a default version, so this page is never empty.')}</div>`);
+  if(st==='loading') return shell(crumb+`<div class="grid2"><div class="card cb">${sk('40%',18)}${[1,2,3,4,5].map(()=>sk('90%',14,14)).join('')}</div><div class="card cb">${sk('100%',360)}</div></div>`);
+  if(st==='error') return shell(crumb+`<div class="card">${emptyBox('alert-circle-outline','Template Not Found','This template may have been removed or the link is wrong.',`<button class="btn n">Back to Email Templates</button>`,true)}</div>`);
+  const info=dg
+   ? [['System key','<code>notifications-waiting</code>'],['Recipient','Player'],['Sent when','Unread notifications &gt; 5, checked daily'],['Category','Engagement'],['Languages','<span class="lang"><span>EN</span><span>NL</span></span>'],['Status',pill('New','new')],['Live version','None yet'],['Can be turned off','Yes']]
+   : [['System key','<code>user-welcome-player</code>'],['Recipient','Player'],['Sent when','Player finishes sign-up (PlayerService)'],['Category','Account'],['Languages','<span class="lang"><span>EN</span><span>NL</span></span>'],['Status',pill('New','new')],['Live version','None yet (players get the shared welcome today)'],['Can be turned off','No · every new player gets it']];
+  return shell(crumb+`<div class="grid2" style="grid-template-columns:1fr 1.15fr">
+   <div style="display:flex;flex-direction:column;gap:16px">
+    <div class="card"><div class="ch">Template Information<span class="act">${ic('ellipsis-vertical')}</span></div><div class="cb"><dl class="kv">${info.map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join('')}</dl></div></div>
+    <div class="card"><div class="ch">Available Variables</div><div class="cb" style="display:flex;flex-wrap:wrap;gap:6px">${(dg?['firstName','unreadCount','notificationList','notificationsLink']:['firstName','appLink','supportEmail']).map(x=>V(x)).join('')}</div></div>
+    ${dg?`<div class="card"><div class="ch">Sending Rules<button class="btn t sm" onclick="goTo('rules')">Edit Rules</button></div><div class="cb" style="font-size:14px;line-height:1.7;color:var(--ink)">More than <b>5</b> unread · checked <b>daily at 09:00</b> · max once every <b>7 days</b></div></div>`:''}
+    <div style="display:flex;gap:10px"><button class="btn p" onclick="goTo('edit')">${ic('create-outline',16)} Edit Content</button><button class="btn n" onclick="goTo('history')">${ic('time-outline',16)} Version History</button></div>
+   </div>
+   <div class="card"><div class="ch">Current Preview<span style="font-size:13px;font-weight:500;color:var(--muted)">English · sample data</span></div><div class="cb">${dg?mailDigest('sm'):mailWelcome('sm')}</div></div>
+  </div>`);
+ },
+ notes:{
+  what:`Read-only overview of one template: what it\u2019s for, when it\u2019s sent, and what it looks like now.`,
+  rules:[`Left: facts and variables. Right: live preview with sample data.`,`Card headers use the ice-blue 50px strip from the wireframe rules.`,`"Edit Content" goes to the editor. "Version History" opens the drawer.`,`For Notifications Waiting, a "Sending Rules" card links to the rules screen (Flow B).`],
+  pending:[],
+  dev:[`Today one <code>user-welcome</code> template goes to players, clubs, coaches and business owners. Only the <code>welcomeMessage</code> line changes, and that line is English-only. Split it into <b>user-welcome-player</b> + the existing partner template.`,`The welcome payload has no name today. Add <code>firstName</code>.`]
+ }};
+
+function mailWelcome(size, lang='EN'){
+  const w=size==='sm'?'100%':size==='mobile'?'360px':'560px';
+  const nl=lang==='NL';
+  const feats=nl?[['tennisball-outline','Boek een baan','Vind clubs bij jou in de buurt en boek in een paar tikken.'],['people-outline','Speel een Open SWP','Maak een potje aan of doe mee met spelers op jouw niveau.'],['card-outline','Word lid van een club','Koop lidmaatschappen direct in de app.'],['qr-code-outline','Inchecken met QR','Scan de code op de baan om in te checken.'],['images-outline','Volg spelers','Deel foto\u2019s en video\u2019s van je wedstrijden.']]
+   :[['tennisball-outline','Book a court','Find clubs near you and book in a few taps.'],['people-outline','Play an Open SWP','Create a game or join players at your level.'],['card-outline','Join a club','Buy club memberships right in the app.'],['qr-code-outline','Check in with QR','Scan the code at the court to check in.'],['images-outline','Follow players','Share photos and videos from your games.']];
+  return `<div class="mail" style="max-width:${w}"><div class="mh">${SWPLOGO}<div style="font-weight:700;font-size:15px;color:var(--ink);margin-top:2px">ShallWe-Play</div><span class="lockico">${ic('lock-closed')}</span></div>
+   <div class="mb"><h2>${nl?'Welkom bij ShallWe-Play, Alex!':'Welcome to ShallWe-Play, Alex!'}</h2>
+   <p>${nl?'Je account is klaar. Dit kun je nu doen:':'Your account is ready. Here\u2019s what you can do:'}</p>
+   <div style="margin:8px 0">${feats.map(([i,b,s])=>`<div class="feat"><div class="fi">${ic(i)}</div><div><b>${b}</b><span>${s}</span></div></div>`).join('')}</div>
+   <div style="text-align:center"><span class="mcta">${nl?'Open de app':'Open the App'}</span></div>
+   <p style="font-size:13px;color:var(--muted);margin-top:8px">${nl?'Vragen? Mail ons op':'Questions? Email us at'} support@shallweplay.nl</p></div>
+   <div class="mf"><span class="lockico">${ic('lock-closed')}</span>© 2026 ShallWe-Play · Privacy Policy · Terms &amp; Conditions</div></div>`;
+}
+function mailDigest(size){
+  const w=size==='sm'?'100%':size==='mobile'?'360px':'560px';
+  return `<div class="mail" style="max-width:${w}"><div class="mh">${SWPLOGO}<div style="font-weight:700;font-size:15px;color:var(--ink);margin-top:2px">ShallWe-Play</div><span class="lockico">${ic('lock-closed')}</span></div>
+   <div class="mb"><h2>You have 7 notifications waiting</h2><p>Hi Alex, here\u2019s what you missed on ShallWe-Play:</p>
+   <div style="margin:8px 0">
+    <div class="nrow"><div class="ni">${ic('people-outline')}</div><div><b>Sander Kok wants to join your SWP</b><span>Friday Night Padel · 2 days ago</span></div></div>
+    <div class="nrow"><div class="ni">${ic('calendar-outline')}</div><div><b>Booking confirmed</b><span>Court 4 · Fri 27 Nov, 18:00 · 3 days ago</span></div></div>
+    <div class="nrow"><div class="ni">${ic('heart-outline')}</div><div><b>Emma de Vries liked your post</b><span>4 days ago</span></div></div>
+    <div style="font-size:13px;color:var(--muted);padding-top:8px">+ 4 more</div></div>
+   <div style="text-align:center"><span class="mcta">View Notifications</span></div></div>
+   <div class="mf"><span class="lockico">${ic('lock-closed')}</span>You get this email because you have unread notifications.<br><u>Turn off these emails</u> · © 2026 ShallWe-Play · Privacy Policy</div></div>`;
+}
+
+S.edit={grp:'Flow A',t:'Edit Content',url:'test.admin.shallwe-play.com/email-templates/user-welcome-player/edit/',
+ variants:['English','Dutch','Mobile Preview'],
+ states:{empty:'Empty Body',error:'Validation'},
+ render(st,v='English'){
+  const nl=v==='Dutch', mob=v==='Mobile Preview';
+  const crumb=`<div class="crumb">${ic('chevron-back',16)} Email Templates / Welcome — Player / <b>Edit Content</b></div>`;
+  if(st==='loading') return shell(crumb+`<div class="card" style="padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:24px">${'<div>'+sk('40%',20)+sk('100%',52,18)+sk('100%',52,14)+sk('100%',320,14)+'</div>'}${'<div>'+sk('100%',520)+'</div>'}</div>`);
+  const bad=st==='error', emp=st==='empty';
+  const subj = emp? '' : nl? 'Welkom bij ShallWe-Play, '+V('firstName')+'!' : bad? '' : 'Welcome to ShallWe-Play, '+V('firstName')+'!';
+  const body = emp ? `<span class="ph-t">Write the email here. Use Insert Variable to add personal details like the player\u2019s name.</span>` :
+   `<b>${nl?'Welkom bij ShallWe-Play':'Welcome to ShallWe-Play'}, ${bad?V('fristName',1):V('firstName')}!</b><br>${nl?'Je account is klaar. Dit kun je nu doen:':'Your account is ready. Here\u2019s what you can do:'}
+   <ul><li><b>${nl?'Boek een baan':'Book a court'}</b> – ${nl?'vind clubs bij jou in de buurt.':'find clubs near you and book in a few taps.'}</li><li><b>${nl?'Speel een Open SWP':'Play an Open SWP'}</b> – ${nl?'maak een potje aan of doe mee.':'create a game or join players at your level.'}</li><li><b>${nl?'Word lid van een club':'Join a club'}</b> – ${nl?'koop lidmaatschappen in de app.':'buy club memberships right in the app.'}</li><li><b>${nl?'Inchecken met QR':'Check in with QR'}</b> – ${nl?'scan de code op de baan.':'scan the code at the court.'}</li><li><b>${nl?'Volg spelers':'Follow players'}</b> – ${nl?'deel foto\u2019s en video\u2019s.':'share photos and videos from your games.'}</li></ul>
+   [${nl?'Knop':'Button'}: ${nl?'Open de app':'Open the App'} → ${V('appLink')}]<br>${nl?'Vragen? Mail ons op':'Questions? Email us at'} ${V('supportEmail')}`;
+  const left=`<div>
+   <div class="tabsx"><button class="${!nl?'on':''}">English</button><button class="${nl?'on':''}">Dutch${bad?'<span class="dot"></span>':''}</button></div>
+   <div class="notch ${bad?'bad':'foc'}"><label>Subject *</label>${subj||'<span class="ph-t">Enter subject line</span>'}</div>
+   <div class="hint ${bad?'bad':''}"><span>${bad?'Subject is required.':'Shown in the inbox. Keep it under 60 characters.'}</span><span>${bad?'0':'34'}/100</span></div>
+   <div class="notch"><label>Preheader (optional)</label>${nl?'Boek banen, speel mee en word lid van clubs.':'Book courts, join games and find clubs near you.'}</div>
+   <div class="hint"><span>The grey preview text after the subject in most inboxes.</span><span>48/120</span></div>
+   <div style="font-size:13px;color:var(--muted);margin:14px 0 6px">Content *</div>
+   <div class="lockbar">${ic('lock-closed',14)} SWP header (logo) · locked</div>
+   <div class="toolbar"><span class="tb">B</span><span class="tb"><i>I</i></span><span class="tb"><u>U</u></span><span class="tb"><s>S</s></span><span class="sp"></span><span class="tb" style="font-weight:500">Normal ▾</span><span class="tb" style="font-weight:500">14 ▾</span><span class="sp"></span><span class="tb">${ic('list')}</span><span class="tb">${ic('link')}</span><span class="tb">${ic('arrow-undo')}</span><span class="tb">${ic('arrow-redo')}</span><span class="tb var" onclick="goTo('variables')" style="cursor:pointer">${ic('code-slash',14)}&nbsp;Insert Variable</span></div>
+   <div class="editor ${bad||emp?'bad':''}">${body}</div>
+   ${bad?`<div class="hint bad"><span>${ic('alert-circle',13)} <b>{{fristName}}</b> isn\u2019t a variable for this email. Did you mean {{firstName}}?</span></div>`:emp?`<div class="hint bad"><span>Content is required.</span></div>`:''}
+   <div class="lockbar">${ic('lock-closed',14)} SWP footer (privacy, terms, copyright) · locked</div>
+   ${bad?`<div style="margin-top:10px;background:var(--err-bg);color:var(--err);border-radius:6px;padding:10px 12px;font-size:13px;display:flex;gap:8px">${ic('alert-circle',16)}<span>Fix 3 issues before publishing: English subject is empty · unknown variable in English body · Dutch subject is missing.</span></div>`:''}
+  </div>`;
+  const right=`<div><div class="prevbar"><span style="font-size:16px;font-weight:600;color:var(--ink)">Preview</span><div style="display:flex;gap:8px;align-items:center"><div class="seg" style="padding:2px"><button class="${mob?'':'on'}" style="padding:4px 10px">${ic('desktop-outline',15)}</button><button class="${mob?'on':''}" style="padding:4px 10px">${ic('phone-portrait-outline',15)}</button></div><button class="btn n sm" onclick="goTo('test')">${ic('paper-plane-outline',14)} Send Test</button></div></div>
+   <div class="prevwrap">${emp?`<div style="text-align:center;color:var(--muted);padding-top:200px;font-size:14px">Start typing to see the preview…</div>`:`<div style="font-size:12px;color:var(--muted);margin-bottom:8px">Subject: <b style="color:var(--ink)">${bad?'(empty)':nl?'Welkom bij ShallWe-Play, Alex!':'Welcome to ShallWe-Play, Alex!'}</b> · sample data: Alex</div>`+mailWelcome(mob?'mobile':'sm', nl?'NL':'EN')}</div></div>`;
+  return shell(crumb+`<div class="card" style="padding:20px"><div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">${left}${right}</div>
+   <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);margin-top:18px;padding-top:14px"><span style="font-size:13px;color:var(--muted)">${ic('time-outline',14)} Draft saved automatically at 14:32</span><div style="display:flex;gap:10px"><button class="btn n">Cancel</button><button class="btn n">Save Draft</button><button class="btn p ${bad||emp?'off':''}" onclick="goTo('publish')">Publish</button></div></div></div>`);
+ },
+ notes:{
+  what:`The main editor. It follows the live Terms &amp; Policies "Add" page: form on the left, live preview on the right.`,
+  rules:[`Tabs for <b>English / Dutch</b>. A red dot means that language has an error or is missing.`,`<b>Subject</b> is required, max 100 characters (hint suggests under 60). <b>Preheader</b> is optional, max 120.`,`<b>Content</b> uses the same draft-js toolbar as T&amp;C, plus <b>Insert Variable</b>. Variables show as blue chips, so admins can\u2019t half-delete them.`,`Header and footer are shown as locked bars. They can\u2019t be edited (F8).`,`Preview: desktop/mobile toggle, sample data, subject line shown on top.`,`<b>Validation</b>: empty subject · unknown variable (with a "did you mean") · missing language · required variable removed (for example <code>{{otp}}</code> in the OTP email). Publish stays disabled until every issue is fixed.`,`Auto-save to draft. Leaving with unsaved changes shows "Discard changes?".`],
+  pending:[`Can admins add images to the body? Recommended: not in release 1. The editor would need an upload step.`,`Should the Publish step need a second admin to approve it?`],
+  dev:[`Variable names are mixed today (<code>bookingDate</code> vs <code>booking_date</code>, <code>refund_amount</code>). Pick one style before exposing them to admins.`,`Sanitize editor HTML before saving, so pasted content can\u2019t break the email layout.`]
+ }};
+
+S.variables={grp:'Flow A',t:'Insert Variable',url:'test.admin.shallwe-play.com/email-templates/user-welcome-player/edit/',
+ states:{loading:'N/A',error:'N/A'},
+ render(st){
+  const base=S.edit.render('populated','English');
+  if(st==='loading'||st==='error') return base;
+  const list=st==='empty'?`<div style="padding:24px 14px;text-align:center;font-size:13px;color:var(--muted)">No variable matches \u201cbooking\u201d.<br>This email only has the variables below the search.</div>`
+   :[['firstName','Player\u2019s first name','Alex'],['appLink','Link that opens the app','shallweplay.app/open'],['supportEmail','SWP support address','support@shallweplay.nl']].map(([n,d,s])=>`<div class="vrow"><div>${V(n)}<div class="vdsc">${d}</div></div><span class="vsam">e.g. ${s}</span></div>`).join('');
+  const pop=`<div class="popover" style="top:476px;left:300px"><div class="pt"><div class="srch" style="width:100%;height:36px">${ic('search',15)}<span ${st==='empty'?'style="color:var(--ink)"':''}>${st==='empty'?'booking':'Search variables'}</span></div></div>${list}<div style="padding:10px 14px;font-size:12px;color:var(--muted)">Only variables this email supports are listed.</div></div>`;
+  return base.replace(/<\/div>$/, pop+'</div>');
+ },
+ notes:{
+  what:`Popover from the toolbar. Lists only the variables this email supports, each with a description and sample value.`,
+  rules:[`Click a variable to insert it at the cursor as a chip.`,`Search filters by name and description.`,`System values like <code>EMAIL_TEMPLATE_BASE_URL</code> and policy links are never listed. They live in the locked header and footer.`],
+  pending:[],
+  dev:[`Each template needs a variable list with description + sample value. The sample value feeds the preview and the test email.`]
+ }};
+
+S.test={grp:'Flow A',t:'Send Test Email',url:'test.admin.shallwe-play.com/email-templates/user-welcome-player/edit/',
+ states:{empty:'N/A',loading:'Sending',error:'Validation'},
+ render(st){
+  const base=S.edit.render('populated','English');
+  if(st==='empty') return base;
+  const bad=st==='error';
+  const m=`<div class="ov c"><div class="modal"><div class="mhd">Send Test Email<span class="act">${ic('close')}</span></div><div class="mbd">
+   <div class="notch ${bad?'bad':'foc'}" style="margin-top:6px"><label>Send to *</label>${bad?'finance@shallwe-play':'finance@shallwe-play.com'}</div>
+   ${bad?`<div class="hint bad"><span>Enter a valid email address.</span></div>`:`<div class="hint"><span>Defaults to your own address.</span></div>`}
+   <div class="sel" style="margin-top:16px;width:100%"><label>Language</label>English ${ic('chevron-down',14)}</div>
+   <div style="font-size:13px;color:var(--muted);margin-top:14px;display:flex;gap:6px">${ic('information-circle-outline',16)}<span>The test uses sample data (Alex) and your unsaved changes. The subject starts with [TEST].</span></div>
+   </div><div class="mft"><button class="btn n">Cancel</button><button class="btn p ${st==='loading'?'off':''}">${st==='loading'?ic('sync',16)+' Sending…':'Send Test'}</button></div></div></div>`;
+  return base.replace(/<\/div>$/, m+'</div>');
+ },
+ notes:{
+  what:`Lets an admin check the real email in their own inbox before publishing.`,
+  rules:[`Pre-filled with the signed-in admin\u2019s email. It can be changed to any one address.`,`Pick the language. The test uses sample data and the current unsaved text.`,`Subject gets a [TEST] prefix so it\u2019s never confused with a live email.`,`Success: green toast "Test email sent to …". Failure: red toast with Try Again.`,`Modal follows the house rule: one Neutral Cancel + one Primary action.`],
+  pending:[`Limit test sends (for example 10 per hour per admin) to stop misuse?`],
+  dev:[`Reuse <code>prepareTemplate.js</code> with the sample values. Don\u2019t log test sends as real user emails.`]
+ }};
+
+S.publish={grp:'Flow A',t:'Publish',url:'test.admin.shallwe-play.com/email-templates/user-welcome-player/edit/',
+ variants:['Confirm','Published'],
+ states:{empty:'N/A',loading:'Publishing',error:'Failed'},
+ render(st,v='Confirm'){
+  if(v==='Published'&&st==='populated') return S.detail.render('populated','Welcome — Player').replace(pill('New','new'),pill('Active','ok')).replace('None yet (players get the shared welcome today)','v1 · published 26 Nov 2026, 14:40').replace(/<\/div>$/, `<div class="toast">${ic('checkmark-circle',20,'color:#228B22')} Welcome — Player is live. New players get this version from now.</div></div>`);
+  const base=S.edit.render('populated','English');
+  if(st==='empty') return base;
+  const m=`<div class="ov c"><div class="modal"><div class="mhd">Publish Changes?<span class="act">${ic('close')}</span></div><div class="mbd">
+   <p style="margin-bottom:10px"><b style="color:var(--ink)">Welcome — Player</b> will be sent with this content from now on, in English and Dutch.</p>
+   <ul style="padding-left:18px;font-size:13.5px;color:var(--muted);line-height:1.7"><li>Emails already sent don\u2019t change.</li><li>The previous version is kept in Version History.</li></ul>
+   ${st==='error'?`<div style="margin-top:12px;background:var(--err-bg);color:var(--err);border-radius:6px;padding:10px 12px;font-size:13px">Couldn\u2019t publish. Your draft is saved. Try again.</div>`:''}
+   </div><div class="mft"><button class="btn n">Cancel</button><button class="btn p ${st==='loading'?'off':''}">${st==='loading'?ic('sync',16)+' Publishing…':st==='error'?'Try Again':'Publish'}</button></div></div></div>`;
+  return base.replace(/<\/div>$/, m+'</div>');
+ },
+ notes:{
+  what:`Confirm step before changes go live, then a success toast on the details page.`,
+  rules:[`Publish is only possible when both languages pass validation.`,`After publishing: status becomes Active, Live version shows the version number, date and admin.`,`Sent emails are never changed (no retro-updates).`,`Error: the draft is kept, so nothing is lost.`],
+  pending:[`Should publishing a security email (OTP, password reset) need super-admin approval?`],
+  dev:[`Store each publish as a new version row: template key, language, subject, preheader, body, published by, published at.`]
+ }};
+
+S.history={grp:'Flow A',t:'Version History',url:'test.admin.shallwe-play.com/email-templates/booking-cancelled/',
+ variants:['History','Restore Confirm'],
+ states:{empty:'Only Default'},
+ render(st,v='History'){
+  const base=S.detail.render('populated','Welcome — Player').replace(/Welcome — Player/g,'Booking Cancelled').replace('user-welcome-player','booking-cancelled');
+  let list;
+  if(st==='loading') list=[1,2,3].map(()=>`<div class="ver"><div class="vd"></div><div style="flex:1">${sk('50%')}${sk('70%',12,6)}</div></div>`).join('');
+  else if(st==='error') list=errBox('Couldn\u2019t Load History');
+  else if(st==='empty') list=`<div class="ver cur"><div class="vd"></div><div><b>System default</b> ${pill('Live','ok')}<div class="vm">Original version from the developers</div></div></div><div style="padding:20px;font-size:13px;color:var(--muted)">No admin edits yet. When someone publishes a change, it shows here.</div>`;
+  else list=`
+   <div class="ver drf"><div class="vd"></div><div><b>Draft</b> ${pill('Not live','draft')}<div class="vm">25 Nov 2026, 16:05 · Finance Admin</div><div class="vm">Changed: Dutch subject, body</div></div><div class="va"><button class="btn t sm">Open</button><button class="btn t sm" style="color:var(--destroy)">Discard</button></div></div>
+   <div class="ver cur"><div class="vd"></div><div><b>v3</b> ${pill('Live','ok')}<div class="vm">12 Nov 2026, 10:20 · Finance Admin</div><div class="vm">Changed: refund wording</div></div><div class="va"><button class="btn t sm">View</button></div></div>
+   <div class="ver"><div class="vd"></div><div><b>v2</b><div class="vm">3 Oct 2026, 09:14 · Super Admin</div><div class="vm">Changed: subject</div></div><div class="va"><button class="btn t sm">View</button><button class="btn t sm">Restore</button></div></div>
+   <div class="ver"><div class="vd"></div><div><b>v1 · System default</b><div class="vm">Original from the developers</div></div><div class="va"><button class="btn t sm">View</button><button class="btn t sm">Restore</button></div></div>`;
+  const drawer=`<div class="ov r"><div class="drawer"><div class="mhd">Version History<span class="act">${ic('close')}</span></div><div style="overflow:auto;flex:1">${list}</div></div></div>`;
+  const modal=`<div class="ov c"><div class="modal"><div class="mhd">Restore v2?<span class="act">${ic('close')}</span></div><div class="mbd">v2 will be copied into a new draft. Nothing goes live until you publish it. Your current draft will be replaced.</div><div class="mft"><button class="btn n">Cancel</button><button class="btn p">Restore to Draft</button></div></div></div>`;
+  return base.replace(/<\/div>$/, (v==='Restore Confirm'&&st==='populated'?modal:drawer)+'</div>');
+ },
+ notes:{
+  what:`Right-side drawer with every saved version. Admins can view or restore older text.`,
+  rules:[`Newest first: Draft (amber) → Live (green) → older versions → v1 System default.`,`Each row: version, date and time, admin, what changed.`,`<b>Restore</b> copies the old version into a new draft. It never goes live directly. The admin still publishes.`,`System default is always available, so an admin can undo every change.`],
+  pending:[`How long do we keep old versions? Recommended: forever (they\u2019re small).`],
+  dev:[`"What changed" can be generated by comparing fields (subject / preheader / body / language).`]
+ }};
+
+S.rules={grp:'Flow B',t:'Notifications Waiting · Sending Rules',url:'test.admin.shallwe-play.com/email-templates/notifications-waiting/rules/',
+ states:{empty:'N/A',error:'Validation'},
+ render(st){
+  const crumb=`<div class="crumb">${ic('chevron-back',16)} Email Templates / Notifications Waiting / <b>Sending Rules</b></div>`;
+  if(st==='empty') return shell(crumb+`<div class="card">${emptyBox('information-circle-outline','Not Applicable','Rules always have default values.')}</div>`);
+  if(st==='loading') return shell(crumb+`<div class="card cb">${[1,2,3,4,5].map(()=>sk('100%',40,14)).join('')}</div>`);
+  const bad=st==='error';
+  const r=(l,s,ctrl)=>`<div class="rule"><div class="rl">${l}<small>${s}</small></div>${ctrl}</div>`;
+  return shell(crumb+`<div class="grid2" style="grid-template-columns:1.2fr 1fr">
+   <div class="card"><div class="ch">Sending Rules</div><div class="cb" style="padding-top:4px">
+    ${r('Send this email','When off, no player gets it. Saved rules are kept.','<span class="sw on"></span>')}
+    ${r('Send when unread notifications are more than','Counts only unread notifications from the last 14 days.',`<div class="numin ${bad?'bad':''}">${bad?'0':'5'}<span style="display:flex;flex-direction:column;font-size:11px">${ic('chevron-up')}${ic('chevron-down')}</span></div>`)}
+    ${bad?`<div class="hint bad" style="justify-content:flex-end"><span>Enter a number from 1 to 50.</span></div>`:''}
+    ${r('Check every day at','Time in Europe/Amsterdam.','<div class="sel" style="min-width:120px">09:00 '+ic('chevron-down',14)+'</div>')}
+    ${r('Don\u2019t send again within','Stops repeat emails if the player still hasn\u2019t opened the app.',`<div class="sel ${bad?'':''}" style="min-width:120px">7 days ${ic('chevron-down',14)}</div>`)}
+    ${r('Show in the email','Latest unread notifications listed in the email.','<div class="sel" style="min-width:120px">3 items '+ic('chevron-down',14)+'</div>')}
+    <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:16px"><button class="btn n">Cancel</button><button class="btn p ${bad?'off':''}">Save Rules</button></div>
+   </div></div>
+   <div style="display:flex;flex-direction:column;gap:16px">
+    <div class="card"><div class="ch">Summary</div><div class="cb"><div class="summary">${ic('information-circle',20,'color:#007AFF;flex-shrink:0')}<span>${bad?'Fix the highlighted field to see the summary.':'Every day at <b>09:00</b>, players with <b>6 or more</b> unread notifications get this email. A player gets it <b>at most once every 7 days</b>.'}</span></div></div></div>
+    <div class="card"><div class="ch">Last 7 Days</div><div class="cb"><dl class="kv"><dt>Emails sent</dt><dd>214</dd><dt>Opened the app after</dt><dd>38%</dd><dt>Turned off</dt><dd>3 players</dd></dl><div style="font-size:12px;color:var(--muted);margin-top:10px">Sample numbers. Shown after the first run.</div></div></div>
+   </div></div>`);
+ },
+ notes:{
+  what:`Settings for the new "more than 5 notifications" email (F5, F6).`,
+  rules:[`Defaults: on · more than <b>5</b> unread · daily at <b>09:00</b> · max once every <b>7 days</b> · show 3 items.`,`Threshold must be 1–50. Save is disabled while a field is invalid.`,`The summary rewrites the rules as a sentence, so admins can check they\u2019re right.`,`Only unread notifications from the last 14 days count. Old ones don\u2019t trigger emails forever.`],
+  pending:[`"More than 5" = 6 or more? (Assumed yes.)`,`Can players turn this email off? Recommended yes: a link in the email + a toggle in the app\u2019s notification settings.`,`Should the 7-day cooldown reset once the player opens the app?`],
+  dev:[`<code>UserNotification.is_read</code> already exists, so the unread count is easy.`,`New: a daily scheduled job (none exists in notification-service today) + a "last digest sent at" field per player for the cooldown.`]
+ }};
+
+S.perms={grp:'Flow C',t:'Roles and Permissions',url:'test.admin.shallwe-play.com/role-permissions/edit/…',
+ states:{empty:'N/A',loading:'N/A',error:'N/A'},
+ render(st){
+  if(st!=='populated') return shell(`<div class="card">${emptyBox('information-circle-outline','Not Applicable','This screen already exists in the admin portal. Only one new row is added, so its states don\u2019t change.')}</div>`,{menu:'Roles and Permissions'});
+  const cols=['All','View','Add','Edit','Delete','Export','Approve','Reject'];
+  const row=(n,on,hl)=>`<tr ${hl?'class="hl" style="outline:2px dashed #F59E0B;outline-offset:-2px"':''}><td><b style="color:${hl?'var(--primary)':'var(--ink)'};font-weight:600">${n}</b>${hl?' <span class="pill new" style="height:20px;font-size:11px">New</span>':''}</td>${cols.map((c,i)=>`<td>${on[i]===1?'<span class="cbx">'+ic('checkmark')+'</span>':on[i]===0?'<span class="cbx off"></span>':''}</td>`).join('')}</tr>`;
+  return shell(`<div class="card" style="padding:20px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><div style="display:flex;gap:10px;align-items:center;font-size:20px;font-weight:700;color:var(--ink)">${ic('arrow-back',18,'color:#007AFF')} Edit Role</div><div style="display:flex;gap:10px"><button class="btn n">Clear</button><button class="btn p">Save</button></div></div>
+   <div class="notch" style="width:300px;margin-bottom:18px"><label>Role Name</label>Content Manager</div>
+   <table class="perm"><tr><th>Module Type</th>${cols.map(c=>`<th style="text-align:center">${c}</th>`).join('')}</tr>
+   ${row('Master Settings',[0,1,'',0,'','','',''])}${row('App Version',[0,1,'',0,'','','',''])}
+   ${row('Email Templates',[0,1,'',1,'','',0,''],1)}
+   ${row('Roles and Permissions',[0,0,0,0,0,'','',''])}</table>
+   <div style="font-size:13px;color:var(--muted);margin-top:14px;line-height:1.6"><b style="color:var(--ink)">View</b> = see list, details, history · <b style="color:var(--ink)">Edit</b> = change content, send tests, save drafts, edit sending rules · <b style="color:var(--ink)">Approve</b> = publish and restore</div></div>`,{menu:'Roles and Permissions'});
+ },
+ notes:{
+  what:`Adds one row to the existing role editor, so a super admin decides who can change emails.`,
+  rules:[`Uses existing columns only: <b>View</b>, <b>Edit</b>, <b>Approve</b> (= Publish). No Add or Delete, because templates come from code.`,`Example: a "Content Manager" can edit and test but not publish.`,`Without View, the menu item is hidden.`],
+  pending:[],
+  dev:[`Add the module to the admin ACL (<code>src/pages/acl</code>) and the role-permission seed.`]
+ }};
+
+function client(active, reader){
+  return `<div class="mailclient"><div class="mlist"><div style="padding:14px;font-weight:700;color:var(--ink);font-size:15px;border-bottom:1px solid var(--line)">Inbox</div>
+   <div class="mitem ${active==='w'?'on':''}"><b>ShallWe-Play</b><span>Welcome to ShallWe-Play, Alex!</span></div>
+   <div class="mitem ${active==='d'?'on':''}"><b>ShallWe-Play</b><span>You have 7 notifications waiting</span></div>
+   <div class="mitem"><b>ShallWe-Play</b><span>Booking Confirmation</span></div></div><div class="mread">${reader}</div></div>`;
+}
+S.mail_welcome={grp:'Flow E',t:'Player Receives: Welcome Email',url:'Player\u2019s inbox (example)',
+ variants:['Desktop','Mobile','Dutch'],
+ states:{empty:'N/A',loading:'N/A',error:'Fallback'},
+ render(st,v='Desktop'){
+  if(st==='empty'||st==='loading') return client('w',`<div style="padding:80px;text-align:center;color:var(--muted)">Not applicable. This is a received email.</div>`);
+  if(st==='error') return client('w',`<div style="font-size:13px;color:var(--muted);margin-bottom:10px;text-align:center">If the database template fails to load, the system sends the built-in default so the player still gets an email.</div>`+mailWelcome('desktop'));
+  return client('w',`<div style="font-size:13px;color:var(--muted);margin:0 auto 10px;max-width:560px"><b style="color:var(--ink)">${v==='Dutch'?'Welkom bij ShallWe-Play, Alex!':'Welcome to ShallWe-Play, Alex!'}</b><br>From: ShallWe-Play &lt;no-reply@shallweplay.nl&gt;</div>`+mailWelcome(v==='Mobile'?'mobile':'desktop', v==='Dutch'?'NL':'EN'));
+ },
+ notes:{
+  what:`What a new player gets after sign-up (F4). It replaces the shared, club-focused welcome text.`,
+  rules:[`Greets the player by first name.`,`Lists 5 things they can do today: book a court, play an Open SWP, join a club, check in with QR, follow players.`,`One CTA: Open the App.`,`Sent in the player\u2019s app language (EN or NL).`],
+  pending:[`Add "Chat with players and clubs" to the list once the Communication Module launches?`,`Which link does "Open the App" use: an app store link, or a smart link that opens the app if it\u2019s installed?`],
+  dev:[`If the stored template fails, fall back to the <code>.hbs</code> default so sign-up emails never stop.`]
+ }};
+S.mail_digest={grp:'Flow E',t:'Player Receives: Notifications Waiting',url:'Player\u2019s inbox (example)',
+ variants:['Desktop','Mobile'],
+ states:{empty:'N/A',loading:'N/A',error:'N/A'},
+ render(st,v='Desktop'){
+  if(st!=='populated') return client('d',`<div style="padding:80px;text-align:center;color:var(--muted)">Not applicable. This is a received email.</div>`);
+  return client('d',`<div style="font-size:13px;color:var(--muted);margin:0 auto 10px;max-width:560px"><b style="color:var(--ink)">You have 7 notifications waiting</b><br>From: ShallWe-Play &lt;no-reply@shallweplay.nl&gt;</div>`+mailDigest(v==='Mobile'?'mobile':'desktop'));
+ },
+ notes:{
+  what:`The email a player gets when they have more than 5 unread notifications (F5).`,
+  rules:[`Subject shows the real count.`,`Lists the latest 3 unread notifications (title + time), then "+ N more".`,`CTA "View Notifications" opens the app\u2019s notification list.`,`Footer explains why they got it, with a link to turn these emails off.`],
+  pending:[`Should the list show notification titles at all? Some may include private details (payments, names). Alternative: show the count only.`],
+  dev:[`Notification titles come from <code>UserNotification.title</code> / <code>message</code>.`]
+ }};
+
+/* ============ flow + state engine ============ */
+const ORDER=['overview','list','detail','edit','variables','test','publish','history','rules','perms','mail_welcome','mail_digest'];
+const STATES=[['populated','Populated'],['empty','Empty'],['loading','Loading'],['error','Error']];
+let cur='overview', state='populated', vars={};
+function goTo(id){ if(!S[id])return; cur=id; state='populated'; draw(); window.scrollTo({top:0,behavior:'smooth'}); }
+function step(d){ const i=ORDER.indexOf(cur)+d; if(i>=0&&i<ORDER.length) goTo(ORDER[i]); }
+function setState(s){ state=s; draw(); }
+function setVar(v){ vars[cur]=v; draw(); }
+function fit(){ const w=document.getElementById('fitwrap').clientWidth; const z=Math.min(1,w/1280); const f=document.getElementById('fit'); f.style.transform=`scale(${z})`; document.getElementById('fitwrap').style.height=(f.scrollHeight*z)+'px'; }
+function draw(){
+  const sc=S[cur], idx=ORDER.indexOf(cur);
+  let fb='', lg='';
+  ORDER.forEach((id,i)=>{ const s=S[id]; if(s.grp!==lg){ fb+=`<span class="fgrp">${s.grp}</span>`; lg=s.grp; } else fb+=`<span class="fsep">›</span>`; fb+=`<button class="fstep ${id===cur?'on':''} ${i<idx?'done':''}" onclick="goTo('${id}')"><span class="num">${i}</span>${s.t}</button>`; });
+  document.getElementById('flowbar').innerHTML=fb;
+  document.getElementById('stitle').innerHTML=`<span>Step ${idx}</span> · ${sc.t}`;
+  document.getElementById('states').innerHTML=STATES.map(([k,l])=>{const o=(sc.states||{})[k];const na=o==='N/A';return `<button class="${state===k?'on':''} ${na?'na':''}" onclick="setState('${k}')">${na?l:(o||l)}</button>`}).join('');
+  const v=vars[cur]||(sc.variants?sc.variants[0]:undefined);
+  document.getElementById('vars').style.display=sc.variants?'flex':'none';
+  document.getElementById('vars').innerHTML=sc.variants?sc.variants.map(x=>`<button class="${x===v?'on':''}" onclick="setVar('${x.replace(/'/g,"\\'")}')">${x}</button>`).join(''):'';
+  document.getElementById('prev').disabled=idx===0; document.getElementById('next').disabled=idx===ORDER.length-1;
+  document.getElementById('url').textContent=sc.url;
+  document.getElementById('fit').innerHTML=sc.render(state,v);
+  const n=sc.notes;
+  const stt=STATES.map(([k,l])=>{const o=(sc.states||{})[k];return o?`${l} → <b>${o}</b>`:`${l} ✓`}).join(' · ');
+  document.getElementById('notes').innerHTML=`
+   <div class="ncard"><h5>What happens here</h5><p>${n.what}</p><h5 style="margin-top:14px">4-State Matrix</h5><p class="stt">${stt}</p>
+    ${idx<ORDER.length-1?`<h5 style="margin-top:14px">Next in flow</h5><p><a href="#" onclick="step(1);return false" style="color:var(--primary);font-weight:600">Step ${idx+1} · ${S[ORDER[idx+1]].t} →</a></p>`:''}</div>
+   <div class="ncard"><h5>Rules</h5><ul>${n.rules.map(r=>`<li>${r}</li>`).join('')}</ul></div>
+   <div class="ncard">${n.pending.length?`<h5>Pending Client Decisions</h5>${n.pending.map(p=>`<div class="pend">${p}</div>`).join('')}`:''}<h5 ${n.pending.length?'style="margin-top:12px"':''}>Dev Notes (from code)</h5>${n.dev.map(d=>`<div class="dev">${d}</div>`).join('')}</div>`;
+  requestAnimationFrame(fit);
+}
+window.addEventListener('resize',fit);
+draw();
+</script>
+</body>
+</html>
