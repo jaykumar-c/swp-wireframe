@@ -414,7 +414,7 @@ function mailWelcome(size, lang='EN'){
    <p>${nl?'Je account is klaar. Dit kun je nu doen:':'Your account is ready. Here\u2019s what you can do:'}</p>
    <div style="margin:8px 0">${feats.map(([i,b,s])=>`<div class="feat"><div class="fi">${ic(i)}</div><div><b>${b}</b><span>${s}</span></div></div>`).join('')}</div>
    <div style="text-align:center"><span class="mcta">${nl?'Open de app':'Open the App'}</span></div>
-   <p style="font-size:13px;color:var(--muted);margin-top:8px">${nl?'Vragen? Mail ons op':'Questions? Email us at'} support@shallweplay.nl</p></div>
+   <p style="font-size:13px;color:var(--muted);margin-top:8px">${nl?'Vragen? Mail ons op':'Questions? Email us at'} support@shallweplay.com</p></div>
    <div class="mf"><span class="lockico">${ic('lock-closed')}</span>© 2026 ShallWe-Play · Privacy Policy · Terms &amp; Conditions</div></div>`;
 }
 function mailDigest(size){
@@ -475,7 +475,7 @@ S.variables={grp:'Flow A',t:'Insert Variable',url:'test.admin.shallwe-play.com/e
   const base=S.edit.render('populated','English');
   if(st==='loading'||st==='error') return base;
   const list=st==='empty'?`<div style="padding:24px 14px;text-align:center;font-size:13px;color:var(--muted)">No variable matches \u201cbooking\u201d.<br>This email only has the variables below the search.</div>`
-   :[['firstName','Player\u2019s first name','Alex'],['appLink','Link that opens the app','shallweplay.app/open'],['supportEmail','SWP support address','support@shallweplay.nl']].map(([n,d,s])=>`<div class="vrow"><div>${V(n)}<div class="vdsc">${d}</div></div><span class="vsam">e.g. ${s}</span></div>`).join('');
+   :[['firstName','Player\u2019s first name','Alex'],['appLink','Link that opens the app','shallweplay.app/open'],['supportEmail','SWP support address','support@shallweplay.com']].map(([n,d,s])=>`<div class="vrow"><div>${V(n)}<div class="vdsc">${d}</div></div><span class="vsam">e.g. ${s}</span></div>`).join('');
   const pop=`<div class="popover" style="top:476px;left:300px"><div class="pt"><div class="srch" style="width:100%;height:36px">${ic('search',15)}<span ${st==='empty'?'style="color:var(--ink)"':''}>${st==='empty'?'booking':'Search variables'}</span></div></div>${list}<div style="padding:10px 14px;font-size:12px;color:var(--muted)">Only variables this email supports are listed.</div></div>`;
   return base.replace(/<\/div>$/, pop+'</div>');
  },
@@ -616,7 +616,7 @@ S.mail_welcome={grp:'Flow E',t:'Player Receives: Welcome Email',url:'Player\u201
  render(st,v='Desktop'){
   if(st==='empty'||st==='loading') return client('w',`<div style="padding:80px;text-align:center;color:var(--muted)">Not applicable. This is a received email.</div>`);
   if(st==='error') return client('w',`<div style="font-size:13px;color:var(--muted);margin-bottom:10px;text-align:center">If the database template fails to load, the system sends the built-in default so the player still gets an email.</div>`+mailWelcome('desktop'));
-  return client('w',`<div style="font-size:13px;color:var(--muted);margin:0 auto 10px;max-width:560px"><b style="color:var(--ink)">${v==='Dutch'?'Welkom bij ShallWe-Play, Alex!':'Welcome to ShallWe-Play, Alex!'}</b><br>From: ShallWe-Play &lt;no-reply@shallweplay.nl&gt;</div>`+mailWelcome(v==='Mobile'?'mobile':'desktop', v==='Dutch'?'NL':'EN'));
+  return client('w',`<div style="font-size:13px;color:var(--muted);margin:0 auto 10px;max-width:560px"><b style="color:var(--ink)">${v==='Dutch'?'Welkom bij ShallWe-Play, Alex!':'Welcome to ShallWe-Play, Alex!'}</b><br>From: ShallWe-Play &lt;info@shallwe-play.com&gt;</div>`+mailWelcome(v==='Mobile'?'mobile':'desktop', v==='Dutch'?'NL':'EN'));
  },
  notes:{
   what:`What a new player gets after sign-up (F4). It replaces the shared, club-focused welcome text.`,
@@ -629,7 +629,7 @@ S.mail_digest={grp:'Flow E',t:'Player Receives: Notifications Waiting',url:'Play
  states:{empty:'N/A',loading:'N/A',error:'N/A'},
  render(st,v='Desktop'){
   if(st!=='populated') return client('d',`<div style="padding:80px;text-align:center;color:var(--muted)">Not applicable. This is a received email.</div>`);
-  return client('d',`<div style="font-size:13px;color:var(--muted);margin:0 auto 10px;max-width:560px"><b style="color:var(--ink)">You have 7 notifications waiting</b><br>From: ShallWe-Play &lt;no-reply@shallweplay.nl&gt;</div>`+mailDigest(v==='Mobile'?'mobile':'desktop'));
+  return client('d',`<div style="font-size:13px;color:var(--muted);margin:0 auto 10px;max-width:560px"><b style="color:var(--ink)">You have 7 notifications waiting</b><br>From: ShallWe-Play &lt;info@shallwe-play.com&gt;</div>`+mailDigest(v==='Mobile'?'mobile':'desktop'));
  },
  notes:{
   what:`The email a player gets when they have more than 5 unread notifications (F5).`,

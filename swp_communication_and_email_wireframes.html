@@ -27,7 +27,7 @@ iframe.on{display:block}
 <div class="bar">
   <div class="brand"><svg width="26" height="26" viewBox="0 0 34 34"><circle cx="11" cy="12" r="8" fill="none" stroke="#16A34A" stroke-width="3"/><circle cx="22" cy="12" r="8" fill="none" stroke="#007AFF" stroke-width="3"/><circle cx="16" cy="22" r="8" fill="none" stroke="#E63900" stroke-width="3"/></svg><span>ShallWe-Play</span></div>
   <div class="tabs" role="tablist">
-    <button class="tab" role="tab" data-t="chat" onclick="show('chat')">Communication Module <small>Player App · 18 screens</small></button>
+    <button class="tab" role="tab" data-t="chat" onclick="show('chat')">Communication Module <small>Player App · 19 screens</small></button>
     <button class="tab" role="tab" data-t="email" onclick="show('email')">Email Templates <small>Admin Portal · 12 steps</small></button>
   </div>
   <div class="meta">Business Analysis · Mukund Patil<br>26 Nov 2026</div>
@@ -39,7 +39,7 @@ iframe.on{display:block}
 &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
 &lt;title&gt;SWP Chat Wireframes&lt;/title&gt;
 &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
-&lt;link href=&quot;https://fonts.googleapis.com/css2?family=Lato:wght@400;700&amp;family=Montserrat:wght@500;600;700;800&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;link href=&quot;https://fonts.googleapis.com/css2?family=Lato:wght@400;700&amp;family=Roboto:wght@400;500;700&amp;family=Montserrat:wght@500;600;700;800&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
 &lt;script type=&quot;module&quot; src=&quot;https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js&quot;&gt;&lt;/script&gt;
 &lt;style&gt;
 /* ===== Tokens: copied from shallwe-play-players/src/constants/Colors.ts (light) + BookingsScreen.tsx tabs ===== */
@@ -48,7 +48,7 @@ iframe.on{display:block}
   --text:#11181C; --text2:#777777; --icon:#687076; --bg:#f0f0f0; --card:#FFFFFF;
   --border:#E5E5E5; --danger:#E63900; --error:#FF3B30; --success:#22C55E; --disabled:#BDBDBD;
   --primary-soft:rgba(0,122,255,.08); --danger-soft:rgba(230,57,0,.08); --success-soft:rgba(34,197,94,.10);
-  --warn-bg:#FEF3C7; --warn-text:#92400E;
+  --warn-bg:#FEF3C7; --warn-text:#92400E; --card:#FFFFFF; --chip:#E7E7E7; --skel:#E2E2E2; --info-bg:#EAF3FF; --back-bg:#FFFFFF;
   /* page chrome (not part of the app) */
   --page:#F5F5F9; --ink:#1C1C1C; --muted:#64748B; --line:#E2E8F0;
 }
@@ -58,14 +58,14 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 input,textarea{font:inherit}
 
 /* ===== Page layout ===== */
-.top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 24px;background:#fff;border-bottom:1px solid var(--line)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 24px;background:var(--card);border-bottom:1px solid var(--line)}
 .top h1{font:700 18px Montserrat}
 .top p{font-size:13px;color:var(--muted);margin-top:2px}
 .legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
 .legend span{display:inline-flex;align-items:center;gap:6px}
 .dot{width:10px;height:10px;border-radius:3px;display:inline-block}
 .layout{display:grid;grid-template-columns:250px 1fr 360px;gap:20px;max-width:1440px;margin:0 auto;padding:20px 24px}
-.nav{background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px;align-self:start;position:sticky;top:20px;max-height:calc(100vh - 40px);overflow:auto}
+.nav{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px;align-self:start;position:sticky;top:20px;max-height:calc(100vh - 40px);overflow:auto}
 .nav h4{font:600 11px Montserrat;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin:14px 8px 6px}
 .nav h4:first-child{margin-top:4px}
 .nav button{display:flex;gap:8px;width:100%;text-align:left;padding:8px;border-radius:6px;font-size:14px;color:var(--ink)}
@@ -74,14 +74,14 @@ input,textarea{font:inherit}
 .nav button.on{background:var(--primary-soft);color:var(--primary);font-weight:700}
 .nav button.on .n{color:var(--primary)}
 .stage{display:flex;flex-direction:column;align-items:center;gap:12px}
-.switch{display:flex;gap:4px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:4px}
+.switch{display:flex;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:4px}
 .switch button{padding:7px 14px;border-radius:6px;font:600 13px Montserrat;color:var(--muted)}
 .switch button.on{background:var(--primary);color:#fff}
 .switch button.na{opacity:.45}
 .variants{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;min-height:30px}
-.variants button{padding:5px 12px;border-radius:99px;border:1px solid var(--line);background:#fff;font-size:13px;color:var(--muted)}
+.variants button{padding:5px 12px;border-radius:99px;border:1px solid var(--line);background:var(--card);font-size:13px;color:var(--muted)}
 .variants button.on{border-color:var(--primary);color:var(--primary);font-weight:700}
-.notes{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px;align-self:start;position:sticky;top:20px;max-height:calc(100vh - 40px);overflow:auto}
+.notes{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px;align-self:start;position:sticky;top:20px;max-height:calc(100vh - 40px);overflow:auto}
 .notes h2{font:700 18px Montserrat;margin-bottom:4px}
 .notes .flow{font:600 11px Montserrat;text-transform:uppercase;letter-spacing:.6px;color:var(--primary)}
 .notes h5{font:600 11px Montserrat;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin:16px 0 6px}
@@ -103,16 +103,16 @@ input,textarea{font:inherit}
 .body{flex:1;overflow-y:auto;scrollbar-width:none}
 .body::-webkit-scrollbar{display:none}
 .homebar{height:20px;flex-shrink:0;display:flex;justify-content:center;align-items:center}
-.homebar i{width:120px;height:4px;border-radius:2px;background:#11181C;opacity:.85}
+.homebar i{width:120px;height:4px;border-radius:2px;background:var(--text);opacity:.85}
 
 /* ===== App components (matched to live RN styles) ===== */
 .hdr{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;flex-shrink:0;min-height:56px}
 .hdr .t{font:800 20px/25px Montserrat;letter-spacing:.5px;text-transform:uppercase;text-align:center;flex:1}
-.back{width:36px;height:36px;border-radius:18px;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;color:var(--text)}
+.back{width:36px;height:36px;border-radius:8px;background:var(--back-bg);color:var(--primary)!important;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;color:var(--text)}
 .hbtn{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--primary);flex-shrink:0;position:relative}
 .hbtn.grey{color:var(--icon)}
 .sp36{width:36px;flex-shrink:0}
-.chdr{display:flex;align-items:center;gap:10px;padding:8px 12px 8px 16px;background:#fff;border-bottom:1px solid var(--border);flex-shrink:0;min-height:60px}
+.chdr{display:flex;align-items:center;gap:10px;padding:8px 12px 8px 16px;background:var(--card);border-bottom:1px solid var(--border);flex-shrink:0;min-height:60px}
 .chdr .who{flex:1;min-width:0}
 .chdr .nm{font:700 16px/20px Montserrat;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:6px}
 .chdr .sub{font-size:13px;color:var(--text2);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -122,12 +122,12 @@ input,textarea{font:inherit}
 .search input{flex:1;border:none;outline:none;background:transparent;font-size:15px;color:var(--text)}
 .search input::placeholder{color:#9CA3AF}
 .tabs{display:flex;margin:0 16px 12px;background:var(--tab-wrap);border-radius:8px;padding:8px}
-.tabs button{flex:1;padding:10px 0;background:#fff;font:500 12px Lato;color:var(--seg-text);border-radius:0}
+.tabs button{flex:1;padding:10px 0;background:var(--card);font:500 12px Lato;color:var(--seg-text);border-radius:0}
 .tabs button:first-child{border-radius:6px 0 0 6px}
 .tabs button:last-child{border-radius:0 6px 6px 0}
 .tabs button.on{background:var(--tab-active);color:#fff}
 .sec{font:600 12px Montserrat;text-transform:uppercase;letter-spacing:.5px;color:var(--text2);padding:4px 20px 8px}
-.row{display:flex;align-items:center;gap:12px;padding:12px;background:#fff;border-radius:12px;margin:0 16px 8px}
+.row{display:flex;align-items:center;gap:12px;padding:12px;background:var(--card);border-radius:12px;margin:0 16px 8px}
 .row .info{flex:1;min-width:0}
 .row .l1{display:flex;align-items:center;gap:6px;justify-content:space-between}
 .row .nm{font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -138,14 +138,14 @@ input,textarea{font:inherit}
 .row.dim .nm,.row.dim .pv{color:var(--text2)}
 .badge{min-width:20px;height:20px;border-radius:10px;padding:0 6px;background:var(--primary);color:#fff;font:700 12px Lato;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
 .tag{display:inline-flex;align-items:center;gap:3px;height:20px;padding:0 7px;border-radius:6px;font:700 11px Lato;flex-shrink:0;background:var(--primary-soft);color:var(--primary)}
-.tag.grey{background:#EBEBEB;color:var(--text2)}
+.tag.grey{background:var(--chip);color:var(--text2)}
 .tag.green{background:var(--success-soft);color:#15803D}
 .tag.warn{background:var(--warn-bg);color:var(--warn-text)}
 .tag.red{background:var(--danger-soft);color:var(--danger)}
 .feed{flex:1;overflow-y:auto;scrollbar-width:none;padding:12px 16px;display:flex;flex-direction:column;gap:8px}
 .feed::-webkit-scrollbar{display:none}
 .dd{align-self:center;font:700 12px Lato;color:var(--text2);padding:6px 0}
-.sys{align-self:center;max-width:88%;text-align:center;font-size:13px;line-height:1.4;color:var(--text2);background:#E7E7E7;border-radius:10px;padding:6px 12px}
+.sys{align-self:center;max-width:88%;text-align:center;font-size:13px;line-height:1.4;color:var(--text2);background:var(--chip);border-radius:10px;padding:6px 12px}
 .msg{display:flex;gap:8px;max-width:80%;align-items:flex-end}
 .msg.in{align-self:flex-start}
 .msg.out{align-self:flex-end;flex-direction:row-reverse}
@@ -154,30 +154,30 @@ input,textarea{font:inherit}
 .snd{font:700 12px Lato;color:var(--icon);margin:0 0 3px 4px}
 .snd .tag{height:17px;font-size:10px;margin-left:4px;padding:0 5px}
 .bub{padding:9px 12px;border-radius:16px;font-size:15px;line-height:21px;word-wrap:break-word}
-.in .bub{background:#fff;border:1px solid var(--border);border-bottom-left-radius:4px}
+.in .bub{background:var(--card);border:1px solid var(--border);border-bottom-left-radius:4px}
 .out .bub{background:var(--primary);color:#fff;border-bottom-right-radius:4px}
 .mt{font-size:12px;color:var(--text2);margin:3px 4px 0}
 .mt.err{color:var(--error);display:flex;align-items:center;gap:4px;font-weight:700}
 .out .bub.failed{background:#8FBFFF}
 .photo{width:200px;height:140px;border-radius:12px;background:linear-gradient(135deg,#C9D6E3,#9FB3C8);display:flex;align-items:center;justify-content:center;color:#fff;font-size:32px;position:relative;overflow:hidden}
 .photo .vid{position:absolute;bottom:8px;left:8px;font:700 12px Lato;background:rgba(0,0,0,.5);border-radius:6px;padding:2px 6px;display:flex;align-items:center;gap:3px}
-.shared{width:240px;background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.shared{width:240px;background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
 .shared .h{background:var(--primary-soft);padding:8px 12px;font:700 12px Montserrat;color:var(--primary);display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:.4px}
 .shared .c{padding:10px 12px;display:flex;flex-direction:column;gap:4px}
 .shared .c b{font-size:15px}
 .shared .c span{font-size:13px;color:var(--text2);display:flex;align-items:center;gap:6px}
 .shared .c .btn{margin-top:6px;height:38px;font-size:14px}
-.comp{display:flex;align-items:center;gap:8px;padding:8px 12px;background:#fff;border-top:1px solid var(--border);flex-shrink:0}
+.comp{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--card);border-top:1px solid var(--border);flex-shrink:0}
 .comp .att{font-size:24px;color:var(--icon);display:flex}
 .comp .in{flex:1;height:40px;border-radius:20px;background:var(--bg);border:1px solid transparent;padding:0 14px;font-size:15px;outline:none;color:var(--text)}
-.comp .in:focus{border-color:var(--primary);background:#fff}
+.comp .in:focus{border-color:var(--primary);background:var(--card)}
 .comp .send{width:40px;height:40px;border-radius:20px;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
 .comp .send.off{background:var(--disabled)}
-.lock{display:flex;gap:10px;align-items:flex-start;padding:12px 16px;background:#fff;border-top:1px solid var(--border);flex-shrink:0}
+.lock{display:flex;gap:10px;align-items:flex-start;padding:12px 16px;background:var(--card);border-top:1px solid var(--border);flex-shrink:0}
 .lock ion-icon{font-size:20px;color:var(--icon);flex-shrink:0;margin-top:1px}
 .lock b{font-size:14px;display:block}
 .lock span{font-size:13px;color:var(--text2);line-height:1.4}
-.ctx{display:flex;align-items:center;gap:12px;background:#fff;border-bottom:1px solid var(--border);padding:10px 16px;flex-shrink:0}
+.ctx{display:flex;align-items:center;gap:12px;background:var(--card);border-bottom:1px solid var(--border);padding:10px 16px;flex-shrink:0}
 .ctx .ti{width:40px;height:40px;border-radius:8px;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
 .ctx .i{flex:1;min-width:0}
 .ctx b{font-size:14px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -185,36 +185,36 @@ input,textarea{font:inherit}
 .ctx a{font:700 14px Lato;color:var(--primary);text-decoration:none;flex-shrink:0}
 .ban{display:flex;gap:8px;align-items:flex-start;padding:8px 16px;font-size:13px;line-height:1.4;flex-shrink:0}
 .ban ion-icon{font-size:17px;flex-shrink:0;margin-top:1px}
-.ban.info{background:#EAF3FF;color:var(--text)}
+.ban.info{background:var(--info-bg);color:var(--text)}
 .ban.info ion-icon{color:var(--primary)}
 .ban.warn{background:var(--warn-bg);color:var(--warn-text)}
 .ban.err{background:var(--danger-soft);color:var(--danger)}
 .btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:48px;border-radius:8px;font:600 16px Montserrat}
 .btn.p{background:var(--primary);color:#fff}
 .btn.p.off{background:var(--disabled)}
-.btn.n{background:#fff;border:1px solid var(--border);color:var(--text)}
+.btn.n{background:var(--card);border:1px solid var(--border);color:var(--text)}
 .btn.d{background:var(--danger);color:#fff}
 .btn.sm{height:40px;font-size:14px}
 .btnrow{display:flex;gap:10px}
 .foot{padding:12px 16px 8px;flex-shrink:0;background:var(--bg)}
 .center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px 32px;gap:10px}
-.center .bigic{width:88px;height:88px;border-radius:44px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:40px;color:var(--icon);box-shadow:0 2px 12px rgba(0,0,0,.06);margin-bottom:8px}
+.center .bigic{width:88px;height:88px;border-radius:44px;background:var(--card);display:flex;align-items:center;justify-content:center;font-size:40px;color:var(--icon);box-shadow:0 2px 12px rgba(0,0,0,.06);margin-bottom:8px}
 .center .bigic.red{color:var(--error)}
 .center h3{font:700 18px Montserrat}
 .center p{font-size:15px;line-height:22px;color:var(--text2)}
 .center .btn{margin-top:10px;width:auto;padding:0 24px}
-.sk{background:#E2E2E2;border-radius:6px;animation:pulse 1.2s ease-in-out infinite}
+.sk{background:var(--skel);border-radius:6px;animation:pulse 1.2s ease-in-out infinite}
 @keyframes pulse{50%{opacity:.5}}
 .ov{position:absolute;inset:0;background:rgba(17,24,28,.45);display:flex;z-index:20}
 .ov.bottom{align-items:flex-end}
 .ov.mid{align-items:center;justify-content:center;padding:24px}
-.sheet{width:100%;background:#fff;border-radius:16px 16px 0 0;padding:8px 0 16px}
+.sheet{width:100%;background:var(--card);border-radius:16px 16px 0 0;padding:8px 0 16px}
 .sheet .hd{width:36px;height:4px;border-radius:2px;background:var(--border);margin:0 auto 8px}
 .sheet .st{font:700 16px Montserrat;padding:6px 20px 10px}
 .sheet .it{display:flex;align-items:center;gap:14px;padding:0 20px;height:52px;font-size:16px;width:100%;text-align:left}
 .sheet .it ion-icon{font-size:22px;color:var(--icon)}
 .sheet .it.red,.sheet .it.red ion-icon{color:var(--danger)}
-.modal{width:100%;background:#fff;border-radius:12px;padding:20px}
+.modal{width:100%;background:var(--card);border-radius:12px;padding:20px}
 .modal h3{font:700 18px Montserrat;margin-bottom:8px}
 .modal p{font-size:15px;line-height:22px;color:var(--text2);margin-bottom:18px}
 .notch{position:relative;border:1px solid var(--border);border-radius:8px;min-height:56px;padding:16px;margin:12px 0 4px;background:transparent}
@@ -226,7 +226,7 @@ input,textarea{font:inherit}
 .notch .v{font-size:16px}
 .ferr{font-size:12px;color:var(--error);margin:4px 4px 0}
 .fhelp{font-size:12px;color:var(--text2);margin:4px 4px 0;display:flex;justify-content:space-between}
-.radio{display:flex;align-items:center;gap:12px;background:#fff;border-radius:12px;padding:14px 12px;margin-bottom:8px;font-size:15px}
+.radio{display:flex;align-items:center;gap:12px;background:var(--card);border-radius:12px;padding:14px 12px;margin-bottom:8px;font-size:15px}
 .radio i{width:20px;height:20px;border-radius:10px;border:2px solid var(--disabled);flex-shrink:0}
 .radio.on i{border:6px solid var(--primary)}
 .chk{width:22px;height:22px;border-radius:6px;border:2px solid var(--disabled);flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px}
@@ -248,11 +248,25 @@ input,textarea{font:inherit}
 .stat3{display:flex;justify-content:center;gap:24px;margin:12px 0}
 .stat3 div{text-align:center;font-size:13px;color:var(--text2)}
 .stat3 b{display:block;font:700 16px Montserrat;color:var(--text)}
-.email{margin:12px;background:#fff;border-radius:12px;overflow:hidden;border:1px solid var(--border)}
+.email{margin:12px;background:var(--card);border-radius:12px;overflow:hidden;border:1px solid var(--border)}
 .email .eh{padding:12px 14px;border-bottom:1px solid var(--border);font-size:13px;color:var(--text2);line-height:1.6}
 .email .eh b{color:var(--text)}
 .email .eb{padding:16px 14px;font-size:15px;line-height:22px}
 .email .quote{border-left:3px solid var(--primary);padding:6px 10px;background:#F8F9FA;margin:10px 0 14px;color:var(--text2);font-size:14px}
+
+/* Dark theme = what the live app shows on the test phone (Colors.ts dark: background #262626, text #ECEDEE, textSecondary #BAB8B8, border #3A3A3A) */
+.ph.dark{--bg:#262626;--card:#1C1C1C;--text:#ECEDEE;--text2:#BAB8B8;--icon:#9BA1A6;--border:#3A3A3A;--chip:#333333;--skel:#333333;--info-bg:#132A44;
+  --warn-bg:#3A2A0C;--warn-text:#F0B45A;--tab-wrap:#2E2E2E;--seg-text:#D1D5DB;--primary-soft:rgba(0,122,255,.2);--danger-soft:rgba(230,57,0,.2);
+  --success-soft:rgba(34,197,94,.2);--disabled:#4A4A4A;--back-bg:#1C1C1C;border-color:#000}
+.ph.dark .tag.grey{color:#BAB8B8}
+/* App font: the live app renders in Roboto (Android system font) */
+.scr,.scr *,.sbar{font-family:&#x27;Roboto&#x27;,system-ui,-apple-system,&#x27;Segoe UI&#x27;,sans-serif!important}
+/* Previews that are not the app keep their own light look */
+.email{background:#fff!important;color:#11181C}.email .eh,.email .eh *{color:#3F4A55}.email .eh b{color:#11181C}
+.push{color:#11181C}.push p{color:#11181C}.push .h{color:#687076}
+.theme{display:flex;gap:4px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:4px}
+.theme button{padding:5px 12px;border-radius:6px;font:600 12px Montserrat;color:var(--muted)}
+.theme button.on{background:#11181C;color:#fff}
 &lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
@@ -276,7 +290,9 @@ input,textarea{font:inherit}
   &lt;section class=&quot;stage&quot;&gt;
     &lt;div class=&quot;switch&quot; id=&quot;switch&quot;&gt;&lt;/div&gt;
     &lt;div class=&quot;variants&quot; id=&quot;variants&quot;&gt;&lt;/div&gt;
-    &lt;div class=&quot;ph&quot;&gt;
+    &lt;div id=&quot;naNote&quot; hidden style=&quot;max-width:375px;font-size:13px;color:#92400E;background:#FEF3C7;border-radius:6px;padding:8px 10px;text-align:center&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;theme&quot; id=&quot;theme&quot;&gt;&lt;button class=&quot;on&quot; onclick=&quot;setTheme(&#x27;dark&#x27;)&quot;&gt;Dark (as on phone)&lt;/button&gt;&lt;button onclick=&quot;setTheme(&#x27;light&#x27;)&quot;&gt;Light&lt;/button&gt;&lt;/div&gt;
+    &lt;div class=&quot;ph dark&quot;&gt;
       &lt;div class=&quot;sbar&quot;&gt;&lt;span&gt;9:41&lt;/span&gt;&lt;span class=&quot;r&quot;&gt;&lt;ion-icon name=&quot;cellular&quot;&gt;&lt;/ion-icon&gt;&lt;ion-icon name=&quot;wifi&quot;&gt;&lt;/ion-icon&gt;&lt;ion-icon name=&quot;battery-full&quot;&gt;&lt;/ion-icon&gt;&lt;/span&gt;&lt;/div&gt;
       &lt;div class=&quot;scr&quot; id=&quot;scr&quot;&gt;&lt;/div&gt;
       &lt;div class=&quot;homebar&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;
@@ -290,7 +306,7 @@ input,textarea{font:inherit}
 const ic = (n, s=&#x27;&#x27;, st=&#x27;&#x27;) =&gt; `&lt;ion-icon name=&quot;${n}&quot; ${s?`style=&quot;font-size:${s}px;${st}&quot;`:(st?`style=&quot;${st}&quot;`:&#x27;&#x27;)}&gt;&lt;/ion-icon&gt;`;
 const AVC = {E:&#x27;#E67E22&#x27;,S:&#x27;#3B82F6&#x27;,L:&#x27;#8B5CF6&#x27;,M:&#x27;#0D9488&#x27;,A:&#x27;#007AFF&#x27;,C:&#x27;#061D42&#x27;,T:&#x27;#DB2777&#x27;,J:&#x27;#16A34A&#x27;,R:&#x27;#64748B&#x27;};
 const av = (t, size=44, bg, icon) =&gt; `&lt;div class=&quot;av&quot; style=&quot;width:${size}px;height:${size}px;background:${bg||AVC[t[0]]||&#x27;#007AFF&#x27;};font-size:${Math.round(size*.36)}px&quot;&gt;${icon?ic(icon, Math.round(size*.46)):t}&lt;/div&gt;`;
-const back = (to) =&gt; `&lt;button class=&quot;back&quot; onclick=&quot;go(&#x27;${to||&#x27;&#x27;}&#x27;)&quot;&gt;${ic(&#x27;chevron-back&#x27;,16)}&lt;/button&gt;`;
+const back = (to) =&gt; `&lt;button class=&quot;back&quot; onclick=&quot;go(&#x27;${to||&#x27;&#x27;}&#x27;)&quot;&gt;${ic(&#x27;caret-back&#x27;,18)}&lt;/button&gt;`;
 const hdr = (title, left, right) =&gt; `&lt;div class=&quot;hdr&quot;&gt;${left||&#x27;&lt;div class=&quot;sp36&quot;&gt;&lt;/div&gt;&#x27;}&lt;div class=&quot;t&quot;&gt;${title}&lt;/div&gt;${right||&#x27;&lt;div class=&quot;sp36&quot;&gt;&lt;/div&gt;&#x27;}&lt;/div&gt;`;
 const chdr = (avatar, name, sub, right, backTo=&#x27;inbox&#x27;) =&gt; `&lt;div class=&quot;chdr&quot;&gt;${back(backTo)}${avatar}&lt;div class=&quot;who&quot;&gt;&lt;div class=&quot;nm&quot;&gt;${name}&lt;/div&gt;&lt;div class=&quot;sub&quot;&gt;${sub}&lt;/div&gt;&lt;/div&gt;${right||&#x27;&#x27;}&lt;/div&gt;`;
 const more = (fn) =&gt; `&lt;button class=&quot;hbtn grey&quot; onclick=&quot;${fn||&quot;go(&#x27;chat_options&#x27;)&quot;}&quot;&gt;${ic(&#x27;ellipsis-vertical&#x27;,22)}&lt;/button&gt;`;
@@ -338,10 +354,10 @@ S.home_entry = {
         &lt;div style=&quot;display:flex;gap:4px&quot;&gt;&lt;button class=&quot;hbtn&quot; onclick=&quot;go(&#x27;inbox&#x27;)&quot; style=&quot;outline:2px dashed #F59E0B;outline-offset:2px;border-radius:8px&quot;&gt;${ic(&#x27;chatbubbles-outline&#x27;,26)}${dot}&lt;/button&gt;&lt;button class=&quot;hbtn&quot;&gt;${ic(&#x27;notifications-outline&#x27;,26)}&lt;/button&gt;&lt;/div&gt;
       &lt;/div&gt;
       &lt;div class=&quot;body&quot; style=&quot;opacity:.45;pointer-events:none&quot;&gt;
-        &lt;div style=&quot;padding:8px 20px&quot;&gt;&lt;div style=&quot;width:72px;height:72px;border-radius:36px;background:#007AFF;color:#fff;display:flex;align-items:center;justify-content:center;font:700 26px Lato&quot;&gt;A&lt;/div&gt;&lt;div style=&quot;font:700 14px Lato;margin:6px 0 0 6px&quot;&gt;My Story&lt;/div&gt;&lt;/div&gt;
-        &lt;div style=&quot;margin:14px 16px;background:#fff;border-radius:12px;padding:16px&quot;&gt;&lt;div style=&quot;font:600 18px Montserrat&quot;&gt;WHAT&#x27;S HAPPENING&lt;/div&gt;&lt;div style=&quot;font-size:15px;color:#777;margin-top:4px&quot;&gt;Latest among your teammates &amp; sports clubs around you&lt;/div&gt;&lt;/div&gt;
-        &lt;div style=&quot;display:flex;gap:10px;margin:0 16px&quot;&gt;&lt;div style=&quot;flex:1;background:#fff;border-radius:12px;padding:16px&quot;&gt;&lt;b style=&quot;font:800 28px Montserrat&quot;&gt;1036&lt;/b&gt;&lt;div style=&quot;font-size:14px&quot;&gt;Total Open Bookings&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;flex:1;background:#fff;border-radius:12px;padding:16px&quot;&gt;&lt;b style=&quot;font:800 28px Montserrat&quot;&gt;1008&lt;/b&gt;&lt;div style=&quot;font-size:14px&quot;&gt;Coming Soon Clubs&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
-        &lt;div style=&quot;margin:14px 16px;background:#fff;border-radius:12px;height:220px&quot;&gt;&lt;/div&gt;
+        &lt;div style=&quot;padding:8px 20px&quot;&gt;&lt;div style=&quot;position:relative;width:72px;height:72px&quot;&gt;&lt;div style=&quot;width:72px;height:72px;border-radius:36px;background:#007AFF;color:#fff;display:flex;align-items:center;justify-content:center;font:700 26px Lato&quot;&gt;A&lt;/div&gt;&lt;span style=&quot;position:absolute;right:-4px;bottom:-2px;width:26px;height:26px;border-radius:13px;background:#007AFF;border:2px solid var(--bg);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px&quot;&gt;+&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;font:700 14px Lato;margin:6px 0 0 6px&quot;&gt;My Story&lt;/div&gt;&lt;/div&gt;
+        &lt;div style=&quot;margin:14px 16px;background:var(--card);border-radius:12px;padding:16px&quot;&gt;&lt;div style=&quot;font:600 18px Montserrat&quot;&gt;WHAT&#x27;S HAPPENING&lt;/div&gt;&lt;div style=&quot;font-size:15px;color:#777;margin-top:4px&quot;&gt;Latest among your teammates &amp; sports clubs around you&lt;/div&gt;&lt;/div&gt;
+        &lt;div style=&quot;display:flex;gap:10px;margin:0 16px&quot;&gt;&lt;div style=&quot;flex:1;background:var(--card);border-radius:12px;padding:16px&quot;&gt;&lt;b style=&quot;font:800 28px Montserrat&quot;&gt;1857&lt;/b&gt;&lt;div style=&quot;font-size:14px&quot;&gt;Total Open Bookings&lt;/div&gt;&lt;/div&gt;&lt;div style=&quot;flex:1;background:var(--card);border-radius:12px;padding:16px&quot;&gt;&lt;b style=&quot;font:800 28px Montserrat&quot;&gt;21&lt;/b&gt;&lt;div style=&quot;font-size:14px&quot;&gt;Open Memberships&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+        &lt;div style=&quot;margin:14px 16px;background:var(--card);border-radius:12px;height:220px&quot;&gt;&lt;/div&gt;
       &lt;/div&gt;`;
   },
   notes:{
@@ -437,9 +453,8 @@ S.chat_options = {
     const bg = S.direct_chat.render(&#x27;populated&#x27;);
     const sheet = v.startsWith(&#x27;Chat&#x27;)
       ? `&lt;div class=&quot;sheet&quot;&gt;&lt;div class=&quot;hd&quot;&gt;&lt;/div&gt;&lt;div class=&quot;st&quot;&gt;Emma de Vries&lt;/div&gt;
-          &lt;button class=&quot;it&quot;&gt;${ic(&#x27;person-circle-outline&#x27;)}View Profile&lt;/button&gt;
-          &lt;button class=&quot;it&quot; onclick=&quot;go(&#x27;report&#x27;)&quot;&gt;${ic(&#x27;flag-outline&#x27;)}Report&lt;/button&gt;
-          &lt;button class=&quot;it red&quot; onclick=&quot;go(&#x27;block&#x27;)&quot;&gt;${ic(&#x27;ban-outline&#x27;)}Block Emma&lt;/button&gt;&lt;/div&gt;`
+          &lt;button class=&quot;it red&quot; onclick=&quot;go(&#x27;block&#x27;)&quot;&gt;${ic(&#x27;ban-outline&#x27;)}Block User&lt;/button&gt;
+          &lt;button class=&quot;it red&quot; onclick=&quot;go(&#x27;report&#x27;)&quot;&gt;${ic(&#x27;flag-outline&#x27;)}Report User&lt;/button&gt;&lt;/div&gt;`
       : `&lt;div class=&quot;sheet&quot;&gt;&lt;div class=&quot;hd&quot;&gt;&lt;/div&gt;&lt;div style=&quot;margin:4px 20px 12px;padding:10px 12px;background:var(--bg);border-radius:12px;font-size:15px&quot;&gt;&quot;Hey! Are you free for padel on Sunday morning?&quot;&lt;/div&gt;
           &lt;button class=&quot;it&quot;&gt;${ic(&#x27;copy-outline&#x27;)}Copy Text&lt;/button&gt;
           &lt;button class=&quot;it red&quot; onclick=&quot;go(&#x27;report&#x27;)&quot;&gt;${ic(&#x27;flag-outline&#x27;)}Report Message&lt;/button&gt;&lt;/div&gt;`;
@@ -447,7 +462,7 @@ S.chat_options = {
   },
   notes:{
     purpose:&#x27;Safety actions from §3.1 &quot;Block and report&quot;.&#x27;,
-    rules:[&#x27;⋮ menu: View Profile, Report (the whole chat), Block.&#x27;,&#x27;Long-press a message: Copy Text, Report Message. You can only report other people\&#x27;s messages, not your own.&#x27;,&#x27;Mute, Reply, Edit and Delete are &lt;b&gt;left out on purpose&lt;/b&gt;. They\&#x27;re in the later-release list (§3.2).&#x27;,&#x27;Group and activity chats use the same sheet, plus &quot;View Members&quot; and, for groups, &quot;Leave Group&quot;.&#x27;],
+    rules:[&#x27;⋮ menu: View Profile, Report (the whole chat), Block.&#x27;,&#x27;Long-press a message: Copy Text, Report Message. You can only report other people\&#x27;s messages, not your own.&#x27;,&#x27;Wording and look copy the live app\&#x27;s sheet on another player\&#x27;s profile: a drag handle, then &lt;b&gt;Block User&lt;/b&gt; and &lt;b&gt;Report User&lt;/b&gt;, both red with an icon. (Seen on the test phone, 27 Nov.)&#x27;,&#x27;Mute, Reply, Edit and Delete are &lt;b&gt;left out on purpose&lt;/b&gt;. They\&#x27;re in the later-release list (§3.2).&#x27;,&#x27;Group and activity chats use the same sheet, plus &quot;View Members&quot; and, for groups, &quot;Leave Group&quot;.&#x27;],
     pending:[],
     changed:[&#x27;The old Safety modal had Mute (a later-release item) and long paragraphs. It\&#x27;s now a standard bottom sheet with 3 actions.&#x27;],
     src:[&#x27;Doc §3.1, §3.2&#x27;]
@@ -464,7 +479,7 @@ S.report = {
     const sel = st===&#x27;error&#x27; ? &#x27;Other&#x27; : st===&#x27;loading&#x27; ? &#x27;Harassment or bullying&#x27; : &#x27;&#x27;;
     return h + `&lt;div class=&quot;body&quot; style=&quot;padding:0 16px&quot;&gt;
         &lt;div style=&quot;font-size:15px;color:var(--text2);margin:2px 4px 10px&quot;&gt;Why are you reporting this message?&lt;/div&gt;
-        &lt;div style=&quot;padding:10px 12px;background:#fff;border-left:3px solid var(--primary);border-radius:8px;font-size:14px;color:var(--text2);margin-bottom:14px&quot;&gt;Emma de Vries · &quot;Hey! Are you free for padel on Sunday morning?&quot;&lt;/div&gt;
+        &lt;div style=&quot;padding:10px 12px;background:var(--card);border-left:3px solid var(--primary);border-radius:8px;font-size:14px;color:var(--text2);margin-bottom:14px&quot;&gt;Emma de Vries · &quot;Hey! Are you free for padel on Sunday morning?&quot;&lt;/div&gt;
         ${reasons.map(r=&gt;`&lt;div class=&quot;radio ${r===sel?&#x27;on&#x27;:&#x27;&#x27;}&quot;&gt;&lt;i&gt;&lt;/i&gt;${r}&lt;/div&gt;`).join(&#x27;&#x27;)}
         ${sel===&#x27;Other&#x27;?`&lt;div class=&quot;notch bad&quot; style=&quot;min-height:88px&quot;&gt;&lt;label&gt;Tell us what happened&lt;/label&gt;&lt;div class=&quot;v&quot; style=&quot;color:#9CA3AF&quot;&gt;&amp;nbsp;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;ferr&quot;&gt;Add a short description (at least 10 characters).&lt;/div&gt;`:&#x27;&#x27;}
         ${st===&#x27;populated&#x27;?`&lt;div class=&quot;ferr&quot; style=&quot;visibility:hidden&quot;&gt;.&lt;/div&gt;`:&#x27;&#x27;}
@@ -499,33 +514,59 @@ S.block = {
 };
 
 S.club_profile = {
-  flow:&#x27;Club &amp; Coach&#x27;, title:&#x27;Club / Coach Profile · Message Button&#x27;,
-  variants:[&#x27;Club&#x27;,&#x27;Coach&#x27;],
+  flow:&#x27;Club &amp; Coach&#x27;, title:&#x27;Message Club (Booking Detail)&#x27;,
   states:{empty:&#x27;N/A&#x27;, error:&#x27;Not Allowed&#x27;},
-  render(st, v=&#x27;Club&#x27;){
-    const isClub = v===&#x27;Club&#x27;;
-    if (st===&#x27;empty&#x27;) return naNote(&#x27;A profile always has content. The empty state belongs to the profile module, not to chat.&#x27;);
-    const h = `&lt;div style=&quot;position:absolute;top:10px;left:16px;z-index:2&quot;&gt;${back(&#x27;inbox&#x27;)}&lt;/div&gt;`;
-    if (st===&#x27;loading&#x27;) return h + `&lt;div class=&quot;body&quot;&gt;&lt;div class=&quot;prof-cover sk&quot; style=&quot;border-radius:0&quot;&gt;&lt;/div&gt;&lt;div class=&quot;prof&quot;&gt;&lt;div class=&quot;sk&quot; style=&quot;width:84px;height:84px;border-radius:42px;border:4px solid var(--bg)&quot;&gt;&lt;/div&gt;&lt;div class=&quot;sk&quot; style=&quot;width:180px;height:20px;margin-top:10px&quot;&gt;&lt;/div&gt;&lt;div class=&quot;sk&quot; style=&quot;width:130px;height:14px;margin-top:6px&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`;
-    const name = isClub?&#x27;Club de Padel Rotterdam&#x27;:&#x27;Mark Jansen&#x27;;
-    const sub = isClub?&#x27;Padel · Rotterdam · 6 courts&#x27;:&#x27;Tennis Coach · Kralingse Tennis Club&#x27;;
-    const primary = isClub?&#x27;Book a Court&#x27;:&#x27;Book a Lesson&#x27;;
-    const msgBtn = st===&#x27;error&#x27;
-      ? `&lt;button class=&quot;btn n&quot; style=&quot;flex:1;color:var(--disabled)&quot;&gt;${ic(&#x27;chatbubble-outline&#x27;,18)} Message&lt;/button&gt;`
-      : `&lt;button class=&quot;btn n&quot; style=&quot;flex:1;outline:2px dashed #F59E0B;outline-offset:2px&quot; onclick=&quot;go(&#x27;club_chat&#x27;)&quot;&gt;${ic(&#x27;chatbubble-outline&#x27;,18)} Message&lt;/button&gt;`;
-    return h + `&lt;div class=&quot;body&quot;&gt;&lt;div class=&quot;prof-cover&quot;&gt;&lt;/div&gt;&lt;div class=&quot;prof&quot;&gt;${isClub?av(&#x27;&#x27;,84,&#x27;#061D42&#x27;,&#x27;business&#x27;):av(&#x27;M&#x27;,84)}&lt;h3&gt;${name}&lt;/h3&gt;&lt;p&gt;${sub}&lt;/p&gt;
-      &lt;div class=&quot;stat3&quot;&gt;${isClub?&#x27;&lt;div&gt;&lt;b&gt;4.6&lt;/b&gt;Rating&lt;/div&gt;&lt;div&gt;&lt;b&gt;312&lt;/b&gt;Members&lt;/div&gt;&lt;div&gt;&lt;b&gt;6&lt;/b&gt;Courts&lt;/div&gt;&#x27;:&#x27;&lt;div&gt;&lt;b&gt;4.9&lt;/b&gt;Rating&lt;/div&gt;&lt;div&gt;&lt;b&gt;140&lt;/b&gt;Lessons&lt;/div&gt;&lt;div&gt;&lt;b&gt;8 yrs&lt;/b&gt;Coaching&lt;/div&gt;&#x27;}&lt;/div&gt;
-      &lt;div class=&quot;btnrow&quot; style=&quot;width:100%&quot;&gt;&lt;button class=&quot;btn p&quot; style=&quot;flex:1&quot;&gt;${primary}&lt;/button&gt;${msgBtn}&lt;/div&gt;
-      ${st===&#x27;error&#x27;?`&lt;div style=&quot;font-size:13px;color:var(--text2);margin-top:8px;display:flex;gap:6px;text-align:left&quot;&gt;${ic(&#x27;information-circle-outline&#x27;,16)}&lt;span&gt;${isClub?&#x27;Only members and players with a booking can message this club.&#x27;:&#x27;This coach has turned off messages from new players.&#x27;}&lt;/span&gt;&lt;/div&gt;`:&#x27;&#x27;}
-      &lt;/div&gt;
-      &lt;div style=&quot;margin:16px;background:#fff;border-radius:12px;padding:16px;text-align:left&quot;&gt;&lt;div style=&quot;font:700 16px Montserrat;margin-bottom:6px&quot;&gt;About&lt;/div&gt;&lt;div style=&quot;font-size:15px;line-height:22px;color:var(--text2)&quot;&gt;${isClub?&#x27;Indoor and outdoor padel courts with lighting, a café and free parking.&#x27;:&#x27;KNLTB-certified coach. Private and group lessons for all levels.&#x27;}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`;
+  render(st, v){
+    if (st===&#x27;empty&#x27;) return naNote(&#x27;A booking always has a club, so this screen is never empty.&#x27;);
+    const hero = `&lt;div style=&quot;height:170px;background:linear-gradient(135deg,#9FB3C8,#5E7A96);position:relative;flex-shrink:0&quot;&gt;&lt;button class=&quot;back&quot; style=&quot;position:absolute;top:12px;left:16px&quot; onclick=&quot;go(&#x27;inbox&#x27;)&quot;&gt;${ic(&#x27;caret-back&#x27;,18)}&lt;/button&gt;&lt;span style=&quot;position:absolute;top:12px;right:16px;width:36px;height:36px;border-radius:10px;background:var(--card);display:flex;align-items:center;justify-content:center;color:var(--icon)&quot;&gt;${ic(&#x27;ellipsis-vertical&#x27;,20)}&lt;/span&gt;&lt;/div&gt;`;
+    if (st===&#x27;loading&#x27;) return hero + `&lt;div class=&quot;body&quot; style=&quot;padding:16px&quot;&gt;&lt;div class=&quot;sk&quot; style=&quot;height:120px;border-radius:12px&quot;&gt;&lt;/div&gt;&lt;div class=&quot;sk&quot; style=&quot;height:48px;border-radius:8px;margin-top:14px&quot;&gt;&lt;/div&gt;&lt;div class=&quot;sk&quot; style=&quot;height:48px;border-radius:8px;margin-top:10px&quot;&gt;&lt;/div&gt;&lt;/div&gt;`;
+    const off = st===&#x27;error&#x27;;
+    const row = (icon, label, extra, hl, dis) =&gt; `&lt;div style=&quot;display:flex;align-items:center;gap:12px;padding:12px 14px;${hl?&#x27;outline:2px dashed #F59E0B;outline-offset:-2px;border-radius:8px;&#x27;:&#x27;&#x27;}${dis?&#x27;opacity:.5;&#x27;:&#x27;&#x27;}&quot;&gt;${ic(icon,22,&#x27;color:&#x27;+(dis?&#x27;#9CA3AF&#x27;:&#x27;var(--primary)&#x27;))}&lt;div&gt;&lt;div style=&quot;font-size:16px&quot;&gt;${label}&lt;/div&gt;${extra?`&lt;div style=&quot;font-size:12px;color:var(--text2);margin-top:2px;max-width:170px&quot;&gt;${extra}&lt;/div&gt;`:&#x27;&#x27;}&lt;/div&gt;&lt;/div&gt;`;
+    const pop = `&lt;div style=&quot;position:absolute;top:56px;right:16px;width:230px;background:var(--card);border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,.2);z-index:5;padding:4px 0&quot;&gt;
+      ${row(&#x27;chatbubble-outline&#x27;,&#x27;Message Club&#x27;, off?&#x27;This club has turned off messages.&#x27;:&#x27;&#x27;, !off, off)}
+      &lt;div style=&quot;height:1px;background:var(--border)&quot;&gt;&lt;/div&gt;
+      ${row(&#x27;help-circle-outline&#x27;,&#x27;Support&#x27;,&#x27;&#x27;,false,false)}&lt;/div&gt;`;
+    return `&lt;div style=&quot;position:relative;display:flex;flex-direction:column;flex:1;min-height:0&quot;&gt;${hero}${v===&#x27;nopop&#x27;?&#x27;&#x27;:pop}
+      &lt;div class=&quot;body&quot; style=&quot;padding:0 16px;margin-top:-40px;position:relative;z-index:2&quot;&gt;
+        &lt;div style=&quot;background:var(--card);border-radius:16px;padding:16px;border:1px solid var(--border)&quot;&gt;
+          &lt;div style=&quot;display:flex;gap:12px;align-items:center&quot;&gt;${av(&#x27;&#x27;,52,&#x27;#061D42&#x27;,&#x27;business&#x27;)}&lt;div&gt;&lt;div style=&quot;font:700 18px Montserrat&quot;&gt;Club de Padel Rotterdam&lt;/div&gt;&lt;div style=&quot;font-size:13px;color:var(--text2);margin-top:2px&quot;&gt;Padel · 14.4 kms away&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+          &lt;div style=&quot;display:flex;gap:6px;align-items:center;font-size:14px;color:var(--text2);margin-top:12px&quot;&gt;${ic(&#x27;location-outline&#x27;,16,&#x27;color:#E63900&#x27;)} Weena 505, Rotterdam&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div style=&quot;background:var(--card);border-radius:12px;padding:14px;margin-top:12px;border:1px solid var(--border)&quot;&gt;&lt;div style=&quot;font:600 12px Montserrat;color:var(--text2);text-transform:uppercase;letter-spacing:.5px&quot;&gt;Booking time slot&lt;/div&gt;&lt;div style=&quot;font:700 16px Montserrat;margin-top:4px&quot;&gt;Fri 27 Nov · 18:00–19:30&lt;/div&gt;&lt;div style=&quot;font-size:13px;color:var(--text2);margin-top:2px&quot;&gt;Court 4 · Booking ID NE9B49001&lt;/div&gt;&lt;/div&gt;
+      &lt;/div&gt;&lt;/div&gt;`;
   },
   notes:{
-    purpose:&#x27;Entry point for flow 9.1, &quot;Chat with a Club or Coach&quot;.&#x27;,
-    rules:[&#x27;&lt;b&gt;Message&lt;/b&gt; is a neutral button next to the main booking CTA. Booking always stays the primary action (§7: chat doesn\&#x27;t replace booking or payment).&#x27;,&#x27;Tap → opens the existing chat, or makes a new one.&#x27;,&#x27;&lt;b&gt;Coach:&lt;/b&gt; players can message before booking. This was confirmed in §6 (&quot;Yes&quot;).&#x27;,&#x27;&lt;b&gt;Not Allowed&lt;/b&gt;: the button is disabled with a one-line reason under it. It isn\&#x27;t hidden, so users understand the rule.&#x27;],
-    pending:[&#x27;&lt;b&gt;Club profile layout&lt;/b&gt; The doc asks Jaykumar to refine the club profile shown to players. This screen only marks where the Message button goes.&#x27;,&#x27;&lt;b&gt;Club / coach settings&lt;/b&gt; &quot;Messaging access can be controlled by club/coach settings&quot;: needs a setting in the club portal and coach portal.&#x27;],
-    changed:[&#x27;New screen.&#x27;],
-    src:[&#x27;Doc §9.1, §6 Messaging a coach&#x27;]
+    purpose:&#x27;Entry point for flow 9.1, &quot;Chat with a Club&quot;. Updated after reviewing the live app on a test phone.&#x27;,
+    rules:[&#x27;&lt;b&gt;The live app has no club or coach profile page.&lt;/b&gt; Clubs only appear as names on booking cards and on the booking detail page, so there is no profile to put a Message button on.&#x27;,&#x27;Booking detail has a &lt;b&gt;⋮ menu with one item today: Support&lt;/b&gt;. The new &lt;b&gt;Message Club&lt;/b&gt; item goes above it.&#x27;,&#x27;Tap → opens the existing chat with that club, or creates one.&#x27;,&#x27;&lt;b&gt;Not Allowed&lt;/b&gt;: the item stays visible but greyed out, with a one-line reason. It is not hidden, so users understand the rule.&#x27;,&#x27;Coaches: players can message a coach before booking (§6). With no coach profile page, the entry point is open. See the pending decision.&#x27;],
+    pending:[&#x27;&lt;b&gt;Where does a player message a club before booking?&lt;/b&gt; No club page exists. Options: a club page (new screen), a &quot;Message&quot; button on the package card in Bookings › New, or booking-only chat in release 1.&#x27;,&#x27;&lt;b&gt;Where does a player message a coach before booking?&lt;/b&gt; Same gap. Needs a coach page or a Message button on the lesson card.&#x27;,&#x27;&lt;b&gt;Club / coach settings&lt;/b&gt; &quot;Messaging access can be controlled by club/coach settings&quot; needs a setting in the club portal and coach portal.&#x27;],
+    changed:[&#x27;v1 showed a club and coach profile page that does not exist in the app. Replaced by the real entry point: the booking detail ⋮ menu.&#x27;],
+    src:[&#x27;Live app 1.6.0.1: Bookings › Upcoming › View Details › ⋮ (shows &quot;Support&quot; only)&#x27;,&#x27;Doc §9.1, §6 Messaging a coach&#x27;]
+  }
+};
+
+S.player_profile = {
+  flow:&#x27;1:1 Chat&#x27;, title:&#x27;Player Profile (Message Button)&#x27;,
+  states:{empty:&#x27;N/A&#x27;, error:&#x27;Not Allowed&#x27;},
+  render(st){
+    const h = `&lt;div style=&quot;display:flex;align-items:center;padding:12px 16px;flex-shrink:0&quot;&gt;&lt;button class=&quot;back&quot; onclick=&quot;go(&#x27;new_chat&#x27;)&quot;&gt;${ic(&#x27;caret-back&#x27;,18)}&lt;/button&gt;&lt;div style=&quot;flex:1;text-align:center;font:700 20px Montserrat&quot;&gt;Emma de Vries&lt;/div&gt;&lt;button class=&quot;hbtn grey&quot; onclick=&quot;go(&#x27;chat_options&#x27;)&quot; style=&quot;font-size:22px&quot;&gt;${ic(&#x27;ellipsis-vertical&#x27;,22)}&lt;/button&gt;&lt;/div&gt;`;
+    if (st===&#x27;empty&#x27;) return naNote(&#x27;A profile always has content. Empty states belong to the profile screen, not to chat.&#x27;);
+    if (st===&#x27;loading&#x27;) return h + `&lt;div class=&quot;body&quot; style=&quot;padding:16px;text-align:center&quot;&gt;&lt;div class=&quot;sk&quot; style=&quot;width:96px;height:96px;border-radius:48px;margin:8px auto&quot;&gt;&lt;/div&gt;&lt;div class=&quot;sk&quot; style=&quot;width:55%;height:18px;margin:14px auto 0&quot;&gt;&lt;/div&gt;&lt;div class=&quot;sk&quot; style=&quot;width:35%;height:14px;margin:10px auto 0&quot;&gt;&lt;/div&gt;&lt;div class=&quot;sk&quot; style=&quot;height:48px;border-radius:8px;margin-top:22px&quot;&gt;&lt;/div&gt;&lt;/div&gt;`;
+    const off = st===&#x27;error&#x27;;
+    return h + `&lt;div class=&quot;body&quot; style=&quot;padding:0 16px&quot;&gt;
+      &lt;div style=&quot;display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:8px&quot;&gt;${av(&#x27;E&#x27;,96)}&lt;div style=&quot;font:700 20px Montserrat&quot;&gt;Emma de Vries&lt;/div&gt;&lt;span style=&quot;background:var(--chip);border-radius:14px;padding:5px 12px;font-size:14px;color:var(--text2)&quot;&gt;@emmadv&lt;/span&gt;&lt;/div&gt;
+      &lt;div style=&quot;display:flex;justify-content:space-around;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:12px 0;margin:18px 0&quot;&gt;${[[&#x27;12&#x27;,&#x27;Posts&#x27;],[&#x27;34&#x27;,&#x27;Followers&#x27;],[&#x27;20&#x27;,&#x27;Following&#x27;]].map(([n,l])=&gt;`&lt;div style=&quot;text-align:center&quot;&gt;&lt;div style=&quot;font:700 18px Montserrat&quot;&gt;${n}&lt;/div&gt;&lt;div style=&quot;font-size:13px;color:var(--text2)&quot;&gt;${l}&lt;/div&gt;&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+      &lt;div style=&quot;display:flex;gap:10px&quot;&gt;&lt;button class=&quot;btn p&quot; style=&quot;flex:1&quot;&gt;Follow&lt;/button&gt;&lt;button class=&quot;btn n&quot; style=&quot;flex:1;${off?&#x27;opacity:.5&#x27;:&#x27;outline:2px dashed #F59E0B;outline-offset:2px&#x27;}&quot; ${off?&#x27;&#x27;:&#x27;onclick=&quot;go(\&#x27;direct_chat\&#x27;)&quot;&#x27;}&gt;${ic(&#x27;chatbubble-outline&#x27;,18)} Message&lt;/button&gt;&lt;/div&gt;
+      ${off?`&lt;div style=&quot;font-size:12px;color:var(--text2);margin-top:8px;display:flex;gap:6px&quot;&gt;${ic(&#x27;information-circle-outline&#x27;,15)}&lt;span&gt;Emma only accepts messages from people she follows.&lt;/span&gt;&lt;/div&gt;`:&#x27;&#x27;}
+      &lt;div style=&quot;display:flex;border-bottom:1px solid var(--border);margin:20px 0 12px&quot;&gt;&lt;div style=&quot;flex:1;text-align:center;padding:10px;color:var(--primary);font-weight:700;border-bottom:2px solid var(--primary)&quot;&gt;Sports&lt;/div&gt;&lt;div style=&quot;flex:1;text-align:center;padding:10px;color:var(--text2)&quot;&gt;Posts&lt;/div&gt;&lt;/div&gt;
+      ${[[&#x27;Padel&#x27;,&#x27;Intermediate (5 to 7)&#x27;],[&#x27;Tennis&#x27;,&#x27;Intermediate (5 to 7)&#x27;]].map(([s,l])=&gt;`&lt;div style=&quot;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:8px&quot;&gt;&lt;div style=&quot;color:var(--primary);font-weight:700&quot;&gt;${s}&lt;/div&gt;&lt;div style=&quot;font-size:14px;color:var(--text2)&quot;&gt;${l}&lt;/div&gt;&lt;/div&gt;`).join(&#x27;&#x27;)}
+    &lt;/div&gt;`;
+  },
+  notes:{
+    purpose:&#x27;Entry point for a 1:1 chat with another player (flow 9.4). Matches the live player profile page.&#x27;,
+    rules:[&#x27;Live layout, seen on the test phone: back arrow, centred name, ⋮ menu, avatar, @handle chip, Posts / Followers / Following, a full-width &lt;b&gt;Follow&lt;/b&gt; button, then Sports and Posts tabs.&#x27;,&#x27;New: &lt;b&gt;Message&lt;/b&gt; sits beside Follow. Follow stays the main action (blue).&#x27;,&#x27;⋮ already opens a sheet with &lt;b&gt;Block User&lt;/b&gt; and &lt;b&gt;Report User&lt;/b&gt;. Chat reuses the same sheet.&#x27;,&#x27;&lt;b&gt;Not Allowed&lt;/b&gt;: Message is greyed out with a one-line reason.&#x27;,&#x27;Tap Message → opens the existing chat with this player, or creates one.&#x27;],
+    pending:[&#x27;&lt;b&gt;Player → player&lt;/b&gt; Can anyone message anyone, or only people who follow each other? The error text here assumes &quot;people she follows&quot;. (§6, open)&#x27;],
+    changed:[&#x27;New screen. v1 started a 1:1 chat from a &quot;New Message&quot; search only. The live app has no way to start a chat from a profile yet.&#x27;],
+    src:[&#x27;Live app 1.6.0.1: Social › tap a player&#x27;,&#x27;screens/Social/UserProfileScreen.tsx&#x27;]
   }
 };
 
@@ -534,7 +575,7 @@ S.club_chat = {
   variants:[&#x27;Player Starts&#x27;,&#x27;Club Starts&#x27;],
   states:{empty:&#x27;New Chat&#x27;, error:&#x27;Send Failed&#x27;},
   render(st, v=&#x27;Player Starts&#x27;){
-    const h = chdr(av(&#x27;&#x27;,38,&#x27;#061D42&#x27;,&#x27;business&#x27;), &#x27;Club de Padel Rotterdam &lt;span class=&quot;tag&quot;&gt;Club&lt;/span&gt;&#x27;, &#x27;Club staff reply here&#x27;, more());
+    const h = chdr(av(&#x27;&#x27;,38,&#x27;#061D42&#x27;,&#x27;business&#x27;), &#x27;Club de Padel Rotterdam&#x27;, &#x27;Club · staff reply here&#x27;, more());
     const note = ban(&#x27;info&#x27;,&#x27;mail-outline&#x27;,&#x27;You\&#x27;ll also get an email when the club replies.&#x27;);
     if (st===&#x27;loading&#x27;) return h + skFeed() + comp(&#x27;Message the club&#x27;);
     if (st===&#x27;empty&#x27;) return h + note + `&lt;div class=&quot;feed&quot; style=&quot;justify-content:center;align-items:center;text-align:center;gap:6px&quot;&gt;${av(&#x27;&#x27;,72,&#x27;#061D42&#x27;,&#x27;business&#x27;)}&lt;div style=&quot;font:700 18px Montserrat;margin-top:6px&quot;&gt;Club de Padel Rotterdam&lt;/div&gt;&lt;div style=&quot;font-size:14px;color:var(--text2);max-width:260px&quot;&gt;Ask about courts, lessons, events or your membership. For changes to a booking, use My Bookings.&lt;/div&gt;&lt;/div&gt;` + comp(&#x27;Message the club&#x27;);
@@ -622,7 +663,7 @@ S.lesson_chat = {
   variants:[&#x27;Active&#x27;,&#x27;Closed&#x27;], states:{empty:&#x27;Just Created&#x27;, error:&#x27;Send Failed&#x27;},
   render(st, v=&#x27;Active&#x27;){
     return activityChat(st, v, {
-      icon:&#x27;school&#x27;, color:&#x27;#16A34A&#x27;, name:&#x27;Mark Jansen &lt;span class=&quot;tag&quot;&gt;Coach&lt;/span&gt;&#x27;, sub:&#x27;Private lesson&#x27;,
+      icon:&#x27;school&#x27;, color:&#x27;#16A34A&#x27;, name:&#x27;Mark Jansen&#x27;, sub:&#x27;Coach · Private lesson&#x27;,
       ctxIcon:&#x27;school-outline&#x27;, ctxTitle:&#x27;Private Tennis Lesson · Mark Jansen&#x27;, ctxSub:&#x27;Mon 30 Nov · 10:00–11:00 · Kralingse TC&#x27;,
       activeBanner:&#x27;Use this chat for lesson details. To change the time or pay, use the lesson booking.&#x27;,
       closedAt:&#x27;Mon 30 Nov, 19:00&#x27;,
@@ -684,7 +725,7 @@ S.group_create = {
     }
     const bad = st===&#x27;error&#x27;;
     return h + `&lt;div class=&quot;body&quot; style=&quot;padding:8px 20px&quot;&gt;
-        &lt;div style=&quot;display:flex;justify-content:center;margin:8px 0 16px&quot;&gt;&lt;div style=&quot;display:flex&quot;&gt;${[&#x27;L&#x27;,&#x27;S&#x27;,&#x27;E&#x27;].map((x,i)=&gt;`&lt;div style=&quot;margin-left:${i?-12:0}px;border:2px solid var(--bg);border-radius:50%&quot;&gt;${av(x,48)}&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;div style=&quot;margin-left:-12px;width:52px;height:52px;border-radius:26px;background:#fff;border:2px solid var(--bg);display:flex;align-items:center;justify-content:center;font:700 14px Lato&quot;&gt;You&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+        &lt;div style=&quot;display:flex;justify-content:center;margin:8px 0 16px&quot;&gt;&lt;div style=&quot;display:flex&quot;&gt;${[&#x27;L&#x27;,&#x27;S&#x27;,&#x27;E&#x27;].map((x,i)=&gt;`&lt;div style=&quot;margin-left:${i?-12:0}px;border:2px solid var(--bg);border-radius:50%&quot;&gt;${av(x,48)}&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;div style=&quot;margin-left:-12px;width:52px;height:52px;border-radius:26px;background:var(--card);border:2px solid var(--bg);display:flex;align-items:center;justify-content:center;font:700 14px Lato&quot;&gt;You&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
         &lt;div class=&quot;notch ${bad?&#x27;bad&#x27;:&#x27;foc&#x27;}&quot;&gt;&lt;label&gt;Group Name (optional)&lt;/label&gt;&lt;div class=&quot;v&quot;&gt;${bad?&#x27;Sunday morning padel crew from Kralingse Club&#x27;:&#x27;Sunday Padel Crew&#x27;}&lt;/div&gt;&lt;/div&gt;
         ${bad?`&lt;div class=&quot;fhelp&quot;&gt;&lt;span style=&quot;color:var(--error)&quot;&gt;Group name can be up to 40 characters.&lt;/span&gt;&lt;span style=&quot;color:var(--error)&quot;&gt;46/40&lt;/span&gt;&lt;/div&gt;`:`&lt;div class=&quot;fhelp&quot;&gt;&lt;span&gt;If empty, member names are used&lt;/span&gt;&lt;span&gt;17/40&lt;/span&gt;&lt;/div&gt;`}
         &lt;div style=&quot;font-size:14px;color:var(--text2);margin-top:18px;line-height:1.5&quot;&gt;${ic(&#x27;shield-checkmark-outline&#x27;,16,&#x27;color:#007AFF;vertical-align:-3px&#x27;)} You&#x27;ll be the group admin. Only admins can add or remove members.&lt;/div&gt;
@@ -720,13 +761,22 @@ S.group_chat = {
 
 S.support = {
   flow:&#x27;Support&#x27;, title:&#x27;Chat with SWP Support&#x27;,
-  variants:[&#x27;Choose Topic&#x27;,&#x27;Open Chat&#x27;,&#x27;Resolved&#x27;],
+  variants:[&#x27;Support Popup&#x27;,&#x27;Choose Topic&#x27;,&#x27;Open Chat&#x27;,&#x27;Resolved&#x27;],
   states:{empty:&#x27;No Past Chats&#x27;, error:&#x27;Start Failed&#x27;},
   render(st, v=&#x27;Choose Topic&#x27;){
+    if (v===&#x27;Support Popup&#x27;){
+      const bg = S.club_profile.render(&#x27;populated&#x27;,&#x27;nopop&#x27;);
+      const line = (icon, small, big, hl, onclick) =&gt; `&lt;div ${onclick?`onclick=&quot;${onclick}&quot;`:&#x27;&#x27;} style=&quot;cursor:${onclick?&#x27;pointer&#x27;:&#x27;default&#x27;};display:flex;align-items:center;gap:12px;background:var(--chip);border-radius:10px;padding:12px 14px;margin-bottom:8px;${hl?&#x27;outline:2px dashed #F59E0B;outline-offset:-2px;&#x27;:&#x27;&#x27;}&quot;&gt;${ic(icon,22,&#x27;color:#687076&#x27;)}&lt;div&gt;&lt;div style=&quot;font-size:12px;color:var(--text2)&quot;&gt;${small}&lt;/div&gt;&lt;div style=&quot;font-size:15px;color:var(--primary);font-weight:700&quot;&gt;${big}&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`;
+      if (st===&#x27;loading&#x27;) return bg;
+      return bg + `&lt;div class=&quot;ov mid&quot;&gt;&lt;div class=&quot;modal&quot;&gt;&lt;h3&gt;Support&lt;/h3&gt;&lt;p style=&quot;margin-bottom:12px&quot;&gt;We&#x27;re here to help&lt;/p&gt;
+        ${line(&#x27;chatbubbles-outline&#x27;,&#x27;New&#x27;,&#x27;Chat with SWP Support&#x27;,true,&quot;setVar(&#x27;Choose Topic&#x27;)&quot;)}
+        ${line(&#x27;mail-outline&#x27;,&#x27;Email&#x27;,&#x27;support@shallweplay.com&#x27;)}${line(&#x27;call-outline&#x27;,&#x27;Call #1&#x27;,&#x27;+31 35 525 3422&#x27;)}${line(&#x27;call-outline&#x27;,&#x27;Call #2&#x27;,&#x27;+31 35 525 3423&#x27;)}
+        &lt;button class=&quot;btn n&quot; style=&quot;margin-top:6px&quot; onclick=&quot;go(&#x27;club_profile&#x27;)&quot;&gt;Close&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;`;
+    }
     if (v===&#x27;Choose Topic&#x27;){
       const h = hdr(&#x27;Help &amp; Support&#x27;, back(&#x27;inbox&#x27;));
       if (st===&#x27;loading&#x27;) return h + `&lt;div class=&quot;body&quot;&gt;${skRows(5)}&lt;/div&gt;`;
-      if (st===&#x27;error&#x27;) return h + errBlock(&#x27;Couldn\&#x27;t Start Chat&#x27;,&#x27;Something went wrong. Try again, or email support@shallweplay.nl.&#x27;);
+      if (st===&#x27;error&#x27;) return h + errBlock(&#x27;Couldn\&#x27;t Start Chat&#x27;,&#x27;Something went wrong. Try again, or email support@shallweplay.com.&#x27;);
       const topics = [[&#x27;card-outline&#x27;,&#x27;Bookings &amp; payments&#x27;],[&#x27;cash-outline&#x27;,&#x27;Refunds&#x27;],[&#x27;person-outline&#x27;,&#x27;My account&#x27;],[&#x27;business-outline&#x27;,&#x27;Problem with a club&#x27;],[&#x27;help-circle-outline&#x27;,&#x27;Something else&#x27;]];
       return h + `&lt;div class=&quot;body&quot;&gt;&lt;div style=&quot;font-size:15px;color:var(--text2);padding:0 20px 12px&quot;&gt;What do you need help with?&lt;/div&gt;
         ${topics.map(([i,t])=&gt;`&lt;div class=&quot;row&quot; style=&quot;cursor:pointer&quot; onclick=&quot;setVar(&#x27;Open Chat&#x27;)&quot;&gt;&lt;div class=&quot;av&quot; style=&quot;width:40px;height:40px;border-radius:8px;background:var(--primary-soft);color:var(--primary)&quot;&gt;${ic(i,20)}&lt;/div&gt;&lt;div class=&quot;info&quot;&gt;&lt;div class=&quot;nm&quot; style=&quot;font-weight:400&quot;&gt;${t}&lt;/div&gt;&lt;/div&gt;${ic(&#x27;chevron-forward&#x27;,18,&#x27;color:#687076&#x27;)}&lt;/div&gt;`).join(&#x27;&#x27;)}
@@ -775,11 +825,21 @@ S.media_preview = {
 
 S.notifications = {
   flow:&#x27;Media &amp; Alerts&#x27;, title:&#x27;New Message Notifications&#x27;,
-  variants:[&#x27;Push&#x27;,&#x27;Email (Club → Player)&#x27;],
+  variants:[&#x27;Bell list&#x27;,&#x27;Push&#x27;,&#x27;Email (Club → Player)&#x27;],
   states:{empty:&#x27;N/A&#x27;, loading:&#x27;N/A&#x27;, error:&#x27;Push Off&#x27;},
   render(st, v=&#x27;Push&#x27;){
     if (st===&#x27;empty&#x27;||st===&#x27;loading&#x27;) return naNote(&#x27;Notifications are events, not screens with data. Only &quot;Push Off&quot; needs a design.&#x27;);
     if (st===&#x27;error&#x27;) return S.inbox.render(&#x27;populated&#x27;,&#x27;All&#x27;).replace(&#x27;&lt;div class=&quot;body&quot;&gt;&#x27;, `&lt;div class=&quot;body&quot;&gt;${ban(&#x27;warn&#x27;,&#x27;notifications-off-outline&#x27;,&#x27;Notifications are off. Turn them on to know when someone replies. &lt;a href=&quot;#&quot; onclick=&quot;return false&quot; style=&quot;color:var(--warn-text);font-weight:700&quot;&gt;Turn On&lt;/a&gt;&#x27;)}&lt;div style=&quot;height:10px&quot;&gt;&lt;/div&gt;`);
+    if (v===&#x27;Bell list&#x27;) {
+      const card = (t, time, msg, unread) =&gt; `&lt;div style=&quot;background:var(--card);border-radius:12px;padding:14px;margin:0 16px 10px;${unread?&#x27;border-left:4px solid var(--primary)&#x27;:&#x27;&#x27;}&quot;&gt;&lt;div style=&quot;display:flex;justify-content:space-between;gap:8px&quot;&gt;&lt;b style=&quot;font-size:14px&quot;&gt;${t}&lt;/b&gt;&lt;span style=&quot;font-size:12px;color:var(--text2);white-space:nowrap&quot;&gt;${time}&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;font-size:14px;color:var(--text);margin-top:6px;line-height:1.45&quot;&gt;${msg}&lt;/div&gt;&lt;/div&gt;`;
+      return `&lt;div style=&quot;display:flex;align-items:center;padding:12px 16px;flex-shrink:0&quot;&gt;&lt;button class=&quot;back&quot; onclick=&quot;go(&#x27;home_entry&#x27;)&quot;&gt;${ic(&#x27;caret-back&#x27;,18)}&lt;/button&gt;&lt;div style=&quot;flex:1;text-align:center;font:700 22px Montserrat&quot;&gt;Notifications&lt;/div&gt;&lt;div class=&quot;sp36&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+        &lt;div class=&quot;body&quot;&gt;&lt;div style=&quot;font:700 18px Montserrat;padding:6px 20px 10px&quot;&gt;Unread&lt;/div&gt;
+        ${card(&#x27;New message from Emma de Vries&#x27;,&#x27;2 min ago&#x27;,&#x27;Are you free for padel on Sunday?&#x27;,true)}
+        ${card(&#x27;New message from Club de Padel Rotterdam&#x27;,&#x27;1 hour ago&#x27;,&#x27;Sophie: Court 4 is closed for maintenance on Friday…&#x27;,true)}
+        &lt;div style=&quot;font:700 18px Montserrat;padding:10px 20px&quot;&gt;Read&lt;/div&gt;
+        ${card(&#x27;Booking Confirmed&#x27;,&#x27;1 day ago&#x27;,&#x27;Your booking at Club de Padel Rotterdam is confirmed! Court 4 is reserved for you from 18:00 to 19:30.&#x27;)}
+        ${card(&#x27;Booking Cancelled&#x27;,&#x27;13 days ago&#x27;,&#x27;your booking is cancelled successfully.&#x27;)}&lt;/div&gt;`;
+    }
     if (v===&#x27;Push&#x27;) return `&lt;div style=&quot;flex:1;background:linear-gradient(180deg,#5E7A96,#2B3E52);padding-top:30px&quot;&gt;
         &lt;div style=&quot;text-align:center;color:#fff;font:300 64px Lato&quot;&gt;9:41&lt;/div&gt;&lt;div style=&quot;text-align:center;color:#fff;font-size:15px;margin-bottom:24px&quot;&gt;Thursday 26 November&lt;/div&gt;
         &lt;div class=&quot;push&quot;&gt;&lt;div class=&quot;app&quot;&gt;${ic(&#x27;chatbubbles&#x27;,13)}&lt;/div&gt;&lt;div style=&quot;flex:1&quot;&gt;&lt;div class=&quot;h&quot;&gt;&lt;span&gt;SHALLWE-PLAY&lt;/span&gt;&lt;span&gt;now&lt;/span&gt;&lt;/div&gt;&lt;b&gt;Emma de Vries&lt;/b&gt;&lt;p&gt;Are you free for padel on Sunday?&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
@@ -787,7 +847,7 @@ S.notifications = {
         &lt;div class=&quot;push&quot;&gt;&lt;div class=&quot;app&quot;&gt;${ic(&#x27;chatbubbles&#x27;,13)}&lt;/div&gt;&lt;div style=&quot;flex:1&quot;&gt;&lt;div class=&quot;h&quot;&gt;&lt;span&gt;SHALLWE-PLAY&lt;/span&gt;&lt;span&gt;1h ago&lt;/span&gt;&lt;/div&gt;&lt;b&gt;Club de Padel Rotterdam&lt;/b&gt;&lt;p&gt;Sophie: Court 4 is closed for maintenance on Friday…&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
       &lt;/div&gt;`;
     return `&lt;div style=&quot;flex:1;overflow:auto;background:#E9EDF2&quot;&gt;
-      &lt;div class=&quot;email&quot;&gt;&lt;div class=&quot;eh&quot;&gt;&lt;b&gt;From:&lt;/b&gt; ShallWe-Play &amp;lt;no-reply@shallweplay.nl&amp;gt;&lt;br&gt;&lt;b&gt;Subject:&lt;/b&gt; Club de Padel Rotterdam sent you a message&lt;/div&gt;
+      &lt;div class=&quot;email&quot;&gt;&lt;div class=&quot;eh&quot;&gt;&lt;b&gt;From:&lt;/b&gt; ShallWe-Play &amp;lt;info@shallwe-play.com&amp;gt;&lt;br&gt;&lt;b&gt;Subject:&lt;/b&gt; Club de Padel Rotterdam sent you a message&lt;/div&gt;
       &lt;div class=&quot;eb&quot;&gt;&lt;div style=&quot;display:flex;align-items:center;gap:8px;margin-bottom:12px&quot;&gt;&lt;svg width=&quot;26&quot; height=&quot;26&quot; viewBox=&quot;0 0 34 34&quot;&gt;&lt;circle cx=&quot;11&quot; cy=&quot;12&quot; r=&quot;8&quot; fill=&quot;none&quot; stroke=&quot;#16A34A&quot; stroke-width=&quot;3&quot;/&gt;&lt;circle cx=&quot;22&quot; cy=&quot;12&quot; r=&quot;8&quot; fill=&quot;none&quot; stroke=&quot;#007AFF&quot; stroke-width=&quot;3&quot;/&gt;&lt;circle cx=&quot;16&quot; cy=&quot;22&quot; r=&quot;8&quot; fill=&quot;none&quot; stroke=&quot;#E63900&quot; stroke-width=&quot;3&quot;/&gt;&lt;/svg&gt;&lt;b style=&quot;font:700 16px Montserrat&quot;&gt;ShallWe-Play&lt;/b&gt;&lt;/div&gt;
       Hi Alex,&lt;br&gt;&lt;br&gt;&lt;b&gt;Club de Padel Rotterdam&lt;/b&gt; sent you a message:
       &lt;div class=&quot;quote&quot;&gt;Hi Alex, Court 4 is closed for maintenance on Friday. We moved your booking to Court 2, same time…&lt;/div&gt;
@@ -797,7 +857,7 @@ S.notifications = {
   },
   notes:{
     purpose:&#x27;§3.1 Notifications + the §7 email rule for club ↔ player chats.&#x27;,
-    rules:[&#x27;&lt;b&gt;Push&lt;/b&gt;: title = person, group or activity name. Body = &quot;Sender: message&quot; (sender only shown in groups). Photo → &quot;📷 Photo&quot;, video → &quot;🎥 Video&quot;.&#x27;,&#x27;Tapping a push opens that chat directly.&#x27;,&#x27;No push for your own messages or for chats with blocked users.&#x27;,&#x27;&lt;b&gt;Email&lt;/b&gt;: only for club ↔ player chats (§7). The button deep-links to the chat. It shows a short preview, never attachments.&#x27;,&#x27;&lt;b&gt;Push Off&lt;/b&gt;: a dismissible banner at the top of the inbox.&#x27;],
+    rules:[&#x27;&lt;b&gt;Bell list&lt;/b&gt;: the live Notifications screen (More › Notifications, or the bell on Home) is a list of cards with a bold title, &quot;time ago&quot; on the right and the message below. Chat messages appear here too. The live list shows only a &lt;b&gt;Read&lt;/b&gt; heading in the test data, so the &lt;b&gt;Unread&lt;/b&gt; heading is assumed.&#x27;,&#x27;&lt;b&gt;Push&lt;/b&gt;: title = person, group or activity name. Body = &quot;Sender: message&quot; (sender only shown in groups). Photo → &quot;📷 Photo&quot;, video → &quot;🎥 Video&quot;.&#x27;,&#x27;Tapping a push opens that chat directly.&#x27;,&#x27;No push for your own messages or for chats with blocked users.&#x27;,&#x27;&lt;b&gt;Email&lt;/b&gt;: only for club ↔ player chats (§7). The button deep-links to the chat. It shows a short preview, never attachments.&#x27;,&#x27;&lt;b&gt;Push Off&lt;/b&gt;: a dismissible banner at the top of the inbox.&#x27;],
     pending:[&#x27;Should chat messages also show in the in-app Notifications centre (More › Notifications), or only as push + the chat badge? Recommended: push + badge only, so the centre doesn\&#x27;t fill up with chat.&#x27;,&#x27;&lt;b&gt;Email frequency&lt;/b&gt; See Club Chat. Assumed max 1 email per chat per hour.&#x27;],
     changed:[&#x27;New screen.&#x27;],
     src:[&#x27;Doc §3.1 Notifications, §7 last bullet&#x27;,&#x27;screens/More/Notification/Listing.tsx&#x27;]
@@ -805,10 +865,11 @@ S.notifications = {
 };
 
 /* ---------------- nav / state ---------------- */
-const ORDER = [&#x27;home_entry&#x27;,&#x27;inbox&#x27;,&#x27;new_chat&#x27;,&#x27;direct_chat&#x27;,&#x27;chat_options&#x27;,&#x27;report&#x27;,&#x27;block&#x27;,&#x27;club_profile&#x27;,&#x27;club_chat&#x27;,&#x27;booking_chat&#x27;,&#x27;event_chat&#x27;,&#x27;lesson_chat&#x27;,&#x27;members&#x27;,&#x27;group_create&#x27;,&#x27;group_chat&#x27;,&#x27;support&#x27;,&#x27;media_preview&#x27;,&#x27;notifications&#x27;];
+const ORDER = [&#x27;home_entry&#x27;,&#x27;inbox&#x27;,&#x27;new_chat&#x27;,&#x27;player_profile&#x27;,&#x27;direct_chat&#x27;,&#x27;chat_options&#x27;,&#x27;report&#x27;,&#x27;block&#x27;,&#x27;club_profile&#x27;,&#x27;club_chat&#x27;,&#x27;booking_chat&#x27;,&#x27;event_chat&#x27;,&#x27;lesson_chat&#x27;,&#x27;members&#x27;,&#x27;group_create&#x27;,&#x27;group_chat&#x27;,&#x27;support&#x27;,&#x27;media_preview&#x27;,&#x27;notifications&#x27;];
 let cur = &#x27;inbox&#x27;, state = &#x27;populated&#x27;, vars = {};
 const STATES = [[&#x27;populated&#x27;,&#x27;Populated&#x27;],[&#x27;empty&#x27;,&#x27;Empty&#x27;],[&#x27;loading&#x27;,&#x27;Loading&#x27;],[&#x27;error&#x27;,&#x27;Error&#x27;]];
 
+function setTheme(t){ document.querySelector(&#x27;.ph&#x27;).classList.toggle(&#x27;dark&#x27;, t===&#x27;dark&#x27;); document.querySelectorAll(&#x27;#theme button&#x27;).forEach((b,i)=&gt;b.classList.toggle(&#x27;on&#x27;, (i===0)===(t===&#x27;dark&#x27;))); }
 function go(id){ if(!id||!S[id]) return; cur=id; state=&#x27;populated&#x27;; draw(); }
 function setState(s){ state=s; draw(); }
 function setVar(v){ vars[cur]=v; draw(); }
@@ -825,7 +886,10 @@ function draw(){
   const v = vars[cur] || (sc.variants?sc.variants[0]:undefined);
   document.getElementById(&#x27;variants&#x27;).innerHTML = sc.variants ? sc.variants.map(x=&gt;`&lt;button class=&quot;${x===v?&#x27;on&#x27;:&#x27;&#x27;}&quot; onclick=&quot;setVar(&#x27;${x.replace(/&#x27;/g,&quot;\\&#x27;&quot;)}&#x27;)&quot;&gt;${x}&lt;/button&gt;`).join(&#x27;&#x27;) : &#x27;&#x27;;
   // screen
-  document.getElementById(&#x27;scr&#x27;).innerHTML = sc.render(state, v);
+  const isNA = (sc.states||{})[state] === &#x27;N/A&#x27;;
+  document.getElementById(&#x27;scr&#x27;).innerHTML = sc.render(isNA ? &#x27;populated&#x27; : state, v);
+  const naEl = document.getElementById(&#x27;naNote&#x27;); if (naEl) { naEl.hidden = !isNA; naEl.textContent = isNA ? &#x27;This screen has no &#x27; + state + &#x27; state, so the phone shows the normal screen. See the notes for why.&#x27; : &#x27;&#x27;; }
+  document.querySelectorAll(&#x27;#scr .feed&#x27;).forEach(f =&gt; { f.scrollTop = f.scrollHeight; });
   // notes
   const n = sc.notes;
   const stInfo = STATES.map(([k,l])=&gt;{const o=(sc.states||{})[k]; return `${l}${o&amp;&amp;o!==l?` → &lt;b&gt;${o}&lt;/b&gt;`:&#x27;&#x27;}`}).join(&#x27; · &#x27;);
@@ -1259,7 +1323,7 @@ function mailWelcome(size, lang=&#x27;EN&#x27;){
    &lt;p&gt;${nl?&#x27;Je account is klaar. Dit kun je nu doen:&#x27;:&#x27;Your account is ready. Here\u2019s what you can do:&#x27;}&lt;/p&gt;
    &lt;div style=&quot;margin:8px 0&quot;&gt;${feats.map(([i,b,s])=&gt;`&lt;div class=&quot;feat&quot;&gt;&lt;div class=&quot;fi&quot;&gt;${ic(i)}&lt;/div&gt;&lt;div&gt;&lt;b&gt;${b}&lt;/b&gt;&lt;span&gt;${s}&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
    &lt;div style=&quot;text-align:center&quot;&gt;&lt;span class=&quot;mcta&quot;&gt;${nl?&#x27;Open de app&#x27;:&#x27;Open the App&#x27;}&lt;/span&gt;&lt;/div&gt;
-   &lt;p style=&quot;font-size:13px;color:var(--muted);margin-top:8px&quot;&gt;${nl?&#x27;Vragen? Mail ons op&#x27;:&#x27;Questions? Email us at&#x27;} support@shallweplay.nl&lt;/p&gt;&lt;/div&gt;
+   &lt;p style=&quot;font-size:13px;color:var(--muted);margin-top:8px&quot;&gt;${nl?&#x27;Vragen? Mail ons op&#x27;:&#x27;Questions? Email us at&#x27;} support@shallweplay.com&lt;/p&gt;&lt;/div&gt;
    &lt;div class=&quot;mf&quot;&gt;&lt;span class=&quot;lockico&quot;&gt;${ic(&#x27;lock-closed&#x27;)}&lt;/span&gt;© 2026 ShallWe-Play · Privacy Policy · Terms &amp;amp; Conditions&lt;/div&gt;&lt;/div&gt;`;
 }
 function mailDigest(size){
@@ -1320,7 +1384,7 @@ S.variables={grp:&#x27;Flow A&#x27;,t:&#x27;Insert Variable&#x27;,url:&#x27;test
   const base=S.edit.render(&#x27;populated&#x27;,&#x27;English&#x27;);
   if(st===&#x27;loading&#x27;||st===&#x27;error&#x27;) return base;
   const list=st===&#x27;empty&#x27;?`&lt;div style=&quot;padding:24px 14px;text-align:center;font-size:13px;color:var(--muted)&quot;&gt;No variable matches \u201cbooking\u201d.&lt;br&gt;This email only has the variables below the search.&lt;/div&gt;`
-   :[[&#x27;firstName&#x27;,&#x27;Player\u2019s first name&#x27;,&#x27;Alex&#x27;],[&#x27;appLink&#x27;,&#x27;Link that opens the app&#x27;,&#x27;shallweplay.app/open&#x27;],[&#x27;supportEmail&#x27;,&#x27;SWP support address&#x27;,&#x27;support@shallweplay.nl&#x27;]].map(([n,d,s])=&gt;`&lt;div class=&quot;vrow&quot;&gt;&lt;div&gt;${V(n)}&lt;div class=&quot;vdsc&quot;&gt;${d}&lt;/div&gt;&lt;/div&gt;&lt;span class=&quot;vsam&quot;&gt;e.g. ${s}&lt;/span&gt;&lt;/div&gt;`).join(&#x27;&#x27;);
+   :[[&#x27;firstName&#x27;,&#x27;Player\u2019s first name&#x27;,&#x27;Alex&#x27;],[&#x27;appLink&#x27;,&#x27;Link that opens the app&#x27;,&#x27;shallweplay.app/open&#x27;],[&#x27;supportEmail&#x27;,&#x27;SWP support address&#x27;,&#x27;support@shallweplay.com&#x27;]].map(([n,d,s])=&gt;`&lt;div class=&quot;vrow&quot;&gt;&lt;div&gt;${V(n)}&lt;div class=&quot;vdsc&quot;&gt;${d}&lt;/div&gt;&lt;/div&gt;&lt;span class=&quot;vsam&quot;&gt;e.g. ${s}&lt;/span&gt;&lt;/div&gt;`).join(&#x27;&#x27;);
   const pop=`&lt;div class=&quot;popover&quot; style=&quot;top:476px;left:300px&quot;&gt;&lt;div class=&quot;pt&quot;&gt;&lt;div class=&quot;srch&quot; style=&quot;width:100%;height:36px&quot;&gt;${ic(&#x27;search&#x27;,15)}&lt;span ${st===&#x27;empty&#x27;?&#x27;style=&quot;color:var(--ink)&quot;&#x27;:&#x27;&#x27;}&gt;${st===&#x27;empty&#x27;?&#x27;booking&#x27;:&#x27;Search variables&#x27;}&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;${list}&lt;div style=&quot;padding:10px 14px;font-size:12px;color:var(--muted)&quot;&gt;Only variables this email supports are listed.&lt;/div&gt;&lt;/div&gt;`;
   return base.replace(/&lt;\/div&gt;$/, pop+&#x27;&lt;/div&gt;&#x27;);
  },
@@ -1461,7 +1525,7 @@ S.mail_welcome={grp:&#x27;Flow E&#x27;,t:&#x27;Player Receives: Welcome Email&#x
  render(st,v=&#x27;Desktop&#x27;){
   if(st===&#x27;empty&#x27;||st===&#x27;loading&#x27;) return client(&#x27;w&#x27;,`&lt;div style=&quot;padding:80px;text-align:center;color:var(--muted)&quot;&gt;Not applicable. This is a received email.&lt;/div&gt;`);
   if(st===&#x27;error&#x27;) return client(&#x27;w&#x27;,`&lt;div style=&quot;font-size:13px;color:var(--muted);margin-bottom:10px;text-align:center&quot;&gt;If the database template fails to load, the system sends the built-in default so the player still gets an email.&lt;/div&gt;`+mailWelcome(&#x27;desktop&#x27;));
-  return client(&#x27;w&#x27;,`&lt;div style=&quot;font-size:13px;color:var(--muted);margin:0 auto 10px;max-width:560px&quot;&gt;&lt;b style=&quot;color:var(--ink)&quot;&gt;${v===&#x27;Dutch&#x27;?&#x27;Welkom bij ShallWe-Play, Alex!&#x27;:&#x27;Welcome to ShallWe-Play, Alex!&#x27;}&lt;/b&gt;&lt;br&gt;From: ShallWe-Play &amp;lt;no-reply@shallweplay.nl&amp;gt;&lt;/div&gt;`+mailWelcome(v===&#x27;Mobile&#x27;?&#x27;mobile&#x27;:&#x27;desktop&#x27;, v===&#x27;Dutch&#x27;?&#x27;NL&#x27;:&#x27;EN&#x27;));
+  return client(&#x27;w&#x27;,`&lt;div style=&quot;font-size:13px;color:var(--muted);margin:0 auto 10px;max-width:560px&quot;&gt;&lt;b style=&quot;color:var(--ink)&quot;&gt;${v===&#x27;Dutch&#x27;?&#x27;Welkom bij ShallWe-Play, Alex!&#x27;:&#x27;Welcome to ShallWe-Play, Alex!&#x27;}&lt;/b&gt;&lt;br&gt;From: ShallWe-Play &amp;lt;info@shallwe-play.com&amp;gt;&lt;/div&gt;`+mailWelcome(v===&#x27;Mobile&#x27;?&#x27;mobile&#x27;:&#x27;desktop&#x27;, v===&#x27;Dutch&#x27;?&#x27;NL&#x27;:&#x27;EN&#x27;));
  },
  notes:{
   what:`What a new player gets after sign-up (F4). It replaces the shared, club-focused welcome text.`,
@@ -1474,7 +1538,7 @@ S.mail_digest={grp:&#x27;Flow E&#x27;,t:&#x27;Player Receives: Notifications Wai
  states:{empty:&#x27;N/A&#x27;,loading:&#x27;N/A&#x27;,error:&#x27;N/A&#x27;},
  render(st,v=&#x27;Desktop&#x27;){
   if(st!==&#x27;populated&#x27;) return client(&#x27;d&#x27;,`&lt;div style=&quot;padding:80px;text-align:center;color:var(--muted)&quot;&gt;Not applicable. This is a received email.&lt;/div&gt;`);
-  return client(&#x27;d&#x27;,`&lt;div style=&quot;font-size:13px;color:var(--muted);margin:0 auto 10px;max-width:560px&quot;&gt;&lt;b style=&quot;color:var(--ink)&quot;&gt;You have 7 notifications waiting&lt;/b&gt;&lt;br&gt;From: ShallWe-Play &amp;lt;no-reply@shallweplay.nl&amp;gt;&lt;/div&gt;`+mailDigest(v===&#x27;Mobile&#x27;?&#x27;mobile&#x27;:&#x27;desktop&#x27;));
+  return client(&#x27;d&#x27;,`&lt;div style=&quot;font-size:13px;color:var(--muted);margin:0 auto 10px;max-width:560px&quot;&gt;&lt;b style=&quot;color:var(--ink)&quot;&gt;You have 7 notifications waiting&lt;/b&gt;&lt;br&gt;From: ShallWe-Play &amp;lt;info@shallwe-play.com&amp;gt;&lt;/div&gt;`+mailDigest(v===&#x27;Mobile&#x27;?&#x27;mobile&#x27;:&#x27;desktop&#x27;));
  },
  notes:{
   what:`The email a player gets when they have more than 5 unread notifications (F5).`,

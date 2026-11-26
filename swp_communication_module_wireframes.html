@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SWP Chat Wireframes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Roboto:wght@400;500;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <style>
 /* ===== Tokens: copied from shallwe-play-players/src/constants/Colors.ts (light) + BookingsScreen.tsx tabs ===== */
@@ -14,7 +14,7 @@
   --text:#11181C; --text2:#777777; --icon:#687076; --bg:#f0f0f0; --card:#FFFFFF;
   --border:#E5E5E5; --danger:#E63900; --error:#FF3B30; --success:#22C55E; --disabled:#BDBDBD;
   --primary-soft:rgba(0,122,255,.08); --danger-soft:rgba(230,57,0,.08); --success-soft:rgba(34,197,94,.10);
-  --warn-bg:#FEF3C7; --warn-text:#92400E;
+  --warn-bg:#FEF3C7; --warn-text:#92400E; --card:#FFFFFF; --chip:#E7E7E7; --skel:#E2E2E2; --info-bg:#EAF3FF; --back-bg:#FFFFFF;
   /* page chrome (not part of the app) */
   --page:#F5F5F9; --ink:#1C1C1C; --muted:#64748B; --line:#E2E8F0;
 }
@@ -24,14 +24,14 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 input,textarea{font:inherit}
 
 /* ===== Page layout ===== */
-.top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 24px;background:#fff;border-bottom:1px solid var(--line)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 24px;background:var(--card);border-bottom:1px solid var(--line)}
 .top h1{font:700 18px Montserrat}
 .top p{font-size:13px;color:var(--muted);margin-top:2px}
 .legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted)}
 .legend span{display:inline-flex;align-items:center;gap:6px}
 .dot{width:10px;height:10px;border-radius:3px;display:inline-block}
 .layout{display:grid;grid-template-columns:250px 1fr 360px;gap:20px;max-width:1440px;margin:0 auto;padding:20px 24px}
-.nav{background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px;align-self:start;position:sticky;top:20px;max-height:calc(100vh - 40px);overflow:auto}
+.nav{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px;align-self:start;position:sticky;top:20px;max-height:calc(100vh - 40px);overflow:auto}
 .nav h4{font:600 11px Montserrat;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin:14px 8px 6px}
 .nav h4:first-child{margin-top:4px}
 .nav button{display:flex;gap:8px;width:100%;text-align:left;padding:8px;border-radius:6px;font-size:14px;color:var(--ink)}
@@ -40,14 +40,14 @@ input,textarea{font:inherit}
 .nav button.on{background:var(--primary-soft);color:var(--primary);font-weight:700}
 .nav button.on .n{color:var(--primary)}
 .stage{display:flex;flex-direction:column;align-items:center;gap:12px}
-.switch{display:flex;gap:4px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:4px}
+.switch{display:flex;gap:4px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:4px}
 .switch button{padding:7px 14px;border-radius:6px;font:600 13px Montserrat;color:var(--muted)}
 .switch button.on{background:var(--primary);color:#fff}
 .switch button.na{opacity:.45}
 .variants{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;min-height:30px}
-.variants button{padding:5px 12px;border-radius:99px;border:1px solid var(--line);background:#fff;font-size:13px;color:var(--muted)}
+.variants button{padding:5px 12px;border-radius:99px;border:1px solid var(--line);background:var(--card);font-size:13px;color:var(--muted)}
 .variants button.on{border-color:var(--primary);color:var(--primary);font-weight:700}
-.notes{background:#fff;border:1px solid var(--line);border-radius:8px;padding:18px;align-self:start;position:sticky;top:20px;max-height:calc(100vh - 40px);overflow:auto}
+.notes{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:18px;align-self:start;position:sticky;top:20px;max-height:calc(100vh - 40px);overflow:auto}
 .notes h2{font:700 18px Montserrat;margin-bottom:4px}
 .notes .flow{font:600 11px Montserrat;text-transform:uppercase;letter-spacing:.6px;color:var(--primary)}
 .notes h5{font:600 11px Montserrat;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin:16px 0 6px}
@@ -69,16 +69,16 @@ input,textarea{font:inherit}
 .body{flex:1;overflow-y:auto;scrollbar-width:none}
 .body::-webkit-scrollbar{display:none}
 .homebar{height:20px;flex-shrink:0;display:flex;justify-content:center;align-items:center}
-.homebar i{width:120px;height:4px;border-radius:2px;background:#11181C;opacity:.85}
+.homebar i{width:120px;height:4px;border-radius:2px;background:var(--text);opacity:.85}
 
 /* ===== App components (matched to live RN styles) ===== */
 .hdr{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;flex-shrink:0;min-height:56px}
 .hdr .t{font:800 20px/25px Montserrat;letter-spacing:.5px;text-transform:uppercase;text-align:center;flex:1}
-.back{width:36px;height:36px;border-radius:18px;background:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;color:var(--text)}
+.back{width:36px;height:36px;border-radius:8px;background:var(--back-bg);color:var(--primary)!important;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:16px;color:var(--text)}
 .hbtn{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--primary);flex-shrink:0;position:relative}
 .hbtn.grey{color:var(--icon)}
 .sp36{width:36px;flex-shrink:0}
-.chdr{display:flex;align-items:center;gap:10px;padding:8px 12px 8px 16px;background:#fff;border-bottom:1px solid var(--border);flex-shrink:0;min-height:60px}
+.chdr{display:flex;align-items:center;gap:10px;padding:8px 12px 8px 16px;background:var(--card);border-bottom:1px solid var(--border);flex-shrink:0;min-height:60px}
 .chdr .who{flex:1;min-width:0}
 .chdr .nm{font:700 16px/20px Montserrat;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:6px}
 .chdr .sub{font-size:13px;color:var(--text2);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -88,12 +88,12 @@ input,textarea{font:inherit}
 .search input{flex:1;border:none;outline:none;background:transparent;font-size:15px;color:var(--text)}
 .search input::placeholder{color:#9CA3AF}
 .tabs{display:flex;margin:0 16px 12px;background:var(--tab-wrap);border-radius:8px;padding:8px}
-.tabs button{flex:1;padding:10px 0;background:#fff;font:500 12px Lato;color:var(--seg-text);border-radius:0}
+.tabs button{flex:1;padding:10px 0;background:var(--card);font:500 12px Lato;color:var(--seg-text);border-radius:0}
 .tabs button:first-child{border-radius:6px 0 0 6px}
 .tabs button:last-child{border-radius:0 6px 6px 0}
 .tabs button.on{background:var(--tab-active);color:#fff}
 .sec{font:600 12px Montserrat;text-transform:uppercase;letter-spacing:.5px;color:var(--text2);padding:4px 20px 8px}
-.row{display:flex;align-items:center;gap:12px;padding:12px;background:#fff;border-radius:12px;margin:0 16px 8px}
+.row{display:flex;align-items:center;gap:12px;padding:12px;background:var(--card);border-radius:12px;margin:0 16px 8px}
 .row .info{flex:1;min-width:0}
 .row .l1{display:flex;align-items:center;gap:6px;justify-content:space-between}
 .row .nm{font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -104,14 +104,14 @@ input,textarea{font:inherit}
 .row.dim .nm,.row.dim .pv{color:var(--text2)}
 .badge{min-width:20px;height:20px;border-radius:10px;padding:0 6px;background:var(--primary);color:#fff;font:700 12px Lato;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
 .tag{display:inline-flex;align-items:center;gap:3px;height:20px;padding:0 7px;border-radius:6px;font:700 11px Lato;flex-shrink:0;background:var(--primary-soft);color:var(--primary)}
-.tag.grey{background:#EBEBEB;color:var(--text2)}
+.tag.grey{background:var(--chip);color:var(--text2)}
 .tag.green{background:var(--success-soft);color:#15803D}
 .tag.warn{background:var(--warn-bg);color:var(--warn-text)}
 .tag.red{background:var(--danger-soft);color:var(--danger)}
 .feed{flex:1;overflow-y:auto;scrollbar-width:none;padding:12px 16px;display:flex;flex-direction:column;gap:8px}
 .feed::-webkit-scrollbar{display:none}
 .dd{align-self:center;font:700 12px Lato;color:var(--text2);padding:6px 0}
-.sys{align-self:center;max-width:88%;text-align:center;font-size:13px;line-height:1.4;color:var(--text2);background:#E7E7E7;border-radius:10px;padding:6px 12px}
+.sys{align-self:center;max-width:88%;text-align:center;font-size:13px;line-height:1.4;color:var(--text2);background:var(--chip);border-radius:10px;padding:6px 12px}
 .msg{display:flex;gap:8px;max-width:80%;align-items:flex-end}
 .msg.in{align-self:flex-start}
 .msg.out{align-self:flex-end;flex-direction:row-reverse}
@@ -120,30 +120,30 @@ input,textarea{font:inherit}
 .snd{font:700 12px Lato;color:var(--icon);margin:0 0 3px 4px}
 .snd .tag{height:17px;font-size:10px;margin-left:4px;padding:0 5px}
 .bub{padding:9px 12px;border-radius:16px;font-size:15px;line-height:21px;word-wrap:break-word}
-.in .bub{background:#fff;border:1px solid var(--border);border-bottom-left-radius:4px}
+.in .bub{background:var(--card);border:1px solid var(--border);border-bottom-left-radius:4px}
 .out .bub{background:var(--primary);color:#fff;border-bottom-right-radius:4px}
 .mt{font-size:12px;color:var(--text2);margin:3px 4px 0}
 .mt.err{color:var(--error);display:flex;align-items:center;gap:4px;font-weight:700}
 .out .bub.failed{background:#8FBFFF}
 .photo{width:200px;height:140px;border-radius:12px;background:linear-gradient(135deg,#C9D6E3,#9FB3C8);display:flex;align-items:center;justify-content:center;color:#fff;font-size:32px;position:relative;overflow:hidden}
 .photo .vid{position:absolute;bottom:8px;left:8px;font:700 12px Lato;background:rgba(0,0,0,.5);border-radius:6px;padding:2px 6px;display:flex;align-items:center;gap:3px}
-.shared{width:240px;background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.shared{width:240px;background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
 .shared .h{background:var(--primary-soft);padding:8px 12px;font:700 12px Montserrat;color:var(--primary);display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:.4px}
 .shared .c{padding:10px 12px;display:flex;flex-direction:column;gap:4px}
 .shared .c b{font-size:15px}
 .shared .c span{font-size:13px;color:var(--text2);display:flex;align-items:center;gap:6px}
 .shared .c .btn{margin-top:6px;height:38px;font-size:14px}
-.comp{display:flex;align-items:center;gap:8px;padding:8px 12px;background:#fff;border-top:1px solid var(--border);flex-shrink:0}
+.comp{display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--card);border-top:1px solid var(--border);flex-shrink:0}
 .comp .att{font-size:24px;color:var(--icon);display:flex}
 .comp .in{flex:1;height:40px;border-radius:20px;background:var(--bg);border:1px solid transparent;padding:0 14px;font-size:15px;outline:none;color:var(--text)}
-.comp .in:focus{border-color:var(--primary);background:#fff}
+.comp .in:focus{border-color:var(--primary);background:var(--card)}
 .comp .send{width:40px;height:40px;border-radius:20px;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
 .comp .send.off{background:var(--disabled)}
-.lock{display:flex;gap:10px;align-items:flex-start;padding:12px 16px;background:#fff;border-top:1px solid var(--border);flex-shrink:0}
+.lock{display:flex;gap:10px;align-items:flex-start;padding:12px 16px;background:var(--card);border-top:1px solid var(--border);flex-shrink:0}
 .lock ion-icon{font-size:20px;color:var(--icon);flex-shrink:0;margin-top:1px}
 .lock b{font-size:14px;display:block}
 .lock span{font-size:13px;color:var(--text2);line-height:1.4}
-.ctx{display:flex;align-items:center;gap:12px;background:#fff;border-bottom:1px solid var(--border);padding:10px 16px;flex-shrink:0}
+.ctx{display:flex;align-items:center;gap:12px;background:var(--card);border-bottom:1px solid var(--border);padding:10px 16px;flex-shrink:0}
 .ctx .ti{width:40px;height:40px;border-radius:8px;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
 .ctx .i{flex:1;min-width:0}
 .ctx b{font-size:14px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -151,36 +151,36 @@ input,textarea{font:inherit}
 .ctx a{font:700 14px Lato;color:var(--primary);text-decoration:none;flex-shrink:0}
 .ban{display:flex;gap:8px;align-items:flex-start;padding:8px 16px;font-size:13px;line-height:1.4;flex-shrink:0}
 .ban ion-icon{font-size:17px;flex-shrink:0;margin-top:1px}
-.ban.info{background:#EAF3FF;color:var(--text)}
+.ban.info{background:var(--info-bg);color:var(--text)}
 .ban.info ion-icon{color:var(--primary)}
 .ban.warn{background:var(--warn-bg);color:var(--warn-text)}
 .ban.err{background:var(--danger-soft);color:var(--danger)}
 .btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:48px;border-radius:8px;font:600 16px Montserrat}
 .btn.p{background:var(--primary);color:#fff}
 .btn.p.off{background:var(--disabled)}
-.btn.n{background:#fff;border:1px solid var(--border);color:var(--text)}
+.btn.n{background:var(--card);border:1px solid var(--border);color:var(--text)}
 .btn.d{background:var(--danger);color:#fff}
 .btn.sm{height:40px;font-size:14px}
 .btnrow{display:flex;gap:10px}
 .foot{padding:12px 16px 8px;flex-shrink:0;background:var(--bg)}
 .center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px 32px;gap:10px}
-.center .bigic{width:88px;height:88px;border-radius:44px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:40px;color:var(--icon);box-shadow:0 2px 12px rgba(0,0,0,.06);margin-bottom:8px}
+.center .bigic{width:88px;height:88px;border-radius:44px;background:var(--card);display:flex;align-items:center;justify-content:center;font-size:40px;color:var(--icon);box-shadow:0 2px 12px rgba(0,0,0,.06);margin-bottom:8px}
 .center .bigic.red{color:var(--error)}
 .center h3{font:700 18px Montserrat}
 .center p{font-size:15px;line-height:22px;color:var(--text2)}
 .center .btn{margin-top:10px;width:auto;padding:0 24px}
-.sk{background:#E2E2E2;border-radius:6px;animation:pulse 1.2s ease-in-out infinite}
+.sk{background:var(--skel);border-radius:6px;animation:pulse 1.2s ease-in-out infinite}
 @keyframes pulse{50%{opacity:.5}}
 .ov{position:absolute;inset:0;background:rgba(17,24,28,.45);display:flex;z-index:20}
 .ov.bottom{align-items:flex-end}
 .ov.mid{align-items:center;justify-content:center;padding:24px}
-.sheet{width:100%;background:#fff;border-radius:16px 16px 0 0;padding:8px 0 16px}
+.sheet{width:100%;background:var(--card);border-radius:16px 16px 0 0;padding:8px 0 16px}
 .sheet .hd{width:36px;height:4px;border-radius:2px;background:var(--border);margin:0 auto 8px}
 .sheet .st{font:700 16px Montserrat;padding:6px 20px 10px}
 .sheet .it{display:flex;align-items:center;gap:14px;padding:0 20px;height:52px;font-size:16px;width:100%;text-align:left}
 .sheet .it ion-icon{font-size:22px;color:var(--icon)}
 .sheet .it.red,.sheet .it.red ion-icon{color:var(--danger)}
-.modal{width:100%;background:#fff;border-radius:12px;padding:20px}
+.modal{width:100%;background:var(--card);border-radius:12px;padding:20px}
 .modal h3{font:700 18px Montserrat;margin-bottom:8px}
 .modal p{font-size:15px;line-height:22px;color:var(--text2);margin-bottom:18px}
 .notch{position:relative;border:1px solid var(--border);border-radius:8px;min-height:56px;padding:16px;margin:12px 0 4px;background:transparent}
@@ -192,7 +192,7 @@ input,textarea{font:inherit}
 .notch .v{font-size:16px}
 .ferr{font-size:12px;color:var(--error);margin:4px 4px 0}
 .fhelp{font-size:12px;color:var(--text2);margin:4px 4px 0;display:flex;justify-content:space-between}
-.radio{display:flex;align-items:center;gap:12px;background:#fff;border-radius:12px;padding:14px 12px;margin-bottom:8px;font-size:15px}
+.radio{display:flex;align-items:center;gap:12px;background:var(--card);border-radius:12px;padding:14px 12px;margin-bottom:8px;font-size:15px}
 .radio i{width:20px;height:20px;border-radius:10px;border:2px solid var(--disabled);flex-shrink:0}
 .radio.on i{border:6px solid var(--primary)}
 .chk{width:22px;height:22px;border-radius:6px;border:2px solid var(--disabled);flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:15px}
@@ -214,11 +214,25 @@ input,textarea{font:inherit}
 .stat3{display:flex;justify-content:center;gap:24px;margin:12px 0}
 .stat3 div{text-align:center;font-size:13px;color:var(--text2)}
 .stat3 b{display:block;font:700 16px Montserrat;color:var(--text)}
-.email{margin:12px;background:#fff;border-radius:12px;overflow:hidden;border:1px solid var(--border)}
+.email{margin:12px;background:var(--card);border-radius:12px;overflow:hidden;border:1px solid var(--border)}
 .email .eh{padding:12px 14px;border-bottom:1px solid var(--border);font-size:13px;color:var(--text2);line-height:1.6}
 .email .eh b{color:var(--text)}
 .email .eb{padding:16px 14px;font-size:15px;line-height:22px}
 .email .quote{border-left:3px solid var(--primary);padding:6px 10px;background:#F8F9FA;margin:10px 0 14px;color:var(--text2);font-size:14px}
+
+/* Dark theme = what the live app shows on the test phone (Colors.ts dark: background #262626, text #ECEDEE, textSecondary #BAB8B8, border #3A3A3A) */
+.ph.dark{--bg:#262626;--card:#1C1C1C;--text:#ECEDEE;--text2:#BAB8B8;--icon:#9BA1A6;--border:#3A3A3A;--chip:#333333;--skel:#333333;--info-bg:#132A44;
+  --warn-bg:#3A2A0C;--warn-text:#F0B45A;--tab-wrap:#2E2E2E;--seg-text:#D1D5DB;--primary-soft:rgba(0,122,255,.2);--danger-soft:rgba(230,57,0,.2);
+  --success-soft:rgba(34,197,94,.2);--disabled:#4A4A4A;--back-bg:#1C1C1C;border-color:#000}
+.ph.dark .tag.grey{color:#BAB8B8}
+/* App font: the live app renders in Roboto (Android system font) */
+.scr,.scr *,.sbar{font-family:'Roboto',system-ui,-apple-system,'Segoe UI',sans-serif!important}
+/* Previews that are not the app keep their own light look */
+.email{background:#fff!important;color:#11181C}.email .eh,.email .eh *{color:#3F4A55}.email .eh b{color:#11181C}
+.push{color:#11181C}.push p{color:#11181C}.push .h{color:#687076}
+.theme{display:flex;gap:4px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:4px}
+.theme button{padding:5px 12px;border-radius:6px;font:600 12px Montserrat;color:var(--muted)}
+.theme button.on{background:#11181C;color:#fff}
 </style>
 </head>
 <body>
@@ -242,7 +256,9 @@ input,textarea{font:inherit}
   <section class="stage">
     <div class="switch" id="switch"></div>
     <div class="variants" id="variants"></div>
-    <div class="ph">
+    <div id="naNote" hidden style="max-width:375px;font-size:13px;color:#92400E;background:#FEF3C7;border-radius:6px;padding:8px 10px;text-align:center"></div>
+    <div class="theme" id="theme"><button class="on" onclick="setTheme('dark')">Dark (as on phone)</button><button onclick="setTheme('light')">Light</button></div>
+    <div class="ph dark">
       <div class="sbar"><span>9:41</span><span class="r"><ion-icon name="cellular"></ion-icon><ion-icon name="wifi"></ion-icon><ion-icon name="battery-full"></ion-icon></span></div>
       <div class="scr" id="scr"></div>
       <div class="homebar"><i></i></div>
@@ -256,7 +272,7 @@ input,textarea{font:inherit}
 const ic = (n, s='', st='') => `<ion-icon name="${n}" ${s?`style="font-size:${s}px;${st}"`:(st?`style="${st}"`:'')}></ion-icon>`;
 const AVC = {E:'#E67E22',S:'#3B82F6',L:'#8B5CF6',M:'#0D9488',A:'#007AFF',C:'#061D42',T:'#DB2777',J:'#16A34A',R:'#64748B'};
 const av = (t, size=44, bg, icon) => `<div class="av" style="width:${size}px;height:${size}px;background:${bg||AVC[t[0]]||'#007AFF'};font-size:${Math.round(size*.36)}px">${icon?ic(icon, Math.round(size*.46)):t}</div>`;
-const back = (to) => `<button class="back" onclick="go('${to||''}')">${ic('chevron-back',16)}</button>`;
+const back = (to) => `<button class="back" onclick="go('${to||''}')">${ic('caret-back',18)}</button>`;
 const hdr = (title, left, right) => `<div class="hdr">${left||'<div class="sp36"></div>'}<div class="t">${title}</div>${right||'<div class="sp36"></div>'}</div>`;
 const chdr = (avatar, name, sub, right, backTo='inbox') => `<div class="chdr">${back(backTo)}${avatar}<div class="who"><div class="nm">${name}</div><div class="sub">${sub}</div></div>${right||''}</div>`;
 const more = (fn) => `<button class="hbtn grey" onclick="${fn||"go('chat_options')"}">${ic('ellipsis-vertical',22)}</button>`;
@@ -304,10 +320,10 @@ S.home_entry = {
         <div style="display:flex;gap:4px"><button class="hbtn" onclick="go('inbox')" style="outline:2px dashed #F59E0B;outline-offset:2px;border-radius:8px">${ic('chatbubbles-outline',26)}${dot}</button><button class="hbtn">${ic('notifications-outline',26)}</button></div>
       </div>
       <div class="body" style="opacity:.45;pointer-events:none">
-        <div style="padding:8px 20px"><div style="width:72px;height:72px;border-radius:36px;background:#007AFF;color:#fff;display:flex;align-items:center;justify-content:center;font:700 26px Lato">A</div><div style="font:700 14px Lato;margin:6px 0 0 6px">My Story</div></div>
-        <div style="margin:14px 16px;background:#fff;border-radius:12px;padding:16px"><div style="font:600 18px Montserrat">WHAT'S HAPPENING</div><div style="font-size:15px;color:#777;margin-top:4px">Latest among your teammates & sports clubs around you</div></div>
-        <div style="display:flex;gap:10px;margin:0 16px"><div style="flex:1;background:#fff;border-radius:12px;padding:16px"><b style="font:800 28px Montserrat">1036</b><div style="font-size:14px">Total Open Bookings</div></div><div style="flex:1;background:#fff;border-radius:12px;padding:16px"><b style="font:800 28px Montserrat">1008</b><div style="font-size:14px">Coming Soon Clubs</div></div></div>
-        <div style="margin:14px 16px;background:#fff;border-radius:12px;height:220px"></div>
+        <div style="padding:8px 20px"><div style="position:relative;width:72px;height:72px"><div style="width:72px;height:72px;border-radius:36px;background:#007AFF;color:#fff;display:flex;align-items:center;justify-content:center;font:700 26px Lato">A</div><span style="position:absolute;right:-4px;bottom:-2px;width:26px;height:26px;border-radius:13px;background:#007AFF;border:2px solid var(--bg);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px">+</span></div><div style="font:700 14px Lato;margin:6px 0 0 6px">My Story</div></div>
+        <div style="margin:14px 16px;background:var(--card);border-radius:12px;padding:16px"><div style="font:600 18px Montserrat">WHAT'S HAPPENING</div><div style="font-size:15px;color:#777;margin-top:4px">Latest among your teammates & sports clubs around you</div></div>
+        <div style="display:flex;gap:10px;margin:0 16px"><div style="flex:1;background:var(--card);border-radius:12px;padding:16px"><b style="font:800 28px Montserrat">1857</b><div style="font-size:14px">Total Open Bookings</div></div><div style="flex:1;background:var(--card);border-radius:12px;padding:16px"><b style="font:800 28px Montserrat">21</b><div style="font-size:14px">Open Memberships</div></div></div>
+        <div style="margin:14px 16px;background:var(--card);border-radius:12px;height:220px"></div>
       </div>`;
   },
   notes:{
@@ -403,9 +419,8 @@ S.chat_options = {
     const bg = S.direct_chat.render('populated');
     const sheet = v.startsWith('Chat')
       ? `<div class="sheet"><div class="hd"></div><div class="st">Emma de Vries</div>
-          <button class="it">${ic('person-circle-outline')}View Profile</button>
-          <button class="it" onclick="go('report')">${ic('flag-outline')}Report</button>
-          <button class="it red" onclick="go('block')">${ic('ban-outline')}Block Emma</button></div>`
+          <button class="it red" onclick="go('block')">${ic('ban-outline')}Block User</button>
+          <button class="it red" onclick="go('report')">${ic('flag-outline')}Report User</button></div>`
       : `<div class="sheet"><div class="hd"></div><div style="margin:4px 20px 12px;padding:10px 12px;background:var(--bg);border-radius:12px;font-size:15px">"Hey! Are you free for padel on Sunday morning?"</div>
           <button class="it">${ic('copy-outline')}Copy Text</button>
           <button class="it red" onclick="go('report')">${ic('flag-outline')}Report Message</button></div>`;
@@ -413,7 +428,7 @@ S.chat_options = {
   },
   notes:{
     purpose:'Safety actions from §3.1 "Block and report".',
-    rules:['⋮ menu: View Profile, Report (the whole chat), Block.','Long-press a message: Copy Text, Report Message. You can only report other people\'s messages, not your own.','Mute, Reply, Edit and Delete are <b>left out on purpose</b>. They\'re in the later-release list (§3.2).','Group and activity chats use the same sheet, plus "View Members" and, for groups, "Leave Group".'],
+    rules:['⋮ menu: View Profile, Report (the whole chat), Block.','Long-press a message: Copy Text, Report Message. You can only report other people\'s messages, not your own.','Wording and look copy the live app\'s sheet on another player\'s profile: a drag handle, then <b>Block User</b> and <b>Report User</b>, both red with an icon. (Seen on the test phone, 27 Nov.)','Mute, Reply, Edit and Delete are <b>left out on purpose</b>. They\'re in the later-release list (§3.2).','Group and activity chats use the same sheet, plus "View Members" and, for groups, "Leave Group".'],
     pending:[],
     changed:['The old Safety modal had Mute (a later-release item) and long paragraphs. It\'s now a standard bottom sheet with 3 actions.'],
     src:['Doc §3.1, §3.2']
@@ -430,7 +445,7 @@ S.report = {
     const sel = st==='error' ? 'Other' : st==='loading' ? 'Harassment or bullying' : '';
     return h + `<div class="body" style="padding:0 16px">
         <div style="font-size:15px;color:var(--text2);margin:2px 4px 10px">Why are you reporting this message?</div>
-        <div style="padding:10px 12px;background:#fff;border-left:3px solid var(--primary);border-radius:8px;font-size:14px;color:var(--text2);margin-bottom:14px">Emma de Vries · "Hey! Are you free for padel on Sunday morning?"</div>
+        <div style="padding:10px 12px;background:var(--card);border-left:3px solid var(--primary);border-radius:8px;font-size:14px;color:var(--text2);margin-bottom:14px">Emma de Vries · "Hey! Are you free for padel on Sunday morning?"</div>
         ${reasons.map(r=>`<div class="radio ${r===sel?'on':''}"><i></i>${r}</div>`).join('')}
         ${sel==='Other'?`<div class="notch bad" style="min-height:88px"><label>Tell us what happened</label><div class="v" style="color:#9CA3AF">&nbsp;</div></div><div class="ferr">Add a short description (at least 10 characters).</div>`:''}
         ${st==='populated'?`<div class="ferr" style="visibility:hidden">.</div>`:''}
@@ -465,33 +480,59 @@ S.block = {
 };
 
 S.club_profile = {
-  flow:'Club & Coach', title:'Club / Coach Profile · Message Button',
-  variants:['Club','Coach'],
+  flow:'Club & Coach', title:'Message Club (Booking Detail)',
   states:{empty:'N/A', error:'Not Allowed'},
-  render(st, v='Club'){
-    const isClub = v==='Club';
-    if (st==='empty') return naNote('A profile always has content. The empty state belongs to the profile module, not to chat.');
-    const h = `<div style="position:absolute;top:10px;left:16px;z-index:2">${back('inbox')}</div>`;
-    if (st==='loading') return h + `<div class="body"><div class="prof-cover sk" style="border-radius:0"></div><div class="prof"><div class="sk" style="width:84px;height:84px;border-radius:42px;border:4px solid var(--bg)"></div><div class="sk" style="width:180px;height:20px;margin-top:10px"></div><div class="sk" style="width:130px;height:14px;margin-top:6px"></div></div></div>`;
-    const name = isClub?'Club de Padel Rotterdam':'Mark Jansen';
-    const sub = isClub?'Padel · Rotterdam · 6 courts':'Tennis Coach · Kralingse Tennis Club';
-    const primary = isClub?'Book a Court':'Book a Lesson';
-    const msgBtn = st==='error'
-      ? `<button class="btn n" style="flex:1;color:var(--disabled)">${ic('chatbubble-outline',18)} Message</button>`
-      : `<button class="btn n" style="flex:1;outline:2px dashed #F59E0B;outline-offset:2px" onclick="go('club_chat')">${ic('chatbubble-outline',18)} Message</button>`;
-    return h + `<div class="body"><div class="prof-cover"></div><div class="prof">${isClub?av('',84,'#061D42','business'):av('M',84)}<h3>${name}</h3><p>${sub}</p>
-      <div class="stat3">${isClub?'<div><b>4.6</b>Rating</div><div><b>312</b>Members</div><div><b>6</b>Courts</div>':'<div><b>4.9</b>Rating</div><div><b>140</b>Lessons</div><div><b>8 yrs</b>Coaching</div>'}</div>
-      <div class="btnrow" style="width:100%"><button class="btn p" style="flex:1">${primary}</button>${msgBtn}</div>
-      ${st==='error'?`<div style="font-size:13px;color:var(--text2);margin-top:8px;display:flex;gap:6px;text-align:left">${ic('information-circle-outline',16)}<span>${isClub?'Only members and players with a booking can message this club.':'This coach has turned off messages from new players.'}</span></div>`:''}
-      </div>
-      <div style="margin:16px;background:#fff;border-radius:12px;padding:16px;text-align:left"><div style="font:700 16px Montserrat;margin-bottom:6px">About</div><div style="font-size:15px;line-height:22px;color:var(--text2)">${isClub?'Indoor and outdoor padel courts with lighting, a café and free parking.':'KNLTB-certified coach. Private and group lessons for all levels.'}</div></div></div>`;
+  render(st, v){
+    if (st==='empty') return naNote('A booking always has a club, so this screen is never empty.');
+    const hero = `<div style="height:170px;background:linear-gradient(135deg,#9FB3C8,#5E7A96);position:relative;flex-shrink:0"><button class="back" style="position:absolute;top:12px;left:16px" onclick="go('inbox')">${ic('caret-back',18)}</button><span style="position:absolute;top:12px;right:16px;width:36px;height:36px;border-radius:10px;background:var(--card);display:flex;align-items:center;justify-content:center;color:var(--icon)">${ic('ellipsis-vertical',20)}</span></div>`;
+    if (st==='loading') return hero + `<div class="body" style="padding:16px"><div class="sk" style="height:120px;border-radius:12px"></div><div class="sk" style="height:48px;border-radius:8px;margin-top:14px"></div><div class="sk" style="height:48px;border-radius:8px;margin-top:10px"></div></div>`;
+    const off = st==='error';
+    const row = (icon, label, extra, hl, dis) => `<div style="display:flex;align-items:center;gap:12px;padding:12px 14px;${hl?'outline:2px dashed #F59E0B;outline-offset:-2px;border-radius:8px;':''}${dis?'opacity:.5;':''}">${ic(icon,22,'color:'+(dis?'#9CA3AF':'var(--primary)'))}<div><div style="font-size:16px">${label}</div>${extra?`<div style="font-size:12px;color:var(--text2);margin-top:2px;max-width:170px">${extra}</div>`:''}</div></div>`;
+    const pop = `<div style="position:absolute;top:56px;right:16px;width:230px;background:var(--card);border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,.2);z-index:5;padding:4px 0">
+      ${row('chatbubble-outline','Message Club', off?'This club has turned off messages.':'', !off, off)}
+      <div style="height:1px;background:var(--border)"></div>
+      ${row('help-circle-outline','Support','',false,false)}</div>`;
+    return `<div style="position:relative;display:flex;flex-direction:column;flex:1;min-height:0">${hero}${v==='nopop'?'':pop}
+      <div class="body" style="padding:0 16px;margin-top:-40px;position:relative;z-index:2">
+        <div style="background:var(--card);border-radius:16px;padding:16px;border:1px solid var(--border)">
+          <div style="display:flex;gap:12px;align-items:center">${av('',52,'#061D42','business')}<div><div style="font:700 18px Montserrat">Club de Padel Rotterdam</div><div style="font-size:13px;color:var(--text2);margin-top:2px">Padel · 14.4 kms away</div></div></div>
+          <div style="display:flex;gap:6px;align-items:center;font-size:14px;color:var(--text2);margin-top:12px">${ic('location-outline',16,'color:#E63900')} Weena 505, Rotterdam</div>
+        </div>
+        <div style="background:var(--card);border-radius:12px;padding:14px;margin-top:12px;border:1px solid var(--border)"><div style="font:600 12px Montserrat;color:var(--text2);text-transform:uppercase;letter-spacing:.5px">Booking time slot</div><div style="font:700 16px Montserrat;margin-top:4px">Fri 27 Nov · 18:00–19:30</div><div style="font-size:13px;color:var(--text2);margin-top:2px">Court 4 · Booking ID NE9B49001</div></div>
+      </div></div>`;
   },
   notes:{
-    purpose:'Entry point for flow 9.1, "Chat with a Club or Coach".',
-    rules:['<b>Message</b> is a neutral button next to the main booking CTA. Booking always stays the primary action (§7: chat doesn\'t replace booking or payment).','Tap → opens the existing chat, or makes a new one.','<b>Coach:</b> players can message before booking. This was confirmed in §6 ("Yes").','<b>Not Allowed</b>: the button is disabled with a one-line reason under it. It isn\'t hidden, so users understand the rule.'],
-    pending:['<b>Club profile layout</b> The doc asks Jaykumar to refine the club profile shown to players. This screen only marks where the Message button goes.','<b>Club / coach settings</b> "Messaging access can be controlled by club/coach settings": needs a setting in the club portal and coach portal.'],
-    changed:['New screen.'],
-    src:['Doc §9.1, §6 Messaging a coach']
+    purpose:'Entry point for flow 9.1, "Chat with a Club". Updated after reviewing the live app on a test phone.',
+    rules:['<b>The live app has no club or coach profile page.</b> Clubs only appear as names on booking cards and on the booking detail page, so there is no profile to put a Message button on.','Booking detail has a <b>⋮ menu with one item today: Support</b>. The new <b>Message Club</b> item goes above it.','Tap → opens the existing chat with that club, or creates one.','<b>Not Allowed</b>: the item stays visible but greyed out, with a one-line reason. It is not hidden, so users understand the rule.','Coaches: players can message a coach before booking (§6). With no coach profile page, the entry point is open. See the pending decision.'],
+    pending:['<b>Where does a player message a club before booking?</b> No club page exists. Options: a club page (new screen), a "Message" button on the package card in Bookings › New, or booking-only chat in release 1.','<b>Where does a player message a coach before booking?</b> Same gap. Needs a coach page or a Message button on the lesson card.','<b>Club / coach settings</b> "Messaging access can be controlled by club/coach settings" needs a setting in the club portal and coach portal.'],
+    changed:['v1 showed a club and coach profile page that does not exist in the app. Replaced by the real entry point: the booking detail ⋮ menu.'],
+    src:['Live app 1.6.0.1: Bookings › Upcoming › View Details › ⋮ (shows "Support" only)','Doc §9.1, §6 Messaging a coach']
+  }
+};
+
+S.player_profile = {
+  flow:'1:1 Chat', title:'Player Profile (Message Button)',
+  states:{empty:'N/A', error:'Not Allowed'},
+  render(st){
+    const h = `<div style="display:flex;align-items:center;padding:12px 16px;flex-shrink:0"><button class="back" onclick="go('new_chat')">${ic('caret-back',18)}</button><div style="flex:1;text-align:center;font:700 20px Montserrat">Emma de Vries</div><button class="hbtn grey" onclick="go('chat_options')" style="font-size:22px">${ic('ellipsis-vertical',22)}</button></div>`;
+    if (st==='empty') return naNote('A profile always has content. Empty states belong to the profile screen, not to chat.');
+    if (st==='loading') return h + `<div class="body" style="padding:16px;text-align:center"><div class="sk" style="width:96px;height:96px;border-radius:48px;margin:8px auto"></div><div class="sk" style="width:55%;height:18px;margin:14px auto 0"></div><div class="sk" style="width:35%;height:14px;margin:10px auto 0"></div><div class="sk" style="height:48px;border-radius:8px;margin-top:22px"></div></div>`;
+    const off = st==='error';
+    return h + `<div class="body" style="padding:0 16px">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:8px">${av('E',96)}<div style="font:700 20px Montserrat">Emma de Vries</div><span style="background:var(--chip);border-radius:14px;padding:5px 12px;font-size:14px;color:var(--text2)">@emmadv</span></div>
+      <div style="display:flex;justify-content:space-around;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:12px 0;margin:18px 0">${[['12','Posts'],['34','Followers'],['20','Following']].map(([n,l])=>`<div style="text-align:center"><div style="font:700 18px Montserrat">${n}</div><div style="font-size:13px;color:var(--text2)">${l}</div></div>`).join('')}</div>
+      <div style="display:flex;gap:10px"><button class="btn p" style="flex:1">Follow</button><button class="btn n" style="flex:1;${off?'opacity:.5':'outline:2px dashed #F59E0B;outline-offset:2px'}" ${off?'':'onclick="go(\'direct_chat\')"'}>${ic('chatbubble-outline',18)} Message</button></div>
+      ${off?`<div style="font-size:12px;color:var(--text2);margin-top:8px;display:flex;gap:6px">${ic('information-circle-outline',15)}<span>Emma only accepts messages from people she follows.</span></div>`:''}
+      <div style="display:flex;border-bottom:1px solid var(--border);margin:20px 0 12px"><div style="flex:1;text-align:center;padding:10px;color:var(--primary);font-weight:700;border-bottom:2px solid var(--primary)">Sports</div><div style="flex:1;text-align:center;padding:10px;color:var(--text2)">Posts</div></div>
+      ${[['Padel','Intermediate (5 to 7)'],['Tennis','Intermediate (5 to 7)']].map(([s,l])=>`<div style="background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:8px"><div style="color:var(--primary);font-weight:700">${s}</div><div style="font-size:14px;color:var(--text2)">${l}</div></div>`).join('')}
+    </div>`;
+  },
+  notes:{
+    purpose:'Entry point for a 1:1 chat with another player (flow 9.4). Matches the live player profile page.',
+    rules:['Live layout, seen on the test phone: back arrow, centred name, ⋮ menu, avatar, @handle chip, Posts / Followers / Following, a full-width <b>Follow</b> button, then Sports and Posts tabs.','New: <b>Message</b> sits beside Follow. Follow stays the main action (blue).','⋮ already opens a sheet with <b>Block User</b> and <b>Report User</b>. Chat reuses the same sheet.','<b>Not Allowed</b>: Message is greyed out with a one-line reason.','Tap Message → opens the existing chat with this player, or creates one.'],
+    pending:['<b>Player → player</b> Can anyone message anyone, or only people who follow each other? The error text here assumes "people she follows". (§6, open)'],
+    changed:['New screen. v1 started a 1:1 chat from a "New Message" search only. The live app has no way to start a chat from a profile yet.'],
+    src:['Live app 1.6.0.1: Social › tap a player','screens/Social/UserProfileScreen.tsx']
   }
 };
 
@@ -500,7 +541,7 @@ S.club_chat = {
   variants:['Player Starts','Club Starts'],
   states:{empty:'New Chat', error:'Send Failed'},
   render(st, v='Player Starts'){
-    const h = chdr(av('',38,'#061D42','business'), 'Club de Padel Rotterdam <span class="tag">Club</span>', 'Club staff reply here', more());
+    const h = chdr(av('',38,'#061D42','business'), 'Club de Padel Rotterdam', 'Club · staff reply here', more());
     const note = ban('info','mail-outline','You\'ll also get an email when the club replies.');
     if (st==='loading') return h + skFeed() + comp('Message the club');
     if (st==='empty') return h + note + `<div class="feed" style="justify-content:center;align-items:center;text-align:center;gap:6px">${av('',72,'#061D42','business')}<div style="font:700 18px Montserrat;margin-top:6px">Club de Padel Rotterdam</div><div style="font-size:14px;color:var(--text2);max-width:260px">Ask about courts, lessons, events or your membership. For changes to a booking, use My Bookings.</div></div>` + comp('Message the club');
@@ -588,7 +629,7 @@ S.lesson_chat = {
   variants:['Active','Closed'], states:{empty:'Just Created', error:'Send Failed'},
   render(st, v='Active'){
     return activityChat(st, v, {
-      icon:'school', color:'#16A34A', name:'Mark Jansen <span class="tag">Coach</span>', sub:'Private lesson',
+      icon:'school', color:'#16A34A', name:'Mark Jansen', sub:'Coach · Private lesson',
       ctxIcon:'school-outline', ctxTitle:'Private Tennis Lesson · Mark Jansen', ctxSub:'Mon 30 Nov · 10:00–11:00 · Kralingse TC',
       activeBanner:'Use this chat for lesson details. To change the time or pay, use the lesson booking.',
       closedAt:'Mon 30 Nov, 19:00',
@@ -650,7 +691,7 @@ S.group_create = {
     }
     const bad = st==='error';
     return h + `<div class="body" style="padding:8px 20px">
-        <div style="display:flex;justify-content:center;margin:8px 0 16px"><div style="display:flex">${['L','S','E'].map((x,i)=>`<div style="margin-left:${i?-12:0}px;border:2px solid var(--bg);border-radius:50%">${av(x,48)}</div>`).join('')}<div style="margin-left:-12px;width:52px;height:52px;border-radius:26px;background:#fff;border:2px solid var(--bg);display:flex;align-items:center;justify-content:center;font:700 14px Lato">You</div></div></div>
+        <div style="display:flex;justify-content:center;margin:8px 0 16px"><div style="display:flex">${['L','S','E'].map((x,i)=>`<div style="margin-left:${i?-12:0}px;border:2px solid var(--bg);border-radius:50%">${av(x,48)}</div>`).join('')}<div style="margin-left:-12px;width:52px;height:52px;border-radius:26px;background:var(--card);border:2px solid var(--bg);display:flex;align-items:center;justify-content:center;font:700 14px Lato">You</div></div></div>
         <div class="notch ${bad?'bad':'foc'}"><label>Group Name (optional)</label><div class="v">${bad?'Sunday morning padel crew from Kralingse Club':'Sunday Padel Crew'}</div></div>
         ${bad?`<div class="fhelp"><span style="color:var(--error)">Group name can be up to 40 characters.</span><span style="color:var(--error)">46/40</span></div>`:`<div class="fhelp"><span>If empty, member names are used</span><span>17/40</span></div>`}
         <div style="font-size:14px;color:var(--text2);margin-top:18px;line-height:1.5">${ic('shield-checkmark-outline',16,'color:#007AFF;vertical-align:-3px')} You'll be the group admin. Only admins can add or remove members.</div>
@@ -686,13 +727,22 @@ S.group_chat = {
 
 S.support = {
   flow:'Support', title:'Chat with SWP Support',
-  variants:['Choose Topic','Open Chat','Resolved'],
+  variants:['Support Popup','Choose Topic','Open Chat','Resolved'],
   states:{empty:'No Past Chats', error:'Start Failed'},
   render(st, v='Choose Topic'){
+    if (v==='Support Popup'){
+      const bg = S.club_profile.render('populated','nopop');
+      const line = (icon, small, big, hl, onclick) => `<div ${onclick?`onclick="${onclick}"`:''} style="cursor:${onclick?'pointer':'default'};display:flex;align-items:center;gap:12px;background:var(--chip);border-radius:10px;padding:12px 14px;margin-bottom:8px;${hl?'outline:2px dashed #F59E0B;outline-offset:-2px;':''}">${ic(icon,22,'color:#687076')}<div><div style="font-size:12px;color:var(--text2)">${small}</div><div style="font-size:15px;color:var(--primary);font-weight:700">${big}</div></div></div>`;
+      if (st==='loading') return bg;
+      return bg + `<div class="ov mid"><div class="modal"><h3>Support</h3><p style="margin-bottom:12px">We're here to help</p>
+        ${line('chatbubbles-outline','New','Chat with SWP Support',true,"setVar('Choose Topic')")}
+        ${line('mail-outline','Email','support@shallweplay.com')}${line('call-outline','Call #1','+31 35 525 3422')}${line('call-outline','Call #2','+31 35 525 3423')}
+        <button class="btn n" style="margin-top:6px" onclick="go('club_profile')">Close</button></div></div>`;
+    }
     if (v==='Choose Topic'){
       const h = hdr('Help & Support', back('inbox'));
       if (st==='loading') return h + `<div class="body">${skRows(5)}</div>`;
-      if (st==='error') return h + errBlock('Couldn\'t Start Chat','Something went wrong. Try again, or email support@shallweplay.nl.');
+      if (st==='error') return h + errBlock('Couldn\'t Start Chat','Something went wrong. Try again, or email support@shallweplay.com.');
       const topics = [['card-outline','Bookings & payments'],['cash-outline','Refunds'],['person-outline','My account'],['business-outline','Problem with a club'],['help-circle-outline','Something else']];
       return h + `<div class="body"><div style="font-size:15px;color:var(--text2);padding:0 20px 12px">What do you need help with?</div>
         ${topics.map(([i,t])=>`<div class="row" style="cursor:pointer" onclick="setVar('Open Chat')"><div class="av" style="width:40px;height:40px;border-radius:8px;background:var(--primary-soft);color:var(--primary)">${ic(i,20)}</div><div class="info"><div class="nm" style="font-weight:400">${t}</div></div>${ic('chevron-forward',18,'color:#687076')}</div>`).join('')}
@@ -741,11 +791,21 @@ S.media_preview = {
 
 S.notifications = {
   flow:'Media & Alerts', title:'New Message Notifications',
-  variants:['Push','Email (Club → Player)'],
+  variants:['Bell list','Push','Email (Club → Player)'],
   states:{empty:'N/A', loading:'N/A', error:'Push Off'},
   render(st, v='Push'){
     if (st==='empty'||st==='loading') return naNote('Notifications are events, not screens with data. Only "Push Off" needs a design.');
     if (st==='error') return S.inbox.render('populated','All').replace('<div class="body">', `<div class="body">${ban('warn','notifications-off-outline','Notifications are off. Turn them on to know when someone replies. <a href="#" onclick="return false" style="color:var(--warn-text);font-weight:700">Turn On</a>')}<div style="height:10px"></div>`);
+    if (v==='Bell list') {
+      const card = (t, time, msg, unread) => `<div style="background:var(--card);border-radius:12px;padding:14px;margin:0 16px 10px;${unread?'border-left:4px solid var(--primary)':''}"><div style="display:flex;justify-content:space-between;gap:8px"><b style="font-size:14px">${t}</b><span style="font-size:12px;color:var(--text2);white-space:nowrap">${time}</span></div><div style="font-size:14px;color:var(--text);margin-top:6px;line-height:1.45">${msg}</div></div>`;
+      return `<div style="display:flex;align-items:center;padding:12px 16px;flex-shrink:0"><button class="back" onclick="go('home_entry')">${ic('caret-back',18)}</button><div style="flex:1;text-align:center;font:700 22px Montserrat">Notifications</div><div class="sp36"></div></div>
+        <div class="body"><div style="font:700 18px Montserrat;padding:6px 20px 10px">Unread</div>
+        ${card('New message from Emma de Vries','2 min ago','Are you free for padel on Sunday?',true)}
+        ${card('New message from Club de Padel Rotterdam','1 hour ago','Sophie: Court 4 is closed for maintenance on Friday…',true)}
+        <div style="font:700 18px Montserrat;padding:10px 20px">Read</div>
+        ${card('Booking Confirmed','1 day ago','Your booking at Club de Padel Rotterdam is confirmed! Court 4 is reserved for you from 18:00 to 19:30.')}
+        ${card('Booking Cancelled','13 days ago','your booking is cancelled successfully.')}</div>`;
+    }
     if (v==='Push') return `<div style="flex:1;background:linear-gradient(180deg,#5E7A96,#2B3E52);padding-top:30px">
         <div style="text-align:center;color:#fff;font:300 64px Lato">9:41</div><div style="text-align:center;color:#fff;font-size:15px;margin-bottom:24px">Thursday 26 November</div>
         <div class="push"><div class="app">${ic('chatbubbles',13)}</div><div style="flex:1"><div class="h"><span>SHALLWE-PLAY</span><span>now</span></div><b>Emma de Vries</b><p>Are you free for padel on Sunday?</p></div></div>
@@ -753,7 +813,7 @@ S.notifications = {
         <div class="push"><div class="app">${ic('chatbubbles',13)}</div><div style="flex:1"><div class="h"><span>SHALLWE-PLAY</span><span>1h ago</span></div><b>Club de Padel Rotterdam</b><p>Sophie: Court 4 is closed for maintenance on Friday…</p></div></div>
       </div>`;
     return `<div style="flex:1;overflow:auto;background:#E9EDF2">
-      <div class="email"><div class="eh"><b>From:</b> ShallWe-Play &lt;no-reply@shallweplay.nl&gt;<br><b>Subject:</b> Club de Padel Rotterdam sent you a message</div>
+      <div class="email"><div class="eh"><b>From:</b> ShallWe-Play &lt;info@shallwe-play.com&gt;<br><b>Subject:</b> Club de Padel Rotterdam sent you a message</div>
       <div class="eb"><div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><svg width="26" height="26" viewBox="0 0 34 34"><circle cx="11" cy="12" r="8" fill="none" stroke="#16A34A" stroke-width="3"/><circle cx="22" cy="12" r="8" fill="none" stroke="#007AFF" stroke-width="3"/><circle cx="16" cy="22" r="8" fill="none" stroke="#E63900" stroke-width="3"/></svg><b style="font:700 16px Montserrat">ShallWe-Play</b></div>
       Hi Alex,<br><br><b>Club de Padel Rotterdam</b> sent you a message:
       <div class="quote">Hi Alex, Court 4 is closed for maintenance on Friday. We moved your booking to Court 2, same time…</div>
@@ -763,7 +823,7 @@ S.notifications = {
   },
   notes:{
     purpose:'§3.1 Notifications + the §7 email rule for club ↔ player chats.',
-    rules:['<b>Push</b>: title = person, group or activity name. Body = "Sender: message" (sender only shown in groups). Photo → "📷 Photo", video → "🎥 Video".','Tapping a push opens that chat directly.','No push for your own messages or for chats with blocked users.','<b>Email</b>: only for club ↔ player chats (§7). The button deep-links to the chat. It shows a short preview, never attachments.','<b>Push Off</b>: a dismissible banner at the top of the inbox.'],
+    rules:['<b>Bell list</b>: the live Notifications screen (More › Notifications, or the bell on Home) is a list of cards with a bold title, "time ago" on the right and the message below. Chat messages appear here too. The live list shows only a <b>Read</b> heading in the test data, so the <b>Unread</b> heading is assumed.','<b>Push</b>: title = person, group or activity name. Body = "Sender: message" (sender only shown in groups). Photo → "📷 Photo", video → "🎥 Video".','Tapping a push opens that chat directly.','No push for your own messages or for chats with blocked users.','<b>Email</b>: only for club ↔ player chats (§7). The button deep-links to the chat. It shows a short preview, never attachments.','<b>Push Off</b>: a dismissible banner at the top of the inbox.'],
     pending:['Should chat messages also show in the in-app Notifications centre (More › Notifications), or only as push + the chat badge? Recommended: push + badge only, so the centre doesn\'t fill up with chat.','<b>Email frequency</b> See Club Chat. Assumed max 1 email per chat per hour.'],
     changed:['New screen.'],
     src:['Doc §3.1 Notifications, §7 last bullet','screens/More/Notification/Listing.tsx']
@@ -771,10 +831,11 @@ S.notifications = {
 };
 
 /* ---------------- nav / state ---------------- */
-const ORDER = ['home_entry','inbox','new_chat','direct_chat','chat_options','report','block','club_profile','club_chat','booking_chat','event_chat','lesson_chat','members','group_create','group_chat','support','media_preview','notifications'];
+const ORDER = ['home_entry','inbox','new_chat','player_profile','direct_chat','chat_options','report','block','club_profile','club_chat','booking_chat','event_chat','lesson_chat','members','group_create','group_chat','support','media_preview','notifications'];
 let cur = 'inbox', state = 'populated', vars = {};
 const STATES = [['populated','Populated'],['empty','Empty'],['loading','Loading'],['error','Error']];
 
+function setTheme(t){ document.querySelector('.ph').classList.toggle('dark', t==='dark'); document.querySelectorAll('#theme button').forEach((b,i)=>b.classList.toggle('on', (i===0)===(t==='dark'))); }
 function go(id){ if(!id||!S[id]) return; cur=id; state='populated'; draw(); }
 function setState(s){ state=s; draw(); }
 function setVar(v){ vars[cur]=v; draw(); }
@@ -791,7 +852,10 @@ function draw(){
   const v = vars[cur] || (sc.variants?sc.variants[0]:undefined);
   document.getElementById('variants').innerHTML = sc.variants ? sc.variants.map(x=>`<button class="${x===v?'on':''}" onclick="setVar('${x.replace(/'/g,"\\'")}')">${x}</button>`).join('') : '';
   // screen
-  document.getElementById('scr').innerHTML = sc.render(state, v);
+  const isNA = (sc.states||{})[state] === 'N/A';
+  document.getElementById('scr').innerHTML = sc.render(isNA ? 'populated' : state, v);
+  const naEl = document.getElementById('naNote'); if (naEl) { naEl.hidden = !isNA; naEl.textContent = isNA ? 'This screen has no ' + state + ' state, so the phone shows the normal screen. See the notes for why.' : ''; }
+  document.querySelectorAll('#scr .feed').forEach(f => { f.scrollTop = f.scrollHeight; });
   // notes
   const n = sc.notes;
   const stInfo = STATES.map(([k,l])=>{const o=(sc.states||{})[k]; return `${l}${o&&o!==l?` → <b>${o}</b>`:''}`}).join(' · ');
