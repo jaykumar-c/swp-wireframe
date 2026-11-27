@@ -28,6 +28,7 @@ iframe.on{display:block}
   <div class="brand"><svg width="26" height="26" viewBox="0 0 34 34"><circle cx="11" cy="12" r="8" fill="none" stroke="#16A34A" stroke-width="3"/><circle cx="22" cy="12" r="8" fill="none" stroke="#007AFF" stroke-width="3"/><circle cx="16" cy="22" r="8" fill="none" stroke="#E63900" stroke-width="3"/></svg><span>ShallWe-Play</span></div>
   <div class="tabs" role="tablist">
     <button class="tab" role="tab" data-t="chat" onclick="show('chat')">Communication Module <small>Player App · 19 screens</small></button>
+    <button class="tab" role="tab" data-t="club" onclick="show('club')">Club Portal Chat <small>Club Portal · 8 screens</small></button>
     <button class="tab" role="tab" data-t="email" onclick="show('email')">Email Templates <small>Admin Portal · 12 steps</small></button>
   </div>
   <div class="meta">Business Analysis · Mukund Patil<br>26 Nov 2026</div>
@@ -907,6 +908,707 @@ draw();
 &lt;/body&gt;
 &lt;/html&gt;
 "></iframe>
+<iframe id="f-club" title="Club side communication wireframes" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+&lt;title&gt;SWP Club Communication&lt;/title&gt;
+&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
+&lt;link href=&quot;https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;script type=&quot;module&quot; src=&quot;https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js&quot;&gt;&lt;/script&gt;
+&lt;style&gt;
+/* Tokens captured from test.admin.shallwe-play.com (computed styles) + wireframe-rules.md */
+:root{
+  --primary:#007AFF; --primary-soft:rgba(0,122,255,.08); --primary-line:#CFE4FF;
+  --canvas:#F5F5F9; --card:#FFFFFF; --ink:#1C1C1C; --text:rgba(50,71,92,.87); --muted:rgba(50,71,92,.6);
+  --line:#E5E7EB; --outline:rgba(50,71,92,.22); --neutral-line:#D0D5DD;
+  --ok:#228B22; --ok-bg:rgba(34,139,34,.08); --warn:#B7791F; --warn-bg:rgba(255,193,7,.12);
+  --err:#E63900; --err-bg:rgba(230,57,0,.08); --destroy:#FF3E1D; --grey-bg:rgba(50,71,92,.08);
+  --shadow:0 2px 10px rgba(50,71,92,.1);
+  --pend:#92400E; --pend-bg:#FEF3C7;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Montserrat,system-ui,sans-serif;background:#E9ECF1;color:var(--ink)}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,textarea,select{font:inherit}
+code{font-family:ui-monospace,Menlo,monospace;font-size:.92em;background:#EEF2F7;padding:1px 4px;border-radius:4px}
+
+/* ===== Page chrome (not part of the product) ===== */
+.ptop{background:#fff;border-bottom:1px solid var(--line);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.ptop h1{font-size:18px;font-weight:700}
+.ptop p{font-size:13px;color:var(--muted);margin-top:2px}
+.ptop .meta{font-size:12px;color:var(--muted);text-align:right;line-height:1.6}
+.flowbar{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line);padding:10px 24px;display:flex;align-items:center;gap:6px;overflow-x:auto;scrollbar-width:thin}
+.fstep{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:8px;white-space:nowrap;font-size:13px;color:var(--muted);flex-shrink:0}
+.fstep .num{width:24px;height:24px;border-radius:12px;background:#EEF2F7;color:var(--text);font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center}
+.fstep:hover{background:#F5F7FA}
+.fstep.on{background:var(--primary-soft);color:var(--primary);font-weight:700}
+.fstep.on .num{background:var(--primary);color:#fff}
+.fstep.done .num{background:#DCEBFF;color:var(--primary)}
+.fsep{color:#C3CAD4;flex-shrink:0;font-size:14px}
+.fgrp{font-size:10px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:#fff;background:#32475C;border-radius:4px;padding:3px 6px;flex-shrink:0;margin-left:6px}
+.ctl{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 24px 10px;flex-wrap:wrap;max-width:1340px;margin:0 auto}
+.ctl h2{font-size:18px;font-weight:700}
+.ctl h2 span{color:var(--primary)}
+.ctl .r{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.seg{display:flex;background:#fff;border:1px solid var(--line);border-radius:8px;padding:3px;gap:2px}
+.seg button{padding:6px 12px;border-radius:6px;font-size:13px;font-weight:600;color:var(--muted)}
+.seg button.on{background:var(--primary);color:#fff}
+.seg button.na{opacity:.4}
+.nav2 button{padding:7px 12px;border-radius:6px;border:1px solid var(--neutral-line);background:#fff;font-size:13px;font-weight:600;display:flex;gap:4px;align-items:center}
+.nav2{display:flex;gap:6px}
+.nav2 button:disabled{opacity:.4;cursor:default}
+.stagewrap{max-width:1340px;margin:0 auto;padding:0 24px}
+.stage{overflow:hidden;border-radius:12px;box-shadow:0 10px 40px rgba(17,24,28,.15);background:#fff}
+.browser{height:38px;background:#F1F3F6;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;padding:0 14px}
+.browser .dots{display:flex;gap:6px}.browser .dots i{width:11px;height:11px;border-radius:6px;background:#D5DAE1;display:block}
+.browser .url{flex:1;max-width:560px;height:24px;border-radius:6px;background:#fff;border:1px solid var(--line);font-size:12px;color:var(--muted);display:flex;align-items:center;padding:0 10px;gap:6px}
+.fit{width:1280px;transform-origin:top left}
+.notes{max-width:1340px;margin:18px auto 40px;padding:0 24px;display:grid;grid-template-columns:1.1fr 1.3fr 1fr;gap:16px}
+.ncard{background:#fff;border:1px solid var(--line);border-radius:8px;padding:16px}
+.ncard h5{font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.ncard p,.ncard li{font-size:13.5px;line-height:1.55;color:#334155}
+.ncard ul{padding-left:18px;display:flex;flex-direction:column;gap:4px}
+.ncard .pend{background:var(--pend-bg);color:var(--pend);border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.45;margin-bottom:6px}
+.ncard .dev{background:#EEF2F7;border-radius:6px;padding:8px 10px;font-size:13px;line-height:1.45;margin-bottom:6px;color:#334155}
+.ncard .stt{font-size:13px;line-height:1.6}
+.ncard .stt b{color:var(--ink)}
+@media (max-width:1000px){.notes{grid-template-columns:1fr}}
+
+/* ===== Admin portal shell ===== */
+.app{display:flex;min-height:820px;background:var(--canvas);position:relative;font-family:Montserrat,sans-serif;color:var(--text)}
+.side{width:232px;flex-shrink:0;background:#fff;padding:14px 10px;border-right:1px solid #EEF0F3}
+.logo{display:flex;align-items:center;gap:8px;padding:4px 10px 18px;font-weight:700;font-size:19px;color:var(--ink)}
+.mi{display:flex;align-items:center;gap:10px;height:40px;padding:0 12px;border-radius:6px;font-size:14px;color:var(--text)}
+.mi ion-icon{font-size:18px;color:var(--muted)}
+.mi .chev{margin-left:auto;font-size:14px}
+.mi.open{background:var(--primary-soft);color:var(--primary);font-weight:600}
+.mi.open ion-icon{color:var(--primary)}
+.sub{display:flex;align-items:center;gap:10px;height:34px;padding:0 12px 0 22px;font-size:13px;color:var(--muted)}
+.sub ion-icon{font-size:15px}
+.sub.on{color:var(--ink);font-weight:700}
+.sub.on ion-icon{color:var(--primary)}
+.newtag{font-size:9px;font-weight:700;color:#fff;background:var(--primary);border-radius:4px;padding:1px 5px;margin-left:auto}
+.main{flex:1;min-width:0;padding:14px 20px 28px}
+.topbar{height:52px;background:#fff;border-radius:8px;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:flex-end;padding:0 16px;gap:14px;margin-bottom:22px}
+.me{width:34px;height:34px;border-radius:17px;background:#32475C;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.ph{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px}
+.ph h3{font-size:24px;font-weight:700;color:var(--ink)}
+.ph p{font-size:14px;color:var(--muted);margin-top:4px}
+.crumb{background:#fff;border-radius:8px;box-shadow:var(--shadow);height:48px;display:flex;align-items:center;gap:8px;padding:0 16px;font-size:14px;color:var(--muted);margin-bottom:16px}
+.crumb b{color:var(--primary);font-weight:600}
+.card{background:#fff;border-radius:8px;box-shadow:var(--shadow)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:18px}
+.kpi{padding:16px 18px;display:flex;gap:14px;align-items:center}
+.kpi .ki{width:40px;height:40px;border-radius:8px;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:20px}
+.kpi .kl{font-size:14px;font-weight:600;color:var(--ink)}
+.kpi .kv{font-size:22px;font-weight:700;color:var(--ink);margin-top:2px}
+.filters{display:flex;gap:12px;padding:16px;align-items:center;flex-wrap:wrap}
+.srch{display:flex;align-items:center;gap:8px;height:40px;width:260px;border:1px solid var(--outline);border-radius:6px;padding:0 12px;font-size:14px;color:var(--muted)}
+.sel{position:relative;height:40px;min-width:170px;border:1px solid var(--outline);border-radius:6px;padding:0 12px;display:flex;align-items:center;justify-content:space-between;font-size:14px;color:var(--text)}
+.sel label{position:absolute;top:-8px;left:9px;background:#fff;padding:0 4px;font-size:11px;color:var(--muted)}
+table{width:100%;border-collapse:collapse}
+th{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;color:var(--text);text-align:left;padding:12px 16px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff}
+td{font-size:14px;color:var(--muted);padding:12px 16px;border-bottom:1px solid #F0F2F5;vertical-align:middle}
+td .tn{color:var(--ink);font-weight:600;display:flex;align-items:center;gap:6px}
+td .tk{font-size:12px;color:var(--muted);font-family:ui-monospace,Menlo,monospace;margin-top:2px}
+tr.hl td{background:#F7FBFF}
+.pill{display:inline-flex;align-items:center;gap:4px;height:24px;padding:0 10px;border-radius:6px;font-size:13px;font-weight:500;white-space:nowrap}
+.pill.ok{background:var(--ok-bg);color:var(--ok)}
+.pill.draft{background:var(--warn-bg);color:var(--warn)}
+.pill.off{background:var(--grey-bg);color:var(--muted)}
+.pill.new{background:var(--primary-soft);color:var(--primary)}
+.pill.err{background:var(--err-bg);color:var(--err)}
+.lang{display:inline-flex;gap:4px}
+.lang span{font-size:11px;font-weight:700;border-radius:4px;padding:2px 5px;background:var(--ok-bg);color:var(--ok)}
+.lang span.miss{background:var(--err-bg);color:var(--err)}
+.pager{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;font-size:13px;color:var(--muted)}
+.pager .pg{display:flex;gap:4px}
+.pager .pg span{width:28px;height:28px;border-radius:6px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+.pager .pg span.on{background:var(--primary);color:#fff;border-color:var(--primary)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:40px;padding:0 18px;border-radius:6px;font-size:14px;font-weight:600;white-space:nowrap}
+.btn.p{background:var(--primary);color:#fff;box-shadow:0 2px 4px rgba(0,122,255,.4)}
+.btn.p.off{background:#BDBDBD;box-shadow:none}
+.btn.n{background:#fff;border:1px solid var(--neutral-line);color:var(--ink)}
+.btn.d{background:var(--destroy);color:#fff}
+.btn.t{color:var(--primary);padding:0 8px}
+.btn.sm{height:32px;padding:0 12px;font-size:13px}
+.act{width:32px;height:32px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;color:var(--muted);font-size:18px}
+.sk{background:#E8EBEF;border-radius:6px;animation:pl 1.2s infinite}
+@keyframes pl{50%{opacity:.5}}
+.empty{padding:56px 20px;text-align:center}
+.empty .ei{width:72px;height:72px;border-radius:36px;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 12px}
+.empty .ei.red{background:var(--err-bg);color:var(--err)}
+.empty h4{font-size:18px;font-weight:600;color:var(--ink)}
+.empty p{font-size:14px;color:var(--muted);margin:6px auto 16px;max-width:420px;line-height:1.5}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.ch{height:50px;background:#EBF5FF;border-radius:8px 8px 0 0;display:flex;align-items:center;justify-content:space-between;padding:0 16px;font-size:15px;font-weight:600;color:var(--ink)}
+.cb{padding:16px}
+.kv{display:grid;grid-template-columns:150px 1fr;gap:10px 14px;font-size:14px}
+.kv dt{color:var(--muted)}
+.kv dd{color:var(--ink)}
+.notch{position:relative;border:1px solid var(--outline);border-radius:4px;min-height:52px;padding:14px 12px 10px;font-size:14px;color:var(--ink);margin-top:10px}
+.notch label{position:absolute;top:-9px;left:9px;background:#fff;padding:0 4px;font-size:12px;color:var(--muted)}
+.notch.foc{border-color:var(--primary);box-shadow:0 1px 3px rgba(0,122,255,.4)}
+.notch.foc label{color:var(--primary)}
+.notch.bad{border-color:var(--err)}
+.notch.bad label{color:var(--err)}
+.ph-t{color:rgba(28,28,28,.38)}
+.hint{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin:4px 2px 0}
+.hint.bad{color:var(--err)}
+.tabsx{display:flex;gap:2px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.tabsx button{padding:10px 16px;font-size:14px;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px;display:flex;gap:6px;align-items:center}
+.tabsx button.on{color:var(--primary);border-color:var(--primary)}
+.tabsx .dot{width:7px;height:7px;border-radius:4px;background:var(--err)}
+.toolbar{display:flex;flex-wrap:wrap;gap:4px;align-items:center;border:1px solid var(--line);border-bottom:none;border-radius:4px 4px 0 0;padding:6px;background:#FAFBFC}
+.toolbar .tb{min-width:28px;height:28px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#334155;background:#fff;border:1px solid var(--line);padding:0 6px;font-size:13px;font-weight:700}
+.toolbar .sp{width:1px;height:20px;background:var(--line);margin:0 4px}
+.toolbar .var{margin-left:auto;background:var(--primary-soft);color:var(--primary);border-color:var(--primary-line)}
+.editor{border:1px solid var(--line);border-radius:0 0 4px 4px;min-height:300px;padding:14px 16px;font-size:14px;line-height:1.7;color:var(--ink)}
+.editor.bad{border-color:var(--err)}
+.editor ul{padding-left:20px}
+.v{display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:4px;background:var(--primary-soft);color:var(--primary);font-size:12.5px;font-weight:600;font-family:ui-monospace,Menlo,monospace;border:1px solid var(--primary-line)}
+.v.bad{background:var(--err-bg);color:var(--err);border-color:#F6B8A6;text-decoration:wavy underline}
+.lockbar{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);background:#F7F8FA;border:1px dashed #CBD2DB;border-radius:4px;padding:8px 10px;margin:8px 0}
+.prevwrap{background:#EEF1F5;border-radius:8px;padding:16px;min-height:560px}
+.prevbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.mail{background:#fff;border-radius:6px;overflow:hidden;margin:0 auto;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.mail .mh{padding:18px;text-align:center;border-bottom:1px solid #F0F2F5;position:relative}
+.mail .mb{padding:20px 22px;font-size:14px;line-height:1.65;color:#2B3440}
+.mail .mb h2{font-size:20px;color:var(--ink);margin-bottom:10px;line-height:1.3}
+.mail .mf{padding:14px 18px;background:#F7F8FA;font-size:11.5px;color:var(--muted);text-align:center;line-height:1.6;position:relative}
+.lockico{position:absolute;top:6px;right:8px;font-size:12px;color:#9AA5B1}
+.feat{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-bottom:1px solid #F2F4F7}
+.feat:last-child{border-bottom:none}
+.feat .fi{width:34px;height:34px;border-radius:8px;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.feat b{display:block;color:var(--ink);font-size:14px}
+.feat span{font-size:13px;color:var(--muted)}
+.mcta{display:inline-block;background:var(--primary);color:#fff;border-radius:6px;padding:11px 22px;font-weight:700;font-size:14px;margin:12px 0 4px}
+.ov{position:absolute;inset:0;background:rgba(28,28,28,.45);z-index:20;display:flex}
+.ov.c{align-items:center;justify-content:center}
+.ov.r{justify-content:flex-end}
+.modal{width:460px;background:#fff;border-radius:8px;box-shadow:0 10px 40px rgba(0,0,0,.2)}
+.modal .mhd{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line);font-size:18px;font-weight:600;color:var(--ink)}
+.modal .mbd{padding:18px 20px;font-size:14px;line-height:1.6;color:var(--text)}
+.modal .mft{display:flex;justify-content:flex-end;gap:10px;padding:14px 20px;border-top:1px solid var(--line)}
+.drawer{width:440px;height:100%;background:#fff;box-shadow:-8px 0 30px rgba(0,0,0,.15);display:flex;flex-direction:column}
+.drawer .mhd{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--line);font-size:18px;font-weight:600;color:var(--ink)}
+.ver{display:flex;gap:12px;padding:14px 20px;border-bottom:1px solid #F0F2F5}
+.ver .vd{width:10px;height:10px;border-radius:5px;background:#C3CAD4;margin-top:6px;flex-shrink:0}
+.ver.cur .vd{background:var(--ok)}
+.ver.drf .vd{background:var(--warn)}
+.ver b{color:var(--ink);font-size:14px}
+.ver .vm{font-size:13px;color:var(--muted);margin-top:2px}
+.ver .va{margin-left:auto;display:flex;gap:4px;align-self:center}
+.popover{position:absolute;width:340px;background:#fff;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.18);border:1px solid var(--line);z-index:15}
+.popover .pt{padding:12px 14px;border-bottom:1px solid var(--line)}
+.vrow{display:flex;justify-content:space-between;gap:10px;padding:9px 14px;font-size:13px;border-bottom:1px solid #F4F5F7;cursor:pointer}
+.vrow:hover{background:#F7FBFF}
+.vrow .vdsc{color:var(--muted);font-size:12px;margin-top:2px}
+.vrow .vsam{color:var(--muted);font-size:12px;white-space:nowrap}
+.toast{position:absolute;top:80px;right:24px;z-index:30;background:#fff;border-left:4px solid var(--ok);border-radius:6px;box-shadow:0 6px 20px rgba(0,0,0,.15);padding:12px 16px;font-size:14px;color:var(--ink);display:flex;gap:8px;align-items:center}
+.sw{width:27px;height:16px;border-radius:16px;background:#D5DAE1;position:relative;display:inline-block;vertical-align:middle;flex-shrink:0}
+.sw::after{content:&#x27;&#x27;;position:absolute;top:4px;left:3px;width:8px;height:8px;border-radius:4px;background:#374151}
+.sw.on{background:var(--primary)}
+.sw.on::after{left:16px;background:#fff}
+.rule{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid #F0F2F5;font-size:14px;color:var(--ink)}
+.rule .rl{flex:1}
+.rule .rl small{display:block;color:var(--muted);font-size:12.5px;margin-top:2px}
+.numin{width:110px;height:40px;border:1px solid var(--outline);border-radius:4px;display:flex;align-items:center;justify-content:space-between;padding:0 10px;font-size:14px;color:var(--ink)}
+.numin.bad{border-color:var(--err)}
+.summary{background:#EBF5FF;border-radius:8px;padding:12px 14px;font-size:14px;line-height:1.6;color:var(--ink);display:flex;gap:10px}
+.perm td{text-align:center}
+.perm td:first-child{text-align:left;color:var(--ink)}
+.cbx{width:18px;height:18px;border-radius:4px;background:var(--primary);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:13px}
+.cbx.off{background:#fff;border:2px solid #C3CAD4}
+.flowmap{display:flex;flex-direction:column;gap:22px}
+.lane h4{font-size:12px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.lanerow{display:flex;align-items:stretch;gap:8px;flex-wrap:wrap}
+.box{background:#fff;border:1px solid var(--line);border-radius:8px;padding:10px 12px;width:150px;font-size:13px;color:var(--ink);box-shadow:var(--shadow);cursor:pointer}
+.box:hover{border-color:var(--primary)}
+.box b{display:block;font-size:11px;color:var(--primary);margin-bottom:3px}
+.box.sys{background:#F7F8FA;border-style:dashed;cursor:default}
+.box.dec{background:#FFF9E6;border-color:#F3D27A;cursor:default}
+.arr{align-self:center;color:#9AA5B1;font-size:18px}
+.fcards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
+.fc{background:#fff;border-radius:8px;box-shadow:var(--shadow);padding:14px}
+.fc .fh{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.fc b{font-size:14px;color:var(--ink)}
+.fc p{font-size:13px;color:var(--muted);line-height:1.5}
+.mailclient{display:grid;grid-template-columns:260px 1fr;min-height:820px;background:#fff;font-family:Montserrat,sans-serif}
+.mlist{border-right:1px solid var(--line);background:#FAFBFC}
+.mitem{padding:12px 14px;border-bottom:1px solid var(--line);font-size:13px}
+.mitem.on{background:#EBF5FF}
+.mitem b{display:block;color:var(--ink)}
+.mitem span{color:var(--muted)}
+.mread{background:#EEF1F5;padding:24px;overflow:auto}
+.nrow{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #F2F4F7;text-align:left}
+.nrow .ni{width:32px;height:32px;border-radius:16px;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.nrow b{display:block;font-size:13.5px;color:var(--ink)}
+.nrow span{font-size:12.5px;color:var(--muted)}
+/* ===== Club portal shell (matched to test.app.shallwe-play.com: 72px white header, grey nav, #F5F5F9 canvas) ===== */
+.cp{background:var(--canvas);min-height:820px;position:relative;font-family:Montserrat,sans-serif;color:var(--text)}
+.cp-head{height:72px;background:rgba(255,255,255,.95);box-shadow:var(--shadow);display:flex;align-items:center;padding:0 28px;gap:36px}
+.cp-brand{display:flex;align-items:center;gap:10px;font:700 12px Montserrat;color:var(--ink);white-space:nowrap}
+.cp-logo{width:30px;height:30px;border-radius:15px;background:#1F6B3A;color:#fff;display:flex;align-items:center;justify-content:center;font:700 13px Montserrat}
+.cp-nav{display:flex;gap:30px;margin:0 auto;align-items:center}
+.cp-nav a{font:500 14px Montserrat;color:#919191;display:flex;gap:7px;align-items:center;position:relative;padding:6px 8px;border-radius:6px}
+.cp-nav a.on{color:var(--primary)}
+.cp-nav a ion-icon{font-size:16px}
+.cp-nav a.new{outline:2px dashed #F59E0B;outline-offset:2px}
+.cp-badge{min-width:18px;height:18px;border-radius:9px;background:#FF3E1D;color:#fff;font:700 11px Montserrat;display:inline-flex;align-items:center;justify-content:center;padding:0 5px}
+.cp-right{display:flex;align-items:center;gap:18px;color:var(--text)}
+.cp-right .bell{position:relative;font-size:22px;display:flex;color:var(--primary)}
+.cp-right .bell .cp-badge{position:absolute;top:-8px;right:-10px}
+.cp-av{width:34px;height:34px;border-radius:17px;background:#1F6B3A;color:#fff;font:700 13px Montserrat;display:flex;align-items:center;justify-content:center}
+.cp-page{padding:22px 40px 36px}
+.cp-ph{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:16px}
+.cp-ph h3{font:500 20px Montserrat;color:var(--ink)}
+.cp-ph p{font-size:13px;color:var(--muted);margin-top:4px}
+.btn.p2{background:var(--primary);color:#fff}
+/* Messages workspace */
+.ws{display:grid;grid-template-columns:330px 1fr 300px;height:640px;background:#fff;border-radius:8px;box-shadow:var(--shadow);overflow:hidden}
+.ws.two{grid-template-columns:330px 1fr}
+.ws-l{border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
+.ws-c{display:flex;flex-direction:column;min-height:0;min-width:0;position:relative}
+.ws-r{border-left:1px solid var(--line);padding:18px;overflow:auto}
+.ws-tabs{display:flex;border-bottom:1px solid var(--line)}
+.ws-tabs button{flex:1;padding:14px 8px;font:600 13px Montserrat;color:var(--muted);border-bottom:2px solid transparent;display:flex;gap:6px;align-items:center;justify-content:center}
+.ws-tabs button.on{color:var(--primary);border-color:var(--primary)}
+.ws-search{margin:12px 14px 8px;height:38px;border:1px solid var(--outline);border-radius:6px;display:flex;align-items:center;gap:8px;padding:0 10px;font-size:13px;color:var(--muted)}
+.ws-chips{display:flex;gap:6px;padding:0 14px 10px}
+.ws-chips span{font:600 12px Montserrat;padding:5px 10px;border-radius:99px;background:#EEF2F7;color:var(--muted)}
+.ws-chips span.on{background:var(--primary-soft);color:var(--primary)}
+.ws-list{overflow:auto;flex:1}
+.cv{display:flex;gap:10px;padding:12px 14px;border-top:1px solid #F0F2F5;align-items:flex-start;cursor:pointer}
+.cv.on{background:#EBF5FF}
+.cv .av{width:40px;height:40px;border-radius:20px;color:#fff;font:700 14px Montserrat;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cv .t1{display:flex;justify-content:space-between;gap:6px}
+.cv .nm{font:600 14px Montserrat;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cv .tm{font-size:12px;color:var(--muted);white-space:nowrap}
+.cv .pv{font-size:13px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px}
+.cv .pv.b{color:var(--ink);font-weight:600}
+.cv .t3{display:flex;gap:6px;align-items:center;margin-top:5px;flex-wrap:wrap}
+.mini{font:600 11px Montserrat;padding:3px 7px;border-radius:5px;background:#EEF2F7;color:var(--muted);white-space:nowrap}
+.mini.u{background:rgba(255,193,7,.16);color:#B7791F}
+.mini.me{background:var(--primary-soft);color:var(--primary)}
+.ch2{height:64px;display:flex;align-items:center;gap:12px;padding:0 18px;border-bottom:1px solid var(--line);flex-shrink:0}
+.ch2 .av{width:40px;height:40px;border-radius:20px;color:#fff;font:700 14px Montserrat;display:flex;align-items:center;justify-content:center}
+.ch2 .nm{font:600 15px Montserrat;color:var(--ink)}
+.ch2 .sb{font-size:12px;color:var(--muted);margin-top:1px}
+.assign{margin-left:auto;display:flex;align-items:center;gap:6px;border:1px solid var(--neutral-line);border-radius:6px;padding:7px 10px;font:600 12px Montserrat;color:var(--ink);background:#fff}
+.thread{flex:1;overflow:auto;padding:16px 22px;background:#F8F9FB;display:flex;flex-direction:column;gap:8px}
+.bb{max-width:68%;padding:10px 13px;border-radius:14px;font-size:14px;line-height:1.5}
+.bb.in{align-self:flex-start;background:#fff;border:1px solid var(--line);border-bottom-left-radius:4px}
+.bb.out{align-self:flex-end;background:var(--primary);color:#fff;border-bottom-right-radius:4px}
+.bb.out.fail{background:#8FBFFF}
+.bm{font-size:11.5px;color:var(--muted);margin:2px 4px 0}
+.bm.r{text-align:right}
+.bm.err{color:var(--err);font-weight:700;display:flex;gap:4px;align-items:center;justify-content:flex-end}
+.snd{font:600 11.5px Montserrat;color:var(--muted);margin:0 4px 2px}
+.snd .mini{margin-left:4px}
+.sysl{align-self:center;font-size:12px;color:var(--muted);background:#EAECEF;border-radius:99px;padding:5px 12px;text-align:center;max-width:80%}
+.dtl{align-self:center;font:600 12px Montserrat;color:var(--muted);padding:4px 0}
+.composer{display:flex;gap:10px;align-items:center;padding:12px 18px;border-top:1px solid var(--line);flex-shrink:0;background:#fff}
+.composer .box{flex:1;height:42px;border:1px solid var(--outline);border-radius:21px;padding:0 16px;display:flex;align-items:center;font-size:14px;color:rgba(28,28,28,.4)}
+.composer .send{width:42px;height:42px;border-radius:21px;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px}
+.composer .send.off{background:#BDBDBD}
+.composer .att{font-size:24px;color:var(--muted);display:flex}
+.ctxbar{display:flex;gap:10px;align-items:center;padding:9px 18px;font-size:13px;flex-shrink:0}
+.ctxbar.info{background:#EBF5FF;color:var(--ink)}
+.ctxbar.warn{background:#FFF4D6;color:#92400E}
+.ctxbar.err{background:var(--err-bg);color:var(--err)}
+.ws-r h6{font:600 11px Montserrat;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:16px 0 8px}
+.ws-r h6:first-child{margin-top:0}
+.pcard{background:#F7F9FC;border:1px solid var(--line);border-radius:8px;padding:12px;font-size:13px;color:var(--text);line-height:1.6}
+.pcard b{color:var(--ink)}
+.menu{position:absolute;background:#fff;border-radius:8px;box-shadow:0 8px 28px rgba(50,71,92,.22);border:1px solid var(--line);z-index:12;padding:6px 0;min-width:230px}
+.menu .mi2{display:flex;gap:10px;align-items:center;padding:10px 14px;font-size:14px;color:var(--ink)}
+.menu .mi2 small{display:block;font-size:12px;color:var(--muted)}
+.menu .mi2.red{color:var(--err)}
+.menu .mi2.sel{background:#EBF5FF}
+.menu .sepl{height:1px;background:var(--line);margin:4px 0}
+.cpmodal{width:520px;background:#fff;border-radius:8px;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+.cpmodal .mh{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line);font:500 18px Montserrat;color:var(--ink)}
+.cpmodal .mb{padding:16px 20px}
+.cpmodal .mf{display:flex;justify-content:flex-end;gap:10px;padding:14px 20px;border-top:1px solid var(--line)}
+.pick{display:flex;gap:10px;align-items:center;padding:9px 10px;border-radius:6px;border:1px solid transparent}
+.pick.on{background:#EBF5FF;border-color:#BFDBFE}
+.pick .av{width:34px;height:34px;border-radius:17px;color:#fff;font:700 12px Montserrat;display:flex;align-items:center;justify-content:center}
+.pick small{display:block;font-size:12px;color:var(--muted)}
+.chkb{margin-left:auto;width:20px;height:20px;border-radius:4px;border:2px solid #C3CAD4;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px}
+.chkb.on{background:var(--primary);border-color:var(--primary)}
+.rad{display:flex;gap:12px;align-items:flex-start;padding:14px;border:1px solid var(--line);border-radius:8px;margin-bottom:10px}
+.rad.on{border-color:var(--primary);background:#F5FAFF}
+.rad i{width:18px;height:18px;border-radius:9px;border:2px solid #C3CAD4;flex-shrink:0;margin-top:2px}
+.rad.on i{border:5px solid var(--primary)}
+.rad b{display:block;color:var(--ink);font-size:14px}
+.rad span{font-size:13px;color:var(--muted);line-height:1.5}
+.ncard2{border-radius:8px;padding:16px;margin-bottom:12px;box-shadow:0 4px 4px rgba(0,0,0,.25);background:#fff}
+.ncard2.unread{background:#EBF5FF}
+.ncard2 .h{display:flex;justify-content:space-between;font:600 13px Montserrat;color:var(--ink)}
+.ncard2 .h span{font-weight:400;color:var(--muted);font-size:12px}
+.ncard2 .b{display:flex;gap:10px;align-items:center;margin-top:10px;font-size:13px}
+.ncard2 .ab{width:24px;height:24px;border-radius:5px;background:#fff;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--muted)}
+.swl{width:27px;height:16px;border-radius:16px;background:#D5DAE1;position:relative;display:inline-block;flex-shrink:0}
+.swl::after{content:&#x27;&#x27;;position:absolute;top:4px;left:3px;width:8px;height:8px;border-radius:4px;background:#374151}
+.swl.on{background:var(--primary)}.swl.on::after{left:16px;background:#fff}
+.hlbox{outline:2px dashed #F59E0B;outline-offset:2px;border-radius:6px}
+
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div class=&quot;ptop&quot;&gt;
+  &lt;div&gt;
+    &lt;h1&gt;Club Side Communication · Club Portal Wireframes&lt;/h1&gt;
+    &lt;p&gt;Club portal (&lt;code&gt;shallwe-play-webapp&lt;/code&gt;) · Scope: club chats with players, and internal chat between staff&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;meta&quot;&gt;v1 · 27 Nov 2026&lt;br&gt;Matched to live test.app.shallwe-play.com&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;flowbar&quot; id=&quot;flowbar&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;ctl&quot;&gt;
+  &lt;h2 id=&quot;stitle&quot;&gt;&lt;/h2&gt;
+  &lt;div class=&quot;r&quot;&gt;
+    &lt;div class=&quot;seg&quot; id=&quot;vars&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;seg&quot; id=&quot;states&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;nav2&quot;&gt;&lt;button id=&quot;prev&quot; onclick=&quot;step(-1)&quot;&gt;&lt;ion-icon name=&quot;chevron-back&quot;&gt;&lt;/ion-icon&gt;Back&lt;/button&gt;&lt;button id=&quot;next&quot; onclick=&quot;step(1)&quot;&gt;Next&lt;ion-icon name=&quot;chevron-forward&quot;&gt;&lt;/ion-icon&gt;&lt;/button&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&quot;naNote&quot; hidden style=&quot;max-width:1340px;margin:0 auto 8px;padding:8px 12px;font-size:13px;color:#92400E;background:#FEF3C7;border-radius:6px&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;stagewrap&quot;&gt;&lt;div class=&quot;stage&quot; id=&quot;stage&quot;&gt;
+  &lt;div class=&quot;browser&quot;&gt;&lt;div class=&quot;dots&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;i&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;url&quot;&gt;&lt;ion-icon name=&quot;lock-closed&quot;&gt;&lt;/ion-icon&gt;&lt;span id=&quot;url&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;
+  &lt;div id=&quot;fitwrap&quot; style=&quot;overflow:hidden&quot;&gt;&lt;div class=&quot;fit&quot; id=&quot;fit&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/div&gt;&lt;/div&gt;
+&lt;div class=&quot;notes&quot; id=&quot;notes&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+/* ============ helpers ============ */
+const ic=(n,s,st=&#x27;&#x27;)=&gt;`&lt;ion-icon name=&quot;${n}&quot; style=&quot;${s?`font-size:${s}px;`:&#x27;&#x27;}${st}&quot;&gt;&lt;/ion-icon&gt;`;
+const pill=(t,k=&#x27;ok&#x27;)=&gt;`&lt;span class=&quot;pill ${k}&quot;&gt;${t}&lt;/span&gt;`;
+const sk=(w,h=14,mt=0)=&gt;`&lt;div class=&quot;sk&quot; style=&quot;width:${w};height:${h}px;margin-top:${mt}px&quot;&gt;&lt;/div&gt;`;
+const emptyBox=(icon,title,text,btn,red)=&gt;`&lt;div class=&quot;empty&quot;&gt;&lt;div class=&quot;ei ${red?&#x27;red&#x27;:&#x27;&#x27;}&quot;&gt;${ic(icon)}&lt;/div&gt;&lt;h4&gt;${title}&lt;/h4&gt;&lt;p&gt;${text}&lt;/p&gt;${btn||&#x27;&#x27;}&lt;/div&gt;`;
+const errBox=(t)=&gt;emptyBox(&#x27;cloud-offline-outline&#x27;,t||&#x27;Couldn’t Load Messages&#x27;,&#x27;Something went wrong on our side. Check your connection and try again.&#x27;,`&lt;button class=&quot;btn n&quot;&gt;${ic(&#x27;refresh&#x27;,16)} Try Again&lt;/button&gt;`,true);
+const COL={E:&#x27;#E67E22&#x27;,S:&#x27;#3B82F6&#x27;,J:&#x27;#16A34A&#x27;,T:&#x27;#DB2777&#x27;,P:&#x27;#8B5CF6&#x27;,A:&#x27;#0D9488&#x27;,L:&#x27;#64748B&#x27;,M:&#x27;#0EA5E9&#x27;};
+const av=(n,s=40,bg)=&gt;`&lt;div style=&quot;width:${s}px;height:${s}px;border-radius:${s/2}px;background:${bg||COL[n[0]]||&#x27;#007AFF&#x27;};color:#fff;font:700 ${Math.round(s*.34)}px Montserrat;display:flex;align-items:center;justify-content:center;flex-shrink:0&quot;&gt;${n[0]}&lt;/div&gt;`;
+
+/* ============ portal shell ============ */
+function shell(content,o={}){
+  const items=[[&#x27;calendar-outline&#x27;,&#x27;Booking&#x27;],[&#x27;people-outline&#x27;,&#x27;Membership&#x27;],[&#x27;cash-outline&#x27;,&#x27;Finance&#x27;],[&#x27;settings-outline&#x27;,&#x27;Settings&#x27;],[&#x27;star-outline&#x27;,&#x27;Review&#x27;],[&#x27;chatbubbles-outline&#x27;,&#x27;Messages&#x27;]];
+  const act=o.active||&#x27;Messages&#x27;, un=o.unread===undefined?4:o.unread;
+  return `&lt;div class=&quot;cp&quot;&gt;&lt;header class=&quot;cp-head&quot;&gt;&lt;div class=&quot;cp-brand&quot;&gt;&lt;div class=&quot;cp-logo&quot;&gt;R&lt;/div&gt;Riverdale Golf &amp;amp; Country Club&lt;/div&gt;
+    &lt;nav class=&quot;cp-nav&quot;&gt;${items.map(([i,t])=&gt;`&lt;a class=&quot;${t===act?&#x27;on&#x27;:&#x27;&#x27;} ${t===&#x27;Messages&#x27;?&#x27;new&#x27;:&#x27;&#x27;}&quot;&gt;${ic(i)}${t}${t===&#x27;Messages&#x27;&amp;&amp;un&gt;0?`&lt;span class=&quot;cp-badge&quot;&gt;${un}&lt;/span&gt;`:&#x27;&#x27;}${t===&#x27;Settings&#x27;?ic(&#x27;chevron-down&#x27;,12):&#x27;&#x27;}&lt;/a&gt;`).join(&#x27;&#x27;)}&lt;/nav&gt;
+    &lt;div class=&quot;cp-right&quot;&gt;&lt;span class=&quot;bell&quot;&gt;${ic(&#x27;notifications-outline&#x27;)}&lt;span class=&quot;cp-badge&quot;&gt;${o.bell===undefined?10:o.bell}&lt;/span&gt;&lt;/span&gt;${ic(&#x27;language-outline&#x27;,20)}&lt;div class=&quot;cp-av&quot;&gt;R&lt;/div&gt;&lt;/div&gt;&lt;/header&gt;
+    &lt;div class=&quot;cp-page&quot;&gt;${content}&lt;/div&gt;${o.overlay||&#x27;&#x27;}&lt;/div&gt;`;
+}
+const pageHead=(t,sub,btn)=&gt;`&lt;div class=&quot;cp-ph&quot;&gt;&lt;div&gt;&lt;h3&gt;${t}&lt;/h3&gt;&lt;p&gt;${sub}&lt;/p&gt;&lt;/div&gt;${btn||&#x27;&#x27;}&lt;/div&gt;`;
+
+/* ============ sample data ============ */
+const PLAYERS=[
+ {n:&#x27;Emma de Vries&#x27;,pv:&#x27;Is Court 4 lit on Friday evening?&#x27;,tm:&#x27;10:42&#x27;,un:2,as:&#x27;You&#x27;},
+ {n:&#x27;Sander Kok&#x27;,pv:&#x27;Thanks, see you on Saturday&#x27;,tm:&#x27;Yesterday&#x27;,un:0,as:&#x27;Pieter&#x27;},
+ {n:&#x27;Joris Visser&#x27;,pv:&#x27;Can I change my membership plan?&#x27;,tm:&#x27;Tue&#x27;,un:1,as:&#x27;&#x27;},
+ {n:&#x27;Tess Mulder&#x27;,pv:&#x27;Is the pro shop open on Sunday?&#x27;,tm:&#x27;Mon&#x27;,un:0,as:&#x27;Anna&#x27;},
+];
+const TEAM=[
+ {n:&#x27;All staff&#x27;,g:1,pv:&#x27;Pieter: Court 2 is closed until 14:00&#x27;,tm:&#x27;09:10&#x27;,un:3},
+ {n:&#x27;Pieter Jansen&#x27;,pv:&#x27;Can you cover the desk at 17:00?&#x27;,tm:&#x27;08:30&#x27;,un:0},
+ {n:&#x27;Front desk&#x27;,g:1,pv:&#x27;Sophie: Keys are back in the box&#x27;,tm:&#x27;Tue&#x27;,un:0},
+];
+const STAFF=[[&#x27;Sophie de Jong&#x27;,&#x27;Front desk&#x27;],[&#x27;Pieter Jansen&#x27;,&#x27;Club manager&#x27;],[&#x27;Anna Smit&#x27;,&#x27;Pro shop&#x27;],[&#x27;Mark Jansen&#x27;,&#x27;Coach&#x27;],[&#x27;Lars Bos&#x27;,&#x27;Groundskeeper&#x27;]];
+
+function convRow(c,sel,team){
+  const a=c.as===&#x27;You&#x27;?&#x27;&lt;span class=&quot;mini me&quot;&gt;Assigned to you&lt;/span&gt;&#x27;:c.as?`&lt;span class=&quot;mini&quot;&gt;Assigned: ${c.as}&lt;/span&gt;`:&#x27;&lt;span class=&quot;mini u&quot;&gt;Unassigned&lt;/span&gt;&#x27;;
+  return `&lt;div class=&quot;cv ${sel?&#x27;on&#x27;:&#x27;&#x27;}&quot;&gt;${team&amp;&amp;c.g?av(c.n,40,&#x27;#8B5CF6&#x27;):av(c.n,40)}&lt;div style=&quot;min-width:0;flex:1&quot;&gt;&lt;div class=&quot;t1&quot;&gt;&lt;span class=&quot;nm&quot;&gt;${c.n}&lt;/span&gt;&lt;span class=&quot;tm&quot;&gt;${c.tm}&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;pv ${c.un?&#x27;b&#x27;:&#x27;&#x27;}&quot;&gt;${c.pv}&lt;/div&gt;${team?&#x27;&#x27;:`&lt;div class=&quot;t3&quot;&gt;${a}&lt;/div&gt;`}&lt;/div&gt;${c.un?`&lt;span class=&quot;cp-badge&quot; style=&quot;background:var(--primary);align-self:center&quot;&gt;${c.un}&lt;/span&gt;`:&#x27;&#x27;}&lt;/div&gt;`;
+}
+function leftPanel(tab,st){
+  const tabs=`&lt;div class=&quot;ws-tabs&quot;&gt;&lt;button class=&quot;${tab===&#x27;players&#x27;?&#x27;on&#x27;:&#x27;&#x27;}&quot;&gt;${ic(&#x27;person-outline&#x27;,16)} Players ${st===&#x27;populated&#x27;||st===&#x27;error&#x27;?&#x27;&lt;span class=&quot;cp-badge&quot; style=&quot;background:var(--primary)&quot;&gt;3&lt;/span&gt;&#x27;:&#x27;&#x27;}&lt;/button&gt;&lt;button class=&quot;${tab===&#x27;team&#x27;?&#x27;on&#x27;:&#x27;&#x27;}&quot;&gt;${ic(&#x27;people-outline&#x27;,16)} Team ${tab!==&#x27;team&#x27;&amp;&amp;(st===&#x27;populated&#x27;||st===&#x27;error&#x27;)?&#x27;&lt;span class=&quot;cp-badge&quot; style=&quot;background:var(--primary)&quot;&gt;3&lt;/span&gt;&#x27;:&#x27;&#x27;}&lt;/button&gt;&lt;/div&gt;`;
+  const search=`&lt;div class=&quot;ws-search&quot;&gt;${ic(&#x27;search&#x27;,16)} ${tab===&#x27;players&#x27;?&#x27;Search players&#x27;:&#x27;Search team chats&#x27;}&lt;/div&gt;`;
+  const chips=tab===&#x27;players&#x27;?`&lt;div class=&quot;ws-chips&quot;&gt;&lt;span class=&quot;on&quot;&gt;All&lt;/span&gt;&lt;span&gt;Unassigned&lt;/span&gt;&lt;span&gt;Mine&lt;/span&gt;&lt;/div&gt;`:`&lt;div style=&quot;height:6px&quot;&gt;&lt;/div&gt;`;
+  const newBtn=`&lt;div style=&quot;padding:8px 14px 12px&quot;&gt;&lt;button class=&quot;btn p2 sm&quot; style=&quot;width:100%;background:var(--primary);color:#fff&quot;&gt;${ic(&#x27;create-outline&#x27;,16)} ${tab===&#x27;players&#x27;?&#x27;New message&#x27;:&#x27;New team chat&#x27;}&lt;/button&gt;&lt;/div&gt;`;
+  if(st===&#x27;loading&#x27;) return tabs+search+`&lt;div class=&quot;ws-list&quot;&gt;${[1,2,3,4,5,6].map(()=&gt;`&lt;div class=&quot;cv&quot;&gt;&lt;div class=&quot;sk&quot; style=&quot;width:40px;height:40px;border-radius:20px&quot;&gt;&lt;/div&gt;&lt;div style=&quot;flex:1&quot;&gt;${sk(&#x27;60%&#x27;)}${sk(&#x27;90%&#x27;,12,8)}&lt;/div&gt;&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+  if(st===&#x27;error&#x27;) return tabs+errBox(&#x27;Couldn’t Load Messages&#x27;);
+  if(st===&#x27;empty&#x27;) return tabs+search+emptyBox(tab===&#x27;players&#x27;?&#x27;chatbubbles-outline&#x27;:&#x27;people-outline&#x27;,tab===&#x27;players&#x27;?&#x27;No Messages Yet&#x27;:&#x27;No Team Chats Yet&#x27;,tab===&#x27;players&#x27;?&#x27;Players message you from their booking. You can also start a chat yourself.&#x27;:&#x27;Start a chat with a colleague or make a group for your team.&#x27;)+newBtn;
+  const list=tab===&#x27;players&#x27;?PLAYERS.map((c,i)=&gt;convRow(c,i===0,false)):TEAM.map((c,i)=&gt;convRow(c,i===0,true));
+  return tabs+search+chips+`&lt;div class=&quot;ws-list&quot;&gt;${list.join(&#x27;&#x27;)}&lt;/div&gt;`+newBtn;
+}
+const bubble=(dir,txt,time,who,fail)=&gt;dir===&#x27;in&#x27;
+  ?`&lt;div style=&quot;align-self:flex-start;max-width:68%&quot;&gt;${who?`&lt;div class=&quot;snd&quot;&gt;${who}&lt;/div&gt;`:&#x27;&#x27;}&lt;div class=&quot;bb in&quot;&gt;${txt}&lt;/div&gt;&lt;div class=&quot;bm&quot;&gt;${time}&lt;/div&gt;&lt;/div&gt;`
+  :`&lt;div style=&quot;align-self:flex-end;max-width:68%&quot;&gt;${who?`&lt;div class=&quot;snd&quot; style=&quot;text-align:right&quot;&gt;${who}&lt;/div&gt;`:&#x27;&#x27;}&lt;div class=&quot;bb out ${fail?&#x27;fail&#x27;:&#x27;&#x27;}&quot;&gt;${txt}&lt;/div&gt;${fail?`&lt;div class=&quot;bm err&quot;&gt;${ic(&#x27;alert-circle&#x27;,13)} Not sent. Click to retry&lt;/div&gt;`:`&lt;div class=&quot;bm r&quot;&gt;${time}&lt;/div&gt;`}&lt;/div&gt;`;
+const composer=(ph,off)=&gt;`&lt;div class=&quot;composer&quot;&gt;&lt;span class=&quot;att&quot;&gt;${ic(&#x27;image-outline&#x27;)}&lt;/span&gt;&lt;div class=&quot;box&quot;&gt;${ph}&lt;/div&gt;&lt;span class=&quot;send ${off?&#x27;off&#x27;:&#x27;&#x27;}&quot;&gt;${ic(&#x27;send&#x27;,18)}&lt;/span&gt;&lt;/div&gt;`;
+const menuItem=(icon,t,sub,red,sel)=&gt;`&lt;div class=&quot;mi2 ${red?&#x27;red&#x27;:&#x27;&#x27;} ${sel?&#x27;sel&#x27;:&#x27;&#x27;}&quot;&gt;${ic(icon,18)}&lt;div&gt;${t}${sub?`&lt;small&gt;${sub}&lt;/small&gt;`:&#x27;&#x27;}&lt;/div&gt;&lt;/div&gt;`;
+const naNote=(why)=&gt;`&lt;div class=&quot;cp-page&quot;&gt;${emptyBox(&#x27;information-circle-outline&#x27;,&#x27;Not Applicable&#x27;,why)}&lt;/div&gt;`;
+
+const S={};
+
+/* ---------------- 0 overview ---------------- */
+S.overview={grp:&#x27;Overview&#x27;,t:&#x27;Features &amp; Flow Map&#x27;,url:&#x27;—&#x27;,states:{empty:&#x27;N/A&#x27;,loading:&#x27;N/A&#x27;,error:&#x27;N/A&#x27;},
+ render(st){
+  const F=[
+   [&#x27;F1&#x27;,&#x27;Message a player&#x27;,&#x27;Start a chat from a booking, a member or the New message button.&#x27;,&#x27;New&#x27;],
+   [&#x27;F2&#x27;,&#x27;Club inbox&#x27;,&#x27;One shared inbox for the club. Assign each chat to a staff member.&#x27;,&#x27;New&#x27;],
+   [&#x27;F3&#x27;,&#x27;Reply with context&#x27;,&#x27;See the player’s membership and next booking next to the chat.&#x27;,&#x27;New&#x27;],
+   [&#x27;F4&#x27;,&#x27;Team chat&#x27;,&#x27;Staff chat one to one or in groups. Players never see these.&#x27;,&#x27;New&#x27;],
+   [&#x27;F5&#x27;,&#x27;Messaging settings&#x27;,&#x27;Choose who can message the club and who gets new chats.&#x27;,&#x27;New&#x27;],
+   [&#x27;F6&#x27;,&#x27;Permissions&#x27;,&#x27;New Messages rows in Roles and Permissions: Player chat and Team chat.&#x27;,&#x27;Change&#x27;],
+   [&#x27;F7&#x27;,&#x27;Alerts&#x27;,&#x27;Messages badge, bell notifications and optional staff email.&#x27;,&#x27;Change&#x27;],
+   [&#x27;F8&#x27;,&#x27;Moderation&#x27;,&#x27;Block and report a player from a chat.&#x27;,&#x27;New&#x27;],
+  ];
+  const box=(n,t,go,cls=&#x27;&#x27;)=&gt;`&lt;div class=&quot;box ${cls}&quot; ${go?`onclick=&quot;goTo(&#x27;${go}&#x27;)&quot;`:&#x27;&#x27;}&gt;&lt;b&gt;${n}&lt;/b&gt;${t}&lt;/div&gt;`;
+  const A=&#x27;&lt;div class=&quot;arr&quot;&gt;→&lt;/div&gt;&#x27;;
+  return `&lt;div style=&quot;background:var(--canvas);padding:28px;min-height:820px&quot;&gt;
+   &lt;div class=&quot;ph&quot;&gt;&lt;div&gt;&lt;h3&gt;Club Side Communication&lt;/h3&gt;&lt;p&gt;8 features · 8 screens · Club portal (web)&lt;/p&gt;&lt;/div&gt;&lt;/div&gt;
+   &lt;div class=&quot;fcards&quot;&gt;${F.map(([id,t,d,tag])=&gt;`&lt;div class=&quot;fc&quot;&gt;&lt;div class=&quot;fh&quot;&gt;&lt;b&gt;${id} · ${t}&lt;/b&gt;${pill(tag,tag===&#x27;Change&#x27;?&#x27;off&#x27;:&#x27;new&#x27;)}&lt;/div&gt;&lt;p&gt;${d}&lt;/p&gt;&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+   &lt;div class=&quot;card&quot; style=&quot;padding:20px&quot;&gt;&lt;div class=&quot;flowmap&quot;&gt;
+    &lt;div class=&quot;lane&quot;&gt;&lt;h4&gt;Flow A · A player writes to the club&lt;/h4&gt;&lt;div class=&quot;lanerow&quot;&gt;${box(&#x27;Player&#x27;,&#x27;Taps Message Club in the app&#x27;,&#x27;&#x27;, &#x27;sys&#x27;)}${A}${box(&#x27;Alert&#x27;,&#x27;Messages badge + bell&#x27;,&#x27;notif&#x27;)}${A}${box(&#x27;Step 3&#x27;,&#x27;Open the chat in the inbox&#x27;,&#x27;inbox&#x27;)}${A}${box(&#x27;Step 3&#x27;,&#x27;Assign it to a staff member&#x27;,&#x27;inbox&#x27;)}${A}${box(&#x27;Step 3&#x27;,&#x27;Reply (player gets an email)&#x27;,&#x27;inbox&#x27;)}&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;lane&quot;&gt;&lt;h4&gt;Flow B · The club starts a chat&lt;/h4&gt;&lt;div class=&quot;lanerow&quot;&gt;${box(&#x27;Step 1&#x27;,&#x27;Booking or member row › Message&#x27;,&#x27;entry&#x27;)}${A}${box(&#x27;Step 2&#x27;,&#x27;Check the player and write the first message&#x27;,&#x27;new_msg&#x27;)}${A}${box(&#x27;Step 3&#x27;,&#x27;Chat opens in the inbox&#x27;,&#x27;inbox&#x27;)}&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;lane&quot;&gt;&lt;h4&gt;Flow C · Staff talk to each other&lt;/h4&gt;&lt;div class=&quot;lanerow&quot;&gt;${box(&#x27;Step 4&#x27;,&#x27;Team tab&#x27;,&#x27;team&#x27;)}${A}${box(&#x27;Step 5&#x27;,&#x27;New team chat (one to one or group)&#x27;,&#x27;team_new&#x27;)}${A}${box(&#x27;Step 4&#x27;,&#x27;Chat in the thread&#x27;,&#x27;team&#x27;)}&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;lane&quot;&gt;&lt;h4&gt;Flow D · Owner sets the rules&lt;/h4&gt;&lt;div class=&quot;lanerow&quot;&gt;${box(&#x27;Step 6&#x27;,&#x27;Settings › Messaging&#x27;,&#x27;settings&#x27;)}${A}${box(&#x27;Step 7&#x27;,&#x27;Roles and Permissions › Messages&#x27;,&#x27;perms&#x27;)}&lt;/div&gt;&lt;/div&gt;
+   &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`;
+ },
+ notes:{what:&#x27;One page with every club-side feature and how the screens connect. Click any box to jump to that screen.&#x27;,
+  rules:[&#x27;Club users already have &lt;b&gt;sub-user roles&lt;/b&gt; (Manage Users). Chat access is a new permission on those roles, not a new kind of user.&#x27;,&#x27;Team chat is &lt;b&gt;internal only&lt;/b&gt;. A player can never be added to a team chat.&#x27;,&#x27;The player side of every chat is in the Communication Module tab. Both sides use the same chat.&#x27;],
+  pending:[&#x27;&lt;b&gt;Club inbox&lt;/b&gt; Shared inbox for all staff with access (assumed here) or messages go to one named staff member? The doc says this still needs a decision (§6).&#x27;],
+  dev:[&#x27;The club portal has no Messages page today. Its top bar has Booking, Membership, Finance, Settings and Review.&#x27;,&#x27;The portal already has a bell and a Notifications page. Chat alerts reuse them.&#x27;]}};
+
+/* ---------------- 1 entry points ---------------- */
+S.entry={grp:&#x27;Start a Chat&#x27;,t:&#x27;Entry Points: Message a Player&#x27;,url:&#x27;test.app.shallwe-play.com/booking/&#x27;,
+ variants:[&#x27;Booking list&#x27;,&#x27;Members list&#x27;],
+ render(st,v=&#x27;Booking list&#x27;){
+  const isB=v===&#x27;Booking list&#x27;;
+  const head=isB?pageHead(&#x27;Bookings&#x27;,&#x27;Everything booked at your club&#x27;,`&lt;div class=&quot;seg&quot;&gt;&lt;button class=&quot;on&quot;&gt;List&lt;/button&gt;&lt;button&gt;Calendar&lt;/button&gt;&lt;/div&gt;`):pageHead(&#x27;Members&#x27;,&#x27;People with a membership at your club&#x27;);
+  const th=isB?[&#x27;Booking ID&#x27;,&#x27;Player&#x27;,&#x27;Court&#x27;,&#x27;Date and time&#x27;,&#x27;Status&#x27;,&#x27;Actions&#x27;]:[&#x27;Member&#x27;,&#x27;Package&#x27;,&#x27;Valid till&#x27;,&#x27;Status&#x27;,&#x27;Actions&#x27;];
+  const rows=isB?[[&#x27;NE9B49001&#x27;,&#x27;Emma de Vries&#x27;,&#x27;Court 4&#x27;,&#x27;Fri 27 Nov · 19:00&#x27;,&#x27;Confirmed&#x27;],[&#x27;NE9B49002&#x27;,&#x27;Sander Kok&#x27;,&#x27;Court 2&#x27;,&#x27;Fri 27 Nov · 20:00&#x27;,&#x27;Confirmed&#x27;],[&#x27;NED110001&#x27;,&#x27;Joris Visser&#x27;,&#x27;Court 1&#x27;,&#x27;Sat 28 Nov · 10:00&#x27;,&#x27;Cancelled&#x27;]]:[[&#x27;Emma de Vries&#x27;,&#x27;Weekday Member&#x27;,&#x27;31 Dec 2026&#x27;,&#x27;Active&#x27;],[&#x27;Joris Visser&#x27;,&#x27;Par Three Member&#x27;,&#x27;30 Jun 2027&#x27;,&#x27;Active&#x27;],[&#x27;Tess Mulder&#x27;,&#x27;Full Member&#x27;,&#x27;12 Mar 2027&#x27;,&#x27;Expired&#x27;]];
+  const act=(on)=&gt;`&lt;span class=&quot;act&quot;&gt;${ic(&#x27;eye-outline&#x27;)}&lt;/span&gt;&lt;span class=&quot;act ${on?&#x27;hlbox&#x27;:&#x27;&#x27;}&quot; style=&quot;color:${on?&#x27;var(--primary)&#x27;:&#x27;#C3CAD4&#x27;}&quot; title=&quot;Message&quot;&gt;${ic(&#x27;chatbubble-outline&#x27;)}&lt;/span&gt;`;
+  const bar=`&lt;div class=&quot;filters&quot;&gt;&lt;div class=&quot;srch&quot;&gt;${ic(&#x27;search&#x27;,16)}&lt;span&gt;Search ${isB?&#x27;booking&#x27;:&#x27;member&#x27;}&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;`;
+  let body;
+  if(st===&#x27;loading&#x27;) body=`&lt;div class=&quot;card&quot;&gt;${bar}&lt;table&gt;&lt;tr&gt;${th.map(x=&gt;`&lt;th&gt;${x}&lt;/th&gt;`).join(&#x27;&#x27;)}&lt;/tr&gt;${[1,2,3,4].map(()=&gt;`&lt;tr&gt;${th.map(()=&gt;`&lt;td&gt;${sk(&#x27;70%&#x27;)}&lt;/td&gt;`).join(&#x27;&#x27;)}&lt;/tr&gt;`).join(&#x27;&#x27;)}&lt;/table&gt;&lt;/div&gt;`;
+  else if(st===&#x27;error&#x27;) body=`&lt;div class=&quot;card&quot;&gt;${bar}${errBox(&#x27;Couldn’t Load &#x27;+(isB?&#x27;Bookings&#x27;:&#x27;Members&#x27;))}&lt;/div&gt;`;
+  else if(st===&#x27;empty&#x27;) body=`&lt;div class=&quot;card&quot;&gt;${bar}${emptyBox(&#x27;calendar-outline&#x27;,isB?&#x27;No Bookings Yet&#x27;:&#x27;No Members Yet&#x27;,isB?&#x27;When players book your courts, they show here with a Message button.&#x27;:&#x27;Members show here once they buy a package.&#x27;)}&lt;/div&gt;`;
+  else body=`&lt;div class=&quot;card&quot;&gt;${bar}&lt;table&gt;&lt;tr&gt;${th.map(x=&gt;`&lt;th&gt;${x}&lt;/th&gt;`).join(&#x27;&#x27;)}&lt;/tr&gt;${rows.map((r,i)=&gt;`&lt;tr&gt;${r.map((c,j)=&gt;j===r.length-1?`&lt;td&gt;${pill(c,c===&#x27;Confirmed&#x27;||c===&#x27;Active&#x27;?&#x27;ok&#x27;:c===&#x27;Cancelled&#x27;?&#x27;err&#x27;:&#x27;off&#x27;)}&lt;/td&gt;`:`&lt;td ${j===(isB?1:0)?&#x27;style=&quot;color:var(--ink);font-weight:600&quot;&#x27;:&#x27;&#x27;}&gt;${c}&lt;/td&gt;`).join(&#x27;&#x27;)}&lt;td&gt;${act(i!==2)}&lt;/td&gt;&lt;/tr&gt;`).join(&#x27;&#x27;)}&lt;/table&gt;&lt;/div&gt;`;
+  return shell(`&lt;div style=&quot;padding:0&quot;&gt;${head}${body}&lt;div style=&quot;font-size:12.5px;color:var(--muted);margin-top:12px;max-width:80ch&quot;&gt;${ic(&#x27;information-circle-outline&#x27;,14)} The Message icon is new. It is greyed out when the player can&#x27;t be messaged (cancelled booking, expired membership, or the player blocked the club).&lt;/div&gt;&lt;/div&gt;`,{active:isB?&#x27;Booking&#x27;:&#x27;Membership&#x27;});
+ },
+ notes:{what:&#x27;Where a club member starts a chat with a player (flow 9.4). Two entry points that already exist: the Booking list and the Members list.&#x27;,
+  rules:[&#x27;New &lt;b&gt;Message&lt;/b&gt; icon in the Actions column, next to View.&#x27;,&#x27;Click → opens the chat with that player, or creates it. If a chat exists, the club reuses it.&#x27;,&#x27;&lt;b&gt;Greyed out&lt;/b&gt; for cancelled bookings, expired memberships and players who blocked the club. Hover shows the reason.&#x27;,&#x27;Only users with the &lt;b&gt;Player chat › Add&lt;/b&gt; permission see the icon (Step 7).&#x27;,&#x27;The Booking page also has a Calendar view. Open a booking there and use the same button in the booking details.&#x27;],
+  pending:[&#x27;&lt;b&gt;Who can the club message?&lt;/b&gt; Any player with a booking or membership (assumed), or only players who messaged first? (§6 &quot;Messaging a club&quot; is open.)&#x27;],
+  dev:[&#x27;The Booking page opens in Calendar mode and the Members screen is a button on Membership Management. Both need a row action.&#x27;,&#x27;Layouts here are simplified from the live club portal.&#x27;]}};
+
+/* ---------------- 2 new message ---------------- */
+S.new_msg={grp:&#x27;Start a Chat&#x27;,t:&#x27;New Message to a Player&#x27;,url:&#x27;test.app.shallwe-play.com/messages/&#x27;,
+ states:{},
+ render(st){
+  const bg=S.inbox.render(&#x27;populated&#x27;,&#x27;Conversation&#x27;,true);
+  const bad=st===&#x27;error&#x27;;
+  const results=st===&#x27;empty&#x27;?`&lt;div style=&quot;padding:22px;text-align:center;font-size:14px;color:var(--muted)&quot;&gt;No player matches “jorisxyz”.&lt;br&gt;You can message players who booked or joined your club.&lt;/div&gt;`
+   :st===&#x27;loading&#x27;?[1,2,3].map(()=&gt;`&lt;div class=&quot;pick&quot;&gt;${&#x27;&lt;div class=&quot;sk&quot; style=&quot;width:34px;height:34px;border-radius:17px&quot;&gt;&lt;/div&gt;&#x27;}&lt;div style=&quot;flex:1&quot;&gt;${sk(&#x27;50%&#x27;)}${sk(&#x27;30%&#x27;,11,6)}&lt;/div&gt;&lt;/div&gt;`).join(&#x27;&#x27;)
+   :[[&#x27;Emma de Vries&#x27;,&#x27;@emmadv · Booked Court 4, Fri 27 Nov&#x27;,1],[&#x27;Sander Kok&#x27;,&#x27;@sanderk · Weekday Member&#x27;,0],[&#x27;Joris Visser&#x27;,&#x27;@jorisv · Par Three Member&#x27;,0]].map(([n,s,on])=&gt;`&lt;div class=&quot;pick ${on&amp;&amp;!bad?&#x27;on&#x27;:&#x27;&#x27;}&quot;&gt;${av(n,34)}&lt;div&gt;&lt;b style=&quot;color:var(--ink);font-size:14px&quot;&gt;${n}&lt;/b&gt;&lt;small&gt;${s}&lt;/small&gt;&lt;/div&gt;&lt;span class=&quot;chkb ${on&amp;&amp;!bad?&#x27;on&#x27;:&#x27;&#x27;}&quot; style=&quot;border-radius:10px&quot;&gt;${on&amp;&amp;!bad?ic(&#x27;checkmark&#x27;,14):&#x27;&#x27;}&lt;/span&gt;&lt;/div&gt;`).join(&#x27;&#x27;);
+  const modal=`&lt;div class=&quot;ov c&quot;&gt;&lt;div class=&quot;cpmodal&quot;&gt;&lt;div class=&quot;mh&quot;&gt;New Message&lt;span class=&quot;act&quot;&gt;${ic(&#x27;close&#x27;)}&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;mb&quot;&gt;
+    &lt;div class=&quot;notch ${st===&#x27;empty&#x27;?&#x27;foc&#x27;:&#x27;&#x27;}&quot; style=&quot;margin-top:4px&quot;&gt;&lt;label&gt;Player&lt;/label&gt;${st===&#x27;empty&#x27;?&#x27;jorisxyz&#x27;:&#x27;Search by name or @username&#x27;}&lt;/div&gt;
+    &lt;div style=&quot;max-height:190px;overflow:auto;margin:8px 0 14px&quot;&gt;${results}&lt;/div&gt;
+    &lt;div class=&quot;notch ${bad?&#x27;bad&#x27;:&#x27;foc&#x27;}&quot; style=&quot;min-height:90px&quot;&gt;&lt;label&gt;Message&lt;/label&gt;${bad?&#x27;&lt;span class=&quot;ph-t&quot;&gt;Write your message…&lt;/span&gt;&#x27;:&#x27;Hi Emma, this is Riverdale Golf &amp;amp; Country Club. We saw your booking for Friday…&#x27;}&lt;/div&gt;
+    ${bad?`&lt;div class=&quot;hint bad&quot;&gt;&lt;span&gt;Write a message before you send.&lt;/span&gt;&lt;/div&gt;`:`&lt;div class=&quot;hint&quot;&gt;&lt;span&gt;Sent as Sophie (Club Staff). The player also gets an email.&lt;/span&gt;&lt;span&gt;74/1000&lt;/span&gt;&lt;/div&gt;`}
+   &lt;/div&gt;&lt;div class=&quot;mf&quot;&gt;&lt;button class=&quot;btn n&quot;&gt;Cancel&lt;/button&gt;&lt;button class=&quot;btn p ${bad||st===&#x27;empty&#x27;?&#x27;off&#x27;:&#x27;&#x27;}&quot;&gt;${st===&#x27;loading&#x27;?ic(&#x27;sync&#x27;,16)+&#x27; Searching…&#x27;:&#x27;Send Message&#x27;}&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`;
+  return bg.replace(/&lt;\/div&gt;$/,modal+&#x27;&lt;/div&gt;&#x27;);
+ },
+ notes:{what:&#x27;The New message pop-up. Used from the inbox button and from the row Message icons.&#x27;,
+  rules:[&#x27;Search by name or @username. Results are limited to players with a booking or membership at this club.&#x27;,&#x27;One player per message. Group chats with players are not part of release 1.&#x27;,&#x27;The first message is required. Max 1000 characters.&#x27;,&#x27;If a chat with that player already exists, Send adds to it instead of making a second chat.&#x27;,&#x27;Sent as the staff member’s first name with a &lt;b&gt;Club Staff&lt;/b&gt; tag, the same as on the player’s phone.&#x27;],
+  pending:[&#x27;Should the club be able to message a player who never booked here? Assumed no.&#x27;],
+  dev:[&#x27;Player search can reuse the booking and membership data already scoped to the club.&#x27;]}};
+
+/* ---------------- 3 inbox ---------------- */
+S.inbox={grp:&#x27;Player Inbox&#x27;,t:&#x27;Messages Inbox: Players&#x27;,url:&#x27;test.app.shallwe-play.com/messages/&#x27;,
+ variants:[&#x27;Conversation&#x27;,&#x27;Assign to staff&#x27;,&#x27;Chat options&#x27;],
+ render(st,v=&#x27;Conversation&#x27;,noShell){
+  const head=pageHead(&#x27;Messages&#x27;,&#x27;Chat with the players who book at your club&#x27;);
+  let center,right=&#x27;&#x27;;
+  if(st===&#x27;loading&#x27;) center=`&lt;div class=&quot;ch2&quot;&gt;${&#x27;&lt;div class=&quot;sk&quot; style=&quot;width:40px;height:40px;border-radius:20px&quot;&gt;&lt;/div&gt;&#x27;}&lt;div&gt;${sk(&#x27;160px&#x27;)}${sk(&#x27;100px&#x27;,11,6)}&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;thread&quot;&gt;${[[&#x27;flex-start&#x27;,200],[&#x27;flex-start&#x27;,140],[&#x27;flex-end&#x27;,230],[&#x27;flex-start&#x27;,170]].map(([a,w])=&gt;`&lt;div style=&quot;align-self:${a}&quot;&gt;${sk(w+&#x27;px&#x27;,36)}&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+  else if(st===&#x27;error&#x27;) center=`&lt;div class=&quot;thread&quot; style=&quot;align-items:center;justify-content:center&quot;&gt;${emptyBox(&#x27;chatbubble-ellipses-outline&#x27;,&#x27;Messages Unavailable&#x27;,&#x27;Your chats will show here once they load.&#x27;)}&lt;/div&gt;`;
+  else if(st===&#x27;empty&#x27;) center=`&lt;div class=&quot;thread&quot; style=&quot;align-items:center;justify-content:center&quot;&gt;${emptyBox(&#x27;chatbubbles-outline&#x27;,&#x27;No Conversation Selected&#x27;,&#x27;Players who message your club will show on the left. You can also start a chat from a booking or member.&#x27;,`&lt;button class=&quot;btn p&quot;&gt;${ic(&#x27;create-outline&#x27;,16)} New Message&lt;/button&gt;`)}&lt;/div&gt;`;
+  else {
+    const menu=v===&#x27;Assign to staff&#x27;
+      ?`&lt;div class=&quot;menu&quot; style=&quot;top:58px;right:18px&quot;&gt;${menuItem(&#x27;person-remove-outline&#x27;,&#x27;Unassigned&#x27;,&#x27;Anyone with access can reply&#x27;)}&lt;div class=&quot;sepl&quot;&gt;&lt;/div&gt;${STAFF.slice(0,3).map(([n,r],i)=&gt;menuItem(&#x27;person-outline&#x27;,n+(i===0?&#x27; (You)&#x27;:&#x27;&#x27;),r,false,i===0)).join(&#x27;&#x27;)}&lt;/div&gt;`
+      :v===&#x27;Chat options&#x27;
+      ?`&lt;div class=&quot;menu&quot; style=&quot;top:58px;right:18px;min-width:200px&quot;&gt;${menuItem(&#x27;mail-unread-outline&#x27;,&#x27;Mark as unread&#x27;)}&lt;div class=&quot;sepl&quot;&gt;&lt;/div&gt;${menuItem(&#x27;ban-outline&#x27;,&#x27;Block player&#x27;,&#x27;&#x27;,true)}${menuItem(&#x27;flag-outline&#x27;,&#x27;Report player&#x27;,&#x27;&#x27;,true)}&lt;/div&gt;`:&#x27;&#x27;;
+    center=`&lt;div class=&quot;ch2&quot;&gt;${av(&#x27;Emma de Vries&#x27;,40)}&lt;div&gt;&lt;div class=&quot;nm&quot;&gt;Emma de Vries&lt;/div&gt;&lt;div class=&quot;sb&quot;&gt;@emmadv · Weekday Member&lt;/div&gt;&lt;/div&gt;
+      &lt;span class=&quot;assign&quot; ${v===&#x27;Assign to staff&#x27;?&#x27;style=&quot;border-color:var(--primary)&quot;&#x27;:&#x27;&#x27;}&gt;${ic(&#x27;person-add-outline&#x27;,15)} Sophie de Jong (You) ${ic(&#x27;chevron-down&#x27;,12)}&lt;/span&gt;&lt;span class=&quot;act&quot; style=&quot;color:var(--muted)&quot;&gt;${ic(&#x27;ellipsis-vertical&#x27;)}&lt;/span&gt;&lt;/div&gt;
+      &lt;div class=&quot;ctxbar info&quot;&gt;${ic(&#x27;mail-outline&#x27;,16)} Replies are sent as &lt;b&gt;Sophie · Club Staff&lt;/b&gt; and the player also gets an email.&lt;/div&gt;
+      &lt;div class=&quot;thread&quot;&gt;&lt;div class=&quot;dtl&quot;&gt;Today&lt;/div&gt;
+       ${bubble(&#x27;in&#x27;,&#x27;Hi! Is Court 4 lit on Friday evening? We have a booking at 19:00.&#x27;,&#x27;10:40&#x27;)}
+       ${bubble(&#x27;in&#x27;,&#x27;And is parking free after 18:00?&#x27;,&#x27;10:42&#x27;)}
+       &lt;div class=&quot;sysl&quot;&gt;Sophie took this conversation · 10:44&lt;/div&gt;
+       ${bubble(&#x27;out&#x27;,&#x27;Hi Emma, yes. All indoor courts have lights until 23:00.&#x27;,&#x27;10:45&#x27;,&#x27;Sophie (You) &lt;span class=&quot;mini&quot;&gt;Front desk&lt;/span&gt;&#x27;)}
+       ${bubble(&#x27;out&#x27;,&#x27;Parking at the back is free after 18:00.&#x27;,&#x27;10:46&#x27;,&#x27;Sophie (You) &lt;span class=&quot;mini&quot;&gt;Front desk&lt;/span&gt;&#x27;,st===&#x27;error&#x27;)}
+      &lt;/div&gt;${composer(&#x27;Reply to Emma…&#x27;)}${menu}`;
+    right=`&lt;div class=&quot;ws-r&quot;&gt;&lt;h6&gt;Player&lt;/h6&gt;&lt;div style=&quot;display:flex;gap:10px;align-items:center&quot;&gt;${av(&#x27;Emma de Vries&#x27;,44)}&lt;div&gt;&lt;b style=&quot;color:var(--ink)&quot;&gt;Emma de Vries&lt;/b&gt;&lt;div style=&quot;font-size:12px;color:var(--muted)&quot;&gt;@emmadv&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
+      &lt;h6&gt;Membership&lt;/h6&gt;&lt;div class=&quot;pcard&quot;&gt;&lt;b&gt;Weekday Member&lt;/b&gt;&lt;br&gt;Active until 31 Dec 2026&lt;/div&gt;
+      &lt;h6&gt;Next booking&lt;/h6&gt;&lt;div class=&quot;pcard&quot;&gt;&lt;b&gt;Fri 27 Nov · 19:00&lt;/b&gt;&lt;br&gt;Court 4 · NE9B49001&lt;br&gt;&lt;button class=&quot;btn n sm&quot; style=&quot;margin-top:8px&quot;&gt;View booking&lt;/button&gt;&lt;/div&gt;
+      &lt;div style=&quot;font-size:12px;color:var(--muted);margin-top:14px;line-height:1.5&quot;&gt;${ic(&#x27;information-circle-outline&#x27;,13)} Chat cannot change a booking or a payment. Use the booking page for that.&lt;/div&gt;&lt;/div&gt;`;
+  }
+  const ws=`&lt;div class=&quot;ws ${right?&#x27;&#x27;:&#x27;two&#x27;}&quot;&gt;&lt;div class=&quot;ws-l&quot;&gt;${leftPanel(&#x27;players&#x27;,st)}&lt;/div&gt;&lt;div class=&quot;ws-c&quot;&gt;${center}&lt;/div&gt;${right}&lt;/div&gt;`;
+  return shell(head+ws,{unread:st===&#x27;empty&#x27;?0:4});
+ },
+ notes:{what:&#x27;The club’s shared inbox for player chats (flows 9.1 and 9.4). Left: conversations. Middle: the chat. Right: who the player is.&#x27;,
+  rules:[&#x27;New top-bar item &lt;b&gt;Messages&lt;/b&gt; with an unread badge. Same blue and grey as the rest of the portal.&#x27;,&#x27;Conversation row: player, last message, time, unread count and who it is assigned to. Filters: All, Unassigned, Mine.&#x27;,&#x27;&lt;b&gt;Assign&lt;/b&gt;: any staff with access can take a chat or give it to a colleague. A system line records it. Anyone with access can still reply.&#x27;,&#x27;Replies show the staff member’s first name and role. The player only sees the first name and &lt;b&gt;Club Staff&lt;/b&gt;.&#x27;,&#x27;Right panel shows membership and next booking, so staff can answer without leaving the page. It links to the booking.&#x27;,&#x27;&lt;b&gt;Chat options&lt;/b&gt;: Mark as unread, Block player, Report player. Same wording as on the phone.&#x27;,&#x27;Failed sends show &quot;Not sent. Click to retry&quot;. The text is never lost.&#x27;,&#x27;Messages are kept forever. There is no delete (§6).&#x27;],
+  pending:[&#x27;&lt;b&gt;Shared inbox or personal?&lt;/b&gt; Assumed shared, with assignment. The alternative is one inbox per staff member.&#x27;,&#x27;&lt;b&gt;Can staff read chats assigned to someone else?&lt;/b&gt; Assumed yes.&#x27;,&#x27;&lt;b&gt;Minors and guardians&lt;/b&gt; The doc says &quot;please suggest&quot;. Proposal: a player under 16 is flagged with a tag so staff can follow club rules. Needs client sign-off.&#x27;],
+  dev:[&#x27;Staff are sub-users (&lt;code&gt;sub_user&lt;/code&gt; role). Assignment needs a field on the conversation.&#x27;,&#x27;Messages and alerts to players go through the notification service. Players also get an email when a club starts or replies (doc §7).&#x27;]}};
+
+/* ---------------- 4 team chat ---------------- */
+S.team={grp:&#x27;Team&#x27;,t:&#x27;Team Chat (Staff Only)&#x27;,url:&#x27;test.app.shallwe-play.com/messages/team/&#x27;,
+ variants:[&#x27;Group&#x27;,&#x27;Direct&#x27;],
+ render(st,v=&#x27;Group&#x27;){
+  const head=pageHead(&#x27;Messages&#x27;,&#x27;Internal chats for your staff. Players cannot see them.&#x27;);
+  const grp=v===&#x27;Group&#x27;;
+  let center,right=&#x27;&#x27;;
+  if(st===&#x27;loading&#x27;) center=`&lt;div class=&quot;ch2&quot;&gt;&lt;div class=&quot;sk&quot; style=&quot;width:40px;height:40px;border-radius:20px&quot;&gt;&lt;/div&gt;&lt;div&gt;${sk(&#x27;140px&#x27;)}&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;thread&quot;&gt;${[1,2,3].map(()=&gt;sk(&#x27;55%&#x27;,36,10)).join(&#x27;&#x27;)}&lt;/div&gt;`;
+  else if(st===&#x27;error&#x27;) center=`&lt;div class=&quot;thread&quot; style=&quot;align-items:center;justify-content:center&quot;&gt;${emptyBox(&#x27;chatbubble-ellipses-outline&#x27;,&#x27;Messages Unavailable&#x27;,&#x27;Your team chats will show here once they load.&#x27;)}&lt;/div&gt;`;
+  else if(st===&#x27;empty&#x27;) center=`&lt;div class=&quot;thread&quot; style=&quot;align-items:center;justify-content:center&quot;&gt;${emptyBox(&#x27;people-outline&#x27;,&#x27;Talk to Your Team&#x27;,&#x27;Chat with one colleague or make a group, for example Front desk.&#x27;,`&lt;button class=&quot;btn p&quot;&gt;${ic(&#x27;create-outline&#x27;,16)} New Team Chat&lt;/button&gt;`)}&lt;/div&gt;`;
+  else {
+    const nm=grp?&#x27;All staff&#x27;:&#x27;Pieter Jansen&#x27;;
+    center=`&lt;div class=&quot;ch2&quot;&gt;${grp?av(&#x27;All staff&#x27;,40,&#x27;#8B5CF6&#x27;):av(&#x27;Pieter Jansen&#x27;,40)}&lt;div&gt;&lt;div class=&quot;nm&quot;&gt;${nm}&lt;/div&gt;&lt;div class=&quot;sb&quot;&gt;${grp?&#x27;5 members · Internal&#x27;:&#x27;Club manager · Internal&#x27;}&lt;/div&gt;&lt;/div&gt;&lt;span class=&quot;act&quot; style=&quot;margin-left:auto;color:var(--muted)&quot;&gt;${ic(&#x27;ellipsis-vertical&#x27;)}&lt;/span&gt;&lt;/div&gt;
+     &lt;div class=&quot;ctxbar warn&quot;&gt;${ic(&#x27;lock-closed-outline&#x27;,16)} Internal chat. Players and other clubs cannot see it.&lt;/div&gt;
+     &lt;div class=&quot;thread&quot;&gt;&lt;div class=&quot;dtl&quot;&gt;Today&lt;/div&gt;
+      ${grp?bubble(&#x27;in&#x27;,&#x27;Court 2 is closed until 14:00 for line repainting.&#x27;,&#x27;09:10&#x27;,&#x27;Pieter Jansen &lt;span class=&quot;mini&quot;&gt;Club manager&lt;/span&gt;&#x27;)+bubble(&#x27;in&#x27;,&#x27;Noted. I’ll tell the pro shop.&#x27;,&#x27;09:12&#x27;,&#x27;Anna Smit &lt;span class=&quot;mini&quot;&gt;Pro shop&lt;/span&gt;&#x27;)+bubble(&#x27;out&#x27;,&#x27;I’ll move the 10:00 booking to Court 3.&#x27;,&#x27;09:15&#x27;,&#x27;Sophie (You)&#x27;,st===&#x27;error&#x27;)
+      :bubble(&#x27;in&#x27;,&#x27;Can you cover the desk at 17:00?&#x27;,&#x27;08:30&#x27;,&#x27;Pieter Jansen&#x27;)+bubble(&#x27;out&#x27;,&#x27;Yes, no problem.&#x27;,&#x27;08:34&#x27;,&#x27;Sophie (You)&#x27;,st===&#x27;error&#x27;)}
+     &lt;/div&gt;${composer(grp?&#x27;Message All staff…&#x27;:&#x27;Message Pieter…&#x27;)}`;
+    if(grp) right=`&lt;div class=&quot;ws-r&quot;&gt;&lt;h6&gt;Members · 5&lt;/h6&gt;${STAFF.map(([n,r],i)=&gt;`&lt;div style=&quot;display:flex;gap:10px;align-items:center;padding:7px 0&quot;&gt;${av(n,32)}&lt;div style=&quot;flex:1;min-width:0&quot;&gt;&lt;b style=&quot;font-size:13px;color:var(--ink)&quot;&gt;${n}${i===0?&#x27; (You)&#x27;:&#x27;&#x27;}&lt;/b&gt;&lt;div style=&quot;font-size:12px;color:var(--muted)&quot;&gt;${r}&lt;/div&gt;&lt;/div&gt;${i===1?&#x27;&lt;span class=&quot;mini me&quot; style=&quot;flex-shrink:0&quot;&gt;Admin&lt;/span&gt;&#x27;:&#x27;&#x27;}&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;button class=&quot;btn n sm&quot; style=&quot;margin-top:12px;width:100%&quot;&gt;${ic(&#x27;person-add-outline&#x27;,15)} Add member&lt;/button&gt;&lt;button class=&quot;btn n sm&quot; style=&quot;margin-top:8px;width:100%;color:var(--err)&quot;&gt;${ic(&#x27;exit-outline&#x27;,15)} Leave group&lt;/button&gt;&lt;/div&gt;`;
+  }
+  return shell(head+`&lt;div class=&quot;ws ${right?&#x27;&#x27;:&#x27;two&#x27;}&quot;&gt;&lt;div class=&quot;ws-l&quot;&gt;${leftPanel(&#x27;team&#x27;,st)}&lt;/div&gt;&lt;div class=&quot;ws-c&quot;&gt;${center}&lt;/div&gt;${right}&lt;/div&gt;`,{unread:st===&#x27;empty&#x27;?0:4});
+ },
+ notes:{what:&#x27;Staff chat inside the club portal. One to one or groups.&#x27;,
+  rules:[&#x27;The &lt;b&gt;Team&lt;/b&gt; tab sits next to Players in the same inbox. Chats are grouped by who is in them.&#x27;,&#x27;Members are the club’s own users: the owner and the sub-users from Manage Users. Nobody outside the club can be added.&#x27;,&#x27;A yellow bar reminds everyone the chat is internal.&#x27;,&#x27;Group admin (the creator, or the club manager) can add and remove members. Anyone can leave.&#x27;,&#x27;Team chats have no assignment and no player panel.&#x27;,&#x27;Photos and videos work the same as in player chats.&#x27;],
+  pending:[&#x27;&lt;b&gt;Is there a default &quot;All staff&quot; group?&lt;/b&gt; Assumed yes: created for every club and kept up to date as users are added or removed.&#x27;,&#x27;&lt;b&gt;When a staff member is removed&lt;/b&gt; from Manage Users, they lose access to all team chats. Their past messages stay. Confirm.&#x27;],
+  dev:[&#x27;Reuse the same chat tables as player chats, with a &quot;team&quot; type and members limited to the club’s user ids.&#x27;]}};
+
+/* ---------------- 5 new team chat ---------------- */
+S.team_new={grp:&#x27;Team&#x27;,t:&#x27;New Team Chat&#x27;,url:&#x27;test.app.shallwe-play.com/messages/team/&#x27;,
+ variants:[&#x27;Group&#x27;,&#x27;Direct&#x27;],
+ render(st,v=&#x27;Group&#x27;){
+  const bg=S.team.render(&#x27;populated&#x27;,&#x27;Group&#x27;);
+  const grp=v===&#x27;Group&#x27;, bad=st===&#x27;error&#x27;;
+  const sel=grp?(bad?[0]:[0,1]):[0];
+  const list=st===&#x27;empty&#x27;?`&lt;div style=&quot;padding:22px;text-align:center;font-size:14px;color:var(--muted)&quot;&gt;You are the only user at this club.&lt;br&gt;Invite your staff first.&lt;br&gt;&lt;button class=&quot;btn n sm&quot; style=&quot;margin-top:10px&quot;&gt;Go to Manage Users&lt;/button&gt;&lt;/div&gt;`
+   :st===&#x27;loading&#x27;?[1,2,3].map(()=&gt;`&lt;div class=&quot;pick&quot;&gt;&lt;div class=&quot;sk&quot; style=&quot;width:34px;height:34px;border-radius:17px&quot;&gt;&lt;/div&gt;&lt;div style=&quot;flex:1&quot;&gt;${sk(&#x27;45%&#x27;)}${sk(&#x27;25%&#x27;,11,6)}&lt;/div&gt;&lt;/div&gt;`).join(&#x27;&#x27;)
+   :STAFF.slice(1).map(([n,r],i)=&gt;`&lt;div class=&quot;pick ${sel.includes(i)?&#x27;on&#x27;:&#x27;&#x27;}&quot;&gt;${av(n,34)}&lt;div&gt;&lt;b style=&quot;font-size:14px;color:var(--ink)&quot;&gt;${n}&lt;/b&gt;&lt;small&gt;${r}&lt;/small&gt;&lt;/div&gt;&lt;span class=&quot;chkb ${sel.includes(i)?&#x27;on&#x27;:&#x27;&#x27;}&quot; style=&quot;${grp?&#x27;&#x27;:&#x27;border-radius:10px&#x27;}&quot;&gt;${sel.includes(i)?ic(&#x27;checkmark&#x27;,14):&#x27;&#x27;}&lt;/span&gt;&lt;/div&gt;`).join(&#x27;&#x27;);
+  const modal=`&lt;div class=&quot;ov c&quot;&gt;&lt;div class=&quot;cpmodal&quot;&gt;&lt;div class=&quot;mh&quot;&gt;New Team Chat&lt;span class=&quot;act&quot;&gt;${ic(&#x27;close&#x27;)}&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;mb&quot;&gt;
+   &lt;div class=&quot;seg&quot; style=&quot;margin-bottom:14px;width:max-content&quot;&gt;&lt;button class=&quot;${grp?&#x27;&#x27;:&#x27;on&#x27;}&quot;&gt;Direct message&lt;/button&gt;&lt;button class=&quot;${grp?&#x27;on&#x27;:&#x27;&#x27;}&quot;&gt;Group&lt;/button&gt;&lt;/div&gt;
+   ${grp?`&lt;div class=&quot;notch ${bad?&#x27;bad&#x27;:&#x27;foc&#x27;}&quot; style=&quot;margin-top:4px&quot;&gt;&lt;label&gt;Group name (optional)&lt;/label&gt;${bad?&#x27;Front desk and pro shop and groundskeeping and managers&#x27;:&#x27;Front desk&#x27;}&lt;/div&gt;&lt;div class=&quot;hint ${bad?&#x27;bad&#x27;:&#x27;&#x27;}&quot;&gt;&lt;span&gt;${bad?&#x27;Select at least 2 colleagues. Group name can be up to 40 characters.&#x27;:&#x27;If empty, member names are used&#x27;}&lt;/span&gt;&lt;span&gt;${bad?&#x27;55/40&#x27;:&#x27;10/40&#x27;}&lt;/span&gt;&lt;/div&gt;`:&#x27;&#x27;}
+   &lt;div style=&quot;font:600 12px Montserrat;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:14px 0 6px&quot;&gt;${grp?&#x27;Add colleagues&#x27;:&#x27;Choose a colleague&#x27;}&lt;/div&gt;
+   &lt;div style=&quot;max-height:200px;overflow:auto&quot;&gt;${list}&lt;/div&gt;
+  &lt;/div&gt;&lt;div class=&quot;mf&quot;&gt;&lt;button class=&quot;btn n&quot;&gt;Cancel&lt;/button&gt;&lt;button class=&quot;btn p ${bad||st===&#x27;empty&#x27;?&#x27;off&#x27;:&#x27;&#x27;}&quot;&gt;${st===&#x27;loading&#x27;?ic(&#x27;sync&#x27;,16)+&#x27; Loading…&#x27;:grp?&#x27;Create Group&#x27;:&#x27;Start Chat&#x27;}&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`;
+  return bg.replace(/&lt;\/div&gt;$/,modal+&#x27;&lt;/div&gt;&#x27;);
+ },
+ notes:{what:&#x27;Start a one-to-one chat or a group with colleagues.&#x27;,
+  rules:[&#x27;The list shows the club’s sub-users from &lt;b&gt;Manage Users&lt;/b&gt;, with their role.&#x27;,&#x27;&lt;b&gt;Direct&lt;/b&gt;: pick one colleague. If a chat already exists, it opens instead.&#x27;,&#x27;&lt;b&gt;Group&lt;/b&gt;: pick at least 2 colleagues. The name is optional, up to 40 characters. Without a name, the first member names are used.&#x27;,&#x27;The creator becomes group admin.&#x27;,&#x27;No staff yet: the pop-up explains and links to Manage Users.&#x27;],
+  pending:[&#x27;Maximum group size? Suggest 50.&#x27;],
+  dev:[&#x27;Only users with the Team chat › Add permission see New Team Chat.&#x27;]}};
+
+/* ---------------- 6 settings ---------------- */
+S.settings={grp:&#x27;Setup&#x27;,t:&#x27;Messaging Settings&#x27;,url:&#x27;test.app.shallwe-play.com/messaging-settings/&#x27;,
+ states:{empty:&#x27;N/A&#x27;},
+ render(st){
+  const head=pageHead(&#x27;Messaging&#x27;,&#x27;Choose who can message your club and who is told&#x27;);
+  if(st===&#x27;empty&#x27;) return naNote(&#x27;Settings always have default values, so this screen is never empty.&#x27;);
+  if(st===&#x27;loading&#x27;) return shell(head+`&lt;div class=&quot;card&quot; style=&quot;padding:24px;max-width:860px&quot;&gt;${sk(&#x27;40%&#x27;,18)}${[1,2,3].map(()=&gt;sk(&#x27;100%&#x27;,64,14)).join(&#x27;&#x27;)}&lt;/div&gt;`,{active:&#x27;Settings&#x27;});
+  const bad=st===&#x27;error&#x27;;
+  const r=(on,t,s)=&gt;`&lt;div class=&quot;rad ${on?&#x27;on&#x27;:&#x27;&#x27;}&quot;&gt;&lt;i&gt;&lt;/i&gt;&lt;div&gt;&lt;b&gt;${t}&lt;/b&gt;&lt;span&gt;${s}&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;`;
+  return shell(head+`&lt;div class=&quot;card&quot; style=&quot;padding:24px;max-width:860px&quot;&gt;
+   ${bad?`&lt;div class=&quot;ctxbar err&quot; style=&quot;border-radius:6px;margin-bottom:14px&quot;&gt;${ic(&#x27;alert-circle&#x27;,16)} Couldn’t save. Choose who can message your club, then try again.&lt;/div&gt;`:&#x27;&#x27;}
+   &lt;div style=&quot;font:600 15px Montserrat;color:var(--ink);margin-bottom:10px&quot;&gt;Who can message your club&lt;/div&gt;
+   ${r(!bad&amp;&amp;false,&#x27;Anyone on ShallWe-Play&#x27;,&#x27;Any player can start a chat from your club.&#x27;)}
+   ${r(!bad,&#x27;Members and players with a booking&#x27;,&#x27;Recommended. Players you already know can write to you.&#x27;)}
+   ${r(false,&#x27;No one&#x27;,&#x27;Players cannot start a chat. You can still message players first.&#x27;)}
+   &lt;div style=&quot;font:600 15px Montserrat;color:var(--ink);margin:22px 0 10px&quot;&gt;New chats go to&lt;/div&gt;
+   &lt;div class=&quot;sel&quot; style=&quot;width:340px&quot;&gt;&lt;label&gt;Assigned to&lt;/label&gt;Nobody (shared inbox) ${ic(&#x27;chevron-down&#x27;,14)}&lt;/div&gt;
+   &lt;div style=&quot;font-size:12.5px;color:var(--muted);margin:6px 2px 0&quot;&gt;Staff with Player chat access can all see new chats. Pick a person to assign them automatically.&lt;/div&gt;
+   &lt;div style=&quot;font:600 15px Montserrat;color:var(--ink);margin:22px 0 6px&quot;&gt;Alerts for staff&lt;/div&gt;
+   &lt;div class=&quot;rule&quot; style=&quot;display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid #F0F2F5&quot;&gt;&lt;div style=&quot;flex:1;font-size:14px;color:var(--ink)&quot;&gt;Bell notification&lt;small style=&quot;display:block;color:var(--muted);font-size:12.5px&quot;&gt;Always on, so no message is missed.&lt;/small&gt;&lt;/div&gt;&lt;span class=&quot;swl on&quot; style=&quot;opacity:.5&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+   &lt;div class=&quot;rule&quot; style=&quot;display:flex;gap:12px;align-items:center;padding:12px 0&quot;&gt;&lt;div style=&quot;flex:1;font-size:14px;color:var(--ink)&quot;&gt;Email staff when a player writes&lt;small style=&quot;display:block;color:var(--muted);font-size:12.5px&quot;&gt;Sent to every user with Player chat access.&lt;/small&gt;&lt;/div&gt;&lt;span class=&quot;swl on&quot;&gt;&lt;/span&gt;&lt;/div&gt;
+   &lt;div style=&quot;display:flex;justify-content:flex-end;gap:10px;margin-top:18px&quot;&gt;&lt;button class=&quot;btn n&quot;&gt;Cancel&lt;/button&gt;&lt;button class=&quot;btn p ${bad?&#x27;off&#x27;:&#x27;&#x27;}&quot;&gt;Save Settings&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;`,{active:&#x27;Settings&#x27;});
+ },
+ notes:{what:&#x27;The club controls who can message it. This is the setting the doc asks for: &quot;Messaging access can be controlled by club/coach settings&quot;.&#x27;,
+  rules:[&#x27;New page under &lt;b&gt;Settings › Messaging&lt;/b&gt;.&#x27;,&#x27;&lt;b&gt;Who can message&lt;/b&gt;: Anyone, Members and players with a booking (default), or No one. The player’s Message Club button is greyed out when this blocks them (Communication Module tab).&#x27;,&#x27;&lt;b&gt;New chats go to&lt;/b&gt;: a shared inbox, or one named staff member.&#x27;,&#x27;&lt;b&gt;Alerts&lt;/b&gt;: the bell is always on. Email to staff is optional.&#x27;,&#x27;Messages are never deleted, whatever the setting.&#x27;,&#x27;Save is disabled until a choice is made.&#x27;],
+  pending:[&#x27;&lt;b&gt;Default for existing clubs&lt;/b&gt;: Members and players with a booking (assumed).&#x27;,&#x27;&lt;b&gt;Staff email&lt;/b&gt;: one email per message could be noisy. Alternative: one email per new chat. Assumed one per new chat.&#x27;],
+  dev:[&#x27;Store as club settings. The player app reads it before showing Message Club.&#x27;]}};
+
+/* ---------------- 7 permissions ---------------- */
+S.perms={grp:&#x27;Setup&#x27;,t:&#x27;Roles and Permissions&#x27;,url:&#x27;test.app.shallwe-play.com/role-permissions/edit/…&#x27;,
+ states:{empty:&#x27;N/A&#x27;,loading:&#x27;N/A&#x27;,error:&#x27;N/A&#x27;},
+ render(st){
+  const cols=[&#x27;All&#x27;,&#x27;View&#x27;,&#x27;Add&#x27;,&#x27;Edit&#x27;,&#x27;Delete&#x27;,&#x27;Export&#x27;,&#x27;Approve&#x27;,&#x27;Reject&#x27;];
+  const cb=(x)=&gt;x===1?`&lt;span class=&quot;cbx&quot;&gt;${ic(&#x27;checkmark&#x27;)}&lt;/span&gt;`:x===0?&#x27;&lt;span class=&quot;cbx off&quot;&gt;&lt;/span&gt;&#x27;:&#x27;&#x27;;
+  const row=(n,on,o={})=&gt;`&lt;tr ${o.hl?&#x27;style=&quot;outline:2px dashed #F59E0B;outline-offset:-2px;background:#F7FBFF&quot;&#x27;:&#x27;&#x27;}&gt;&lt;td style=&quot;${o.sub?&#x27;padding-left:34px;&#x27;:&#x27;&#x27;}text-align:left;color:${o.hl?&#x27;var(--primary)&#x27;:&#x27;var(--ink)&#x27;};font-weight:${o.sub?400:600}&quot;&gt;${n}${o.hl?&#x27; &lt;span class=&quot;pill new&quot; style=&quot;height:20px;font-size:11px&quot;&gt;New&lt;/span&gt;&#x27;:&#x27;&#x27;}&lt;/td&gt;${cols.map((c,i)=&gt;`&lt;td style=&quot;text-align:center&quot;&gt;${cb(on[i])}&lt;/td&gt;`).join(&#x27;&#x27;)}&lt;/tr&gt;`;
+  return shell(`&lt;div class=&quot;card&quot; style=&quot;padding:22px;max-width:980px&quot;&gt;&lt;div style=&quot;display:flex;justify-content:space-between;align-items:center;margin-bottom:16px&quot;&gt;&lt;div style=&quot;font:600 20px Montserrat;color:var(--ink)&quot;&gt;${ic(&#x27;arrow-back&#x27;,18,&#x27;color:#007AFF&#x27;)} Edit Role&lt;/div&gt;&lt;div style=&quot;display:flex;gap:10px&quot;&gt;&lt;button class=&quot;btn n&quot;&gt;Clear&lt;/button&gt;&lt;button class=&quot;btn p&quot;&gt;Save&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;
+   &lt;div class=&quot;notch&quot; style=&quot;width:300px;margin-bottom:18px&quot;&gt;&lt;label&gt;Role Name&lt;/label&gt;Front desk&lt;/div&gt;
+   &lt;table class=&quot;perm&quot;&gt;&lt;tr&gt;&lt;th&gt;Module Type&lt;/th&gt;${cols.map(c=&gt;`&lt;th style=&quot;text-align:center&quot;&gt;${c}&lt;/th&gt;`).join(&#x27;&#x27;)}&lt;/tr&gt;
+    ${row(&#x27;Notifications&#x27;,[1,1,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;])}${row(&#x27;Dashboard&#x27;,[1,1,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;])}${row(&#x27;Booking&#x27;,[0,1,&#x27;&#x27;,0,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;])}${row(&#x27;Membership&#x27;,[0,1,&#x27;&#x27;,0,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;])}
+    ${row(&#x27;Messages&#x27;,[&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;],{hl:1})}
+    ${row(&#x27;Player chat&#x27;,[0,1,1,1,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;],{hl:1,sub:1})}
+    ${row(&#x27;Team chat&#x27;,[0,1,1,0,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;],{hl:1,sub:1})}
+    ${row(&#x27;Review&#x27;,[0,1,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;,&#x27;&#x27;])}&lt;/table&gt;
+   &lt;div style=&quot;font-size:13px;color:var(--muted);margin-top:14px;line-height:1.7&quot;&gt;&lt;b style=&quot;color:var(--ink)&quot;&gt;Player chat&lt;/b&gt;: View = read chats · Add = start a chat and reply · Edit = assign chats, block and report players&lt;br&gt;&lt;b style=&quot;color:var(--ink)&quot;&gt;Team chat&lt;/b&gt;: View = read · Add = start a team chat, reply, add members and leave&lt;/div&gt;&lt;/div&gt;`,{active:&#x27;Settings&#x27;});
+ },
+ notes:{what:&#x27;The existing role editor gets two new rows. This is how the club decides which staff can use chat.&#x27;,
+  rules:[&#x27;New module &lt;b&gt;Messages&lt;/b&gt; with two sub-rows: &lt;b&gt;Player chat&lt;/b&gt; and &lt;b&gt;Team chat&lt;/b&gt;.&#x27;,&#x27;Uses the existing columns only. Delete is left empty because messages are never deleted.&#x27;,&#x27;Without View on Player chat, the Messages item and the Message icons are hidden for that user.&#x27;,&#x27;The club owner has full access by default.&#x27;],
+  pending:[&#x27;&lt;b&gt;Which existing roles get chat by default?&lt;/b&gt; Suggest: owner full, any new role none until ticked.&#x27;],
+  dev:[&#x27;Add the modules to the portal ACL and the role seed. Same grid as today.&#x27;]}};
+
+/* ---------------- 8 notifications ---------------- */
+S.notif={grp:&#x27;Alerts&#x27;,t:&#x27;Alerts: Badge and Notifications&#x27;,url:&#x27;test.app.shallwe-play.com/notifications/&#x27;,
+ render(st){
+  const un=st===&#x27;empty&#x27;?0:11;
+  const head=`&lt;div style=&quot;max-width:620px;margin:0 auto&quot;&gt;&lt;div style=&quot;display:flex;justify-content:space-between;align-items:center;margin-bottom:16px&quot;&gt;&lt;h3 style=&quot;font:500 20px Montserrat;color:var(--ink)&quot;&gt;Notifications&lt;/h3&gt;&lt;div style=&quot;font-size:12px;color:var(--primary);font-weight:500&quot;&gt;Mark all as read &lt;span style=&quot;color:var(--muted);margin-left:14px;font-weight:400&quot;&gt;${un} Unread Notifications&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;`;
+  const card=(t,time,msg,unread,ab)=&gt;`&lt;div class=&quot;ncard2 ${unread?&#x27;unread&#x27;:&#x27;&#x27;}&quot;&gt;&lt;div class=&quot;h&quot;&gt;${t}&lt;span&gt;${time}&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;b&quot;&gt;&lt;span class=&quot;ab&quot;&gt;${ab||&#x27;A&#x27;}&lt;/span&gt;${msg}&lt;/div&gt;&lt;/div&gt;`;
+  let body;
+  if(st===&#x27;loading&#x27;) body=[1,2,3,4].map(()=&gt;`&lt;div class=&quot;ncard2&quot;&gt;${sk(&#x27;40%&#x27;)}${sk(&#x27;80%&#x27;,12,12)}&lt;/div&gt;`).join(&#x27;&#x27;);
+  else if(st===&#x27;error&#x27;) body=errBox(&#x27;Couldn’t Load Notifications&#x27;);
+  else if(st===&#x27;empty&#x27;) body=emptyBox(&#x27;notifications-off-outline&#x27;,&#x27;You’re All Caught Up&#x27;,&#x27;New messages and bookings show here.&#x27;);
+  else body=card(&#x27;New Message from Emma de Vries&#x27;,&#x27;2 min ago&#x27;,&#x27;Is Court 4 lit on Friday evening?&#x27;,1,&#x27;E&#x27;)+card(&#x27;New Message in All staff&#x27;,&#x27;1 hour ago&#x27;,&#x27;Pieter Jansen: Court 2 is closed until 14:00&#x27;,1,&#x27;A&#x27;)+card(&#x27;Membership Purchased by Player&#x27;,&#x27;2 days ago&#x27;,&#x27;Dirk Paul has completed the payment for Your Par Three Member membership package.&#x27;,1)+card(&#x27;Booking Cancelled By Player&#x27;,&#x27;4 days ago&#x27;,&#x27;Parthesh Dave has cancelled their booking for the Riverdale Championship Course (18-Holes) on 23-11-2026.&#x27;,0);
+  return shell(head+body+&#x27;&lt;/div&gt;&#x27;,{active:&#x27;Messages&#x27;,unread:st===&#x27;empty&#x27;?0:4,bell:un});
+ },
+ notes:{what:&#x27;How the club hears about new chats. The portal already has a bell and a Notifications page. Chat reuses both.&#x27;,
+  rules:[&#x27;&lt;b&gt;Messages badge&lt;/b&gt; in the top bar shows how many conversations have unread messages. Hidden at 0.&#x27;,&#x27;&lt;b&gt;Bell&lt;/b&gt; count includes chat. Cards use the live style: bold title, &quot;time ago&quot; on the right, unread cards tinted blue.&#x27;,&#x27;Player chat card: &quot;New Message from {player name}&quot;. Team chat card: &quot;New Message in {chat name}&quot;.&#x27;,&#x27;Clicking a card opens that chat.&#x27;,&#x27;Staff with email alerts on (Settings › Messaging) also get one email per new chat.&#x27;,&#x27;No alerts for your own messages or for chats you muted (muting is a later release).&#x27;],
+  pending:[&#x27;Should a chat assigned to someone notify only that person? Assumed: unassigned chats notify everyone with access, assigned chats notify the assignee.&#x27;],
+  dev:[&#x27;Reuse &lt;code&gt;UserNotification&lt;/code&gt; and the existing bell.&#x27;]}};
+
+/* ============ flow + state engine ============ */
+const ORDER=[&#x27;overview&#x27;,&#x27;entry&#x27;,&#x27;new_msg&#x27;,&#x27;inbox&#x27;,&#x27;team&#x27;,&#x27;team_new&#x27;,&#x27;settings&#x27;,&#x27;perms&#x27;,&#x27;notif&#x27;];
+const STATES=[[&#x27;populated&#x27;,&#x27;Populated&#x27;],[&#x27;empty&#x27;,&#x27;Empty&#x27;],[&#x27;loading&#x27;,&#x27;Loading&#x27;],[&#x27;error&#x27;,&#x27;Error&#x27;]];
+let cur=&#x27;overview&#x27;, state=&#x27;populated&#x27;, vars={};
+function goTo(id){ if(!S[id])return; cur=id; state=&#x27;populated&#x27;; draw(); window.scrollTo({top:0,behavior:&#x27;smooth&#x27;}); }
+function step(d){ const i=ORDER.indexOf(cur)+d; if(i&gt;=0&amp;&amp;i&lt;ORDER.length) goTo(ORDER[i]); }
+function setState(s){ state=s; draw(); }
+function setVar(v){ vars[cur]=v; draw(); }
+function fit(){ const w=document.getElementById(&#x27;fitwrap&#x27;).clientWidth; const z=Math.min(1,w/1280); const f=document.getElementById(&#x27;fit&#x27;); f.style.transform=`scale(${z})`; document.getElementById(&#x27;fitwrap&#x27;).style.height=(f.scrollHeight*z)+&#x27;px&#x27;; }
+function draw(){
+  const sc=S[cur], idx=ORDER.indexOf(cur);
+  let fb=&#x27;&#x27;, lg=&#x27;&#x27;;
+  ORDER.forEach((id,i)=&gt;{ const s=S[id]; if(s.grp!==lg){ fb+=`&lt;span class=&quot;fgrp&quot;&gt;${s.grp}&lt;/span&gt;`; lg=s.grp; } else fb+=`&lt;span class=&quot;fsep&quot;&gt;›&lt;/span&gt;`; fb+=`&lt;button class=&quot;fstep ${id===cur?&#x27;on&#x27;:&#x27;&#x27;} ${i&lt;idx?&#x27;done&#x27;:&#x27;&#x27;}&quot; onclick=&quot;goTo(&#x27;${id}&#x27;)&quot;&gt;&lt;span class=&quot;num&quot;&gt;${i}&lt;/span&gt;${s.t}&lt;/button&gt;`; });
+  document.getElementById(&#x27;flowbar&#x27;).innerHTML=fb;
+  document.getElementById(&#x27;stitle&#x27;).innerHTML=`&lt;span&gt;Step ${idx}&lt;/span&gt; · ${sc.t}`;
+  document.getElementById(&#x27;states&#x27;).innerHTML=STATES.map(([k,l])=&gt;{const o=(sc.states||{})[k];const na=o===&#x27;N/A&#x27;;return `&lt;button class=&quot;${state===k?&#x27;on&#x27;:&#x27;&#x27;} ${na?&#x27;na&#x27;:&#x27;&#x27;}&quot; onclick=&quot;setState(&#x27;${k}&#x27;)&quot;&gt;${na?l:(o||l)}&lt;/button&gt;`}).join(&#x27;&#x27;);
+  const v=vars[cur]||(sc.variants?sc.variants[0]:undefined);
+  document.getElementById(&#x27;vars&#x27;).style.display=sc.variants?&#x27;flex&#x27;:&#x27;none&#x27;;
+  document.getElementById(&#x27;vars&#x27;).innerHTML=sc.variants?sc.variants.map(x=&gt;`&lt;button class=&quot;${x===v?&#x27;on&#x27;:&#x27;&#x27;}&quot; onclick=&quot;setVar(&#x27;${x.replace(/&#x27;/g,&quot;\\&#x27;&quot;)}&#x27;)&quot;&gt;${x}&lt;/button&gt;`).join(&#x27;&#x27;):&#x27;&#x27;;
+  document.getElementById(&#x27;prev&#x27;).disabled=idx===0; document.getElementById(&#x27;next&#x27;).disabled=idx===ORDER.length-1;
+  document.getElementById(&#x27;url&#x27;).textContent=sc.url;
+  const isNA=(sc.states||{})[state]===&#x27;N/A&#x27;; document.getElementById(&#x27;fit&#x27;).innerHTML=sc.render(isNA?&#x27;populated&#x27;:state,v);
+  const na=document.getElementById(&#x27;naNote&#x27;); na.hidden=!isNA; na.textContent=isNA?&#x27;This screen has no &#x27;+state+&#x27; state, so the normal screen is shown. See the notes for why.&#x27;:&#x27;&#x27;;
+  const n=sc.notes;
+  const stt=STATES.map(([k,l])=&gt;{const o=(sc.states||{})[k];return o?`${l} → &lt;b&gt;${o}&lt;/b&gt;`:`${l} ✓`}).join(&#x27; · &#x27;);
+  document.getElementById(&#x27;notes&#x27;).innerHTML=`
+   &lt;div class=&quot;ncard&quot;&gt;&lt;h5&gt;What happens here&lt;/h5&gt;&lt;p&gt;${n.what}&lt;/p&gt;&lt;h5 style=&quot;margin-top:14px&quot;&gt;4-State Matrix&lt;/h5&gt;&lt;p class=&quot;stt&quot;&gt;${stt}&lt;/p&gt;
+    ${idx&lt;ORDER.length-1?`&lt;h5 style=&quot;margin-top:14px&quot;&gt;Next in flow&lt;/h5&gt;&lt;p&gt;&lt;a href=&quot;#&quot; onclick=&quot;step(1);return false&quot; style=&quot;color:var(--primary);font-weight:600&quot;&gt;Step ${idx+1} · ${S[ORDER[idx+1]].t} →&lt;/a&gt;&lt;/p&gt;`:&#x27;&#x27;}&lt;/div&gt;
+   &lt;div class=&quot;ncard&quot;&gt;&lt;h5&gt;Rules&lt;/h5&gt;&lt;ul&gt;${n.rules.map(r=&gt;`&lt;li&gt;${r}&lt;/li&gt;`).join(&#x27;&#x27;)}&lt;/ul&gt;&lt;/div&gt;
+   &lt;div class=&quot;ncard&quot;&gt;${n.pending.length?`&lt;h5&gt;Pending Client Decisions&lt;/h5&gt;${n.pending.map(p=&gt;`&lt;div class=&quot;pend&quot;&gt;${p}&lt;/div&gt;`).join(&#x27;&#x27;)}`:&#x27;&#x27;}&lt;h5 ${n.pending.length?&#x27;style=&quot;margin-top:12px&quot;&#x27;:&#x27;&#x27;}&gt;Dev Notes (from code)&lt;/h5&gt;${n.dev.map(d=&gt;`&lt;div class=&quot;dev&quot;&gt;${d}&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;`;
+  requestAnimationFrame(fit);
+}
+window.addEventListener(&#x27;resize&#x27;,fit);
+draw();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+"></iframe>
 <iframe id="f-email" title="Email Templates wireframes" srcdoc="&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
@@ -1590,7 +2292,7 @@ function show(t){
   document.querySelectorAll('iframe').forEach(f=>f.classList.toggle('on',f.id==='f-'+t));
   try{history.replaceState(null,'','#'+t)}catch(e){}
 }
-show(location.hash==='#email'?'email':'chat');
+show(location.hash==='#email'?'email':location.hash==='#club'?'club':'chat');
 </script>
 </body>
 </html>
